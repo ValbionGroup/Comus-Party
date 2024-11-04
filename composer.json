@@ -25,6 +25,12 @@
       "email": "ehamid@iutbayonne.univ-pau.fr"
     }
   ],
+  "config": {
+    "platform": {
+      "php": "8.2"
+    }
+  },
   "require": {
+    "vlucas/phpdotenv": "^5.6"
   }
 }
