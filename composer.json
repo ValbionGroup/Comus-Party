@@ -1,0 +1,30 @@
+{
+  "name": "valbiongroup/comusparty",
+  "description": "",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Lucas ESPIET",
+      "email": "lespiet@iutbayonne.univ-pau.fr"
+    },
+    {
+      "name": "Estéban DESESSARD",
+      "email": "edesessard@iutbayonne.univ-pau.fr"
+    },
+    {
+      "name": "Mathis RIVRAIS-NOWAKOWSKI",
+      "email": "mrnowakowski@iutbayonne.univ-pau.fr"
+    },
+    {
+      "name": "Robin CONCHEZ-BOUEYTOU",
+      "email": "rcboueytou@iutbayonne.univ-pau.fr"
+    },
+    {
+      "name": "Enzo HAMID",
+      "email": "ehamid@iutbayonne.univ-pau.fr"
+    }
+  ],
+  "require": {
+  }
+}
