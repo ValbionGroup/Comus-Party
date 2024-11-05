@@ -1,13 +1,21 @@
+{% extends "base.twig" %}
+
 {% block layout %}
-<div>
-    <header class="w-full">
-        COMUS
-    </header>
-    <div class="h-full">
-        AMIS
+    <div class="h-full flex flex-col">
+        <header class="flex w-full h-16 items-center">
+            <nav class="flex justify-between w-full px-12">
+                <h1>COMUS</h1>
+                <p>pseudo</p>
+            </nav>
+        </header>
+        <div class="flex flex-grow h-full">
+            <div class="flex items-center justify-center h-full w-16">
+                AMIS
+            </div>
+            <main class="bg-white dark:bg-black flex-grow flex items-center justify-center rounded-tl-2xl opacity-80">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
     </div>
-    <main class="">
-        MAIN
-    </main>
-</div>
+
 {% endblock %}
