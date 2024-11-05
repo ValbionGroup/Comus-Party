@@ -2,19 +2,19 @@
 require_once  '../../include.php';
 try {
     $controller = $_GET["controller"] ?? '';
-    $methode = $_GET["method"] ?? '';
+    $method = $_GET["method"] ?? '';
 
-    if($controller == '' && $methode == ''){
+    if($controller == '' && $method == ''){
         $controller = 'accueil';
-        $methode = 'afficher';
+        $method = 'afficher';
     }
 
     if($controller == ''){
         throw new Exception("Le controleur n'est pas défini");
     }
 
-    if($methode == ''){
-        throw new Exception("La méthode n'est pas défini");
+    if($method == ''){
+        throw new Exception("La méthode n'est pas définie");
     }
 }catch (Exception $e){
     die ($e->getMessage());
