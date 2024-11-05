@@ -13,5 +13,5 @@ RewriteRule ^games/ - [F]
 RewriteRule ^vendor/ - [F]
 RewriteRule ^node_modules/ - [F]
 
-ErrorDocument 403 ""
+
 

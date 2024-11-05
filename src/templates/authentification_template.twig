@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../assets/css/builded.css">
+</head>
+<body>
+    <div id="root" class="grid grid-cols-5">
+
+            {% block left_img %}
+            <!-- Ce block est pour l'image à gauche sur les pages d'authentification -->
+            {% endblock %}
+            
+            {% block right_form %}
+            <!-- Ce block est pour le formulaire à droite sur les pages d'authentification -->
+            {% endblock %}
+
+    </div>
+</body>
+</html>
