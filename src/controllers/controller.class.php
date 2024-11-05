@@ -26,7 +26,7 @@ class Controller {
         if (!method_exists($this, $method)) {
             return $this->error('Method not found in controller'. __CLASS__);
         }
-        return this->$method();
+        return $this->$method();
     }
 
     public function getPdo(): PDO
