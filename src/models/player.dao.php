@@ -48,8 +48,24 @@ class PlayerDAO {
      * @return Player|null
      */
     public function findByUuid(string $uuid): ?Player {
-        $stmt = $this->pdo->prepare('SELECT * FROM player WHERE uuid = :uuid');
+        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .'player WHERE uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Player');
+        $player = $stmt->fetch();
+        return $player;
+    }
+
+    /**
+     * Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre
+     *
+     * @param int $userId
+     * @return Player|null
+     */
+    public function findByUserId(int $userId): ?Player
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .'player WHERE user_id = :userId');
+        $stmt->bindParam(':userId', $userId);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Player');
         $player = $stmt->fetch();
