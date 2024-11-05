@@ -22,6 +22,6 @@ try {
 
 
 
-$template = $twig->load('accueil.twig');
+$template = $twig->load('shop.twig');
 
 echo $template->render();
