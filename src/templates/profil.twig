@@ -1,0 +1,69 @@
+{% extends "./layouts/default.twig" %}
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+    <!-- Partie concernant les informations de profil-->
+    <div>
+        <!-- Photo de profil -->
+        <div>
+            <img src="../../asstets/img/pfp/{{ player.pfpPath }}" alt="profile_picture">
+            <!-- Bouton de modification -->
+            <div>
+                {{ ./icons/pencil.svg }}
+            </div>
+        </div>
+
+        <!-- Informations de profil -->
+        <div>
+            <!-- Partie gauche -->
+            <div>
+                <!-- Pseudonyme -->
+                <div>
+                    <div>Pseudonyme</div>
+                    <div>
+                        <p>{{ player.username }}</p>
+                        <!-- Bouton de modification -->
+                        <div>
+                            {{ ./icons/pencil.svg }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adresse e-mail -->
+                <div>
+                    <div>Adresse e-mail</div>
+                    <div>
+                        <p>{{ player.email }}</p>
+                        <!-- Bouton de modification -->
+                        <div>
+                            {{ ./icons/pencil.svg }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partie droite -->
+            <div>
+                <form method="POST">
+                    <!-- Modification du mot de passe -->
+                    <label>
+                        <input type="password" minlength="8" maxlength="64" placeholder="Insérez votre nouveau mot de passe" name="newPswd">
+                    </label>
+
+                    <!-- Confirmation de modification -->
+                    <label>
+                        <input type="password" minlength="8" maxlength="64" placeholder="Confirmez votre nouveau mot de passe" name="newPswdConf">
+                    </label>
+
+                    <!-- Bouton de confirmation -->
+                    <input type="submit" value="Confirmer">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Partie concernant les statistiques -->
+    <div>
+
+    </div>
+{% endblock %}
