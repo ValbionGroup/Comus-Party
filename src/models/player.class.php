@@ -87,7 +87,17 @@ class Player {
      * @param int|null $comusCoins
      * @param int|null $userId
      */
-    public function __construct(string $uuid, DateTime $createdAt, ?DateTime $updatedAt, ?string $bannerPath, ?string $pfpPath, ?int $xp, ?int $elo, ?int $comusCoins, ?int $userId) {
+    public function __construct(
+        ?string $uuid = null,
+        ?DateTime $createdAt = null,
+        ?DateTime $updatedAt = null,
+        ?string $bannerPath = null,
+        ?string $pfpPath = null,
+        ?int $xp = null,
+        ?int $elo = null,
+        ?int $comusCoins = null,
+        ?int $userId = null
+    ) {
         $this->uuid = $uuid;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;

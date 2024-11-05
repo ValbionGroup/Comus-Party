@@ -83,6 +83,7 @@ class PlayerDAO {
      *
      * @param string $uuid
      * @return Player|null
+     * @throws DateMalformedStringException
      */
     public function findWithDetailByUuid(string $uuid): ?Player {
         $stmt = $this->pdo->prepare(
