@@ -3,15 +3,21 @@ Options +FollowSymLinks
 
 RewriteEngine On
 
-# Page 404 si accès vers un fichier inexistant
+# Redirection pour l'utilisation du routeur
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ index.php/$1 [L]
+
+# Pour le développement :
+RewriteBase /comusparty/
+RewriteRule ^index\\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?page=404 [L,QSA]
+RewriteRule . /comusparty/index.php [L]
+
 
 # Interdire l'accès aux dossiers spécififiés
 RewriteRule ^games/ - [F]
 RewriteRule ^vendor/ - [F]
 RewriteRule ^node_modules/ - [F]
-
-ErrorDocument 403 ""
 
