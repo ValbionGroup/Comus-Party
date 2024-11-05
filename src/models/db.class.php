@@ -23,7 +23,7 @@ class Db {
      */
     private function __construct() {
         try {
-            $this->pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
+            $this->pdo = new PDO(DB_TYPE.':host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
@@ -64,7 +64,7 @@ class Db {
      * @return mixed
      * @throws Exception
      */
-    private function __wakeup() {
+    public function __wakeup() {
         throw new Exception("Cannot unserialize a singleton.");
     }
 }
