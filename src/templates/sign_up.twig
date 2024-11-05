@@ -2,7 +2,7 @@
 
 {% block left_img %}
     <div id="left-img" class="col-span-3">
-        <img src="img/authentification_img/placeholder.png" alt="placeholder">
+        <img src="../../assets/img/authentification_img/placeholder.png" alt="placeholder">
     </div>
 {% endblock %}
 
@@ -12,11 +12,11 @@
 
         <!-- Formulaire pour l'inscription de l'utilisateur -->
         <form action="" method="post" class="grid">
-            <input type="text" name="username" placeholder="Nom d'utilisateur">
-            <input type="email" name="email" placeholder="Email">
+            <input type="text" name="username" placeholder="Nom d'utilisateur" autofocus required>
+            <input type="email" name="email" placeholder="Email" required>
 
-            <input type="password" name="password" placeholder="Mot de passe">
-            <input type="password" name="password_confirm" placeholder="Confirmation du mot de passe">
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <input type="password" name="password_confirm" placeholder="Confirmation du mot de passe" required>
 
             <input type="submit" value="Valider">
         </form>
