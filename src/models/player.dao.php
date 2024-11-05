@@ -56,6 +56,9 @@ class PlayerDAO {
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Player');
         $player = $stmt->fetch();
+        if ($player === false) {
+            return null;
+        }
         return $player;
     }
 
@@ -75,6 +78,9 @@ class PlayerDAO {
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Player');
         $player = $stmt->fetch();
+        if ($player === false) {
+            return null;
+        }
         return $player;
     }
 
@@ -95,6 +101,9 @@ class PlayerDAO {
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPlayer = $stmt->fetch();
+        if ($tabPlayer === false) {
+            return null;
+        }
         $player = $this->hydrate($tabPlayer);
         return $player;
     }
@@ -115,6 +124,9 @@ class PlayerDAO {
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPlayer = $stmt->fetch();
+        if ($tabPlayer === false) {
+            return null;
+        }
         $player = $this->hydrate($tabPlayer);
         return $player;
     }
@@ -127,12 +139,15 @@ class PlayerDAO {
      * @return array
      * @throws DateMalformedStringException
      */
-    public function findAll() : array {
+    public function findAll() : ?array {
         $stmt = $this->pdo->query(
             'SELECT *
             FROM '. DB_PREFIX .'player');
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPlayers = $stmt->fetchAll();
+        if ($tabPlayers === false) {
+            return null;
+        }
         $players = $this->hydrateMany($tabPlayers);
         return $players;
     }
@@ -145,13 +160,16 @@ class PlayerDAO {
      * @return array
      * @throws DateMalformedStringException
      */
-    public function findAllWithDetail() : array {
+    public function findAllWithDetail() : ?array {
         $stmt = $this->pdo->query(
             'SELECT p.*, u.username, u.email, u.created_at, u.updated_at
             FROM '. DB_PREFIX .'player p
             JOIN '. DB_PREFIX .'user u ON p.user_id = u.id');
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPlayers = $stmt->fetchAll();
+        if ($tabPlayers === false) {
+            return null;
+        }
         $players = $this->hydrateMany($tabPlayers);
         return $players;
     }
