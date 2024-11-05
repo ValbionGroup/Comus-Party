@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "build": "tailwindcss build -i assets/css/base.css -o assets/css/builded.css",
+    "watch": "tailwindcss build -i assets/css/base.css -o assets/css/builded.css --watch"
+  },
   "devDependencies": {
     "tailwindcss": "^3.4.14"
   }
