@@ -1,0 +1,39 @@
+{% extends 'authentificationTemplate.twig' %}
+
+{% block leftImg %}
+    <div id="leftImg" class="col-span-3 flex items-center justify-center h-screen">
+        <img src="../../assets/img/authentification_img/placeholder.png" alt="placeholder">
+    </div>
+{% endblock %}
+
+{% block rightForm %}
+    <div id="rightForm" class="col-span-2 grid grid-rows-5 h-screen">
+        <h1 class="row-span-1 text-3xl text-center mt-20">Inscription</h1>
+        
+        <!-- Formulaire pour l'inscription de l'utilisateur -->
+        <form id="registrationForm" action="" method="post" class="row-span-4 flex flex-col space-y-4 items-center justify-center">
+            <div class="flex flex-col m-5">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" name="username" placeholder="Nom d'utilisateur" autofocus required>
+            </div>
+
+            <div class="flex flex-col m-5">
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+
+            <div class="flex flex-col m-5">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+            </div>
+
+            <div class="flex flex-col m-5">
+                <label for="passwordConfirm">Confirmation du mot de passe</label>
+                <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmation du mot de passe" required>
+            </div>
+
+            <input type="submit" id="submitButton" value="Valider">
+        </form>
+
+    </div>
+{% endblock %}

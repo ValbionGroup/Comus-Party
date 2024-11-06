@@ -2,6 +2,6 @@
 
 require_once  '../../include.php';
 
-$template = $twig->load('sign_up.twig');
+$template = $twig->load('signUp.twig');
 
 echo $template->render(array());
