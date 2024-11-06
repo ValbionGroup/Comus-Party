@@ -1,5 +1,7 @@
 <?php
 require_once  '../../include.php';
+
+//var_dump($_ENV);
 //try {
 //    $controller = $_GET["controller"] ?? '';
 //    $method = $_GET["method"] ?? '';
@@ -23,8 +25,8 @@ require_once  '../../include.php';
 //}catch (Exception $e){
 //    die ($e->getMessage());
 //}
-//
-//
+
+
 
 $template = $twig->load('shop.twig');
 

@@ -6,16 +6,13 @@ class ControllerShop extends Controller {
     }
 
     public function afficher() {
-
-          $template = $twig->load('shop.twig');
-
-          echo $template->render();
+//
+//          $template = $twig->load('shop.twig');
+//          echo $template->render();
 //        $player_uuid = $_GET['uuid'];
 //        $playerManager = new PlayerDAO($this->getPdo());
 //        $player = $playerManager->findByUuid($player_uuid);
-//        $template = $this->getTwig()->load('profil.twig');
-//        echo $template->render(array(
-//            "player" => $player
-//        ));
+            $template = $this->getTwig()->load('shop.twig');
+            echo $template->render();
     }
 }
