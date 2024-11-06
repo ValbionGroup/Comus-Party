@@ -11,28 +11,32 @@
         <h1 class="row-span-1 text-3xl text-center mt-20">Inscription</h1>
         
         <!-- Formulaire pour l'inscription de l'utilisateur -->
-        <form id="registrationForm" action="" method="post" class="row-span-4 flex flex-col space-y-4 items-center justify-center">
+        <form id="registrationForm" action="" method="post" class="row-span-4 flex flex-col space-y-4 items-center">
             <div class="flex flex-col m-5">
                 <label for="username">Nom d'utilisateur</label>
-                <input type="text" name="username" placeholder="Nom d'utilisateur" autofocus required>
+                <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" autofocus required>
             </div>
+            <p id="incorrectUsernameFormat" style="color: red; display: none;"></p>
 
             <div class="flex flex-col m-5">
                 <label for="email">Email</label>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
             </div>
+            <p id="incorrectEmailFormat" style="color: red; display: none;"></p>
 
             <div class="flex flex-col m-5">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Mot de passe" required>
             </div>
+            <p id="incorrectPasswordFormat" style="color: red; display: none;"></p>
 
             <div class="flex flex-col m-5">
                 <label for="passwordConfirm">Confirmation du mot de passe</label>
                 <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmation du mot de passe" required>
             </div>
+            <p id="notMachingPasswords" style="color: red; display: none;"></p>
 
-            <input type="submit" id="submitButton" value="Valider">
+            <input type="submit" id="submitButton" value="Valider" class="mt-20">
         </form>
 
     </div>
