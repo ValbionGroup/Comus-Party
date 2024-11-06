@@ -1,18 +1,24 @@
 <?php
 
-$request = $_SERVER['REQUEST_URI'];
-$pagesLocation = '/src/pages/';
+use models\RouteNotFoundException;
+use models\Router;
 
-$baseUrl = '/comusparty';
-$request = str_replace($baseUrl, '', $request);
+require_once 'include.php';
 
-switch ($request) {
-    case '':
-    case '/':
-        require __DIR__ . $pagesLocation . 'index.php';
-        break;
+$router = Router::getInstance();
 
-    default:
-        http_response_code(404);
-        require __DIR__ . $pagesLocation . '404.php';
+$router->get('/', function () {
+    echo 'Hello World';
+    exit;
+});
+
+$router->get('/play/:slug', function ($slug) {
+    echo 'Liste des jeux : ' . $slug;
+    exit;
+});
+
+try {
+    $router->matchRoute();
+} catch (RouteNotFoundException $e) {
+    echo $e->getMessage();
 }
