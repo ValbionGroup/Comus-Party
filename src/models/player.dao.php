@@ -54,11 +54,12 @@ class PlayerDAO {
             WHERE uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Player');
-        $player = $stmt->fetch();
-        if ($player === false) {
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $playerTab = $stmt->fetch();
+        if ($playerTab === false) {
             return null;
         }
+        $player = $this->hydrate($playerTab);
         return $player;
     }
 
@@ -76,11 +77,12 @@ class PlayerDAO {
             WHERE user_id = :userId');
         $stmt->bindParam(':userId', $userId);
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Player');
-        $player = $stmt->fetch();
-        if ($player === false) {
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $playerTab = $stmt->fetch();
+        if ($playerTab === false) {
             return null;
         }
+        $player = $this->hydrate($playerTab);
         return $player;
     }
 
