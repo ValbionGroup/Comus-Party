@@ -46,7 +46,6 @@ class Controller {
      * @param \Twig\Environment $twig
      */
     public function __construct(\Twig\Loader\FilesystemLoader $loader, \Twig\Environment $twig) {
-        $db = Db::getInstance();
         $this->pdo = Db::getInstance()->getConnection();
         $this->loader = $loader;
         $this->twig = $twig;
