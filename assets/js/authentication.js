@@ -20,6 +20,13 @@ window.onload = function() {
 
     const INPUT_CONFIRM_PASSWORD = document.getElementById("passwordConfirm");
     INPUT_CONFIRM_PASSWORD.addEventListener("input", checkPasswordsMatch);
+
+    const INPUT_SUBMIT = document.getElementById("submitButton");
+    INPUT_SUBMIT.addEventListener("click", function() {
+        sendAuthData(INPUT_USERNAME.value,
+                    INPUT_EMAIL.value,
+                    INPUT_PASSWORD.value);
+    });
 }
 
 /**
@@ -167,6 +174,25 @@ function checkPasswordsMatch() {
         notMachingPasswords.style.display = "none";
     }
 }
+
+function sendAuthData(pUsername, pEmail, pPassword) {
+    fetch('../../src/auth/signUpCheck.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        // Envoi des données au serveur
+        body: JSON.stringify({ 
+            username: pUsername,
+            email: pEmail,
+            password: pPassword
+        })
+    })
+    .then(response => response.json()) // Récupère les données de la requête en JSON
+    .then(data => {
+        if (data.success) { console.log("Inscription reussie:", data.message);
+        } else { console.log("Inscription echouée:", data.message); }
+    })
+}
+
 
 
 
