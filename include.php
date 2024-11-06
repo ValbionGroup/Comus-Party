@@ -18,5 +18,5 @@ require_once __DIR__ . '/src/models/player.dao.php';
 require_once __DIR__ . '/src/controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/controllers/controller.class.php';
 require_once __DIR__ . '/src/controllers/controllerProfile.class.php';
-//require_once __DIR__ . '/src/controllers/controllerShop.class.php';
+require_once __DIR__ . '/src/controllers/controllerShop.class.php';
 
