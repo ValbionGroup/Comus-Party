@@ -35,12 +35,15 @@ window.onload = function() {
  * @return void
  */
 function checkUsernameRequirements() {
+    // Constantes
     const MIN_USERNAME_LENGTH = 3;
     const FORBIDDEN_CHARACTERS = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
     const USERNAME = document.getElementById("username").value;
+    // Variables
     let incorrectUsernameFormat = document.getElementById("incorrectUsernameFormat");
     let submitButton = document.getElementById("submitButton");
         
+    // Vérifications
     if (USERNAME.length < MIN_USERNAME_LENGTH) {
         submitButton.disabled = true;
         incorrectUsernameFormat.innerHTML="Le nom d'utilisateur doit contenir au moins " + MIN_USERNAME_LENGTH + " caractères";
@@ -67,10 +70,13 @@ function checkUsernameRequirements() {
  * @return void
  */
 function checkEmailRequirements() {
+    // Constantes
     const EMAIL = document.getElementById("email").value;
+    // Variables
     let incorrectEmailFormat = document.getElementById("incorrectEmailFormat");
     let submitButton = document.getElementById("submitButton");
         
+    // Vérifications
     if (!EMAIL.includes("@")) {
         submitButton.disabled = true;
         incorrectEmailFormat.innerHTML="L'email doit contenir un @";
@@ -97,15 +103,18 @@ function checkEmailRequirements() {
  * @return void
  */
 function checkPasswordRequirements() {
+    // Constantes
     const MIN_PASSWORD_LENGTH = 8;
     const UPPERCASE_LETTER = /[A-Z]/;
     const LOWERCASE_LETTER = /[a-z]/;
     const NUMBERS = /\d/;
     const SPECIAL_CHARACTER = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
     const PASSWORD = document.getElementById("password").value;
+    // Variables
     let incorrectPasswordFormat = document.getElementById("incorrectPasswordFormat");
     let submitButton = document.getElementById("submitButton");
         
+    // Vérifications
     if (PASSWORD.length < MIN_PASSWORD_LENGTH) {
         submitButton.disabled = true;
         incorrectPasswordFormat.innerHTML="Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères";
@@ -141,11 +150,14 @@ function checkPasswordRequirements() {
  * @return void
  */
 function checkPasswordsMatch() {
+    // Constantes
     const PASSWORD = document.getElementById("password").value;
     const CONFIRM_PASSWORD = document.getElementById("passwordConfirm").value;
+    // Variables
     let notMachingPasswords = document.getElementById("notMachingPasswords");
     let submitButton = document.getElementById("submitButton");
         
+    // Vérifications
     if (CONFIRM_PASSWORD !== PASSWORD) {
         submitButton.disabled = true;
         notMachingPasswords.innerHTML="Les mots de passe ne sont pas identiques";
