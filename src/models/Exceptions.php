@@ -3,6 +3,7 @@
 namespace models;
 
 use Exception;
+use Throwable;
 
 class RouteNotFoundException extends Exception {
 
