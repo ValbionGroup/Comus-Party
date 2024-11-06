@@ -9,21 +9,21 @@ class Player {
      *
      * @var string
      */
-    private string $uuid;
+    private ?string $uuid;
 
     /**
      * Nom d'utilisateur du joueur
      *
      * @var string
      */
-    private string $username;
+    private ?string $username;
 
     /**
      * Date de création du profil de joueur
      *
      * @var DateTime
      */
-    private DateTime $createdAt;
+    private ?DateTime $createdAt;
 
     /**
      * Date de mise à jour du profil de joueur
@@ -31,20 +31,6 @@ class Player {
      * @var DateTime|null
      */
     private ?DateTime $updatedAt;
-
-    /**
-     * Chemin d'accès à la bannière du joueur
-     *
-     * @var string|null
-     */
-    private ?string $bannerPath;
-
-    /**
-     * Chemin d'accès à la photo de profil du joueur
-     *
-     * @var string|null
-     */
-    private ?string $pfpPath;
 
     /**
      * Points d'expérience du joueur
@@ -80,8 +66,6 @@ class Player {
      * @param string $uuid
      * @param DateTime $createdAt
      * @param DateTime|null $updatedAt
-     * @param string|null $bannerPath
-     * @param string|null $pfpPath
      * @param int|null $xp
      * @param int|null $elo
      * @param int|null $comusCoins
@@ -91,8 +75,6 @@ class Player {
         ?string $uuid = null,
         ?DateTime $createdAt = null,
         ?DateTime $updatedAt = null,
-        ?string $bannerPath = null,
-        ?string $pfpPath = null,
         ?int $xp = null,
         ?int $elo = null,
         ?int $comusCoins = null,
@@ -101,8 +83,6 @@ class Player {
         $this->uuid = $uuid;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
-        $this->bannerPath = $bannerPath;
-        $this->pfpPath = $pfpPath;
         $this->xp = $xp;
         $this->elo = $elo;
         $this->comusCoins = $comusCoins;
@@ -190,48 +170,6 @@ class Player {
     public function setUpdatedAt(?DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * Retourne le chemin d'accès à la bannière du joueur
-     *
-     * @return string|null
-     */
-    public function getBannerPath(): ?string
-    {
-        return $this->bannerPath;
-    }
-
-    /**
-     * Modifie le chemin d'accès à la bannière du joueur
-     *
-     * @param string|null $bannerPath
-     * @return void
-     */
-    public function setBannerPath(?string $bannerPath): void
-    {
-        $this->bannerPath = $bannerPath;
-    }
-
-    /**
-     * Retourne le chemin d'accès à la photo de profil du joueur
-     *
-     * @return string|null
-     */
-    public function getPfpPath(): ?string
-    {
-        return $this->pfpPath;
-    }
-
-    /**
-     * Modifie le chemin d'accès à la photo de profil du joueur
-     *
-     * @param string|null $pfpPath
-     * @return void
-     */
-    public function setPfpPath(?string $pfpPath): void
-    {
-        $this->pfpPath = $pfpPath;
     }
 
     /**

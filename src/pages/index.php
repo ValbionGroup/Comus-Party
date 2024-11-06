@@ -23,9 +23,4 @@ try {
 }catch (Exception $e){
     die ($e->getMessage());
 }
-
-
-
-$template = $twig->load('accueil.twig');
-
 echo $template->render();

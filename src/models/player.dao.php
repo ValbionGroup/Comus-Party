@@ -93,7 +93,7 @@ class PlayerDAO {
      */
     public function findWithDetailByUuid(string $uuid): ?Player {
         $stmt = $this->pdo->prepare(
-            'SELECT p.*, u.username, u.email, u.created_at, u.updated_at
+            'SELECT p.*, u.email, u.created_at, u.updated_at
             FROM '. DB_PREFIX .'player p
             JOIN '. DB_PREFIX .'user u ON p.user_id = u.id
             WHERE p.uuid = :uuid');
@@ -184,10 +184,9 @@ class PlayerDAO {
     public function hydrate(array $data) : Player {
         $player = new Player();
         $player->setUuid($data['uuid']);
+        $player->setUsername($data['username']);
         $player->setCreatedAt(new DateTime($data['created_at']));
         $player->setUpdatedAt(new DateTime($data['updated_at']));
-        $player->setBannerPath($data['banner_path']);
-        $player->setPfpPath($data['pfp_path']);
         $player->setXp($data['xp']);
         $player->setElo($data['elo']);
         $player->setComusCoins($data['comus_coins']);

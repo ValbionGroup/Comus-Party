@@ -3,10 +3,10 @@
 
 {% block content %}
     <!-- Partie concernant les informations de profil-->
-    <div class="m-10">
+    <div class="m-10 w-2/3">
         <p class="text-3xl text-nowrap">Mon profil</p>
         <nav class="mt-4">
-            <ul class="my-10 ml-20 flex justify-between w-2/3">
+            <ul class="my-10 ml-20 flex justify-between gap-10 text-nowrap">
                 <li>
                     <button id="btnProfile" class="text-xl hover:scale-105 transition-all ease-in-out active" onclick="afficher('profile')">Mon apparence</button>
                 </li>
@@ -36,7 +36,7 @@
 
             <div class="col-span-5 ml-10 flex flex-col justify-between">
                 <div>
-                    <img class="rounded-2xl" src="../../assets/img/banner/banner.jpg" alt="">
+                    <img class="rounded-2xl" src="../../assets/img/banner/banner.jpg" alt="banner">
                 </div>
                 <div>
                     <button class="flex bg-maize items-center justify-center gap-3 border-2 border-maize rounded-2xl p-1 w-full hover:scale-110 transition-all ease-in-out hover:shadow-sm">
@@ -53,7 +53,7 @@
                 <div>
                     <p class="text-xl">Pseudonyme :</p>
                     <div class="flex justify-between items-center gap-1">
-                        <p>[pseudonyme]</p>
+                        <p>{{ player.username }}</p>
                         <!-- Bouton de modification -->
                         <button class="border-2 border-maize p-1 rounded-lg bg-maize hover:scale-110 transition-all ease-in-out hover:shadow-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="white" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
@@ -64,7 +64,7 @@
                     <p class="text-xl text-nowrap mt-7">Adresse e-mail :</p>
                     <div>
                         <div class="flex justify-between items-center gap-1">
-                            <p>[e-mail]</p>
+                            <p>{{ player.email }}</p>
                             <button class="border-2 border-maize p-1 rounded-lg bg-maize hover:scale-110 transition-all ease-in-out hover:shadow-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="white" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
                             </button>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-5 ml-10">
+            <div class="col-span-7 ml-10">
                 <form method="POST">
                     <div class="g-1 flex flex-col justify-between">
                         <label>

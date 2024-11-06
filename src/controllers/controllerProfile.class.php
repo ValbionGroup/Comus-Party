@@ -8,7 +8,7 @@ class ControllerProfile extends Controller {
     public function afficher() {
         $player_uuid = $_GET['uuid'];
         $playerManager = new PlayerDAO($this->getPdo());
-        $player = $playerManager->findByUuid($player_uuid);
+        $player = $playerManager->findWithDetailByUuid($player_uuid);
         $template = $this->getTwig()->load('profil.twig');
         echo $template->render(array(
             "player" => $player
