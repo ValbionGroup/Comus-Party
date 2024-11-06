@@ -96,6 +96,8 @@ class PlayerDAO {
             'SELECT p.*, u.username, u.email, u.created_at, u.updated_at
             FROM '. DB_PREFIX .'player p
             JOIN '. DB_PREFIX .'user u ON p.user_id = u.id
+            JOIN '. DB_PREFIX .'invoice i ON p.uuid = i.player_uuid
+            JOIN '. DB_PREFIX .'article a ON i.article_id = a.id
             WHERE p.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
