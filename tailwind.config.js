@@ -2,6 +2,10 @@
 module.exports = {
   content: ["./src/**/*.{js,html,php,twig}"],
   theme: {
+    fontFamily: {
+      'serif': ["'Londrina Solid'", "serif"],
+      'sans': ["'Barlow Condensed'", "sans-serif"]
+    },
     extend: {
       colors: {
         'blue-violet': '#8338EC',
