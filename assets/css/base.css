@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 .active {
-    scale: 115%;
     border-bottom: 2px solid #F7EDF0;
+    scale: 120%;
 }
