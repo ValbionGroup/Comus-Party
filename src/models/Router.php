@@ -20,7 +20,7 @@ class Router
      */
     private function addRoute(string $method, string $url, callable $target): void
     {
-        $this->routes[$method][BASE_URL.$url] = $target;
+        $this->routes[$method][BASE_URI.$url] = $target;
     }
 
     /**
