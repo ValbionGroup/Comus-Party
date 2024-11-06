@@ -1,46 +1,34 @@
 {%  extends "/layouts/default.twig" %}
 {% block title %}Accueil{% endblock %}
 {% block content %}
-    <div class="w-full mt-5 mb-2">
-        <div class="relative justify-self-end mr-2">
-            <!-- Search Button/Bar Container -->
-            <input
-                    type="search"
-                    placeholder="Search..."
-                    class="w-10 h-10 pl-10 pr-0.5 transition-all duration-300 ease-in-out bg-night border border-gray-300 rounded-full shadow-sm hover:w-64 hover:pl-12 focus:outline-none"
-            />
-            <!-- Search Icon -->
-            <span class="absolute top-2.5 left-3 text-gray-400 pointer-events-none">
+    <div class="overflow-y-auto h-screen">
+        <div class="flex justify-between mb-10">
+            <h1 class="text-4xl ml-5 mt-5">Jeux</h1>
+            <div class="relative justify-self-end mr-5 mt-5">
+                <!-- Search Button/Bar Container -->
+                <input
+                        type="search"
+                        placeholder="Rechercher..."
+                        class="w-10 h-10 pl-10 pr-0.5 transition-all duration-300 ease-in-out bg-lavender-blush dark:bg-night border border-gray-300 rounded-full shadow-sm hover:w-64 hover:pl-12 focus:outline-none"
+                />
+                <!-- Search Icon -->
+                <span class="absolute top-2.5 left-3 text-gray-400 pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
             </span>
-        </div>
-    </div>
-    <h1 class="text-4xl ml-6 mb-8">Jeux</h1>
-    <div class="container mx-auto flex justify-around">
-        <div class="bg-night w-56 h-64 rounded-xl">
-            <img class="w-56 h-52" src="#" alt="not">
-            <div class="h-12 text-white justify-around flex">
-                <button class="border pl-2 pr-2 mt-2 mb-2 rounded-lg">Trouver</button>
-                <button class="border pl-2 pr-2 mt-2 mb-2 rounded-lg">Créer</button>
             </div>
         </div>
 
-        <div class="bg-night w-56 h-64 rounded-xl">
-            <img class="w-56 h-52" src="#" alt="not">
-            <div class="h-12 text-white justify-around flex">
-                <button class="border pl-2 pr-2 mt-2 mb-2 rounded-lg">Trouver</button>
-                <button class="border pl-2 pr-2 mt-2 mb-2 rounded-lg">Créer</button>
-            </div>
-        </div>
 
-        <div class="bg-night w-56 h-64 rounded-xl">
-            <img class="w-56 h-52" src="#" alt="not">
-            <div class="h-12 text-white justify-around flex">
-                <button class="border pl-2 pr-2 mt-2 mb-2 rounded-lg">Trouver</button>
-                <button class="border pl-2 pr-2 mt-2 mb-2 rounded-lg">Créer</button>
+        <div class="container mx-auto grid auto-cols-auto gap-y-10 place-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div class="bg-lavender-blush dark:bg-night w-56 max-h-screen rounded-xl">
+                <img class="w-full h-52 object-cover" src="#" alt="not">
+                <div class="h-12 text-white justify-around flex">
+                    <button class="w-20 bg-blue-violet border border-lavender-blush dark:border-night px-2 my-2 rounded-lg">Trouver</button>
+                    <button class="w-20 bg-blue-violet border border-lavender-blush dark:border-night px-2 my-2 rounded-lg">Créer</button>
+                </div>
             </div>
         </div>
     </div>
