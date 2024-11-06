@@ -15,4 +15,13 @@ class ControllerShop extends Controller {
             $template = $this->getTwig()->load('shop.twig');
             echo $template->render();
     }
+
+    public function lister(){
+        $managerArticle = new ArticleDAO($this->getPdo());
+
+        $articles = $managerArticle->findAll();
+
+        $template = $this->getTwig()->load('shop.twig');
+        echo $template->render(array('articles' => $articles));
+    }
 }

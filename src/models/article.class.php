@@ -11,26 +11,34 @@ enum Type{
 class Article {
 
 
-    private string $id;
-    private string $name;
+    private ?int $id;
 
-    private Type $type;
+    private ?DateTime $createdAt;
+
+    private ?DateTime $updatedAt;
+    private ?string $name;
+
+    private ?Type $type;
 
     private ?string $description;
     private ?int $price_point;
     private ?int $price_euro;
 
     /**
-     * @param string $id
+     * @param int $id
      * @param string $name
      * @param Type $type
      * @param string|null $description
      * @param int|null $price_point
      * @param int|null $price_euro
      */
-    public function __construct(?string $id = null, ?string $name = null, ?Type $type = null, ?string $description = null, ?int $price_point = null, ?int $price_euro=null)
+
+
+    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?Type $type = null, ?string $description = null, ?int $price_point = null, ?int $price_euro=null)
     {
         $this->id = $id;
+        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
         $this->name = $name;
         $this->type = $type;
         $this->description = $description;
@@ -38,12 +46,12 @@ class Article {
         $this->price_euro = $price_euro;
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(string $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
@@ -53,7 +61,7 @@ class Article {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -63,7 +71,7 @@ class Article {
         return $this->type;
     }
 
-    public function setType(Type $type): void
+    public function setType(?Type $type): void
     {
         $this->type = $type;
     }
@@ -76,6 +84,26 @@ class Article {
     public function setDescription(?string $description): void
     {
         $this->description = $description;
+    }
+
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     public function getPricePoint(): ?int

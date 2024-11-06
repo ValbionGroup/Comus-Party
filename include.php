@@ -14,6 +14,9 @@ require_once __DIR__ . '/config/twig.php';
 require_once __DIR__ . '/src/models/db.class.php';
 require_once __DIR__ . '/src/models/player.class.php';
 require_once __DIR__ . '/src/models/player.dao.php';
+require_once __DIR__ . '/src/models/article.class.php';
+require_once __DIR__ . '/src/models/article.dao.php';
+
 
 require_once __DIR__ . '/src/controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/controllers/controller.class.php';
