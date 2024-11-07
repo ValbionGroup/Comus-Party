@@ -1,6 +1,6 @@
 <?php
 
-class ControllerPlayer extends Controller {
+class ControllerProfile extends Controller {
     public function __construct(\Twig\Loader\FilesystemLoader $loader, \Twig\Environment $twig) {
         parent::__construct($loader, $twig);
     }
