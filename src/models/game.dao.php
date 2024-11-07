@@ -99,14 +99,19 @@ class GameDao
     public function hydrate(array $gameTab): Game{
         $game = new Game();
         $game->setId($gameTab['id']);
+        $game->setName($gameTab['name']);
+        $game->setDescription($gameTab['description']);
+        $game->setPathImg($gameTab['path_img']);
         $game->setState($this->transformState($gameTab['state']));
         $game->setCreatedAt(new DateTime($gameTab['created_at']));
         $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
         return $game;
     }
+
     /**
      * Retourne un tableau d'objets Game à partir de la table game
      *
+     * @param array $gamesTab
      * @return array
      */
     public function hydrateMany(array $gamesTab): array{
