@@ -2,8 +2,8 @@
 
 {% block layout %}
     <div class="h-full flex flex-col">
-        <header class="flex w-full h-16 items-center">
-            <nav class="flex justify-between w-full px-12">
+        <header class="flex w-full items-center">
+            <nav class="flex items-center justify-between w-full h-16 px-8">
                 <h1>COMUS</h1>
                 <p>pseudo</p>
             </nav>
@@ -12,10 +12,9 @@
             <div class="flex items-center justify-center h-full w-16">
                 AMIS
             </div>
-            <main class="bg-lavender-blush dark:bg-night flex-grow flex rounded-tl-2xl opacity-80">
+            <main class="bg-lavender-blush-base dark:bg-night-base flex-grow rounded-tl-2xl opacity-80">
                 {% block content %}{% endblock %}
             </main>
         </div>
     </div>
-
 {% endblock %}

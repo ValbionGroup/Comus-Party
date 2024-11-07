@@ -9,8 +9,16 @@ module.exports = {
         'celestial-blue': '#33A1FD',
         'hot-magenta': '#DF4CDA',
         'maize': '#FFEC51',
-        'lavender-blush': '#F7EDF0',
-        'night': '#171614'
+        'lavender-blush': {
+          'base':'#F7EDF0',
+          '1': '#E6C6D0',
+          '2': '#D49FAF',
+          '3': '#C3788F',},
+        'night': {
+          'base':'#171614',
+          '1': '#2D2B27',
+          '2': '#43403A',
+          '3': '#58554D',}
       }
     },
   },
