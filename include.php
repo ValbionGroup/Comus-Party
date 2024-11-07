@@ -20,3 +20,5 @@ require_once __DIR__ . '/src/models/player.class.php';
 require_once __DIR__ . '/src/models/player.dao.php';
 require_once __DIR__ . '/src/models/user.class.php';
 require_once __DIR__ . '/src/models/user.dao.php';
+
+require_once __DIR__ . '/src/models/statistics.class.php';
