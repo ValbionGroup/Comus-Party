@@ -3,12 +3,12 @@
 use models\RouteNotFoundException;
 use models\Router;
 
-require_once 'include.php';
+require_once __DIR__.'/../include.php';
 
 $router = Router::getInstance();
 
 $router->get('/', function () {
-    echo 'Hello World';
+    require __DIR__.'/../src/pages/index.php';
     exit;
 });
 
@@ -21,4 +21,5 @@ try {
     $router->matchRoute();
 } catch (RouteNotFoundException $e) {
     echo $e->getMessage();
+    exit;
 }
