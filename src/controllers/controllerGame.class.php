@@ -4,6 +4,11 @@
  */
 class ControllerGame extends Controller
 {
+    /**
+     * Constructeur de la classe ControllerGame
+     * @param \Twig\Loader\FilesystemLoader $loader
+     * @param \Twig\Environment $twig
+     */
     public function __construct(\Twig\Loader\FilesystemLoader $loader, \Twig\Environment $twig)
     {
         parent::__construct($loader, $twig);

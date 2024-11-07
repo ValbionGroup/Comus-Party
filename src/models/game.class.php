@@ -20,36 +20,42 @@ class Game
      * @var int|null
      */
     private ?int $id;
-    /**
-     * État du jeu
-     *
-     * @var State|null
-     */
+
     /**
      * Nom du jeu
      *
      * @var string|null
      */
     private ?string $name;
+
     /**
      * Description du jeu
      *
      * @var string|null
      */
     private ?string $description;
+
     /**
      * Image du jeu
      *
      * @var string|null
      */
     private ?string $pathImg;
+
+    /**
+     * État du jeu
+     *
+     * @var State|null
+     */
     private ?State $state;
+
     /**
      * Date de création du jeu
      *
      * @var DateTime|null
      */
     private ?DateTime $createdAt;
+
     /**
      * Date de mise à jour du jeu
      *
@@ -229,8 +235,4 @@ class Game
     {
         $this->updatedAt = $updatedAt;
     }
-
-
-
-
 }
