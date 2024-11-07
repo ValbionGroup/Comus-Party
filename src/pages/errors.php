@@ -5,6 +5,8 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
+ * Lève une erreur bloquante.
+ *
  * @param Exception $exception
  * @return void
  * @throws LoaderError
