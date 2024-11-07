@@ -12,7 +12,7 @@ class ControllerGame extends Controller
     public function show(){
         $gameManager = new GameDAO($this->getPdo());
         $games = $gameManager->findAll();
-        $template = $this->getTwig()->load('accueil.twig');
+        $template = $this->getTwig()->load('home.twig');
         echo $template->render(array(
             "games" => $games
         ));
