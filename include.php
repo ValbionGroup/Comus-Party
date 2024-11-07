@@ -11,3 +11,4 @@ require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/config/twig.php';
 
 require_once __DIR__ . '/src/models/Router.php';
+require_once __DIR__ . '/src/models/CustomExceptions.php';
