@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Enlever le ‘X’ dans Internet Explorer */
+input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
+/* Enlever le ‘X’ dans Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+
 .active {
     border-bottom: 2px solid #FF006E;
     scale: 120%;
