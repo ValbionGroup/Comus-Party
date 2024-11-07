@@ -34,5 +34,8 @@
     "vlucas/phpdotenv": "^5.6",
     "twig/intl-extra": "^3.13",
     "twig/twig": "^3.14"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.4"
   }
 }

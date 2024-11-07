@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active {
+    border-bottom: 2px solid #FF006E;
+    scale: 120%;
+}
