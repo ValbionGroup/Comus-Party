@@ -76,7 +76,11 @@ class GameDao
         $gamesTab = $stmt->fetchAll();
         return $this->hydrateMany($gamesTab);
     }
-
+    /**
+     * Retourne un tableau d'objets Game à partir de la table game
+     *
+     * @return array
+     */
     public function hydrate(array $gameTab): Game{
         $game = new Game();
         $game->setId($gameTab['id']);
@@ -85,7 +89,11 @@ class GameDao
         $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
         return $game;
     }
-
+    /**
+     * Retourne un tableau d'objets Game à partir de la table game
+     *
+     * @return array
+     */
     public function hydrateMany(array $gamesTab): array{
         $games = [];
         foreach ($gamesTab as $gameTab) {
