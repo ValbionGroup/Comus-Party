@@ -9,7 +9,7 @@ class ControllerGame extends Controller
         parent::__construct($loader, $twig);
     }
 
-    public function afficher(){
+    public function show(){
         $gameManager = new GameDAO($this->getPdo());
         $games = $gameManager->findAll();
         $template = $this->getTwig()->load('accueil.twig');
