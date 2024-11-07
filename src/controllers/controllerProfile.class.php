@@ -1,10 +1,28 @@
 <?php
 
+/**
+ * Contrôleur de la page profile, utilisé pour afficher le profil d'un joueur sous différents angles
+ */
 class ControllerProfile extends Controller {
+
+    /**
+     * Constructeur de la classe ControllerProfile
+     * @param \Twig\Loader\FilesystemLoader $loader
+     * @param \Twig\Environment $twig
+     */
     public function __construct(\Twig\Loader\FilesystemLoader $loader, \Twig\Environment $twig) {
         parent::__construct($loader, $twig);
     }
 
+    /**
+     * Affiche la page de profil du joueur connecté
+     *
+     * @return void
+     * @throws DateMalformedStringException
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     public function showByPlayer() {
         if (!isset($_GET['uuid'])) {
             header('Location: ../pages/404.php');
