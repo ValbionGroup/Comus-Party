@@ -16,12 +16,17 @@ class ControllerShop extends Controller {
         $managerArticle = new ArticleDAO($this->getPdo());
 
         $articles = $managerArticle->findAll();
-
+        $pfps = $managerArticle->findAllPfps();
+        $banners = $managerArticle->findAllBanners();
 
         $template = $this->getTwig()->load('shop.twig');
 
 
-        echo $template->render(array('articles' => $articles));
+        echo $template->render(array(
+            'articles' => $articles,
+            'pfps' => $pfps,
+            'banners' => $banners
+        ));
     }
 
     public function lister(){

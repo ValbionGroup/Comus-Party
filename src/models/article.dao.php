@@ -111,6 +111,29 @@ class ArticleDAO {
         return $articles;
     }
 
+    public function findAllPfps() : ?array{
+        $stmt = $this->pdo->query("SELECT * FROM ". DB_PREFIX ."article WHERE type = 'profil_picture'");
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $tabPfps = $stmt->fetchAll();
+        if($tabPfps === false){
+            return null;
+        }
+        $pfps = $this->hydrateMany($tabPfps);
+        return $pfps;
+
+    }
+
+    public function findAllBanners() : ?array{
+        $stmt = $this->pdo->query("SELECT * FROM ". DB_PREFIX ."article WHERE type = 'banner'");
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $tabBanners = $stmt->fetchAll();
+        if($tabBanners === false){
+            return null;
+        }
+        $banners = $this->hydrateMany($tabBanners);
+        return $banners;
+
+    }
 
 
 
@@ -128,6 +151,8 @@ class ArticleDAO {
 
         if($data['type'] == 'profil_picture'){
             $type = Type::ProfilePicture;
+        }elseif ($data['type'] == 'banner'){
+            $type = Type::Banner;
         }
 
         $article->setType($type);
