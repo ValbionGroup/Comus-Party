@@ -7,7 +7,7 @@ class ControllerPlayer extends Controller {
 
     public function afficher() {
         if (!isset($_GET['uuid'])) {
-            header('Location: ../../pages/404.php');
+            header('Location: ../pages/404.php');
             exit();
         }
         $player_uuid = $_GET['uuid'];
@@ -15,7 +15,7 @@ class ControllerPlayer extends Controller {
         $userManager = new UserDAO($this->getPdo());
         $player = $playerManager->findWithDetailByUuid($player_uuid);
         if ($player === null) {
-            header('Location: ../../pages/404.php');
+            header('Location: ../pages/404.php');
             exit();
         }
         $user = $userManager->findById($player->getUserId());
