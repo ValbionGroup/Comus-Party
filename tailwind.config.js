@@ -11,7 +11,7 @@ module.exports = {
         'maize': '#FFEC51',
         'lavender-blush': {
           'base':'#F7EDF0',
-          '1': '#F7EDF0',
+          '1': '#E6C6D0',
           '2': '#D49FAF',
           '3': '#C3788F',},
         'night': {
