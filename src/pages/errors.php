@@ -15,6 +15,7 @@ function displayError(Exception $exception): void
 {
     global $twig;
     $template = $twig->load('errors.twig');
+    http_response_code($exception->getCode() ?? 500);
     echo $template->render([
         'error' => $exception->getCode() ?? 500,
         'message' => $exception->getMessage() ?? 'Une erreur interne est survenue'
