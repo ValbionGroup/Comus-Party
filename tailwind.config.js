@@ -8,7 +8,12 @@ module.exports = {
         'rose': '#FF006E',
         'celestial-blue': '#33A1FD',
         'hot-magenta': '#DF4CDA',
-        'maize': '#FFEC51',
+        'maize': {
+          'base' : '#FFEC51',
+          '1' : '#FFE619',
+          '2' : '#E0C700',
+          '3' : '#A89500'
+        },
         'lavender-blush': '#F7EDF0',
         'night': {
           'base' : '#171614',
