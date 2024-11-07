@@ -106,7 +106,7 @@ class PlayerDAO {
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPlayer = $stmt->fetch();
-        if ($tabPlayer === false) {
+        if ($tabPlayer === false || $tabPlayer['uuid'] === null) {
             return null;
         }
         $player = $this->hydrate($tabPlayer);
