@@ -4,8 +4,8 @@
  * Objet représentant l'état d'un jeu
  */
 enum State {
-    case AVAIBLE;
-    case UNVAIBLE;
+    case AVAILABLE;
+    case UNVAILABLE;
     case MAINTENANCE;
 }
 

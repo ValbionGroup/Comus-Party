@@ -1,5 +1,4 @@
 <?php
-
 /**
  * La classe GameDAO permet de faire des opérations sur la table game
  */
@@ -76,6 +75,22 @@ class GameDao
         $gamesTab = $stmt->fetchAll();
         return $this->hydrateMany($gamesTab);
     }
+
+    /**
+     * Retourne l'état du jeu en type Etat à partir d'un état de type string
+     *
+     * @param string $state
+     * @return ?State
+     */
+    public function transformState(string $state):?State{
+        return match (strtoupper($state)) {
+            'AVAILABLE' => State::AVAILABLE,
+            'UNVAILABLE' => State::UNVAILABLE,
+            'MAINTENANCE' => State::MAINTENANCE,
+            default => null,
+        };
+    }
+
     /**
      * Retourne un tableau d'objets Game à partir de la table game
      *
@@ -84,7 +99,7 @@ class GameDao
     public function hydrate(array $gameTab): Game{
         $game = new Game();
         $game->setId($gameTab['id']);
-        $game->setState(new State($gameTab['state']));
+        $game->setState($this->transformState($gameTab['state']));
         $game->setCreatedAt(new DateTime($gameTab['created_at']));
         $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
         return $game;
