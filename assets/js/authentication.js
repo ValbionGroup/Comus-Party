@@ -173,6 +173,17 @@ function checkPasswordsMatch() {
     }
 }
 
+/**
+ * Envoie les données d'inscription de l'utilisateur au serveur.
+ *
+ * Récupère les valeurs des champs de formulaire et les envoie
+ * au serveur en tant que données JSON via une requête POST.
+ *
+ * Selon la réponse du serveur, affiche un message de succès
+ * ou d'echec.
+ *
+ * @return void
+ */
 function sendAuthData() {
     const USERNAME = document.getElementById("username").value;
     const EMAIL = document.getElementById("email").value;
@@ -190,7 +201,7 @@ function sendAuthData() {
     .then(response => response.json()) // Récupère les données de la requête en JSON
     .then(data => {
         if (data.success) { console.log("Inscription reussie:", data.message);
-        } else { console.log("Inscription echouée:", data.message); }
+        } else { console.log("Inscription echouee:", data.message); }
     })
 }
 
