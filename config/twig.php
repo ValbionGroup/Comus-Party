@@ -4,8 +4,7 @@ use Twig\Extension\CoreExtension;
 use Twig\Extension\DebugExtension;
 use Twig\Extra\Intl\IntlExtension;
 
-
-$loader = new Twig\Loader\FilesystemLoader('src/templates');
+$loader = new Twig\Loader\FilesystemLoader(__DIR__.'/../src/templates');
 
 $twig = new Twig\Environment($loader, [
     'debug' => true,
