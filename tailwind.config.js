@@ -10,9 +10,9 @@ module.exports = {
         'hot-magenta': '#DF4CDA',
         'maize': {
           'base' : '#FFEC51',
-          '1' : '#FFE619',
-          '2' : '#E0C700',
-          '3' : '#A89500'
+          '600' : '#FFE619',
+          '700' : '#E0C700',
+          '800' : '#A89500'
         },
         'lavender-blush': '#F7EDF0',
         'night': {
