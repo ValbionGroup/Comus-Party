@@ -21,12 +21,10 @@ window.onload = function() {
     const INPUT_CONFIRM_PASSWORD = document.getElementById("passwordConfirm");
     INPUT_CONFIRM_PASSWORD.addEventListener("input", checkPasswordsMatch);
 
-    const INPUT_SUBMIT = document.getElementById("submitButton");
-    INPUT_SUBMIT.addEventListener("click", function() {
-        sendAuthData(INPUT_USERNAME.value,
-                    INPUT_EMAIL.value,
-                    INPUT_PASSWORD.value);
-    });
+    const FORM = document.getElementById("registrationForm");
+    FORM.addEventListener("submit", function(event) {
+        event.preventDefault();
+        sendAuthData(); });
 }
 
 /**
@@ -175,15 +173,18 @@ function checkPasswordsMatch() {
     }
 }
 
-function sendAuthData(pUsername, pEmail, pPassword) {
-    fetch('../../src/auth/signUpCheck.php', {
+function sendAuthData() {
+    const USERNAME = document.getElementById("username").value;
+    const EMAIL = document.getElementById("email").value;
+    const PASSWORD = document.getElementById("password").value;
+    fetch('../auth/signUpCheck.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         // Envoi des données au serveur
-        body: JSON.stringify({ 
-            username: pUsername,
-            email: pEmail,
-            password: pPassword
+        body: JSON.stringify({
+            username: USERNAME,
+            email: EMAIL,
+            password: PASSWORD
         })
     })
     .then(response => response.json()) // Récupère les données de la requête en JSON
