@@ -2,9 +2,6 @@
 
 namespace models;
 
-/**
- *
- */
 class Router
 {
     protected array $routes = [];
@@ -112,5 +109,5 @@ class Router
 
     private function __clone() {}
 
-    private function __wakeup() {}
+    public function __wakeup() {}
 }
