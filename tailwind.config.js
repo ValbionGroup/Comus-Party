@@ -14,7 +14,12 @@ module.exports = {
           '700' : '#E0C700',
           '800' : '#A89500'
         },
-        'lavender-blush': '#F7EDF0',
+        'lavender-blush': {
+          'base' : '#F7EDF0',
+          '1' : '#E6C6D0',
+          '2' : '#D49FAF',
+          '3' : '#C3788F'
+        },
         'night': {
           'base' : '#171614',
           '1' : '#2D2B27',
