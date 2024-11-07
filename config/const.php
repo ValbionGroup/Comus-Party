@@ -2,3 +2,4 @@
 
 
 define('GAMES_LOCATION', 'games/');
+

@@ -18,6 +18,7 @@ try {
     if($method == ''){
         throw new Exception("La méthode n'est pas définie");
     }
+
 //
     $controller = ControllerFactory::getController($controller, $loader, $twig);
     $controller->call($method);

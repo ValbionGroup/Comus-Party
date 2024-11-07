@@ -12,8 +12,16 @@ class ControllerShop extends Controller {
 //        $player_uuid = $_GET['uuid'];
 //        $playerManager = new PlayerDAO($this->getPdo());
 //        $player = $playerManager->findByUuid($player_uuid);
-            $template = $this->getTwig()->load('shop.twig');
-            echo $template->render();
+
+        $managerArticle = new ArticleDAO($this->getPdo());
+
+        $articles = $managerArticle->findAll();
+
+
+        $template = $this->getTwig()->load('shop.twig');
+
+
+        echo $template->render(array('articles' => $articles));
     }
 
     public function lister(){
@@ -22,6 +30,7 @@ class ControllerShop extends Controller {
         $articles = $managerArticle->findAll();
 
         $template = $this->getTwig()->load('shop.twig');
+
         echo $template->render(array('articles' => $articles));
     }
 }

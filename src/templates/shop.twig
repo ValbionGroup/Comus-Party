@@ -13,11 +13,13 @@
         {#    Boutique des avatars  #}
         <div class="bg-lavender-blush w-1/2 h-full rounded-3xl m-10 p-6 overflow-y-auto">
 
+
             <div class="flex flex-wrap">
                 {% for article in articles %}
-                <div class="w-20 h-20 bg-night m-1">
-                    <h2>Avatar1</h2>
-                </div>
+
+                    <div class="w-20 h-20 bg-night m-1">
+                        <img src="../../{{ article.pathImg }}pfp1.png" alt="">
+                    </div>
 
                 {% endfor %}
             </div>

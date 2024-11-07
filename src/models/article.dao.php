@@ -42,12 +42,7 @@ class ArticleDAO {
         $this->pdo = $pdo;
     }
 
-    /**
-     * Retourne un objet Player (ou null) à partir de l'id passé en paramètre
-     *
-     * @param string $uuid
-     * @return Player|null
-     */
+
     public function findById(string $id): ?Article {
         $stmt = $this->pdo->prepare(
             'SELECT *
@@ -70,22 +65,22 @@ class ArticleDAO {
      * @return Player|null
      * @throws DateMalformedStringException
      */
-    public function findWithDetailByUuid(string $uuid): ?Player {
-        $stmt = $this->pdo->prepare(
-            'SELECT p.*, u.username, u.email, u.created_at, u.updated_at
-            FROM '. DB_PREFIX .'player p
-            JOIN '. DB_PREFIX .'user u ON p.user_id = u.id
-            WHERE p.uuid = :uuid');
-        $stmt->bindParam(':uuid', $uuid);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $tabPlayer = $stmt->fetch();
-        if ($tabPlayer === false) {
-            return null;
-        }
-        $player = $this->hydrate($tabPlayer);
-        return $player;
-    }
+//    public function findWithDetailByUuid(string $uuid): ?Player {
+//        $stmt = $this->pdo->prepare(
+//            'SELECT p.*, u.username, u.email, u.created_at, u.updated_at
+//            FROM '. DB_PREFIX .'player p
+//            JOIN '. DB_PREFIX .'user u ON p.user_id = u.id
+//            WHERE p.uuid = :uuid');
+//        $stmt->bindParam(':uuid', $uuid);
+//        $stmt->execute();
+//        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+//        $tabPlayer = $stmt->fetch();
+//        if ($tabPlayer === false) {
+//            return null;
+//        }
+//        $player = $this->hydrate($tabPlayer);
+//        return $player;
+//    }
 
     /**
      * Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre avec les détails de l'utilisateur associé
@@ -134,7 +129,7 @@ class ArticleDAO {
         if($data['type'] == 'profil_picture'){
             $type = Type::ProfilePicture;
         }
-        var_dump($type);
+
         $article->setType($type);
         $article->setDescription($data['description']);
         $article->setPricePoint($data['price_point']);
@@ -142,6 +137,7 @@ class ArticleDAO {
 
         $article->setCreatedAt(new DateTime($data['created_at']));
         $article->setUpdatedAt(new DateTime($data['updated_at']));
+        $article->setPathImg($data['path_img']);
 
         return $article;
     }

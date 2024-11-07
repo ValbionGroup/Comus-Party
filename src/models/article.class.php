@@ -21,20 +21,22 @@ class Article {
     private ?Type $type;
 
     private ?string $description;
-    private ?int $price_point;
-    private ?int $price_euro;
+    private ?int $pricePoint;
+    private ?int $priceEuro;
+    private ?string $pathImg;
 
     /**
-     * @param int $id
-     * @param string $name
-     * @param Type $type
+     * @param int|null $id
+     * @param DateTime|null $createdAt
+     * @param DateTime|null $updatedAt
+     * @param string|null $name
+     * @param Type|null $type
      * @param string|null $description
      * @param int|null $price_point
      * @param int|null $price_euro
+     * @param string|null $path_img
      */
-
-
-    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?Type $type = null, ?string $description = null, ?int $price_point = null, ?int $price_euro=null)
+    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?Type $type = null, ?string $description = null ,  ?int $pricePoint = null, ?int $priceEuro = null, ?string $pathImg = null)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
@@ -42,9 +44,17 @@ class Article {
         $this->name = $name;
         $this->type = $type;
         $this->description = $description;
-        $this->price_point = $price_point;
-        $this->price_euro = $price_euro;
+        $this->pricePoint = $pricePoint;
+        $this->priceEuro = $priceEuro;
+        $this->pathImg = $pathImg;
     }
+
+
+
+
+
+
+
 
     public function getId(): int
     {
@@ -108,23 +118,32 @@ class Article {
 
     public function getPricePoint(): ?int
     {
-        return $this->price_point;
+        return $this->pricePoint;
     }
 
-    public function setPricePoint(?int $price_point): void
+    public function setPricePoint(?int $pricePoint): void
     {
-        $this->price_point = $price_point;
+        $this->pricePoint = $pricePoint;
     }
 
     public function getPriceEuro(): ?int
     {
-        return $this->price_euro;
+        return $this->priceEuro;
     }
 
-    public function setPriceEuro(?int $price_euro): void
+    public function setPriceEuro(?int $priceEuro): void
     {
-        $this->price_euro = $price_euro;
+        $this->priceEuro = $priceEuro;
     }
 
+    public function getPathImg(): ?string
+    {
+        return $this->pathImg;
+    }
+
+    public function setPathImg(?string $pathImg): void
+    {
+        $this->pathImg = $pathImg;
+    }
 
 }
