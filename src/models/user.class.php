@@ -3,20 +3,20 @@
 class User {
     private ?int $id;
     private ?string $email;
-    private ?DateTime $email_verified_at;
-    private ?string $email_verify_token;
+    private ?DateTime $emailVerifiedAt;
+    private ?string $emailVerifyToken;
     private ?string $password;
     private ?int $disabled;
-    private ?DateTime $created_at;
-    private ?DateTime $updated_at;
+    private ?DateTime $createdAt;
+    private ?DateTime $updatedAt;
 
     /**
      * Constructeur de la classe User
      *
      * @param int|null $id
      * @param string|null $email
-     * @param DateTime|null $email_verified_at
-     * @param string|null $email_verify_token
+     * @param DateTime|null $emailVerifiedAt
+     * @param string|null $emailVerifyToken
      * @param string|null $password
      * @param int|null $disabled
      * @param DateTime|null $created_at
@@ -25,8 +25,8 @@ class User {
     public function __construct(
         ?int $id = null,
         ?string $email = null,
-        ?DateTime $email_verified_at = null,
-        ?string $email_verify_token = null,
+        ?DateTime $emailVerifiedAt = null,
+        ?string $emailVerifyToken = null,
         ?string $password = null,
         ?int $disabled = null,
         ?DateTime $created_at = null,
@@ -35,12 +35,12 @@ class User {
     {
         $this->id = $id;
         $this->email = $email;
-        $this->email_verified_at = $email_verified_at;
-        $this->email_verify_token = $email_verify_token;
+        $this->emailVerifiedAt = $emailVerifiedAt;
+        $this->emailVerifyToken = $emailVerifyToken;
         $this->password = $password;
         $this->disabled = $disabled;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
+        $this->createdAt = $created_at;
+        $this->updatedAt = $updated_at;
     }
 
     /**
@@ -90,17 +90,17 @@ class User {
      */
     public function getEmailVerifiedAt(): ?DateTime
     {
-        return $this->email_verified_at;
+        return $this->emailVerifiedAt;
     }
 
     /**
      * Modifie la date de vérification de l'adresse email
      *
-     * @param DateTime|null $email_verified_at
+     * @param DateTime|null $emailVerifiedAt
      */
-    public function setEmailVerifiedAt(?DateTime $email_verified_at): void
+    public function setEmailVerifiedAt(?DateTime $emailVerifiedAt): void
     {
-        $this->email_verified_at = $email_verified_at;
+        $this->emailVerifiedAt = $emailVerifiedAt;
     }
 
     /**
@@ -110,17 +110,17 @@ class User {
      */
     public function getEmailVerifyToken(): ?string
     {
-        return $this->email_verify_token;
+        return $this->emailVerifyToken;
     }
 
     /**
      * Modifie le token de vérification de l'adresse email
      *
-     * @param string|null $email_verify_token
+     * @param string|null $emailVerifyToken
      */
-    public function setEmailVerifyToken(?string $email_verify_token): void
+    public function setEmailVerifyToken(?string $emailVerifyToken): void
     {
-        $this->email_verify_token = $email_verify_token;
+        $this->emailVerifyToken = $emailVerifyToken;
     }
 
     /**
@@ -170,17 +170,17 @@ class User {
      */
     public function getCreatedAt(): ?DateTime
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
      * Modifie la date de création de l'utilisateur
      *
-     * @param DateTime|null $created_at
+     * @param DateTime|null $createdAt
      */
-    public function setCreatedAt(?DateTime $created_at): void
+    public function setCreatedAt(?DateTime $createdAt): void
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -190,16 +190,16 @@ class User {
      */
     public function getUpdatedAt(): ?DateTime
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
      * Modifie la date de mise à jour de l'utilisateur
      *
-     * @param DateTime|null $updated_at
+     * @param DateTime|null $updatedAt
      */
-    public function setUpdatedAt(?DateTime $updated_at): void
+    public function setUpdatedAt(?DateTime $updatedAt): void
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
     }
 }

@@ -12,6 +12,6 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration { display: none; }
 
 .active {
-    border-bottom: 2px solid #F7EDF0;
+    border-bottom: 2px solid #FF006E;
     scale: 120%;
 }
