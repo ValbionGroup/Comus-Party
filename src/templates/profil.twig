@@ -6,7 +6,7 @@
     <div class="m-10 w-2/3">
         <p class="text-3xl text-nowrap">Mon profil</p>
         <nav class="mt-4">
-            <ul class="my-10 ml-20 flex justify-between gap-10 text-nowrap">
+            <ul class="my-10 sm:ml-20 flex justify-between gap-3 md:gap-10 text-nowrap flex-col md:flex-row">
                 <li>
                     <button id="btnProfile" class="text-xl hover:scale-105 transition-all ease-in-out active" onclick="afficher('profile')">Mon apparence</button>
                 </li>
@@ -19,7 +19,7 @@
             </ul>
         </nav>
 
-        <div id="profile" class="grid grid-cols-2 sm:grid-cols-7 lg:grid-cols-12 ml-20">
+        <div id="profile" class="grid grid-cols-2 sm:grid-cols-7 lg:grid-cols-12 md:ml-20">
             <!-- Avatar de profil -->
             <div class="col-span-2">
                 <div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="col-span-5 ml-10 flex flex-col justify-between">
+            <div class="col-span-5 sm:ml-10 flex flex-col justify-between">
                 <div>
                     <img class="rounded-2xl" src="../../assets/img/banner/banner.jpg" alt="banner">
                 </div>
@@ -48,7 +48,7 @@
 
         </div>
 
-        <div id="settings" class="hidden grid grid-cols-2 sm:grid-cols-7 lg:grid-cols-12 ml-20">
+        <div id="settings" class="hidden grid grid-cols-2 sm:grid-cols-7 lg:grid-cols-12 md:ml-20">
             <div class="col-span-4 ml-10">
                 <div>
                     <p class="text-xl">Pseudonyme :</p>
