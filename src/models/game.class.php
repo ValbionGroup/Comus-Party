@@ -25,6 +25,24 @@ class Game
      *
      * @var State|null
      */
+    /**
+     * Nom du jeu
+     *
+     * @var string|null
+     */
+    private ?string $name;
+    /**
+     * Description du jeu
+     *
+     * @var string|null
+     */
+    private ?string $description;
+    /**
+     * Image du jeu
+     *
+     * @var string|null
+     */
+    private ?string $pathImg;
     private ?State $state;
     /**
      * Date de création du jeu
@@ -41,17 +59,26 @@ class Game
 
     /**
      * @param int|null $id
+     * @param string|null $name
+     * @param string|null $description
+     * @param string|null $pathImg
      * @param State|null $state
      * @param DateTime|null $createdAt
      * @param DateTime|null $updatedAt
      */
     public function __construct(
         ?int $id = null,
+        ?string $name = null,
+        ?string $description = null,
+        ?string $pathImg = null,
         ?State $state = null,
         ?DateTime $createdAt = null,
         ?DateTime $updatedAt = null)
     {
         $this->id = $id;
+        $this->name = $name;
+        $this->description = $description;
+        $this->pathImg = $pathImg;
         $this->state = $state;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
@@ -78,6 +105,68 @@ class Game
         $this->id = $id;
     }
 
+    /**
+     * Retourne le nom du jeu
+     *
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Modifie le nom du jeu
+     *
+     * @param string|null $name
+     * @return void
+     */
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Retourne la description du jeu
+     *
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * Modifie la description du jeu
+     *
+     * @param string|null $description
+     * @return void
+     */
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * Retourne l'image du jeu
+     *
+     * @return string|null
+     */
+    public function getPathImg(): ?string
+    {
+        return $this->pathImg;
+    }
+
+    /**
+     * Modifie l'image du jeu
+     *
+     * @param string|null $pathImg
+     * @return void
+     */
+    public function setPathImg(?string $pathImg): void
+    {
+        $this->pathImg = $pathImg;
+    }
 
     /**
      * Retourne l'état du jeu
