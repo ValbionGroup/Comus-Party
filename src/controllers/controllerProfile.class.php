@@ -5,7 +5,7 @@ class ControllerProfile extends Controller {
         parent::__construct($loader, $twig);
     }
 
-    public function afficher() {
+    public function showByPlayer() {
         if (!isset($_GET['uuid'])) {
             header('Location: ../pages/404.php');
             exit();
