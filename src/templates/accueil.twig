@@ -2,14 +2,14 @@
 {% block title %}Accueil{% endblock %}
 {% block content %}
     <div class="overflow-y-auto h-screen">
-        <div class="flex justify-between mb-10">
+        <div class="flex flex-col sm:flex-row justify-between mb-10">
             <h1 class="text-4xl ml-5 mt-5">Jeux</h1>
-            <div class="relative justify-self-end mr-5 mt-5">
+            <div class="relative justify-self-end  mt-5 ml-5 sm:mr-5">
                 <!-- Search Button/Bar Container -->
                 <input
                         type="search"
                         placeholder="Rechercher..."
-                        class="w-10 h-10 pl-10 pr-0.5 transition-all duration-300 ease-in-out bg-lavender-blush dark:bg-night-base   border border-lavender-blush dark:border-night rounded-full shadow-sm hover:w-64 hover:pl-12 focus:outline-none"
+                        class="w-10 h-10 pl-10 pr-0.5 transition-all duration-300 ease-in-out bg-lavender-blush dark:bg-night-base border border-lavender-blush dark:border-night rounded-full shadow-sm hover:w-64 hover:pl-12 focus:outline-none"
                 />
                 <!-- Search Icon -->
                 <span class="absolute top-2.5 left-3 text-gray-400 pointer-events-none">
@@ -22,9 +22,13 @@
         </div>
 
 
-        <div class="container mx-auto grid auto-cols-auto gap-y-10 place-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div class="container mx-auto grid auto-cols-auto gap-y-10 place-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-20">
+            {% for game in games %}
             <div class="bg-lavender-blush-1 dark:bg-night-1 w-56 max-h-screen rounded-xl">
-                <img class="w-full h-52 object-cover" src="#" alt="not">
+                <div class="m-3">
+                    <img class="w-full h-52 object-cover rounded-xl" src="../../assets{{ game.pathImg }}" alt="not">
+                </div>
+                <p class="text-xl ml-5 mb-4"><b>{{ game.name }}</b></p>
                 <div class="h-12 text-white justify-around flex">
                     <button class="w-20 h-10 bg-blue-violet hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110">
                         <!-- Icône de loupe avec effet de fondu et de zoom-out -->
@@ -55,6 +59,7 @@
                     </button>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
