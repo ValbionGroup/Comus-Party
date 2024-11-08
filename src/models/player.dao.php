@@ -98,9 +98,9 @@ class PlayerDAO {
             'SELECT pr.*, u.email, u.created_at, u.updated_at, COUNT(pd.player_uuid) as games_played, COUNT(w.player_uuid) as games_won, COUNT(gr.host_uuid) as games_hosted
             FROM '. DB_PREFIX .'player pr
             JOIN '. DB_PREFIX .'user u ON pr.user_id = u.id
-            JOIN '. DB_PREFIX .'played pd ON pr.uuid = pd.player_uuid
-            JOIN '. DB_PREFIX .'winned w ON pr.uuid = w.player_uuid
-            JOIN '. DB_PREFIX .'game_record gr ON pr.uuid = gr.host_uuid
+            LEFT JOIN '. DB_PREFIX .'played pd ON pr.uuid = pd.player_uuid
+            LEFT JOIN '. DB_PREFIX .'winned w ON pr.uuid = w.player_uuid
+            LEFT JOIN '. DB_PREFIX .'game_record gr ON pr.uuid = gr.host_uuid
             WHERE pr.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
