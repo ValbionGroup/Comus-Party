@@ -3,8 +3,11 @@ module.exports = {
   content: ["./src/**/*.{js,html,php,twig}"],
   theme: {
     extend: {
+      backgroundImage: {
+        'auth-background': "url('./assets/img/auth.jpg')",
+      },
       colors: {
-        'blue-violet': '#8338EC',
+        'blue-violet':'#8338EC',
         'rose': '#FF006E',
         'celestial-blue': '#33A1FD',
         'hot-magenta': '#DF4CDA',
