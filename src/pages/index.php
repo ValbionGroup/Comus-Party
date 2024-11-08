@@ -9,8 +9,8 @@ try {
     $method = $_GET["method"] ?? '';
 
     if($controller == '' && $method == ''){
-        $controller = 'accueil';
-        $method = 'afficher';
+        $controller = 'game';
+        $method = 'show';
     }
 
     if($controller == ''){
