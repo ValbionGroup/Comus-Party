@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../../include.php';
+use models\RouteNotFoundException;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 
 /**
  * La classe ControllerAuth est un contrôleur permettant de gérer l'authentification des utilisateurs
@@ -17,6 +20,11 @@ class ControllerAuth extends Controller {
         parent::__construct($loader, $twig);
     }
 
+    public function showLoginPage(): void
+    {
+        global $twig;
+        echo $twig->render('login.twig');
+    }
 
     /**
      *  Vérifie si un utilisateur portant le nom d'utilisateur fourni en paramètre existe.
@@ -29,31 +37,26 @@ class ControllerAuth extends Controller {
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function authenticate($email, $password) {
+    public function authenticate($email, $password) : ?string {
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
-        if ($user === null) {
-            $template = $this->getTwig()->load('login.twig');
-            echo $template->render(array(
-                "error" => "Email not found"
-            ));
-            return;
+//        var_dump($user);
+        if ($user && ($password === $user->getPassword())) {
+            session_start();
+            $_SESSION['user'] = $user;
+            header('Location: /');
         }
-        if (!password_verify($_POST['password'], $user->getPassword())) {
-            $template = $this->getTwig()->load('login.twig');
-            echo $template->render(array(
-                "error" => "Password incorrect"
-            ));
-            return;
+        else {
+            echo "Adresse e-mail ou mot de passe invalide";
         }
-        $_SESSION['user'] = $user;
-        header('Location: /');
     }
 
     /**
+     * Déconnecte l'utilisateur
+     *
      * @return void
      */
-    public function logOut() {
+    public function logOut() : void {
         session_destroy();
         header('Location: /');
     }
