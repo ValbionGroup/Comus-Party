@@ -4,8 +4,7 @@ use models\Router;
 
 $router = Router::getInstance();
 
-$router->get('/', function () {
-    global $loader, $twig;
+$router->get('/', function () use ($loader, $twig) {
     ControllerFactory::getController("game",$loader,$twig)->call("show");
     exit;
 });
