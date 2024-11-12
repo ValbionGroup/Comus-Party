@@ -72,7 +72,7 @@ class Controller {
      * @return mixed
      * @throws MethodNotFoundException
      */
-    public function call(string $method, ?array $args): mixed
+    public function call(string $method, ?array $args = []): mixed
     {
         if (!method_exists($this, $method)) {
             throw new MethodNotFoundException('La méthode ' . $method . ' n\'existe pas dans le contrôleur ' . get_class($this));
