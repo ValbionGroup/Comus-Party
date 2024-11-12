@@ -35,3 +35,8 @@ $router->post('/login', function () use ($loader, $twig) {
     }
     throw new \Relay\Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
 });
+
+$router->get('/logout', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("logout");
+    exit;
+});
