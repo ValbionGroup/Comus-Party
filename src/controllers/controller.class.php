@@ -11,11 +11,12 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * @brief   La classe Controller est la classe mère de tous les contrôleurs
+ * @brief Classe Controller
+ * @details La classe Controller est la classe mère de tous les contrôleurs
  */
 class Controller {
     /**
-     * @brief   La connexion à la base de données
+     * @brief La connexion à la base de données
      * @var PDO
      */
     private PDO $pdo;
@@ -46,8 +47,8 @@ class Controller {
 
     /**
      * @brief Le constructeur de la classe Controller
-     * @param FilesystemLoader $loader
-     * @param Environment $twig
+     * @param FilesystemLoader $loader Le loader de Twig
+     * @param Environment $twig L'environnement de Twig
      */
     public function __construct(FilesystemLoader $loader, Environment $twig)
     {
@@ -66,8 +67,8 @@ class Controller {
 
     /**
      * @brief Appelle la méthode du Controller passée en paramètre
-     * @param string $method
-     * @return mixed
+     * @param string $method La méthode à appeler
+     * @return mixed Objet retourné par la méthode, ici une erreur ou la méthode si elle existe
      */
     public function call(string $method) : mixed {
         if (!method_exists($this, $method)) {
