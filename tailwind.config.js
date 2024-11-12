@@ -3,8 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,html,php,twig}"],
   theme: {
     fontFamily: {
-      'serif': ["'Londrina Solid'", "serif"],
-      'sans': ["'Barlow Condensed'", "sans-serif"]
+      'serif': ["'Londrina Solid'", "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],
+      'sans': ["'Barlow Condensed'", "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"]
+      'mono': ["'Fira Code'", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"]
     },
     extend: {
       backgroundImage: {

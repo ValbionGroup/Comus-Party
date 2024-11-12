@@ -194,4 +194,10 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
         font-display: swap;
         src: url("/assets/fonts/Barlow_Condensed/BarlowCondensed-BlackItalic.ttf") format('truetype');
     }
+
+    @font-face {
+        font-family: "Fira Code";
+        font-weight: 1 999;
+        src: url("/assets/fonts/Fira_Code/FiraCode-VariableFont_wght.ttf") format('truetype-variations');
+    }
 }
