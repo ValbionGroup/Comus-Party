@@ -1,5 +1,9 @@
 <?php
 
+use models\MethodNotFoundException;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 /**
  * La classe Controller est la classe mère de tous les contrôleurs
  */
@@ -14,17 +18,17 @@ class Controller {
     /**
      * Le loader de Twig
      *
-     * @var \Twig\Loader\FilesystemLoader
+     * @var FilesystemLoader
      */
-    private \Twig\Loader\FilesystemLoader $loader;
+    private FilesystemLoader $loader;
 
     /**
      * L'environnement de Twig
      *
-     * @var \Twig\Environment
+     * @var Environment
      */
 
-    private \Twig\Environment $twig;
+    private Environment $twig;
     /**
      * Les données GET
      *
@@ -42,19 +46,20 @@ class Controller {
     /**
      * Constructeur de la classe Controller
      *
-     * @param \Twig\Loader\FilesystemLoader $loader
-     * @param \Twig\Environment $twig
+     * @param FilesystemLoader $loader
+     * @param Environment $twig
      */
-    public function __construct(\Twig\Loader\FilesystemLoader $loader, \Twig\Environment $twig) {
+    public function __construct(FilesystemLoader $loader, Environment $twig)
+    {
         $this->pdo = Db::getInstance()->getConnection();
         $this->loader = $loader;
         $this->twig = $twig;
 
-        if (isset($_GET) && !empty($_GET)) {
+        if (!empty($_GET)) {
             $this->get = $_GET;
         }
 
-        if (isset($_POST) && !empty($_POST)) {
+        if (!empty($_POST)) {
             $this->post = $_POST;
         }
     }
@@ -63,13 +68,16 @@ class Controller {
      * Appelle une méthode du contrôleur fournie en paramètre
      *
      * @param string $method
+     * @param array|null $args
      * @return mixed
+     * @throws MethodNotFoundException
      */
-    public function call(string $method) : mixed {
+    public function call(string $method, ?array $args): mixed
+    {
         if (!method_exists($this, $method)) {
-            throw new Exception('La méthode ' . $method . ' n\'existe pas dans le contrôleur ' . get_class($this));
+            throw new MethodNotFoundException('La méthode ' . $method . ' n\'existe pas dans le contrôleur ' . get_class($this));
         }
-        return $this->$method();
+        return $this->{$method}(...array_values($args));
     }
 
     /**
@@ -96,9 +104,9 @@ class Controller {
     /**
      * Retourne le loader de Twig
      *
-     * @return \Twig\Loader\FilesystemLoader
+     * @return FilesystemLoader
      */
-    public function getLoader(): \Twig\Loader\FilesystemLoader
+    public function getLoader(): FilesystemLoader
     {
         return $this->loader;
     }
@@ -106,10 +114,10 @@ class Controller {
     /**
      * Modifie le loader de Twig
      *
-     * @param \Twig\Loader\FilesystemLoader $loader
+     * @param FilesystemLoader $loader
      * @return void
      */
-    public function setLoader(\Twig\Loader\FilesystemLoader $loader): void
+    public function setLoader(FilesystemLoader $loader): void
     {
         $this->loader = $loader;
     }
@@ -117,9 +125,9 @@ class Controller {
     /**
      * Retourne l'environnement de Twig
      *
-     * @return \Twig\Environment
+     * @return Environment
      */
-    public function getTwig(): \Twig\Environment
+    public function getTwig(): Environment
     {
         return $this->twig;
     }
@@ -127,10 +135,10 @@ class Controller {
     /**
      * Modifie l'environnement de Twig
      *
-     * @param \Twig\Environment $twig
+     * @param Environment $twig
      * @return void
      */
-    public function setTwig(\Twig\Environment $twig): void
+    public function setTwig(Environment $twig): void
     {
         $this->twig = $twig;
     }
