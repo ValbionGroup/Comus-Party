@@ -1,4 +1,12 @@
 <?php
+/**
+ * @brief Fichier de définition des routes
+ *
+ * @file routes.php
+ * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
+ * @version 1.0
+ * @date 2024-11-12
+ */
 
 global $loader, $twig;
 

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @brief Fichier gérant les exceptions personnalisées de l'application
  *
