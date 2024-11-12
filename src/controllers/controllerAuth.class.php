@@ -1,6 +1,5 @@
 <?php
 
-use models\RouteNotFoundException;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -40,8 +39,11 @@ class ControllerAuth extends Controller {
     public function authenticate($email, $password) : ?string {
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
-//        var_dump($user);
-        if ($user && ($password === $user->getPassword())) {
+        if (is_null($user->getEmailVerifiedAt())) {
+            echo "Merci de vérifier votre adresse e-mail";
+            return;
+        }
+        if ($user && ($password === password_verify($password, $user->getPassword()))) {
             session_start();
             $_SESSION['user'] = $user;
             header('Location: /');
@@ -58,6 +60,6 @@ class ControllerAuth extends Controller {
      */
     public function logOut() : void {
         session_destroy();
-        header('Location: /');
+        header('Location: /login');
     }
 }
