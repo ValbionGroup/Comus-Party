@@ -1,6 +1,11 @@
 let pfps = document.querySelectorAll(".pfp");
 let modaleWindow = document.getElementById("modale")
 let closeModalBtn = document.getElementById("closeModalBtn")
+
+/*
+showModale
+But : Affiche la fenêtre modale
+ */
 function showModale(article){
 
     let flex = "flex "
@@ -34,6 +39,8 @@ function showModale(article){
 }
 
 
+
+// Permet de fermer la fenêtre modale
 closeModalBtn.addEventListener("click", ()=>{
     modaleWindow.classList.add("hidden")
     modaleWindow.classList.remove("flex")
