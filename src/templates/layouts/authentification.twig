@@ -1,0 +1,14 @@
+{% extends "layouts/base.twig" %}
+
+{% block layout %}
+    <div class="m-4 sm:m-6 bg-lavender-blush dark:bg-night flex flex-col-reverse sm:flex-row flex-grow items-center rounded-2xl">
+        <div class="h-1/2 sm:h-full w-full sm:w-1/2 p-16 bg-auth-background">
+            <div class="flex flex-col items-center justify-center h-full">
+                Bienvenue sur Comus Party
+            </div>
+        </div>
+        <div class="h-1/2 sm:h-full w-full sm:w-1/2 p-16 flex items-center">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

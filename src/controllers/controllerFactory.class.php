@@ -7,6 +7,7 @@
  * @version 0.1
  */
 
+use models\ControllerNotFoundException;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -18,17 +19,17 @@ use Twig\Loader\FilesystemLoader;
 class ControllerFactory {
     /**
      * @brief La méthode getController permet de récupérer un contrôleur
-     * @param string $controller Le nom du contrôleur
-     * @param FilesystemLoader $loader Le loader de Twig
-     * @param Environment $twig L'environnement de Twig
-     * @return Controller Objet retourné par la méthode, ici un contrôleur de manière générale
-     * @throws Exception Exception levée dans le cas de l'inexistance du contrôleur fourni
+     * @param $controller
+     * @param FilesystemLoader $loader
+     * @param Environment $twig
+     * @return mixed
+     * @throws ControllerNotFoundException
      */
-    public static function getController(string $controller, FilesystemLoader $loader, Environment $twig): Controller
+    public static function getController($controller, FilesystemLoader $loader, Environment $twig): mixed
     {
         $controllerName = "Controller" . ucfirst($controller);
         if (!class_exists($controllerName)) {
-            throw new Exception('Controller ' . $controllerName . ' not found');
+            throw new ControllerNotFoundException('Controller ' . $controllerName . ' not found');
         }
         return new $controllerName($loader, $twig);
     }

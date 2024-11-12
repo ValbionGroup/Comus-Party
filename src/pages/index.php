@@ -1,5 +1,9 @@
 <?php
-require_once  '../../include.php';
+
+global $loader, $twig;
+require_once  __DIR__.'/../../include.php';
+
+
 try {
     $controller = $_GET["controller"] ?? '';
     $method = $_GET["method"] ?? '';
@@ -21,6 +25,5 @@ try {
     $controller->call($method);
 
 }catch (Exception $e){
-    die ($e->getMessage());
+    displayError($e);
 }
-echo $template->render();

@@ -58,6 +58,13 @@ class Player {
     private ?int $comusCoins;
 
     /**
+     * Statistiques du joueur
+     *
+     * @var Statistics|null
+     */
+    private ?Statistics $statistics;
+
+    /**
      * @brief L'identifiant utilisateur lié au profil de joueur
      * @var int|null
      */
@@ -65,14 +72,14 @@ class Player {
 
     /**
      * @brief Le constructeur de la classe Player
-     * @param string|null $uuid L'UUID du joueur
-     * @param string|null $username Le nom d'utilisateur du joueur
-     * @param DateTime|null $createdAt La date de création du joueur
-     * @param DateTime|null $updatedAt La date de mise à jour du joueur
-     * @param int|null $xp Les points d'expérience du joueur
-     * @param int|null $elo Elo du joueur
-     * @param int|null $comusCoins Le nombre de Comus Coins possédés par le joueur
-     * @param int|null $userId L'identifiant utilisateur
+     * @param string $uuid
+     * @param DateTime $createdAt
+     * @param DateTime|null $updatedAt
+     * @param int|null $xp
+     * @param int|null $elo
+     * @param int|null $comusCoins
+     * @param Statistics|null $statistics
+     * @param int|null $userId
      */
     public function __construct(
         ?string $uuid = null,
@@ -82,15 +89,16 @@ class Player {
         ?int $xp = null,
         ?int $elo = null,
         ?int $comusCoins = null,
+        ?Statistics $statistics = null,
         ?int $userId = null
     ) {
         $this->uuid = $uuid;
-        $this->username = $username;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
         $this->xp = $xp;
         $this->elo = $elo;
         $this->comusCoins = $comusCoins;
+        $this->statistics = $statistics;
         $this->userId = $userId;
     }
 
@@ -225,6 +233,26 @@ class Player {
     public function setComusCoins(?int $comusCoins): void
     {
         $this->comusCoins = $comusCoins;
+    }
+
+    /**
+     * Retourne les statistiques du joueur
+     *
+     * @return Statistics|null
+     */
+    public function getStatistics(): ?Statistics
+    {
+        return $this->statistics;
+    }
+
+    /**
+     * Modifie les statistiques du joueur
+     *
+     * @param Statistics|null $statistics
+     */
+    public function setStatistics(?Statistics $statistics): void
+    {
+        $this->statistics = $statistics;
     }
 
     /**

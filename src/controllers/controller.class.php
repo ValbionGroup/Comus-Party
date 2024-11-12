@@ -7,6 +7,7 @@
  * @version 0.1
  */
 
+use models\MethodNotFoundException;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -56,25 +57,27 @@ class Controller {
         $this->loader = $loader;
         $this->twig = $twig;
 
-        if (isset($_GET) && !empty($_GET)) {
+        if (!empty($_GET)) {
             $this->get = $_GET;
         }
 
-        if (isset($_POST) && !empty($_POST)) {
+        if (!empty($_POST)) {
             $this->post = $_POST;
         }
     }
 
     /**
      * @brief Appelle la méthode du Controller passée en paramètre
-     * @param string $method La méthode à appeler
-     * @return mixed Objet retourné par la méthode, ici une erreur ou la méthode si elle existe
+     * @param string $method
+     * @param array|null $args
+     * @return mixed
+     * @throws MethodNotFoundException
      */
-    public function call(string $method) : mixed {
+    public function call(string $method, ?array $args = []) : mixed {
         if (!method_exists($this, $method)) {
-            return $this->error('Method not found in controller'. __CLASS__);
+            throw new MethodNotFoundException('La méthode ' . $method . ' n\'existe pas dans le contrôleur ' . get_class($this));
         }
-        return $this->$method();
+        return $this->{$method}(...array_values($args));
     }
 
     /**

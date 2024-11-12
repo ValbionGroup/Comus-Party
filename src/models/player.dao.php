@@ -97,15 +97,18 @@ class PlayerDAO {
      */
     public function findWithDetailByUuid(string $uuid): ?Player {
         $stmt = $this->pdo->prepare(
-            'SELECT p.*, u.email, u.created_at, u.updated_at
-            FROM '. DB_PREFIX .'player p
-            JOIN '. DB_PREFIX .'user u ON p.user_id = u.id
-            WHERE p.uuid = :uuid');
+            'SELECT pr.*, u.email, u.created_at, u.updated_at, COUNT(pd.player_uuid) as games_played, COUNT(w.player_uuid) as games_won, COUNT(gr.host_uuid) as games_hosted
+            FROM '. DB_PREFIX .'player pr
+            JOIN '. DB_PREFIX .'user u ON pr.user_id = u.id
+            LEFT JOIN '. DB_PREFIX .'played pd ON pr.uuid = pd.player_uuid
+            LEFT JOIN '. DB_PREFIX .'winned w ON pr.uuid = w.player_uuid
+            LEFT JOIN '. DB_PREFIX .'game_record gr ON pr.uuid = gr.host_uuid
+            WHERE pr.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPlayer = $stmt->fetch();
-        if ($tabPlayer === false) {
+        if ($tabPlayer === false || $tabPlayer['uuid'] === null) {
             return null;
         }
         $player = $this->hydrate($tabPlayer);
@@ -181,6 +184,7 @@ class PlayerDAO {
      */
     public function hydrate(array $data) : Player {
         $player = new Player();
+        $player->setStatistics(new Statistics());
         $player->setUuid($data['uuid']);
         $player->setUsername($data['username']);
         $player->setCreatedAt(new DateTime($data['created_at']));
@@ -188,6 +192,9 @@ class PlayerDAO {
         $player->setXp($data['xp']);
         $player->setElo($data['elo']);
         $player->setComusCoins($data['comus_coins']);
+        $player->getStatistics()->setGamesPlayed($data['games_played']);
+        $player->getStatistics()->setGamesWon($data['games_won']);
+        $player->getStatistics()->setGamesHosted($data['games_hosted']);
         $player->setUserId($data['user_id']);
         return $player;
     }
