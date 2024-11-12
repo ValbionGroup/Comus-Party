@@ -43,7 +43,7 @@ class ControllerAuth extends Controller {
         if (is_null($user->getEmailVerifiedAt())) {
             throw new Exception("Merci de vérifier votre adresse e-mail");
         }
-        if ($user && ($password === password_verify($password, $user->getPassword()))) {
+        if (password_verify($password, $user->getPassword())) {
             session_start();
             $_SESSION['user'] = $user;
             header('Location: /');
@@ -59,6 +59,8 @@ class ControllerAuth extends Controller {
      * @return void
      */
     public function logOut() : void {
+        session_start();
+        session_unset();
         session_destroy();
         header('Location: /login');
     }
