@@ -14,11 +14,13 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * @brief   La classe ControllerPlayer permet de gérer les actions liées à un joueur
+ * @brief Classe ControllerPlayer
+ * @details La classe ControllerPlayer permet de gérer les actions liées à un joueur
+ * @extends Controller
  */
 class ControllerPlayer extends Controller {
     /**
-     * @brief                           Constructeur de la classe ControllerPlayer
+     * @brief Constructeur de la classe ControllerPlayer
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      */
@@ -28,12 +30,11 @@ class ControllerPlayer extends Controller {
     }
 
     /**
-     * @brief                               La méthode afficher permet d'afficher le profil d'un joueur
-     * @return void                         Objet retourné par la méthode, ici rien
+     * @brief La méthode afficher permet d'afficher le profil d'un joueur
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     * @throws LoaderError                  Exception levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError                 Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError                  Exception levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function afficher() {
         if (!isset($_GET['uuid'])) {
