@@ -9,21 +9,21 @@ class Player {
      *
      * @var string
      */
-    private string $uuid;
+    private ?string $uuid;
 
     /**
      * Nom d'utilisateur du joueur
      *
      * @var string
      */
-    private string $username;
+    private ?string $username;
 
     /**
      * Date de création du profil de joueur
      *
      * @var DateTime
      */
-    private DateTime $createdAt;
+    private ?DateTime $createdAt;
 
     /**
      * Date de mise à jour du profil de joueur
@@ -31,20 +31,6 @@ class Player {
      * @var DateTime|null
      */
     private ?DateTime $updatedAt;
-
-    /**
-     * Chemin d'accès à la bannière du joueur
-     *
-     * @var string|null
-     */
-    private ?string $bannerPath;
-
-    /**
-     * Chemin d'accès à la photo de profil du joueur
-     *
-     * @var string|null
-     */
-    private ?string $pfpPath;
 
     /**
      * Points d'expérience du joueur
@@ -68,6 +54,13 @@ class Player {
     private ?int $comusCoins;
 
     /**
+     * Statistiques du joueur
+     *
+     * @var Statistics|null
+     */
+    private ?Statistics $statistics;
+
+    /**
      * Identifiant utilisateur (clé étrangère provenant de la table user)
      *
      * @var int|null
@@ -80,32 +73,29 @@ class Player {
      * @param string $uuid
      * @param DateTime $createdAt
      * @param DateTime|null $updatedAt
-     * @param string|null $bannerPath
-     * @param string|null $pfpPath
      * @param int|null $xp
      * @param int|null $elo
      * @param int|null $comusCoins
+     * @param Statistics|null $statistics
      * @param int|null $userId
      */
     public function __construct(
         ?string $uuid = null,
         ?DateTime $createdAt = null,
         ?DateTime $updatedAt = null,
-        ?string $bannerPath = null,
-        ?string $pfpPath = null,
         ?int $xp = null,
         ?int $elo = null,
         ?int $comusCoins = null,
+        ?Statistics $statistics = null,
         ?int $userId = null
     ) {
         $this->uuid = $uuid;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
-        $this->bannerPath = $bannerPath;
-        $this->pfpPath = $pfpPath;
         $this->xp = $xp;
         $this->elo = $elo;
         $this->comusCoins = $comusCoins;
+        $this->statistics = $statistics;
         $this->userId = $userId;
     }
 
@@ -193,48 +183,6 @@ class Player {
     }
 
     /**
-     * Retourne le chemin d'accès à la bannière du joueur
-     *
-     * @return string|null
-     */
-    public function getBannerPath(): ?string
-    {
-        return $this->bannerPath;
-    }
-
-    /**
-     * Modifie le chemin d'accès à la bannière du joueur
-     *
-     * @param string|null $bannerPath
-     * @return void
-     */
-    public function setBannerPath(?string $bannerPath): void
-    {
-        $this->bannerPath = $bannerPath;
-    }
-
-    /**
-     * Retourne le chemin d'accès à la photo de profil du joueur
-     *
-     * @return string|null
-     */
-    public function getPfpPath(): ?string
-    {
-        return $this->pfpPath;
-    }
-
-    /**
-     * Modifie le chemin d'accès à la photo de profil du joueur
-     *
-     * @param string|null $pfpPath
-     * @return void
-     */
-    public function setPfpPath(?string $pfpPath): void
-    {
-        $this->pfpPath = $pfpPath;
-    }
-
-    /**
      * Retourne les points d'expérience du joueur
      *
      * @return int|null
@@ -295,6 +243,26 @@ class Player {
     public function setComusCoins(?int $comusCoins): void
     {
         $this->comusCoins = $comusCoins;
+    }
+
+    /**
+     * Retourne les statistiques du joueur
+     *
+     * @return Statistics|null
+     */
+    public function getStatistics(): ?Statistics
+    {
+        return $this->statistics;
+    }
+
+    /**
+     * Modifie les statistiques du joueur
+     *
+     * @param Statistics|null $statistics
+     */
+    public function setStatistics(?Statistics $statistics): void
+    {
+        $this->statistics = $statistics;
     }
 
     /**

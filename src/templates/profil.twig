@@ -3,80 +3,191 @@
 
 {% block content %}
     <!-- Partie concernant les informations de profil-->
-    <div>
-        <p class="text-4xl m-10">Mon profil</p>
-        <div class="flex gap-10">
-            <!-- Photo de profil -->
-            <div class="ml-10">
-                <img src="../../asstets/img/pfp/{{ player.pfpPath }}" alt="profile_picture">
-                <!-- Bouton de modification -->
+    <div class="m-10 w-2/3">
+        <p class="text-3xl text-nowrap">Mon profil</p>
+        <nav class="mt-4">
+            <ul class="my-10 sm:ml-20 flex justify-between gap-3 md:gap-10 text-nowrap flex-col md:flex-row">
+                <li>
+                    <button id="btnProfile" class="text-xl hover:scale-105 transition-all ease-in-out active" onclick="afficher('profile')">Mon apparence</button>
+                </li>
+                <li>
+                    <button id="btnSettings" class="text-xl hover:scale-105 transition-all ease-in-out" onclick="afficher('settings')">Paramètres de compte</button>
+                </li>
+                <li>
+                    <button id="btnStatistics" class="text-xl hover:scale-105 transition-all ease-in-out" onclick="afficher('statistics')">Mes statistiques</button>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="profile" class="grid grid-cols-2 sm:grid-cols-7 lg:grid-cols-12 md:ml-20">
+            <!-- Avatar de profil -->
+            <div class="col-span-2">
                 <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="white" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
+                    <img class="rounded-full mb-4" src="../../asstets/img/pfp/{{ player.pfpPath }}" alt="profile_picture">
+{#                    <img class="rounded-full mb-4" src="../../assets/img/pfp/pfp.jpg" alt="profile_picture">#}
+                </div>
+                <div>
+                    <button class="flex bg-maize-700 items-center justify-center gap-3 border-2 border-maize-700 rounded-2xl p-1 w-full hover:scale-110 transition-all ease-in-out hover:shadow-sm">
+                        Modifier
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
+                    </button>
                 </div>
             </div>
-            <!-- Partie gauche -->
-            <div>
-                <!-- Pseudonyme -->
+
+            <div class="col-span-5 sm:ml-10 mt-5 sm:mt-0 flex flex-col justify-between">
                 <div>
-                    <p class="text-2xl">Pseudonyme</p>
-                    <div>
-                        <p>[pseudonyme]</p>
+                    <img class="rounded-2xl mb-4" src="../../asstets/img/pfp/{{ player.bannerPath }}" alt="banner">
+{#                    <img class="rounded-2xl" src="../../assets/img/banner/banner.jpg" alt="banner">#}
+                </div>
+                <div>
+                    <button class="flex bg-maize-700 items-center justify-center gap-3 border-2 border-maize-700 rounded-2xl p-1 w-full hover:scale-110 transition-all ease-in-out hover:shadow-sm">
+                        Modifier
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="settings" class="hidden grid grid-cols-2 sm:grid-cols-7 lg:grid-cols-12 md:ml-20">
+            <div class="col-span-4 ml-10">
+                <div>
+                    <p class="text-xl">Pseudonyme :</p>
+                    <div class="flex justify-between items-center gap-1">
                         <p>{{ player.username }}</p>
                         <!-- Bouton de modification -->
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="white" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
-                        </div>
+                        <button class="border-2 border-maize-700 p-1 rounded-lg bg-maize-700 hover:scale-110 transition-all ease-in-out hover:shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
+                        </button>
                     </div>
                 </div>
-
-                <!-- Adresse e-mail -->
                 <div>
-                    <p class="text-2xl">Adresse e-mail</p>
+                    <p class="text-xl text-nowrap mt-7">Adresse e-mail :</p>
                     <div>
-                        <p>[e-mail]</p>
-                        <p>{{ player.email }}</p>
-                        <!-- Bouton de modification -->
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="white" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
+                        <div class="flex justify-between items-center gap-1">
+                            <p>{{ user.email }}</p>
+                            <button class="border-2 border-maize-700 p-1 rounded-lg bg-maize-700 hover:scale-110 transition-all ease-in-out hover:shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Partie droite -->
-            <div>
+            <div class="col-span-7 ml-10 mt-10 lg:mt-0">
                 <form method="POST">
-                    <!-- Modification du mot de passe -->
-                    <label>
-                        <input type="password" minlength="8" maxlength="64" placeholder="Insérez votre nouveau mot de passe" name="newPswd">
-                    </label>
+                    <div class="g-1 flex flex-col justify-between">
+                        <label>
+                            <input class="mb-2 rounded-2xl p-2 w-full text-black" type="password" minlength="8" maxlength="64" placeholder="Insérez votre nouveau mot de passe" name="newPswd">
+                        </label>
 
-                    <br>
+                        <!-- Confirmation de modification -->
+                        <label>
+                            <input class="mb-2 rounded-2xl p-2 w-full text-black" type="password" minlength="8" maxlength="64" placeholder="Confirmez votre nouveau mot de passe" name="newPswdConf">
+                        </label>
 
-                    <!-- Confirmation de modification -->
-                    <label>
-                        <input type="password" minlength="8" maxlength="64" placeholder="Confirmez votre nouveau mot de passe" name="newPswdConf">
-                    </label>
+                        <br>
 
-                    <br>
+                        <!-- Bouton de confirmation -->
+                        <div class= "flex items-center justify-center gap-1 border-2 border-green-500 rounded-2xl bg-green-500 p-1 hover:scale-105 transition-all ease-in-out hover:shadow-sm">
+                            <input type="submit" value="Confirmer">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em" viewBox="0 0 1600 1280"><path fill="currentColor" d="M1575 310q0 40-28 68l-724 724l-136 136q-28 28-68 28t-68-28l-136-136L53 740q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295l656-657q28-28 68-28t68 28l136 136q28 28 28 68"/></svg>
+                        </div>
 
-                    <!-- Bouton de confirmation -->
-                    <div class="flex items-center justify-center gap-1 border-2 border-amber-900">
-                        <input type="submit" value="Confirmer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em" viewBox="0 0 1600 1280"><path fill="white" d="M1575 310q0 40-28 68l-724 724l-136 136q-28 28-68 28t-68-28l-136-136L53 740q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295l656-657q28-28 68-28t68 28l136 136q28 28 28 68"/></svg>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- Informations de profil -->
-        <div>
-
+        <div id="statistics" class="hidden">
+            <div class="grid gap-y-5 gap-x-10 grid-cols-1 sm:grid-cols-2">
+                <div class="dark:bg-night-2 bg-lavender-blush-1 rounded-2xl px-3 p-2 flex items-center gap-2">
+                    <svg class="text-white" xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em" viewBox="0 0 640 512"><path fill="currentColor" d="M274.9 34.3c-28.1-28.1-73.7-28.1-101.8 0L34.3 173.1c-28.1 28.1-28.1 73.7 0 101.8l138.8 138.8c28.1 28.1 73.7 28.1 101.8 0l138.8-138.8c28.1-28.1 28.1-73.7 0-101.8zM200 224a24 24 0 1 1 48 0a24 24 0 1 1-48 0M96 200a24 24 0 1 1 0 48a24 24 0 1 1 0-48m128 176a24 24 0 1 1 0-48a24 24 0 1 1 0 48m128-176a24 24 0 1 1 0 48a24 24 0 1 1 0-48m-128-80a24 24 0 1 1 0-48a24 24 0 1 1 0 48m96 328c0 35.3 28.7 64 64 64h192c35.3 0 64-28.7 64-64V256c0-35.3-28.7-64-64-64H461.7c11.6 36 3.1 77-25.4 105.5L320 413.8zm160-120a24 24 0 1 1 0 48a24 24 0 1 1 0-48"/></svg>
+                    <p>Parties jouées : <b>{{ player.statistics.gamesPlayed }}</b></p>
+                </div>
+                <div class="dark:bg-night-2 bg-lavender-blush-1 rounded-2xl px-3 p-2 flex items-center gap-2">
+                    <svg class="text-maize-700 scale-150" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21v-2h4v-3.1q-1.225-.275-2.187-1.037T7.4 12.95q-1.875-.225-3.137-1.637T3 8V7q0-.825.588-1.412T5 5h2V3h10v2h2q.825 0 1.413.588T21 7v1q0 1.9-1.263 3.313T16.6 12.95q-.45 1.15-1.412 1.913T13 15.9V19h4v2zm0-10.2V7H5v1q0 .95.55 1.713T7 10.8m10 0q.9-.325 1.45-1.088T19 8V7h-2z"/></svg>
+                    <p>Parties gagnées : <b>{{ player.statistics.gamesWon }}</b></p>
+                </div>
+                <div class="dark:bg-night-2 bg-lavender-blush-1 rounded-2xl px-3 p-2 flex items-center gap-2">
+                    <svg class="text-red-500" xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em" viewBox="0 0 640 512"><path fill="currentColor" d="M480 0c-17.7 0-32 14.3-32 32v480h64V192h112c8.8 0 16-7.2 16-16V48c0-8.8-7.2-16-16-16H512c0-17.7-14.3-32-32-32m-64 159L276.8 39.7c-12-10.3-29.7-10.3-41.7 0l-224 192C1 240.4-2.7 254.5 2 267.1S18.6 288 32 288h32v192c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32v-96c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v96c0 17.7 14.3 32 32 32h64.9h-1V159z"/></svg>
+                    <p>Parties hébergées : <b>{{ player.statistics.gamesHosted }}</b></p>
+                </div>
+                <div class="dark:bg-night-2 bg-lavender-blush-1 rounded-2xl px-3 p-2 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M16 14a5 5 0 0 1 5 5v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a5 5 0 0 1 5-5zm4-6a1 1 0 0 1 1 1v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 1 1 0-2h1V9a1 1 0 0 1 1-1m-8-6a5 5 0 1 1 0 10a5 5 0 0 1 0-10"/></g></svg>
+                    <p>Date d'inscription : <b>{{ player.createdAt|date('d/m/Y') }}</b></p>
+                </div>
+                <div class="dark:bg-night-2 bg-lavender-blush-1 rounded-2xl px-3 p-2 flex items-center gap-2">
+                    <svg class="text-green-300" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 7.09l2.45 1.49l-.65-2.81L16 3.89l-2.89-.25L12 1l-1.13 2.64L8 3.89l2.18 1.88l-.68 2.81zm-8 6l2.45 1.49l-.65-2.81L8 9.89l-2.89-.25L4 7L2.87 9.64L0 9.89l2.18 1.88l-.68 2.81zm16-3l2.45 1.49l-.65-2.81L24 6.89l-2.89-.25L20 4l-1.13 2.64l-2.87.25l2.18 1.88l-.68 2.81zM15 23H9V10h6zm-8 0H1v-6h6zm16 0h-6V13h6z"/></svg>
+                    <p>Elo : <b>{{ player.elo }}</b></p>
+                </div>
+                <div class="dark:bg-night-2 bg-lavender-blush-1 rounded-2xl px-3 p-2 flex items-center gap-2">
+                    <svg class="text-purple-400" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><defs><mask id="ipSLevel0"><g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path fill="#fff" stroke="#fff" d="M24 42L4 18.5L9.695 6h28.61L44 18.5z"/><path stroke="#000" d="m32 18l-8 9l-8-9"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSLevel0)"/></svg>
+                    <p>Points d'expériences : <b>{{ player.xp }}</b></p>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <!-- Partie concernant les statistiques -->
-    <div>
 
     </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script language="JavaScript">
+        function afficher(section) {
+            let profileBtn = document.getElementById('btnProfile');
+            let settingsBtn = document.getElementById('btnSettings');
+            let statisticsBtn = document.getElementById('btnStatistics');
+
+            let profileBlock = document.getElementById('profile');
+            let settingsBlock = document.getElementById('settings');
+            let statisticsBlock = document.getElementById('statistics');
+
+            switch (section) {
+                case 'profile' :
+                    profileBlock.classList.remove("hidden");
+                    profileBtn.classList.add("active");
+                    profileBtn.classList.remove("hover:scale-105");
+
+                    settingsBlock.classList.add("hidden");
+                    settingsBtn.classList.remove("active");
+                    settingsBtn.classList.add("hover:scale-105");
+
+                    statisticsBlock.classList.add("hidden");
+                    statisticsBtn.classList.remove("active");
+                    statisticsBtn.classList.add("hover:scale-105");
+                    break;
+
+                case 'settings' :
+                    profileBlock.classList.add("hidden");
+                    profileBtn.classList.remove("active");
+                    profileBtn.classList.add("hover:scale-105");
+
+                    settingsBlock.classList.remove("hidden");
+                    settingsBtn.classList.add("active");
+                    settingsBtn.classList.remove("hover:scale-105");
+
+                    statisticsBlock.classList.add("hidden");
+                    statisticsBtn.classList.remove("active");
+                    statisticsBtn.classList.add("hover:scale-105");
+                    break;
+
+                case 'statistics' :
+                    profileBlock.classList.add("hidden");
+                    profileBtn.classList.remove("active");
+                    profileBtn.classList.add("hover:scale-105");
+
+                    settingsBlock.classList.add("hidden");
+                    settingsBtn.classList.remove("active");
+                    settingsBtn.classList.add("hover:scale-105");
+
+                    statisticsBlock.classList.remove("hidden");
+                    statisticsBtn.classList.add("active");
+                    statisticsBtn.classList.remove("hover:scale-105");
+                    break;
+
+                default :
+                    break;
+            }
+        }
+    </script>
 {% endblock %}
