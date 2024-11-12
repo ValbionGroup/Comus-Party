@@ -12,9 +12,8 @@ class ArticleDAO {
      */
     private ?PDO $pdo;
 
+
     /**
-     * Constructeur de la classe PlayerDAO
-     *
      * @param PDO|null $pdo
      */
     public function __construct(?PDO $pdo)
@@ -43,6 +42,11 @@ class ArticleDAO {
     }
 
 
+    /**
+     * But : Retourne l'élément ciblé par l'id
+     * @param string $id
+     * @return Article|null
+     */
     public function findById(string $id): ?Article {
         $stmt = $this->pdo->prepare(
             'SELECT *
@@ -59,44 +63,8 @@ class ArticleDAO {
     }
 
     /**
-     * Retourne un objet Player (ou null) à partir de l'UUID passé en paramètre avec les détails de l'utilisateur associé
-     *
-     * @param string $uuid
-     * @return Player|null
-     * @throws DateMalformedStringException
-     */
-//    public function findWithDetailByUuid(string $uuid): ?Player {
-//        $stmt = $this->pdo->prepare(
-//            'SELECT p.*, u.username, u.email, u.created_at, u.updated_at
-//            FROM '. DB_PREFIX .'player p
-//            JOIN '. DB_PREFIX .'user u ON p.user_id = u.id
-//            WHERE p.uuid = :uuid');
-//        $stmt->bindParam(':uuid', $uuid);
-//        $stmt->execute();
-//        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-//        $tabPlayer = $stmt->fetch();
-//        if ($tabPlayer === false) {
-//            return null;
-//        }
-//        $player = $this->hydrate($tabPlayer);
-//        return $player;
-//    }
-
-    /**
-     * Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre avec les détails de l'utilisateur associé
-     *
-     * @param int $userId
-     * @return Player|null
-     */
-
-
-    /**
-     * Retourne un tableau d'objets Player recensant l'ensemble des joueurs enregistrés dans la base de données
-     *
-     * ⚠️ : Cette méthode retourne un tableau contenant autant d'objet qu'il y a de joueurs dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
-     *
-     * @return array
-     * @throws DateMalformedStringException
+     * But : Retourne tous les éléments de la table article
+     * @return array|null
      */
     public function findAll() : ?array {
         $stmt = $this->pdo->query(
@@ -111,6 +79,10 @@ class ArticleDAO {
         return $articles;
     }
 
+    /**
+     * But : Retourne les avatars
+     * @return array|null
+     */
     public function findAllPfps() : ?array{
         $stmt = $this->pdo->query("SELECT * FROM ". DB_PREFIX ."article WHERE type = 'profil_picture'");
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -123,6 +95,10 @@ class ArticleDAO {
 
     }
 
+    /**
+     * But : Retourne toutes les bannières
+     * @return array|null
+     */
     public function findAllBanners() : ?array{
         $stmt = $this->pdo->query("SELECT * FROM ". DB_PREFIX ."article WHERE type = 'banner'");
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -136,12 +112,10 @@ class ArticleDAO {
     }
 
 
-
     /**
-     * Retourne un objet Player valorisé avec les valeurs du tableau associatif passé en paramètre
-     *
+     * But : Transforme un tableau en objet
      * @param array $data
-     * @return Player
+     * @return Article
      * @throws DateMalformedStringException
      */
     public function hydrate(array $data) : Article {
@@ -167,9 +141,9 @@ class ArticleDAO {
         return $article;
     }
 
+
     /**
-     * Retourne un tableau d'objets Player valorisés avec les valeurs du tableau de tableaux associatifs passé en paramètre
-     *
+     * But : Transforme un tableau en tableau d'objets
      * @param array $data
      * @return array
      * @throws DateMalformedStringException
