@@ -1,5 +1,5 @@
 <?php
-// Type enum pour avatar et banniere
+
 
 /**
  *
@@ -10,7 +10,6 @@ enum Type{
 }
 
 
-// Objet représentant un Article
 
 /**
  *
