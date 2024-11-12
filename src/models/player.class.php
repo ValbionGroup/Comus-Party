@@ -54,6 +54,13 @@ class Player {
     private ?int $comusCoins;
 
     /**
+     * Statistiques du joueur
+     *
+     * @var Statistics|null
+     */
+    private ?Statistics $statistics;
+
+    /**
      * Identifiant utilisateur (clé étrangère provenant de la table user)
      *
      * @var int|null
@@ -69,6 +76,7 @@ class Player {
      * @param int|null $xp
      * @param int|null $elo
      * @param int|null $comusCoins
+     * @param Statistics|null $statistics
      * @param int|null $userId
      */
     public function __construct(
@@ -78,6 +86,7 @@ class Player {
         ?int $xp = null,
         ?int $elo = null,
         ?int $comusCoins = null,
+        ?Statistics $statistics = null,
         ?int $userId = null
     ) {
         $this->uuid = $uuid;
@@ -86,6 +95,7 @@ class Player {
         $this->xp = $xp;
         $this->elo = $elo;
         $this->comusCoins = $comusCoins;
+        $this->statistics = $statistics;
         $this->userId = $userId;
     }
 
@@ -233,6 +243,26 @@ class Player {
     public function setComusCoins(?int $comusCoins): void
     {
         $this->comusCoins = $comusCoins;
+    }
+
+    /**
+     * Retourne les statistiques du joueur
+     *
+     * @return Statistics|null
+     */
+    public function getStatistics(): ?Statistics
+    {
+        return $this->statistics;
+    }
+
+    /**
+     * Modifie les statistiques du joueur
+     *
+     * @param Statistics|null $statistics
+     */
+    public function setStatistics(?Statistics $statistics): void
+    {
+        $this->statistics = $statistics;
     }
 
     /**
