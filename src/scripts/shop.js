@@ -6,8 +6,7 @@ function showModale(article){
     let flex = "flex "
 
     modaleWindow.className = flex + '' + modaleWindow.className
-    console.log(modaleWindow.children)
-    console.log(modaleWindow.children[0])
+
     let pathImg = article.pathImg
     let matchPfp = pathImg.match(/\/pfp\//)
     let matchBanner = pathImg.match(/\/banner\//)
