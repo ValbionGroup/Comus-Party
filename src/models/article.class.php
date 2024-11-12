@@ -26,8 +26,10 @@ class Article {
     private ?int $id;
 
     /**
-     * @var DateTime|null
      * La date de création de l'article
+     *
+     * @var DateTime|null
+     *
      */
     private ?DateTime $createdAt;
 
@@ -81,7 +83,7 @@ class Article {
     private ?string $pathImg;
 
     /**
-     * But : Le constructeur de Article
+     * Le constructeur de Article
      * @param int|null $id
      * @param DateTime|null $createdAt
      * @param DateTime|null $updatedAt
@@ -107,7 +109,7 @@ class Article {
 
 
     /**
-     * But : Permet d'obtenir l'id de l'article
+     * Permet d'obtenir l'id de l'article
      *
      * @return int
      */
@@ -117,7 +119,7 @@ class Article {
     }
 
     /**
-     * But : Permet de set l'id de l'Article
+     * Permet de set l'id de l'Article
      *
      * @param int|null $id
      * @return void
@@ -128,7 +130,7 @@ class Article {
     }
 
     /**
-     * But : Permet d'obtenir le nom de l'article
+     * Permet d'obtenir le nom de l'article
      *
      * @return string
      */
@@ -138,7 +140,7 @@ class Article {
     }
 
     /**
-     * But : Permet de set le nom de l'article
+     * Permet de set le nom de l'article
      *
      * @param string|null $name
      * @return void
@@ -149,7 +151,7 @@ class Article {
     }
 
     /**
-     * But : Permet d'obtenir le type de l'article
+     * Permet d'obtenir le type de l'article
      *
      * @return Type
      */
@@ -159,7 +161,7 @@ class Article {
     }
 
     /**
-     * But : Permet de set le type de l'article
+     * Permet de set le type de l'article
      *
      * @param Type|null $type
      * @return void
@@ -170,7 +172,7 @@ class Article {
     }
 
     /**
-     * But : Permet d'obtenir la description de l'article
+     * Permet d'obtenir la description de l'article
      *
      * @return string|null
      */
@@ -180,7 +182,7 @@ class Article {
     }
 
     /**
-     * But : Permet de set la description
+     * Permet de set la description
      *
      * @param string|null $description
      * @return void
@@ -191,7 +193,7 @@ class Article {
     }
 
     /**
-     * But : Permet d'obtenir la date de création de l'article
+     * Permet d'obtenir la date de création de l'article
      *
      * @return DateTime
      */
@@ -201,7 +203,7 @@ class Article {
     }
 
     /**
-     * But : Permet de set la date de création
+     * Permet de set la date de création
      *
      * @param DateTime|null $createdAt
      * @return void
@@ -212,7 +214,7 @@ class Article {
     }
 
     /**
-     * But : Permet d'obtenir la date de maj de l'article
+     * Permet d'obtenir la date de maj de l'article
      *
      * @return DateTime|null
      */
@@ -222,7 +224,7 @@ class Article {
     }
 
     /**
-     * But : Permet de set la date de maj de l'article
+     * Permet de set la date de maj de l'article
      *
      * @param DateTime|null $updatedAt
      * @return void
@@ -233,7 +235,7 @@ class Article {
     }
 
     /**
-     * But : Permet d'obtenir le prix en Comus de l'article
+     * Permet d'obtenir le prix en Comus de l'article
      *
      * @return int|null
      */
@@ -243,7 +245,7 @@ class Article {
     }
 
     /**
-     * But : Permet de set en point l'article
+     * Permet de set en point l'article
      *
      * @param int|null $pricePoint
      * @return void
@@ -254,7 +256,7 @@ class Article {
     }
 
     /**
-     * But : Permet d'obtenir le prix en euro de l'article
+     * Permet d'obtenir le prix en euro de l'article
      *
      * @return int|null
      */
@@ -264,7 +266,7 @@ class Article {
     }
 
     /**
-     * But : Permet de set le prix en euro de l'article
+     * Permet de set le prix en euro de l'article
      *
      * @param int|null $priceEuro
      * @return void
@@ -275,7 +277,7 @@ class Article {
     }
 
     /**
-     * But : Permet d'obtenir le chemin de l'image
+     * Permet d'obtenir le chemin de l'image
      *
      * @return string|null
      */
@@ -285,7 +287,7 @@ class Article {
     }
 
     /**
-     * But : Permet de set le chemin de l'img
+     * Permet de set le chemin de l'img
      *
      * @param string|null $pathImg
      * @return void
