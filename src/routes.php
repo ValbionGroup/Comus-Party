@@ -33,7 +33,7 @@ $router->post('/login', function () use ($loader, $twig) {
         ]);
         exit;
     }
-    throw new \Relay\Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
+    throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
 });
 
 $router->get('/logout', function () use ($loader, $twig) {
