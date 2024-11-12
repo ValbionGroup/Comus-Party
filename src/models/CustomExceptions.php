@@ -6,7 +6,7 @@ use Exception;
 use Throwable;
 
 class RouteNotFoundException extends Exception {
-    public function __construct($message, $code = 0, Throwable $previous = null) {
+    public function __construct($message, $code = 404, Throwable $previous = null) {
         parent::__construct($message, $code, $previous);
     }
 
@@ -17,11 +17,21 @@ class RouteNotFoundException extends Exception {
 }
 
 class ControllerNotFoundException extends Exception {
-        public function __construct($message, $code = 0, Throwable $previous = null) {
+        public function __construct($message, $code = 500, Throwable $previous = null) {
             parent::__construct($message, $code, $previous);
         }
 
         public function __toString() {
             return __CLASS__ . ": [$this->code]: $this->message\n";
         }
+}
+
+class UnauthorizedAccessException extends Exception {
+    public function __construct($message, $code = 403, Throwable $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
+
+    public function __toString() {
+        return __CLASS__ . ": [$this->code]: $this->message\n";
+    }
 }

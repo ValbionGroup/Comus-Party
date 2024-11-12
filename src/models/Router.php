@@ -94,7 +94,7 @@ class Router
             }
         }
 
-        throw new RouteNotFoundException('Route '.$url.' ('.$method.')'.' not found', 404);
+        throw new RouteNotFoundException('Route '.$url.' ('.$method.')'.' not found');
     }
 
     public static function getInstance(): Router
