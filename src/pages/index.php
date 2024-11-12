@@ -1,5 +1,9 @@
 <?php
-require_once  '../../include.php';
+
+global $loader, $twig;
+require_once  __DIR__.'/../../include.php';
+
+
 try {
     $controller = $_GET["controller"] ?? '';
     $method = $_GET["method"] ?? '';
@@ -16,12 +20,10 @@ try {
     if($method == ''){
         throw new Exception("La méthode n'est pas définie");
     }
+
+    $controller = ControllerFactory::getController($controller, $loader, $twig);
+    $controller->call($method);
+
 }catch (Exception $e){
-    die ($e->getMessage());
+    displayError($e);
 }
-
-
-
-$template = $twig->load('accueil.twig');
-
-echo $template->render();
