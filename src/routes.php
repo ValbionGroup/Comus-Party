@@ -4,8 +4,8 @@ use models\Router;
 
 $router = Router::getInstance();
 
-$router->get('/', function () {
-    require __DIR__.'/../src/pages/index.php';
+$router->get('/', function () use ($loader, $twig) {
+    ControllerFactory::getController("game",$loader,$twig)->call("show");
     exit;
 });
 
