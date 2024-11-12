@@ -16,14 +16,14 @@ use Twig\Loader\FilesystemLoader;
  */
 class ControllerFactory {
     /**
-     * @brief  La méthode getController permet de récupérer un contrôleur
-     * @param $controller
-     * @param FilesystemLoader $loader
-     * @param Environment $twig
-     * @return mixed
-     * @throws Exception
+     * @brief                           La méthode getController permet de récupérer un contrôleur
+     * @param string $controller Le nom du contrôleur
+     * @param FilesystemLoader $loader Le loader de Twig
+     * @param Environment $twig L'environnement de Twig
+     * @return mixed                    Objet retourné par la méthode, ici un contrôleur
+     * @throws Exception                Exception levée dans le cas de l'inexistance du contrôleur fourni
      */
-    public static function getController($controller, FilesystemLoader $loader, Environment $twig)
+    public static function getController(string $controller, FilesystemLoader $loader, Environment $twig)
     {
         $controllerName = "Controller" . ucfirst($controller);
         if (!class_exists($controllerName)) {
