@@ -1,17 +1,26 @@
 <?php
 
+/**
+ *
+ */
 class ControllerShop extends Controller {
+    /**
+     * @param \Twig\Loader\FilesystemLoader $loader
+     * @param \Twig\Environment $twig
+     */
     public function __construct(\Twig\Loader\FilesystemLoader $loader, \Twig\Environment $twig) {
         parent::__construct($loader, $twig);
     }
 
-    public function afficher() {
-//
-//          $template = $twig->load('shop.twig');
-//          echo $template->render();
-//        $player_uuid = $_GET['uuid'];
-//        $playerManager = new PlayerDAO($this->getPdo());
-//        $player = $playerManager->findByUuid($player_uuid);
+
+    /**
+     * @return void
+     * @throws DateMalformedStringException
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function show() {
 
         $managerArticle = new ArticleDAO($this->getPdo());
 
@@ -31,7 +40,14 @@ class ControllerShop extends Controller {
         ));
     }
 
-    public function lister(){
+    /**
+     * @return void
+     * @throws DateMalformedStringException
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function showAll(){
         $managerArticle = new ArticleDAO($this->getPdo());
 
         $articles = $managerArticle->findAll();
