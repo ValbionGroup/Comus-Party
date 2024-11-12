@@ -1,51 +1,56 @@
 <?php
+/**
+ * @file    controller.class.php
+ * @author  Estéban DESESSARD
+ * @brief   Le fichier contient la déclaration & définition de la classe Controller.
+ * @date    12/11/2024
+ * @version 0.0
+ */
+
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 /**
- * La classe Controller est la classe mère de tous les contrôleurs
+ * @brief   La classe Controller est la classe mère de tous les contrôleurs
  */
 class Controller {
     /**
-     * La connexion à la base de données
-     *
+     * @brief   La connexion à la base de données
      * @var PDO
      */
     private PDO $pdo;
 
     /**
-     * Le loader de Twig
-     *
-     * @var \Twig\Loader\FilesystemLoader
+     * @brief Le loader de Twig
+     * @var FilesystemLoader
      */
-    private \Twig\Loader\FilesystemLoader $loader;
+    private FilesystemLoader $loader;
 
     /**
-     * L'environnement de Twig
-     *
-     * @var \Twig\Environment
+     * @brief L'environnement de Twig
+     * @var Environment
      */
 
-    private \Twig\Environment $twig;
+    private Environment $twig;
     /**
-     * Les données GET
-     *
+     * @brief Les données passées en paramètre via la méthode GET
      * @var array|null
      */
     private ?array $get = null;
 
     /**
-     * Les données POST
-     *
+     * @brief Les données passées en paramètre via la méthode POST
      * @var array|null
      */
     private ?array $post = null;
 
     /**
-     * Constructeur de la classe Controller
-     *
-     * @param \Twig\Loader\FilesystemLoader $loader
-     * @param \Twig\Environment $twig
+     * @brief Le constructeur de la classe Controller
+     * @param FilesystemLoader $loader
+     * @param Environment $twig
      */
-    public function __construct(\Twig\Loader\FilesystemLoader $loader, \Twig\Environment $twig) {
+    public function __construct(FilesystemLoader $loader, Environment $twig)
+    {
         $this->pdo = Db::getInstance()->getConnection();
         $this->loader = $loader;
         $this->twig = $twig;
@@ -60,8 +65,7 @@ class Controller {
     }
 
     /**
-     * Appelle une méthode du contrôleur fournie en paramètre
-     *
+     * @brief Appelle la méthode du Controller passée en paramètre
      * @param string $method
      * @return mixed
      */
@@ -73,8 +77,7 @@ class Controller {
     }
 
     /**
-     * Retourne la connexion à la base de données
-     *
+     * @brief Retourne l'attribut PDO, correspondant à la connexion à la base de données
      * @return PDO
      */
     public function getPdo(): PDO
@@ -83,8 +86,7 @@ class Controller {
     }
 
     /**
-     * Modifie la connexion à la base de données
-     *
+     * @brief Modifie l'attribut PDO, correspondant à la connexion à la base de données
      * @param PDO $pdo
      * @return void
      */
@@ -94,50 +96,45 @@ class Controller {
     }
 
     /**
-     * Retourne le loader de Twig
-     *
-     * @return \Twig\Loader\FilesystemLoader
+     * @brief Retourne l'attribut loader, correspondant au loader de Twig
+     * @return FilesystemLoader
      */
-    public function getLoader(): \Twig\Loader\FilesystemLoader
+    public function getLoader(): FilesystemLoader
     {
         return $this->loader;
     }
 
     /**
-     * Modifie le loader de Twig
-     *
-     * @param \Twig\Loader\FilesystemLoader $loader
+     * @brief Modifie l'attribut loader, correspondant au loader de Twig
+     * @param FilesystemLoader $loader
      * @return void
      */
-    public function setLoader(\Twig\Loader\FilesystemLoader $loader): void
+    public function setLoader(FilesystemLoader $loader): void
     {
         $this->loader = $loader;
     }
 
     /**
-     * Retourne l'environnement de Twig
-     *
-     * @return \Twig\Environment
+     * @brief Retourne l'attribut twig, correspondant à l'environnement de Twig
+     * @return Environment
      */
-    public function getTwig(): \Twig\Environment
+    public function getTwig(): Environment
     {
         return $this->twig;
     }
 
     /**
-     * Modifie l'environnement de Twig
-     *
-     * @param \Twig\Environment $twig
+     * @brief Modifie l'attribut twig, correspondant à l'environnement de Twig
+     * @param Environment $twig
      * @return void
      */
-    public function setTwig(\Twig\Environment $twig): void
+    public function setTwig(Environment $twig): void
     {
         $this->twig = $twig;
     }
 
     /**
-     * Retourne les données GET
-     *
+     * @brief Retourne l'attribut GET, correspondant aux données passées en paramètre via la méthode GET
      * @return array|null
      */
     public function getGet(): ?array
@@ -146,8 +143,7 @@ class Controller {
     }
 
     /**
-     * Modifie les données GET
-     *
+     * @brief Modifie l'attribut GET, correspondant aux données passées en paramètre via la méthode GET
      * @param array|null $get
      * @return void
      */
@@ -157,8 +153,7 @@ class Controller {
     }
 
     /**
-     * Retourne les données POST
-     *
+     * @brief Retourne l'attribut POST, correspondant aux données passées en paramètre via la méthode POST
      * @return array|null
      */
     public function getPost(): ?array
@@ -167,8 +162,7 @@ class Controller {
     }
 
     /**
-     * Modifie les données POST
-     *
+     * @brief Modifie l'attribut POST, correspondant aux données passées en paramètre via la méthode POST
      * @param array|null $post
      * @return void
      */
