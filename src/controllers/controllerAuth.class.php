@@ -36,12 +36,12 @@ class ControllerAuth extends Controller {
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function authenticate($email, $password) : ?string {
+    public function authenticate($email, $password): void
+    {
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
         if (is_null($user->getEmailVerifiedAt())) {
-            echo "Merci de vérifier votre adresse e-mail";
-            return;
+            throw new Exception("Merci de vérifier votre adresse e-mail");
         }
         if ($user && ($password === password_verify($password, $user->getPassword()))) {
             session_start();
@@ -49,7 +49,7 @@ class ControllerAuth extends Controller {
             header('Location: /');
         }
         else {
-            echo "Adresse e-mail ou mot de passe invalide";
+            throw new Exception("Adresse e-mail ou mot de passe invalide");
         }
     }
 
