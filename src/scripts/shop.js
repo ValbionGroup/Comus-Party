@@ -2,7 +2,7 @@ let pfps = document.querySelectorAll(".pfp");
 let modaleWindow = document.getElementById("modale")
 let closeModalBtn = document.getElementById("closeModalBtn")
 function showModale(article){
-    // modaleWindow.classList.add("flex")
+
     let flex = "flex "
 
     modaleWindow.className = flex + '' + modaleWindow.className
@@ -14,7 +14,7 @@ function showModale(article){
         modaleWindow.children[0].classList.remove("w-full")
         modaleWindow.children[0].className = "w-32 " + modaleWindow.children[0].className
     }else if(matchBanner){
-        console.log(modaleWindow)
+
 
         modaleWindow.children[0].classList.remove("w-32")
         modaleWindow.children[0].className = "w-full " + modaleWindow.children[0].className
