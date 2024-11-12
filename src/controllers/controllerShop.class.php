@@ -22,6 +22,8 @@ class ControllerShop extends Controller {
         $template = $this->getTwig()->load('shop.twig');
 
 
+
+
         echo $template->render(array(
             'articles' => $articles,
             'pfps' => $pfps,

@@ -6,14 +6,28 @@ function showModale(article){
     let flex = "flex "
 
     modaleWindow.className = flex + '' + modaleWindow.className
+    console.log(modaleWindow.children)
+    console.log(modaleWindow.children[0])
+    let pathImg = article.pathImg
+    let matchPfp = pathImg.match(/\/pfp\//)
+    let matchBanner = pathImg.match(/\/banner\//)
+    if(matchPfp){
+        modaleWindow.children[0].classList.remove("w-full")
+        modaleWindow.children[0].className = "w-32 " + modaleWindow.children[0].className
+    }else if(matchBanner){
+        console.log(modaleWindow)
+
+        modaleWindow.children[0].classList.remove("w-32")
+        modaleWindow.children[0].className = "w-full " + modaleWindow.children[0].className
+    }
 
     modaleWindow.classList.remove("hidden")
-    console.log(modaleWindow.children[3])
+
     modaleWindow.children[0].src = article.pathImg
     modaleWindow.children[1].innerText = article.name
     modaleWindow.children[2].innerText = article.description
-    console.log(modaleWindow.children[3].children)
-    modaleWindow.children[3].children[0].innerText = article.pricePoint + " Comus | "
+
+    modaleWindow.children[3].children[0].innerText = article.pricePoint + " Comus - "
     modaleWindow.children[3].children[1].innerText = article.priceEuro + " €"
 
 
