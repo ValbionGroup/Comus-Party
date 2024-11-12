@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Controlleur de la boutique
  *
  */
 class ControllerShop extends Controller {
@@ -14,6 +15,8 @@ class ControllerShop extends Controller {
 
 
     /**
+     * Permet d'afficher tous les articles (avatars / bannières)
+     *
      * @return void
      * @throws DateMalformedStringException
      * @throws \Twig\Error\LoaderError
@@ -41,6 +44,8 @@ class ControllerShop extends Controller {
     }
 
     /**
+     * Permet d'afficher tous les articles
+     *
      * @return void
      * @throws DateMalformedStringException
      * @throws \Twig\Error\LoaderError

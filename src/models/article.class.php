@@ -18,8 +18,10 @@ class Article {
 
 
     /**
-     * @var int|null
      * L'id de l'article
+     *
+     * @var int|null
+     *
      */
     private ?int $id;
 
@@ -30,40 +32,51 @@ class Article {
     private ?DateTime $createdAt;
 
     /**
-     * @var DateTime|null
      * La date d'update de l'article
+     *
+     * @var DateTime|null
+     *
      */
     private ?DateTime $updatedAt;
     /**
-     * @var string|null
      * Le nom de l'article
+     *
+     * @var string|null
+     *
      */
     private ?string $name;
 
     /**
-     * @var Type|null
      * Le type de l'article
+     *
+     * @var Type|null
+     *
      */
     private ?Type $type;
 
     /**
      * La description de l'article
+     *
      * @var string|null
      */
     private ?string $description;
     /**
      * Le prix de l'article
+     *
      * @var int|null
      */
     private ?int $pricePoint;
     /**
      * Le prix en euro de l'article
+     *
      * @var int|null
      */
     private ?int $priceEuro;
     /**
-     * @var string|null
      * Le chemin d'accès de l'image
+     *
+     * @var string|null
+     *
      */
     private ?string $pathImg;
 
@@ -95,6 +108,7 @@ class Article {
 
     /**
      * But : Permet d'obtenir l'id de l'article
+     *
      * @return int
      */
     public function getId(): int
@@ -104,6 +118,7 @@ class Article {
 
     /**
      * But : Permet de set l'id de l'Article
+     *
      * @param int|null $id
      * @return void
      */
@@ -114,6 +129,7 @@ class Article {
 
     /**
      * But : Permet d'obtenir le nom de l'article
+     *
      * @return string
      */
     public function getName(): string
@@ -123,6 +139,7 @@ class Article {
 
     /**
      * But : Permet de set le nom de l'article
+     *
      * @param string|null $name
      * @return void
      */
@@ -133,6 +150,7 @@ class Article {
 
     /**
      * But : Permet d'obtenir le type de l'article
+     *
      * @return Type
      */
     public function getType(): Type
@@ -142,6 +160,7 @@ class Article {
 
     /**
      * But : Permet de set le type de l'article
+     *
      * @param Type|null $type
      * @return void
      */
@@ -152,6 +171,7 @@ class Article {
 
     /**
      * But : Permet d'obtenir la description de l'article
+     *
      * @return string|null
      */
     public function getDescription(): ?string
@@ -161,6 +181,7 @@ class Article {
 
     /**
      * But : Permet de set la description
+     *
      * @param string|null $description
      * @return void
      */
@@ -171,6 +192,7 @@ class Article {
 
     /**
      * But : Permet d'obtenir la date de création de l'article
+     *
      * @return DateTime
      */
     public function getCreatedAt(): DateTime
@@ -180,6 +202,7 @@ class Article {
 
     /**
      * But : Permet de set la date de création
+     *
      * @param DateTime|null $createdAt
      * @return void
      */
@@ -190,6 +213,7 @@ class Article {
 
     /**
      * But : Permet d'obtenir la date de maj de l'article
+     *
      * @return DateTime|null
      */
     public function getUpdatedAt(): ?DateTime
@@ -199,6 +223,7 @@ class Article {
 
     /**
      * But : Permet de set la date de maj de l'article
+     *
      * @param DateTime|null $updatedAt
      * @return void
      */
@@ -209,6 +234,7 @@ class Article {
 
     /**
      * But : Permet d'obtenir le prix en Comus de l'article
+     *
      * @return int|null
      */
     public function getPricePoint(): ?int
@@ -218,6 +244,7 @@ class Article {
 
     /**
      * But : Permet de set en point l'article
+     *
      * @param int|null $pricePoint
      * @return void
      */
@@ -228,6 +255,7 @@ class Article {
 
     /**
      * But : Permet d'obtenir le prix en euro de l'article
+     *
      * @return int|null
      */
     public function getPriceEuro(): ?int
@@ -237,6 +265,7 @@ class Article {
 
     /**
      * But : Permet de set le prix en euro de l'article
+     *
      * @param int|null $priceEuro
      * @return void
      */
@@ -247,6 +276,7 @@ class Article {
 
     /**
      * But : Permet d'obtenir le chemin de l'image
+     *
      * @return string|null
      */
     public function getPathImg(): ?string
@@ -256,6 +286,7 @@ class Article {
 
     /**
      * But : Permet de set le chemin de l'img
+     *
      * @param string|null $pathImg
      * @return void
      */

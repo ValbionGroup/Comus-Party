@@ -1,5 +1,5 @@
 let pfps = document.querySelectorAll(".pfp");
-let modaleWindow = document.getElementById("modale")
+let modalWindow = document.getElementById("modale")
 let closeModalBtn = document.getElementById("closeModalBtn")
 
 /*
@@ -10,29 +10,29 @@ function showModale(article){
 
     let flex = "flex "
 
-    modaleWindow.className = flex + '' + modaleWindow.className
+    modalWindow.className = flex + '' + modalWindow.className
 
     let pathImg = article.pathImg
     let matchPfp = pathImg.match(/\/pfp\//)
     let matchBanner = pathImg.match(/\/banner\//)
     if(matchPfp){
-        modaleWindow.children[0].classList.remove("w-full")
-        modaleWindow.children[0].className = "w-32 " + modaleWindow.children[0].className
+        modalWindow.children[0].classList.remove("w-full")
+        modalWindow.children[0].className = "w-32 " + modalWindow.children[0].className
     }else if(matchBanner){
 
 
-        modaleWindow.children[0].classList.remove("w-32")
-        modaleWindow.children[0].className = "w-full " + modaleWindow.children[0].className
+        modalWindow.children[0].classList.remove("w-32")
+        modalWindow.children[0].className = "w-full " + modalWindow.children[0].className
     }
 
-    modaleWindow.classList.remove("hidden")
+    modalWindow.classList.remove("hidden")
 
-    modaleWindow.children[0].src = article.pathImg
-    modaleWindow.children[1].innerText = article.name
-    modaleWindow.children[2].innerText = article.description
+    modalWindow.children[0].src = article.pathImg
+    modalWindow.children[1].innerText = article.name
+    modalWindow.children[2].innerText = article.description
 
-    modaleWindow.children[3].children[0].innerText = article.pricePoint + " Comus - "
-    modaleWindow.children[3].children[1].innerText = article.priceEuro + " €"
+    modalWindow.children[3].children[0].innerText = article.pricePoint + " Comus - "
+    modalWindow.children[3].children[1].innerText = article.priceEuro + " €"
 
 
 
@@ -42,7 +42,7 @@ function showModale(article){
 
 // Permet de fermer la fenêtre modale
 closeModalBtn.addEventListener("click", ()=>{
-    modaleWindow.classList.add("hidden")
-    modaleWindow.classList.remove("flex")
+    modalWindow.classList.add("hidden")
+    modalWindow.classList.remove("flex")
 
 })
