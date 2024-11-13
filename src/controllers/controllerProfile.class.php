@@ -43,7 +43,6 @@ class ControllerProfile extends Controller {
         $user = $userManager->findById($player->getUserId());
         $template = $this->getTwig()->load('profil.twig');
         echo $template->render(array(
-            "player" => $player,
             "user" => $user
         ));
     }
