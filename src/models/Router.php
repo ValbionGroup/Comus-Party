@@ -1,18 +1,38 @@
 <?php
 
+/**
+ * @brief Fichier de la classe Router
+ *
+ * @file Router.php
+ * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
+ * @version 1.0
+ * @date 2024-11-12
+ */
+
 namespace models;
 
+/**
+ * @brief Classe Router permettant de gérer les routes
+ * @details La classe Router permet de gérer les routes de l'application.
+ *  Elle stocke les routes, permet de les ajouter et enfin de les appeler et de vérifier si elles existent.
+ */
 class Router
 {
+    /**
+     * @var array Tableau des routes
+     */
     protected array $routes = [];
+
+    /**
+     * @var Router|null Instance du Router
+     */
     private static ?Router $instance = null;
 
     /**
-     * Permet d'ajouter une route au tableau de routes du Router
-     *
-     * @param string $method
-     * @param string $url
-     * @param callable $target
+     * @brief Permet d'ajouter une route au tableau de routes du Router
+     * @param string $method Méthode HTTP (GET, POST, PUT, DELETE)
+     * @param string $url URL demandée
+     * @param callable $target Action à effectuer
      * @return void
      */
     private function addRoute(string $method, string $url, callable $target): void
@@ -21,8 +41,7 @@ class Router
     }
 
     /**
-     * Ajout d'une route GET
-     *
+     * @brief Ajout d'une route GET
      * @param string $url URL demandée
      * @param callable $target Action à effectuer
      * @return void
@@ -33,8 +52,7 @@ class Router
     }
 
     /**
-     * Ajout d'une route POST
-     *
+     * @brief Ajout d'une route POST
      * @param string $url URL demandée
      * @param callable $target Action à effectuer
      * @return void
@@ -45,8 +63,7 @@ class Router
     }
 
     /**
-     * Ajout d'une route PUT
-     *
+     * @brief Ajout d'une route PUT
      * @param string $url URL demandée
      * @param callable $target Action à effectuer
      * @return void
@@ -57,8 +74,7 @@ class Router
     }
 
     /**
-     * Ajout d'une route DELETE
-     *
+     * @brief Ajout d'une route DELETE
      * @param string $url URL demandée
      * @param callable $target Action à effectuer
      * @return void
@@ -70,11 +86,12 @@ class Router
 
 
     /**
-     * Permet de vérifier si la route demandée existe.
-     * Si oui, on effectue ce qui a été défini pour cette route.
-     * Sinon, on jette une RouteNotFoundException
+     * @brief Permet d'accéder à la route demandée
+     * @detail Permet de vérifier si la route demandée existe.
+     *  Si oui, on effectue ce qui a été défini pour cette route.
+     *  Sinon, on lève une RouteNotFoundException
      *
-     * @throws RouteNotFoundException
+     * @throws RouteNotFoundException Dans le cas où la route demandée n'existe pas
      * @return void
      */
     public function matchRoute(): void
@@ -97,6 +114,10 @@ class Router
         throw new RouteNotFoundException('Route '.$url.' ('.$method.')'.' not found');
     }
 
+    /**
+     * @brief Permet de récupérer l'instance du Router
+     * @return Router
+     */
     public static function getInstance(): Router
     {
         if (is_null(self::$instance)) {
@@ -105,9 +126,21 @@ class Router
         return self::$instance;
     }
 
+    /**
+     * @brief Constructeur de la classe Router
+     * @details Constructeur privé pour empêcher l'instanciation de la classe
+     */
     private function __construct() {}
 
-    private function __clone() {}
+    /**
+     * @brief Empêche le clonage de l'instance
+     * @return void
+     */
+    private function __clone(): void {}
 
-    public function __wakeup() {}
+    /**
+     * @brief Empêche la désérialisation de l'instance
+     * @return void
+     */
+    public function __wakeup(): void {}
 }
