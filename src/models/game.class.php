@@ -1,11 +1,11 @@
 <?php
 /**
  * @file game.class.php
- * @brief Fichier de la classe Game
+ * @brief Le fichier contient la déclaration et la définition de la classe Game
  * @author Conchez-Boueytou Robin
  * @date 12/11/2024
+ * @version 0.1
  */
-
 
 /**
  * @brief Enumération des états d'un jeu (AVAILABLE, UNVAILABLE, MAINTENANCE)
@@ -19,7 +19,8 @@ enum State {
 }
 
 /**
- * @brief Classe représentant un jeu
+ * @brief Classe Game
+ * @details La classe Game permet de représenter un jeu avec ses attributs et ses méthodes
  */
 class Game
 {
