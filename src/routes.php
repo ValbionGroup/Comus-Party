@@ -104,6 +104,11 @@ $router->post('/register', function () {
     exit;
 });
 
+$router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
+    exit;
+});
+
 $router->put('/profile', function () {
     echo "Mise à jour du profil<br/>";
     echo "A IMPLEMENTER";
