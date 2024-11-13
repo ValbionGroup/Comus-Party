@@ -19,14 +19,14 @@ header("Content-Type: application/json");
 function checkUsernameRequirements($pUsername): bool {
     // Constantes
     define("MIN_USERNAME_LENGTH",3);
-    define("FORBIDDEN_CHARACTERS", "!@#$%^&*()_+\\-=[\\]{};\':\"\\\\|,.<>/?");
+    define("FORBIDDEN_CHARACTERS", '@#$%^&*()+=[]{}|;:",\'<>?/\\ ');
 
     // Variables
     $validity=true;
 
     // Vérifications
     if(strlen($pUsername) < MIN_USERNAME_LENGTH) { $validity=false; }
-    elseif(preg_match("/[" . FORBIDDEN_CHARACTERS . "]/", $pUsername)) {
+    elseif(strpbrk(FORBIDDEN_CHARACTERS, $pUsername)) {
         $validity=false;
     } else { $validity=true; }
 
@@ -64,7 +64,7 @@ function checkPasswordRequirements($pPassword): bool {
     define("UPPERCASE_LETTER", "/[A-Z]/");
     define("LOWERCASE_LETTER", "/[a-z]/");
     define("NUMBERS", "/\d/");
-    define("SPECIAL_CHARACTERS", "/[!@#$%^&*()_+\\-=[\\]{};':\"\\\\|,.<>/?]/");
+    define("SPECIAL_CHARACTERS", "/[\W]/");
 
     // Variables
     $validity=true;
@@ -80,31 +80,66 @@ function checkPasswordRequirements($pPassword): bool {
     return $validity;
 }
 
+
 /**
- * Checks if a user with the given username and email already exists.
+ * Checks if the given username already exists in the database.
  *
- * The function verifies if the username and email are already used by another user.
+ * The function checks if a player with the given username exists in the database.
  *
- * @param string $pUsername The username to be checked.
- * @param string $pEmail The email to be checked.
- * @return bool Returns true if the username and email are already used, false otherwise.
+ * @param string $pUsername The username to be validated.
+ * @return bool Returns true if the username already exists, false otherwise.
  */
-function verifyDataAlreadyExist($pUsername, $pEmail): bool {
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+function checkUsernameExist($pUsername): bool {
+    $conn = new mysqli(DB_HOST_LOCAL, DB_USER_LOCAL, DB_PASS_LOCAL, DB_NAME, 3307);
     if ($conn->connect_error) { die("Connexion echouée: " . $conn->connect_error); }
 
-    $sqlRequest = "SELECT u.id
-                    FROM " . DB_PREFIX . "user u
-                    JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
-                    WHERE u.email = $pEmail AND p.username = $pUsername;";
+    $stmt = $conn->prepare("SELECT u.id
+                                FROM " . DB_PREFIX . "user u
+                                JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
+                                WHERE u.username = ?");
+    $stmt->bind_param("s", $pUsername);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    $conn->close();
 
-    $result = $conn->query($sqlRequest);
+    return $result->num_rows > 0;
+}
+
+/**
+ * Checks if the given email already exists in the database.
+ *
+ * The function checks if a player with the given email exists in the database.
+ *
+ * @param string $pEmail The email to be validated.
+ * @return bool Returns true if the email already exists, false otherwise.
+ */
+function checkEmailExist($pEmail): bool {
+    $conn = new mysqli(DB_HOST_LOCAL, DB_USER_LOCAL, DB_PASS_LOCAL, DB_NAME, 3307);
+    if ($conn->connect_error) { die("Connexion echouée: " . $conn->connect_error); }
+
+    $stmt = $conn->prepare("SELECT u.id
+                            FROM " . DB_PREFIX . "user u
+                            JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
+                            WHERE u.email = ?");
+    $stmt->bind_param("s", $pEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    $conn->close();
 
     return $result->num_rows > 0;
 }
 
 // Reception des données
 $data = json_decode(file_get_contents("php://input"), true);
+
+// Vérifications
+$correctDataFormat = false;
+$usernameDontAlreadyExist = false;
+$emailDontAlreadyExist = false;
+$dataGiven = false;
+$resultMessage="";
 
 // Vérifie si les données sont fournies
 if (isset($data['username']) &&
@@ -114,9 +149,7 @@ if (isset($data['username']) &&
     $email = $data['email'];
     $password = $data['password'];
 
-    // Vérifications
-    $correctDataFormat = false;
-    $dataDontAlreadyExist = false;
+    $dataGiven = true;
 
     // Vérifie si les données respectent les exigences
     if(checkUsernameRequirements($username) &&
@@ -126,19 +159,33 @@ if (isset($data['username']) &&
     }
 
     // Vérifie si les données existent dans la base de données
-    if (!verifyDataAlreadyExist($username, $email))
-    { $dataDontAlreadyExist = true; }
+    if(!checkUsernameExist($username))
+    { $usernameDontAlreadyExist = true; }
+    if(!checkEmailExist($email))
+    { $emailDontAlreadyExist = true;}
 
-    if ($dataDontAlreadyExist && $correctDataFormat) {
-        // Succès
-        echo json_encode(["success" => true, "message" => "Inscription reussie."]);
-    } else {
-        // Echec
-        echo json_encode(["success" => false, "message" => "Inscription echouee."]);
-    }
+    if(!$usernameDontAlreadyExist)
+    { $resultMessage = "Le nom d'utilisateur existe déjà."; }
+    if(!$emailDontAlreadyExist)
+    { $resultMessage = "L'email existe déjà."; }
+    if(!$correctDataFormat)
+    { $resultMessage = "Format de données incorrecte."; }
+
+    if(!$correctDataFormat ||
+        !$emailDontAlreadyExist ||
+        !$usernameDontAlreadyExist)
+        {
+            echo json_encode(["success" => false,"message" => $resultMessage]);
+        }
+
+    echo json_encode(["success" => false,"message" => $resultMessage]);
+
 } else {
     // Pas de username, email ou mot de passe fournis
-    echo json_encode(["success" => false, "message" => "Donnees manquantes."]);
+    $resultMessage = "Données manquantes.";
+    echo json_encode(["success" => false,"message" => $resultMessage]);
 }
+
+
 
 

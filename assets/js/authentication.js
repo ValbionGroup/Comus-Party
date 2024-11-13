@@ -198,13 +198,10 @@ function sendAuthData() {
             password: PASSWORD
         })
     })
-    .then(response => response.json()) // Récupère les données de la requête en JSON
+    .then(response => response.json())
     .then(data => {
         if (data.success) { console.log("Inscription reussie:", data.message);
         } else { console.log("Inscription echouee:", data.message); }
     })
+.catch(error => console.error("Error parsing JSON:", error));
 }
-
-
-
-
