@@ -1,6 +1,7 @@
 <?php
 
 require_once  '../../include.php';
+use Ramsey\Uuid\Uuid;
 
 // Autorisation de toutes les origines et utilisation de JSON
 header("Access-Control-Allow-Origin: *");
@@ -96,7 +97,7 @@ function checkUsernameExist($pUsername): bool {
     $stmt = $conn->prepare("SELECT u.id
                                 FROM " . DB_PREFIX . "user u
                                 JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
-                                WHERE u.username = ?");
+                                WHERE p.username = ?");
     $stmt->bind_param("s", $pUsername);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -139,7 +140,7 @@ $correctDataFormat = false;
 $usernameDontAlreadyExist = false;
 $emailDontAlreadyExist = false;
 $dataGiven = false;
-$resultMessage="";
+$resultMessage="Succès";
 
 // Vérifie si les données sont fournies
 if (isset($data['username']) &&
@@ -169,21 +170,51 @@ if (isset($data['username']) &&
     if(!$emailDontAlreadyExist)
     { $resultMessage = "L'email existe déjà."; }
     if(!$correctDataFormat)
-    { $resultMessage = "Format de données incorrecte."; }
+    { $resultMessage = "Format de données incorrect."; }
 
     if(!$correctDataFormat ||
         !$emailDontAlreadyExist ||
         !$usernameDontAlreadyExist)
         {
             echo json_encode(["success" => false,"message" => $resultMessage]);
+            exit();
         }
 
-    echo json_encode(["success" => false,"message" => $resultMessage]);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $conn = new mysqli(DB_HOST_LOCAL, DB_USER_LOCAL, DB_PASS_LOCAL, DB_NAME, 3307);
+        if ($conn->connect_error) { die("Connexion echouée: " . $conn->connect_error); }
+        
+        $stmtUser = $conn->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verify_token, disabled) VALUES (?, ?, null, null, 0)");
+        $stmtUser->bind_param("ss", $email, $hashedPassword);
+        $stmtUser->execute();
+
+        $stmtUserId = $conn->prepare("SELECT id FROM " . DB_PREFIX . "user WHERE email = ?");
+        $stmtUserId->bind_param("s", $email);
+        $stmtUserId->execute();
+        $result = $stmtUserId->get_result();
+        $row = $result->fetch_assoc();
+
+        $uuid = Uuid::uuid4()->toString();
+
+        $stmtPlayer = $conn->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (?, ?, ?)");
+        $stmtPlayer->bind_param("sss", $uuid, $username, $row['id']);
+        $stmtPlayer->execute();
+        
+        $stmtUser->close();
+        $stmtUserId->close();
+        $stmtPlayer->close();
+        $conn->close();
+    
+        $resultMessage = "Inscription validée.";
+        echo json_encode(["success" => true,"message" => $resultMessage]);
+        exit();
 
 } else {
     // Pas de username, email ou mot de passe fournis
     $resultMessage = "Données manquantes.";
     echo json_encode(["success" => false,"message" => $resultMessage]);
+    exit();
 }
 
 

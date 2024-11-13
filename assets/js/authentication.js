@@ -200,8 +200,7 @@ function sendAuthData() {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) { console.log("Inscription reussie:", data.message);
-        } else { console.log("Inscription echouee:", data.message); }
-    })
-.catch(error => console.error("Error parsing JSON:", error));
+        if(data.success) { alert(data.message); }
+        else { alert(data.message); }
+    });
 }
