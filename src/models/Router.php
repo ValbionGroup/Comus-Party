@@ -87,7 +87,7 @@ class Router
 
     /**
      * @brief Permet d'accéder à la route demandée
-     * @detail Permet de vérifier si la route demandée existe.
+     * @details Permet de vérifier si la route demandée existe.
      *  Si oui, on effectue ce qui a été défini pour cette route.
      *  Sinon, on lève une RouteNotFoundException
      *
