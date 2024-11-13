@@ -19,7 +19,7 @@ use Twig\Error\SyntaxError;
 class ControllerGame extends Controller
 {
     /**
-     * Constructeur de la classe ControllerGame
+     * @brief Constructeur de la classe ControllerGame
      * @param FilesystemLoader $loader
      * @param Environment $twig
      */
@@ -29,7 +29,7 @@ class ControllerGame extends Controller
     }
 
     /**
-     * @Affiche la page d'accueil avec la liste des jeux
+     * @brief Affiche la page d'accueil avec la liste des jeux
      * @return void
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
