@@ -14,6 +14,7 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 .active {
     border-bottom: 2px solid #FF006E;
     scale: 120%;
+    font-weight: 600;
 }
 
 /* Fonts */

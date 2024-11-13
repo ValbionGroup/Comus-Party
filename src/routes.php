@@ -19,14 +19,6 @@ $router->get('/', function () use ($loader, $twig) {
     exit;
 });
 
-// Route pour afficher le profil
-$router->get('/profile/:method/:uuid', function (string $method, string $uuid) use ($loader, $twig) {
-    ControllerFactory::getController("profile", $loader, $twig)->call($method, [
-        "playerUuid" => $uuid
-    ]);
-    exit;
-});
-
 // Route pour afficher le formulaire de connexion
 $router->get('/login', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
@@ -101,6 +93,11 @@ $router->get('/register', function () {
 $router->post('/register', function () {
     echo "Traitement de l'inscription<br/>";
     echo "A IMPLEMENTER";
+    exit;
+});
+
+$router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
     exit;
 });
 

@@ -72,14 +72,14 @@ class Player {
 
     /**
      * @brief Le constructeur de la classe Player
-     * @param string $uuid
-     * @param DateTime $createdAt
-     * @param DateTime|null $updatedAt
-     * @param int|null $xp
-     * @param int|null $elo
-     * @param int|null $comusCoins
-     * @param Statistics|null $statistics
-     * @param int|null $userId
+     * @param string $uuid L'UUID du joueur
+     * @param DateTime $createdAt La date de création du joueur
+     * @param DateTime|null $updatedAt La date de mise à jour du joueur
+     * @param int|null $xp Les points d'expérience du joueur
+     * @param int|null $elo L'Elo du joueur
+     * @param int|null $comusCoins Le nombre de Comus Coins possédés par le joueur
+     * @param Statistics|null $statistics Les statistiques du joueur
+     * @param int|null $userId L'identifiant utilisateur lié au profil de joueur
      */
     public function __construct(
         ?string $uuid = null,
@@ -149,8 +149,7 @@ class Player {
     }
 
     /**
-     * Modifie la date de création du joueur
-     *
+     * @brief Modifie la date de création du joueur
      * @param DateTime $createdAt La nouvelle date de création du joueur
      * @return void
      */
