@@ -3,6 +3,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
+
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
@@ -19,6 +20,7 @@ require_once __DIR__ . '/src/controllers/controller.class.php';
 require_once __DIR__ . '/src/controllers/controllerProfile.class.php';
 require_once __DIR__ . '/src/controllers/controllerGame.class.php';
 require_once __DIR__ . '/src/controllers/controllerShop.class.php';
+require_once __DIR__ . '/src/controllers/controllerAuth.class.php';
 
 require_once __DIR__ . '/src/models/db.class.php';
 require_once __DIR__ . '/src/models/player.class.php';
