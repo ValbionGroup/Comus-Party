@@ -19,6 +19,7 @@ $router->get('/', function () use ($loader, $twig) {
     exit;
 });
 
+// Route pour afficher le profil
 $router->get('/profile/:method/:uuid', function (string $method, string $uuid) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call($method, [
         "playerUuid" => $uuid
@@ -91,18 +92,6 @@ $router->post('/shop/basket/checkout', function () {
     exit;
 });
 
-$router->get('/login', function () {
-    echo "Page de connexion<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
-$router->post('/login', function () {
-    echo "Traitement de la connexion<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
 $router->get('/register', function () {
     echo "Page d'inscription<br/>";
     echo "A IMPLEMENTER";
@@ -111,18 +100,6 @@ $router->get('/register', function () {
 
 $router->post('/register', function () {
     echo "Traitement de l'inscription<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
-$router->get('/logout', function () {
-    echo "Déconnexion<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
-$router->get('/profile', function () {
-    echo "Page de profil<br/>";
     echo "A IMPLEMENTER";
     exit;
 });
