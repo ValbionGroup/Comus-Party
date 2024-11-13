@@ -1,20 +1,30 @@
 <?php
+/**
+ * @file    article.dao.php
+ * @author  Mathis RIVRAIS--NOWAKOWSKI
+ * @brief   Le fichier contient la déclaration & définition de la classe ArticleDAO.
+ * @date    13/11/2024
+ * @version 0.1
+ */
+
+
 
 
 /**
- * La classe ArticleDAO permet de faire des opérations sur la table article
+ * @brief Classe ArticleDAO
+ * @details La classe ArticleDAO permet de faire des opérations sur la table article dans la base de données
  */
 class ArticleDAO {
     /**
-     * Classe PDO pour la connexion à la base de données
-     *
+     * @brief La connexion à la base de données
      * @var PDO|null
      */
     private ?PDO $pdo;
 
 
     /**
-     * @param PDO|null $pdo
+     * @brief Le constructeur de la classe ArticleDAO
+     * @param PDO|null $pdo La connexion à la base de données
      */
     public function __construct(?PDO $pdo)
     {
@@ -22,9 +32,8 @@ class ArticleDAO {
     }
 
     /**
-     * Retourne la connexion à la base de données
-     *
-     * @return PDO|null
+     * @brief Retourne la connexion à la base de données
+     * @return PDO|null Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données
      */
     public function getPdo(): ?PDO
     {
@@ -32,9 +41,8 @@ class ArticleDAO {
     }
 
     /**
-     * Modifie la connexion à la base de données
-     *
-     * @param PDO|null $pdo
+     * @brief Modifie la connexion à la base de données
+     * @param PDO|null $pdo La nouvelle connexion à la base de données
      */
     public function setPdo(?PDO $pdo): void
     {
@@ -43,10 +51,9 @@ class ArticleDAO {
 
 
     /**
-     * Retourne l'élément ciblé par l'id
-     *
-     * @param string $id
-     * @return Article|null
+     * @brief Retourne un objet Article (ou null) à partir de l'ID passé en paramètre
+     * @param string $id L'ID de l'article recherché
+     * @return Article|null Objet retourné par la méthode, ici un article (ou null si non-trouvé)
      */
     public function findById(string $id): ?Article {
         $stmt = $this->pdo->prepare(
@@ -64,10 +71,11 @@ class ArticleDAO {
     }
 
     /**
-     * Retourne tous les éléments de la table article
-     *
-     * @return array|null
+     * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles enregistrés dans la base de données
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
+     * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
      */
+
     public function findAll() : ?array {
         $stmt = $this->pdo->query(
             'SELECT *
@@ -82,10 +90,11 @@ class ArticleDAO {
     }
 
     /**
-     * Retourne les avatars
-     *
-     * @return array|null
+     * @brief Retourne un tableau d'objets Article qui ont le type profile_picture dans la base de données
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type profile_picture (ou null si aucune joueur recensé)
+     * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type profile_picture dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
      */
+
     public function findAllPfps() : ?array{
         $stmt = $this->pdo->query("SELECT *
         FROM ". DB_PREFIX ."article
@@ -101,9 +110,9 @@ class ArticleDAO {
     }
 
     /**
-     * Retourne toutes les bannières
-     *
-     * @return array|null
+     * @brief Retourne un tableau d'objets Article qui ont le type banner dans la base de données
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type banner (ou null si aucune joueur recensé)
+     * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type banner dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
      */
     public function findAllBanners() : ?array{
         $stmt = $this->pdo->query("SELECT *
@@ -121,11 +130,9 @@ class ArticleDAO {
 
 
     /**
-     *  Transforme un tableau en objet
-     *
-     * @param array $data
-     * @return Article
-     * @throws DateMalformedStringException
+     * @brief Hydrate un objet Article avec les valeurs du tableau associatif passé en paramètre
+     * @param array $data Le tableau associatif content les paramètres
+     * @return Article L'objet retourné par la méthode, ici un article
      */
     public function hydrate(array $data) : Article {
         $article = new Article();
@@ -150,13 +157,11 @@ class ArticleDAO {
         return $article;
     }
 
-
     /**
-     * Transforme un tableau en tableau d'objets
-     *
-     * @param array $data
-     * @return array
-     * @throws DateMalformedStringException
+     * @brief Hydrate un tableau d'objets Article avec les valeurs des tableaux associatifs du tableau passé en paramètre
+     * @details Cette méthode appelle, pour chaque tableau associatif contenu dans celui passé en paramètre, la méthode hydrate() définie ci-dessus.
+     * @param array $data Le tableau de tableaux associatifs
+     * @return array L'objet retourné par la méthode, ici un tableau (d'objets Article)
      */
     public function hydrateMany(array $data) : array {
         $articles = [];
