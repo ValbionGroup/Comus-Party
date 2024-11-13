@@ -13,10 +13,14 @@ class ControllerBasket extends Controller
     {
         parent::__construct($loader, $twig);
     }
-
+    /**
+     * @brief Affiche le panier avec la liste des articles (si article dans panier)
+     * @return void
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     */
     public function show(){
-//        $gameManager = new GameDAO($this->getPdo());
-//        $games = $gameManager->findAll();
         $template = $this->getTwig()->load('basket.twig');
         echo $template->render();
     }
