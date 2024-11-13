@@ -141,9 +141,9 @@ class ArticleDAO {
         $article->setName($data['name']);
 
         if($data['type'] == 'profile_picture'){
-            $type = Type::ProfilePicture;
+            $type = "ProfilePicture";
         }elseif ($data['type'] == 'banner'){
-            $type = Type::Banner;
+            $type = "Banner";
         }
 
         $article->setType($type);

@@ -58,10 +58,10 @@ class Article {
     /**
      * @brief Le type de l'article
      *
-     * @var Type|null
+     * @var string|null
      *
      */
-    private ?Type $type;
+    private ?string $type;
 
     /**
      * @brief La description de l'article
@@ -160,9 +160,9 @@ class Article {
     /**
      * @brief Retourne le type de l'article
      *
-     * @return Type Le type de l'article qui est rétourné
+     * @return string Le type de l'article qui est rétourné
      */
-    public function getType(): Type
+    public function getType(): string
     {
         return $this->type;
     }
@@ -173,7 +173,7 @@ class Article {
      * @param Type|null $type Le nouveau type de l'article
      * @return void
      */
-    public function setType(?Type $type): void
+    public function setType(?string $type): void
     {
         $this->type = $type;
     }

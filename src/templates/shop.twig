@@ -18,9 +18,9 @@
 
             <div class="flex flex-wrap">
                 {% for pfp in pfps %}
+                    <div class="w-20 h-20 m-1 pfp cursor-pointer" onclick="showModale({ name : '{{ pfp.name }}', type: '{{ pfp.type }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', pathImg : '../../{{ pfp.pathImg }}{{ pfp.name }}.png'})">
+                        <img src="/assets/img/pfp/filleanime.png" alt="Pas d'image" class="rounded-3xl">
 
-                    <div class="w-20 h-20 m-1 pfp cursor-pointer" onclick="showModale({ name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', pathImg : '../../{{ pfp.pathImg }}{{ pfp.name }}.png'})">
-                        <img src="../../{{ pfp.pathImg }}{{ pfp.name }}.png" alt="Pas d'image" class="rounded-3xl">
                     </div>
 
                 {% endfor %}
@@ -46,9 +46,9 @@
 
     </div>
 
-    <div id="modale" class=" justify-center items-center text-center flex-col bg-lavender-blush w-1/2 p-6  rounded-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden ">
+    <div id="modale" class=" justify-center items-center text-center flex-col bg-lavender-blush-3 w-1/2 p-6  rounded-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden ">
 
-        <img src="" alt="" class="w-full rounded-3xl text-center">
+        <img src="/assets/img/" alt="" class="w-full rounded-3xl text-center">
         <h2 class="text-center">Nom</h2>
         <p class="text-center">Description</p>
 
@@ -64,7 +64,7 @@
 
     </div>
 
-    <script src="../scripts/shop.js"></script>
+    <script src="/assets/js/shop.js"></script>
 
 
 {% endblock %}

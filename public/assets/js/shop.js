@@ -6,19 +6,20 @@ let closeModalBtn = document.getElementById("closeModalBtn")
 showModale
 But : Affiche la fenêtre modale
  */
+
 function showModale(article){
 
     let flex = "flex "
 
     modalWindow.className = flex + '' + modalWindow.className
 
-    let pathImg = article.pathImg
-    let matchPfp = pathImg.match(/\/pfp\//)
-    let matchBanner = pathImg.match(/\/banner\//)
-    if(matchPfp){
+
+    if(article.type == "ProfilePicture"){
+
         modalWindow.children[0].classList.remove("w-full")
         modalWindow.children[0].className = "w-32 " + modalWindow.children[0].className
-    }else if(matchBanner){
+        modalWindow.children[0].src = modalWindow.children[0].src + "pfp/" + article.name +".png"
+    }else if(article.type == "Banner"){
 
 
         modalWindow.children[0].classList.remove("w-32")
@@ -26,8 +27,8 @@ function showModale(article){
     }
 
     modalWindow.classList.remove("hidden")
+    console.log(article)
 
-    modalWindow.children[0].src = article.pathImg
     modalWindow.children[1].innerText = article.name
     modalWindow.children[2].innerText = article.description
 
