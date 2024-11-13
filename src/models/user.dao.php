@@ -1,11 +1,25 @@
 <?php
+/**
+ * @file    user.dao.php
+ * @author  Estéban DESESSARD
+ * @brief   Le fichier contient la déclaration & définition de la classe UserDAO.
+ * @date    13/11/2024
+ * @version 0.1
+ */
 
+/**
+ * @brief Classe UserDAO
+ * @details La classe UserDAO permet de gérer les utilisateurs en base de données
+ */
 class UserDAO {
+    /**
+     * @brief La connexion à la base de données
+     * @var PDO|null
+     */
     private ?PDO $pdo;
 
     /**
-     * Constructeur de la classe UserDAO
-     *
+     * @brief Le constructeur de la classe UserDAO
      * @param PDO|null $pdo
      */
     public function __construct(?PDO $pdo)
@@ -14,9 +28,8 @@ class UserDAO {
     }
 
     /**
-     * Retourne la connexion à la base de données
-     *
-     * @return PDO|null
+     * @brief Retourne la connexion à la base de données
+     * @return PDO|null Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données
      */
     public function getPdo(): ?PDO
     {
@@ -24,15 +37,19 @@ class UserDAO {
     }
 
     /**
-     * Modifie la connexion à la base de données
-     *
-     * @param PDO|null $pdo
+     * @brief Modifie la connexion à la base de données
+     * @param PDO|null $pdo La nouvelle connexion à la base de données
      */
     public function setPdo(?PDO $pdo): void
     {
         $this->pdo = $pdo;
     }
 
+    /**
+     * @brief Retourne un objet User (ou null) à partir de l'ID passé en paramètre
+     * @param int $id L'ID de l'utilisateur recherché
+     * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
+     */
     public function findById(int $id): ?User {
         $stmt = $this->pdo->prepare(
             'SELECT *
@@ -49,6 +66,12 @@ class UserDAO {
         return $user;
     }
 
+    /**
+     * @brief Hydrate un objet User à partir des données passées en paramètre
+     * @param array $data Le tableau associatif contenant les données de l'utilisateur
+     * @return User Objet retourné par la méthode, ici un utilisateur
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
     public function hydrate(array $data): User {
         $user = new User();
         $user->setId($data['id']);

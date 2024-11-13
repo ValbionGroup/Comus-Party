@@ -1,6 +1,12 @@
 <?php
+/**
+ * @file    controllerPlayer.class.php
+ * @author  Estéban DESESSARD
+ * @brief   Le fichier contient la déclaration & définition de la classe ControllerPlayer.
+ * @date    12/11/2024
+ * @version 0.1
+ */
 
-use models\NotFoundException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -8,38 +14,40 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * Contrôleur de la page profile, utilisé pour afficher le profil d'un joueur sous différents angles
+ * @brief Classe ControllerPlayer
+ * @details La classe ControllerPlayer permet de gérer les actions liées à un joueur
+ * @extends Controller
  */
-class ControllerProfile extends Controller {
-
+class ControllerPlayer extends Controller {
     /**
-     * @brief Constructeur de la classe ControllerProfile
+     * @brief Constructeur de la classe ControllerPlayer
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      */
-    public function __construct(FilesystemLoader $loader, Environment $twig) {
+    public function __construct(FilesystemLoader $loader, Environment $twig)
+    {
         parent::__construct($loader, $twig);
     }
 
     /**
-     * @brief Affiche le profil du joueur le demandant
-     * @return void
+     * @brief La méthode afficher permet d'afficher le profil d'un joueur
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws NotFoundException|SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function showByPlayer(): void
-    {
+    public function afficher() {
         if (!isset($_GET['uuid'])) {
-            throw new NotFoundException('Player not found');
+            header('Location: ../pages/404.php');
+            exit();
         }
         $player_uuid = $_GET['uuid'];
         $playerManager = new PlayerDAO($this->getPdo());
         $userManager = new UserDAO($this->getPdo());
         $player = $playerManager->findWithDetailByUuid($player_uuid);
         if ($player === null) {
-            throw new NotFoundException('Player not found');
+            header('Location: ../pages/404.php');
+            exit();
         }
         $user = $userManager->findById($player->getUserId());
         $template = $this->getTwig()->load('profil.twig');
