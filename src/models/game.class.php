@@ -8,13 +8,28 @@
  */
 
 /**
- * @brief Enumération des états d'un jeu (AVAILABLE, UNVAILABLE, MAINTENANCE)
+ * @brief Enumération des états d'un jeu
  *
+ * Cette énumération définit les trois états possibles d'un jeu:
+ * -Disponible (AVAILABLE)
+ * -Indisponible (UNVAILABLE)
+ * -En maintenance (MAINTENANCE)
+ *
+ * @enum State
  * @var State
  */
 enum State {
+    /**
+     * L'état AVAILABLE indique que le jeu est disponible pour les utilisateurs.
+     */
     case AVAILABLE;
+    /**
+     * L'état UNVAILABLE indique que le jeu est actuellement indisponible.
+     */
     case UNVAILABLE;
+    /**
+     * L'état MAINTENANCE indique que le jeu est en cours de maintenance.
+     */
     case MAINTENANCE;
 }
 
@@ -75,13 +90,13 @@ class Game
 
     /**
      * @brief Constructeur de la classe Game
-     * @param int|null $id identifiant du jeu
-     * @param string|null $name nom du jeu
-     * @param string|null $description description du jeu
-     * @param string|null $pathImg chemin d'accès à l'image du jeu
-     * @param State|null $state état du jeu
-     * @param DateTime|null $createdAt date de création du jeu
-     * @param DateTime|null $updatedAt date de mise à jour du jeu
+     * @param int|null $id Identifiant du jeu
+     * @param string|null $name Nom du jeu
+     * @param string|null $description Description du jeu
+     * @param string|null $pathImg Chemin d'accès à l'image du jeu
+     * @param State|null $state État du jeu
+     * @param DateTime|null $createdAt Date de création du jeu
+     * @param DateTime|null $updatedAt Date de mise à jour du jeu
      */
     public function __construct(
         ?int $id = null,
@@ -104,7 +119,7 @@ class Game
     /**
      * @brief Retourne l'identifiant du jeu
      *
-     * @return int|null
+     * @return int|null L'identifiant du jeu
      */
     public function getId(): ?int
     {
@@ -114,7 +129,7 @@ class Game
     /**
      * @brief Modifie l'identifiant du jeu
      *
-     * @param int|null $id
+     * @param int|null $id L'identifiant du jeu
      * @return void
      */
     public function setId(?int $id): void
@@ -125,7 +140,7 @@ class Game
     /**
      * @brief Retourne le nom du jeu
      *
-     * @return string|null
+     * @return string|null Le nom du jeu
      */
     public function getName(): ?string
     {
@@ -135,7 +150,7 @@ class Game
     /**
      * @brief Modifie le nom du jeu
      *
-     * @param string|null $name
+     * @param string|null $name Le nom du jeu
      * @return void
      */
     public function setName(?string $name): void
@@ -146,7 +161,7 @@ class Game
     /**
      * @brief Retourne la description du jeu
      *
-     * @return string|null
+     * @return string|null La description du jeu
      */
     public function getDescription(): ?string
     {
@@ -156,7 +171,7 @@ class Game
     /**
      * @brief Modifie la description du jeu
      *
-     * @param string|null $description
+     * @param string|null $description La description du jeu
      * @return void
      */
     public function setDescription(?string $description): void
@@ -167,7 +182,7 @@ class Game
     /**
      * @brief Retourne le chemin d'accès à l'image du jeu
      *
-     * @return string|null
+     * @return string|null Le chemin d'accès à l'image du jeu
      */
     public function getPathImg(): ?string
     {
@@ -177,7 +192,7 @@ class Game
     /**
      * @brief Modifie le chemin d'accès à l'image du jeu
      *
-     * @param string|null $pathImg
+     * @param string|null $pathImg Le chemin d'accès à l'image du jeu
      * @return void
      */
     public function setPathImg(?string $pathImg): void
@@ -188,7 +203,7 @@ class Game
     /**
      * @brief Retourne l'état du jeu
      *
-     * @return State|null
+     * @return State|null L'état du jeu
      */
     public function getState(): ?State
     {
@@ -198,7 +213,7 @@ class Game
     /**
      * @brief Modifie l'état du jeu
      *
-     * @param State|null $state
+     * @param State|null $state L'état du jeu
      * @return void
      */
     public function setState(?State $state): void
@@ -209,7 +224,7 @@ class Game
     /**
      * @brief Retourne la date de création du jeu
      *
-     * @return DateTime|null
+     * @return DateTime|null La date de création du jeu
      */
     public function getCreatedAt(): ?DateTime
     {
@@ -219,7 +234,7 @@ class Game
     /**
      * @brieg Modifie la date de création du jeu
      *
-     * @param DateTime|null $createdAt
+     * @param DateTime|null $createdAt La date de création du jeu
      * @return void
      */
     public function setCreatedAt(?DateTime $createdAt): void
@@ -230,7 +245,7 @@ class Game
     /**
      * @brief Retourne la date de mise à jour du jeu
      *
-     * @return DateTime|null
+     * @return DateTime|null La date de mise à jour du jeu
      */
     public function getUpdatedAt(): ?DateTime
     {
@@ -239,7 +254,7 @@ class Game
     /**
      * @brief Modifie la date de mise à jour du jeu
      *
-     * @param DateTime|null $updatedAt
+     * @param DateTime|null $updatedAt La date de mise à jour du jeu
      * @return void
      */
     public function setUpdatedAt(?DateTime $updatedAt): void
