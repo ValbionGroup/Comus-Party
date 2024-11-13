@@ -67,6 +67,28 @@ class UserDAO {
     }
 
     /**
+     * Retourne un utilisateur en fonction de son email
+     *
+     * @param string|null $email Email de l'utilisateur
+     * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function findByEmail(?string $email) : ?User {
+        $stmt = $this->pdo->prepare(
+            'SELECT *
+            FROM '. DB_PREFIX .'user
+            WHERE email = :email');
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $userTab = $stmt->fetch();
+        if ($userTab === false) {
+            return null;
+        }
+        return $this->hydrate($userTab);
+    }
+
+    /**
      * @brief Hydrate un objet User à partir des données passées en paramètre
      * @param array $data Le tableau associatif contenant les données de l'utilisateur
      * @return User Objet retourné par la méthode, ici un utilisateur
