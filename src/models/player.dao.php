@@ -97,12 +97,12 @@ class PlayerDAO {
      */
     public function findWithDetailByUuid(string $uuid): ?Player {
         $stmt = $this->pdo->prepare(
-            'SELECT pr.*, u.email, u.created_at, u.updated_at, COUNT(pd.player_uuid) as games_played, COUNT(w.player_uuid) as games_won, COUNT(gr.host_uuid) as games_hosted
+            'SELECT pr.*, u.email, u.created_at, u.updated_at, COUNT(pd.player_uuid) as games_played, COUNT(w.player_uuid) as games_won, COUNT(gr.hosted_by) as games_hosted
             FROM '. DB_PREFIX .'player pr
             JOIN '. DB_PREFIX .'user u ON pr.user_id = u.id
             LEFT JOIN '. DB_PREFIX .'played pd ON pr.uuid = pd.player_uuid
             LEFT JOIN '. DB_PREFIX .'winned w ON pr.uuid = w.player_uuid
-            LEFT JOIN '. DB_PREFIX .'game_record gr ON pr.uuid = gr.host_uuid
+            LEFT JOIN ' . DB_PREFIX . 'game_record gr ON pr.uuid = gr.hosted_by
             WHERE pr.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
@@ -136,7 +136,6 @@ class PlayerDAO {
         if ($tabPlayer === false) {
             return null;
         }
-        var_dump($tabPlayer);
         $player = $this->hydrate($tabPlayer);
         return $player;
     }
