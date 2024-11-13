@@ -1,26 +1,77 @@
 <?php
+/**
+ * @file    user.class.php
+ * @author  Estéban DESESSARD
+ * @brief   Le fichier contient la déclaration & définition de la classe User.
+ * @date    12/11/2024
+ * @version 0.1
+ */
 
+
+/**
+ * @brief Classe User
+ * @details La classe User permet de représenter un utilisateur
+ */
 class User {
+    /**
+     * @brief L'identifiant de l'utilisateur
+     * @var int|null
+     */
     private ?int $id;
+
+    /**
+     * @brief L'adresse email de l'utilisateur
+     * @var string|null
+     */
     private ?string $email;
+
+    /**
+     * @brief La date de vérification de l'adresse email
+     * @var DateTime|null
+     */
     private ?DateTime $emailVerifiedAt;
+
+    /**
+     * @brief Le token de vérification de l'adresse email
+     * @var string|null
+     */
     private ?string $emailVerifyToken;
+
+    /**
+     * @brief Le mot de passe de l'utilisateur (hashé)
+     * @var string|null
+     */
     private ?string $password;
+
+    /**
+     * @brief L'état de l'utilisateur (désactivé ou non)
+     * @details 0 = activé, 1 = désactivé
+     * @var int|null
+     */
     private ?int $disabled;
+
+    /**
+     * @brief La date de création de l'utilisateur
+     * @var DateTime|null
+     */
     private ?DateTime $createdAt;
+
+    /**
+     * @brief La date de mise à jour de l'utilisateur
+     * @var DateTime|null
+     */
     private ?DateTime $updatedAt;
 
     /**
-     * Constructeur de la classe User
-     *
-     * @param int|null $id
-     * @param string|null $email
-     * @param DateTime|null $emailVerifiedAt
-     * @param string|null $emailVerifyToken
-     * @param string|null $password
-     * @param int|null $disabled
-     * @param DateTime|null $created_at
-     * @param DateTime|null $updated_at
+     * @brief Le constructeur de la classe User
+     * @param int|null $id L'identifiant de l'utilisateur
+     * @param string|null $email L'adresse email de l'utilisateur
+     * @param DateTime|null $emailVerifiedAt La date de vérification de l'adresse email
+     * @param string|null $emailVerifyToken Le token de vérification de l'adresse email
+     * @param string|null $password Le mot de passe de l'utilisateur (hashé)
+     * @param int|null $disabled L'état de l'utilisateur (désactivé ou non)
+     * @param DateTime|null $created_at La date de création de l'utilisateur
+     * @param DateTime|null $updated_at La date de mise à jour de l'utilisateur
      */
     public function __construct(
         ?int $id = null,
@@ -44,9 +95,8 @@ class User {
     }
 
     /**
-     * Retourne l'identifiant de l'utilisateur
-     *
-     * @return int|null
+     * @brief Retourne l'identifiant de l'utilisateur
+     * @return int|null Objet retourné par la fonction, ici un entier représentant l'identifiant de l'utilisateur
      */
     public function getId(): ?int
     {
@@ -54,9 +104,8 @@ class User {
     }
 
     /**
-     * Modifie l'identifiant de l'utilisateur
-     *
-     * @param int|null $id
+     * @brief Modifie l'identifiant de l'utilisateur
+     * @param int|null $id Le nouvel identifiant de l'utilisateur
      */
     public function setId(?int $id): void
     {
@@ -64,9 +113,8 @@ class User {
     }
 
     /**
-     * Retourne l'adresse email de l'utilisateur
-     *
-     * @return string|null
+     * @brief Retourne l'adresse email de l'utilisateur
+     * @return string|null Objet retourné par la fonction, ici une chaîne de caractères représentant l'adresse email de l'utilisateur
      */
     public function getEmail(): ?string
     {
@@ -74,9 +122,8 @@ class User {
     }
 
     /**
-     * Modifie l'adresse email de l'utilisateur
-     *
-     * @param string|null $email
+     * @brief Modifie l'adresse e-mail de l'utilisateur
+     * @param string|null $email La nouvelle adresse e-mail de l'utilisateur
      */
     public function setEmail(?string $email): void
     {
@@ -84,9 +131,8 @@ class User {
     }
 
     /**
-     * Retourne la date de vérification de l'adresse email
-     *
-     * @return DateTime|null
+     * @brief Retourne la date de vérification de l'adresse e-mail
+     * @return DateTime|null Objet retourné par la fonction, ici un objet DateTime représentant la date de vérification de l'adresse e-mail
      */
     public function getEmailVerifiedAt(): ?DateTime
     {
@@ -94,9 +140,8 @@ class User {
     }
 
     /**
-     * Modifie la date de vérification de l'adresse email
-     *
-     * @param DateTime|null $emailVerifiedAt
+     * @brief Modifie la date de vérification de l'adresse e-mail
+     * @param DateTime|null $emailVerifiedAt La nouvelle date de vérification de l'adresse e-mail
      */
     public function setEmailVerifiedAt(?DateTime $emailVerifiedAt): void
     {
@@ -104,9 +149,8 @@ class User {
     }
 
     /**
-     * Retourne le token de vérification de l'adresse email
-     *
-     * @return string|null
+     * @brief Retourne le token de vérification de l'adresse email
+     * @return string|null Objet retourné par la fonction, ici une chaîne de caractères représentant le token de vérification de l'adresse email
      */
     public function getEmailVerifyToken(): ?string
     {
@@ -114,9 +158,8 @@ class User {
     }
 
     /**
-     * Modifie le token de vérification de l'adresse email
-     *
-     * @param string|null $emailVerifyToken
+     * @brief Modifie le token de vérification de l'adresse email
+     * @param string|null $emailVerifyToken Le nouveau token de vérification de l'adresse email
      */
     public function setEmailVerifyToken(?string $emailVerifyToken): void
     {
@@ -124,9 +167,8 @@ class User {
     }
 
     /**
-     * Retourne le mot de passe de l'utilisateur
-     *
-     * @return string|null
+     * @brief Retourne le mot de passe de l'utilisateur
+     * @return string|null Objet retourné par la fonction, ici une chaîne de caractères représentant le mot de passe de l'utilisateur
      */
     public function getPassword(): ?string
     {
@@ -134,9 +176,8 @@ class User {
     }
 
     /**
-     * Modifie le mot de passe de l'utilisateur
-     *
-     * @param string|null $password
+     * @brief Modifie le mot de passe de l'utilisateur
+     * @param string|null $password Le nouveau mot de passe de l'utilisateur
      */
     public function setPassword(?string $password): void
     {
@@ -144,9 +185,8 @@ class User {
     }
 
     /**
-     * Retourne l'état de l'utilisateur (activé ou désactivé)
-     *
-     * @return int|null
+     * @brief Retourne l'état de l'utilisateur (activé ou désactivé)
+     * @return int|null Objet retourné par la fonction, ici un entier représentant l'état de l'utilisateur (activé ou désactivé)
      */
     public function getDisabled(): ?int
     {
@@ -154,9 +194,8 @@ class User {
     }
 
     /**
-     * Modifie l'état de l'utilisateur (activé ou désactivé)
-     *
-     * @param int|null $disabled
+     * @brief Modifie l'état de l'utilisateur (activé ou désactivé)
+     * @param int|null $disabled Le nouvel état de l'utilisateur (activé ou désactivé)
      */
     public function setDisabled(?int $disabled): void
     {
@@ -164,9 +203,8 @@ class User {
     }
 
     /**
-     * Retourne la date de création de l'utilisateur
-     *
-     * @return DateTime|null
+     * @brief Retourne la date de création de l'utilisateur
+     * @return DateTime|null Objet retourné par la fonction, ici un objet DateTime représentant la date de création de l'utilisateur
      */
     public function getCreatedAt(): ?DateTime
     {
@@ -174,9 +212,8 @@ class User {
     }
 
     /**
-     * Modifie la date de création de l'utilisateur
-     *
-     * @param DateTime|null $createdAt
+     * @brief Modifie la date de création de l'utilisateur
+     * @param DateTime|null $createdAt La nouvelle date de création de l'utilisateur
      */
     public function setCreatedAt(?DateTime $createdAt): void
     {
@@ -184,9 +221,8 @@ class User {
     }
 
     /**
-     * Retourne la date de mise à jour de l'utilisateur
-     *
-     * @return DateTime|null
+     * @brief Retourne la date de mise à jour de l'utilisateur
+     * @return DateTime|null Objet retourné par la fonction, ici un objet DateTime représentant la date de mise à jour de l'utilisateur
      */
     public function getUpdatedAt(): ?DateTime
     {
@@ -194,9 +230,8 @@ class User {
     }
 
     /**
-     * Modifie la date de mise à jour de l'utilisateur
-     *
-     * @param DateTime|null $updatedAt
+     * @brief Modifie la date de mise à jour de l'utilisateur
+     * @param DateTime|null $updatedAt La nouvelle date de mise à jour de l'utilisateur
      */
     public function setUpdatedAt(?DateTime $updatedAt): void
     {
