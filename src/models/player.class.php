@@ -236,9 +236,8 @@ class Player {
     }
 
     /**
-     * Retourne les statistiques du joueur
-     *
-     * @return Statistics|null
+     * @brief Retourne les statistiques du joueur
+     * @return Statistics|null Objet retourné par la fonction, ici un objet Statistics représentant les statistiques du joueur
      */
     public function getStatistics(): ?Statistics
     {
@@ -246,9 +245,8 @@ class Player {
     }
 
     /**
-     * Modifie les statistiques du joueur
-     *
-     * @param Statistics|null $statistics
+     * @brief Modifie les statistiques du joueur
+     * @param Statistics|null $statistics Les nouvelles statistiques du joueur
      */
     public function setStatistics(?Statistics $statistics): void
     {

@@ -1,6 +1,6 @@
 <?php
 
-use models\RouteNotFoundException;
+use models\NotFoundException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -13,34 +13,33 @@ use Twig\Loader\FilesystemLoader;
 class ControllerProfile extends Controller {
 
     /**
-     * Constructeur de la classe ControllerProfile
-     * @param FilesystemLoader $loader
-     * @param Environment $twig
+     * @brief Constructeur de la classe ControllerProfile
+     * @param FilesystemLoader $loader Le loader de Twig
+     * @param Environment $twig L'environnement de Twig
      */
     public function __construct(FilesystemLoader $loader, Environment $twig) {
         parent::__construct($loader, $twig);
     }
 
     /**
-     * Affiche la page de profil du joueur connecté
-     *
+     * @brief Affiche le profil du joueur le demandant
      * @return void
-     * @throws DateMalformedStringException
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError|RouteNotFoundException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws NotFoundException|SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showByPlayer(): void
     {
         if (!isset($_GET['uuid'])) {
-            throw new RouteNotFoundException('Player not found');
+            throw new NotFoundException('Player not found');
         }
         $player_uuid = $_GET['uuid'];
         $playerManager = new PlayerDAO($this->getPdo());
         $userManager = new UserDAO($this->getPdo());
         $player = $playerManager->findWithDetailByUuid($player_uuid);
         if ($player === null) {
-            throw new RouteNotFoundException('Player not found');
+            throw new NotFoundException('Player not found');
         }
         $user = $userManager->findById($player->getUserId());
         $template = $this->getTwig()->load('profil.twig');
