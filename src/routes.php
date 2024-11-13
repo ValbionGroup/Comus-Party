@@ -20,9 +20,9 @@ $router->get('/', function () use ($loader, $twig) {
 });
 
 // Route pour afficher le profil
-$router->get('/profile/:method/:uuid', function (string $method, string $uuid) use ($loader, $twig) {
-    ControllerFactory::getController("profile", $loader, $twig)->call($method, [
-        "playerUuid" => $uuid
+$router->get('/profile', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", [
+        "playerUuid" => $_SESSION["player"]->getUuid()
     ]);
     exit;
 });
