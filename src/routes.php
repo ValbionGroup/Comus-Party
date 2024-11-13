@@ -23,9 +23,8 @@ $router->get('/shop', function () {
     exit;
 });
 
-$router->get('/shop/basket', function () {
-    echo "Page du panier<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/shop/basket', function () use ($loader, $twig){
+    ControllerFactory::getController("basket",$loader,$twig)->call("show");
     exit;
 });
 
