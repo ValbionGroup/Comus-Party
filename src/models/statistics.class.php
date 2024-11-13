@@ -1,45 +1,48 @@
 <?php
+/**
+ * @file    statistics.class.php
+ * @author  Estéban DESESSARD
+ * @brief   Le fichier contient la déclaration & définition de la classe Statistics.
+ * @date    13/11/2024
+ * @version 0.1
+ */
 
 /**
- * La classe Statistics recense l'ensemble des statistiques de profil d'un joueur
+ * @brief Classe Statistics
+ * @details La classe Statistics recense l'ensemble des statistiques de profil d'un joueur
  */
 class Statistics {
 
     /**
-     * L'UUID du joueur
-     *
+     * @brief L'UUID du joueur
      * @var string|null
      */
     private ?string $playerUuid;
 
     /**
-     * Le nombre de parties jouées
-     *
+     * @brief Le nombre de parties jouées
      * @var int|null
      */
     private ?int $gamesPlayed;
 
     /**
-     * Le nombre de parties gagnées
-     *
+     * @brief Le nombre de parties gagnées
      * @var int|null
      */
     private ?int $gamesWon;
 
     /**
-     * Le nombre de parties hébergées
-     *
+     * @brief Le nombre de parties hébergées
      * @var int|null
      */
     private ?int $gamesHosted;
 
     /**
-     * Constructeur de la classe Statistics
-     *
-     * @param string|null $playerUuid
-     * @param int|null $gamesPlayed
-     * @param int|null $gamesWon
-     * @param int|null $gamesHosted
+     * @brief Le constructeur de la classe Statistics
+     * @param string|null $playerUuid L'UUID du joueur
+     * @param int|null $gamesPlayed Le nombre de parties jouées
+     * @param int|null $gamesWon Le nombre de parties gagnées
+     * @param int|null $gamesHosted Le nombre de parties hébergées
      */
     public function __construct(
         ?string $playerUuid = null,
@@ -54,8 +57,7 @@ class Statistics {
     }
 
     /**
-     * Retourne l'UUID du joueur
-     *
+     * @brief Retourne l'UUID du joueur
      * @return string|null
      */
     public function getPlayerUuid(): ?string
@@ -64,8 +66,7 @@ class Statistics {
     }
 
     /**
-     * Modifie l'UUID du joueur
-     *
+     * @brief Modifie l'UUID du joueur
      * @param string|null $playerUuid
      */
     public function setPlayerUuid(?string $playerUuid): void
@@ -74,8 +75,7 @@ class Statistics {
     }
 
     /**
-     * Retourne le nombre de parties jouées
-     *
+     * @brief Retourne le nombre de parties jouées
      * @return int|null
      */
     public function getGamesPlayed(): ?int
@@ -84,8 +84,7 @@ class Statistics {
     }
 
     /**
-     * Modifie le nombre de parties jouées
-     *
+     * @brief Modifie le nombre de parties jouées
      * @param int|null $gamesPlayed
      */
     public function setGamesPlayed(?int $gamesPlayed): void
@@ -94,8 +93,7 @@ class Statistics {
     }
 
     /**
-     * Retourne le nombre de parties gagnées
-     *
+     * @brief Retourne le nombre de parties gagnées
      * @return int|null
      */
     public function getGamesWon(): ?int
@@ -104,8 +102,7 @@ class Statistics {
     }
 
     /**
-     * Modifie le nombre de parties gagnées
-     *
+     * @brief Modifie le nombre de parties gagnées
      * @param int|null $gamesWon
      */
     public function setGamesWon(?int $gamesWon): void
@@ -114,8 +111,7 @@ class Statistics {
     }
 
     /**
-     * Retourne le nombre de parties hébergées
-     *
+     * @brief Retourne le nombre de parties hébergées
      * @return int|null
      */
     public function getGamesHosted(): ?int
@@ -124,8 +120,7 @@ class Statistics {
     }
 
     /**
-     * Modifie le nombre de parties hébergées
-     *
+     * @brief Modifie le nombre de parties hébergées
      * @param int|null $gamesHosted
      */
     public function setGamesHosted(?int $gamesHosted): void
