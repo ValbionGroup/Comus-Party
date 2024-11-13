@@ -44,7 +44,7 @@ class ControllerAuth extends Controller {
         if (password_verify($password, $user->getPassword())) {
             $playerManager = new PlayerDAO($this->getPdo());
             $player = $playerManager->findWithDetailByUserId($user->getId());
-            $_SESSION['player'] = $player;
+            $_SESSION['playerConnected'] = $player;
 
             $articleManager = new ArticleDAO($this->getPdo());
             $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
