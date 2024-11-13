@@ -19,6 +19,37 @@ $router->get('/', function () use ($loader, $twig) {
     exit;
 });
 
+// Route pour afficher le profil
+$router->get('/profile/:method/:uuid', function (string $method, string $uuid) use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call($method, [
+        "playerUuid" => $uuid
+    ]);
+    exit;
+});
+
+// Route pour afficher le formulaire de connexion
+$router->get('/login', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
+    exit;
+});
+
+// Route pour traiter la soumission du formulaire de connexion
+$router->post('/login', function () use ($loader, $twig) {
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
+            "email" => $_POST['email'],
+            "password" => $_POST['password']
+        ]);
+        exit;
+    }
+    throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
+});
+
+$router->get('/logout', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("logout");
+    exit;
+});
+
 $router->get('/game/:code', function ($code) {
     echo "Page de jeu en cours : " . $code . "<br/>";
     echo "A IMPLEMENTER";
@@ -61,18 +92,6 @@ $router->post('/shop/basket/checkout', function () {
     exit;
 });
 
-$router->get('/login', function () {
-    echo "Page de connexion<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
-$router->post('/login', function () {
-    echo "Traitement de la connexion<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
 $router->get('/register', function () {
     echo "Page d'inscription<br/>";
     echo "A IMPLEMENTER";
@@ -81,18 +100,6 @@ $router->get('/register', function () {
 
 $router->post('/register', function () {
     echo "Traitement de l'inscription<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
-$router->get('/logout', function () {
-    echo "Déconnexion<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
-$router->get('/profile', function () {
-    echo "Page de profil<br/>";
     echo "A IMPLEMENTER";
     exit;
 });
