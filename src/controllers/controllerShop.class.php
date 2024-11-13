@@ -1,27 +1,42 @@
 <?php
 
 /**
- * Contrôleur  de la boutique
- *
+ * @file    controllerShop.class.php
+ * @author  Mathis RIVRAIS--NOWAKOWSKI
+ * @brief   Le fichier contient la déclaration & définition de la classe ControllerArticle.
+ * @date    13/11/2024
+ * @version 0.1
+ */
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+use Twig\Loader\FilesystemLoader;
+
+/**
+ * @brief Classe ControllerArticle
+ * @details La classe ControllerArticle permet de gérer les actions liées à un article
+ * @extends Controller
  */
 class ControllerShop extends Controller {
     /**
-     * @param \Twig\Loader\FilesystemLoader $loader
-     * @param \Twig\Environment $twig
+     * @brief Constructeur de la classe ControllerArticle
+     * @param FilesystemLoader $loader Le loader de Twig
+     * @param Environment $twig L'environnement de Twig
      */
-    public function __construct(\Twig\Loader\FilesystemLoader $loader, \Twig\Environment $twig) {
+    public function __construct(FilesystemLoader $loader, Environment $twig) {
         parent::__construct($loader, $twig);
     }
 
 
     /**
-     * Permet d'afficher tous les articles (avatars / bannières)
+     * @brief Permet d'afficher tous les articles (avatars / bannières)
      *
      * @return void
-     * @throws DateMalformedStringException
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function show() {
 
@@ -44,13 +59,13 @@ class ControllerShop extends Controller {
     }
 
     /**
-     * Permet d'afficher tous les articles
+     * @brief Permet d'afficher tous les articles
      *
      * @return void
-     * @throws DateMalformedStringException
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showAll(){
         $managerArticle = new ArticleDAO($this->getPdo());

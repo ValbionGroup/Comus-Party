@@ -133,6 +133,7 @@ class ArticleDAO {
      * @brief Hydrate un objet Article avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif content les paramètres
      * @return Article L'objet retourné par la méthode, ici un article
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data) : Article {
         $article = new Article();
@@ -162,6 +163,7 @@ class ArticleDAO {
      * @details Cette méthode appelle, pour chaque tableau associatif contenu dans celui passé en paramètre, la méthode hydrate() définie ci-dessus.
      * @param array $data Le tableau de tableaux associatifs
      * @return array L'objet retourné par la méthode, ici un tableau (d'objets Article)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function hydrateMany(array $data) : array {
         $articles = [];
