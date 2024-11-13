@@ -1,16 +1,27 @@
 <?php
 
 require_once  '../../include.php';
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\Uuid; // Pour la création de l'uuid
 
-// Autorisation de toutes les origines et utilisation de JSON
+/* Autorisation de toutes les origines
+* car nous utilisons des requêtes AJAX
+* pour communiquer avec le serveur,
+* or les navigateurs interdisent
+* les requêtes AJAX vers un serveur
+* qui n'est pas le même que le fichier
+* HTML qui envoie la requête, sauf
+* si le serveur distant autorise
+* les requêtes en provenance de
+* n'importe quelle origine
+*/
 header("Access-Control-Allow-Origin: *");
+// Utilisation de JSON
 header("Content-Type: application/json");
 
 /**
- * Checks if the username meets the specified requirements.
+ * @brief Checks if the username meets the specified requirements.
  *
- * The function verifies if the username:
+ * @details The function verifies if the username:
  * - has a minimum defined length
  * - does not contain forbidden special characters
  *
@@ -35,9 +46,9 @@ function checkUsernameRequirements($pUsername): bool {
 }
 
 /**
- * Checks if the email is valid.
+ * @brief Checks if the email is valid.
  *
- * The function verifies if the email contains an "@" symbol.
+ * @details The function verifies if the email contains an "@" symbol.
  *
  * @param string $pEmail The email to be validated.
  * @return bool Returns true if the email is valid, false otherwise.
@@ -47,9 +58,9 @@ function checkEmailRequirements($pEmail): bool {
 }
 
 /**
- * Checks if the password meets the specified requirements.
+ * @brief Checks if the password meets the specified requirements.
  *
- * The function verifies if the password:
+ * @details The function verifies if the password:
  * - has a minimum defined length
  * - contains at least one uppercase letter
  * - contains at least one lowercase letter
@@ -83,9 +94,9 @@ function checkPasswordRequirements($pPassword): bool {
 
 
 /**
- * Checks if the given username already exists in the database.
+ * @brief Checks if the given username already exists in the database.
  *
- * The function checks if a player with the given username exists in the database.
+ * @details The function checks if a player with the given username exists in the database.
  *
  * @param string $pUsername The username to be validated.
  * @return bool Returns true if the username already exists, false otherwise.
@@ -132,10 +143,10 @@ function checkEmailExist($pEmail): bool {
     return $result->num_rows > 0;
 }
 
-// Reception des données
+// Reception des données du client
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Vérifications
+// Variables de vérifications
 $correctDataFormat = false;
 $usernameDontAlreadyExist = false;
 $emailDontAlreadyExist = false;
@@ -165,6 +176,7 @@ if (isset($data['username']) &&
     if(!checkEmailExist($email))
     { $emailDontAlreadyExist = true;}
 
+    // Modifie le message de retour en fonction des erreurs
     if(!$usernameDontAlreadyExist)
     { $resultMessage = "Le nom d'utilisateur existe déjà."; }
     if(!$emailDontAlreadyExist)
@@ -172,6 +184,7 @@ if (isset($data['username']) &&
     if(!$correctDataFormat)
     { $resultMessage = "Format de données incorrect."; }
 
+    // Si au moins une erreur, renvoie un message d'erreur et arrete le script
     if(!$correctDataFormat ||
         !$emailDontAlreadyExist ||
         !$usernameDontAlreadyExist)
@@ -180,35 +193,44 @@ if (isset($data['username']) &&
             exit();
         }
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    // Hashing du mot de passe
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $conn = new mysqli(DB_HOST_LOCAL, DB_USER_LOCAL, DB_PASS_LOCAL, DB_NAME, 3307);
-        if ($conn->connect_error) { die("Connexion echouée: " . $conn->connect_error); }
-        
-        $stmtUser = $conn->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verify_token, disabled) VALUES (?, ?, null, null, 0)");
-        $stmtUser->bind_param("ss", $email, $hashedPassword);
-        $stmtUser->execute();
-
-        $stmtUserId = $conn->prepare("SELECT id FROM " . DB_PREFIX . "user WHERE email = ?");
-        $stmtUserId->bind_param("s", $email);
-        $stmtUserId->execute();
-        $result = $stmtUserId->get_result();
-        $row = $result->fetch_assoc();
-
-        $uuid = Uuid::uuid4()->toString();
-
-        $stmtPlayer = $conn->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (?, ?, ?)");
-        $stmtPlayer->bind_param("sss", $uuid, $username, $row['id']);
-        $stmtPlayer->execute();
-        
-        $stmtUser->close();
-        $stmtUserId->close();
-        $stmtPlayer->close();
-        $conn->close();
+    // Connexion à la base de données
+    $conn = new mysqli(DB_HOST_LOCAL, DB_USER_LOCAL, DB_PASS_LOCAL, DB_NAME, 3307);
+    if ($conn->connect_error) { die("Connexion echouée: " . $conn->connect_error); }
     
-        $resultMessage = "Inscription validée.";
-        echo json_encode(["success" => true,"message" => $resultMessage]);
-        exit();
+    // Création de l'utilisateur
+    $stmtUser = $conn->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verify_token, disabled) VALUES (?, ?, null, null, 0)");
+    $stmtUser->bind_param("ss", $email, $hashedPassword);
+    $stmtUser->execute();
+
+    // Récupération de l'id de l'utilisateur creé
+    $stmtUserId = $conn->prepare("SELECT id FROM " . DB_PREFIX . "user WHERE email = ?");
+    $stmtUserId->bind_param("s", $email);
+    $stmtUserId->execute();
+    $result = $stmtUserId->get_result();
+    $row = $result->fetch_assoc();
+
+    // Genération de l'uuid du joueur
+    $uuid = Uuid::uuid4()->toString();
+
+    // Création du joueur
+    $stmtPlayer = $conn->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (?, ?, ?)");
+    $stmtPlayer->bind_param("sss", $uuid, $username, $row['id']);
+    $stmtPlayer->execute();
+    
+    // Fermeture des stmt
+    $stmtUser->close();
+    $stmtUserId->close();
+    $stmtPlayer->close();
+    // Fermeture de la connexion
+    $conn->close();
+
+    // Arriver à ce point, toutes les données sont validées
+    $resultMessage = "Inscription validée.";
+    echo json_encode(["success" => true,"message" => $resultMessage]);
+    exit();
 
 } else {
     // Pas de username, email ou mot de passe fournis
