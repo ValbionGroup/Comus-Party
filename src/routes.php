@@ -1,4 +1,12 @@
 <?php
+/**
+ * @brief Fichier de définition des routes
+ *
+ * @file routes.php
+ * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
+ * @version 1.0
+ * @date 2024-11-12
+ */
 
 global $loader, $twig;
 
@@ -8,6 +16,29 @@ $router = Router::getInstance();
 
 $router->get('/', function () use ($loader, $twig) {
     ControllerFactory::getController("game",$loader,$twig)->call("show");
+    exit;
+});
+
+// Route pour afficher le formulaire de connexion
+$router->get('/login', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
+    exit;
+});
+
+// Route pour traiter la soumission du formulaire de connexion
+$router->post('/login', function () use ($loader, $twig) {
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
+            "email" => $_POST['email'],
+            "password" => $_POST['password']
+        ]);
+        exit;
+    }
+    throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
+});
+
+$router->get('/logout', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("logout");
     exit;
 });
 
@@ -53,18 +84,6 @@ $router->post('/shop/basket/checkout', function () {
     exit;
 });
 
-$router->get('/login', function () {
-    echo "Page de connexion<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
-$router->post('/login', function () {
-    echo "Traitement de la connexion<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
 $router->get('/register', function () {
     echo "Page d'inscription<br/>";
     echo "A IMPLEMENTER";
@@ -73,12 +92,6 @@ $router->get('/register', function () {
 
 $router->post('/register', function () {
     echo "Traitement de l'inscription<br/>";
-    echo "A IMPLEMENTER";
-    exit;
-});
-
-$router->get('/logout', function () {
-    echo "Déconnexion<br/>";
     echo "A IMPLEMENTER";
     exit;
 });
