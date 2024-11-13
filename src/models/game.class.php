@@ -3,7 +3,7 @@
  * @file game.class.php
  * @brief Le fichier contient la déclaration et la définition de la classe Game
  * @author Conchez-Boueytou Robin
- * @date 12/11/2024
+ * @date 13/11/2024
  * @version 0.1
  */
 
