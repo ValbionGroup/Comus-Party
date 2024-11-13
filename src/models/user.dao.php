@@ -2,8 +2,8 @@
 /**
  * @file    user.dao.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe Db.
- * @date    12/11/2024
+ * @brief   Le fichier contient la déclaration & définition de la classe UserDAO.
+ * @date    13/11/2024
  * @version 0.1
  */
 
