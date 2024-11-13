@@ -129,6 +129,26 @@ class ArticleDAO {
     }
 
 
+    public function findActivePfpByPlayerUuid(string $uuid): ?Article
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT a.*
+            FROM ' . DB_PREFIX . 'article a
+            JOIN ' . DB_PREFIX . 'invoice_row ir ON a.id = ir.article_id
+            JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
+            WHERE i.player_uuid = :uuid AND a.type = "pfp" AND ir.active = 1');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $pfp = $stmt->fetch();
+        if ($pfp === false) {
+            return null;
+        }
+        $article = $this->hydrate($pfp);
+        return $article;
+    }
+
+
     /**
      * @brief Hydrate un objet Article avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif content les paramètres
