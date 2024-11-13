@@ -99,7 +99,7 @@ class UserDAO {
         $user->setId($data['id']);
         $user->setEmail($data['email']);
         $user->setEmailVerifiedAt(new DateTime($data['email_verified_at']));
-        $user->setEmailVerifyToken($data['email_verify_token']);
+        $user->setEmailVerifyToken($data['email_verif_token']);
         $user->setPassword($data['password']);
         $user->setDisabled($data['disabled']);
         $user->setCreatedAt(new DateTime($data['created_at']));
