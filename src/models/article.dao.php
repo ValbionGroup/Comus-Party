@@ -4,7 +4,7 @@
  * @author  Mathis RIVRAIS--NOWAKOWSKI
  * @brief   Le fichier contient la déclaration & définition de la classe ArticleDAO.
  * @date    13/11/2024
- * @version 0.1
+ * @version 0.2
  */
 
 
