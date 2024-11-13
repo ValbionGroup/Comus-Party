@@ -91,15 +91,15 @@ class Article {
 
     /**
      * @brief Le constructeur de la classe Article
-     * @param int|null $id
-     * @param DateTime|null $createdAt
-     * @param DateTime|null $updatedAt
-     * @param string|null $name
-     * @param Type|null $type
-     * @param string|null $description
-     * @param int|null $price_point
-     * @param int|null $price_euro
-     * @param string|null $path_img
+     * @param int|null $id L'id de l'article
+     * @param DateTime|null $createdAt La date de création de l'article
+     * @param DateTime|null $updatedAt La date de mis-à-jour de l'article
+     * @param string|null $name Le nom de l'article
+     * @param Type|null $type Le type de l'article
+     * @param string|null $description La description de l'article
+     * @param int|null $price_point Le prix en point de l'article
+     * @param int|null $price_euro Le prix en euro de l'article
+     * @param string|null $path_img Le chemin de l'image de l'article
      */
     public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?Type $type = null, ?string $description = null ,  ?int $pricePoint = null, ?int $priceEuro = null, ?string $pathImg = null)
     {
