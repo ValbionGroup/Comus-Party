@@ -4,11 +4,20 @@
     <div class="h-full flex flex-col">
         <header class="flex w-full items-center">
             <nav class="flex items-center justify-between w-full h-16 px-8">
-                <h1>Comus Party</h1>
-                <a href="/profile" class="flex items-center gap-2">
-                    <img src="/assets/img/{{ pfpPath }}" alt="pfp" class="rounded-full size-8">
-                    <p class="font-semibold">{{ playerConnected.getUsername() }}</p>
-                </a>
+                <a href="/">Comus Party</a>
+                <div class="flex items-center gap-5">
+                    <a href="/profile" class="flex items-center gap-2 hover:scale-105 ease-in-out transition-all group">
+                        <img src="/assets/img/{{ pfpPath }}" alt="pfp" class="rounded-full size-8">
+                        <p class="font-semibold group-hover:border-b-2">{{ playerConnected.getUsername() }}</p>
+                    </a>
+                    <a href="/logout">
+                        <svg class="w-full hover:scale-110 hover:text-lavender-blush-base text-red-300 ease-in-out transition-all"
+                             xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="m17 8l-1.41 1.41L17.17 11H9v2h8.17l-1.58 1.58L17 16l4-4zM5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5z"/>
+                        </svg>
+                    </a>
+                </div>
             </nav>
         </header>
         <div class="flex flex-grow h-full">
