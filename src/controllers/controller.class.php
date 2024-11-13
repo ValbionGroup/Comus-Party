@@ -1,53 +1,55 @@
 <?php
+/**
+ * @file    controller.class.php
+ * @author  Estéban DESESSARD
+ * @brief   Le fichier contient la déclaration & définition de la classe Controller.
+ * @date    12/11/2024
+ * @version 0.1
+ */
 
 use models\MethodNotFoundException;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * La classe Controller est la classe mère de tous les contrôleurs
+ * @brief Classe Controller
+ * @details La classe Controller est la classe mère de tous les contrôleurs
  */
 class Controller {
     /**
-     * La connexion à la base de données
-     *
+     * @brief La connexion à la base de données
      * @var PDO
      */
     private PDO $pdo;
 
     /**
-     * Le loader de Twig
-     *
+     * @brief Le loader de Twig
      * @var FilesystemLoader
      */
     private FilesystemLoader $loader;
 
     /**
-     * L'environnement de Twig
-     *
+     * @brief L'environnement de Twig
      * @var Environment
      */
 
     private Environment $twig;
     /**
-     * Les données GET
-     *
+     * @brief Les données passées en paramètre via la méthode GET
      * @var array|null
      */
     private ?array $get = null;
 
     /**
-     * Les données POST
-     *
+     * @brief Les données passées en paramètre via la méthode POST
      * @var array|null
      */
     private ?array $post = null;
 
     /**
-     * Constructeur de la classe Controller
-     *
-     * @param FilesystemLoader $loader
-     * @param Environment $twig
+     * @brief Le constructeur de la classe Controller
+     * @param FilesystemLoader $loader Le loader de Twig
+     * @param Environment $twig L'environnement de Twig
      */
     public function __construct(FilesystemLoader $loader, Environment $twig)
     {
@@ -65,15 +67,13 @@ class Controller {
     }
 
     /**
-     * Appelle une méthode du contrôleur fournie en paramètre
-     *
-     * @param string $method
-     * @param array|null $args
-     * @return mixed
-     * @throws MethodNotFoundException
+     * @brief Appelle la méthode du Controller passée en paramètre
+     * @param string $method La méthode à appeler
+     * @param array|null $args Les arguments à passer à la méthode
+     * @return mixed  Le résultat de la méthode appelée
+     * @throws MethodNotFoundException Exception levée dans le cas où la méhode n'existe pas
      */
-    public function call(string $method, ?array $args = []): mixed
-    {
+    public function call(string $method, ?array $args = []) : mixed {
         if (!method_exists($this, $method)) {
             throw new MethodNotFoundException('La méthode ' . $method . ' n\'existe pas dans le contrôleur ' . get_class($this));
         }
@@ -81,9 +81,8 @@ class Controller {
     }
 
     /**
-     * Retourne la connexion à la base de données
-     *
-     * @return PDO
+     * @brief Retourne l'attribut PDO, correspondant à la connexion à la base de données
+     * @return PDO Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données
      */
     public function getPdo(): PDO
     {
@@ -91,9 +90,8 @@ class Controller {
     }
 
     /**
-     * Modifie la connexion à la base de données
-     *
-     * @param PDO $pdo
+     * @brief Modifie l'attribut PDO, correspondant à la connexion à la base de données
+     * @param PDO $pdo La nouvelle connexion à la base de données
      * @return void
      */
     public function setPdo(PDO $pdo): void
@@ -102,9 +100,8 @@ class Controller {
     }
 
     /**
-     * Retourne le loader de Twig
-     *
-     * @return FilesystemLoader
+     * @brief Retourne l'attribut loader, correspondant au loader de Twig
+     * @return FilesystemLoader Object retourné par la méthode, ici un FilesystemLoader représentant le loader de Twig
      */
     public function getLoader(): FilesystemLoader
     {
@@ -112,9 +109,8 @@ class Controller {
     }
 
     /**
-     * Modifie le loader de Twig
-     *
-     * @param FilesystemLoader $loader
+     * @brief Modifie l'attribut loader, correspondant au loader de Twig
+     * @param FilesystemLoader $loader Le nouveau loader de Twig
      * @return void
      */
     public function setLoader(FilesystemLoader $loader): void
@@ -123,9 +119,8 @@ class Controller {
     }
 
     /**
-     * Retourne l'environnement de Twig
-     *
-     * @return Environment
+     * @brief Retourne l'attribut twig, correspondant à l'environnement de Twig
+     * @return Environment Objet retourné par la méthode, ici un Environment représentant l'environnement de Twig
      */
     public function getTwig(): Environment
     {
@@ -133,9 +128,8 @@ class Controller {
     }
 
     /**
-     * Modifie l'environnement de Twig
-     *
-     * @param Environment $twig
+     * @brief Modifie l'attribut twig, correspondant à l'environnement de Twig
+     * @param Environment $twig Le nouvel environnement de Twig
      * @return void
      */
     public function setTwig(Environment $twig): void
@@ -144,9 +138,8 @@ class Controller {
     }
 
     /**
-     * Retourne les données GET
-     *
-     * @return array|null
+     * @brief Retourne l'attribut GET, correspondant aux données passées en paramètre via la méthode GET
+     * @return array|null Objet retourné par la méthode, ici un tableau associatif représentant les données passées en paramètre via la méthode GET
      */
     public function getGet(): ?array
     {
@@ -154,9 +147,8 @@ class Controller {
     }
 
     /**
-     * Modifie les données GET
-     *
-     * @param array|null $get
+     * @brief Modifie l'attribut GET, correspondant aux données passées en paramètre via la méthode GET
+     * @param array|null $get Le nouveau tableau associatif représentant les données passées en paramètre via la méthode GET
      * @return void
      */
     public function setGet(?array $get): void
@@ -165,9 +157,8 @@ class Controller {
     }
 
     /**
-     * Retourne les données POST
-     *
-     * @return array|null
+     * @brief Retourne l'attribut POST, correspondant aux données passées en paramètre via la méthode POST
+     * @return array|null Objet retourné par la méthode, ici un tableau associatif représentant les données passées en paramètre via la méthode POST
      */
     public function getPost(): ?array
     {
@@ -175,9 +166,8 @@ class Controller {
     }
 
     /**
-     * Modifie les données POST
-     *
-     * @param array|null $post
+     * @brief Modifie l'attribut POST, correspondant aux données passées en paramètre via la méthode POST
+     * @param array|null $post Le nouveau tableau associatif représentant les données passées en paramètre via la méthode POST
      * @return void
      */
     public function setPost(?array $post): void
