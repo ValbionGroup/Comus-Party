@@ -129,6 +129,12 @@ class ArticleDAO {
     }
 
 
+    /**
+     * @brief Retourne la photo de profile active que le joueur possède sous forme d'objet Article
+     * @param string $uuid L'UUID du joueur
+     * @return Article|null La photo de profil du joueur (ou null si non-trouvée)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
     public function findActivePfpByPlayerUuid(string $uuid): ?Article
     {
         $stmt = $this->pdo->prepare(
