@@ -3,36 +3,38 @@
 require_once  '../../include.php';
 use Ramsey\Uuid\Uuid; // Pour la création de l'uuid
 
-/* Autorisation de toutes les origines
-* car nous utilisons des requêtes AJAX
-* pour communiquer avec le serveur,
-* or les navigateurs interdisent
-* les requêtes AJAX vers un serveur
-* qui n'est pas le même que le fichier
-* HTML qui envoie la requête, sauf
-* si le serveur distant autorise
-* les requêtes en provenance de
-* n'importe quelle origine
+// Constantes
+// Nom d'utilisateur
+const MIN_USERNAME_LENGTH =3;
+const FORBIDDEN_CHARACTERS = '@#$%^&*()+=[]{}|;:",\'<>?/\\ ';
+// Mot de passe
+const MIN_PASSWORD_LENGTH = 8;
+const UPPERCASE_LETTER = "/[A-Z]/";
+const LOWERCASE_LETTER = "/[a-z]/";
+const NUMBERS = "/\d/";
+const SPECIAL_CHARACTERS = "/[\W]/";
+
+/* Autorisation de toutes les origines car nous utilisons des requêtes AJAX
+* pour communiquer avec le serveur, or les navigateurs interdisent
+* les requêtes AJAX vers un serveur qui n'est pas le même que le fichier
+* HTML qui envoie la requête, sauf si le serveur distant autorise
+* les requêtes en provenance de n'importe quelle origine
 */
 header("Access-Control-Allow-Origin: *");
 // Utilisation de JSON
 header("Content-Type: application/json");
 
 /**
- * @brief Checks if the username meets the specified requirements.
+ * @brief Vérifie si le nom d'utilisateur respecte les exigences.
  *
- * @details The function verifies if the username:
- * - has a minimum defined length
- * - does not contain forbidden special characters
+ * @details La fonction vérifie si le nom d'utilisateur:
+ * - possède une longueur minimale de 3 caractères
+ * - ne contient pas de caractères speciaux interdits
  *
- * @param string $pUsername The username to be validated.
- * @return bool Returns true if the username is valid, false otherwise.
+ * @param string $pUsername Le nom d'utilisateur à verifier.
+ * @return bool Retourne true si le nom d'utilisateur respecte les exigences, false sinon.
  */
 function checkUsernameRequirements($pUsername): bool {
-    // Constantes
-    define("MIN_USERNAME_LENGTH",3);
-    define("FORBIDDEN_CHARACTERS", '@#$%^&*()+=[]{}|;:",\'<>?/\\ ');
-
     // Variables
     $validity=true;
 
@@ -71,13 +73,6 @@ function checkEmailRequirements($pEmail): bool {
  * @return bool Returns true if the password is valid, false otherwise.
  */
 function checkPasswordRequirements($pPassword): bool {
-    // Constantes
-    define("MIN_PASSWORD_LENGTH",8);
-    define("UPPERCASE_LETTER", "/[A-Z]/");
-    define("LOWERCASE_LETTER", "/[a-z]/");
-    define("NUMBERS", "/\d/");
-    define("SPECIAL_CHARACTERS", "/[\W]/");
-
     // Variables
     $validity=true;
 
