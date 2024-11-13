@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * @file    article.class.php
+ * @author  Mathis RIVRAIS--NOWAKOWSKI
+ * @brief   Le fichier contient la déclaration & définition de la classe Article.
+ * @date    13/11/2024
+ * @version 0.1
+ */
 
 /**
  * Les 2 types possible pour les articles
@@ -12,13 +18,14 @@ enum Type{
 
 
 /**
- * L'objet Article représentant un article disponible dans la boutique
+ * @brief Classe Article
+ * @details La classe Article représente un article de l'application
  */
 class Article {
 
 
     /**
-     * L'id de l'article
+     * @brief L'id de l'article - identifiant unique
      *
      * @var int|null
      *
@@ -26,7 +33,7 @@ class Article {
     private ?int $id;
 
     /**
-     * La date de création de l'article
+     * @brief La date de création de l'article
      *
      * @var DateTime|null
      *
@@ -34,14 +41,14 @@ class Article {
     private ?DateTime $createdAt;
 
     /**
-     * La date d'update de l'article
+     * @brief La date d'update de l'article
      *
      * @var DateTime|null
      *
      */
     private ?DateTime $updatedAt;
     /**
-     * Le nom de l'article
+     * @brief Le nom de l'article
      *
      * @var string|null
      *
@@ -49,7 +56,7 @@ class Article {
     private ?string $name;
 
     /**
-     * Le type de l'article
+     * @brief Le type de l'article
      *
      * @var Type|null
      *
@@ -57,25 +64,25 @@ class Article {
     private ?Type $type;
 
     /**
-     * La description de l'article
+     * @brief La description de l'article
      *
      * @var string|null
      */
     private ?string $description;
     /**
-     * Le prix de l'article
+     * @brief Le prix de l'article
      *
      * @var int|null
      */
     private ?int $pricePoint;
     /**
-     * Le prix en euro de l'article
+     * @brief Le prix en euro de l'article
      *
      * @var int|null
      */
     private ?int $priceEuro;
     /**
-     * Le chemin d'accès de l'image
+     * @brief Le chemin d'accès de l'image
      *
      * @var string|null
      *
@@ -83,7 +90,7 @@ class Article {
     private ?string $pathImg;
 
     /**
-     * Le constructeur de Article
+     * @brief Le constructeur de la classe Article
      * @param int|null $id
      * @param DateTime|null $createdAt
      * @param DateTime|null $updatedAt
@@ -109,9 +116,9 @@ class Article {
 
 
     /**
-     * Permet d'obtenir l'id de l'article
+     * @brief Retourne l'id de l'article
      *
-     * @return int
+     * @return int L'id de l'article est retourné
      */
     public function getId(): int
     {
@@ -119,9 +126,9 @@ class Article {
     }
 
     /**
-     * Permet de set l'id de l'Article
+     * @brief Modifie l'id de l'article
      *
-     * @param int|null $id
+     * @param int|null $id Le nouveau id de l'article
      * @return void
      */
     public function setId(?int $id): void
@@ -130,9 +137,9 @@ class Article {
     }
 
     /**
-     * Permet d'obtenir le nom de l'article
+     * @brief Retourne le nom de l'article
      *
-     * @return string
+     * @return string Le nom de l'article retourné
      */
     public function getName(): string
     {
@@ -140,9 +147,9 @@ class Article {
     }
 
     /**
-     * Permet de set le nom de l'article
+     * @brief Modifie le nom de l'article
      *
-     * @param string|null $name
+     * @param string|null $name Le nouveau nom de l'article
      * @return void
      */
     public function setName(?string $name): void
@@ -151,9 +158,9 @@ class Article {
     }
 
     /**
-     * Permet d'obtenir le type de l'article
+     * @brief Retourne le type de l'article
      *
-     * @return Type
+     * @return Type Le type de l'article qui est rétourné
      */
     public function getType(): Type
     {
@@ -161,9 +168,9 @@ class Article {
     }
 
     /**
-     * Permet de set le type de l'article
+     * @brief Modifie le type de l'article
      *
-     * @param Type|null $type
+     * @param Type|null $type Le nouveau type de l'article
      * @return void
      */
     public function setType(?Type $type): void
@@ -172,9 +179,9 @@ class Article {
     }
 
     /**
-     * Permet d'obtenir la description de l'article
+     * @brief Retourne la description de l'article
      *
-     * @return string|null
+     * @return string|null La description de l'article retourné
      */
     public function getDescription(): ?string
     {
@@ -182,9 +189,9 @@ class Article {
     }
 
     /**
-     * Permet de set la description
+     * @brief Modifie la description de l'article
      *
-     * @param string|null $description
+     * @param string|null $description La nouvelle description de l'article
      * @return void
      */
     public function setDescription(?string $description): void
@@ -193,9 +200,9 @@ class Article {
     }
 
     /**
-     * Permet d'obtenir la date de création de l'article
+     * @brief Retourne la date de création de l'article
      *
-     * @return DateTime
+     * @return DateTime La date de création de l'article qui est retournée
      */
     public function getCreatedAt(): DateTime
     {
@@ -203,9 +210,9 @@ class Article {
     }
 
     /**
-     * Permet de set la date de création
+     * @brief Modifie la date de création de l'article
      *
-     * @param DateTime|null $createdAt
+     * @param DateTime|null $createdAt La nouvelle date de création de l'article
      * @return void
      */
     public function setCreatedAt(?DateTime $createdAt): void
@@ -214,9 +221,9 @@ class Article {
     }
 
     /**
-     * Permet d'obtenir la date de maj de l'article
+     * @brief Retourne la date de mis-à-jour de l'article
      *
-     * @return DateTime|null
+     * @return DateTime|null La date de mis-à-jour de l'article qui est retournée
      */
     public function getUpdatedAt(): ?DateTime
     {
@@ -224,9 +231,9 @@ class Article {
     }
 
     /**
-     * Permet de set la date de maj de l'article
+     * @brief Modifie la date de mis-à-jour de l'article
      *
-     * @param DateTime|null $updatedAt
+     * @param DateTime|null $updatedAt La nouvelle date de mis-à-jour de l'article
      * @return void
      */
     public function setUpdatedAt(?DateTime $updatedAt): void
@@ -235,9 +242,9 @@ class Article {
     }
 
     /**
-     * Permet d'obtenir le prix en Comus de l'article
+     * @brief Retourne le prix en point de l'article
      *
-     * @return int|null
+     * @return int|null Le prix en point de l'article qui est retourné
      */
     public function getPricePoint(): ?int
     {
@@ -245,9 +252,9 @@ class Article {
     }
 
     /**
-     * Permet de set en point l'article
+     * @brief Modifie le prix en point de l'article
      *
-     * @param int|null $pricePoint
+     * @param int|null $pricePoint Le nouveau prix en point de l'article
      * @return void
      */
     public function setPricePoint(?int $pricePoint): void
@@ -256,9 +263,9 @@ class Article {
     }
 
     /**
-     * Permet d'obtenir le prix en euro de l'article
+     * @brief Retourne le prix en euro de l'article
      *
-     * @return int|null
+     * @return int|null Le prix en euro de l'article qui est retourné
      */
     public function getPriceEuro(): ?int
     {
@@ -266,9 +273,9 @@ class Article {
     }
 
     /**
-     * Permet de set le prix en euro de l'article
+     * @brief Modifie le prix en euro de l'article
      *
-     * @param int|null $priceEuro
+     * @param int|null $priceEuro Le nouveau prix de l'article
      * @return void
      */
     public function setPriceEuro(?int $priceEuro): void
@@ -277,9 +284,9 @@ class Article {
     }
 
     /**
-     * Permet d'obtenir le chemin de l'image
+     * @brief Retourne le chemin de l'image de l'article
      *
-     * @return string|null
+     * @return string|null Le chemin de l'article qui est retourné
      */
     public function getPathImg(): ?string
     {
@@ -287,9 +294,9 @@ class Article {
     }
 
     /**
-     * Permet de set le chemin de l'img
+     * @brief Modifie le chemin de l'article
      *
-     * @param string|null $pathImg
+     * @param string|null $pathImg Le nouveau chemin de l'article
      * @return void
      */
     public function setPathImg(?string $pathImg): void

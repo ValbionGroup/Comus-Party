@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Controlleur de la boutique
+ * Contrôleur  de la boutique
  *
  */
 class ControllerShop extends Controller {

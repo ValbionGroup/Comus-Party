@@ -43,7 +43,8 @@ class ArticleDAO {
 
 
     /**
-     * But : Retourne l'élément ciblé par l'id
+     * Retourne l'élément ciblé par l'id
+     *
      * @param string $id
      * @return Article|null
      */
@@ -63,7 +64,8 @@ class ArticleDAO {
     }
 
     /**
-     * But : Retourne tous les éléments de la table article
+     * Retourne tous les éléments de la table article
+     *
      * @return array|null
      */
     public function findAll() : ?array {
@@ -80,7 +82,8 @@ class ArticleDAO {
     }
 
     /**
-     * But : Retourne les avatars
+     * Retourne les avatars
+     *
      * @return array|null
      */
     public function findAllPfps() : ?array{
@@ -98,7 +101,8 @@ class ArticleDAO {
     }
 
     /**
-     * But : Retourne toutes les bannières
+     * Retourne toutes les bannières
+     *
      * @return array|null
      */
     public function findAllBanners() : ?array{
@@ -117,7 +121,8 @@ class ArticleDAO {
 
 
     /**
-     * But : Transforme un tableau en objet
+     *  Transforme un tableau en objet
+     *
      * @param array $data
      * @return Article
      * @throws DateMalformedStringException
@@ -147,7 +152,8 @@ class ArticleDAO {
 
 
     /**
-     * But : Transforme un tableau en tableau d'objets
+     * Transforme un tableau en tableau d'objets
+     *
      * @param array $data
      * @return array
      * @throws DateMalformedStringException
