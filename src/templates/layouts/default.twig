@@ -6,8 +6,8 @@
             <nav class="flex items-center justify-between w-full h-16 px-8">
                 <h1>Comus Party</h1>
                 <a href="/profile" class="flex items-center gap-2">
-                    <img src="/assets/img/{{ pfpPath[0] }}" alt="pfp" class="rounded-full size-8">
-                    <p class="font-semibold">{{ player[0].username }}</p>
+                    <img src="/assets/img/{{ pfpPath }}" alt="pfp" class="rounded-full size-8">
+                    <p class="font-semibold">{{ playerConnected.getUsername() }}</p>
                 </a>
             </nav>
         </header>
