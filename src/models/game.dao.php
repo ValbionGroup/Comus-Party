@@ -90,13 +90,13 @@ class GameDao
      * @brief Retourne l'état du jeu en type Etat à partir d'un état de type string
      *
      * @param string $state L'état du jeu
-     * @return ?State L'état du jeu en type State
+     * @return ?GameState L'état du jeu en type State
      */
-    public function transformState(string $state):?State{
+    public function transformState(string $state):?GameState{
         return match (strtoupper($state)) {
-            'AVAILABLE' => State::AVAILABLE,
-            'UNVAILABLE' => State::UNVAILABLE,
-            'MAINTENANCE' => State::MAINTENANCE,
+            'AVAILABLE' => GameState::AVAILABLE,
+            'UNAVAILABLE' => GameState::UNAVAILABLE,
+            'MAINTENANCE' => GameState::MAINTENANCE,
             default => null,
         };
     }

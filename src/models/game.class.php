@@ -10,25 +10,26 @@
 /**
  * @brief Enumération des états d'un jeu
  *
- * Cette énumération définit les trois états possibles d'un jeu:
- * -Disponible (AVAILABLE)
- * -Indisponible (UNVAILABLE)
- * -En maintenance (MAINTENANCE)
+ * @details Cette énumération définit les trois états possibles d'un jeu:
+ *  - Disponible (AVAILABLE)
+ *  - Indisponible (UNAVAILABLE)
+ *  - En maintenance (MAINTENANCE)
  *
- * @enum State
- * @var State
+ * @enum GameState
  */
-enum State {
+enum GameState {
     /**
-     * L'état AVAILABLE indique que le jeu est disponible pour les utilisateurs.
+     * @brief L'état AVAILABLE indique que le jeu est disponible pour les utilisateurs.
      */
     case AVAILABLE;
+
     /**
-     * L'état UNVAILABLE indique que le jeu est actuellement indisponible.
+     * @brief L'état UNAVAILABLE indique que le jeu est actuellement indisponible.
      */
-    case UNVAILABLE;
+    case UNAVAILABLE;
+
     /**
-     * L'état MAINTENANCE indique que le jeu est en cours de maintenance.
+     * @brief L'état MAINTENANCE indique que le jeu est en cours de maintenance.
      */
     case MAINTENANCE;
 }
@@ -70,9 +71,9 @@ class Game
     /**
      * @brief État du jeu
      *
-     * @var State|null
+     * @var GameState|null
      */
-    private ?State $state;
+    private ?GameState $state;
 
     /**
      * @brief Date de création du jeu
@@ -94,18 +95,18 @@ class Game
      * @param string|null $name Nom du jeu
      * @param string|null $description Description du jeu
      * @param string|null $pathImg Chemin d'accès à l'image du jeu
-     * @param State|null $state État du jeu
+     * @param GameState|null $state État du jeu
      * @param DateTime|null $createdAt Date de création du jeu
      * @param DateTime|null $updatedAt Date de mise à jour du jeu
      */
     public function __construct(
-        ?int $id = null,
-        ?string $name = null,
-        ?string $description = null,
-        ?string $pathImg = null,
-        ?State $state = null,
-        ?DateTime $createdAt = null,
-        ?DateTime $updatedAt = null)
+        ?int       $id = null,
+        ?string    $name = null,
+        ?string    $description = null,
+        ?string    $pathImg = null,
+        ?GameState $state = null,
+        ?DateTime  $createdAt = null,
+        ?DateTime  $updatedAt = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -203,9 +204,9 @@ class Game
     /**
      * @brief Retourne l'état du jeu
      *
-     * @return State|null L'état du jeu
+     * @return GameState|null L'état du jeu
      */
-    public function getState(): ?State
+    public function getState(): ?GameState
     {
         return $this->state;
     }
@@ -213,10 +214,10 @@ class Game
     /**
      * @brief Modifie l'état du jeu
      *
-     * @param State|null $state L'état du jeu
+     * @param GameState|null $state L'état du jeu
      * @return void
      */
-    public function setState(?State $state): void
+    public function setState(?GameState $state): void
     {
         $this->state = $state;
     }
@@ -232,7 +233,7 @@ class Game
     }
 
     /**
-     * @brieg Modifie la date de création du jeu
+     * @brief Modifie la date de création du jeu
      *
      * @param DateTime|null $createdAt La date de création du jeu
      * @return void
