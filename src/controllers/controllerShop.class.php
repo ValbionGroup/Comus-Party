@@ -3,10 +3,12 @@
 /**
  * @file    controllerShop.class.php
  * @author  Mathis RIVRAIS--NOWAKOWSKI
- * @brief   Le fichier contient la déclaration & définition de la classe ControllerArticle.
+ * @brief   Le fichier contient la déclaration & définition de la classe ControllerShop.
  * @date    13/11/2024
  * @version 0.1
  */
+
+
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -14,13 +16,13 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * @brief Classe ControllerArticle
- * @details La classe ControllerArticle permet de gérer les actions liées à un article
+ * @brief Classe ControllerShop
+ * @details La classe ControllerShop permet de gérer les actions liées à un article
  * @extends Controller
  */
 class ControllerShop extends Controller {
     /**
-     * @brief Constructeur de la classe ControllerArticle
+     * @brief Constructeur de la classe ControllerShop
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      */
