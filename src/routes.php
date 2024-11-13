@@ -83,9 +83,8 @@ $router->get('/logout', function () {
     exit;
 });
 
-$router->get('/profile', function () {
-    echo "Page de profil<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
     exit;
 });
 
