@@ -192,9 +192,9 @@ class ArticleDAO {
         $article->setName($data['name']);
 
         if ($data['type'] == 'pfp') {
-            $type = Type::ProfilePicture;
+            $type = ArticleType::ProfilePicture;
         }elseif ($data['type'] == 'banner'){
-            $type = Type::Banner;
+            $type = ArticleType::Banner;
         }
 
         $article->setType($type);

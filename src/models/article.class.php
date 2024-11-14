@@ -8,10 +8,23 @@
  */
 
 /**
- * Les 2 types possible pour les articles
+ * @brief Les 2 types possible pour les articles
+ *
+ * @details Les types d'articles sont les suivants :
+ *  - ProfilePicture : Image de profil
+ *  - Banner : Bannière
+ *
+ * @enum ArticleType
  */
-enum Type{
+enum ArticleType {
+    /**
+     * @brief Image de profil
+     */
     case ProfilePicture;
+
+    /**
+     * @brief Bannière
+     */
     case Banner;
 }
 
@@ -58,10 +71,10 @@ class Article {
     /**
      * @brief Le type de l'article
      *
-     * @var Type|null
+     * @var ArticleType|null
      *
      */
-    private ?Type $type;
+    private ?ArticleType $type;
 
     /**
      * @brief La description de l'article
@@ -95,13 +108,13 @@ class Article {
      * @param DateTime|null $createdAt La date de création de l'article
      * @param DateTime|null $updatedAt La date de mis-à-jour de l'article
      * @param string|null $name Le nom de l'article
-     * @param Type|null $type Le type de l'article
+     * @param ArticleType|null $type Le type de l'article
      * @param string|null $description La description de l'article
      * @param int|null $price_point Le prix en point de l'article
      * @param int|null $price_euro Le prix en euro de l'article
      * @param string|null $path_img Le chemin de l'image de l'article
      */
-    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?Type $type = null, ?string $description = null ,  ?int $pricePoint = null, ?int $priceEuro = null, ?string $pathImg = null)
+    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?ArticleType $type = null, ?string $description = null , ?int $pricePoint = null, ?int $priceEuro = null, ?string $pathImg = null)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
@@ -160,9 +173,9 @@ class Article {
     /**
      * @brief Retourne le type de l'article
      *
-     * @return Type Le type de l'article qui est rétourné
+     * @return ArticleType Le type de l'article qui est rétourné
      */
-    public function getType(): Type
+    public function getType(): ArticleType
     {
         return $this->type;
     }
@@ -170,10 +183,10 @@ class Article {
     /**
      * @brief Modifie le type de l'article
      *
-     * @param Type|null $type Le nouveau type de l'article
+     * @param ArticleType|null $type Le nouveau type de l'article
      * @return void
      */
-    public function setType(?Type $type): void
+    public function setType(?ArticleType $type): void
     {
         $this->type = $type;
     }
