@@ -1,4 +1,11 @@
 <?php
+/**
+ * @file PlayerTest.php
+ * @brief Le fichier contient la déclaration et la définition de la classe GameDao
+ * @author Conchez-Boueytou Robin
+ * @date 14/11/2024
+ * @version 0.1
+ */
 
 require_once __DIR__ . '/../include.php';
 
