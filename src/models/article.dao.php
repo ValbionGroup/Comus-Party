@@ -154,6 +154,31 @@ class ArticleDAO {
         return $article;
     }
 
+    /**
+     * @brief Retourne la bannière active que le joueur possède sous forme d'objet Article
+     * @param string $uuid L'UUID du joueur
+     * @return Article|null La bannière du joueur (ou null si non-trouvée)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function findActiveBannerByPlayerUuid(string $uuid): ?Article
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT a.*
+            FROM ' . DB_PREFIX . 'article a
+            JOIN ' . DB_PREFIX . 'invoice_row ir ON a.id = ir.article_id
+            JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
+            WHERE i.player_uuid = :uuid AND a.type = "banner" AND ir.active = 1');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $banner = $stmt->fetch();
+        if ($banner === false) {
+            return null;
+        }
+        $article = $this->hydrate($banner);
+        return $article;
+    }
+
 
     /**
      * @brief Hydrate un objet Article avec les valeurs du tableau associatif passé en paramètre

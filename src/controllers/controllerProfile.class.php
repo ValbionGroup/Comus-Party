@@ -41,10 +41,25 @@ class ControllerProfile extends Controller {
             throw new NotFoundException('Player not found');
         }
         $user = $userManager->findById($player->getUserId());
+        $articleManager = new ArticleDAO($this->getPdo());
+        $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+        if (is_null($pfp)) {
+            $pfpPath = 'default-pfp.jpg';
+        } else {
+            $pfpPath = $pfp->getPathImg();
+        }
+        $banner = $articleManager->findActiveBannerByPlayerUuid($player->getUuid());
+        if (is_null($banner)) {
+            $bannerPath = 'default-banner.jpg';
+        } else {
+            $bannerPath = $banner->getPathImg();
+        }
         $template = $this->getTwig()->load('profil.twig');
         echo $template->render(array(
             "player" => $player,
-            "user" => $user
+            "user" => $user,
+            "pfp" => $pfpPath,
+            "banner" => $bannerPath
         ));
     }
 }

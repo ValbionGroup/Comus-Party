@@ -85,6 +85,10 @@ class ControllerAuth extends Controller {
         }
 
         $_SESSION['uuid'] = $player->getUuid();
+        $_SESSION['username'] = $player->getUsername();
+        $_SESSION['comusCoin'] = $player->getComusCoin();
+        $_SESSION['elo'] = $player->getElo();
+        $_SESSION['xp'] = $player->getXp();
 
         $articleManager = new ArticleDAO($this->getPdo());
         $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
