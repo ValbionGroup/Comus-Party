@@ -155,9 +155,9 @@ class ArticleDAO {
     }
 
     /**
-     * @brief Retourne la photo de bannière active que le joueur possède sous forme d'objet Article
+     * @brief Retourne la bannière active que le joueur possède sous forme d'objet Article
      * @param string $uuid L'UUID du joueur
-     * @return Article|null La photo de profil du joueur (ou null si non-trouvée)
+     * @return Article|null La bannière du joueur (ou null si non-trouvée)
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findActiveBannerByPlayerUuid(string $uuid): ?Article
