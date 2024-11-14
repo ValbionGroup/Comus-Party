@@ -117,9 +117,12 @@ class UserDAO {
      * @throws PDOException Exception levée en cas d'erreur de la requête
      */
     public function createUser(string $email, string $password): bool  {
-        $stmtUser = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verify_token, disabled) VALUES (?, ?, null, null, 0)");
-        $stmtUser->bindParam("ss", $email, $password);
-        return $stmtUser->execute();
+        if(!UserDAO::userExists($email)) {
+            $stmtUser = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verif_token, disabled) VALUES (?, ?, null, null, 0)");
+            $stmtUser->bindParam(1, $email);
+            $stmtUser->bindParam(2, $password);
+            return $stmtUser->execute();
+        } else { return false; }
     }
 
     /**
@@ -137,27 +140,10 @@ class UserDAO {
                                         FROM " . DB_PREFIX . "user u
                                         JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
                                         WHERE u.email = ?");
-        $stmtEmail->bindParam("s", $email);
+        $stmtEmail->bindParam(1, $email);
         $stmtEmail->execute();
         $resultEmail = $stmtEmail->fetch();
 
-        return $resultEmail->rowCount()>0;
+        return $resultEmail!==false;
     }
-
-    /**
-     * @brief Retourne l'identifiant utilisateur correspondant à l'email fourni
-     * 
-     * @param string $email Email de l'utilisateur
-     * @return int|null Identifiant utilisateur (ou null si non-trouvé)
-     */
-    public function getUserIdByEmail(?string $email)
-    {
-        $stmtUserId = $this->pdo->prepare("SELECT id FROM " . DB_PREFIX . "user WHERE email = ?");
-        $stmtUserId->bindParam("s", $email);
-        $stmtUserId->execute();
-        $row = $stmtUserId->fetch();
-        return $row['id'];
-    }
-
-    
 }

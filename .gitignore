@@ -2,6 +2,6 @@ vendor/
 node_modules/
 .idea/
 
-public/assets/css/builded.css
+builded.css
 
 .env

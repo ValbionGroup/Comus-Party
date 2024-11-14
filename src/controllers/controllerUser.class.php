@@ -65,12 +65,12 @@ class ControllerUser extends Controller {
 
                 // Save player to the database
                 $playerDAO = new PlayerDAO($this->getPdo());
-                $resultPlayer = $playerDAO->createPlayer($username);
+                $resultPlayer = $playerDAO->createPlayer($username, $email);
 
                 if ($resultUser && $resultPlayer) { echo json_encode(["success" => true, "message" => "Registration successful"]);
                 } else { echo json_encode(["success" => false, "message" => "Failed to register user"]); }
             } else { echo json_encode(["success" => false, "message" => "Invalid input data"]); }
-        } else { file_put_contents("debug.json", json_encode($data)); echo json_encode(["success" => false, "message" => "Missing required fields"]); }
+        } else { echo json_encode(["success" => false, "message" => "Missing required fields"]); }
     }
 
     /**

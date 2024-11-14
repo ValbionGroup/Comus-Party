@@ -230,16 +230,21 @@ class PlayerDAO {
      * @return void
      * @throws PDOException Exception levée dans le cas d'une erreur de requête
      */
-    public function createPlayer(string $username): bool
+    public function createPlayer(string $username, string $email): bool
     {
-        // Genération de l'uuid du joueur
-        $uuid = Uuid::uuid4()->toString();
+        if(!PlayerDAO::playerExists($username)) {
+            // Genération de l'uuid du joueur
+            $uuid = Uuid::uuid4()->toString();
 
-        $userId=PlayerDAO::getUserIdByUsername($username);
+            $userId=PlayerDAO::getUserIdByEmail($email);
+            file_put_contents("id.txt", $userId, FILE_APPEND);
 
-        $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (?, ?, ?)");
-        $stmtPlayer->bindParam("sss", $uuid, $username, $userId);
-        return $stmtPlayer->execute();
+            $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (?, ?, ?)");
+            $stmtPlayer->bindParam(1, $uuid);
+            $stmtPlayer->bindParam(2, $username);
+            $stmtPlayer->bindParam(3, $userId);
+            return $stmtPlayer->execute();
+        } else { return false; }
     }
 
     /**
@@ -257,22 +262,20 @@ class PlayerDAO {
                                             FROM " . DB_PREFIX . "user u
                                             JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
                                             WHERE p.username = ?");
-        $stmtUsername->bindParam("s", $username);
+        $stmtUsername->bindParam(1, $username);
         $stmtUsername->execute();
         $resultUsername = $stmtUsername->fetch();
 
-        return $resultUsername->rowCount() > 0;
+        return $resultUsername!==false;
     }
 
-    public function getUserIdByUsername(?string $username)
-    {
-        $stmtUserId = $this->pdo->prepare("SELECT u.id AS user_id
-                                            FROM user u
-                                            JOIN player p ON u.id = p.user_id
-                                            WHERE p.username = ?;");
-        $stmtUserId->bindParam("s", $username);
-        $stmtUserId->execute();
-        $row = $stmtUserId->fetch();
-        return $row['id'];
+    public function getUserIdByEmail($email) {
+        $stmt = $this->pdo->prepare("SELECT u.id
+                                    FROM " . DB_PREFIX . "user u
+                                    WHERE u.email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['id'];
     }
 }

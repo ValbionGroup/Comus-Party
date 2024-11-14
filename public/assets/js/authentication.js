@@ -200,8 +200,11 @@ function sendAuthData() {
     const USERNAME = document.getElementById("username").value;
     const EMAIL = document.getElementById("email").value;
     const PASSWORD = document.getElementById("password").value;
+
+    // Variables
+    let resultMessage = document.getElementById("resultMessage");
     // Envoi des données au serveur avec une requête POST
-    fetch('../controllers/register', {
+    fetch('http://localhost:8000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -212,8 +215,17 @@ function sendAuthData() {
     })
     .then(response => response.json())
     .then(data => {
-        // En fonction de la résponse du serveur, affiche un message
-        if(data.success) { alert(data.message); }
-        else { alert(data.message); }
-    });
+        if (data.success) {
+            // Affichage du message de succès
+            resultMessage.innerHTML = data.message;
+            resultMessage.style.display = "block";
+            resultMessage.style.color = "green";
+
+        } else {
+            // Affichage du message d'erreur
+            resultMessage.innerHTML = data.message;
+            resultMessage.style.display = "block";
+            resultMessage.style.color = "red";
+        }
+    })
 }
