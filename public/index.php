@@ -9,7 +9,7 @@ require __DIR__.'/../src/routes.php';
 
 try {
     $router->matchRoute();
-} catch (RouteNotFoundException $e) {
+} catch (Exception $e) {
     displayError($e);
     exit;
 }
