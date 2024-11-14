@@ -115,10 +115,10 @@ class Player {
 
     /**
      * @brief Modifie l'UUID du joueur
-     * @param string $uuid Le nouvel UUID du joueur
+     * @param string|null $uuid Le nouvel UUID du joueur
      * @return void
      */
-    public function setUuid(string $uuid): void
+    public function setUuid(?string $uuid): void
     {
         $this->uuid = $uuid;
     }
@@ -134,9 +134,9 @@ class Player {
 
     /**
      * @brief Modifie le nom d'utilisateur du joueur
-     * @param string $username Le nouveau nom d'utilisateur du joueur
+     * @param string|null $username Le nouveau nom d'utilisateur du joueur
      */
-    public function setUsername(string $username): void
+    public function setUsername(?string $username): void
     {
         $this->username = $username;
     }
@@ -152,10 +152,10 @@ class Player {
 
     /**
      * @brief Modifie la date de création du joueur
-     * @param DateTime $createdAt La nouvelle date de création du joueur
+     * @param DateTime|null $createdAt La nouvelle date de création du joueur
      * @return void
      */
-    public function setCreatedAt(DateTime $createdAt): void
+    public function setCreatedAt(?DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
