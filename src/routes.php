@@ -20,9 +20,9 @@ $router->get('/', function () use ($loader, $twig) {
 });
 
 // Route pour afficher le profil
-$router->get('/profile/:method/:uuid', function (string $method, string $uuid) use ($loader, $twig) {
-    ControllerFactory::getController("profile", $loader, $twig)->call($method, [
-        "playerUuid" => $uuid
+$router->get('/profile', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", [
+        "playerUuid" => $_SESSION["uuid"]
     ]);
     exit;
 });
@@ -56,9 +56,8 @@ $router->get('/game/:code', function ($code) {
     exit;
 });
 
-$router->get('/shop', function () {
-    echo "Page de la boutique<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/shop', function () use ($loader, $twig) {
+    ControllerFactory::getController("shop", $loader, $twig)->call("show");
     exit;
 });
 
@@ -101,6 +100,11 @@ $router->get('/register', function () {
 $router->post('/register', function () {
     echo "Traitement de l'inscription<br/>";
     echo "A IMPLEMENTER";
+    exit;
+});
+
+$router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
     exit;
 });
 

@@ -11,6 +11,8 @@
 
 namespace models;
 
+use Exception;
+
 /**
  * @brief Classe Router permettant de gérer les routes
  * @details La classe Router permet de gérer les routes de l'application.
@@ -142,5 +144,7 @@ class Router
      * @brief Empêche la désérialisation de l'instance
      * @return void
      */
-    public function __wakeup(): void {}
+    public function __wakeup(): void {
+        throw new Exception("Cannot unserialize a singleton.");
+    }
 }
