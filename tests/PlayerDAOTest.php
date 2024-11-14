@@ -3,7 +3,10 @@
 require_once __DIR__ . '/../include.php';
 
 use PHPUnit\Framework\TestCase;
-
+/**
+ * @brief Classe PlayerDAOTest
+ * @details La classe PlayerDAOTest permet de tester les méthodes de la classe PlayerDAO
+ */
 class PlayerDAOTest extends TestCase
 {
     /**

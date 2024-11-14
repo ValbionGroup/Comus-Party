@@ -3,7 +3,10 @@
 require_once __DIR__ . '/../include.php';
 
 use PHPUnit\Framework\TestCase;
-
+/**
+ * @brief Classe PlayerTest
+ * @details La classe PlayerTest permet de tester les méthodes de la classe Player
+ */
 class PlayerTest extends TestCase
 {
     /**
@@ -12,7 +15,6 @@ class PlayerTest extends TestCase
      * @var Player
      */
     private Player $player;
-
     protected function setUp(): void
     {
         /**
