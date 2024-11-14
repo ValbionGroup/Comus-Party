@@ -23,10 +23,11 @@
                     <h2 class="text-2xl text-night mb-4">Avatars</h2>
 
                     <div class="flex flex-wrap">
+
                         {% for pfp in pfps %}
                             <div class="w-20 h-20 m-1 pfp cursor-pointer"
-                                 onclick="showModale({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', type: '{{ pfp.type }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', pathImg : '../../{{ pfp.pathImg }}{{ pfp.name }}.png'})">
-                                <img src="/assets/img/pfp/filleanime.png" alt="Pas d'image" class="rounded-3xl">
+                                 onclick="showModale({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', type: '{{ pfp.type }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
+                                <img src="{{ pfp.filePath }}{{ pfp.name }}.png" alt="Pas d'image" class="rounded-3xl">
 
                             </div>
 
@@ -43,8 +44,8 @@
                     <div class="flex flex-wrap">
                         {% for banner in banners %}
                             <div class="w-full h-20 m-1 cursor-pointer"
-                                 onclick="showModale({ id : '{{ pfp.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', pathImg : '../../{{ banner.pathImg }}{{ banner.name }}.png'})">
-                                <img src="../../{{ banner.pathImg }}{{ banner.name }}.png" alt=""
+                                 onclick="showModale({ id : '{{ pfp.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}'})">
+                                <img src="{{ banner.filePath }}{{ banner.name }}.png" alt=""
                                      class="w-full h-full rounded-2xl">
                             </div>
 
@@ -56,17 +57,16 @@
             </div>
         </div>
     </div>
-    <div id="modale"
-         class=" justify-center items-center text-center flex-col bg-lavender-blush-3 w-1/2 p-6  rounded-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden ">
+    <div id="modale" class="bg-lavender-blush-2 rounded-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden ">
 
-        <img src="/assets/img/" alt="" class="w-full rounded-3xl text-center">
-        <h2 class="text-center">Nom</h2>
-        <p class="text-center">Description</p>
+        <img src="/assets/img/" id="imgArticle" alt="" class="w-full rounded-3xl text-center">
+        <h2 class="text-center" id="nomArticle">Nom</h2>
+        <p class="text-center" id="descriptionArticle">Description</p>
 
         <div class="flex justify-center ">
-            <p>PriceComus</p>
+            <p id="prixComusArticle">PriceComus</p>
 
-            <p>PriceEuro</p>
+            <p id="prixEuroArticle">PriceEuro</p>
         </div>
         <div>
             <button type="submit" id="addBasketBtn" onclick="addPanier({{ articles.id }})"

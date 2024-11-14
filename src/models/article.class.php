@@ -87,7 +87,7 @@ class Article {
      * @var string|null
      *
      */
-    private ?string $pathImg;
+    private ?string $filePath;
 
     /**
      * @brief Le constructeur de la classe Article
@@ -99,9 +99,9 @@ class Article {
      * @param string|null $description La description de l'article
      * @param int|null $price_point Le prix en point de l'article
      * @param int|null $price_euro Le prix en euro de l'article
-     * @param string|null $path_img Le chemin de l'image de l'article
+     * @param string|null $filePath Le chemin de l'image de l'article
      */
-    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?Type $type = null, ?string $description = null ,  ?int $pricePoint = null, ?int $priceEuro = null, ?string $pathImg = null)
+    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?Type $type = null, ?string $description = null ,  ?int $pricePoint = null, ?int $priceEuro = null, ?string $filePath = null)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
@@ -111,7 +111,7 @@ class Article {
         $this->description = $description;
         $this->pricePoint = $pricePoint;
         $this->priceEuro = $priceEuro;
-        $this->pathImg = $pathImg;
+        $this->filePath = $filePath;
     }
 
 
@@ -288,20 +288,20 @@ class Article {
      *
      * @return string|null Le chemin de l'article qui est retourné
      */
-    public function getPathImg(): ?string
+    public function getFilePath(): ?string
     {
-        return $this->pathImg;
+        return $this->filePath;
     }
 
     /**
      * @brief Modifie le chemin de l'article
      *
-     * @param string|null $pathImg Le nouveau chemin de l'article
+     * @param string|null $filePath Le nouveau chemin de l'article
      * @return void
      */
-    public function setPathImg(?string $pathImg): void
+    public function setFilePath(?string $filePath): void
     {
-        $this->pathImg = $pathImg;
+        $this->filePath = $filePath;
     }
 
 }

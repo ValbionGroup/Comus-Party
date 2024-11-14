@@ -173,7 +173,7 @@ class ArticleDAO {
 
         $article->setCreatedAt(new DateTime($data['created_at']));
         $article->setUpdatedAt(new DateTime($data['updated_at']));
-        $article->setPathImg($data['path_img']);
+        $article->setFilePath($data['file_path']);
 
         return $article;
     }
