@@ -23,7 +23,6 @@ jobs:
           doxyfile-path: ./Doxyfile
           working-directory: .
           enable-latex: true
-          additional-packages: font-fira-code
 
       - name: Déploiement de la documentation
         uses: peaceiris/actions-gh-pages@v3
