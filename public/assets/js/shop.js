@@ -1,7 +1,7 @@
 let pfps = document.querySelectorAll(".pfp");
 let modalWindow = document.getElementById("modale")
 let closeModalBtn = document.getElementById("closeModalBtn")
-
+let addBasketBtn = document.getElementById("addBasketBtn")
 /*
 showModale
 But : Affiche la fenêtre modale
@@ -27,7 +27,7 @@ function showModale(article){
     }
 
     modalWindow.classList.remove("hidden")
-    console.log(article)
+
 
     modalWindow.children[1].innerText = article.name
     modalWindow.children[2].innerText = article.description
@@ -35,6 +35,24 @@ function showModale(article){
     modalWindow.children[3].children[0].innerText = article.pricePoint + " Comus - "
     modalWindow.children[3].children[1].innerText = article.priceEuro + " €"
 
+
+
+    addBasketBtn.onclick = function (){
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/shop/basket/add", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        // Envoyer les données sous forme de paire clé=valeur
+        xhr.send("id_article=" + article.id);
+
+        // Gérer la réponse du serveur
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert(xhr.responseText);  // Affiche la réponse (par exemple : "Article ajouté au panier !")
+            }
+        };
+    }
 
 
 }
@@ -47,3 +65,22 @@ closeModalBtn.addEventListener("click", ()=>{
     modalWindow.classList.remove("flex")
 
 })
+
+
+function addPanier(id){
+    // Création de la requête AJAX
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/shop/basket/add", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Envoyer les données sous forme de paire clé=valeur
+    xhr.send("id_article=" + id);
+
+    // Gérer la réponse du serveur
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            alert(xhr.responseText);  // Affiche la réponse (par exemple : "Article ajouté au panier !")
+        }
+    };
+
+}

@@ -18,7 +18,7 @@
 
             <div class="flex flex-wrap">
                 {% for pfp in pfps %}
-                    <div class="w-20 h-20 m-1 pfp cursor-pointer" onclick="showModale({ name : '{{ pfp.name }}', type: '{{ pfp.type }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', pathImg : '../../{{ pfp.pathImg }}{{ pfp.name }}.png'})">
+                    <div class="w-20 h-20 m-1 pfp cursor-pointer" onclick="showModale({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', type: '{{ pfp.type }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', pathImg : '../../{{ pfp.pathImg }}{{ pfp.name }}.png'})">
                         <img src="/assets/img/pfp/filleanime.png" alt="Pas d'image" class="rounded-3xl">
 
                     </div>
@@ -35,7 +35,7 @@
             <h2 class="text-2xl text-night mb-4">Bannières</h2>
             <div class="flex flex-wrap">
                 {% for banner in banners%}
-                <div class="w-full h-20 m-1 cursor-pointer"  onclick="showModale({ name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', pathImg : '../../{{ banner.pathImg }}{{ banner.name }}.png'})">
+                <div class="w-full h-20 m-1 cursor-pointer"  onclick="showModale({ id : '{{ pfp.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', pathImg : '../../{{ banner.pathImg }}{{ banner.name }}.png'})">
                     <img src="../../{{ banner.pathImg }}{{ banner.name }}.png" alt="" class="w-full h-full rounded-2xl" >
                 </div>
 
@@ -58,10 +58,9 @@
             <p>PriceEuro</p>
         </div>
         <div>
-            <form action="../controllers/controllerShop.class.php" method="post">
-                <button type="submit" class="bg-hot-magenta text-white font-semibold py-3 px-6 rounded-lg shadow-md transform transition-all duration-300 ease-in-out hover:bg-night hover:scale-105 hover:shadow-lg focus:outline-none">Ajouter au panier</button>
-            </form>
-        <button class="bg-hot-magenta text-white font-semibold py-3 px-6 rounded-lg shadow-md transform transition-all duration-300 ease-in-out hover:bg-night hover:scale-105 hover:shadow-lg focus:outline-none" id="closeModalBtn">Quitter</button>
+            <button type="submit" id="addBasketBtn" onclick="addPanier({{ articles.id }})" class="bg-hot-magenta text-white font-semibold py-3 px-6 rounded-lg shadow-md transform transition-all duration-300 ease-in-out hover:bg-night hover:scale-105 hover:shadow-lg focus:outline-none">Ajouter au panier</button>
+
+            <button class="bg-hot-magenta text-white font-semibold py-3 px-6 rounded-lg shadow-md transform transition-all duration-300 ease-in-out hover:bg-night hover:scale-105 hover:shadow-lg focus:outline-none" id="closeModalBtn">Quitter</button>
         </div>
 
     </div>

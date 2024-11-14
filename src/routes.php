@@ -48,6 +48,15 @@ $router->get('/game/:code', function ($code) {
     exit;
 });
 
+
+$router->post('/shop', function () use ($loader, $twig) {
+    if (isset($_POST['addBasketBtn'])) {
+        ControllerFactory::getController("shop", $loader, $twig)->call("test");
+        exit;
+    }
+    throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
+});
+
 $router->get('/shop', function () use ($loader, $twig){
     ControllerFactory::getController("shop",$loader,$twig)->call("show");
     exit;
@@ -59,9 +68,9 @@ $router->get('/shop/basket', function () use ($loader, $twig){
     exit;
 });
 
-$router->post('/shop/basket/add/:id', function ($id) {
-    echo "Ajout d'un article au panier : " . $id . "<br/>";
-    echo "A IMPLEMENTER";
+
+$router->post('/shop/basket/add', function () use ($loader, $twig){
+    ControllerFactory::getController("shop",$loader,$twig)->call("basketTest");
     exit;
 });
 
