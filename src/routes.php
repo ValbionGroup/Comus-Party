@@ -22,7 +22,7 @@ $router->get('/', function () use ($loader, $twig) {
 // Route pour afficher le profil
 $router->get('/profile', function () use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", [
-        "playerUuid" => $_SESSION["playerConnected"]->getUuid()
+        "playerUuid" => $_SESSION["uuid"]
     ]);
     exit;
 });

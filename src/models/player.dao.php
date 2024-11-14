@@ -197,7 +197,7 @@ class PlayerDAO {
         $player->setUpdatedAt(new DateTime($data['updated_at']));
         $player->setXp($data['xp']);
         $player->setElo($data['elo']);
-        $player->setComusCoins($data['comus_coin']);
+        $player->setComusCoin($data['comus_coin']);
         $player->getStatistics()->setPlayerUuid($data['uuid']);
         $player->getStatistics()->setGamesPlayed($data['games_played']);
         $player->getStatistics()->setGamesWon($data['games_won']);

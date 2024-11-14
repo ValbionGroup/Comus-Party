@@ -14,5 +14,10 @@ $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
 $twig->addExtension(new DebugExtension());
 $twig->addExtension(new IntlExtension());
 
-$twig->addGlobal('playerConnected', $_SESSION['playerConnected'] ?? null);
-$twig->addGlobal('pfpPath', $_SESSION['pfpPath'] ?? null);
+//$twig->addGlobal('playerConnected', $_SESSION['playerConnected'] ?? null);
+//$twig->addGlobal('pfpPath', $_SESSION['pfpPath'] ?? null);
+
+$twig->addGlobal('auth', [
+    'pfpPath' => $_SESSION['pfpPath'] ?? null,
+    'loggedIn' => isset($_SESSION['uuid'])
+]);

@@ -41,10 +41,13 @@ class ControllerAuth extends Controller {
         if (is_null($user->getEmailVerifiedAt())) {
             throw new Exception("Merci de vérifier votre adresse e-mail");
         }
+        if ($user->getDisabled()) {
+            throw new Exception("Votre compte a été désactivé");
+        }
         if (password_verify($password, $user->getPassword())) {
             $playerManager = new PlayerDAO($this->getPdo());
             $player = $playerManager->findWithDetailByUserId($user->getId());
-            $_SESSION['playerConnected'] = $player;
+            $_SESSION['uuid'] = $player->getUuid();
 
             $articleManager = new ArticleDAO($this->getPdo());
             $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
