@@ -1,0 +1,32 @@
+name: Vérifications des tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mise à jour du référentiel
+        uses: actions/checkout@v4
+
+      - name: Configuration de PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, zip, pcntl, pdo, pdo_mysql, pdo_sqlite, bcmath, exif, gd, imagick, redis, xdebug
+
+      - name: Installation des dépendances PHP
+        run: composer install
+
+      - name: Installation des dépendances Node.JS
+        run: npm install
+
+      - name: Exécution des tests
+        run: ./vendor/bin/phpunit tests
