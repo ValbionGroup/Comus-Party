@@ -4,9 +4,10 @@
  * @author  Estéban DESESSARD
  * @brief   Le fichier contient la déclaration & définition de la classe ControllerFactory.
  * @date    14/11/2024
- * @version 0.3
+ * @version 0.4
  */
 
+use models\AuthentificationException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -52,43 +53,52 @@ class ControllerAuth extends Controller {
      * @param ?string $email Adresse e-mail fournie dans le formulaire de connexion
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
      * @return void
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError|Exception Exception levée dans le cas d'une erreur autre
+     * @throws AuthentificationException Exception levée dans le cas d'une erreur d'authentification
      * @throws DateMalformedStringException
      */
     public function authenticate(?string $email, ?string $password): void
     {
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
-        if (is_null($user->getEmailVerifiedAt())) {
-            throw new Exception("Merci de vérifier votre adresse e-mail");
-        }
-        if ($user->getDisabled()) {
-            throw new Exception("Votre compte a été désactivé");
-        }
-        if (password_verify($password, $user->getPassword())) {
-            $playerManager = new PlayerDAO($this->getPdo());
-            $player = $playerManager->findWithDetailByUserId($user->getId());
-            $_SESSION['uuid'] = $player->getUuid();
-            $_SESSION['username'] = $player->getUsername();
-            $_SESSION['comusCoin'] = $player->getComusCoin();
-            $_SESSION['elo'] = $player->getElo();
-            $_SESSION['xp'] = $player->getXp();
 
-            $articleManager = new ArticleDAO($this->getPdo());
-            $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
-            if (is_null($pfp)) {
-                $pfpPath = 'default-pfp.jpg';
-            } else {
-                $pfpPath = $pfp->getPathImg();
-            }
-            $_SESSION['pfpPath'] = $pfpPath;
-            header('Location: /');
+        if (is_null($user)) {
+            throw new AuthentificationException("Adresse e-mail ou mot de passe invalide");
         }
-        else {
-            throw new Exception("Adresse e-mail ou mot de passe invalide");
+
+        if (is_null($user->getEmailVerifiedAt())) {
+            throw new AuthentificationException("Merci de vérifier votre adresse e-mail");
         }
+
+        if ($user->getDisabled()) {
+            throw new AuthentificationException("Votre compte a été désactivé");
+        }
+
+        if (!password_verify($password, $user->getPassword())) {
+            throw new AuthentificationException("Adresse e-mail ou mot de passe invalide");
+        }
+
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findWithDetailByUserId($user->getId());
+
+        if (is_null($player)) {
+            throw new AuthentificationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+        }
+
+        $_SESSION['uuid'] = $player->getUuid();
+        $_SESSION['username'] = $player->getUsername();
+        $_SESSION['comusCoin'] = $player->getComusCoin();
+        $_SESSION['elo'] = $player->getElo();
+        $_SESSION['xp'] = $player->getXp();
+
+        $articleManager = new ArticleDAO($this->getPdo());
+        $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+        if (is_null($pfp)) {
+            $pfpPath = 'default-pfp.jpg';
+        } else {
+            $pfpPath = $pfp->getPathImg();
+        }
+        $_SESSION['pfpPath'] = $pfpPath;
+        header('Location: /');
     }
 
     /**
