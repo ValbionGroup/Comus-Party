@@ -55,7 +55,7 @@ class Player {
      * @details Les Comus Coins sont la monnaie virtuelle de l'application, ils permettent l'achat de service non-impactant sur l'expérience de jeu, tels que des avatars ou des bannières afin de personnaliser son profil.
      * @var int|null
      */
-    private ?int $comusCoins;
+    private ?int $comusCoin;
 
     /**
      * Statistiques du joueur
@@ -98,7 +98,7 @@ class Player {
         $this->updatedAt = $updatedAt;
         $this->xp = $xp;
         $this->elo = $elo;
-        $this->comusCoins = $comusCoins;
+        $this->comusCoin = $comusCoins;
         $this->statistics = $statistics;
         $this->userId = $userId;
     }
@@ -220,19 +220,19 @@ class Player {
      * @brief Retourne le nombre de Comus Coins possédés par le joueur
      * @return int|null Objet retourné par la fonction, ici un entier représentant le nombre de Comus Coins possédés par le joueur
      */
-    public function getComusCoins(): ?int
+    public function getComusCoin(): ?int
     {
-        return $this->comusCoins;
+        return $this->comusCoin;
     }
 
     /**
      * @brief Modifie le nombre de Comus Coins possédés par le joueur
-     * @param int|null $comusCoins Le nouveau nombre de Comus Coins possédés par le joueur
+     * @param int|null $comusCoin Le nouveau nombre de Comus Coins possédés par le joueur
      * @return void
      */
-    public function setComusCoins(?int $comusCoins): void
+    public function setComusCoin(?int $comusCoin): void
     {
-        $this->comusCoins = $comusCoins;
+        $this->comusCoin = $comusCoin;
     }
 
     /**

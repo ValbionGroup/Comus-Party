@@ -28,3 +28,9 @@ $twig = new Twig\Environment($loader, [
 $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
 $twig->addExtension(new DebugExtension());
 $twig->addExtension(new IntlExtension());
+
+$twig->addGlobal('auth', [
+    'pfpPath' => $_SESSION['pfpPath'] ?? null,
+    'loggedIn' => isset($_SESSION['uuid']),
+    'loggedUuid' => $_SESSION['uuid'] ?? null
+]);

@@ -4,7 +4,7 @@
  * @author  Mathis RIVRAIS--NOWAKOWSKI
  * @brief   Le fichier contient la déclaration & définition de la classe ArticleDAO.
  * @date    13/11/2024
- * @version 0.1
+ * @version 0.2
  */
 
 
@@ -130,6 +130,32 @@ class ArticleDAO {
 
 
     /**
+     * @brief Retourne la photo de profile active que le joueur possède sous forme d'objet Article
+     * @param string $uuid L'UUID du joueur
+     * @return Article|null La photo de profil du joueur (ou null si non-trouvée)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function findActivePfpByPlayerUuid(string $uuid): ?Article
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT a.*
+            FROM ' . DB_PREFIX . 'article a
+            JOIN ' . DB_PREFIX . 'invoice_row ir ON a.id = ir.article_id
+            JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
+            WHERE i.player_uuid = :uuid AND a.type = "pfp" AND ir.active = 1');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $pfp = $stmt->fetch();
+        if ($pfp === false) {
+            return null;
+        }
+        $article = $this->hydrate($pfp);
+        return $article;
+    }
+
+
+    /**
      * @brief Hydrate un objet Article avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif content les paramètres
      * @return Article L'objet retourné par la méthode, ici un article
@@ -140,7 +166,7 @@ class ArticleDAO {
         $article->setId($data['id']);
         $article->setName($data['name']);
 
-        if($data['type'] == 'profile_picture'){
+        if ($data['type'] == 'pfp') {
             $type = Type::ProfilePicture;
         }elseif ($data['type'] == 'banner'){
             $type = Type::Banner;
@@ -153,7 +179,7 @@ class ArticleDAO {
 
         $article->setCreatedAt(new DateTime($data['created_at']));
         $article->setUpdatedAt(new DateTime($data['updated_at']));
-        $article->setPathImg($data['path_img']);
+        $article->setPathImg($data['file_path']);
 
         return $article;
     }

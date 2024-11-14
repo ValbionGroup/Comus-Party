@@ -32,9 +32,7 @@ class ControllerAuth extends Controller {
      * @param $email
      * @param $password
      * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws DateMalformedStringException
      */
     public function authenticate($email, $password): void
     {
@@ -43,9 +41,22 @@ class ControllerAuth extends Controller {
         if (is_null($user->getEmailVerifiedAt())) {
             throw new Exception("Merci de vérifier votre adresse e-mail");
         }
+        if ($user->getDisabled()) {
+            throw new Exception("Votre compte a été désactivé");
+        }
         if (password_verify($password, $user->getPassword())) {
-            session_start();
-            $_SESSION['user'] = $user;
+            $playerManager = new PlayerDAO($this->getPdo());
+            $player = $playerManager->findWithDetailByUserId($user->getId());
+            $_SESSION['uuid'] = $player->getUuid();
+
+            $articleManager = new ArticleDAO($this->getPdo());
+            $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+            if (is_null($pfp)) {
+                $pfpPath = 'default-pfp.jpg';
+            } else {
+                $pfpPath = $pfp->getPathImg();
+            }
+            $_SESSION['pfpPath'] = $pfpPath;
             header('Location: /');
         }
         else {

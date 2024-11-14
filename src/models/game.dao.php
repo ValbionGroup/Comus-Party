@@ -111,7 +111,7 @@ class GameDao
         $game->setId($gameTab['id']);
         $game->setName($gameTab['name']);
         $game->setDescription($gameTab['description']);
-        $game->setPathImg($gameTab['path_img']);
+        $game->setPathImg($gameTab['img_path']);
         $game->setState($this->transformState($gameTab['state']));
         $game->setCreatedAt(new DateTime($gameTab['created_at']));
         $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
