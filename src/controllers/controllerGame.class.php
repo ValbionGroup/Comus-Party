@@ -20,8 +20,8 @@ class ControllerGame extends Controller
 {
     /**
      * @brief Constructeur de la classe ControllerGame
-     * @param FilesystemLoader $loader
-     * @param Environment $twig
+     * @param FilesystemLoader $loader Loader Twig
+     * @param Environment $twig Environnement Twig
      */
     public function __construct(FilesystemLoader $loader, Environment $twig)
     {
