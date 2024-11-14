@@ -122,9 +122,12 @@ class PlayerDAO {
      */
     public function findWithDetailByUserId(int $userId): ?Player {
         $stmt = $this->pdo->prepare(
-            'SELECT p.*, u.username, u.email, u.created_at, u.updated_at
-            FROM '. DB_PREFIX .'player p
-            JOIN '. DB_PREFIX .'user u ON p.user_id = u.id
+            'SELECT pr.*, u.email, u.created_at, u.updated_at, COUNT(pd.player_uuid) as games_played, COUNT(w.player_uuid) as games_won, COUNT(gr.host_uuid) as games_hosted
+            FROM ' . DB_PREFIX . 'player pr
+            JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
+            LEFT JOIN ' . DB_PREFIX . 'played pd ON pr.uuid = pd.player_uuid
+            LEFT JOIN ' . DB_PREFIX . 'winned w ON pr.uuid = w.player_uuid
+            LEFT JOIN ' . DB_PREFIX . 'game_record gr ON pr.uuid = gr.host_uuid
             WHERE p.user_id = :userId');
         $stmt->bindParam(':userId', $userId);
         $stmt->execute();
