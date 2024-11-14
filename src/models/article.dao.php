@@ -166,7 +166,7 @@ class ArticleDAO {
         $article->setId($data['id']);
         $article->setName($data['name']);
 
-        if($data['type'] == 'profile_picture'){
+        if ($data['type'] == 'pfp') {
             $type = Type::ProfilePicture;
         }elseif ($data['type'] == 'banner'){
             $type = Type::Banner;
@@ -179,7 +179,7 @@ class ArticleDAO {
 
         $article->setCreatedAt(new DateTime($data['created_at']));
         $article->setUpdatedAt(new DateTime($data['updated_at']));
-        $article->setPathImg($data['path_img']);
+        $article->setPathImg($data['file_path']);
 
         return $article;
     }
