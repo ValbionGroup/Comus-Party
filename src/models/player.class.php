@@ -93,6 +93,7 @@ class Player {
         ?int $userId = null
     ) {
         $this->uuid = $uuid;
+        $this->username = $username;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
         $this->xp = $xp;
