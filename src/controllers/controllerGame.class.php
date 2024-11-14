@@ -14,14 +14,15 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- * @brief Contrôleur permettant de gérer l'affichage des jeux sur différente page.
+ * @brief Classe ControllerGame
+ * @details Contrôleur permettant de gérer l'affichage des jeux sur différente page.
  */
 class ControllerGame extends Controller
 {
     /**
      * @brief Constructeur de la classe ControllerGame
-     * @param FilesystemLoader $loader
-     * @param Environment $twig
+     * @param FilesystemLoader $loader Loader Twig
+     * @param Environment $twig Environnement Twig
      */
     public function __construct(FilesystemLoader $loader, Environment $twig)
     {
