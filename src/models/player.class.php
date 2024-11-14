@@ -73,6 +73,7 @@ class Player {
     /**
      * @brief Le constructeur de la classe Player
      * @param string|null $uuid L'UUID du joueur
+     * @param string|null $username Le nom d'utilisateur du joueur
      * @param DateTime|null $createdAt La date de création du joueur
      * @param DateTime|null $updatedAt La date de mise à jour du joueur
      * @param int|null $xp Les points d'expérience du joueur
