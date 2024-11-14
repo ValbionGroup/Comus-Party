@@ -1,0 +1,36 @@
+name: Publication de la documentation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mise à jour du référentiel
+        uses: actions/checkout@v4
+
+      - name: Mise en place de GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Génération de la documentation
+        uses: mattnotmitt/doxygen-action@edge
+        with:
+          doxyfile-path: ./Doxyfile
+          working-directory: .
+          enable-latex: true
+          additional-packages: font-fira-code
+
+      - name: Déploiement de la documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/html/
+          enable_jekyll: false
+          allow_empty_commit: false
+          force_orphan: true
+          publish_branch: gh-pages
