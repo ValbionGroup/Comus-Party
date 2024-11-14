@@ -18,9 +18,17 @@ use Twig\Loader\FilesystemLoader;
  */
 class ControllerTest extends TestCase
 {
-
+    /**
+     * @brief Controller
+     *
+     * @var Controller
+     */
     private Controller $controller;
 
+    /**
+     * @brief setUp
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->controller = new Controller($loader = new FilesystemLoader(), $twig = new Environment($loader));
