@@ -26,7 +26,6 @@ class PlayerTest extends TestCase
     {
         /**
          * @brief Instanciation d'un objet Player pour les tests
-         * @warning Attention le contrôleur de la classe player ne gère pas l'attribut username
          */
 
         $this->player = new Player(
