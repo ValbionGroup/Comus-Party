@@ -46,7 +46,7 @@ function showModale(article){
     nomArticle.innerText = article.name
     descriptionArticle.innerText = article.description
 
-    prixComusArticle.innerText = article.pricePoint + " Comus - "
+    prixComusArticle.innerText = article.pricePoint + " Comus"
     prixEuroArticle.innerText = article.priceEuro + " €"
 
 

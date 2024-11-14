@@ -43,7 +43,7 @@
                     <h2 class="text-2xl text-night mb-4">Bannières</h2>
                     <div class="flex flex-wrap">
                         {% for banner in banners %}
-                            <div class="w-full h-20 m-1 cursor-pointer"
+                            <div class="w-full h-full m-1 cursor-pointer"
                                  onclick="showModale({ id : '{{ pfp.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}'})">
                                 <img src="{{ banner.filePath }}{{ banner.name }}.png" alt=""
                                      class="w-full h-full rounded-2xl">
@@ -57,27 +57,33 @@
             </div>
         </div>
     </div>
-    <div id="modale" class="bg-lavender-blush-2 rounded-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden ">
+    <div id="modale" class="flex p-6 bg-lavender-blush-2 rounded-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden ">
+        <div class="flex flex-col">
+            <img src="/assets/img/" id="imgArticle" alt="" class="w-full rounded-3xl text-center">
+            <div>
+                <button type="submit" id="addBasketBtn" onclick="addPanier({{ articles.id }})"
+                        class="px-6 py-2 mt-6 border-2 border-lavender-blush-base dark:border-lavender-blush-3 text-lavender-blush-base dark:text-lavender-blush-base dark:bg-lavender-blush-3 font-semibold rounded-md hover:bg-lavender-blush-3  dark:hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:hover:text-lavender-blush-3  transition duration-300">
+                    Ajouter au panier
+                </button>
 
-        <img src="/assets/img/" id="imgArticle" alt="" class="w-full rounded-3xl text-center">
-        <h2 class="text-center" id="nomArticle">Nom</h2>
-        <p class="text-center" id="descriptionArticle">Description</p>
+                <button class="px-6 py-2 mt-6 border-2 border-lavender-blush-base dark:border-lavender-blush-3 text-lavender-blush-base dark:text-lavender-blush-3 font-semibold rounded-md hover:bg-lavender-blush-base dark:hover:bg-lavender-blush-3 hover:text-lavender-blush-3 dark:hover:text-lavender-blush-base transition duration-300"
+                        id="closeModalBtn">Quitter
+                </button>
+            </div>
 
-        <div class="flex justify-center ">
-            <p id="prixComusArticle">PriceComus</p>
-
-            <p id="prixEuroArticle">PriceEuro</p>
         </div>
-        <div>
-            <button type="submit" id="addBasketBtn" onclick="addPanier({{ articles.id }})"
-                    class="bg-hot-magenta text-white font-semibold py-3 px-6 rounded-lg shadow-md transform transition-all duration-300 ease-in-out hover:bg-night hover:scale-105 hover:shadow-lg focus:outline-none">
-                Ajouter au panier
-            </button>
+        <div class="flex flex-col justify-between ">
+            <div class="flex flex-col ml-5">
+                <h2 class="text-4xl" id="nomArticle">Nom</h2>
+                <p class="" id="descriptionArticle">Description</p>
+            </div>
+            <div class="flex flex-row justify-around mb-0.5">
+                <p class=" p-2 rounded-2xl text-xl bg-lavender-blush-3" id="prixComusArticle">PriceComus</p>
 
-            <button class="bg-hot-magenta text-white font-semibold py-3 px-6 rounded-lg shadow-md transform transition-all duration-300 ease-in-out hover:bg-night hover:scale-105 hover:shadow-lg focus:outline-none"
-                    id="closeModalBtn">Quitter
-            </button>
+                <p class=" p-2 rounded-2xl text-xl  bg-lavender-blush-3" id="prixEuroArticle">PriceEuro</p>
+            </div>
         </div>
+
 
     </div>
 
