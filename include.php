@@ -9,7 +9,6 @@ $dotenv->load();
 
 require_once __DIR__ . '/config/const.php';
 require_once __DIR__ . '/config/db.php';
-require_once __DIR__ . '/config/twig.php';
 
 require_once __DIR__ . '/src/pages/errors.php';
 require_once __DIR__ . '/src/models/Router.php';
@@ -33,3 +32,6 @@ require_once __DIR__ . '/src/models/game.dao.php';
 require_once __DIR__ . '/src/models/article.class.php';
 require_once __DIR__ . '/src/models/article.dao.php';
 require_once __DIR__ . '/src/models/statistics.class.php';
+
+session_start();
+require_once __DIR__ . '/config/twig.php';

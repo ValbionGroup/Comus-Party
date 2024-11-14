@@ -29,23 +29,37 @@ class ControllerProfile extends Controller {
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws NotFoundException|SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function showByPlayer(): void
+    public function showByPlayer(?string $player_uuid): void
     {
-        if (!isset($_GET['uuid'])) {
+        if (is_null($player_uuid)) {
             throw new NotFoundException('Player not found');
         }
-        $player_uuid = $_GET['uuid'];
         $playerManager = new PlayerDAO($this->getPdo());
         $userManager = new UserDAO($this->getPdo());
         $player = $playerManager->findWithDetailByUuid($player_uuid);
-        if ($player === null) {
+        if (is_null($player)) {
             throw new NotFoundException('Player not found');
         }
         $user = $userManager->findById($player->getUserId());
+        $articleManager = new ArticleDAO($this->getPdo());
+        $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+        if (is_null($pfp)) {
+            $pfpPath = 'default-pfp.jpg';
+        } else {
+            $pfpPath = $pfp->getPathImg();
+        }
+        $banner = $articleManager->findActiveBannerByPlayerUuid($player->getUuid());
+        if (is_null($banner)) {
+            $bannerPath = 'default-banner.jpg';
+        } else {
+            $bannerPath = $banner->getPathImg();
+        }
         $template = $this->getTwig()->load('profil.twig');
         echo $template->render(array(
             "player" => $player,
-            "user" => $user
+            "user" => $user,
+            "pfp" => $pfpPath,
+            "banner" => $bannerPath
         ));
     }
 }

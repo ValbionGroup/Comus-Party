@@ -1,29 +1,38 @@
 <?php
 /**
- * La classe GameDAO permet de faire des opérations sur la table game
+ * @file game.dao.php
+ * @brief Le fichier contient la déclaration et la définition de la classe GameDao
+ * @author Conchez-Boueytou Robin
+ * @date 13/11/2024
+ * @version 0.1
+ */
+
+/**
+ * @brief Classe GameDao
+ * @details La classe GameDao permet de faire des opérations sur la table game de la base de données
  */
 class GameDao
 {
     /**
      * Classe PDO pour la connexion à la base de données
      *
-     * @var PDO|null
+     * @var PDO|null La connexion à la base de données
      */
     private ?PDO $pdo;
 
     /**
-     * Constructeur de la classe GameDAO
+     * @brief Constructeur de la classe GameDAO
      *
-     * @param PDO|null $pdo
+     * @param PDO|null $pdo La connexion à la base de données
      */
     public function __construct(?PDO $pdo){
         $this->pdo = $pdo;
     }
 
     /**
-     * Retourne la connexion à la base de données
+     * @brief Retourne la connexion à la base de données
      *
-     * @return PDO|null
+     * @return PDO|null La connexion à la base de données
      */
     public function getPdo(): ?PDO
     {
@@ -31,9 +40,9 @@ class GameDao
     }
 
     /**
-     * Modifie la connexion à la base de données
+     * @brief Modifie la connexion à la base de données
      *
-     * @param PDO|null $pdo
+     * @param PDO|null $pdo La nouvelle connexion à la base de données
      */
     public function setPdo(?PDO $pdo): void
     {
@@ -41,10 +50,11 @@ class GameDao
     }
 
     /**
-     * Retourne un objet Game (ou null) à partir de l'identifiant passé en paramètre
+     * @brief Retourne un objet Game (ou null) à partir de l'identifiant passé en paramètre
+     * @details
      *
-     * @param int $id
-     * @return Game|null
+     * @param int $id L'identifiant du jeu
+     * @return Game|null L'objet Game correspondant à l'identifiant ou null
      */
     public function findById(int $id): ?Game{
         $stmt = $this->pdo->prepare(
@@ -62,9 +72,9 @@ class GameDao
     }
 
     /**
-     * Retourne un tableau d'objets Game à partir de la table game
+     * @brief Retourne un tableau d'objets Game à partir de la table game
      *
-     * @return array
+     * @return array Le tableau d'objets Game
      */
     public function findAll(): array{
         $stmt = $this->pdo->prepare(
@@ -77,31 +87,31 @@ class GameDao
     }
 
     /**
-     * Retourne l'état du jeu en type Etat à partir d'un état de type string
+     * @brief Retourne l'état du jeu en type Etat à partir d'un état de type string
      *
-     * @param string $state
-     * @return ?State
+     * @param string $state L'état du jeu
+     * @return ?GameState L'état du jeu en type State
      */
-    public function transformState(string $state):?State{
+    public function transformState(string $state):?GameState{
         return match (strtoupper($state)) {
-            'AVAILABLE' => State::AVAILABLE,
-            'UNVAILABLE' => State::UNVAILABLE,
-            'MAINTENANCE' => State::MAINTENANCE,
+            'AVAILABLE' => GameState::AVAILABLE,
+            'UNAVAILABLE' => GameState::UNAVAILABLE,
+            'MAINTENANCE' => GameState::MAINTENANCE,
             default => null,
         };
     }
 
     /**
-     * Retourne un tableau d'objets Game à partir de la table game
+     * @brief Hydrate un d'objet Game à partir d'un tableau de jeux de la table game passé en paramètre
      *
-     * @return array
+     * @return Game Un objet Game
      */
     public function hydrate(array $gameTab): Game{
         $game = new Game();
         $game->setId($gameTab['id']);
         $game->setName($gameTab['name']);
         $game->setDescription($gameTab['description']);
-        $game->setPathImg($gameTab['path_img']);
+        $game->setPathImg($gameTab['img_path']);
         $game->setState($this->transformState($gameTab['state']));
         $game->setCreatedAt(new DateTime($gameTab['created_at']));
         $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
@@ -109,10 +119,10 @@ class GameDao
     }
 
     /**
-     * Retourne un tableau d'objets Game à partir de la table game
-     *
-     * @param array $gamesTab
-     * @return array
+     * @brief Hydrate un tableau d'objets Game à partir de la table game
+     * @details Cette méthode appelle, pour chaque jeu du tableau, la méthode hydrate
+     * @param array $gamesTab Le tableau de jeux
+     * @return array Le tableau d'objets Game
      */
     public function hydrateMany(array $gamesTab): array{
         $games = [];
