@@ -1,9 +1,11 @@
 {
   "scripts": {
-    "build": "tailwindcss build -i assets/css/base.css -o assets/css/builded.css",
-    "watch": "tailwindcss build -i assets/css/base.css -o assets/css/builded.css --watch"
+    "start": "php -S localhost:8000 -t public",
+    "build": "tailwindcss build -i src/css/base.css -o public/assets/css/builded.css --minify",
+    "watch": "tailwindcss build -i src/css/base.css -o public/assets/css/builded.css --watch"
   },
   "devDependencies": {
+    "@jothepro/doxygen-awesome-css": "github:jothepro/doxygen-awesome-css",
     "tailwindcss": "^3.4.14"
   }
 }
