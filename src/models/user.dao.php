@@ -106,4 +106,58 @@ class UserDAO {
         $user->setUpdatedAt(new DateTime($data['updated_at']));
         return $user;
     }
+
+    /**
+     * @brief Crée un utilisateur dans la base de données
+     * 
+     * @details La méthode crée un utilisateur dans la base de données, en fonction des paramètres passés.
+     * 
+     * @param User $user L'objet User que l'on souhaite créer
+     * @return bool True si la création a réussi, false sinon
+     * @throws PDOException Exception levée en cas d'erreur de la requête
+     */
+    public function createUser(string $email, string $password): bool  {
+        $stmtUser = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verify_token, disabled) VALUES (?, ?, null, null, 0)");
+        $stmtUser->bindParam("ss", $email, $password);
+        return $stmtUser->execute();
+    }
+
+    /**
+     * @brief Vérifie si un utilisateur existe déjà dans la base de données
+     * 
+     * @details La méthode vérifie si un utilisateur existe déjà dans la
+     * base de données, en fonction de l'email fourni.
+     * 
+     * @param string $email Email de l'utilisateur à vérifier
+     * @return bool True si l'utilisateur existe, false sinon
+     */
+    public function userExists(?string $email)
+    {
+        $stmtEmail = $this->pdo->prepare("SELECT u.id
+                                        FROM " . DB_PREFIX . "user u
+                                        JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
+                                        WHERE u.email = ?");
+        $stmtEmail->bindParam("s", $email);
+        $stmtEmail->execute();
+        $resultEmail = $stmtEmail->fetch();
+
+        return $resultEmail->rowCount()>0;
+    }
+
+    /**
+     * @brief Retourne l'identifiant utilisateur correspondant à l'email fourni
+     * 
+     * @param string $email Email de l'utilisateur
+     * @return int|null Identifiant utilisateur (ou null si non-trouvé)
+     */
+    public function getUserIdByEmail(?string $email)
+    {
+        $stmtUserId = $this->pdo->prepare("SELECT id FROM " . DB_PREFIX . "user WHERE email = ?");
+        $stmtUserId->bindParam("s", $email);
+        $stmtUserId->execute();
+        $row = $stmtUserId->fetch();
+        return $row['id'];
+    }
+
+    
 }

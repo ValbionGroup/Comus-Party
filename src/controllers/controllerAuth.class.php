@@ -11,6 +11,7 @@ class ControllerAuth extends Controller {
 
     /**
      * Constructeur de la classe ControllerAuth
+     * 
      *
      * @param FilesystemLoader $loader
      * @param Environment $twig
@@ -23,6 +24,12 @@ class ControllerAuth extends Controller {
     {
         global $twig;
         echo $twig->render('login.twig');
+    }
+
+    public function showRegistrationPage(): void
+    {
+        global $twig;
+        echo $twig->render('signUp.twig');
     }
 
     /**

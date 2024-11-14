@@ -7,6 +7,7 @@
  * @version 0.1
  */
 
+ use Ramsey\Uuid\Uuid; // Pour la création de l'uuid
 
 /**
  * @brief Classe PlayerDAO
@@ -212,5 +213,59 @@ class PlayerDAO {
             $players[] = $this->hydrate($player);
         }
         return $players;
+    }
+
+    
+    /**
+     * @brief Crée un nouveau joueur dans la base de données
+     * 
+     * @param Player $player L'objet Player représentant le joueur à créer
+     * @return void
+     * @throws PDOException Exception levée dans le cas d'une erreur de requête
+     */
+    public function createPlayer(string $username): bool
+    {
+        // Genération de l'uuid du joueur
+        $uuid = Uuid::uuid4()->toString();
+
+        $userId=PlayerDAO::getUserIdByUsername($username);
+
+        $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (?, ?, ?)");
+        $stmtPlayer->bindParam("sss", $uuid, $username, $userId);
+        return $stmtPlayer->execute();
+    }
+
+    /**
+     * @brief Vérifie si un joueur existe déjà dans la base de données
+     * 
+     * @details La méthode vérifie si un joueur existe déjà dans la
+     * base de données, en fonction du nom d'utilisateur fourni.
+     * 
+     * @param string $username Nom d'utilisateur du joueur à vérifier
+     * @return bool True si le joueur existe, false sinon
+     */
+    public function playerExists(?string $username)
+    {
+        $stmtUsername = $this->pdo->prepare("SELECT u.id
+                                            FROM " . DB_PREFIX . "user u
+                                            JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
+                                            WHERE p.username = ?");
+        $stmtUsername->bindParam("s", $username);
+        $stmtUsername->execute();
+        $resultUsername = $stmtUsername->fetch();
+
+        return $resultUsername->rowCount() > 0;
+    }
+
+    public function getUserIdByUsername(?string $username)
+    {
+        $stmtUserId = $this->pdo->prepare("SELECT u.id AS user_id
+                                            FROM user u
+                                            JOIN player p ON u.id = p.user_id
+                                            WHERE p.username = ?;");
+        $stmtUserId->bindParam("s", $username);
+        $stmtUserId->execute();
+        $row = $stmtUserId->fetch();
+        return $row['id'];
     }
 }

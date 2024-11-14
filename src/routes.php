@@ -92,15 +92,13 @@ $router->post('/shop/basket/checkout', function () {
     exit;
 });
 
-$router->get('/register', function () {
-    echo "Page d'inscription<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/register', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("showRegistrationPage");
     exit;
 });
 
-$router->post('/register', function () {
-    echo "Traitement de l'inscription<br/>";
-    echo "A IMPLEMENTER";
+$router->post('/register', function () use ($loader, $twig) {
+    ControllerFactory::getController("user", $loader, $twig)->call("register");
     exit;
 });
 

@@ -81,20 +81,19 @@ function checkUsernameRequirements() {
 function checkEmailRequirements() {
     // Constantes
     const EMAIL = document.getElementById("email").value; // Email
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex pour valider le format de l'email
     // Variables
     let incorrectEmailFormat = document.getElementById("incorrectEmailFormat");
     let submitButton = document.getElementById("submitButton");
-        
+    
     // Vérifications
-    // L'email doit contenir un @
-    if (!EMAIL.includes("@")) {
-        submitButton.disabled = true;
-        incorrectEmailFormat.innerHTML="L'email doit contenir un @";
-        incorrectEmailFormat.style.display = "block";
-    // Tout est bon, le bouton de soumission est activé
-    } else {
-        submitButton.disabled = false;
+    if (EMAIL_REGEX.test(EMAIL)) {
         incorrectEmailFormat.style.display = "none";
+        submitButton.disabled = false;
+    } else {
+        incorrectEmailFormat.innerHTML = "Format d'email invalide, veuillez entrer un email valide.";
+        incorrectEmailFormat.style.display = "block";
+        submitButton.disabled = true;
     }
 }
 
@@ -202,7 +201,7 @@ function sendAuthData() {
     const EMAIL = document.getElementById("email").value;
     const PASSWORD = document.getElementById("password").value;
     // Envoi des données au serveur avec une requête POST
-    fetch('../auth/signUpCheck.php', {
+    fetch('../controllers/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({

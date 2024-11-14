@@ -1,14 +1,14 @@
-{% extends 'authenticationTemplate.twig' %}
+{% extends 'layouts/authentification.twig' %}
 
-{% block leftImg %}
-    <div id="leftImg" class="col-span-3 flex items-center justify-center h-screen">
-        <img src="../../assets/img/authentication_img/placeholder.png" alt="placeholder">
-    </div>
+{% block title %}
+    Inscription
 {% endblock %}
 
-{% block rightForm %}
-    <div id="rightForm" class="col-span-2 grid grid-rows-5 h-screen">
-        <h1 class="row-span-1 text-3xl text-center mt-20">Inscription</h1>
+{% block content %}
+    <div class="w-full">
+        <div class="mt-4 sm:mt-0">
+            <h1 class="text-3xl font-bold">Inscription</h1>
+        </div>
         
         <!-- Formulaire pour l'inscription de l'utilisateur -->
         <form id="registrationForm" action="" method="post" class="row-span-4 flex flex-col space-y-4 items-center">
@@ -38,6 +38,8 @@
 
             <input type="submit" id="submitButton" value="Valider" class="mt-20">
         </form>
-
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src="/assets/js/authentication.js"></script>
 {% endblock %}
