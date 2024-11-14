@@ -21,6 +21,9 @@ jobs:
       - name: Mise à jour du référentiel
         uses: actions/checkout@v4
 
+      - name: Création du fichier .env
+        run: cp .env.exemple .env
+
       - name: Configuration de PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -37,9 +40,6 @@ jobs:
 
       - name: Installation des dépendances Node.JS
         run: npm install
-
-      - name: Création du fichier .env
-        run: cp .env.exemple .env
 
       - name: Exécution des tests
         run: ./vendor/bin/phpunit tests
