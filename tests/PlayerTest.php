@@ -51,7 +51,6 @@ class PlayerTest extends TestCase
     }
     /**
      * @brief Test de la méthode getUsername
-     * @details  Génére une erreur car la méthode username n'est pas définie dans le constructeur de la classe Player
      * @return void
      */
     public function testGetUsername(): void
