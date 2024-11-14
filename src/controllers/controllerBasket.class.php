@@ -26,6 +26,16 @@ class ControllerBasket extends Controller
      */
     public function show(){
         $template = $this->getTwig()->load('basket.twig');
-        echo $template->render();
+
+
+        $managerArticle = new ArticleDAO($this->getPdo());
+
+        $articles = $managerArticle->findArticlesWithIds($_SESSION['basket']);
+
+        echo $template->render(
+            array('articles' => $articles)
+        );
     }
+
+
 }

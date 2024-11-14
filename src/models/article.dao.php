@@ -89,6 +89,26 @@ class ArticleDAO {
         return $articles;
     }
 
+    function findArticlesWithIds($ids)
+    {
+        var_dump($ids);
+        if (!empty($ids)) {
+            $idsString = implode(',', $ids);
+
+            $stmt = $this->pdo->query('SELECT * FROM '. DB_PREFIX . 'article WHERE id IN ('.$idsString.')');
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $tabArticles = $stmt->fetchAll();
+
+            if ($tabArticles === false) {
+                return null;
+            }
+            $articles = $this->hydrateMany($tabArticles);
+            return $articles;
+        }
+        return null;
+    }
+
     /**
      * @brief Retourne un tableau d'objets Article qui ont le type profile_picture dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type profile_picture (ou null si aucune joueur recensé)
