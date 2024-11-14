@@ -17,6 +17,9 @@ jobs:
       - name: Mise en place de GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Installation des dépendances Node.JS
+        run: npm install
+
       - name: Génération de la documentation
         uses: mattnotmitt/doxygen-action@edge
         with:
