@@ -14,7 +14,8 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- * @brief Contrôleur permettant de gérer l'affichage des jeux sur différente page.
+ * @brief Classe ControllerGame
+ * @details Contrôleur permettant de gérer l'affichage des jeux sur différente page.
  */
 class ControllerGame extends Controller
 {
