@@ -21,7 +21,7 @@ use Twig\Error\SyntaxError;
 class ControllerBasket extends Controller
 {
     /**
-     * Constructeur de la classe ControllerBasket
+     * @brief Constructeur de la classe ControllerBasket
      * @param FilesystemLoader $loader
      * @param Environment $twig
      */
