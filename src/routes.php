@@ -140,20 +140,12 @@ $router->post('/shop/basket/checkout', function () {
 });
 
 $router->get('/register', function () {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     echo "Page d'inscription<br/>";
     echo "A IMPLEMENTER";
     exit;
 });
 
 $router->post('/register', function () {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     echo "Traitement de l'inscription<br/>";
     echo "A IMPLEMENTER";
     exit;
