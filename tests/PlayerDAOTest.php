@@ -53,7 +53,7 @@ class PlayerDAOTest extends TestCase
      */
     public function testFindByUuid(): void
     {
-        $this->assertEquals('PlayerOne', $this->playerDAO->findByUuid('uuid-player1')->getUsername());
+        $this->assertEquals('JohnDoe', $this->playerDAO->findByUuid('uuid1')->getUsername());
     }
 
     /**
@@ -61,7 +61,7 @@ class PlayerDAOTest extends TestCase
      * @return void
      */
     public function testFindByUserId(): void{
-        $this->assertEquals('PlayerOne', $this->playerDAO->findByUserId(1)->getUsername());
+        $this->assertEquals('JohnDoe', $this->playerDAO->findByUserId(1)->getUsername());
     }
 
     /**
@@ -70,14 +70,14 @@ class PlayerDAOTest extends TestCase
      * @throws DateMalformedStringException
      */
     public function testFindWithDetailByUuid(): void{
-        $this->assertEquals('PlayerOne', $this->playerDAO->findWithDetailByUuid('uuid-player1')->getUsername());
+        $this->assertEquals('JohnDoe', $this->playerDAO->findWithDetailByUuid('uuid1')->getUsername());
     }
     /**
      * @brief Test de la méthode findWithDetailByUserId
      * @return void
      */
     public function testFindWithDetailByUserId(): void{
-        $this->assertEquals('PlayerOne', $this->playerDAO->findWithDetailByUserId(1)->getUsername());
+        $this->assertEquals('JohnDoe', $this->playerDAO->findWithDetailByUserId(1)->getUsername());
     }
 
     /**
@@ -86,7 +86,7 @@ class PlayerDAOTest extends TestCase
      * @throws DateMalformedStringException
      */
     public function testFindAll(): void{
-        $this->assertEquals('PlayerOne',$this->playerDAO->findAll()[0]->getUsername());
+        $this->assertEquals('JohnDoe',$this->playerDAO->findAll()[0]->getUsername());
     }
 
     /**
@@ -95,7 +95,7 @@ class PlayerDAOTest extends TestCase
      * @throws DateMalformedStringException
      */
     public function testFindAllWithDetail(): void{
-        $this->assertEquals('PlayerOne',$this->playerDAO->findAllWithDetail()[0]->getUsername());
+        $this->assertEquals('JohnDoe',$this->playerDAO->findAllWithDetail()[0]->getUsername());
     }
 
     /**
