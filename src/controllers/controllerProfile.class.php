@@ -1,4 +1,11 @@
 <?php
+/**
+ * @file    controllerProfile.class.php
+ * @brief   Ce fichier contient la déclaration & définition de la classe ControllerProfile.
+ * @author  Estéban DESESSARD
+ * @date    15/11/2024
+ * @version 0.2
+ */
 
 use models\NotFoundException;
 use Twig\Environment;
