@@ -36,7 +36,15 @@ class ControllerBasket extends Controller
             array('articles' => $articles)
         );
     }
-
+    /**
+     * @brief Permet de supprimer un article au panier
+     *
+     * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     */
     public function removeArticleBasket($id){
 
         if ($id != null) {

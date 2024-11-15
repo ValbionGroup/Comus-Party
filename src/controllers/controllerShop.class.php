@@ -60,7 +60,15 @@ class ControllerShop extends Controller {
         ));
     }
 
-
+    /**
+     * @brief Permet d'ajouter un article au panier
+     *
+     * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     */
     function addBasket()
     {
 // Vérifier si l'ID de l'article a été envoyé

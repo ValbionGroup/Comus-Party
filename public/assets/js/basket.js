@@ -1,8 +1,3 @@
-// let deleteArticle = document.getElementById("deleteArticle")
-console.log("jieji")
-
-
-
 function removeArticle(id){
     const xhr = new XMLHttpRequest();
     xhr.open("DELETE", `/shop/basket/remove/${id}`, true);
