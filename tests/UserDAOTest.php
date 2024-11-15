@@ -71,16 +71,17 @@ class UserDAOTest extends TestCase
      */
     public function testFindById(): void
     {
-        $this->assertEquals('user1@example.com', $this->userDAO->findById(1)->getEmail());
+        $this->assertEquals('john.doe@example.com', $this->userDAO->findById(1)->getEmail());
     }
 
     /**
      * @brief Test de la méthode findByEmail
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindByEmail(): void
     {
-        $this->assertEquals(1, $this->userDAO->findByEmail('user1@example.com')->getId());
+        $this->assertEquals(1, $this->userDAO->findByEmail('john.doe@example.com')->getId());
     }
 
     /**
@@ -92,7 +93,7 @@ class UserDAOTest extends TestCase
     {
         $userTab = [
             'id' => 1,
-            'email' => 'user1@example.com',
+            'email' => 'john.doe@example.com',
             'emailVerifiedAt' => new DateTime('2024-11-06'),
             'emailVerifyToken' => 'token123',
             'password' => 'password_hash1',
