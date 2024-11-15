@@ -28,3 +28,13 @@ $twig = new Twig\Environment($loader, [
 $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
 $twig->addExtension(new DebugExtension());
 $twig->addExtension(new IntlExtension());
+
+$twig->addGlobal('auth', [
+    'pfpPath' => $_SESSION['pfpPath'] ?? null,
+    'loggedIn' => isset($_SESSION['uuid']),
+    'loggedUuid' => $_SESSION['uuid'] ?? null,
+    'loggedUsername' => $_SESSION['username'] ?? null,
+    'loggedComusCoin' => $_SESSION['comusCoin'] ?? null,
+    'loggedElo' => $_SESSION['elo'] ?? null,
+    'loggedXp' => $_SESSION['xp'] ?? null,
+]);

@@ -55,7 +55,7 @@ class Player {
      * @details Les Comus Coins sont la monnaie virtuelle de l'application, ils permettent l'achat de service non-impactant sur l'expérience de jeu, tels que des avatars ou des bannières afin de personnaliser son profil.
      * @var int|null
      */
-    private ?int $comusCoins;
+    private ?int $comusCoin;
 
     /**
      * Statistiques du joueur
@@ -72,8 +72,9 @@ class Player {
 
     /**
      * @brief Le constructeur de la classe Player
-     * @param string $uuid L'UUID du joueur
-     * @param DateTime $createdAt La date de création du joueur
+     * @param string|null $uuid L'UUID du joueur
+     * @param string|null $username Le nom d'utilisateur du joueur
+     * @param DateTime|null $createdAt La date de création du joueur
      * @param DateTime|null $updatedAt La date de mise à jour du joueur
      * @param int|null $xp Les points d'expérience du joueur
      * @param int|null $elo L'Elo du joueur
@@ -93,11 +94,12 @@ class Player {
         ?int $userId = null
     ) {
         $this->uuid = $uuid;
+        $this->username = $username;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
         $this->xp = $xp;
         $this->elo = $elo;
-        $this->comusCoins = $comusCoins;
+        $this->comusCoin = $comusCoins;
         $this->statistics = $statistics;
         $this->userId = $userId;
     }
@@ -113,10 +115,10 @@ class Player {
 
     /**
      * @brief Modifie l'UUID du joueur
-     * @param string $uuid Le nouvel UUID du joueur
+     * @param string|null $uuid Le nouvel UUID du joueur
      * @return void
      */
-    public function setUuid(string $uuid): void
+    public function setUuid(?string $uuid): void
     {
         $this->uuid = $uuid;
     }
@@ -132,9 +134,9 @@ class Player {
 
     /**
      * @brief Modifie le nom d'utilisateur du joueur
-     * @param string $username Le nouveau nom d'utilisateur du joueur
+     * @param string|null $username Le nouveau nom d'utilisateur du joueur
      */
-    public function setUsername(string $username): void
+    public function setUsername(?string $username): void
     {
         $this->username = $username;
     }
@@ -150,10 +152,10 @@ class Player {
 
     /**
      * @brief Modifie la date de création du joueur
-     * @param DateTime $createdAt La nouvelle date de création du joueur
+     * @param DateTime|null $createdAt La nouvelle date de création du joueur
      * @return void
      */
-    public function setCreatedAt(DateTime $createdAt): void
+    public function setCreatedAt(?DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -219,19 +221,19 @@ class Player {
      * @brief Retourne le nombre de Comus Coins possédés par le joueur
      * @return int|null Objet retourné par la fonction, ici un entier représentant le nombre de Comus Coins possédés par le joueur
      */
-    public function getComusCoins(): ?int
+    public function getComusCoin(): ?int
     {
-        return $this->comusCoins;
+        return $this->comusCoin;
     }
 
     /**
      * @brief Modifie le nombre de Comus Coins possédés par le joueur
-     * @param int|null $comusCoins Le nouveau nombre de Comus Coins possédés par le joueur
+     * @param int|null $comusCoin Le nouveau nombre de Comus Coins possédés par le joueur
      * @return void
      */
-    public function setComusCoins(?int $comusCoins): void
+    public function setComusCoin(?int $comusCoin): void
     {
-        $this->comusCoins = $comusCoins;
+        $this->comusCoin = $comusCoin;
     }
 
     /**
