@@ -1,4 +1,12 @@
 <?php
+/**
+ * @file    controllerBasket.class.php
+ * @author  Mathis Rivrais--Nowakowski
+ * @brief   Le fichier contient la déclaration & définition de la classe ControllerBasket.
+ * @date    14/11/2024
+ * @version 0.4
+ */
+
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
