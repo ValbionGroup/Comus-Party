@@ -118,4 +118,104 @@ class ControllerAuth extends Controller {
         session_destroy();
         header('Location: /login');
     }
+
+    
+
+    /**
+     * @brief Enregistre un utilisateur
+     * 
+     * @details La méthode register() est appelée par la route /register.
+     * Elle lit les données du formulaire envoyées en JSON et essaie de créer un utilisateur et un joueur.
+     * Si l'utilisateur et le joueur n'existent pas, la méthode créer l'utilisateur et le joueur.
+     * Si l'utilisateur existe déjà, la méthode renvoie un message d'erreur.
+     * Si le joueur existe déjà, la méthode renvoie un message d'erreur.
+     * Si l'utilisateur et le joueur sont créés avec succès, la méthode renvoie un message de confirmation.
+     * La méthode renvoie un JSON contenant un champ "success" et un champ "message".
+     * @return void
+     */
+    public function register(): void {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        // Données valides (vérifie que l'email, le nom d'utilisateur et le mot de passe sont reçus)
+        if (isset($data['username']) && isset($data['email']) && isset($data['password'])) {
+            $username = $data['username'];
+            $email = $data['email'];
+            $password = $data['password'];
+
+            // Vérifier si l'email, le nom d'utilisateur et le mot de passe sont valides
+            if ($this->validateUsername($username) &&
+                $this->validateEmail($email) &&
+                $this->validatePassword($password)) {
+
+                // Hash le mot de passe
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+
+                $userDAO = new UserDAO($this->getPdo());
+                $playerDAO = new PlayerDAO($this->getPdo());
+                
+                // Vérifier si l'utilisateur et le joueur existent
+                $existingUser = $userDAO->findByEmail($email) !== null;
+                $existingPlayer = $playerDAO->findByUsername($username) !== null;
+                
+                $resultUser = false;
+                
+                // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
+                if (!$existingUser && !$existingPlayer) { $resultUser = $userDAO->createUser($email, $hashedPassword); }
+                
+                // Créer le joueur si l'utilisateur est créé avec succès
+                if ($resultUser) { $playerDAO->createPlayer($username, $email); }
+
+                if (!$existingUser && !$existingPlayer) { echo json_encode(["success" => true, "message" => "Inscription validée"]); }
+                elseif(!$existingUser && $existingPlayer) { echo json_encode(["success" => false, "message" => "Création de l'utilisateur échouée"]); }
+                elseif($existingUser && !$existingPlayer) { echo json_encode(["success" => false, "message" => "Création du joueur échouée"]); }
+                else { echo json_encode(["success" => false, "message" => "Création de l'utilisateur et du joueur échouées"]); }
+            } else { echo json_encode(["success" => false, "message" => "Données reçues non valides"]); }
+        } else { echo json_encode(["success" => false, "message" => "Données reçues incomplètes"]); }
+    }
+
+    /**
+     * @brief Valide le nom d'utilisateur par rapport à des critères définis.
+     *
+     * @details Le nom d'utilisateur doit répondre aux critères suivants:
+     * - Avoir au moins 3 caractères
+     * - Ne pas contenir de caractères spéciaux
+     *
+     * @param string $username Le nom d'utilisateur à valider.
+     * @return bool Renvoie true si le nom d'utilisateur répond à tous les critères, false sinon.
+     */
+    private function validateUsername($username) {
+        return strlen($username) >= 3 && !strpbrk($username, '@#$%^&*()+=[]{}|;:",\'<>?/\\ ');
+    }
+
+    /**
+     * @brief Valide le mot de passe par rapport à des critères définis.
+     *
+     * @details Le mot de passe doit répondre aux critères suivants:
+     * - Avoir au moins 8 caractères
+     * - Contenir au moins une lettre majuscule
+     * - Contenir au moins une lettre minuscule
+     * - Contenir au moins un chiffre
+     * - Contenir au moins un caractère spécial
+     *
+     * @param string $password Le mot de passe à valider.
+     * @return bool Renvoie true si le mot de passe répond à tous les critères, false sinon.
+     */
+    private function validatePassword($password) {
+        return strlen($password) >= 8 && preg_match('/[A-Z]/', $password) &&
+               preg_match('/[a-z]/', $password) && preg_match('/\d/', $password) &&
+               preg_match('/[\W]/', $password);
+    }
+
+/**
+ * @brief Valide l'email par rapport à des critères définis.
+ *
+ * @details Vérifie que l'email est dans un format valide utilisant le filtre PHP FILTER_VALIDATE_EMAIL.
+ *
+ * @param string $email L'email à valider.
+ * @return bool Renvoie true si l'email est dans un format valide, false sinon.
+ */
+    private function validateEmail($email) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
 }

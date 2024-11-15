@@ -71,9 +71,11 @@ function checkUsernameRequirements() {
 }
 
 /**
- * @brief Verifie si l'email est valide (contient un @).
+ * @brief Vérifie si l'email respecte les exigences spécifiées.
  *
- * @details Si l'email ne contient pas de @, le bouton de soumission est désactivé
+ * @details La fonction vérifie si l'email:
+ * - a un format valide
+ * Si l'email ne respecte pas ces exigences, le bouton de soumission est désactivé
  * et un message d'erreur est affiché.
  *
  * @return void
@@ -183,26 +185,26 @@ function checkPasswordsMatch() {
     }
 }
 
+
 /**
- * @brief Envoie les données d'inscription de l'utilisateur au serveur.
- * 
- * @details Récupère les valeurs des champs de formulaire et les envoie
- * au serveur en tant que données JSON via une requête POST.
- * Selon la réponse du serveur, affiche un message de succès
- * ou d'echec.
- * 
+ * @brief Envoie les données d'inscription à la page d'inscription du serveur.
+ *
+ * @details La fonction sendAuthData() est appelée lorsque l'utilisateur clique sur le bouton "S'inscrire".
+ * Elle envoie les données d'inscription (nom d'utilisateur, adresse e-mail et mot de passe) au serveur
+ * avec une requête POST.
+ * Le serveur répondra avec un JSON contenant un champ "success" et un champ "message".
+ * Si le champ "success" est true, le message est vert et affiché.
+ * Sinon, le message est rouge et affiché.
  * @return void
- * 
- * @TODO Traitement lors de la réception des données (data.success)
  */
 function sendAuthData() {
     // Récupération des données
     const USERNAME = document.getElementById("username").value;
     const EMAIL = document.getElementById("email").value;
     const PASSWORD = document.getElementById("password").value;
-
     // Variables
     let resultMessage = document.getElementById("resultMessage");
+
     // Envoi des données au serveur avec une requête POST
     fetch('http://localhost:8000/register', {
         method: 'POST',

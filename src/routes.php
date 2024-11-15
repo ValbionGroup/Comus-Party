@@ -97,7 +97,7 @@ $router->get('/register', function () use ($loader, $twig) {
 });
 
 $router->post('/register', function () use ($loader, $twig) {
-    ControllerFactory::getController("user", $loader, $twig)->call("register");
+    ControllerFactory::getController("auth", $loader, $twig)->call("register");
     exit;
 });
 

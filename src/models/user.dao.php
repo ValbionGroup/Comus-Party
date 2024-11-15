@@ -107,43 +107,17 @@ class UserDAO {
         return $user;
     }
 
+
     /**
-     * @brief Crée un utilisateur dans la base de données
-     * 
-     * @details La méthode crée un utilisateur dans la base de données, en fonction des paramètres passés.
-     * 
-     * @param User $user L'objet User que l'on souhaite créer
-     * @return bool True si la création a réussi, false sinon
-     * @throws PDOException Exception levée en cas d'erreur de la requête
+     * @brief Crée un utilisateur en base de données
+     * @param string $email L'adresse e-mail de l'utilisateur
+     * @param string $password Le mot de passe de l'utilisateur
+     * @return bool Retourne true si l'utilisateur a pu être créé, false sinon
      */
     public function createUser(string $email, string $password): bool  {
-        if(!UserDAO::userExists($email)) {
             $stmtUser = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verif_token, disabled) VALUES (?, ?, null, null, 0)");
             $stmtUser->bindParam(1, $email);
             $stmtUser->bindParam(2, $password);
             return $stmtUser->execute();
-        } else { return false; }
-    }
-
-    /**
-     * @brief Vérifie si un utilisateur existe déjà dans la base de données
-     * 
-     * @details La méthode vérifie si un utilisateur existe déjà dans la
-     * base de données, en fonction de l'email fourni.
-     * 
-     * @param string $email Email de l'utilisateur à vérifier
-     * @return bool True si l'utilisateur existe, false sinon
-     */
-    public function userExists(?string $email)
-    {
-        $stmtEmail = $this->pdo->prepare("SELECT u.id
-                                        FROM " . DB_PREFIX . "user u
-                                        JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
-                                        WHERE u.email = ?");
-        $stmtEmail->bindParam(1, $email);
-        $stmtEmail->execute();
-        $resultEmail = $stmtEmail->fetch();
-
-        return $resultEmail!==false;
     }
 }

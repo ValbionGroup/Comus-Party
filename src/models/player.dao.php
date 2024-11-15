@@ -199,10 +199,11 @@ class PlayerDAO {
         $player->setXp($data['xp']);
         $player->setElo($data['elo']);
         $player->setComusCoin($data['comus_coin']);
-        $player->getStatistics()->setPlayerUuid($data['uuid']);
-        $player->getStatistics()->setGamesPlayed($data['games_played']);
-        $player->getStatistics()->setGamesWon($data['games_won']);
-        $player->getStatistics()->setGamesHosted($data['games_hosted']);
+        // /!\ $data['games_played'] n'est pas reconnu lors de l'appel de la methode hydrate()
+        // $player->getStatistics()->setPlayerUuid($data['uuid']);
+        // $player->getStatistics()->setGamesPlayed($data['games_played']);
+        // $player->getStatistics()->setGamesWon($data['games_won']);
+        // $player->getStatistics()->setGamesHosted($data['games_hosted']);
         $player->setUserId($data['user_id']);
         return $player;
     }
@@ -226,49 +227,50 @@ class PlayerDAO {
     /**
      * @brief Crée un nouveau joueur dans la base de données
      * 
-     * @param Player $player L'objet Player représentant le joueur à créer
-     * @return void
-     * @throws PDOException Exception levée dans le cas d'une erreur de requête
+     * @details Cette méthode génère un UUID unique pour le joueur, récupère l'identifiant utilisateur à partir de l'adresse e-mail,
+     * et insère un nouvel enregistrement dans la table des joueurs avec l'UUID, le nom d'utilisateur, et l'ID utilisateur.
+     * 
+     * @param string $username Le nom d'utilisateur du joueur
+     * @param string $email L'adresse e-mail liée au joueur
+     * @return bool Retourne true si le joueur a été créé avec succès, false sinon
      */
     public function createPlayer(string $username, string $email): bool
     {
-        if(!PlayerDAO::playerExists($username)) {
-            // Genération de l'uuid du joueur
-            $uuid = Uuid::uuid4()->toString();
+        // Genération de l'uuid du joueur
+        $uuid = Uuid::uuid4()->toString();
 
-            $userId=PlayerDAO::getUserIdByEmail($email);
-            file_put_contents("id.txt", $userId, FILE_APPEND);
+        $userId=PlayerDAO::getUserIdByEmail($email);
 
-            $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (?, ?, ?)");
-            $stmtPlayer->bindParam(1, $uuid);
-            $stmtPlayer->bindParam(2, $username);
-            $stmtPlayer->bindParam(3, $userId);
-            return $stmtPlayer->execute();
-        } else { return false; }
+        $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (?, ?, ?)");
+        $stmtPlayer->bindParam(1, $uuid);
+        $stmtPlayer->bindParam(2, $username);
+        $stmtPlayer->bindParam(3, $userId);
+        return $stmtPlayer->execute();
     }
 
     /**
-     * @brief Vérifie si un joueur existe déjà dans la base de données
-     * 
-     * @details La méthode vérifie si un joueur existe déjà dans la
-     * base de données, en fonction du nom d'utilisateur fourni.
-     * 
-     * @param string $username Nom d'utilisateur du joueur à vérifier
-     * @return bool True si le joueur existe, false sinon
+     * @brief Retourne un objet Player (ou null) à partir du nom d'utilisateur passé en paramètre
+     * @param string|null $username Le nom d'utilisateur du joueur à retrouver
+     * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
      */
-    public function playerExists(?string $username)
-    {
-        $stmtUsername = $this->pdo->prepare("SELECT u.id
-                                            FROM " . DB_PREFIX . "user u
-                                            JOIN " . DB_PREFIX . "player p ON u.id = p.user_id
-                                            WHERE p.username = ?");
-        $stmtUsername->bindParam(1, $username);
-        $stmtUsername->execute();
-        $resultUsername = $stmtUsername->fetch();
 
-        return $resultUsername!==false;
+    public function findByUsername(?string $username): ?Player {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "player WHERE username = :username");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
+        if ($result === false) {
+            return null;
+        }
+        return $this->hydrate($result);
     }
 
+    /**
+     * @brief Retourne l'identifiant utilisateur associé à l'adresse e-mail
+     * @param string $email L'adresse e-mail dont l'ID utilisateur est recherché
+     * @return int L'identifiant utilisateur lié à l'adresse e-mail
+     */
     public function getUserIdByEmail($email) {
         $stmt = $this->pdo->prepare("SELECT u.id
                                     FROM " . DB_PREFIX . "user u
