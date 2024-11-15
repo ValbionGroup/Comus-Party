@@ -27,6 +27,18 @@ class ControllerAuthTest extends TestCase
     private Controller $controller;
 
     /**
+     * @brief Méthode setUp exécutée avant chaque test
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $loader = new FilesystemLoader(__DIR__ . '/../src/templates');
+        $twig = new Environment($loader);
+        $this->controller = new ControllerAuth($loader, $twig);
+
+    }
+
+    /**
      * @brief Test de la méthode authenticate() avec un e-mail null
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une erreur de format de date
@@ -58,17 +70,5 @@ class ControllerAuthTest extends TestCase
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
         $this->controller->authenticate('john.doe@example.com', 'hashed_password1');
-    }
-
-    /**
-     * @brief Méthode setUp exécutée avant chaque test
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $loader = new FilesystemLoader(__DIR__ . '/../src/templates');
-        $twig = new Environment($loader);
-        $this->controller = new ControllerAuth($loader, $twig);
-
     }
 }
