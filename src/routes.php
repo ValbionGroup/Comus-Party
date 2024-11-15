@@ -15,12 +15,20 @@ use models\Router;
 $router = Router::getInstance();
 
 $router->get('/', function () use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     ControllerFactory::getController("game",$loader,$twig)->call("show");
     exit;
 });
 
 // Route pour afficher le profil
 $router->get('/profile', function () use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", [
         "playerUuid" => $_SESSION["uuid"]
     ]);
@@ -29,12 +37,20 @@ $router->get('/profile', function () use ($loader, $twig) {
 
 // Route pour afficher le formulaire de connexion
 $router->get('/login', function () use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
     ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
     exit;
 });
 
 // Route pour traiter la soumission du formulaire de connexion
 $router->post('/login', function () use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
     if (isset($_POST['email']) && isset($_POST['password'])) {
         ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
             "email" => $_POST['email'],
@@ -46,6 +62,10 @@ $router->post('/login', function () use ($loader, $twig) {
 });
 
 $router->get('/logout', function () use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     ControllerFactory::getController("auth", $loader, $twig)->call("logout");
     exit;
 });
@@ -57,35 +77,59 @@ $router->get('/game/:code', function ($code) {
 });
 
 $router->get('/shop', function () use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     ControllerFactory::getController("shop", $loader, $twig)->call("show");
     exit;
 });
 
 $router->get('/shop/basket', function () {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     echo "Page du panier<br/>";
     echo "A IMPLEMENTER";
     exit;
 });
 
 $router->post('/shop/basket/add/:id', function ($id) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     echo "Ajout d'un article au panier : " . $id . "<br/>";
     echo "A IMPLEMENTER";
     exit;
 });
 
 $router->delete('/shop/basket/remove/:id', function ($id) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     echo "Suppression d'un article du panier : " . $id . "<br/>";
     echo "A IMPLEMENTER";
     exit;
 });
 
 $router->get('/shop/basket/checkout', function () {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     echo "Page de paiement<br/>";
     echo "A IMPLEMENTER";
     exit;
 });
 
 $router->post('/shop/basket/checkout', function () {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     echo "Traitement du paiement<br/>";
     echo "A IMPLEMENTER";
     exit;
@@ -104,11 +148,19 @@ $router->post('/register', function () {
 });
 
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
     exit;
 });
 
 $router->put('/profile', function () {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
     echo "Mise à jour du profil<br/>";
     echo "A IMPLEMENTER";
     exit;
