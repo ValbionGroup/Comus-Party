@@ -2,6 +2,11 @@ let pfps = document.querySelectorAll(".pfp");
 let modalWindow = document.getElementById("modale")
 let closeModalBtn = document.getElementById("closeModalBtn")
 let addBasketBtn = document.getElementById("addBasketBtn")
+let overlay = document.getElementById("overlay")
+
+
+
+
 
 /*
 Déclaration des attributs des articles présent dans le twig
@@ -22,24 +27,20 @@ But : Affiche la fenêtre modale
 
 function showModale(article){
 
-    let flex = "flex "
 
-    modalWindow.className = flex + '' + modalWindow.className
+    overlay.classList.remove('hidden');
+    modalWindow.classList.remove('hidden');
+
+// Forcer le reflow pour s'assurer que les transitions s'appliquent
+    overlay.offsetHeight; // Reflow
+    modalWindow.offsetHeight;
+
+    overlay.classList.add('opacity-100'); // Apparition de l'overlay
+    modalWindow.classList.add('opacity-100', 'translate-y-0'); // Apparition et glissement de la modale
+    modalWindow.classList.remove('opacity-0', 'translate-y-4'); // Retirer les classes d'animation de départ
 
 
-    // if(article.type == "ProfilePicture"){
-    //
-    //     modalWindow.children[0].classList.remove("w-full")
-    //     modalWindow.children[0].className = "w-32 " + modalWindow.children[0].className
-    //     modalWindow.children[0].src = modalWindow.children[0].src + "pfp/" + article.name +".png"
-    // }else if(article.type == "Banner"){
-    //
-    //
-    //     modalWindow.children[0].classList.remove("w-32")
-    //     modalWindow.children[0].className = "w-full " + modalWindow.children[0].className
-    // }
 
-    modalWindow.classList.remove("hidden")
     imgArticle.src = ""
     console.log(article.filePath)
     imgArticle.src = article.filePath + article.name + ".png"
@@ -75,9 +76,17 @@ function showModale(article){
 
 // Permet de fermer la fenêtre modale
 closeModalBtn.addEventListener("click", ()=>{
-    modalWindow.classList.add("hidden")
-    modalWindow.classList.remove("flex")
 
+
+    // modalWindow.classList.remove("flex")
+    overlay.classList.remove('opacity-100'); // Disparition de l'overlay
+    modalWindow.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
+
+    // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
+    setTimeout(() => {
+        overlay.classList.add('hidden', 'opacity-0');
+        modalWindow.classList.add('hidden', 'opacity-0', 'translate-y-4');
+    }, 300); // Durée de la transition
 })
 
 
