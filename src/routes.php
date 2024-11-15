@@ -75,9 +75,9 @@ $router->post('/shop/basket/add', function () use ($loader, $twig){
     exit;
 });
 
-$router->delete('/shop/basket/remove/:id', function () use ($loader, $twig) {
-    ControllerFactory::getController("shop",$loader,$twig)->call("removeArticleBasket");
-    exit;
+$router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
+
+    ControllerFactory::getController("basket",$loader,$twig)->call("removeArticleBasket", ["id" => $id]);
     exit;
 });
 

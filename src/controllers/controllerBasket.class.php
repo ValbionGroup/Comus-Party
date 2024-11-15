@@ -37,8 +37,30 @@ class ControllerBasket extends Controller
         );
     }
 
-    public function removeArticleBasket(){
+    public function removeArticleBasket($id){
 
+        if ($id != null) {
+            $id_article = intval($id);
+
+
+
+            // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
+            if (in_array($id_article, $_SESSION['basket'])) {
+                var_dump($_SESSION['basket']);
+
+                $key = array_search($id_article, $_SESSION['basket'], true);
+                var_dump($key);
+                if ($key !== false) {
+                    // Supprimer cette clé
+                    unset($_SESSION['basket'][$key]);
+                }
+                echo "Article supprimé du panier !";
+            } else {
+                echo "L'article n'est pas dans le panier.";
+            }
+        } else {
+            echo "Erreur : ID de l'article non spécifié.";
+        }
     }
 
 

@@ -32,7 +32,7 @@
 
                     {% for article in articles %}
 
-                        <div class="flex flex-row w-11/12 p-2 ml-8 rounded-2xl m-2  border-lavender-blush-base border-2">
+                        <div id="eltPanier" class="flex flex-row w-11/12 p-2 ml-8 rounded-2xl m-2  border-lavender-blush-base border-2">
 
                             <img src="{{ article.filePath }}{{ article.name }}.png" alt="Pas d'image" class="rounded-2xl cursor-pointer {% if article.type == "Banner" %} w-64 {% endif %} {% if article.type == "ProfilePicture" %} w-16 {% endif%}">
                             <div class="w-full flex justify-between ml-5 items-center">
@@ -44,7 +44,7 @@
                                     <p class="text-right">{{ article.pricePoint }} Cms</p>
                                     <p class="text-right">{{ article.priceEuro }} €</p>
                                 </div>
-                                <span class="cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 4.75l-6.5 6.5m0-6.5l6.5 6.5"/></svg></span>
+                                <span class="cursor-pointer"  onclick="removeArticle({{ article.id }})"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 4.75l-6.5 6.5m0-6.5l6.5 6.5"/></svg></span>
                             </div>
                         </div>
                     {% endfor %}
@@ -83,5 +83,5 @@
 
 
     </div>
-
+    <script src="/assets/js/basket.js"></script>
 {% endblock %}
