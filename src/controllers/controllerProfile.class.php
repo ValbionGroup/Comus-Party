@@ -8,7 +8,8 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * Contrôleur de la page profile, utilisé pour afficher le profil d'un joueur sous différents angles
+ * @brief Classe ControllerProfile
+ * @details Contrôleur de la page profile, utilisé pour afficher le profil d'un joueur sous différents angles (vu par lui-même, par un autre joueur, ou par un modérateur)
  */
 class ControllerProfile extends Controller {
 
