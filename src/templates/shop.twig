@@ -44,7 +44,10 @@
                     <div class="flex flex-wrap">
                         {% for banner in banners %}
                             <div class="w-full h-full m-1 cursor-pointer"
-                                 onclick="showModale({ id : '{{ pfp.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}'})">
+
+
+                                 onclick="showModale({ id : '{{ banner.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}'})">
+
                                 <img src="{{ banner.filePath }}{{ banner.name }}.png" alt=""
                                      class="w-full h-full rounded-2xl">
                             </div>
