@@ -5,7 +5,7 @@
  * @author Conchez-Boueytou Robin
  * @brief Le fichier contient la déclaration et la définition de la classe StatisticsTest
  * @date 14/11/2024
- * @version 0.0
+ * @version 1.0
  */
 
 require_once __DIR__ . '/../include.php';
