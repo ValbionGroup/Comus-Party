@@ -30,11 +30,17 @@ jobs:
           php-version: '8.3'
           extensions: mbstring, intl, zip, pcntl, pdo, pdo_mysql, pdo_sqlite, bcmath, exif, gd, imagick, redis, xdebug
 
-      - name: Start MySQL
+      - name: Démarrage de MySQL
         run: |
           sudo /etc/init.d/mysql start
           mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USERNAME -p$DB_PASSWORD
 
+      - name: Importation des tables et données de tests
+        run: |
+          echo "Importation des données dans MySQL..."
+          mysql -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE < ./.github/comusparty_export.sql
+          echo "Importation réussie"
+      
       - name: Installation des dépendances PHP
         run: composer install
 
