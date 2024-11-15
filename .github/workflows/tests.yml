@@ -1,0 +1,57 @@
+name: Vérifications des tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  DB_DATABASE: comusparty
+  DB_USERNAME: root
+  DB_PASSWORD: root
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mise à jour du référentiel
+        uses: actions/checkout@v4
+
+      - name: Création du fichier .env
+        run: cp .env.exemple .env
+
+      - name: Configuration de PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, zip, pcntl, pdo, pdo_mysql, pdo_sqlite, bcmath, exif, gd, imagick, redis, xdebug
+
+      - name: Démarrage de MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USERNAME -p$DB_PASSWORD
+
+      - name: Importation des tables et données de tests
+        run: |
+          echo "Importation des données dans MySQL..."
+          mysql -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE < ./.github/comusparty_export.sql
+          echo "Importation réussie"
+
+      - name: Paramètrage de MySQL
+        run: |
+          echo "Désactivation de ONLY_FULL_GROUP_BY"
+          mysql -u$DB_USERNAME -p$DB_PASSWORD -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"
+          echo "OK!"
+      
+      - name: Installation des dépendances PHP
+        run: composer install
+
+      - name: Installation des dépendances Node.JS
+        run: npm install
+
+      - name: Exécution des tests
+        run: ./vendor/bin/phpunit tests
