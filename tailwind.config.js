@@ -12,10 +12,30 @@ module.exports = {
         'auth-background': "url('./assets/img/auth.jpg')",
       },
       colors: {
-        'blue-violet': '#8338EC',
-        'rose': '#FF006E',
-        'celestial-blue': '#33A1FD',
-        'hot-magenta': '#DF4CDA',
+        'blue-violet': {
+          'base': '#8338EC',
+          '600': '#6615D7',
+          '700': '#4E10A4',
+          '800': '#350B71',
+        },
+        'rose': {
+          'base': '#FF006E',
+          '600': '#C70056',
+          '700': '#8F003E',
+          '800': '#570025',
+        },
+        'celestial-blue': {
+          'base': '#33A1FD',
+          '600': '#0287F5',
+          '700': '#0268BE',
+          '800': '#014A86',
+        },
+        'hot-magenta': {
+          'base': '#DF4CDA',
+          '600': '#CE25C8',
+          '700': '#9E1C9A',
+          '800': '#6F146C',
+        },
         'maize': {
           'base' : '#FFEC51',
           '600' : '#FFE619',
