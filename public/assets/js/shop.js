@@ -88,22 +88,3 @@ closeModalBtn.addEventListener("click", ()=>{
         modalWindow.classList.add('hidden', 'opacity-0', 'translate-y-4');
     }, 300); // Durée de la transition
 })
-
-
-// function addPanier(id){
-//     // Création de la requête AJAX
-//     const xhr = new XMLHttpRequest();
-//     xhr.open("POST", "/shop/basket/add", true);
-//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//
-//     // Envoyer les données sous forme de paire clé=valeur
-//     xhr.send("id_article=" + id);
-//
-//     // Gérer la réponse du serveur
-//     xhr.onreadystatechange = function() {
-//         if (xhr.readyState === 4 && xhr.status === 200) {
-//             alert(xhr.responseText);  // Affiche la réponse (par exemple : "Article ajouté au panier !")
-//         }
-//     };
-//
-// }
