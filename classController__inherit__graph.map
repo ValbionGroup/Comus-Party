@@ -1,0 +1,12 @@
+<map id="Controller" name="Controller">
+<area shape="rect" id="Node000001" title="Classe Controller." alt="" coords="287,5,363,31"/>
+<area shape="rect" id="Node000002" href="$classControllerAuth.html" title="Classe ControllerAuth." alt="" coords="5,79,109,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="273,36,103,81,102,76,271,31"/>
+<area shape="rect" id="Node000003" href="$classControllerGame.html" title="Classe ControllerGame." alt="" coords="133,79,245,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="290,41,213,81,211,76,287,36"/>
+<area shape="rect" id="Node000004" href="$classControllerProfile.html" title=" " alt="" coords="269,79,381,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="328,46,328,79,322,79,322,46"/>
+<area shape="rect" id="Node000005" href="$classControllerShop.html" title="Classe ControllerShop." alt="" coords="405,79,512,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="355,37,430,76,427,81,353,42"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="369,36,444,76,441,81,367,41"/>
+</map>

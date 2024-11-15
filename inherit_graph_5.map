@@ -1,0 +1,15 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,129,83,155"/>
+<area shape="rect" id="Node000001" href="$classmodels_1_1AuthentificationException.html" title="Classe AuthentificationException." alt="" coords="146,5,312,31"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="59,114,88,76,108,56,129,40,152,29,154,34,132,44,111,60,92,79,63,118"/>
+<area shape="rect" id="Node000002" href="$classmodels_1_1ControllerNotFoundException.html" title="Classe ControllerNotFoundException." alt="" coords="135,55,324,80"/>
+<area shape="poly" id="edge6_Node000000_Node000002" title=" " alt="" coords="76,118,130,89,161,78,163,83,132,94,78,123"/>
+<area shape="rect" id="Node000003" href="$classmodels_1_1MethodNotFoundException.html" title="Classe MethodNotFoundException." alt="" coords="141,104,318,130"/>
+<area shape="poly" id="edge7_Node000000_Node000003" title=" " alt="" coords="98,132,140,126,140,132,98,138"/>
+<area shape="rect" id="Node000004" href="$classmodels_1_1NotFoundException.html" title="Classe NotFoundException." alt="" coords="162,153,296,179"/>
+<area shape="poly" id="edge8_Node000000_Node000004" title=" " alt="" coords="99,146,162,155,161,160,98,152"/>
+<area shape="rect" id="Node000005" href="$classmodels_1_1RouteNotFoundException.html" title="Classe RouteNotFoundException." alt="" coords="145,203,314,228"/>
+<area shape="poly" id="edge9_Node000000_Node000005" title=" " alt="" coords="79,161,132,189,164,200,162,205,130,194,76,166"/>
+<area shape="rect" id="Node000006" href="$classmodels_1_1UnauthorizedAccessException.html" title="Classe UnauthorizedAccessException." alt="" coords="131,252,328,278"/>
+<area shape="poly" id="edge10_Node000000_Node000006" title=" " alt="" coords="63,166,92,204,111,223,132,239,154,249,152,254,129,243,108,227,88,208,59,170"/>
+</map>

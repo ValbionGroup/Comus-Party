@@ -1,0 +1,25 @@
+var classGame =
+[
+    [ "__construct", "classGame.html#a2631f1058833eb524f5c105eef54fb55", null ],
+    [ "getCreatedAt", "classGame.html#a0f0455d4aafe27d1b0720c3bcfff2847", null ],
+    [ "getDescription", "classGame.html#a2e7bb35c71bf1824456ceb944cb7a845", null ],
+    [ "getId", "classGame.html#a12251d0c022e9e21c137a105ff683f13", null ],
+    [ "getName", "classGame.html#a3d0963e68bb313b163a73f2803c64600", null ],
+    [ "getPathImg", "classGame.html#a15ca8e2ac1d48f3677b49ad30ea7be6b", null ],
+    [ "getState", "classGame.html#afbf787ced76807989fb3093e1772c5a1", null ],
+    [ "getUpdatedAt", "classGame.html#a789bc1a92b41cf8c0958231bc1f27131", null ],
+    [ "setCreatedAt", "classGame.html#a29e08b68eaa931e0624c27c30d4d463e", null ],
+    [ "setDescription", "classGame.html#acee77db44e361e2773e2734033f2a1c5", null ],
+    [ "setId", "classGame.html#a02a5667ab1839b99445c63ed76e3eb39", null ],
+    [ "setName", "classGame.html#a8c5eb02203dacfc67899b597d6fa12a9", null ],
+    [ "setPathImg", "classGame.html#a7dc1e9349f051144fe9906cff557d037", null ],
+    [ "setState", "classGame.html#a232a65b7ec2814744354bdfbee2a3c53", null ],
+    [ "setUpdatedAt", "classGame.html#a6a8f2e22ee946100b942d81036f29047", null ],
+    [ "$createdAt", "classGame.html#a479fde0e5affee7654f315d79c4c54be", null ],
+    [ "$description", "classGame.html#a166882b9613466de882dd8727762f2db", null ],
+    [ "$id", "classGame.html#a3587bd00e5602c1800515b6f9ffbebc5", null ],
+    [ "$name", "classGame.html#a58551b63ba97fb35b928f11f36b1fac6", null ],
+    [ "$pathImg", "classGame.html#ad85c4e3ae4fbf39300ff299d56edc0f1", null ],
+    [ "$state", "classGame.html#a263e1dc5271002936791325271becc7b", null ],
+    [ "$updatedAt", "classGame.html#ad61536d92e1a1a6bb8233adfb15bc755", null ]
+];

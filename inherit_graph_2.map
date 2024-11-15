@@ -1,0 +1,11 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="Node000000" href="$classController.html" title="Classe Controller." alt="" coords="5,80,82,106"/>
+<area shape="rect" id="Node000001" href="$classControllerAuth.html" title="Classe ControllerAuth." alt="" coords="134,5,238,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="77,69,128,40,151,29,153,34,131,45,80,74"/>
+<area shape="rect" id="Node000002" href="$classControllerGame.html" title="Classe ControllerGame." alt="" coords="130,55,242,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="97,81,129,75,130,80,98,86"/>
+<area shape="rect" id="Node000003" href="$classControllerProfile.html" title=" " alt="" coords="130,104,242,130"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="98,99,130,105,129,110,97,104"/>
+<area shape="rect" id="Node000004" href="$classControllerShop.html" title="Classe ControllerShop." alt="" coords="133,153,239,179"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="81,112,131,140,153,150,151,155,128,145,78,116"/>
+</map>

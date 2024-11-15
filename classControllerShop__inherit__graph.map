@@ -1,0 +1,6 @@
+<map id="ControllerShop" name="ControllerShop">
+<area shape="rect" id="Node000001" title="Classe ControllerShop." alt="" coords="5,79,112,105"/>
+<area shape="rect" id="Node000002" href="$classController.html" title="Classe Controller." alt="" coords="20,5,97,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="52,46,54,78,49,79,47,46"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="70,46,68,79,63,78,65,46"/>
+</map>

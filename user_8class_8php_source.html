@@ -1,0 +1,310 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/models/user.class.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('user_8class_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">user.class.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="user_8class_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classUser.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="classUser.html">User</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classUser.html#a3587bd00e5602c1800515b6f9ffbebc5">   20</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">int</span> <a class="code hl_variable" href="classUser.html#a3587bd00e5602c1800515b6f9ffbebc5">$id</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classUser.html#aa5809edde76526314aef4529d7d285e9">   26</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classUser.html#aa5809edde76526314aef4529d7d285e9">$email</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classUser.html#af454cbf6404de5fcfecaca754c36ccb7">   32</a></span>    <span class="keyword">private</span> ?DateTime <a class="code hl_variable" href="classUser.html#af454cbf6404de5fcfecaca754c36ccb7">$emailVerifiedAt</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="classUser.html#af131f3bfc47e5c6747e1ccf27c049e17">   38</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classUser.html#af131f3bfc47e5c6747e1ccf27c049e17">$emailVerifyToken</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classUser.html#a99f6264ab0c9eac3199f38350ea0703d">   44</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classUser.html#a99f6264ab0c9eac3199f38350ea0703d">$password</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classUser.html#a7403e8b561cad53be8509c3fe40fddb7">   51</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">int</span> <a class="code hl_variable" href="classUser.html#a7403e8b561cad53be8509c3fe40fddb7">$disabled</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classUser.html#a479fde0e5affee7654f315d79c4c54be">   57</a></span>    <span class="keyword">private</span> ?DateTime <a class="code hl_variable" href="classUser.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classUser.html#ad61536d92e1a1a6bb8233adfb15bc755">   63</a></span>    <span class="keyword">private</span> ?DateTime <a class="code hl_variable" href="classUser.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="foldopen" id="foldopen00076" data-start="{" data-end="}">
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="classUser.html#afe7d6c20ffe730db4d42a92570b873c5">   76</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#afe7d6c20ffe730db4d42a92570b873c5">__construct</a>(</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        ?<span class="keywordtype">int</span> <a class="code hl_variable" href="classUser.html#a3587bd00e5602c1800515b6f9ffbebc5">$id</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classUser.html#aa5809edde76526314aef4529d7d285e9">$email</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        ?DateTime <a class="code hl_variable" href="classUser.html#af454cbf6404de5fcfecaca754c36ccb7">$emailVerifiedAt</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classUser.html#af131f3bfc47e5c6747e1ccf27c049e17">$emailVerifyToken</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classUser.html#a99f6264ab0c9eac3199f38350ea0703d">$password</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        ?<span class="keywordtype">int</span> <a class="code hl_variable" href="classUser.html#a7403e8b561cad53be8509c3fe40fddb7">$disabled</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        ?DateTime $created_at = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        ?DateTime $updated_at = <span class="keyword">null</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    )</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        $this-&gt;<span class="keywordtype">id</span> = <a class="code hl_variable" href="classUser.html#a3587bd00e5602c1800515b6f9ffbebc5">$id</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        $this-&gt;email = <a class="code hl_variable" href="classUser.html#aa5809edde76526314aef4529d7d285e9">$email</a>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        $this-&gt;emailVerifiedAt = <a class="code hl_variable" href="classUser.html#af454cbf6404de5fcfecaca754c36ccb7">$emailVerifiedAt</a>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        $this-&gt;emailVerifyToken = <a class="code hl_variable" href="classUser.html#af131f3bfc47e5c6747e1ccf27c049e17">$emailVerifyToken</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        $this-&gt;password = <a class="code hl_variable" href="classUser.html#a99f6264ab0c9eac3199f38350ea0703d">$password</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        $this-&gt;disabled = <a class="code hl_variable" href="classUser.html#a7403e8b561cad53be8509c3fe40fddb7">$disabled</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        $this-&gt;createdAt = $created_at;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        $this-&gt;updatedAt = $updated_at;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classUser.html#a12251d0c022e9e21c137a105ff683f13">  101</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a12251d0c022e9e21c137a105ff683f13">getId</a>(): ?int</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classUser.html#a3587bd00e5602c1800515b6f9ffbebc5">$this-&gt;id</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classUser.html#a02a5667ab1839b99445c63ed76e3eb39">  110</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a02a5667ab1839b99445c63ed76e3eb39">setId</a>(?<span class="keywordtype">int</span> <a class="code hl_variable" href="classUser.html#a3587bd00e5602c1800515b6f9ffbebc5">$id</a>): void</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        $this-&gt;<span class="keywordtype">id</span> = <a class="code hl_variable" href="classUser.html#a3587bd00e5602c1800515b6f9ffbebc5">$id</a>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classUser.html#a02a01849f28e2535e888ae4ec87b20f2">  119</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a02a01849f28e2535e888ae4ec87b20f2">getEmail</a>(): ?string</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classUser.html#aa5809edde76526314aef4529d7d285e9">$this-&gt;email</a>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="foldopen" id="foldopen00128" data-start="{" data-end="}">
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="classUser.html#a9704bd69d117172f3a7a9a7ce6331f11">  128</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a9704bd69d117172f3a7a9a7ce6331f11">setEmail</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classUser.html#aa5809edde76526314aef4529d7d285e9">$email</a>): void</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        $this-&gt;email = <a class="code hl_variable" href="classUser.html#aa5809edde76526314aef4529d7d285e9">$email</a>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    }</div>
+</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="classUser.html#a96426b87046975cea637b52304d3069c">  137</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a96426b87046975cea637b52304d3069c">getEmailVerifiedAt</a>(): ?DateTime</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classUser.html#af454cbf6404de5fcfecaca754c36ccb7">$this-&gt;emailVerifiedAt</a>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
+</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="foldopen" id="foldopen00146" data-start="{" data-end="}">
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="classUser.html#aacef967a59f633962fcdcae9eb446355">  146</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#aacef967a59f633962fcdcae9eb446355">setEmailVerifiedAt</a>(?DateTime <a class="code hl_variable" href="classUser.html#af454cbf6404de5fcfecaca754c36ccb7">$emailVerifiedAt</a>): void</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        $this-&gt;emailVerifiedAt = <a class="code hl_variable" href="classUser.html#af454cbf6404de5fcfecaca754c36ccb7">$emailVerifiedAt</a>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
+</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="foldopen" id="foldopen00155" data-start="{" data-end="}">
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="classUser.html#a4968edcf32485c8c43576e11c28febf2">  155</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a4968edcf32485c8c43576e11c28febf2">getEmailVerifyToken</a>(): ?string</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classUser.html#af131f3bfc47e5c6747e1ccf27c049e17">$this-&gt;emailVerifyToken</a>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    }</div>
+</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="classUser.html#a341e65d1cc49f20d8fa043fd5ba75594">  164</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a341e65d1cc49f20d8fa043fd5ba75594">setEmailVerifyToken</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classUser.html#af131f3bfc47e5c6747e1ccf27c049e17">$emailVerifyToken</a>): void</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        $this-&gt;emailVerifyToken = <a class="code hl_variable" href="classUser.html#af131f3bfc47e5c6747e1ccf27c049e17">$emailVerifyToken</a>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    }</div>
+</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="foldopen" id="foldopen00173" data-start="{" data-end="}">
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="classUser.html#a04e0957baeb7acde9c0c86556da2d43f">  173</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a04e0957baeb7acde9c0c86556da2d43f">getPassword</a>(): ?string</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    {</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classUser.html#a99f6264ab0c9eac3199f38350ea0703d">$this-&gt;password</a>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
+</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="foldopen" id="foldopen00182" data-start="{" data-end="}">
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="classUser.html#a927713c02af0ce8c59528617b3c64312">  182</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a927713c02af0ce8c59528617b3c64312">setPassword</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classUser.html#a99f6264ab0c9eac3199f38350ea0703d">$password</a>): void</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        $this-&gt;password = <a class="code hl_variable" href="classUser.html#a99f6264ab0c9eac3199f38350ea0703d">$password</a>;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    }</div>
+</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="foldopen" id="foldopen00191" data-start="{" data-end="}">
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="classUser.html#acb30698aae42539e2b9ea3f6d172ce46">  191</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#acb30698aae42539e2b9ea3f6d172ce46">getDisabled</a>(): ?int</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    {</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classUser.html#a7403e8b561cad53be8509c3fe40fddb7">$this-&gt;disabled</a>;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
+</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="foldopen" id="foldopen00200" data-start="{" data-end="}">
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="classUser.html#a6ac8fb0e0a1f8a7463701376cf168db6">  200</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a6ac8fb0e0a1f8a7463701376cf168db6">setDisabled</a>(?<span class="keywordtype">int</span> <a class="code hl_variable" href="classUser.html#a7403e8b561cad53be8509c3fe40fddb7">$disabled</a>): void</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        $this-&gt;disabled = <a class="code hl_variable" href="classUser.html#a7403e8b561cad53be8509c3fe40fddb7">$disabled</a>;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    }</div>
+</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="foldopen" id="foldopen00209" data-start="{" data-end="}">
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="classUser.html#a0f0455d4aafe27d1b0720c3bcfff2847">  209</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a0f0455d4aafe27d1b0720c3bcfff2847">getCreatedAt</a>(): ?DateTime</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    {</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classUser.html#a479fde0e5affee7654f315d79c4c54be">$this-&gt;createdAt</a>;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    }</div>
+</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="foldopen" id="foldopen00218" data-start="{" data-end="}">
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="classUser.html#a29e08b68eaa931e0624c27c30d4d463e">  218</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a29e08b68eaa931e0624c27c30d4d463e">setCreatedAt</a>(?DateTime <a class="code hl_variable" href="classUser.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>): void</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        $this-&gt;createdAt = <a class="code hl_variable" href="classUser.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    }</div>
+</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="foldopen" id="foldopen00227" data-start="{" data-end="}">
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="classUser.html#a789bc1a92b41cf8c0958231bc1f27131">  227</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a789bc1a92b41cf8c0958231bc1f27131">getUpdatedAt</a>(): ?DateTime</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classUser.html#ad61536d92e1a1a6bb8233adfb15bc755">$this-&gt;updatedAt</a>;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    }</div>
+</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="foldopen" id="foldopen00236" data-start="{" data-end="}">
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="classUser.html#a6a8f2e22ee946100b942d81036f29047">  236</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classUser.html#a6a8f2e22ee946100b942d81036f29047">setUpdatedAt</a>(?DateTime <a class="code hl_variable" href="classUser.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>): void</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    {</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        $this-&gt;updatedAt = <a class="code hl_variable" href="classUser.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    }</div>
+</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>}</div>
+</div>
+<div class="ttc" id="aclassUser_html"><div class="ttname"><a href="classUser.html">User</a></div><div class="ttdoc">Classe User.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">user.class.php:15</a></div></div>
+<div class="ttc" id="aclassUser_html_a02a01849f28e2535e888ae4ec87b20f2"><div class="ttname"><a href="classUser.html#a02a01849f28e2535e888ae4ec87b20f2">User\getEmail</a></div><div class="ttdeci">getEmail()</div><div class="ttdoc">Retourne l'adresse email de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00119">user.class.php:119</a></div></div>
+<div class="ttc" id="aclassUser_html_a02a5667ab1839b99445c63ed76e3eb39"><div class="ttname"><a href="classUser.html#a02a5667ab1839b99445c63ed76e3eb39">User\setId</a></div><div class="ttdeci">setId(?int $id)</div><div class="ttdoc">Modifie l'identifiant de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00110">user.class.php:110</a></div></div>
+<div class="ttc" id="aclassUser_html_a04e0957baeb7acde9c0c86556da2d43f"><div class="ttname"><a href="classUser.html#a04e0957baeb7acde9c0c86556da2d43f">User\getPassword</a></div><div class="ttdeci">getPassword()</div><div class="ttdoc">Retourne le mot de passe de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00173">user.class.php:173</a></div></div>
+<div class="ttc" id="aclassUser_html_a0f0455d4aafe27d1b0720c3bcfff2847"><div class="ttname"><a href="classUser.html#a0f0455d4aafe27d1b0720c3bcfff2847">User\getCreatedAt</a></div><div class="ttdeci">getCreatedAt()</div><div class="ttdoc">Retourne la date de création de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00209">user.class.php:209</a></div></div>
+<div class="ttc" id="aclassUser_html_a12251d0c022e9e21c137a105ff683f13"><div class="ttname"><a href="classUser.html#a12251d0c022e9e21c137a105ff683f13">User\getId</a></div><div class="ttdeci">getId()</div><div class="ttdoc">Retourne l'identifiant de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00101">user.class.php:101</a></div></div>
+<div class="ttc" id="aclassUser_html_a29e08b68eaa931e0624c27c30d4d463e"><div class="ttname"><a href="classUser.html#a29e08b68eaa931e0624c27c30d4d463e">User\setCreatedAt</a></div><div class="ttdeci">setCreatedAt(?DateTime $createdAt)</div><div class="ttdoc">Modifie la date de création de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00218">user.class.php:218</a></div></div>
+<div class="ttc" id="aclassUser_html_a341e65d1cc49f20d8fa043fd5ba75594"><div class="ttname"><a href="classUser.html#a341e65d1cc49f20d8fa043fd5ba75594">User\setEmailVerifyToken</a></div><div class="ttdeci">setEmailVerifyToken(?string $emailVerifyToken)</div><div class="ttdoc">Modifie le token de vérification de l'adresse email.</div><div class="ttdef"><b>Definition</b> <a href="#l00164">user.class.php:164</a></div></div>
+<div class="ttc" id="aclassUser_html_a3587bd00e5602c1800515b6f9ffbebc5"><div class="ttname"><a href="classUser.html#a3587bd00e5602c1800515b6f9ffbebc5">User\$id</a></div><div class="ttdeci">int $id</div><div class="ttdef"><b>Definition</b> <a href="#l00020">user.class.php:20</a></div></div>
+<div class="ttc" id="aclassUser_html_a479fde0e5affee7654f315d79c4c54be"><div class="ttname"><a href="classUser.html#a479fde0e5affee7654f315d79c4c54be">User\$createdAt</a></div><div class="ttdeci">DateTime $createdAt</div><div class="ttdef"><b>Definition</b> <a href="#l00057">user.class.php:57</a></div></div>
+<div class="ttc" id="aclassUser_html_a4968edcf32485c8c43576e11c28febf2"><div class="ttname"><a href="classUser.html#a4968edcf32485c8c43576e11c28febf2">User\getEmailVerifyToken</a></div><div class="ttdeci">getEmailVerifyToken()</div><div class="ttdoc">Retourne le token de vérification de l'adresse email.</div><div class="ttdef"><b>Definition</b> <a href="#l00155">user.class.php:155</a></div></div>
+<div class="ttc" id="aclassUser_html_a6a8f2e22ee946100b942d81036f29047"><div class="ttname"><a href="classUser.html#a6a8f2e22ee946100b942d81036f29047">User\setUpdatedAt</a></div><div class="ttdeci">setUpdatedAt(?DateTime $updatedAt)</div><div class="ttdoc">Modifie la date de mise à jour de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00236">user.class.php:236</a></div></div>
+<div class="ttc" id="aclassUser_html_a6ac8fb0e0a1f8a7463701376cf168db6"><div class="ttname"><a href="classUser.html#a6ac8fb0e0a1f8a7463701376cf168db6">User\setDisabled</a></div><div class="ttdeci">setDisabled(?int $disabled)</div><div class="ttdoc">Modifie l'état de l'utilisateur (activé ou désactivé)</div><div class="ttdef"><b>Definition</b> <a href="#l00200">user.class.php:200</a></div></div>
+<div class="ttc" id="aclassUser_html_a7403e8b561cad53be8509c3fe40fddb7"><div class="ttname"><a href="classUser.html#a7403e8b561cad53be8509c3fe40fddb7">User\$disabled</a></div><div class="ttdeci">int $disabled</div><div class="ttdef"><b>Definition</b> <a href="#l00051">user.class.php:51</a></div></div>
+<div class="ttc" id="aclassUser_html_a789bc1a92b41cf8c0958231bc1f27131"><div class="ttname"><a href="classUser.html#a789bc1a92b41cf8c0958231bc1f27131">User\getUpdatedAt</a></div><div class="ttdeci">getUpdatedAt()</div><div class="ttdoc">Retourne la date de mise à jour de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00227">user.class.php:227</a></div></div>
+<div class="ttc" id="aclassUser_html_a927713c02af0ce8c59528617b3c64312"><div class="ttname"><a href="classUser.html#a927713c02af0ce8c59528617b3c64312">User\setPassword</a></div><div class="ttdeci">setPassword(?string $password)</div><div class="ttdoc">Modifie le mot de passe de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00182">user.class.php:182</a></div></div>
+<div class="ttc" id="aclassUser_html_a96426b87046975cea637b52304d3069c"><div class="ttname"><a href="classUser.html#a96426b87046975cea637b52304d3069c">User\getEmailVerifiedAt</a></div><div class="ttdeci">getEmailVerifiedAt()</div><div class="ttdoc">Retourne la date de vérification de l'adresse e-mail.</div><div class="ttdef"><b>Definition</b> <a href="#l00137">user.class.php:137</a></div></div>
+<div class="ttc" id="aclassUser_html_a9704bd69d117172f3a7a9a7ce6331f11"><div class="ttname"><a href="classUser.html#a9704bd69d117172f3a7a9a7ce6331f11">User\setEmail</a></div><div class="ttdeci">setEmail(?string $email)</div><div class="ttdoc">Modifie l'adresse e-mail de l'utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00128">user.class.php:128</a></div></div>
+<div class="ttc" id="aclassUser_html_a99f6264ab0c9eac3199f38350ea0703d"><div class="ttname"><a href="classUser.html#a99f6264ab0c9eac3199f38350ea0703d">User\$password</a></div><div class="ttdeci">string $password</div><div class="ttdef"><b>Definition</b> <a href="#l00044">user.class.php:44</a></div></div>
+<div class="ttc" id="aclassUser_html_aa5809edde76526314aef4529d7d285e9"><div class="ttname"><a href="classUser.html#aa5809edde76526314aef4529d7d285e9">User\$email</a></div><div class="ttdeci">string $email</div><div class="ttdef"><b>Definition</b> <a href="#l00026">user.class.php:26</a></div></div>
+<div class="ttc" id="aclassUser_html_aacef967a59f633962fcdcae9eb446355"><div class="ttname"><a href="classUser.html#aacef967a59f633962fcdcae9eb446355">User\setEmailVerifiedAt</a></div><div class="ttdeci">setEmailVerifiedAt(?DateTime $emailVerifiedAt)</div><div class="ttdoc">Modifie la date de vérification de l'adresse e-mail.</div><div class="ttdef"><b>Definition</b> <a href="#l00146">user.class.php:146</a></div></div>
+<div class="ttc" id="aclassUser_html_acb30698aae42539e2b9ea3f6d172ce46"><div class="ttname"><a href="classUser.html#acb30698aae42539e2b9ea3f6d172ce46">User\getDisabled</a></div><div class="ttdeci">getDisabled()</div><div class="ttdoc">Retourne l'état de l'utilisateur (activé ou désactivé)</div><div class="ttdef"><b>Definition</b> <a href="#l00191">user.class.php:191</a></div></div>
+<div class="ttc" id="aclassUser_html_ad61536d92e1a1a6bb8233adfb15bc755"><div class="ttname"><a href="classUser.html#ad61536d92e1a1a6bb8233adfb15bc755">User\$updatedAt</a></div><div class="ttdeci">DateTime $updatedAt</div><div class="ttdef"><b>Definition</b> <a href="#l00063">user.class.php:63</a></div></div>
+<div class="ttc" id="aclassUser_html_af131f3bfc47e5c6747e1ccf27c049e17"><div class="ttname"><a href="classUser.html#af131f3bfc47e5c6747e1ccf27c049e17">User\$emailVerifyToken</a></div><div class="ttdeci">string $emailVerifyToken</div><div class="ttdef"><b>Definition</b> <a href="#l00038">user.class.php:38</a></div></div>
+<div class="ttc" id="aclassUser_html_af454cbf6404de5fcfecaca754c36ccb7"><div class="ttname"><a href="classUser.html#af454cbf6404de5fcfecaca754c36ccb7">User\$emailVerifiedAt</a></div><div class="ttdeci">DateTime $emailVerifiedAt</div><div class="ttdef"><b>Definition</b> <a href="#l00032">user.class.php:32</a></div></div>
+<div class="ttc" id="aclassUser_html_afe7d6c20ffe730db4d42a92570b873c5"><div class="ttname"><a href="classUser.html#afe7d6c20ffe730db4d42a92570b873c5">User\__construct</a></div><div class="ttdeci">__construct(?int $id=null, ?string $email=null, ?DateTime $emailVerifiedAt=null, ?string $emailVerifyToken=null, ?string $password=null, ?int $disabled=null, ?DateTime $created_at=null, ?DateTime $updated_at=null)</div><div class="ttdoc">Le constructeur de la classe User.</div><div class="ttdef"><b>Definition</b> <a href="#l00076">user.class.php:76</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_bdeba5f06b852fec80257c0bf4c3c36e.html">models</a></li><li class="navelem"><a class="el" href="user_8class_8php.html">user.class.php</a></li>
+    <li class="footer">Généré le Vendredi 15 Novembre 2024 12:54:25 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>
