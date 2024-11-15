@@ -106,4 +106,18 @@ class UserDAO {
         $user->setUpdatedAt(new DateTime($data['updated_at']));
         return $user;
     }
+
+
+    /**
+     * @brief Crée un utilisateur en base de données
+     * @param string $email L'adresse e-mail de l'utilisateur
+     * @param string $password Le mot de passe de l'utilisateur
+     * @return bool Retourne true si l'utilisateur a pu être créé, false sinon
+     */
+    public function createUser(string $email, string $password): bool  {
+            $stmtUser = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verif_token, disabled) VALUES (?, ?, null, null, 0)");
+            $stmtUser->bindParam(1, $email);
+            $stmtUser->bindParam(2, $password);
+            return $stmtUser->execute();
+    }
 }
