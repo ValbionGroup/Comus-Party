@@ -61,9 +61,8 @@ class ControllerShop extends Controller {
     }
 
 
-    function basketTest()
+    function addBasket()
     {
-
 // Vérifier si l'ID de l'article a été envoyé
 
         if (isset($_POST['id_article'])) {
@@ -77,7 +76,7 @@ class ControllerShop extends Controller {
             // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
             if (!in_array($id_article, $_SESSION['basket'])) {
                 $_SESSION['basket'][] = $id_article;
-                var_dump($_SESSION['basket']);
+
                 echo "Article ajouté au panier !";
             } else {
                 echo "L'article est déjà dans le panier.";

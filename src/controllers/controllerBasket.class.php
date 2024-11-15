@@ -37,5 +37,9 @@ class ControllerBasket extends Controller
         );
     }
 
+    public function removeArticleBasket(){
+
+    }
+
 
 }

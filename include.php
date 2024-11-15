@@ -37,4 +37,4 @@ require_once __DIR__ . '/src/models/statistics.class.php';
 
 session_start();
 require_once __DIR__ . '/config/twig.php';
-
+//unset($_SESSION['basket']);

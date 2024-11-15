@@ -91,7 +91,7 @@ class ArticleDAO {
 
     function findArticlesWithIds($ids)
     {
-        var_dump($ids);
+
         if (!empty($ids)) {
             $idsString = implode(',', $ids);
 

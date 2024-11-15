@@ -71,13 +71,13 @@ $router->get('/shop/basket', function () use ($loader, $twig){
 
 
 $router->post('/shop/basket/add', function () use ($loader, $twig){
-    ControllerFactory::getController("shop",$loader,$twig)->call("basketTest");
+    ControllerFactory::getController("shop",$loader,$twig)->call("addBasket");
     exit;
 });
 
-$router->delete('/shop/basket/remove/:id', function ($id) {
-    echo "Suppression d'un article du panier : " . $id . "<br/>";
-    echo "A IMPLEMENTER";
+$router->delete('/shop/basket/remove/:id', function () use ($loader, $twig) {
+    ControllerFactory::getController("shop",$loader,$twig)->call("removeArticleBasket");
+    exit;
     exit;
 });
 
