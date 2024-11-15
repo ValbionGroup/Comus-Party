@@ -40,6 +40,12 @@ jobs:
           echo "Importation des données dans MySQL..."
           mysql -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE < ./.github/comusparty_export.sql
           echo "Importation réussie"
+
+      - name: Paramètrage de MySQL
+        run: |
+          echo "Désactivation de ONLY_FULL_GROUP_BY"
+          mysql -u$DB_USERNAME -p$DB_PASSWORD -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"
+          echo "OK!"
       
       - name: Installation des dépendances PHP
         run: composer install
