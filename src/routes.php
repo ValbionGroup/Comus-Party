@@ -71,10 +71,6 @@ $router->get('/logout', function () use ($loader, $twig) {
 });
 
 $router->get('/game/:code', function ($code) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     echo "Page de jeu en cours : " . $code . "<br/>";
     echo "A IMPLEMENTER";
     exit;
