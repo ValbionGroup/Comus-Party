@@ -66,11 +66,11 @@
                 </div>
             </nav>
         </header>
-        <div class="flex flex-grow h-full">
-            <div class="flex items-center justify-center h-full w-16">
+        <div class="flex flex-col sm:flex-row flex-grow h-full">
+            <div class="flex items-center sm:content-center justify-center h-full w-16">
                 AMIS
             </div>
-            <main class="bg-lavender-blush-base dark:bg-night-base flex flex-grow rounded-tl-2xl opacity-90">
+            <main class="bg-lavender-blush-base dark:bg-night-base flex flex-grow sm:rounded-tl-2xl opacity-90">
                 {% block content %}{% endblock %}
             </main>
         </div>
