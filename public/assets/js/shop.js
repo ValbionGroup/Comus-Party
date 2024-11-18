@@ -1,3 +1,12 @@
+/**
+ * @file    shop.js
+ * @author  Mathis Rivrais--Nowakowski
+ * @brief    Le fichier contient le JS nécessaire au bon fonctionnement de la page basket
+ * @date    14/11/2024
+ * @version 0.4
+ */
+
+
 let pfps = document.querySelectorAll(".pfp");
 let modalWindow = document.getElementById("modale")
 let closeModalBtn = document.getElementById("closeModalBtn")
