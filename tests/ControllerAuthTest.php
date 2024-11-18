@@ -71,4 +71,15 @@ class ControllerAuthTest extends TestCase
         $this->assertNotNull($this->controller, 'Controller is null.');
         $this->controller->authenticate('john.doe@example.com', 'hashed_password1');
     }
+
+    /**
+     * @brief Test de la méthode authenticate() avec un e-mail invalide et un mot de passe valide
+     * @return void
+     */
+    public function testAuthenticateOnInvalidEmailAndValidPassword(): void
+    {
+        $this->assertNotNull($this->controller, 'Controller is null.');
+        $this->expectException(AuthentificationException::class);
+        $this->controller->authenticate('john.doeexample.com', 'hashed_password1');
+    }
 }
