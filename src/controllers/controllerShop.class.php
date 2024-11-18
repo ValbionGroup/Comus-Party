@@ -46,8 +46,10 @@ class ControllerShop extends Controller {
 
         $articles = $managerArticle->findAll();
         $pfps = $managerArticle->findAllPfps();
+//        var_dump($pfps);
         $banners = $managerArticle->findAllBanners();
-
+//        var_dump("HHHHHHHHHHHHHHH");
+//        var_dump($banners);
         $template = $this->getTwig()->load('shop.twig');
 
 

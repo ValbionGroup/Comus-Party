@@ -52,7 +52,7 @@ function showModale(article){
 
     imgArticle.src = ""
     console.log(article.filePath)
-    imgArticle.src = article.filePath + article.name + ".png"
+    imgArticle.src = "assets" + article.filePath
     nomArticle.innerText = article.name
     descriptionArticle.innerText = article.description
 

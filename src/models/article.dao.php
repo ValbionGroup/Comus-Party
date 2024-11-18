@@ -118,13 +118,16 @@ class ArticleDAO {
     public function findAllPfps() : ?array{
         $stmt = $this->pdo->query("SELECT *
         FROM ". DB_PREFIX ."article
-        WHERE type = 'profile_picture'");
+        WHERE type = 'pfp'");
+
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPfps = $stmt->fetchAll();
+
         if($tabPfps === false){
             return null;
         }
         $pfps = $this->hydrateMany($tabPfps);
+
         return $pfps;
 
     }
@@ -160,7 +163,7 @@ class ArticleDAO {
         $article->setId($data['id']);
         $article->setName($data['name']);
 
-        if($data['type'] == 'profile_picture'){
+        if($data['type'] == 'pfp'){
             $type = "ProfilePicture";
         }elseif ($data['type'] == 'banner'){
             $type = "Banner";

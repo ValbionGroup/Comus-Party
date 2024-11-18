@@ -26,8 +26,8 @@
 
                         {% for pfp in pfps %}
                             <div class="w-20 h-20 m-1 pfp cursor-pointer"
-                                 onclick="showModale({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', type: '{{ pfp.type }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
-                                <img src="{{ pfp.filePath }}{{ pfp.name }}.png" alt="Pas d'image" class="rounded-3xl">
+                                 onclick="showModale({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
+                                <img src="assets{{ pfp.filePath }}" alt="Pas d'image" class="rounded-3xl w-20 h-20">
 
                             </div>
 
@@ -48,7 +48,7 @@
 
                                  onclick="showModale({ id : '{{ banner.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}'})">
 
-                                <img src="{{ banner.filePath }}{{ banner.name }}.png" alt=""
+                                <img src="assets{{ banner.filePath }}" alt=""
                                      class="w-full h-full rounded-2xl">
                             </div>
 
