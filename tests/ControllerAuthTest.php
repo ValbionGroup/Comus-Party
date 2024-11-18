@@ -66,7 +66,7 @@ class ControllerAuthTest extends TestCase
      * @brief Test de la méthode authenticate() avec un e-mail et un mot de passe valide
      * @return void
      */
-    public function testAuthenticateOnNullEmailAndPassword(): void
+    public function testAuthenticateOnValidEmailAndPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
         $this->controller->authenticate('john.doe@example.com', 'hashed_password1');
