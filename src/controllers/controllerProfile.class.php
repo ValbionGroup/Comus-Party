@@ -1,4 +1,11 @@
 <?php
+/**
+ * @file    controllerProfile.class.php
+ * @brief   Ce fichier contient la déclaration & définition de la classe ControllerProfile.
+ * @author  Estéban DESESSARD
+ * @date    15/11/2024
+ * @version 0.2
+ */
 
 use models\NotFoundException;
 use Twig\Environment;
@@ -8,7 +15,8 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * Contrôleur de la page profile, utilisé pour afficher le profil d'un joueur sous différents angles
+ * @brief Classe ControllerProfile
+ * @details Contrôleur de la page profile, utilisé pour afficher le profil d'un joueur sous différents angles (vu par lui-même, par un autre joueur, ou par un modérateur)
  */
 class ControllerProfile extends Controller {
 
