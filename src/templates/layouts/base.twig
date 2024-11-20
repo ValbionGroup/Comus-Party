@@ -11,6 +11,12 @@
 <body class="h-screen overflow-hidden bg-gradient-to-bl from-rose to-blue-violet dark:text-lavender-blush-base text-night-base">
     {% block layout %}{% endblock %}
 
+    {% if error.code != null %}
+        <div class="absolute bottom-6 right-6 bg-red-500 text-red-200">
+            {{ error.code }} : {{ error.message }}
+        </div>
+    {% endif %}
+
     {% block scripts %}{% endblock %}
 </body>
 </html>

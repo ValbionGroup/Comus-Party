@@ -38,3 +38,8 @@ $twig->addGlobal('auth', [
     'loggedElo' => $_SESSION['elo'] ?? null,
     'loggedXp' => $_SESSION['xp'] ?? null,
 ]);
+
+$twig->addGlobal('error', [
+    'code' => null,
+    'message' => null,
+]);
