@@ -131,9 +131,9 @@ class Article {
     /**
      * @brief Retourne l'id de l'article
      *
-     * @return int L'id de l'article est retourné
+     * @return int|null L'id de l'article est retourné
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
