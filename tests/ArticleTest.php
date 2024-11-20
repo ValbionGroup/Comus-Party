@@ -10,7 +10,8 @@
 use PHPUnit\Framework\TestCase;
 
 /**
- * @brief La classe ArticleTest permet de tester les méthodes de la classe Article
+ * @brief Classe ArticleTest
+ * @details La classe ArticleTest permet de tester les méthodes de la classe Article
  */
 class ArticleTest extends TestCase
 {
@@ -20,11 +21,12 @@ class ArticleTest extends TestCase
      */
     private Article $article;
 
+    /**
+     * @brief Instanciation d'un objet Article pour les tests
+     * @return void
+     */
     protected function setUp(): void
     {
-        /**
-         * @brief Instanciation d'un objet Article pour les tests
-         */
         $this->article = new Article(
             id: 1,
             createdAt: new DateTime('2024-01-01'),
