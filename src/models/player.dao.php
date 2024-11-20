@@ -199,11 +199,10 @@ class PlayerDAO {
         $player->setXp($data['xp']);
         $player->setElo($data['elo']);
         $player->setComusCoin($data['comus_coin']);
-        // /!\ $data['games_played'] n'est pas reconnu lors de l'appel de la methode hydrate()
-        // $player->getStatistics()->setPlayerUuid($data['uuid']);
-        // $player->getStatistics()->setGamesPlayed($data['games_played']);
-        // $player->getStatistics()->setGamesWon($data['games_won']);
-        // $player->getStatistics()->setGamesHosted($data['games_hosted']);
+        $player->getStatistics()->setPlayerUuid($data['uuid'] ?? null);
+        $player->getStatistics()->setGamesPlayed($data['games_played'] ?? null);
+        $player->getStatistics()->setGamesWon($data['games_won'] ?? null);
+        $player->getStatistics()->setGamesHosted($data['games_hosted'] ?? null);
         $player->setUserId($data['user_id']);
         return $player;
     }
@@ -241,10 +240,12 @@ class PlayerDAO {
 
         $userId=PlayerDAO::getUserIdByEmail($email);
 
-        $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (?, ?, ?)");
-        $stmtPlayer->bindParam(1, $uuid);
-        $stmtPlayer->bindParam(2, $username);
-        $stmtPlayer->bindParam(3, $userId);
+        $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (:uuid, :username, :user_id)");
+
+        $stmtPlayer->bindValue(':uuid', $uuid);
+        $stmtPlayer->bindValue(':username', $username);
+        $stmtPlayer->bindValue(':user_id', $userId);
+        
         return $stmtPlayer->execute();
     }
 
@@ -253,7 +254,6 @@ class PlayerDAO {
      * @param string|null $username Le nom d'utilisateur du joueur à retrouver
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
      */
-
     public function findByUsername(?string $username): ?Player {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "player WHERE username = :username");
         $stmt->bindParam(':username', $username);

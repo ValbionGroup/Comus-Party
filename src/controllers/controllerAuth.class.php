@@ -43,6 +43,14 @@ class ControllerAuth extends Controller {
         echo $twig->render('login.twig');
     }
 
+    
+    /**
+     * @brief La méthode showRegistrationPage permet d'afficher la page d'inscription
+     * @return void
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     */
     public function showRegistrationPage(): void
     {
         global $twig;
@@ -133,45 +141,61 @@ class ControllerAuth extends Controller {
      * La méthode renvoie un JSON contenant un champ "success" et un champ "message".
      * @return void
      */
-    public function register(): void {
-        $data = json_decode(file_get_contents("php://input"), true);
+    public function register(?string $username, ?string $email, ?string $password): void {
+        if(session_status() === PHP_SESSION_NONE) { session_start(); }
+        // Vérifier si l'email, le nom d'utilisateur et le mot de passe sont valides
+        if ($this->validateUsername($username) &&
+            $this->validateEmail($email) &&
+            $this->validatePassword($password)) {
 
-        // Données valides (vérifie que l'email, le nom d'utilisateur et le mot de passe sont reçus)
-        if (isset($data['username']) && isset($data['email']) && isset($data['password'])) {
-            $username = $data['username'];
-            $email = $data['email'];
-            $password = $data['password'];
+            // Initialiser la variable de message de résultat
+            $resultMessage = null;
 
-            // Vérifier si l'email, le nom d'utilisateur et le mot de passe sont valides
-            if ($this->validateUsername($username) &&
-                $this->validateEmail($email) &&
-                $this->validatePassword($password)) {
-
-                // Hash le mot de passe
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            // Hash le mot de passe
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 
-                $userDAO = new UserDAO($this->getPdo());
-                $playerDAO = new PlayerDAO($this->getPdo());
-                
-                // Vérifier si l'utilisateur et le joueur existent
-                $existingUser = $userDAO->findByEmail($email) !== null;
-                $existingPlayer = $playerDAO->findByUsername($username) !== null;
-                
-                $resultUser = false;
-                
-                // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
-                if (!$existingUser && !$existingPlayer) { $resultUser = $userDAO->createUser($email, $hashedPassword); }
-                
-                // Créer le joueur si l'utilisateur est créé avec succès
-                if ($resultUser) { $playerDAO->createPlayer($username, $email); }
+            $userDAO = new UserDAO($this->getPdo());
+            $playerDAO = new PlayerDAO($this->getPdo());
+            
+            // Vérifier si l'utilisateur et le joueur existent
+            $existingUser = $userDAO->findByEmail($email) !== null;
+            $existingPlayer = $playerDAO->findByUsername($username) !== null;
+            
+            $resultUser = false;
+            
+            // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
+            if (!$existingUser && !$existingPlayer)
+            {
+                $emailVerifToken = bin2hex(random_bytes(16)); // Générer un token de vérification de l'email
+                $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
 
-                if (!$existingUser && !$existingPlayer) { echo json_encode(["success" => true, "message" => "Inscription validée"]); }
-                elseif(!$existingUser && $existingPlayer) { echo json_encode(["success" => false, "message" => "Création de l'utilisateur échouée"]); }
-                elseif($existingUser && !$existingPlayer) { echo json_encode(["success" => false, "message" => "Création du joueur échouée"]); }
-                else { echo json_encode(["success" => false, "message" => "Création de l'utilisateur et du joueur échouées"]); }
-            } else { echo json_encode(["success" => false, "message" => "Données reçues non valides"]); }
-        } else { echo json_encode(["success" => false, "message" => "Données reçues incomplètes"]); }
+                // Lien de vérification de l'email
+                $verificationLink = "/verifyEmail?token=$emailVerifToken";
+
+                // Contenu de l'email
+                $subject = "Vérifiez votre adresse email";
+                $message = "Veuillez cliquer sur le lien suivant pour vérifier votre adresse email:\n\n$verificationLink";
+                    
+                // Envoyer l'email avec mail de PHP
+                mail($email, $subject, $message);
+            }
+            
+            // Créer le joueur si l'utilisateur est créé avec succès
+            if ($resultUser) { $playerDAO->createPlayer($username, $email); }
+
+            if (!$existingUser && !$existingPlayer) { $resultMessage = "Inscription validée"; }
+            elseif(!$existingUser && $existingPlayer) { $resultMessage = "Création du joueur échouée (nom d'utilisateur existant)"; }
+            elseif($existingUser && !$existingPlayer) { $resultMessage = "Création de l'utilisateur échouée (email existant)"; }
+            else { $resultMessage = "Création de l'utilisateur et du joueur échouées (email et nom d'utilisateur existants)"; }
+        } else { $resultMessage = "Données reçues non valides (email, nom d'utilisateur ou mot de passe non valides)"; }
+
+        $_SESSION['resultMessage'] = $resultMessage;
+        // Supprimer les variables de session après utilisation
+        unset($_SESSION['resultMessage']);
+
+        global $twig;
+        echo $twig->render('signUp.twig', ['resultMessage' => $resultMessage]);
     }
 
     /**

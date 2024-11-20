@@ -23,13 +23,13 @@ window.onload = function() {
     const INPUT_CONFIRM_PASSWORD = document.getElementById("passwordConfirm");
     INPUT_CONFIRM_PASSWORD.addEventListener("input", checkPasswordsMatch);
 
-    // Ajoute un listener sur l'event "submit" du formulaire
-    const FORM = document.getElementById("registrationForm");
-    FORM.addEventListener("submit", function(event) {
-        // Empeche la soumission du formulaire
-        event.preventDefault();
-        // Envoie les données d'inscription
-        sendAuthData(); });
+    // // Ajoute un listener sur l'event "submit" du formulaire
+    // const FORM = document.getElementById("registrationForm");
+    // FORM.addEventListener("submit", function(event) {
+    //     // Empeche la soumission du formulaire
+    //     event.preventDefault();
+    //     // Envoie les données d'inscription
+    //     sendAuthData(); });
 }
 
 /**
@@ -186,48 +186,48 @@ function checkPasswordsMatch() {
 }
 
 
-/**
- * @brief Envoie les données d'inscription à la page d'inscription du serveur.
- *
- * @details La fonction sendAuthData() est appelée lorsque l'utilisateur clique sur le bouton "S'inscrire".
- * Elle envoie les données d'inscription (nom d'utilisateur, adresse e-mail et mot de passe) au serveur
- * avec une requête POST.
- * Le serveur répondra avec un JSON contenant un champ "success" et un champ "message".
- * Si le champ "success" est true, le message est vert et affiché.
- * Sinon, le message est rouge et affiché.
- * @return void
- */
-function sendAuthData() {
-    // Récupération des données
-    const USERNAME = document.getElementById("username").value;
-    const EMAIL = document.getElementById("email").value;
-    const PASSWORD = document.getElementById("password").value;
-    // Variables
-    let resultMessage = document.getElementById("resultMessage");
+// /**
+//  * @brief Envoie les données d'inscription à la page d'inscription du serveur.
+//  *
+//  * @details La fonction sendAuthData() est appelée lorsque l'utilisateur clique sur le bouton "S'inscrire".
+//  * Elle envoie les données d'inscription (nom d'utilisateur, adresse e-mail et mot de passe) au serveur
+//  * avec une requête POST.
+//  * Le serveur répondra avec un JSON contenant un champ "success" et un champ "message".
+//  * Si le champ "success" est true, le message est vert et affiché.
+//  * Sinon, le message est rouge et affiché.
+//  * @return void
+//  */
+// function sendAuthData() {
+//     // Récupération des données
+//     const USERNAME = document.getElementById("username").value;
+//     const EMAIL = document.getElementById("email").value;
+//     const PASSWORD = document.getElementById("password").value;
+//     // Variables
+//     let resultMessage = document.getElementById("resultMessage");
 
-    // Envoi des données au serveur avec une requête POST
-    fetch('http://localhost:8000/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            username: USERNAME,
-            email: EMAIL,
-            password: PASSWORD
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Affichage du message de succès
-            resultMessage.innerHTML = data.message;
-            resultMessage.style.display = "block";
-            resultMessage.style.color = "green";
+//     // Envoi des données au serveur avec une requête POST
+//     fetch('http://localhost:8000/register', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json'},
+//         body: JSON.stringify({
+//             username: USERNAME,
+//             email: EMAIL,
+//             password: PASSWORD
+//         })
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             // Affichage du message de succès
+//             resultMessage.innerHTML = data.message;
+//             resultMessage.style.display = "block";
+//             resultMessage.style.color = "green";
 
-        } else {
-            // Affichage du message d'erreur
-            resultMessage.innerHTML = data.message;
-            resultMessage.style.display = "block";
-            resultMessage.style.color = "red";
-        }
-    })
-}
+//         } else {
+//             // Affichage du message d'erreur
+//             resultMessage.innerHTML = data.message;
+//             resultMessage.style.display = "block";
+//             resultMessage.style.color = "red";
+//         }
+//     })
+// }

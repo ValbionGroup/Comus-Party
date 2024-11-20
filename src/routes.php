@@ -97,8 +97,28 @@ $router->get('/register', function () use ($loader, $twig) {
 });
 
 $router->post('/register', function () use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("register");
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        ControllerFactory::getController("auth", $loader, $twig)->call("register", [
+            "username" => $_POST['username'],
+            "email" => $_POST['email'],
+            "password" => $_POST['password']
+        ]);
+        exit;
+    }
+    throw new Exception("Données reçues incomplètes.");
+});
+
+$router->get('/verifyEmail', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("showVerificationPage");
     exit;
+});
+
+$router->post('/verifyEmail', function () use ($loader, $twig) {
+    if (isset($_POST['email']) && isset($_POST['token'])) {
+        ControllerFactory::getController("auth", $loader, $twig)->call("verifyEmail", ["token" => $_POST['token']]);
+        exit;
+    }
+    throw new Exception("Données reçues invalides.");
 });
 
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {

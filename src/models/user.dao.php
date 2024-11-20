@@ -107,17 +107,39 @@ class UserDAO {
         return $user;
     }
 
+    public function findByEmailVerifyToken(string $emailVerifToken): ?User {
+        $stmt = $this->pdo->prepare(
+            'SELECT *
+            FROM '. DB_PREFIX .'user
+            WHERE email_verif_token = :email_verif_token');
+        $stmt->bindParam(':email_verif_token', $emailVerifToken);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $userTab = $stmt->fetch();
+        if ($userTab === false) {
+            return null;
+        }
+        return $this->hydrate($userTab);
+    }
+
 
     /**
      * @brief Crée un utilisateur en base de données
      * @param string $email L'adresse e-mail de l'utilisateur
      * @param string $password Le mot de passe de l'utilisateur
+     * @param string $emailVerifToken Le token de verification de l'utilisateur
      * @return bool Retourne true si l'utilisateur a pu être créé, false sinon
      */
-    public function createUser(string $email, string $password): bool  {
-            $stmtUser = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verif_token, disabled) VALUES (?, ?, null, null, 0)");
-            $stmtUser->bindParam(1, $email);
-            $stmtUser->bindParam(2, $password);
+    public function createUser(string $email, string $password, string $emailVerifToken): bool  {
+            $stmtUser = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verif_token, disabled) VALUES (:email, :password, null, :email_verif_token, 0)");
+            $stmtUser->bindParam(':email', $email);
+            $stmtUser->bindParam(':password', $password);
+            $stmtUser->bindParam(':email_verif_token', $emailVerifToken);
             return $stmtUser->execute();
+    }
+
+    public function verifyEmail(int $userId): bool {
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user SET email_verified_at = NOW(), email_verif_token = NULL WHERE id = :id");
+        return $stmt->execute([':id' => $userId]);
     }
 }
