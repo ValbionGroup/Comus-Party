@@ -38,9 +38,16 @@ class ControllerBasket extends Controller
         $managerArticle = new ArticleDAO($this->getPdo());
 
         $articles = $managerArticle->findArticlesWithIds($_SESSION['basket']);
-
+        $prixTotalPanier = 0;
+        foreach($articles as $article){
+            $prixTotalPanier += $article->getPriceEuro();
+        }
         echo $template->render(
-            array('articles' => $articles)
+            array(
+                'articles' => $articles,
+                'prixTotalPanier' => $prixTotalPanier,
+                )
+
         );
     }
     /**
@@ -61,10 +68,7 @@ class ControllerBasket extends Controller
 
             // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
             if (in_array($id_article, $_SESSION['basket'])) {
-                var_dump($_SESSION['basket']);
-
                 $key = array_search($id_article, $_SESSION['basket'], true);
-                var_dump($key);
                 if ($key !== false) {
                     // Supprimer cette clé
                     unset($_SESSION['basket'][$key]);

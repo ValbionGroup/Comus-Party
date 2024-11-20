@@ -46,10 +46,7 @@ class ControllerShop extends Controller {
 
         $articles = $managerArticle->findAll();
         $pfps = $managerArticle->findAllPfps();
-//        var_dump($pfps);
         $banners = $managerArticle->findAllBanners();
-//        var_dump("HHHHHHHHHHHHHHH");
-//        var_dump($banners);
         $template = $this->getTwig()->load('shop.twig');
 
 
@@ -87,7 +84,9 @@ class ControllerShop extends Controller {
             if (!in_array($id_article, $_SESSION['basket'])) {
                 $_SESSION['basket'][] = $id_article;
 
+
                 echo "Article ajouté au panier !";
+
             } else {
                 echo "L'article est déjà dans le panier.";
             }
