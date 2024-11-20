@@ -32,5 +32,4 @@ function displayPopUpError(Exception $exception): void
         'code' => $exception->getCode() ?? 500,
         'message' => $exception->getMessage() ?? 'Une erreur interne est survenue'
     ]);
-//    var_dump($twig->getGlobals());
 }
