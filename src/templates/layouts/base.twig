@@ -11,6 +11,25 @@
 <body class="h-screen overflow-hidden bg-gradient-to-bl from-rose to-blue-violet dark:text-lavender-blush-base text-night-base">
     {% block layout %}{% endblock %}
 
+    {% if error.code != null %}
+        <div id="errorMessage"
+             class="absolute bottom-6 right-6 bg-red-500 text-red-200 px-5 py-3 shadow-md rounded-2xl">
+            <p class="font-semibold">Une erreur est survenue !</p>
+            <span class="font-semibold">{{ error.code }}</span> : {{ error.message }}
+        </div>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script language="JavaScript">
+        const errorMessage = document.getElementById('errorMessage');
+        if (errorMessage) {
+            setTimeout(function () {
+                $(errorMessage).fadeOut(700, function () {
+                    $(this).remove();
+                });
+            }, 5000);
+        }
+    </script>
     {% block scripts %}{% endblock %}
 </body>
 </html>
