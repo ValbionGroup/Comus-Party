@@ -215,9 +215,9 @@ class Article {
     /**
      * @brief Retourne la date de création de l'article
      *
-     * @return DateTime La date de création de l'article qui est retournée
+     * @return DateTime|null La date de création de l'article qui est retournée
      */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
