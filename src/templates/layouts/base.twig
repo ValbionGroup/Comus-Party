@@ -19,6 +19,17 @@
         </div>
     {% endif %}
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script language="JavaScript">
+        const errorMessage = document.getElementById('errorMessage');
+        if (errorMessage) {
+            setTimeout(function () {
+                $(errorMessage).fadeOut(700, function () {
+                    $(this).remove();
+                });
+            }, 5000);
+        }
+    </script>
     {% block scripts %}{% endblock %}
 </body>
 </html>
