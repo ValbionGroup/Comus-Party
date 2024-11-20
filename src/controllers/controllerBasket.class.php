@@ -73,9 +73,17 @@ class ControllerBasket extends Controller
                     // Supprimer cette clé
                     unset($_SESSION['basket'][$key]);
                 }
-                echo "Article supprimé du panier !";
+                echo json_encode([
+                    'success' => true,
+                    'message' => "Article supprimé du panier !"
+                ]);
+//                echo "Article supprimé du panier !";
             } else {
-                echo "L'article n'est pas dans le panier.";
+                echo json_encode([
+                    'success' => false,
+                    'message' => "L'article n'est pas dans le panier."
+                ]);
+//                echo "L'article n'est pas dans le panier.";
             }
         } else {
             echo "Erreur : ID de l'article non spécifié.";
