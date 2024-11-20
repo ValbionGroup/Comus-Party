@@ -9,6 +9,8 @@
 
 namespace ComusParty\Models;
 
+use DateTime;
+
 /**
  * @brief Enumération des états d'un jeu
  *

@@ -28,6 +28,12 @@ function displayFullScreenError(Exception $exception): void
     die;
 }
 
+/**
+ * Ajout les données d'une erreur en variable globale Twig
+ *
+ * @param Exception $exception
+ * @return void
+ */
 function displayPopUpError(Exception $exception): void
 {
     global $twig;

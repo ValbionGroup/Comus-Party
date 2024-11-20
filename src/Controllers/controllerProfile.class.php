@@ -9,7 +9,10 @@
 
 namespace ComusParty\Controllers;
 
-use models\NotFoundException;
+use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\Exception\NotFoundException;
+use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\UserDAO;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -34,7 +37,6 @@ class ControllerProfile extends Controller {
     /**
      * @brief Affiche le profil du joueur le demandant
      * @return void
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws NotFoundException|SyntaxError Exception levée dans le cas d'une erreur de syntaxe

@@ -9,6 +9,8 @@
 
 namespace ComusParty\Models;
 
+use DateTime;
+
 /**
  * @brief Classe User
  * @details La classe User permet de représenter un utilisateur

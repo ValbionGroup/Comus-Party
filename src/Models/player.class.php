@@ -9,6 +9,8 @@
 
 namespace ComusParty\Models;
 
+use DateTime;
+
 /**
  * @brief Classe Player
  * @details La classe Player représente un joueur de l'application

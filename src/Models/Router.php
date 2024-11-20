@@ -11,6 +11,7 @@
 
 namespace ComusParty\Models;
 
+use ComusParty\Models\Exception\RouteNotFoundException;
 use Exception;
 
 /**

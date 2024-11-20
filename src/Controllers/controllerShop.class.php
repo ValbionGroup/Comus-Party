@@ -10,6 +10,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\Models\ArticleDAO;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -19,7 +20,6 @@ use Twig\Loader\FilesystemLoader;
 /**
  * @brief Classe ControllerShop
  * @details La classe ControllerShop permet de gérer les actions liées à un article
- * @extends Controller
  */
 class ControllerShop extends Controller {
     /**
