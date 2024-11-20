@@ -51,14 +51,19 @@ $router->post('/login', function () use ($loader, $twig) {
         header('Location: /');
         exit;
     }
-    if (isset($_POST['email']) && isset($_POST['password'])) {
-        ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
-            "email" => $_POST['email'],
-            "password" => $_POST['password']
-        ]);
-        exit;
+    try {
+        if (isset($_POST['email']) && isset($_POST['password'])) {
+            ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
+                "email" => $_POST['email'],
+                "password" => $_POST['password']
+            ]);
+            exit;
+        }
+        throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
+    } catch (Exception $e) {
+        displayPopUpError($e);
+        ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
     }
-    throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
 });
 
 $router->get('/logout', function () use ($loader, $twig) {

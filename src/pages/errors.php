@@ -13,7 +13,7 @@ use Twig\Error\SyntaxError;
  * @throws RuntimeError
  * @throws SyntaxError
  */
-function displayError(Exception $exception): void
+function displayFullScreenError(Exception $exception): void
 {
     global $twig;
     $template = $twig->load('errors.twig');
@@ -23,4 +23,13 @@ function displayError(Exception $exception): void
         'message' => $exception->getMessage() ?? 'Une erreur interne est survenue'
     ]);
     die;
+}
+
+function displayPopUpError(Exception $exception): void
+{
+    global $twig;
+    $twig->addGlobal('error', [
+        'code' => $exception->getCode() ?? 500,
+        'message' => $exception->getMessage() ?? 'Une erreur interne est survenue'
+    ]);
 }
