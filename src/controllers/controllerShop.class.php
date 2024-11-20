@@ -85,10 +85,17 @@ class ControllerShop extends Controller {
                 $_SESSION['basket'][] = $id_article;
 
 
-                echo "Article ajouté au panier !";
+                echo json_encode([
+                    'success' => true,
+                    'message' => "Article ajouté au panier !"
+                ]);
 
             } else {
-                echo "L'article est déjà dans le panier.";
+                echo json_encode([
+                    'success' => false,
+                    'message' => "L'article est déjà dans le panier."
+                ]);
+
             }
         } else {
             echo "Erreur : ID de l'article non spécifié.";

@@ -12,7 +12,8 @@ let modalWindow = document.getElementById("modale")
 let closeModalBtn = document.getElementById("closeModalBtn")
 let addBasketBtn = document.getElementById("addBasketBtn")
 let overlay = document.getElementById("overlay")
-
+let notification = document.getElementById('notification');
+let notificationMessage = document.getElementById("notificationMessage")
 
 
 
@@ -45,8 +46,8 @@ function showModale(article){
     modalWindow.offsetHeight;
 
     overlay.classList.add('opacity-100'); // Apparition de l'overlay
-    modalWindow.classList.add('opacity-100', 'translate-y-0'); // Apparition et glissement de la modale
-    modalWindow.classList.remove('opacity-0', 'translate-y-4'); // Retirer les classes d'animation de départ
+    modalWindow.classList.add('opacity-100'); // Apparition et glissement de la modale
+    modalWindow.classList.remove('opacity-0'); // Retirer les classes d'animation de départ
 
 
 
@@ -62,6 +63,10 @@ function showModale(article){
 
     addBasketBtn.onclick = function (){
 
+
+
+
+
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/shop/basket/add", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -72,7 +77,29 @@ function showModale(article){
         // Gérer la réponse du serveur
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                alert(xhr.responseText);  // Affiche la réponse (par exemple : "Article ajouté au panier !")
+                let response =  JSON.parse(xhr.responseText)
+                if (response.success) {
+                    notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                    notificationMessage.textContent = "Article ajouté au panier"
+                } else {
+                    notification.className = "z-50 fixed bottom-5 right-5 bg-red-300 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                    notificationMessage.textContent = "Article déjà présent dans le panier"
+                }
+
+                // Afficher la notification
+                notification.classList.remove('opacity-0', 'scale-90');
+                notification.classList.add('opacity-100', 'scale-100');
+
+                // Masquer la notification après 5 secondes
+                setTimeout(() => {
+                    notification.classList.remove('opacity-100', 'scale-100');
+                    notification.classList.add('opacity-0', 'scale-90');
+                }, 5000);
+
+
+
+                // alert(response.success);  // Affiche la réponse (par exemple : "Article ajouté au panier !")
+
             }
         };
     }

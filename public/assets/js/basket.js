@@ -16,7 +16,7 @@ function removeArticle(id){
     // Gérer la réponse du serveur
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            alert(xhr.responseText);  // Affiche la réponse (par exemple : "Article ajouté au panier !")
+
             document.getElementById("eltPanier").style.display = "none";
             location.reload()
         }
