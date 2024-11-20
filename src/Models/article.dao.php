@@ -7,8 +7,7 @@
  * @version 0.2
  */
 
-
-
+namespace ComusParty\Models;
 
 /**
  * @brief Classe ArticleDAO

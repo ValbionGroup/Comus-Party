@@ -7,13 +7,18 @@
  * @version 0.4
  */
 
-use models\AuthentificationException;
+namespace ComusParty\Controllers;
+
+use DateMalformedStringException;
+use Models\ArticleDAO;
+use Models\AuthentificationException;
+use Models\PlayerDAO;
+use Models\UserDAO;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
-
 
 /**
  * @brief Classe ControllerAuth

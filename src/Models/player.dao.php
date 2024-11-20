@@ -7,6 +7,7 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
 
 /**
  * @brief Classe PlayerDAO

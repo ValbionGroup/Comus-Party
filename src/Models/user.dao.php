@@ -7,6 +7,8 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
+
 /**
  * @brief Classe UserDAO
  * @details La classe UserDAO permet de gérer les utilisateurs en base de données

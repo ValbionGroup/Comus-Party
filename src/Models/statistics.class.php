@@ -7,6 +7,8 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
+
 /**
  * @brief Classe Statistics
  * @details La classe Statistics recense l'ensemble des statistiques de profil d'un joueur

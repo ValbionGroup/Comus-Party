@@ -7,6 +7,8 @@
  * @version 0.2
  */
 
+namespace ComusParty\Controllers;
+
 use models\NotFoundException;
 use Twig\Environment;
 use Twig\Error\LoaderError;

@@ -7,6 +7,8 @@
  * @version 0.1
  */
 
+namespace ComusParty\Controllers;
+
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\Error\LoaderError;

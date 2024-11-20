@@ -1,7 +1,7 @@
 <?php
 /**
  * @file controllerProfileTest.php
- * @brief Le fichier contient la déclaration et la définition de la classe GameDao
+ * @brief Le fichier contient la déclaration et la définition de la classe controllerProfile
  * @author Conchez-Boueytou Robin
  * @date 14/11/2024
  * @version 0.1

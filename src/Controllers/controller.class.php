@@ -7,7 +7,11 @@
  * @version 0.1
  */
 
-use models\MethodNotFoundException;
+namespace ComusParty\Controllers;
+
+use Models\Db;
+use Models\MethodNotFoundException;
+use Models\PDO;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 

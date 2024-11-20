@@ -9,7 +9,7 @@
  * @date 2024-11-12
  */
 
-namespace models;
+namespace ComusParty\Models;
 
 use Exception;
 

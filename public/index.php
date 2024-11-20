@@ -2,7 +2,7 @@
 
 global $router;
 
-use models\RouteNotFoundException;
+use Models\RouteNotFoundException;
 
 require __DIR__.'/../include.php';
 

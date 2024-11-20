@@ -7,6 +7,8 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
+
 /**
  * @brief Enumération des états d'un jeu
  *
