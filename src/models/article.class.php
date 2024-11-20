@@ -152,9 +152,9 @@ class Article {
     /**
      * @brief Retourne le nom de l'article
      *
-     * @return string Le nom de l'article retourné
+     * @return string|null Le nom de l'article retourné
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
