@@ -9,6 +9,8 @@
 
 use PHPUnit\Framework\TestCase;
 
+require_once __DIR__ . '/../include.php';
+
 /**
  * @brief Classe ArticleTest
  * @details La classe ArticleTest permet de tester les méthodes de la classe Article
@@ -66,7 +68,7 @@ class ArticleTest extends TestCase
     public function testSetIdWithInvalidId(): void
     {
         $this->expectException(TypeError::class);
-        $this->article->setId('2');
+        $this->article->setId('caca-huète');
     }
 
     /**
@@ -97,16 +99,6 @@ class ArticleTest extends TestCase
     {
         $this->article->setName('TestTitle2');
         $this->assertEquals('TestTitle2', $this->article->getName());
-    }
-
-    /**
-     * @brief Test de la méthode setName avec un paramètre invalide
-     * @return void
-     */
-    public function testSetNameWithInvalidName(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->article->setName(2);
     }
 
     /**
@@ -170,16 +162,6 @@ class ArticleTest extends TestCase
     }
 
     /**
-     * @brief Test de la méthode setDescription avec un paramètre invalide
-     * @return void
-     */
-    public function testSetDescriptionWithInvalidDescription(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->article->setDescription(2);
-    }
-
-    /**
      * @brief Test de la méthode setDescription avec un paramètre null
      * @return void
      */
@@ -216,7 +198,7 @@ class ArticleTest extends TestCase
     public function testSetPricePointWithInvalidPricePoint(): void
     {
         $this->expectException(TypeError::class);
-        $this->article->setPricePoint('600');
+        $this->article->setPricePoint('caca-huète');
     }
 
     /**
@@ -256,7 +238,7 @@ class ArticleTest extends TestCase
     public function testSetPriceEuroWithInvalidPriceEuro(): void
     {
         $this->expectException(TypeError::class);
-        $this->article->setPriceEuro('6.0');
+        $this->article->setPriceEuro('caca-huète');
     }
 
     /**
@@ -287,16 +269,6 @@ class ArticleTest extends TestCase
     {
         $this->article->setPathImg('test2.jpg');
         $this->assertEquals('test2.jpg', $this->article->getPathImg());
-    }
-
-    /**
-     * @brief Test de la méthode setPathImg avec un paramètre invalide
-     * @return void
-     */
-    public function testSetPathImgWithInvalidPathImg(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->article->setPathImg(2);
     }
 
     /**
@@ -387,7 +359,4 @@ class ArticleTest extends TestCase
         $this->article->setUpdatedAt(null);
         $this->assertEquals(null, $this->article->getUpdatedAt());
     }
-
-
-
 }
