@@ -98,7 +98,7 @@ class ArticleDAO {
     public function findAllPfps() : ?array{
         $stmt = $this->pdo->query("SELECT *
         FROM ". DB_PREFIX ."article
-        WHERE type = 'profile_picture'");
+        WHERE type = 'pfp'");
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPfps = $stmt->fetchAll();
         if($tabPfps === false){
