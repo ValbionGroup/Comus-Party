@@ -22,12 +22,12 @@ function removeArticle(id){
             notification.classList.add('opacity-100', 'scale-100');
 
             // Masquer la notification après 5 secondes
-            setTimeout(() => {
+
                 notification.classList.remove('opacity-100', 'scale-100');
                 notification.classList.add('opacity-0', 'scale-90');
                 document.getElementById("eltPanier").style.display = "none";
                 location.reload()
-            }, 3000);
+
 
 
 

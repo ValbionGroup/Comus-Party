@@ -16,8 +16,6 @@ let notification = document.getElementById('notification');
 let notificationMessage = document.getElementById("notificationMessage")
 
 
-
-
 /*
 Déclaration des attributs des articles présent dans le twig
  */
@@ -60,7 +58,6 @@ function showModale(article){
     prixEuroArticle.innerText = article.priceEuro + " €"
 
 
-
     addBasketBtn.onclick = function (){
 
 
@@ -70,6 +67,7 @@ function showModale(article){
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/shop/basket/add", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
 
         // Envoyer les données sous forme de paire clé=valeur
         xhr.send("id_article=" + article.id);
@@ -81,6 +79,7 @@ function showModale(article){
                 if (response.success) {
                     notificationMessage.textContent = "Article ajouté au panier"
                     notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+
 
                 } else {
                     notificationMessage.textContent = "Article déjà présent dans le panier"
@@ -100,7 +99,6 @@ function showModale(article){
 
 
 
-                // alert(response.success);  // Affiche la réponse (par exemple : "Article ajouté au panier !")
 
             }
         };

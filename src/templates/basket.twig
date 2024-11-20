@@ -9,9 +9,9 @@
         {# Panier #}
         <div class="flex flex-col w-2/3 h-min mt-5 ml-5">
             <h2 class="font-semibold text-xl mb-3 font-serif">Panier</h2>
-            <div class="bg-lavender-blush-1 dark:bg-lavender-blush-3 w-full h-full rounded-2xl flex flex-col justify-center text-center items-center">
+            <div class="bg-lavender-blush-1 dark:bg-lavender-blush-3 w-full {% if articles is null %} h-72 {% endif%} {% if articles is not null%} h-96{% endif%}  rounded-2xl overflow-y-auto flex flex-col justify-center text-center items-center">
 
-                <span class="mt-6 mb-3"><svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 24 24"><g
+                <span class="mt-6 mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 24 24"><g
                                 fill="none"><path
                                     d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path
                                     fill="currentColor"
@@ -19,20 +19,20 @@
                 {% if articles is null %}
 
                     <h2 class="font-semibold text-xl mt-5">Votre panier est vide</h2>
-                    <p class="mt-4">Vous n'avez pas encore ajouté d'articles dans votre panier. Parcourez le site pour
+                    <p class="mt-2">Vous n'avez pas encore ajouté d'articles dans votre panier. Parcourez le site pour
                         trouver des articles incroyables !</p>
                     <a href="/shop">
-                        <button class="px-6 py-2 mt-5 mb-12 border-2 border-lavender-blush-3 text-lavender-blush-3 dark:border-lavender-blush-base dark:text-lavender-blush-base font-semibold rounded-md hover:bg-lavender-blush-base dark:bg-lavender-blush-3 hover:text-lavender-blush-3 dark:text-lavender-blush-base transition duration-300">
+                        <button class="px-6 py-2 mt-5 mb-6 border-2 border-lavender-blush-3 text-lavender-blush-3 dark:border-lavender-blush-base dark:text-lavender-blush-base font-semibold rounded-md hover:bg-lavender-blush-base dark:bg-lavender-blush-3 hover:text-lavender-blush-3 dark:text-lavender-blush-base transition duration-300">
                             Découvrir des articles
                         </button>
                     </a>
                 {% endif %}
 
-                <div class="w-full  flex flex-col ">
+                <div class="w-full   flex flex-col ">
 
                     {% for article in articles %}
 
-                        <div id="eltPanier" class="flex flex-row w-11/12 p-2 ml-8 rounded-2xl m-2  border-lavender-blush-base border-2">
+                        <div id="eltPanier" class="flex flex-row w-11/12 h-20 overflow-y-auto p-2 ml-8 rounded-2xl m-2  shadow-lg">
                             <img src="/assets{{ article.filePath }}" alt="Pas d'image" class="rounded-2xl cursor-pointer {% if article.type == "Banner" %} w-64 {% endif %} {% if article.type == "ProfilePicture" %} w-16 {% endif%}">
                             <div class="w-full flex justify-between ml-5 items-center">
                                 <div class="flex flex-col  ">
@@ -56,7 +56,7 @@
         {# Résumé #}
         <div class="flex flex-col w-1/3 h-72 mt-5 ml-5 mr-5">
             <h2 class="font-semibold text-xl mb-3 font-serif">Résumé</h2>
-            <div class="bg-lavender-blush-3 dark:bg-lavender-blush-base dark:text-lavender-blush-3 w-full h-full rounded-2xl flex flex-col justify-center text-center items-center ">
+            <div class="bg-lavender-blush-3 dark:bg-lavender-blush-2 dark:text-lavender-blush-base w-full h-72 rounded-2xl flex flex-col justify-center text-center items-center ">
                 <div class="flex justify-around w-full mt-12">
                     <h3>Prix officiel</h3>
                     <span>{{ prixTotalPanier }}€</span>
@@ -66,7 +66,7 @@
                     <span>{{ prixTotalPanier }}€</span>
                 </div>
                 <a href="">
-                    <button class="px-6 py-2 mt-6 border-2 border-lavender-blush-base dark:border-lavender-blush-3 text-lavender-blush-base dark:text-lavender-blush-3 font-semibold rounded-md hover:bg-lavender-blush-base dark:hover:bg-lavender-blush-3 hover:text-lavender-blush-3 dark:hover:text-lavender-blush-base transition duration-300">
+                    <button class="px-6 py-2 mt-6 border-2 border-lavender-blush-base dark:border-lavender-blush-base text-lavender-blush-base dark:text-lavender-blush-base font-semibold rounded-md hover:bg-lavender-blush-base dark:hover:bg-lavender-blush-3 hover:text-lavender-blush-3 dark:hover:text-lavender-blush-base dark:hover:border-lavender-blush-2 transition duration-300">
                         Procéder au paiement
                     </button>
                 </a>
