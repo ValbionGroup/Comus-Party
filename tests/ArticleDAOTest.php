@@ -236,7 +236,7 @@ class ArticleDAOTest extends TestCase
      */
     public function testFindActivePfpByPlayerUuidWithValidUuidAndActivePfp(): void
     {
-        $this->assertInstanceOf(Article::class, $this->articleDAO->findActivePfpByPlayerUuid('uuid1'));
+        $this->assertInstanceOf(Article::class, $this->articleDAO->findActivePfpByPlayerUuid('uuid2'));
     }
 
     /**
@@ -245,7 +245,7 @@ class ArticleDAOTest extends TestCase
      */
     public function testFindActivePfpByPlayerUuidWithValidUuidAndNoActivePfp(): void
     {
-        $this->assertNull($this->articleDAO->findActivePfpByPlayerUuid('uuid2'));
+        $this->assertNull($this->articleDAO->findActivePfpByPlayerUuid('uuid3'));
     }
 
     /**
