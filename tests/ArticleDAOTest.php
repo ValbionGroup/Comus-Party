@@ -7,6 +7,8 @@
  * @version 0.1
  */
 
+use PDO;
+use ComusParty\Models\ArticleDAO;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../include.php';
