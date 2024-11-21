@@ -62,12 +62,12 @@ class ArticleDAO {
             WHERE id = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Article');
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $article = $stmt->fetch();
         if ($article === false) {
             return null;
         }
-        return $article;
+        return $this->hydrate($article);
     }
 
     /**
@@ -98,7 +98,7 @@ class ArticleDAO {
     public function findAllPfps() : ?array{
         $stmt = $this->pdo->query("SELECT *
         FROM ". DB_PREFIX ."article
-        WHERE type = 'profile_picture'");
+        WHERE type = 'pfp'");
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPfps = $stmt->fetchAll();
         if($tabPfps === false){
