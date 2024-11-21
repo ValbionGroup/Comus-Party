@@ -1,6 +1,6 @@
 <?php
 /**
- * @file controllerProfileTest.php
+ * @file ControllerProfileTest.php
  * @brief Le fichier contient la déclaration et la définition de la classe controllerProfile
  * @author Conchez-Boueytou Robin
  * @date 14/11/2024
@@ -10,7 +10,9 @@
 
 require_once  __DIR__ . '/../include.php';
 
-use models\NotFoundException;
+use ComusParty\Controllers\Controller;
+use ComusParty\Controllers\ControllerProfile;
+use ComusParty\Models\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;

@@ -10,6 +10,8 @@
 
 require_once __DIR__ . '/../include.php';
 
+use PDO;
+use ComusParty\Models\Db;
 use PHPUnit\Framework\TestCase;
 
 /**

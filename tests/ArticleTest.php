@@ -7,6 +7,8 @@
  * @version 0.1
  */
 
+use ComusParty\Models\Article;
+use ComusParty\Models\ArticleType;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../include.php';
