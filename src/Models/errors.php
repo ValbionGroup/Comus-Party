@@ -1,44 +1,14 @@
 <?php
-
-namespace ComusParty\Models;
+/**
+ * @brief Gestion des erreurs
+ * @file errors.php
+ * @author Lucas ESPIET
+ * @version 1.0
+ * @date 2024-11-21
+ */
 
 use Exception;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-/**
- * Lève une erreur bloquante.
- *
- * @param Exception $exception
- * @return void
- * @throws LoaderError
- * @throws RuntimeError
- * @throws SyntaxError
- */
-function displayFullScreenError(Exception $exception): void
-{
-    global $twig;
-    $template = $twig->load('errors.twig');
-    http_response_code($exception->getCode() ?? 500);
-    echo $template->render([
-        'error' => $exception->getCode() ?? 500,
-        'message' => $exception->getMessage() ?? 'Une erreur interne est survenue'
-    ]);
-    die;
-}
-
-/**
- * Ajout les données d'une erreur en variable globale Twig
- *
- * @param Exception $exception
- * @return void
- */
-function displayPopUpError(Exception $exception): void
-{
-    global $twig;
-    $twig->addGlobal('error', [
-        'code' => $exception->getCode() ?? 500,
-        'message' => $exception->getMessage() ?? 'Une erreur interne est survenue'
-    ]);
-}
