@@ -10,9 +10,16 @@ $dotenv->load();
 require_once __DIR__ . '/config/const.php';
 require_once __DIR__ . '/config/db.php';
 
-require_once __DIR__ . '/src/Models/errors.php';
 require_once __DIR__ . '/src/Models/Router.php';
-require_once __DIR__ . '/src/Models/CustomExceptions.php';
+
+require_once __DIR__ . '/src/Models/Exceptions/ErrorHandler.php';
+require_once __DIR__ . '/src/Models/Exceptions/NotFoundException.php';
+require_once __DIR__ . '/src/Models/Exceptions/MalformedRequestException.php';
+require_once __DIR__ . '/src/Models/Exceptions/AuthentificationException.php';
+require_once __DIR__ . '/src/Models/Exceptions/ControllerNotFoundException.php';
+require_once __DIR__ . '/src/Models/Exceptions/MethodNotFoundException.php';
+require_once __DIR__ . '/src/Models/Exceptions/RouteNotFoundException.php';
+require_once __DIR__ . '/src/Models/Exceptions/UnauthorizedAccessException.php';
 
 require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/Controllers/controller.class.php';
