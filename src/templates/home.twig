@@ -1,7 +1,7 @@
 {%  extends "/layouts/default.twig" %}
 {% block title %}Accueil{% endblock %}
 {% block content %}
-    <div class="overflow-y-auto h-screen w-full">
+    <div class="overflow-y-auto scrollbar-thumb-night-base scrollbar-track-night-base h-full w-full">
         <div class="flex flex-col sm:flex-row justify-between mb-10">
             <h1 class="text-4xl ml-5 mt-5 font-serif">Jeux</h1>
             <div class="relative justify-self-end  mt-5 ml-5 sm:mr-5">
@@ -23,45 +23,41 @@
         </div>
 
 
-        <div class="container mx-auto grid auto-cols-auto gap-y-10 place-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-20">
+        <div class="container mx-auto grid auto-cols-auto gap-y-10 place-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-20 transition-all duration-500 ease-in-out">
             {% for game in games %}
-            <div class="bg-lavender-blush-1 dark:bg-night-1 w-56 max-h-screen rounded-xl game">
-                <div class="m-3">
-                    <img class="w-full h-52 object-cover rounded-xl" src="/assets{{ game.pathImg }}" alt="not">
+                <div class="bg-lavender-blush-1 dark:bg-night-1 w-56 max-h-screen rounded-xl game opacity-0 translate-y-10 animate-fade-in">
+                    <div class="m-3">
+                        <img class="w-full h-52 object-cover rounded-xl" src="/assets{{ game.pathImg }}" alt="not">
+                    </div>
+                    <p class="text-xl ml-5 mb-4x"><b>{{ game.name }}</b></p>
+                    <div class="h-12 text-white justify-around flex">
+                        <button class="w-20 h-10 bg-blue-violet hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110">
+                      <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-200 ease-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 20 20">
+                          <path fill="currentColor" d="m17.545 15.467l-3.779-3.779a6.15 6.15 0 0 0 .898-3.21c0-3.417-2.961-6.377-6.378-6.377A6.185 6.185 0 0 0 2.1 8.287c0 3.416 2.961 6.377 6.377 6.377a6.15 6.15 0 0 0 3.115-.844l3.799 3.801a.953.953 0 0 0 1.346 0l.943-.943c.371-.371.236-.84-.135-1.211M4.004 8.287a4.28 4.28 0 0 1 4.282-4.283c-2.366 0 4.474 2.107 4.474 4.474a4.284 4.284 0 0 1-4.283 4.283c-2.366-.001-4.473-2.109-4.473-4.474"/>
+                        </svg>
+                      </span>
+                            <span class="absolute opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-out">
+                        Trouver
+                    </span>
+                        </button>
+                        <button class="w-20 h-10 bg-blue-violet hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110">
+                  <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-300 ease-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+                      <g fill="none">
+                        <path fill="currentColor" d="M10.5 20a1.5 1.5 0 0 0 3 0v-6.5H20a1.5 1.5 0 0 0 0-3h-6.5V4a1.5 1.5 0 0 0-3 0v6.5H4a1.5 1.5 0 0 0 0 3h6.5z"/>
+                      </g>
+                    </svg>
+                  </span>
+                            <span class="absolute opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out">
+                        Créer
+                    </span>
+                        </button>
+                    </div>
                 </div>
-                <p class="text-xl ml-5 mb-4x"><b>{{ game.name }}</b></p>
-                <div class="h-12 text-white justify-around flex">
-                    <button class="w-20 h-10 bg-blue-violet hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110">
-                        <!-- Icône de loupe avec effet de fondu et de zoom-out -->
-                        <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-200 ease-out">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 20 20">
-                                <path fill="currentColor" d="m17.545 15.467l-3.779-3.779a6.15 6.15 0 0 0 .898-3.21c0-3.417-2.961-6.377-6.378-6.377A6.185 6.185 0 0 0 2.1 8.287c0 3.416 2.961 6.377 6.377 6.377a6.15 6.15 0 0 0 3.115-.844l3.799 3.801a.953.953 0 0 0 1.346 0l.943-.943c.371-.371.236-.84-.135-1.211M4.004 8.287a4.28 4.28 0 0 1 4.282-4.283c-2.366 0 4.474 2.107 4.474 4.474a4.284 4.284 0 0 1-4.283 4.283c-2.366-.001-4.473-2.109-4.473-4.474"/>
-                            </svg>
-                        </span>
-                        <!-- Texte "Trouver" avec effet de fondu et de zoom-in -->
-                        <span class="absolute opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-out">
-                            Trouver
-                        </span>
-                    </button>
-                    <button class="w-20 h-10 bg-blue-violet hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110">
-                        <!-- Icône SVG avec effet de fondu et de zoom-out -->
-                        <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-300 ease-out">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
-                                <g fill="none">
-                                    <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/>
-                                    <path fill="currentColor" d="M10.5 20a1.5 1.5 0 0 0 3 0v-6.5H20a1.5 1.5 0 0 0 0-3h-6.5V4a1.5 1.5 0 0 0-3 0v6.5H4a1.5 1.5 0 0 0 0 3h6.5z"/>
-                                </g>
-                            </svg>
-                        </span>
-                        <!-- Texte "Créer" avec effet de fondu et de zoom-in -->
-                        <span class="absolute opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out">
-                            Créer
-                        </span>
-                    </button>
-                </div>
-            </div>
             {% endfor %}
         </div>
+
     </div>
 {% endblock %}
 

@@ -202,3 +202,17 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
         src: url("/assets/fonts/Fira_Code/FiraCode-VariableFont_wght.ttf") format('truetype-variations');
     }
 }
+
+::-webkit-scrollbar {
+    width: 10px; /* Largeur de la barre de défilement */
+    opacity: 10;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #43403A; /* Couleur du pouce */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #171614; /* Couleur de la piste */
+}
