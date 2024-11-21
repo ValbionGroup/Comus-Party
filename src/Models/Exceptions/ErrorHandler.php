@@ -15,6 +15,10 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
+/**
+ * @brief Gestion de l'affichage des erreurs
+ * @details La classe ErrorHandler permet de gérer l'affichage des erreurs de l'application
+ */
 class ErrorHandler
 {
     /**
