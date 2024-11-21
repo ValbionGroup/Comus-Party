@@ -12,6 +12,7 @@ namespace ComusParty\Models;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
+use PDO;
 
 /**
  * @brief Classe UserDAO
