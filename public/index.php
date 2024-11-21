@@ -12,6 +12,6 @@ require __DIR__.'/../src/routes.php';
 try {
     $router->matchRoute();
 } catch (NotFoundException $e) {
-    ErrorHandler::displayFullScreenError($e);
+    ErrorHandler::displayFullScreenException($e);
     exit;
 }

@@ -26,7 +26,7 @@ class ErrorHandler
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public static function displayFullScreenError(Exception $exception): void
+    public static function displayFullScreenException(Exception $exception): void
     {
         global $twig;
         $template = $twig->load('errors.twig');
@@ -44,7 +44,7 @@ class ErrorHandler
      * @param Exception $exception
      * @return void
      */
-    public static function displayPopUpError(Exception $exception): void
+    public static function addExceptionParametersToTwig(Exception $exception): void
     {
         global $twig;
         $twig->addGlobal('error', [
