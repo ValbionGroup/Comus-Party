@@ -135,9 +135,9 @@ class Article {
     /**
      * @brief Retourne l'id de l'article
      *
-     * @return int L'id de l'article est retourné
+     * @return int|null L'id de l'article est retourné
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -156,9 +156,9 @@ class Article {
     /**
      * @brief Retourne le nom de l'article
      *
-     * @return string Le nom de l'article retourné
+     * @return string|null Le nom de l'article retourné
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -219,9 +219,9 @@ class Article {
     /**
      * @brief Retourne la date de création de l'article
      *
-     * @return DateTime La date de création de l'article qui est retournée
+     * @return DateTime|null La date de création de l'article qui est retournée
      */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
