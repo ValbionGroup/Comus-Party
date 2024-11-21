@@ -7,6 +7,7 @@
  * @version 0.1
  */
 
+use ComusParty\Models\Db;
 use PDO;
 use ComusParty\Models\ArticleDAO;
 use PHPUnit\Framework\TestCase;
