@@ -7,6 +7,8 @@
  * @version 0.1
  */
 
+use ComusParty\Models\Article;
+use ComusParty\Models\ArticleType;
 use ComusParty\Models\Db;
 use PDO;
 use ComusParty\Models\ArticleDAO;
