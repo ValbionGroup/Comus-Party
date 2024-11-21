@@ -29,7 +29,7 @@ class ControllerFactory {
      */
     public static function getController(string $controller, FilesystemLoader $loader, Environment $twig): Controller
     {
-        $controllerName = "Controller" . ucfirst($controller);
+        $controllerName = 'ComusParty\Controllers\Controller' . ucfirst($controller);
 
         if (!class_exists($controllerName)) {
             throw new ControllerNotFoundException('Controller ' . $controllerName . ' not found');
