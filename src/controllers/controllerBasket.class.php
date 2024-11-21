@@ -73,9 +73,14 @@ class ControllerBasket extends Controller
                     // Supprimer cette clé
                     unset($_SESSION['basket'][$key]);
                 }
+                $managerArticle = new ArticleDAO($this->getPdo());
+//
+                $article = $managerArticle->findArticlesWithIds( array($id_article) );
+                $prixArticle = $article[0]->getPriceEuro();
                 echo json_encode([
                     'success' => true,
-                    'message' => "Article supprimé du panier !"
+                    'message' => "Article supprimé du panier !",
+                    'prixArticle' => $prixArticle,
                 ]);
 //                echo "Article supprimé du panier !";
             } else {

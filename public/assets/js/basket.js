@@ -11,7 +11,8 @@ let notification = document.getElementById('notification');
 
 let panier = document.getElementById("panier")
 let panierVide = document.getElementById("panierVide")
-
+let prixTotalPanier = document.getElementById("prixTotalPanier")
+let sousTotalPanier = document.getElementById("sousTotalPanier")
 
 
 function testArticleDansPanier(){
@@ -50,13 +51,18 @@ function removeArticle(id){
     // Envoyer les données sous forme de paire clé=valeur
     xhr.send();
 
-
     // Gérer la réponse du serveur
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
 
             let response =  JSON.parse(xhr.responseText)
+            let prixTotalPanierActuel = prixTotalPanier.textContent
 
+            // Le parseint permet de récupérer que la valeur numérique du prix actuel du panier, c'est-à-dire sans le sigle "€"
+
+            prixTotalPanierApresSuppressionArticle= parseInt(prixTotalPanierActuel.replace(/[^\d]/g, ''), 10) - response.prixArticle;
+            sousTotalPanier.textContent = prixTotalPanierApresSuppressionArticle +"€"
+            prixTotalPanier.textContent = prixTotalPanierApresSuppressionArticle+"€"
         }
     };
 }
