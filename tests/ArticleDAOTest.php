@@ -7,6 +7,11 @@
  * @version 0.1
  */
 
+use ComusParty\Models\Article;
+use ComusParty\Models\ArticleType;
+use ComusParty\Models\Db;
+use PDO;
+use ComusParty\Models\ArticleDAO;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../include.php';

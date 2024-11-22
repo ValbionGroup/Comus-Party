@@ -9,7 +9,9 @@
 
 require_once __DIR__ . '/../include.php';
 
-use models\AuthentificationException;
+use ComusParty\Controllers\Controller;
+use ComusParty\Controllers\ControllerAuth;
+use ComusParty\Models\Exception\AuthentificationException;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;

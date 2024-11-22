@@ -7,6 +7,10 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
+
+use Exception;
+use PDO;
 
 /**
  * @brief Class Db

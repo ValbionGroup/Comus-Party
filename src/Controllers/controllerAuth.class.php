@@ -7,13 +7,17 @@
  * @version 0.4
  */
 
-use models\AuthentificationException;
+namespace ComusParty\Controllers;
+
+use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\Exception\AuthentificationException;
+use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\UserDAO;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
-
 
 /**
  * @brief Classe ControllerAuth
@@ -54,7 +58,6 @@ class ControllerAuth extends Controller {
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
      * @return void
      * @throws AuthentificationException Exception levée dans le cas d'une erreur d'authentification
-     * @throws DateMalformedStringException
      */
     public function authenticate(?string $email, ?string $password): void
     {

@@ -7,6 +7,10 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
+
+use DateTime;
+
 /**
  * @brief Enumération des états d'un jeu
  *

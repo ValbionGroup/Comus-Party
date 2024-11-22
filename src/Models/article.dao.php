@@ -7,8 +7,13 @@
  * @version 0.2
  */
 
+namespace ComusParty\Models;
 
 
+use DateMalformedStringException;
+use DateTime;
+use Exception;
+use PDO;
 
 /**
  * @brief Classe ArticleDAO
@@ -74,6 +79,7 @@ class ArticleDAO {
      * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles enregistrés dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     * @throws DateMalformedStringException
      */
 
     public function findAll() : ?array {
@@ -85,14 +91,14 @@ class ArticleDAO {
         if ($tabArticles === false) {
             return null;
         }
-        $articles = $this->hydrateMany($tabArticles);
-        return $articles;
+        return $this->hydrateMany($tabArticles);
     }
 
     /**
      * @brief Retourne un tableau d'objets Article qui ont le type profile_picture dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type profile_picture (ou null si aucune joueur recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type profile_picture dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     * @throws DateMalformedStringException
      */
 
     public function findAllPfps() : ?array{
@@ -104,8 +110,7 @@ class ArticleDAO {
         if($tabPfps === false){
             return null;
         }
-        $pfps = $this->hydrateMany($tabPfps);
-        return $pfps;
+        return $this->hydrateMany($tabPfps);
 
     }
 
@@ -113,6 +118,7 @@ class ArticleDAO {
      * @brief Retourne un tableau d'objets Article qui ont le type banner dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type banner (ou null si aucune joueur recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type banner dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     * @throws DateMalformedStringException
      */
     public function findAllBanners() : ?array{
         $stmt = $this->pdo->query("SELECT *
@@ -123,8 +129,7 @@ class ArticleDAO {
         if($tabBanners === false){
             return null;
         }
-        $banners = $this->hydrateMany($tabBanners);
-        return $banners;
+        return $this->hydrateMany($tabBanners);
 
     }
 
@@ -150,8 +155,7 @@ class ArticleDAO {
         if ($pfp === false) {
             return null;
         }
-        $article = $this->hydrate($pfp);
-        return $article;
+        return $this->hydrate($pfp);
     }
 
     /**
@@ -175,8 +179,7 @@ class ArticleDAO {
         if ($banner === false) {
             return null;
         }
-        $article = $this->hydrate($banner);
-        return $article;
+        return $this->hydrate($banner);
     }
 
 
@@ -184,7 +187,7 @@ class ArticleDAO {
      * @brief Hydrate un objet Article avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif content les paramètres
      * @return Article L'objet retourné par la méthode, ici un article
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data) : Article {
         $article = new Article();
