@@ -19,13 +19,14 @@
         </div>
     {% endif %}
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script language="JavaScript">
         const errorMessage = document.getElementById('errorMessage');
         if (errorMessage) {
-            setTimeout(function () {
-                $(errorMessage).fadeOut(700, function () {
-                    $(this).remove();
+            setTimeout(() => {
+                errorMessage.style.transition = "transform 0.7s ease-out";
+                errorMessage.style.transform = "translateX(500px)";
+                errorMessage.addEventListener('transitionend', () => {
+                    errorMessage.remove();
                 });
             }, 5000);
         }
