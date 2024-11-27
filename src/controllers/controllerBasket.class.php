@@ -29,6 +29,7 @@ class ControllerBasket extends Controller
     {
         parent::__construct($loader, $twig);
     }
+
     /**
      * @brief Affiche le panier avec la liste des articles (si article dans panier)
      * @return void
