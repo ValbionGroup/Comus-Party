@@ -89,6 +89,12 @@ class ArticleDAO {
         return $articles;
     }
 
+    /**
+     * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles correspondant aux id "ids"
+     * @param array $ids Le tableau contenant les ids des articles qu'on veut obtenir
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
+     * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'id d'articles dans le tableau, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     */
     function findArticlesWithIds($ids)
     {
 
