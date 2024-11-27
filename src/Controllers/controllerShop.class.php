@@ -71,4 +71,46 @@ class ControllerShop extends Controller {
 
         echo $template->render(array('articles' => $articles));
     }
+
+
+    /**
+     * @brief Exécute l'algorithme de Luhn sur le numéro de carte passé en paramètre
+     * @details L'algorithme de Luhn parcourt le numéro de carte de la manière suivante :
+     * - Multiplie par 2 chaque chiffre en position paire (en partant de 0)
+     * - Si le résultat de la multiplication est supérieur ou égal à 10, additionne les chiffres du résultat et ajoute le résultat à la somme totale
+     * - Ajoute les chiffres en position impaire à la somme totale
+     * @return bool
+     */
+    private function checkLuhnValid(?string $card): bool
+    {
+        $card = preg_replace('/\s/', '', $card);
+        $sum = 0;
+        $length = strlen($card);
+
+        for ($i = 0; $i < $length - 1; $i++) {
+            if ($i % 2 == 0) {
+                $digit = (int)$card[$i] * 2;
+                if ($digit >= 10) {
+                    $digitStr = (string)$digit;
+                    $digit = (int)$digitStr[0] + (int)$digitStr[1];
+                }
+                $sum += $digit;
+            } else {
+                $sum += (int)$card[$i];
+            }
+        }
+        $key = 10 - ($sum % 10) % 10;
+        return $key == $card[$length - 1];
+    }
+
+    /**
+     * @brief Vérifie si l'ensemble des données du formulaire de paiement, passées en paramètre via un tableau associatif sont valides.
+     * @param array|null $datas
+     * @return bool
+     */
+    public function checkPaymentRequirement(?array $datas): bool
+    {
+        var_dump($this->checkLuhnValid("49900109835851023"));
+        return true;
+    }
 }
