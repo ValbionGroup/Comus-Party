@@ -73,8 +73,8 @@ class ControllerBasket extends Controller
                 }
                 $managerArticle = new ArticleDAO($this->getPdo());
 //
-                $article = $managerArticle->findArticlesWithIds( array($id_article) );
-                $prixArticle = $article[0]->getPriceEuro();
+                $article = $managerArticle->findById( $id_article );
+                $prixArticle = $article->getPriceEuro();
                 echo json_encode([
                     'success' => true,
                     'message' => "Article supprimé du panier !",

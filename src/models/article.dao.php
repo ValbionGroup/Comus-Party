@@ -67,6 +67,7 @@ class ArticleDAO {
         if ($article === false) {
             return null;
         }
+        $article = $this->hydrate($article);
         return $article;
     }
 
@@ -117,7 +118,7 @@ class ArticleDAO {
 
     /**
      * @brief Retourne un tableau d'objets Article qui ont le type profile_picture dans la base de données
-     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type profile_picture (ou null si aucune joueur recensé)
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type pfp (ou null si aucun Article avec le type pfp recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type profile_picture dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
      */
 

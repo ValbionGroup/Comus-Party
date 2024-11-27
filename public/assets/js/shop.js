@@ -33,7 +33,7 @@ showModale
 But : Affiche la fenêtre modale
  */
 
-function showModal(article) {
+function showModale(article) {
 
 
     overlay.classList.remove('hidden');
@@ -59,15 +59,9 @@ function showModal(article) {
 
 
     addBasketBtn.onclick = function (){
-
-
-
-
-
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/shop/basket/add", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
 
         // Envoyer les données sous forme de paire clé=valeur
         xhr.send("id_article=" + article.id);
@@ -76,17 +70,14 @@ function showModal(article) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
+                // Préparer la notification si l'article a été supprimé du panier
                 if (response.success) {
                     notificationMessage.textContent = "Article ajouté au panier"
                     notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
-
-
                 } else {
                     notificationMessage.textContent = "Article déjà présent dans le panier"
                     notification.className = "z-50 fixed bottom-5 right-5 bg-red-300 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
-
                 }
-
                 // Afficher la notification
                 notification.classList.remove('opacity-0', 'scale-90');
                 notification.classList.add('opacity-100', 'scale-100');
