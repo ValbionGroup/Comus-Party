@@ -11,6 +11,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
+use DateTime;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -83,7 +84,6 @@ class ControllerShop extends Controller {
      */
     private function checkLuhnValid(?string $card): bool
     {
-        $card = preg_replace('/\s/', '', $card);
         $sum = 0;
         $length = strlen($card);
 
@@ -105,12 +105,40 @@ class ControllerShop extends Controller {
 
     /**
      * @brief Vérifie si l'ensemble des données du formulaire de paiement, passées en paramètre via un tableau associatif sont valides.
+     * @details Les vérifications sont les suivantes :
+     *  - Vérification de la longueur du numéro de carte (16 chiffres)
+     *  - Vérification de la validité de l'algorithme de Luhn sur le numéro de carte
+     *  - Vérification de la longueur du cryptogramme de sécurité (3 chiffres)
+     *  - Vérification de la date d'expiration de la carte (date supérieure à la date actuelle)
      * @param array|null $datas
      * @return bool
      */
     public function checkPaymentRequirement(?array $datas): bool
     {
-        var_dump($this->checkLuhnValid("49900109835851023"));
+        $cardNumber = preg_replace('/\s/', '', $datas['cardNumber']);
+
+        if (strlen($cardNumber) !== 16) {
+            var_dump(strlen($datas['cardNumber']));
+            return false;
+        }
+
+        if (!$this->checkLuhnValid($cardNumber)) {
+            return false;
+        }
+
+        if (strlen($datas['cvv']) !== 3) {
+            return false;
+        }
+
+
+        list($month, $year) = explode("/", $datas['expirationDate']);
+        $expirationDate = new DateTime();
+        $expirationDate->setDate(2000 + (int)$year, (int)$month, 1);
+        $now = new DateTime();
+        if ($expirationDate < $now) {
+            return false;
+        }
+
         return true;
     }
 }
