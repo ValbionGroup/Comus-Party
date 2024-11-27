@@ -5,7 +5,7 @@
  * @author  Mathis RIVRAIS--NOWAKOWSKI
  * @brief   Le fichier contient la déclaration & définition de la classe ControllerShop.
  * @date    13/11/2024
- * @version 0.2
+ * @version 0.3
  */
 
 namespace ComusParty\Controllers;
@@ -20,7 +20,7 @@ use Twig\Loader\FilesystemLoader;
 
 /**
  * @brief Classe ControllerShop
- * @details La classe ControllerShop permet de gérer les actions liées à un article
+ * @details La classe ControllerShop permet de gérer les actions liées à la boutique
  */
 class ControllerShop extends Controller {
     /**
@@ -80,6 +80,7 @@ class ControllerShop extends Controller {
      * - Multiplie par 2 chaque chiffre en position paire (en partant de 0)
      * - Si le résultat de la multiplication est supérieur ou égal à 10, additionne les chiffres du résultat et ajoute le résultat à la somme totale
      * - Ajoute les chiffres en position impaire à la somme totale
+     * @param string|null $card Numéro de carte bancaire à vérifier
      * @return bool
      */
     private function checkLuhnValid(?string $card): bool
@@ -110,7 +111,7 @@ class ControllerShop extends Controller {
      *  - Vérification de la validité de l'algorithme de Luhn sur le numéro de carte
      *  - Vérification de la longueur du cryptogramme de sécurité (3 chiffres)
      *  - Vérification de la date d'expiration de la carte (date supérieure à la date actuelle)
-     * @param array|null $datas
+     * @param array|null $datas Tableau associatif contenant les données du formulaire de paiement
      * @return bool
      */
     public function checkPaymentRequirement(?array $datas): bool
