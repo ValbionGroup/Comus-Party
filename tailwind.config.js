@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,html,php,twig}"],
+  content: ["./src/**/*.{js,html,php,twig}", "./public/**/*.{js,html,php,twig,css}"],
   theme: {
     fontFamily: {
       'serif': ["'Londrina Solid'", "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],
