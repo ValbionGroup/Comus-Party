@@ -9,8 +9,9 @@
  * @date 2024-11-12
  */
 
-namespace models;
+namespace ComusParty\Models;
 
+use ComusParty\Models\Exception\RouteNotFoundException;
 use Exception;
 
 /**

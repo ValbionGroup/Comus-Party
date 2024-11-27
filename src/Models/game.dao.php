@@ -7,6 +7,10 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
+
+use PDO;
+
 /**
  * @brief Classe GameDao
  * @details La classe GameDao permet de faire des opérations sur la table game de la base de données

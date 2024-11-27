@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+const theme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: ["./src/**/*.{js,html,php,twig}"],
   theme: {
@@ -8,6 +10,16 @@ module.exports = {
       'mono': ["'Fira Code'", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"]
     },
     extend: {
+      animation: {
+        gradient: 'gradientAnimation 50s ease infinite',
+      },
+      keyframes: {
+        gradientAnimation: {
+          '0%': {'background-position': '0% 50%'},
+          '50%': {'background-position': '100% 50%'},
+          '100%': {'background-position': '0% 50%'},
+        },
+      },
       backgroundImage: {
         'auth-background': "url('./assets/img/auth.jpg')",
       },
@@ -80,6 +92,15 @@ module.exports = {
         }
     },}
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({theme, addUtilities}) {
+      addUtilities({
+        '.animated-gradient': {
+          'background': `linear-gradient(270deg, ${theme('colors.blue-violet.base')}, ${theme('colors.rose.base')}, ${theme('colors.celestial-blue.base')}, ${theme('colors.hot-magenta.base')})`,
+          'background-size': '400% 400%',
+        },
+      });
+    }),
+  ],
 }
 

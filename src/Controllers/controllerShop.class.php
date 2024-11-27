@@ -5,10 +5,12 @@
  * @author  Mathis RIVRAIS--NOWAKOWSKI
  * @brief   Le fichier contient la déclaration & définition de la classe ControllerShop.
  * @date    13/11/2024
- * @version 0.1
+ * @version 0.2
  */
 
+namespace ComusParty\Controllers;
 
+use ComusParty\Models\ArticleDAO;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -18,7 +20,6 @@ use Twig\Loader\FilesystemLoader;
 /**
  * @brief Classe ControllerShop
  * @details La classe ControllerShop permet de gérer les actions liées à un article
- * @extends Controller
  */
 class ControllerShop extends Controller {
     /**
@@ -35,13 +36,11 @@ class ControllerShop extends Controller {
      * @brief Permet d'afficher tous les articles (avatars / bannières)
      *
      * @return void
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function show() {
-
         $managerArticle = new ArticleDAO($this->getPdo());
 
         $articles = $managerArticle->findAll();
@@ -49,9 +48,6 @@ class ControllerShop extends Controller {
         $banners = $managerArticle->findAllBanners();
 
         $template = $this->getTwig()->load('shop.twig');
-
-
-
 
         echo $template->render(array(
             'articles' => $articles,
@@ -64,16 +60,13 @@ class ControllerShop extends Controller {
      * @brief Permet d'afficher tous les articles
      *
      * @return void
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showAll(){
         $managerArticle = new ArticleDAO($this->getPdo());
-
         $articles = $managerArticle->findAll();
-
         $template = $this->getTwig()->load('shop.twig');
 
         echo $template->render(array('articles' => $articles));

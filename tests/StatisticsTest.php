@@ -10,6 +10,7 @@
 
 require_once __DIR__ . '/../include.php';
 
+use ComusParty\Models\Statistics;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -10,7 +10,8 @@
 
 global $loader, $twig;
 
-use models\Router;
+use ComusParty\Controllers\ControllerFactory;
+use ComusParty\Models\Router;
 
 $router = Router::getInstance();
 
