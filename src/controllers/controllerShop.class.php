@@ -7,13 +7,8 @@
  * @date    13/11/2024
  * @version 0.1
  */
-/**
- * @file    controllerShop.class.php
- * @author  Mathis Rivrais--Nowakowski
- * @brief   Le fichier contient la déclaration & la définition de la classe ControllerShop.
- * @date    14/11/2024
- * @version 0.4
- */
+
+
 
 
 use Twig\Environment;
