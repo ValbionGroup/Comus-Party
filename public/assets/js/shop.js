@@ -33,7 +33,7 @@ showModale
 But : Affiche la fenêtre modale
  */
 
-function showModale(article){
+function showModal(article) {
 
 
     overlay.classList.remove('hidden');
