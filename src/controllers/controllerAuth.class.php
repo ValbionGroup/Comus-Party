@@ -143,6 +143,7 @@ class ControllerAuth extends Controller {
      * Si le joueur existe déjà, la méthode renvoie un message d'erreur.
      * Si l'utilisateur et le joueur sont créés avec succès, la méthode renvoie un message de confirmation.
      * La méthode renvoie un JSON contenant un champ "success" et un champ "message".
+     * @todo Update doc
      * @return void
      */
     public function register(?string $username, ?string $email, ?string $password): void {
