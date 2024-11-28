@@ -1,20 +1,27 @@
 <?php
+/**
+ * @file    player.dao.php
+ * @author  Estéban DESESSARD
+ * @brief   Le fichier contient la déclaration & définition de la classe PlayerDAO.
+ * @date    12/11/2024
+ * @version 0.1
+ */
+
 
 /**
- * La classe PlayerDAO permet de faire des opérations sur la table player
+ * @brief Classe PlayerDAO
+ * @details La classe PlayerDAO permet de faire des opérations sur la table player dans la base de données
  */
 class PlayerDAO {
     /**
-     * Classe PDO pour la connexion à la base de données
-     *
+     * @brief La connexion à la base de données
      * @var PDO|null
      */
     private ?PDO $pdo;
 
     /**
-     * Constructeur de la classe PlayerDAO
-     *
-     * @param PDO|null $pdo
+     * @brief Le constructeur de la classe PlayerDAO
+     * @param PDO|null $pdo La connexion à la base de données
      */
     public function __construct(?PDO $pdo)
     {
@@ -22,9 +29,8 @@ class PlayerDAO {
     }
 
     /**
-     * Retourne la connexion à la base de données
-     *
-     * @return PDO|null
+     * @brief Retourne la connexion à la base de données
+     * @return PDO|null Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données
      */
     public function getPdo(): ?PDO
     {
@@ -32,9 +38,8 @@ class PlayerDAO {
     }
 
     /**
-     * Modifie la connexion à la base de données
-     *
-     * @param PDO|null $pdo
+     * @brief Modifie la connexion à la base de données
+     * @param PDO|null $pdo La nouvelle connexion à la base de données
      */
     public function setPdo(?PDO $pdo): void
     {
@@ -42,10 +47,9 @@ class PlayerDAO {
     }
 
     /**
-     * Retourne un objet Player (ou null) à partir de l'UUID passé en paramètre
-     *
-     * @param string $uuid
-     * @return Player|null
+     * @brief Retourne un objet Player (ou null) à partir de l'UUID passé en paramètre
+     * @param string $uuid L'UUID du joueur recherché
+     * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
      */
     public function findByUuid(string $uuid): ?Player {
         $stmt = $this->pdo->prepare(
@@ -64,10 +68,9 @@ class PlayerDAO {
     }
 
     /**
-     * Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre
-     *
-     * @param int $userId
-     * @return Player|null
+     * @brief Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre
+     * @param int $userId L'identifiant utilisateur recherché
+     * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
      */
     public function findByUserId(int $userId): ?Player
     {
@@ -87,11 +90,10 @@ class PlayerDAO {
     }
 
     /**
-     * Retourne un objet Player (ou null) à partir de l'UUID passé en paramètre avec les détails de l'utilisateur associé
-     *
-     * @param string $uuid
-     * @return Player|null
-     * @throws DateMalformedStringException
+     * @brief Retourne un objet Player (ou null) à partir de l'UUID passé en paramètre avec les détails de l'utilisateur associé
+     * @param string $uuid L'UUID du joueur recherché
+     * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findWithDetailByUuid(string $uuid): ?Player {
         $stmt = $this->pdo->prepare(
@@ -114,10 +116,9 @@ class PlayerDAO {
     }
 
     /**
-     * Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre avec les détails de l'utilisateur associé
-     *
-     * @param int $userId
-     * @return Player|null
+     * @brief Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre avec les détails de l'utilisateur associé
+     * @param int $userId L'identifiant utilisateur recherché
+     * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
      */
     public function findWithDetailByUserId(int $userId): ?Player {
         $stmt = $this->pdo->prepare(
@@ -137,12 +138,10 @@ class PlayerDAO {
     }
 
     /**
-     * Retourne un tableau d'objets Player recensant l'ensemble des joueurs enregistrés dans la base de données
-     *
-     * ⚠️ : Cette méthode retourne un tableau contenant autant d'objet qu'il y a de joueurs dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
-     *
-     * @return array
-     * @throws DateMalformedStringException
+     * @brief Retourne un tableau d'objets Player recensant l'ensemble des joueurs enregistrés dans la base de données
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Player (ou null si aucune joueur recensé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a de joueurs dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
      */
     public function findAll() : ?array {
         $stmt = $this->pdo->query(
@@ -158,12 +157,10 @@ class PlayerDAO {
     }
 
     /**
-     * Retourne un tableau d'objets Player recensant l'ensemble des joueurs enregistrés dans la base de données avec les détails de l'utilisateur associé
-     *
-     * ⚠️ : Cette méthode retourne un tableau contenant autant d'objet qu'il y a de joueurs dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
-     *
-     * @return array
-     * @throws DateMalformedStringException
+     * @brief Retourne un tableau d'objets Player recensant l'ensemble des joueurs enregistrés dans la base de données avec les détails de l'utilisateur associé
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Player (ou null si aucune joueur recensé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a de joueurs dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
      */
     public function findAllWithDetail() : ?array {
         $stmt = $this->pdo->query(
@@ -180,11 +177,10 @@ class PlayerDAO {
     }
 
     /**
-     * Retourne un objet Player valorisé avec les valeurs du tableau associatif passé en paramètre
-     *
-     * @param array $data
-     * @return Player
-     * @throws DateMalformedStringException
+     * @brief Hydrate un objet Player avec les valeurs du tableau associatif passé en paramètre
+     * @param array $data Le tableau associatif content les paramètres
+     * @return Player L'objet retourné par la méthode, ici un joueur
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data) : Player {
         $player = new Player();
@@ -204,11 +200,11 @@ class PlayerDAO {
     }
 
     /**
-     * Retourne un tableau d'objets Player valorisés avec les valeurs du tableau de tableaux associatifs passé en paramètre
-     *
-     * @param array $data
-     * @return array
-     * @throws DateMalformedStringException
+     * @brief Hydrate un tableau d'objets Player avec les valeurs des tableaux associatifs du tableau passé en paramètre
+     * @details Cette méthode appelle, pour chaque tableau associatif contenu dans celui passé en paramètre, la méthode hydrate() définie ci-dessus.
+     * @param array $data Le tableau de tableaux associatifs
+     * @return array L'objet retourné par la méthode, ici un tableau (d'objets Player)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function hydrateMany(array $data) : array {
         $players = [];

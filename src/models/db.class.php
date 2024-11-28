@@ -1,25 +1,32 @@
 <?php
+/**
+ * @file    db.class.php
+ * @author  Estéban DESESSARD
+ * @brief   Le fichier contient la déclaration & définition de la classe Db.
+ * @date    12/11/2024
+ * @version 0.1
+ */
+
 
 /**
- * La classe Bd est un singleton qui permet de se connecter à la base de données
+ * @brief Class Db
+ * @details La classe Db est un singleton qui permet de se connecter à la base de données
  */
 class Db {
     /**
-     * Instance du singleton de la base de données
-     *
+     * @brief Instance du singleton de la base de données
      * @var Db|null
      */
     private static ?Db $instance = null;
 
     /**
-     * Classe PDO pour la connexion à la base de données
-     *
+     * @brief La connexion à la base de données
      * @var PDO|null
      */
     private ?PDO $pdo;
 
     /**
-     * Contructeur de la classe Bd
+     * @biref Contructeur de la classe Bd
      */
     private function __construct() {
         try {
@@ -31,9 +38,8 @@ class Db {
     }
 
     /**
-     * Retourne l'instance de la classe Bd
-     *
-     * @return Db
+     * @brief Retourne l'instance du singleton de la base de données
+     * @return Db Objet retourné par la méthode, ici l'instance du singleton de la base de données
      */
     public static function getInstance(): Db {
         if (self::$instance == null) {
@@ -43,26 +49,21 @@ class Db {
     }
 
     /**
-     * Retourne la connexion à la base de données
-     *
-     * @return PDO
+     * @brief Retourne la connexion à la base de données
+     * @return PDO Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données
      */
     public function getConnection(): PDO {
         return $this->pdo;
     }
 
     /**
-     * Surcharge de la méthode __clone pour empêcher le clonage de l'objet
-     *
-     * @return void
+     * @brief Surcharge de la méthode afin d'empêcher la création d'une nouvelle instance de la classe
      */
     private function __clone() {}
 
     /**
-     * Surcharge de la méthode __wakeup pour empêcher la désérialisation de l'objet
-     *
-     * @return mixed
-     * @throws Exception
+     * @brief Surcharge de la méthode afin d'empêcher la désérialisation de l'instance de la classe
+     * @throws Exception Exception levée dans le cas d'une tentative de désérialisation
      */
     public function __wakeup() {
         throw new Exception("Cannot unserialize a singleton.");
