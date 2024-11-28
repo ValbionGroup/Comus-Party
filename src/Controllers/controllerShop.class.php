@@ -119,7 +119,6 @@ class ControllerShop extends Controller {
         $cardNumber = preg_replace('/\s/', '', $datas['cardNumber']);
 
         if (strlen($cardNumber) !== 16) {
-            var_dump(strlen($datas['cardNumber']));
             return false;
         }
 
