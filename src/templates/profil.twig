@@ -4,7 +4,7 @@
 {% block content %}
     <!-- Partie concernant les informations de profil-->
     <div class="m-10 w-2/3">
-        <p class="text-3xl text-nowrap">Mon profil</p>
+        <h1 class="text-3xl text-nowrap font-serif">Mon profil</h1>
         <nav class="mt-4">
             <ul class="my-10 sm:ml-20 flex justify-between gap-3 md:gap-10 text-nowrap flex-col md:flex-row">
                 <li>
@@ -23,8 +23,7 @@
             <!-- Avatar de profil -->
             <div class="col-span-2">
                 <div>
-                    <img class="rounded-full mb-4" src="../../asstets/img/pfp/{{ player.pfpPath }}" alt="profile_picture">
-{#                    <img class="rounded-full mb-4" src="../../assets/img/pfp/pfp.jpg" alt="profile_picture">#}
+                    <img class="rounded-full mb-4" src="/assets/img/pfp/{{ pfp }}" alt="profile_picture">
                 </div>
                 <div>
                     <button class="flex bg-maize-700 items-center justify-center gap-3 border-2 border-maize-700 rounded-2xl p-1 w-full hover:scale-110 transition-all ease-in-out hover:shadow-sm">
@@ -36,8 +35,7 @@
 
             <div class="col-span-5 sm:ml-10 mt-5 sm:mt-0 flex flex-col justify-between">
                 <div>
-                    <img class="rounded-2xl mb-4" src="../../asstets/img/pfp/{{ player.bannerPath }}" alt="banner">
-{#                    <img class="rounded-2xl" src="../../assets/img/banner/banner.jpg" alt="banner">#}
+                    <img class="rounded-2xl mb-4" src="/assets/img/banner/{{ banner }}" alt="banner">
                 </div>
                 <div>
                     <button class="flex bg-maize-700 items-center justify-center gap-3 border-2 border-maize-700 rounded-2xl p-1 w-full hover:scale-110 transition-all ease-in-out hover:shadow-sm">
