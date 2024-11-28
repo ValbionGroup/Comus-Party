@@ -9,6 +9,8 @@
 
 namespace ComusParty\Models;
 
+use DateTime;
+use Game;
 use PDO;
 
 /**
