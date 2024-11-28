@@ -70,6 +70,9 @@ function showModale(article) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
+
+
+                console.log(response)
                 // Préparer la notification si l'article a été supprimé du panier
                 if (response.success) {
                     notificationMessage.textContent = "Article ajouté au panier"

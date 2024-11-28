@@ -83,11 +83,13 @@ class ControllerShop extends Controller {
             // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
             if (!in_array($id_article, $_SESSION['basket'])) {
                 $_SESSION['basket'][] = $id_article;
+                $taillePanier = count($_SESSION['basket']);
 
 
                 echo json_encode([
                     'success' => true,
-                    'message' => "Article ajouté au panier !"
+                    'message' => "Article ajouté au panier !",
+                    'taillePanier' => $taillePanier
                 ]);
 
             } else {
