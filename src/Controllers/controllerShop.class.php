@@ -71,4 +71,17 @@ class ControllerShop extends Controller {
 
         echo $template->render(array('articles' => $articles));
     }
+
+    /**
+     * @brief Permet d'afficher la page de paiement
+     *
+     * @return void
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     */
+    public  function showCheckout(): void{
+        $template = $this->getTwig()->load('checkout.twig');
+        echo $template->render();
+    }
 }
