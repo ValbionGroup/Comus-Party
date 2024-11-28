@@ -17,10 +17,10 @@ $router->get('/game/:code', function ($code) {
     exit;
 });
 
-$router->get('/shop', function () {
-    echo "Page de la boutique<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/shop', function () use ($loader, $twig){
+    ControllerFactory::getController("shop",$loader,$twig)->call("show");
     exit;
+
 });
 
 $router->get('/shop/basket', function () {
