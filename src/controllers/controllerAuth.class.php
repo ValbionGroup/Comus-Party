@@ -14,6 +14,10 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 
 /**
  * @brief Classe ControllerAuth
@@ -131,7 +135,7 @@ class ControllerAuth extends Controller {
 
     /**
      * @brief Enregistre un utilisateur
-     * 
+     *
      * @details La méthode register() est appelée par la route /register.
      * Elle lit les données du formulaire envoyées en JSON et essaie de créer un utilisateur et un joueur.
      * Si l'utilisateur et le joueur n'existent pas, la méthode créer l'utilisateur et le joueur.
@@ -167,18 +171,43 @@ class ControllerAuth extends Controller {
             // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
             if (!$existingUser && !$existingPlayer)
             {
-                $emailVerifToken = bin2hex(random_bytes(16)); // Générer un token de vérification de l'email
+                $emailVerifToken = bin2hex(random_bytes(32)); // Générer un token de vérification de l'email
                 $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
 
-                // Lien de vérification de l'email
-                $verificationLink = "/verifyEmail?token=$emailVerifToken";
+                // Envoi du mail avec phpmailer
+                $mail = new PHPMailer(true); // Création d'un objet PHPMailer
+                try {
+                    $mail->SMTPDebug = 3; // Set to 3 for more verbose debug output
+                    $mail->Debugoutput = 'html';
 
-                // Contenu de l'email
-                $subject = "Vérifiez votre adresse email";
-                $message = "Veuillez cliquer sur le lien suivant pour vérifier votre adresse email:\n\n$verificationLink";
-                    
-                // Envoyer l'email avec mail de PHP
-                mail($email, $subject, $message);
+                    // Configuration technique
+                    $mail->isSMTP(); // Utilisation du protocole SMTP
+                    $mail->Host = MAIL_HOST; // Hôte du serveur SMTP
+                    $mail->SMTPAuth = true; // Authentification SMTP
+                    $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
+                    $mail->Port = MAIL_PORT; // Port SMTP
+
+                    $tmpEmail="nzo.akt@gmail.com";
+                    // Configuration de l'authentification
+                    $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
+                    $mail->Password = MAIL_PASS; // Mot de passe de l'expéditeur
+                    $mail->setFrom(MAIL_FROM, MAIL_BASE); // Adresse de l'expéditeur
+                    $mail->addAddress($tmpEmail); // Adresse du destinataire
+
+                    // Configuration du message
+                    $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
+                    $mail->Subject = 'Confirmation de votre compte Comus Party'; // Sujet du message
+                    $mail->Body = // Corps du message
+                        '<p>Vous avez créer un compte sur le site Comus.</p>
+                        <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
+                        <a href="http://localhost:8000/confirmEmail?emailVerifToken=' . $emailVerifToken . '">Confirmer mon compte</a>';
+                    $mail->AltBody = // Corps du message sans format HTML
+                        'Vous avez crtéer un compte sur le site Comus.
+                        Pour confirmer votre compte, cliquez sur le lien ci-dessous.
+                        http://localhost:8000/confirmEmail?emailVerifToken=' . $emailVerifToken;
+
+                    $mail->send(); // Envoi du message
+                } catch (Exception $e) { echo "Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}"; }
             }
             
             // Créer le joueur si l'utilisateur est créé avec succès
@@ -191,8 +220,6 @@ class ControllerAuth extends Controller {
         } else { $resultMessage = "Données reçues non valides (email, nom d'utilisateur ou mot de passe non valides)"; }
 
         $_SESSION['resultMessage'] = $resultMessage;
-        // Supprimer les variables de session après utilisation
-        unset($_SESSION['resultMessage']);
 
         global $twig;
         echo $twig->render('signUp.twig', ['resultMessage' => $resultMessage]);
