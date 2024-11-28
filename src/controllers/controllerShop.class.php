@@ -17,6 +17,10 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
+/**
+ * @brief Classe ControllerShop
+ * @details La classe ControllerShop permet de gérer les actions liées à un article
+ */
 class ControllerShop extends Controller {
     /**
      * @brief Constructeur de la classe ControllerShop
