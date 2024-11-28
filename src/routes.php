@@ -108,19 +108,6 @@ $router->post('/register', function () use ($loader, $twig) {
     throw new Exception("Données reçues incomplètes.");
 });
 
-$router->get('/verifyEmail', function () use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("showVerificationPage");
-    exit;
-});
-
-$router->post('/verifyEmail', function () use ($loader, $twig) {
-    if (isset($_POST['email']) && isset($_POST['token'])) {
-        ControllerFactory::getController("auth", $loader, $twig)->call("verifyEmail", ["token" => $_POST['token']]);
-        exit;
-    }
-    throw new Exception("Données reçues invalides.");
-});
-
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
     exit;
