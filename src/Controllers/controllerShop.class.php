@@ -11,6 +11,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\Exception\PaymentException;
 use DateTime;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -80,6 +81,8 @@ class ControllerShop extends Controller {
      * - Multiplie par 2 chaque chiffre en position paire (en partant de 0)
      * - Si le résultat de la multiplication est supérieur ou égal à 10, additionne les chiffres du résultat et ajoute le résultat à la somme totale
      * - Ajoute les chiffres en position impaire à la somme totale
+     * - Calcule la clé de Luhn (10 - (somme totale % 10))
+     * - Si la clé de Luhn est égale au dernier chiffre du numéro de carte, alors le numéro de carte est valide
      * @param string|null $card Numéro de carte bancaire à vérifier
      * @return bool
      */
@@ -113,21 +116,22 @@ class ControllerShop extends Controller {
      *  - Vérification de la date d'expiration de la carte (date supérieure à la date actuelle)
      * @param array|null $datas Tableau associatif contenant les données du formulaire de paiement
      * @return bool
+     * @throws PaymentException Exception levée dans le cas d'une erreur de paiement
      */
-    public function checkPaymentRequirement(?array $datas): bool
+    public function checkPaymentRequirement(?array $datas): ?bool
     {
         $cardNumber = preg_replace('/\s/', '', $datas['cardNumber']);
 
         if (strlen($cardNumber) !== 16) {
-            return false;
+            throw new PaymentException("Le numéro de carte doit contenir 16 chiffres");
         }
 
         if (!$this->checkLuhnValid($cardNumber)) {
-            return false;
+            throw new PaymentException("Le numéro de carte n'est pas valide");
         }
 
         if (strlen($datas['cvv']) !== 3) {
-            return false;
+            throw new PaymentException("Le cryptogramme de sécurité doit contenir 3 chiffres");
         }
 
 
@@ -136,7 +140,7 @@ class ControllerShop extends Controller {
         $expirationDate->setDate(2000 + (int)$year, (int)$month, 1);
         $now = new DateTime();
         if ($expirationDate < $now) {
-            return false;
+            throw new PaymentException("La carte a expiré");
         }
 
         return true;
