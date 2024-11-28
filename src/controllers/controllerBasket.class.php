@@ -64,7 +64,7 @@ class ControllerBasket extends Controller
         if ($id != null) {
             $id_article = intval($id);
 
-            // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
+            // Retirer l'ID de l'article au panier s'il n'y est pas déjà
             if (in_array($id_article, $_SESSION['basket'])) {
                 $key = array_search($id_article, $_SESSION['basket'], true);
                 if ($key !== false) {
