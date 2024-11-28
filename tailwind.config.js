@@ -11,6 +11,7 @@ module.exports = {
     },
     extend: {
       animation: {
+        'fade-in': 'fadeIn 1s ease-out forwards',
         gradient: 'gradientAnimation 50s ease infinite',
       },
       keyframes: {
@@ -19,6 +20,10 @@ module.exports = {
           '50%': {'background-position': '100% 50%'},
           '100%': {'background-position': '0% 50%'},
         },
+        fadeIn: {
+          '0%': {opacity: 0, transform: 'translateY(10px)'},
+          '100%': {opacity: 1, transform: 'translateY(0)'},
+        }
       },
       backgroundImage: {
         'auth-background': "url('./assets/img/auth.jpg')",
@@ -64,40 +69,118 @@ module.exports = {
           '200': '#FFF9CB',
           '300': '#FFF5A3',
           '400': '#FFF07A',
-          'base' : '#FFEC51',
-          '600' : '#FFE619',
-          '700' : '#E0C700',
-          '800' : '#A89500'
+          'base': '#FFEC51',
+          '600': '#FFE619',
+          '700': '#E0C700',
+          '800': '#A89500'
         },
         'lavender-blush': {
-          'base' : '#F7EDF0',
-          '1' : '#E6C6D0',
-          '2' : '#D49FAF',
-          '3' : '#C3788F'
+          'base': '#F7EDF0',
+          '1': '#E6C6D0',
+          '2': '#D49FAF',
+          '3': '#C3788F'
         },
         'night': {
-          'base' : '#171614',
-          '1' : '#2D2B27',
-          '2' : '#43403A',
+          'base': '#171614',
+          '1': '#2D2B27',
+          '2': '#43403A',
           '3': '#58554D',
         }
       },
-      animation: {
-        'fade-in': 'fadeIn 1s ease-out forwards',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': {opacity: 0, transform: 'translateY(10px)'},
-          '100%': {opacity: 1, transform: 'translateY(0)'},
-        }
-    },}
+    },
   },
   plugins: [
+    require('@tailwindcss/typography'),
     plugin(function ({theme, addUtilities}) {
       addUtilities({
         '.animated-gradient': {
           'background': `linear-gradient(270deg, ${theme('colors.blue-violet.base')}, ${theme('colors.rose.base')}, ${theme('colors.celestial-blue.base')}, ${theme('colors.hot-magenta.base')})`,
           'background-size': '400% 400%',
+        },
+
+        '.input': {
+          appearance: 'none',
+          lineHeight: theme('leading.thight'),
+          transition: 'all 0.3s ease-in-out',
+          borderRadius: theme('borderRadius.lg'),
+          backgroundColor: theme('colors.lavender-blush.1'),
+          borderWidth: '1px',
+          outline: 'none',
+          borderColor: theme('colors.lavender-blush.2'),
+          padding: theme('padding.2'),
+          '&:focus': {
+            outlineColor: theme('colors.celestial-blue.base'),
+            outlineWidth: '3px',
+            outlineStyle: 'solid',
+            boxShadow: theme('boxShadow.sm'),
+          },
+          '@media (prefers-color-scheme: dark)': {
+            backgroundColor: theme('colors.night.1'),
+            borderColor: theme('colors.night.2'),
+            outline: 'none',
+          },
+
+          '&.input-error': {
+            borderColor: theme('colors.red.500'),
+            '&:focus': {
+              outlineColor: theme('colors.red.500'),
+            },
+          }
+        },
+
+        '.input-error-text': {
+          color: theme('colors.red.500'),
+          fontSize: theme('fontSize.sm'),
+          fontStyle: 'italic',
+        },
+
+        '.btn-primary': {
+          backgroundColor: theme('colors.celestial-blue.600'),
+          transition: 'all 0.3s ease-in-out',
+          padding: theme('padding.2'),
+          borderRadius: theme('borderRadius.lg'),
+          '&:hover': {
+            backgroundColor: theme('colors.celestial-blue.700'),
+          },
+          '&:active': {
+            backgroundColor: theme('colors.celestial-blue.800'),
+          },
+        },
+        '.btn-secondary': {
+          backgroundColor: theme('colors.rose.600'),
+          transition: 'all 0.3s ease-in-out',
+          padding: theme('padding.2'),
+          borderRadius: theme('borderRadius.lg'),
+          '&:hover': {
+            backgroundColor: theme('colors.rose.700'),
+          },
+          '&:active': {
+            backgroundColor: theme('colors.rose.800'),
+          },
+        },
+        '.btn-success': {
+          backgroundColor: theme('colors.green.600'),
+          transition: 'all 0.3s ease-in-out',
+          padding: theme('padding.2'),
+          borderRadius: theme('borderRadius.lg'),
+          '&:hover': {
+            backgroundColor: theme('colors.green.700'),
+          },
+          '&:active': {
+            backgroundColor: theme('colors.green.800'),
+          },
+        },
+        '.btn-danger': {
+          backgroundColor: theme('colors.red.600'),
+          transition: 'all 0.3s ease-in-out',
+          padding: theme('padding.2'),
+          borderRadius: theme('borderRadius.lg'),
+          '&:hover': {
+            backgroundColor: theme('colors.red.700'),
+          },
+          '&:active': {
+            backgroundColor: theme('colors.red.800'),
+          },
         },
       });
     }),
