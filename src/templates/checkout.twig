@@ -1,0 +1,75 @@
+{% extends "/layouts/base.twig" %}
+
+{% block layout %}
+
+    <header class="w-full">
+        <nav class="flex justify-between h-16">
+            <a href="/">Comus-Party</a>
+            <div>
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="bg-lavender-blush-base dark:bg-night-base flex flex-grow opacity-90 h-full overflow-visible">
+        <form class="grid grid-cols-3 w-full mx-20 mt-16">
+            <div class="col-span-2 grid grid-rows-3 h-full mx-10">
+                <div class="row-span-1">
+                    <h1 class="font-sans text-2xl">Adresse de facturation</h1>
+                    <div class="flex flex-row justify-between gap-2 mt-3">
+                        <input type="text" value="nom" class="dark:bg-night-1 h-10 rounded-lg pl-2 w-full">
+                        <input type="text" value="adresse" class="dark:bg-night-1 h-10 rounded-lg pl-2 w-full">
+                    </div>
+                </div>
+                <div class="row-span-2">
+                    <h1 class="font-sans text-2xl">Méthode de paiement</h1>
+                    <div class="flex flex-col mt-3 gap-3">
+                        <div class="flex w-full h-20 p-3 bg-night-1 rounded-lg items-center gap-5 hover:outline hover:outline-night-2 peer">
+                            <div class="bg-white rounded-lg ml-3">
+                                <img src="/assets/img/visa_mastercard.png" alt="visa_mastercard" class="h-16 p-2">
+                            </div>
+                            <p class="">Carte</p>
+                            <div class="max-h-0 overflow-hidden transition-all duration-300 peer-checked:max-h-40">
+                                <div class="p-4">
+                                    <p class="text-gray-700">
+                                        Voici le contenu caché qui devient visible lorsque la carte est dépliée.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex w-full h-20 p-3 bg-night-1 rounded-lg items-center gap-5 hover:outline hover:outline-night-2">
+                            <div class="bg-white rounded-lg ml-3">
+                                <img src="/assets/img/paypal.png" alt="paypal" class="h-16 p-2">
+                            </div>
+                            <p class="">PayPal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <h1>Résumé</h1>
+                <div></div>
+            </div>
+        </form>
+    </main>
+
+{#    <div class="container m-auto h-full flex items-center justify-center">#}
+{#        <div class="w-[512px] h-[600px] dark:bg-night-1 rounded-2xl flex items-center justify-center">#}
+{#            <form action="" class="w-full h-full mx-10">#}
+{#                <div>#}
+
+{#                </div>#}
+{#                <div class="grid">#}
+{#                    <input type="text" value="Test" class="bg-night-2 rounded-md w-full h-8 px-2 m-0 focus:outline-celestial-blue-base focus:outline-2 outline-none focus:outline-offset-0">#}
+{#                    <input type="text" value="Test" class="bg-night-2 rounded-md w-full h-8 px-2 m-0 focus:outline-celestial-blue-base focus:outline-2 outline-none focus:outline-offset-0">#}
+{#                </div>#}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
+
+{% endblock %}
