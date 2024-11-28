@@ -162,7 +162,7 @@ module.exports = {
           backgroundColor: theme('colors.green.600'),
           transition: 'all 0.3s ease-in-out',
           padding: theme('padding.2'),
-          borderRadius: theme('borderRadius.lg'),
+          borderRadius: theme('borderRadius.xl'),
           '&:hover': {
             backgroundColor: theme('colors.green.700'),
           },
@@ -174,7 +174,7 @@ module.exports = {
           backgroundColor: theme('colors.red.600'),
           transition: 'all 0.3s ease-in-out',
           padding: theme('padding.2'),
-          borderRadius: theme('borderRadius.lg'),
+          borderRadius: theme('borderRadius.xl'),
           '&:hover': {
             backgroundColor: theme('colors.red.700'),
           },
