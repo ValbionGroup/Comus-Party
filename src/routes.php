@@ -121,13 +121,12 @@ $router->delete('/shop/basket/remove/:id', function ($id) {
     exit;
 });
 
-$router->get('/shop/basket/checkout', function () {
+$router->get('/shop/basket/checkout', function () use($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
-    echo "Page de paiement<br/>";
-    echo "A IMPLEMENTER";
+    ControllerFactory::getController("shop", $loader, $twig)->call("showCheckout");
     exit;
 });
 
