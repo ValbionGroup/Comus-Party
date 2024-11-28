@@ -84,7 +84,7 @@ class ControllerBasket extends Controller
                     'success' => false,
                     'message' => "L'article n'est pas dans le panier."
                 ]);
-//                echo "L'article n'est pas dans le panier.";
+
             }
         } else {
             echo "Erreur : ID de l'article non spécifié.";
