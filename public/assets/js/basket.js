@@ -14,7 +14,6 @@ let panierVide = document.getElementById("panierVide")
 let prixTotalPanier = document.getElementById("prixTotalPanier")
 let sousTotalPanier = document.getElementById("sousTotalPanier")
 
-
 /**
  * @brief Permet de vérifier s'il reste des articles dans la panier, si oui, alors ne rien faire, si non alors afficher que la panier est vide
  */
