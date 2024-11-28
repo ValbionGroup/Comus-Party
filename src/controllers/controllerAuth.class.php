@@ -177,9 +177,6 @@ class ControllerAuth extends Controller {
                 // Envoi du mail avec phpmailer
                 $mail = new PHPMailer(true); // Création d'un objet PHPMailer
                 try {
-                    $mail->SMTPDebug = 3; // Set to 3 for more verbose debug output
-                    $mail->Debugoutput = 'html';
-
                     // Configuration technique
                     $mail->isSMTP(); // Utilisation du protocole SMTP
                     $mail->Host = MAIL_HOST; // Hôte du serveur SMTP
@@ -187,22 +184,21 @@ class ControllerAuth extends Controller {
                     $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
                     $mail->Port = MAIL_PORT; // Port SMTP
 
-                    $tmpEmail="nzo.akt@gmail.com";
                     // Configuration de l'authentification
                     $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
                     $mail->Password = MAIL_PASS; // Mot de passe de l'expéditeur
-                    $mail->setFrom(MAIL_FROM, MAIL_BASE); // Adresse de l'expéditeur
-                    $mail->addAddress($tmpEmail); // Adresse du destinataire
+                    $mail->setFrom(MAIL_FROM); // Adresse de l'expéditeur
+                    $mail->addAddress($email); // Adresse du destinataire
 
                     // Configuration du message
                     $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
-                    $mail->Subject = 'Confirmation de votre compte Comus Party'; // Sujet du message
+                    $mail->Subject = 'Confirmation de votre compte Comus Party' . MAIL_BASE; // Sujet du message
                     $mail->Body = // Corps du message
                         '<p>Vous avez créer un compte sur le site Comus.</p>
                         <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
-                        <a href="http://localhost:8000/confirmEmail?emailVerifToken=' . $emailVerifToken . '">Confirmer mon compte</a>';
+                        <a href="http://localhost:8000/confirmEmail?emailVerifToken=' . $emailVerifToken . '"><button>Confirmer mon compte</button></a>';
                     $mail->AltBody = // Corps du message sans format HTML
-                        'Vous avez crtéer un compte sur le site Comus.
+                        'Vous avez créer un compte sur le site Comus.
                         Pour confirmer votre compte, cliquez sur le lien ci-dessous.
                         http://localhost:8000/confirmEmail?emailVerifToken=' . $emailVerifToken;
 
