@@ -11,7 +11,7 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * La classe ControllerBasket permet de faire le lien entre la vue et l'objet Basket
+ * @brief La classe ControllerBasket permet de faire le lien entre la vue et l'objet Basket
  */
 class ControllerBasket extends Controller
 {
