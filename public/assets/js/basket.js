@@ -15,10 +15,12 @@ let prixTotalPanier = document.getElementById("prixTotalPanier")
 let sousTotalPanier = document.getElementById("sousTotalPanier")
 
 
+/**
+ * @brief Permet de vérifier s'il reste des articles dans la panier, si oui, alors ne rien faire, si non alors afficher que la panier est vide
+ */
+
 function testArticleDansPanier(){
     let articles = document.querySelectorAll(".article")
-    console.log("test")
-    console.log(articles)
     if(articles.length === 0){
         panierVide.classList.add("flex")
         panierVide.classList.remove("hidden")
@@ -29,10 +31,10 @@ function testArticleDansPanier(){
         console.log("articles")
     }
 }
-
-
 testArticleDansPanier()
-
+/**
+ * @brief Permet de supprimer un article du panier
+ */
 removeButtons.forEach(button => {
     button.addEventListener('click', function () {
 
@@ -54,6 +56,10 @@ removeButtons.forEach(button => {
 
     });
 });
+
+/**
+ * @brief Permet de supprimer un article du panier dans la base de données ainsi que de mettre à jour le prix
+ */
 function removeArticle(id){
 
     const xhr = new XMLHttpRequest();

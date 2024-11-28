@@ -51,7 +51,7 @@ class ControllerBasket extends Controller
         );
     }
     /**
-     * @brief Permet de supprimer un article au panier
+     * @brief Permet de supprimer un article du panier
      *
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
@@ -72,7 +72,6 @@ class ControllerBasket extends Controller
                     unset($_SESSION['basket'][$key]);
                 }
                 $managerArticle = new ArticleDAO($this->getPdo());
-//
                 $article = $managerArticle->findById( $id_article );
                 $prixArticle = $article->getPriceEuro();
                 echo json_encode([
@@ -80,7 +79,6 @@ class ControllerBasket extends Controller
                     'message' => "Article supprimé du panier !",
                     'prixArticle' => $prixArticle,
                 ]);
-//                echo "Article supprimé du panier !";
             } else {
                 echo json_encode([
                     'success' => false,
