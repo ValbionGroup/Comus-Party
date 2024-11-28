@@ -242,9 +242,9 @@ class PlayerDAO {
 
         $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (:uuid, :username, :user_id)");
 
-        $stmtPlayer->bindValue(':uuid', $uuid);
-        $stmtPlayer->bindValue(':username', $username);
-        $stmtPlayer->bindValue(':user_id', $userId);
+        $stmtPlayer->bindParam(':uuid', $uuid);
+        $stmtPlayer->bindParam(':username', $username);
+        $stmtPlayer->bindParam(':user_id', $userId);
         
         return $stmtPlayer->execute();
     }
