@@ -90,6 +90,7 @@ $router->get('/shop', function () use ($loader, $twig) {
     }
     ControllerFactory::getController("shop", $loader, $twig)->call("show");
     exit;
+
 });
 
 $router->get('/shop/basket', function () {
@@ -97,8 +98,8 @@ $router->get('/shop/basket', function () {
         header('Location: /login');
         exit;
     }
-    echo "Page du panier<br/>";
-    echo "A IMPLEMENTER";
+
+    ControllerFactory::getController("basket",$loader,$twig)->call("show");
     exit;
 });
 
