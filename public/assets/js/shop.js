@@ -37,7 +37,7 @@ let nbrArticleDansPanier = document.getElementById("nbrArticleDansPanier")
 
 function testArticleDansPanier(){
     let nbrArticles = nbrArticleDansPanier.textContent
-
+    console.log( nbrArticles)
     if(nbrArticles > 0){
         logoPanierRempli.classList.remove("hidden")
         logoPanierVide.classList.add("hidden")
