@@ -28,13 +28,13 @@ let prixEuroArticle = document.getElementById("prixEuroArticle")
 
 let logoPanierVide = document.getElementById("logoPanierVide")
 let logoPanierRempli = document.getElementById("logoPanierRempli")
-
+let nbrArticleDansPanier = document.getElementById("nbrArticleDansPanier")
 /*
-showModale
+showModal
 But : Affiche la fenêtre modale
  */
 
-function showModale(article) {
+function showModal(article) {
 
 
     overlay.classList.remove('hidden');
@@ -74,6 +74,14 @@ function showModale(article) {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
                 console.log(response)
+                if(response.taillePanier > 0){
+                    logoPanierRempli.classList.remove("hidden")
+                    logoPanierVide.classList.add("hidden")
+                    nbrArticleDansPanier.textContent = response.taillePanier
+                }else{
+                    logoPanierVide.classList.remove("hidden")
+                    logoPanierRempli.classList.add("hidden")
+                }
                 // Préparer la notification si l'article a été supprimé du panier
                 if (response.success) {
                     notificationMessage.textContent = "Article ajouté au panier"

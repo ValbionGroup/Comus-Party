@@ -49,13 +49,20 @@ class ControllerShop extends Controller {
         $banners = $managerArticle->findAllBanners();
         $template = $this->getTwig()->load('shop.twig');
 
+        if(isset($_SESSION['basket'])){
+            $numberArticlesInBasket = count($_SESSION['basket']);
+        }else{
+            $numberArticlesInBasket = 0;
+        }
 
 
 
         echo $template->render(array(
             'articles' => $articles,
             'pfps' => $pfps,
-            'banners' => $banners
+            'banners' => $banners,
+
+            'numberArticlesInBasket' => $numberArticlesInBasket
         ));
     }
 
@@ -105,22 +112,6 @@ class ControllerShop extends Controller {
     }
 
 
-    /**
-     * @brief Permet d'afficher tous les articles
-     *
-     * @return void
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
-     */
-    public function showAll(){
-        $managerArticle = new ArticleDAO($this->getPdo());
 
-        $articles = $managerArticle->findAll();
 
-        $template = $this->getTwig()->load('shop.twig');
-
-        echo $template->render(array('articles' => $articles));
-    }
 }
