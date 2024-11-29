@@ -29,9 +29,9 @@ let prixEuroArticle = document.getElementById("prixEuroArticle")
 let logoPanierVide = document.getElementById("logoPanierVide")
 let logoPanierRempli = document.getElementById("logoPanierRempli")
 let nbrArticleDansPanier = document.getElementById("nbrArticleDansPanier")
-/*
-showModal
-But : Affiche la fenêtre modale
+/**
+ * @brief Permet d'afficher la fenêtre modale de l'article correspondant
+ * @param article L'article qui doit être afficher dans la fenêtre modale
  */
 
 function showModal(article) {

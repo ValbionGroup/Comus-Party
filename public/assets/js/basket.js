@@ -58,6 +58,7 @@ removeButtons.forEach(button => {
 
 /**
  * @brief Permet de supprimer un article du panier dans la base de données ainsi que de mettre à jour le prix
+ *  @param id L'id de l'article qu'il faut supprimer
  */
 function removeArticle(id){
 
