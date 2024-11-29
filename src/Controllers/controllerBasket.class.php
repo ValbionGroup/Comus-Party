@@ -7,7 +7,10 @@
  * @version 0.4
  */
 
+namespace ComusParty\Controllers;
 
+use ComusParty\Controllers\Controller;
+use ComusParty\Models\ArticleDAO;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\Error\LoaderError;
@@ -67,7 +70,7 @@ class ControllerBasket extends Controller
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    function addBasket()
+    function addArticleToBasket()
     {
 // Vérifier si l'ID de l'article a été envoyé
 

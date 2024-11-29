@@ -33,14 +33,16 @@
 
                     {% for article in articles %}
 
-                        <div id="eltPanier" class="article flex flex-row w-11/12 h-20  p-2 ml-8 rounded-2xl m-2  shadow-lg">
-                            <img src="/assets{{ article.filePath }}" alt="Pas d'image" class="rounded-2xl cursor-pointer {% if article.type == "Banner" %} w-64 {% endif %} {% if article.type == "ProfilePicture" %} w-16 {% endif%}">
-                            <div class="w-full flex justify-between ml-5 items-center">
+                        <div id="eltPanier" class="article flex flex-row items-center w-full h-24  p-2  rounded-2xl   shadow-lg">
+                            <div class="mr-5">
+                                <img src="/assets{{ article.filePath }}" alt="Pas d'image" class="rounded-2xl cursor-pointer  {% if article.type == enum('ComusParty\\Models\\ArticleType').Banner %}w-80 {%  endif %} {% if article.type == enum('ComusParty\\Models\\ArticleType').ProfilePicture %}  w-16{%  endif %}">
+                            </div>
+                            <div class="w-full flex justify-between  items-center">
                                 <div class="flex flex-col  ">
                                     <h3 class="text-left text-2xl">{{ article.name }}</h3>
                                     <p>{{ article.description }}</p>
                                 </div>
-                                <div class="flex flex-col  mr-5">
+                                <div class="flex flex-col ">
                                     <p class="text-right">{{ article.pricePoint }} Cms</p>
                                     <p class="text-right">{{ article.priceEuro }} €</p>
                                 </div>

@@ -92,7 +92,7 @@ $router->get('/shop', function () use ($loader, $twig) {
 
 });
 
-$router->get('/shop/basket', function () {
+$router->get('/shop/basket', function ()  use ($loader, $twig){
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
@@ -102,17 +102,17 @@ $router->get('/shop/basket', function () {
     exit;
 });
 
-$router->post('/shop/basket/add/:id', function ($id) {
+$router->post('/shop/basket/add', function () use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
 
-    ControllerFactory::getController("basket",$loader,$twig)->call("addBasket");
+    ControllerFactory::getController("basket",$loader,$twig)->call("addArticleToBasket");
     exit;
 });
 
-$router->delete('/shop/basket/remove/:id', function ($id) {
+$router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
