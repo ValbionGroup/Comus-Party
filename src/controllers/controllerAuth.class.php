@@ -134,17 +134,15 @@ class ControllerAuth extends Controller {
     
 
     /**
-     * @brief Enregistre un utilisateur
-     *
-     * @details La méthode register() est appelée par la route /register.
-     * Elle lit les données du formulaire envoyées en JSON et essaie de créer un utilisateur et un joueur.
-     * Si l'utilisateur et le joueur n'existent pas, la méthode créer l'utilisateur et le joueur.
-     * Si l'utilisateur existe déjà, la méthode renvoie un message d'erreur.
-     * Si le joueur existe déjà, la méthode renvoie un message d'erreur.
-     * Si l'utilisateur et le joueur sont créés avec succès, la méthode renvoie un message de confirmation.
-     * La méthode renvoie un JSON contenant un champ "success" et un champ "message".
-     * @todo Update doc
+     * @brief Enregistre un nouvel utilisateur et son joueur associé et envoie un email de confirmation d'email
+     * @details Vérifie si l'email, le nom d'utilisateur et le mot de passe sont valides, puis crée un nouvel utilisateur et son joueur associé
+     * en base de données. Si l'utilisateur est créé, envoi un email de confirmation d'email.
+     * Si l'utilisateur et le joueur existent déjà, la méthode renvoie un message d'erreur approprié.
+     * @param ?string $username Le nom d'utilisateur du joueur
+     * @param ?string $email L'adresse e-mail de l'utilisateur
+     * @param ?string $password Le mot de passe de l'utilisateur
      * @return void
+     * @todo Modifier le corps du mail (version HTMl) pour correspondre à la charte graphique (quand terminée)
      */
     public function register(?string $username, ?string $email, ?string $password): void {
         if(session_status() === PHP_SESSION_NONE) { session_start(); }

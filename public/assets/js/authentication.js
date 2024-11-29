@@ -33,15 +33,20 @@ window.onload = function() {
     INPUT_CONFIRM_PASSWORD.addEventListener("input", checkPasswordsMatch);
 }
 
+
 /**
- * @brief Vérifie si le nom d'utilisateur respecte les exigences spécifiées.
+ * @brief Vérifie si le nom d'utilisateur entré par l'utilisateur contient 
+ *        au moins 3 caractères et ne contient pas de caractères spéciaux.
  *
- * @details La fonction vérifie si le nom d'utilisateur:
- * - a une longueur minimale définie
- * - ne contient pas de caractères spéciaux interdits
- * Si le nom d'utilisateur ne respecte pas ces exigences, le bouton de soumission est désactivé
- * et un message d'erreur est affiché.
- * @todo Update doc
+ * @details La fonction est appelée lorsque l'utilisateur écrit dans le champ
+ * de formulaire "nom d'utilisateur".
+ * Elle vérifie si le nom d'utilisateur contient au moins 3 caractères
+ * et si le nom d'utilisateur ne contient pas de caractères spéciaux.
+ * Si le nom d'utilisateur contient moins de 3 caractères, le bouton
+ * de soumission est désactivé et un message d'erreur est affiché.
+ * Si le nom d'utilisateur contient des caractères spéciaux, le bouton
+ * de soumission est désactivé et un message d'erreur est affiché.
+ * Si le nom d'utilisateur est valide, le bouton de soumission est activé.
  *
  * @return void
  */
@@ -104,18 +109,18 @@ function checkEmailRequirements() {
     }
 }
 
+
 /**
- * @brief Verifie si le mot de passe correspond aux critères de sécurité.
+ * @brief Vérifie si le mot de passe respecte les exigences spécifiées.
  *
- * @details La fonction verifie si le mot de passe:
- * - contient au moins 8 caracteres
+ * @details La fonction vérifie si le mot de passe:
+ * - a une longueur minimale de 8 caractères
  * - contient au moins une majuscule
  * - contient au moins une minuscule
  * - contient au moins un chiffre
- * - contient au moins un caractère spécial
- * Si le mot de passe ne correspond pas aux critères, le bouton de soumission est désactivé
+ * - contient au moins un caractère special
+ * Si le mot de passe ne respecte pas ces exigences, le bouton de soumission est désactivé
  * et un message d'erreur est affiché.
- * @todo Update doc
  *
  * @return void
  */
@@ -180,11 +185,14 @@ function checkPasswordRequirements() {
         { submitButton.disabled = false; }
 }
 
+
 /**
- * @brief Vérifie si les mots de passe sont identiques.
+ * @brief Vérifie si les mots de passe entrés sont identiques.
  *
- * @details Si le mot de passe de confirmation n'est pas identique au mot de passe,
- * le bouton de soumission est désactivé et un message d'erreur est affiché.
+ * @details La fonction vérifie si le mot de passe et la confirmation du mot de passe
+ * sont identiques. Si les mots de passe ne sont pas identiques, le bouton de soumission
+ * est désactivé et un message d'erreur est affiché. Si les mots de passe sont identiques,
+ * le bouton de soumission est activé.
  *
  * @return void
  */

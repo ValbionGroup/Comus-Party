@@ -102,6 +102,7 @@ class UserDAO {
         $user->setEmailVerifyToken($data['email_verif_token']);
         $user->setPassword($data['password']);
         $user->setDisabled($data['disabled']);
+        // Dates de création et de mise à jour de l'utilisateur avec un objet DateTime
         $user->setCreatedAt(new DateTime($data['created_at']));
         $user->setUpdatedAt(new DateTime($data['updated_at']));
         return $user;
