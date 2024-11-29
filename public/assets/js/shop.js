@@ -37,7 +37,7 @@ let nbrArticleDansPanier = document.getElementById("nbrArticleDansPanier")
 
 function testArticleDansPanier(){
     let nbrArticles = nbrArticleDansPanier.textContent
-    console.log(nbrArticles)
+
     if(nbrArticles > 0){
         logoPanierRempli.classList.remove("hidden")
         logoPanierVide.classList.add("hidden")
@@ -46,15 +46,6 @@ function testArticleDansPanier(){
         logoPanierVide.classList.remove("hidden")
         logoPanierRempli.classList.add("hidden")
     }
-    // if(articles.length === 0){
-    //     panierVide.classList.add("flex")
-    //     panierVide.classList.remove("hidden")
-    //     console.log("pas d'articles")
-    // }else{
-    //     panierVide.classList.add("hidden")
-    //     panierVide.classList.remove("flex")
-    //     console.log("articles")
-    // }
 }
 testArticleDansPanier()
 
@@ -91,7 +82,6 @@ function showModal(article) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
-                console.log(response)
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
