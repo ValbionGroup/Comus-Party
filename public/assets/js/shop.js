@@ -29,6 +29,35 @@ let prixEuroArticle = document.getElementById("prixEuroArticle")
 let logoPanierVide = document.getElementById("logoPanierVide")
 let logoPanierRempli = document.getElementById("logoPanierRempli")
 let nbrArticleDansPanier = document.getElementById("nbrArticleDansPanier")
+
+
+/**
+ * @brief Permet de vérifier si des articles sont dans le panier, si ils y a des articles dans le panier alors le logo du panier est mis à jour à chaque fois que la page est raffraichie
+ */
+
+function testArticleDansPanier(){
+    let nbrArticles = nbrArticleDansPanier.textContent
+    console.log(nbrArticles)
+    if(nbrArticles > 0){
+        logoPanierRempli.classList.remove("hidden")
+        logoPanierVide.classList.add("hidden")
+        nbrArticleDansPanier.textContent = nbrArticles
+    }else{
+        logoPanierVide.classList.remove("hidden")
+        logoPanierRempli.classList.add("hidden")
+    }
+    // if(articles.length === 0){
+    //     panierVide.classList.add("flex")
+    //     panierVide.classList.remove("hidden")
+    //     console.log("pas d'articles")
+    // }else{
+    //     panierVide.classList.add("hidden")
+    //     panierVide.classList.remove("flex")
+    //     console.log("articles")
+    // }
+}
+testArticleDansPanier()
+
 /**
  * @brief Permet d'afficher la fenêtre modale de l'article correspondant
  * @param article L'article qui doit être afficher dans la fenêtre modale

@@ -66,51 +66,6 @@ class ControllerShop extends Controller {
         ));
     }
 
-    /**
-     * @brief Permet d'ajouter un article au panier
-     *
-     * @return void
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
-     */
-    function addBasket()
-    {
-// Vérifier si l'ID de l'article a été envoyé
-
-        if (isset($_POST['id_article'])) {
-            $id_article = intval($_POST['id_article']);
-
-            // Initialiser le panier s'il n'existe pas
-            if (!isset($_SESSION['basket'])) {
-                $_SESSION['basket'] = [];
-            }
-
-            // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
-            if (!in_array($id_article, $_SESSION['basket'])) {
-                $_SESSION['basket'][] = $id_article;
-                $taillePanier = count($_SESSION['basket']);
-
-
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Article ajouté au panier !",
-                    'taillePanier' => $taillePanier
-                ]);
-
-            } else {
-                echo json_encode([
-                    'success' => false,
-                    'message' => "L'article est déjà dans le panier."
-                ]);
-
-            }
-        } else {
-            echo "Erreur : ID de l'article non spécifié.";
-        }
-    }
-
 
 
 
