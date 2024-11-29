@@ -16,7 +16,8 @@
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" autofocus class="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 dark:bg-night-2" required>
             </div>
-            <p id="incorrectUsernameFormat" style="color: red; display: none;"></p>
+            <p id="usernameTooShort" style="color: red; display: none;"></p>
+            <p id="usernameForbiddenCharacters" style="color: red; display: none;"></p>
 
             <div class="flex flex-col m-5">
                 <label for="email">Email</label>
@@ -28,7 +29,11 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Mot de passe" class="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 dark:bg-night-2" required>
             </div>
-            <p id="incorrectPasswordFormat" style="color: red; display: none;"></p>
+            <p id="passwordTooShort" style="color: red; display: none;"></p>
+            <p id="passwordNoUppercase" style="color: red; display: none;"></p>
+            <p id="passwordNoLowercase" style="color: red; display: none;"></p>
+            <p id="passwordNoNumber" style="color: red; display: none;"></p>
+            <p id="passwordNoSpecialCharacter" style="color: red; display: none;"></p>
 
             <div class="flex flex-col m-5">
                 <label for="passwordConfirm">Confirmation du mot de passe</label>

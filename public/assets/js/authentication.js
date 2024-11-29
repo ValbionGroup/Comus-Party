@@ -1,3 +1,12 @@
+/**
+ * @file    authentication.js
+ * @author  Enzo HAMID
+ * @brief   Le fichier contient les fonctions de vérification des champs de formulaire
+ *          de l'authentification.
+ * @date    14/11/2024
+ * @version 1.0
+ */
+
 
 
 /**
@@ -32,6 +41,7 @@ window.onload = function() {
  * - ne contient pas de caractères spéciaux interdits
  * Si le nom d'utilisateur ne respecte pas ces exigences, le bouton de soumission est désactivé
  * et un message d'erreur est affiché.
+ * @todo Update doc
  *
  * @return void
  */
@@ -41,25 +51,28 @@ function checkUsernameRequirements() {
     const FORBIDDEN_CHARACTERS = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/; // Caractères interdits
     const USERNAME = document.getElementById("username").value; // Nom d'utilisateur
     // Variables
-    let incorrectUsernameFormat = document.getElementById("incorrectUsernameFormat");
+    let usernameTooShort = document.getElementById("usernameTooShort");
+    let usernameForbiddenCharacters = document.getElementById("usernameForbiddenCharacters");
     let submitButton = document.getElementById("submitButton");
-        
+
     // Vérifications
     // Le nom d'utilisateur doit contenir au moins 3 caractères
     if (USERNAME.length < MIN_USERNAME_LENGTH) {
         submitButton.disabled = true;
-        incorrectUsernameFormat.innerHTML="Le nom d'utilisateur doit contenir au moins " + MIN_USERNAME_LENGTH + " caractères";
-        incorrectUsernameFormat.style.display = "block";
+        usernameTooShort.innerHTML="Le nom d'utilisateur doit contenir au moins " + MIN_USERNAME_LENGTH + " caractères";
+        usernameTooShort.style.display = "block";
+    } else { usernameTooShort.style.display = "none"; }
+
     // Le nom d'utilisateur ne doit pas contenir de caractères speciaux
-    } else if (FORBIDDEN_CHARACTERS.test(USERNAME)) {
+    if (FORBIDDEN_CHARACTERS.test(USERNAME)) {
         submitButton.disabled = true;
-        incorrectUsernameFormat.innerHTML="Le nom d'utilisateur ne doit pas contenir de caractères speciaux";
-        incorrectUsernameFormat.style.display = "block";
+        usernameForbiddenCharacters.innerHTML="Le nom d'utilisateur ne doit pas contenir de caractères speciaux";
+        usernameForbiddenCharacters.style.display = "block";
+    } else { usernameForbiddenCharacters.style.display = "none"; }
+
     // Tout est bon, le bouton de soumission est activé
-    } else {
-        submitButton.disabled = false;
-        incorrectUsernameFormat.style.display = "none";
-    }
+    if (!USERNAME.length < MIN_USERNAME_LENGTH && !FORBIDDEN_CHARACTERS.test(USERNAME))
+    { submitButton.disabled = false; }
 }
 
 /**
@@ -81,13 +94,13 @@ function checkEmailRequirements() {
     let submitButton = document.getElementById("submitButton");
     
     // Vérifications
-    if (EMAIL_REGEX.test(EMAIL)) {
-        incorrectEmailFormat.style.display = "none";
-        submitButton.disabled = false;
-    } else {
+    if (!EMAIL_REGEX.test(EMAIL)) {
+        submitButton.disabled = true;
         incorrectEmailFormat.innerHTML = "Format d'email invalide, veuillez entrer un email valide.";
         incorrectEmailFormat.style.display = "block";
-        submitButton.disabled = true;
+    } else {
+        submitButton.disabled = false;
+        incorrectEmailFormat.style.display = "none";
     }
 }
 
@@ -102,6 +115,7 @@ function checkEmailRequirements() {
  * - contient au moins un caractère spécial
  * Si le mot de passe ne correspond pas aux critères, le bouton de soumission est désactivé
  * et un message d'erreur est affiché.
+ * @todo Update doc
  *
  * @return void
  */
@@ -114,40 +128,56 @@ function checkPasswordRequirements() {
     const SPECIAL_CHARACTER = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/; // Caractère special
     const PASSWORD = document.getElementById("password").value; // Mot de passe
     // Variables
-    let incorrectPasswordFormat = document.getElementById("incorrectPasswordFormat");
+    let passwordTooShort = document.getElementById("passwordTooShort");
+    let passwordNoUppercase = document.getElementById("passwordNoUppercase");
+    let passwordNoLowercase = document.getElementById("passwordNoLowercase");
+    let passwordNoNumber = document.getElementById("passwordNoNumber");
+    let passwordNoSpecialCharacter = document.getElementById("passwordNoSpecialCharacter");
     let submitButton = document.getElementById("submitButton");
         
     // Vérifications
     // Le mot de passe doit contenir au moins 8 caractères
     if (PASSWORD.length < MIN_PASSWORD_LENGTH) {
         submitButton.disabled = true;
-        incorrectPasswordFormat.innerHTML="Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères";
-        incorrectPasswordFormat.style.display = "block";
+        passwordTooShort.innerHTML="Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères";
+        passwordTooShort.style.display = "block";
+    } else { passwordTooShort.style.display = "none"; }
+
     // Le mot de passe doit contenir au moins une majuscule
-    } else if (!UPPERCASE_LETTER.test(PASSWORD)) {
+    if (!UPPERCASE_LETTER.test(PASSWORD)) {
         submitButton.disabled = true;
-        incorrectPasswordFormat.innerHTML="Le mot de passe doit contenir au moins une majuscule";
-        incorrectPasswordFormat.style.display = "block";
+        passwordNoUppercase.innerHTML="Le mot de passe doit contenir au moins une majuscule";
+        passwordNoUppercase.style.display = "block";
+    } else { passwordNoUppercase.style.display = "none"; }
+
     // Le mot de passe doit contenir au moins une minuscule
-    } else if (!LOWERCASE_LETTER.test(PASSWORD)) {
+    if (!LOWERCASE_LETTER.test(PASSWORD)) {
         submitButton.disabled = true;
-        incorrectPasswordFormat.innerHTML="Le mot de passe doit contenir au moins une minuscule";
-        incorrectPasswordFormat.style.display = "block";
+        passwordNoLowercase.innerHTML="Le mot de passe doit contenir au moins une minuscule";
+        passwordNoLowercase.style.display = "block";
+    } else { passwordNoLowercase.style.display = "none"; }
+
     // Le mot de passe doit contenir au moins un chiffre
-    } else if (!NUMBERS.test(PASSWORD)) {
+    if (!NUMBERS.test(PASSWORD)) {
         submitButton.disabled = true;
-        incorrectPasswordFormat.innerHTML="Le mot de passe doit contenir au moins un chiffre";
-        incorrectPasswordFormat.style.display = "block";
+        passwordNoNumber.innerHTML="Le mot de passe doit contenir au moins un chiffre";
+        passwordNoNumber.style.display = "block";
+    } else { passwordNoNumber.style.display = "none"; }
+
     // Le mot de passe doit contenir au moins un caractère special
-    } else if (!SPECIAL_CHARACTER.test(PASSWORD)) {
+    if (!SPECIAL_CHARACTER.test(PASSWORD)) {
         submitButton.disabled = true;
-        incorrectPasswordFormat.innerHTML="Le mot de passe doit contenir au moins un caractère special";
-        incorrectPasswordFormat.style.display = "block";
+        passwordNoSpecialCharacter.innerHTML="Le mot de passe doit contenir au moins un caractère special";
+        passwordNoSpecialCharacter.style.display = "block";
+    } else { passwordNoSpecialCharacter.style.display = "none"; }
+
     // Tout est bon, le bouton de soumission est activé
-    } else {
-        submitButton.disabled = false;
-        incorrectPasswordFormat.style.display = "none";
-    }
+    if (PASSWORD.length >= MIN_PASSWORD_LENGTH &&
+        UPPERCASE_LETTER.test(PASSWORD) &&
+        LOWERCASE_LETTER.test(PASSWORD) &&
+        NUMBERS.test(PASSWORD) &&
+        SPECIAL_CHARACTER.test(PASSWORD))
+        { submitButton.disabled = false; }
 }
 
 /**
@@ -167,12 +197,13 @@ function checkPasswordsMatch() {
     let submitButton = document.getElementById("submitButton");
         
     // Vérifications
-    if (CONFIRM_PASSWORD !== PASSWORD) {
+    if (!(CONFIRM_PASSWORD == PASSWORD)) {
         submitButton.disabled = true;
         notMachingPasswords.innerHTML="Les mots de passe ne sont pas identiques";
         notMachingPasswords.style.display = "block";
-    } else {
-        submitButton.disabled = false;
-        notMachingPasswords.style.display = "none";
-    }
+    } else { notMachingPasswords.style.display = "none"; }
+
+    // Tout est bon, le bouton de soumission est activé
+    if(CONFIRM_PASSWORD == PASSWORD)
+    { submitButton.disabled = false; }
 }
