@@ -9,6 +9,7 @@
 
 namespace ComusParty\Models;
 
+use DateTime;
 use PDO;
 
 /**
