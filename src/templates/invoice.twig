@@ -10,12 +10,31 @@
 <div class="facture border border-gray-300 p-6 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
     <div class="header text-center mb-6">
         <h1 class="text-2xl font-bold text-gray-900">Facture n°{{ datas.number }}</h1>
-        <p class="text-sm text-gray-600">Date de facturation : {{ datas.date }}</p>
     </div>
-    <div class="details mb-6">
-        <p class="text-sm font-medium"><strong>Client :</strong> {{ datas.customer }}</p>
-        <p class="text-sm font-medium"><strong>Adresse e-mail :</strong> {{ datas.email }}</p>
-        <p class="text-sm font-medium"><strong>Adresse de facturation :</strong> {{ datas.address }}</p>
+    <div class="flex justify-between items-center">
+        <div>
+            <div class="details mb-6 font-bold">
+                <p class="underline">Facturé à :</p>
+                <p class="text-sm font-medium"><strong>Client :</strong> {{ datas.customer }}</p>
+                <p class="text-sm font-medium"><strong>Adresse e-mail :</strong> {{ datas.email }}</p>
+                <p class="text-sm font-medium"><strong>Adresse de facturation :</strong> {{ datas.address }}</p>
+            </div>
+            <div class="details mb-6 font-bold">
+                <p class="underline">Dates :</p>
+                <p class="text-sm font-medium"><strong>Date d'émission :</strong> {{ datas.date }}</p>
+                <p class="text-sm font-medium"><strong>Date de paiement :</strong> {{ datas.date }}</p>
+                <p class="text-sm font-medium"><strong>Date de livraison :</strong> {{ datas.date }}</p>
+            </div>
+        </div>
+        <div class="details mb-6 font-bold">
+            <p class="underline">Facturé par :</p>
+            <p class="text-sm font-medium"><strong>Comus Party</strong></p>
+            <p class="text-sm font-medium"><strong>Adresse du siège social :</strong> IUT de Bayonne et du Pays
+                Basque,<br>2 Allée du Parc Montaury, 64600 Anglet</p>
+            <p class="text-sm font-medium"><strong>SIRET :</strong> XXXXXXXX</p>
+            <p class="text-sm font-medium"><strong>RCS :</strong> XXXXXXXX</p>
+            <p class="text-sm font-medium"><strong>TVA intra. :</strong> FRXXXXX</p>
+        </div>
     </div>
 
     <div class="articles space-y-4">
