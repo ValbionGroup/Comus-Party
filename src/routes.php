@@ -142,16 +142,21 @@ $router->post('/shop/basket/checkout', function () {
     exit;
 });
 
-$router->get('/register', function () {
-    echo "Page d'inscription<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/register', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("showRegistrationPage");
     exit;
 });
 
-$router->post('/register', function () {
-    echo "Traitement de l'inscription<br/>";
-    echo "A IMPLEMENTER";
-    exit;
+$router->post('/register', function () use ($loader, $twig) {
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        ControllerFactory::getController("auth", $loader, $twig)->call("register", [
+            "username" => $_POST['username'],
+            "email" => $_POST['email'],
+            "password" => $_POST['password']
+        ]);
+        exit;
+    }
+    throw new Exception("Données reçues incomplètes.");
 });
 
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
