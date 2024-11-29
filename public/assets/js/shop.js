@@ -35,31 +35,20 @@ let nbrArticleDansPanier = document.getElementById("nbrArticleDansPanier")
  */
 
 function showModal(article) {
-
-
     overlay.classList.remove('hidden');
     modalWindow.classList.remove('hidden');
-
-// Forcer le reflow pour s'assurer que les transitions s'appliquent
+    // Forcer le reflow pour s'assurer que les transitions s'appliquent
     overlay.offsetHeight; // Reflow
     modalWindow.offsetHeight;
-
     overlay.classList.add('opacity-100'); // Apparition de l'overlay
     modalWindow.classList.add('opacity-100'); // Apparition et glissement de la modale
     modalWindow.classList.remove('opacity-0'); // Retirer les classes d'animation de départ
-
-
-
     imgArticle.src = ""
     imgArticle.src = "assets" + article.filePath
     nomArticle.innerText = article.name
     descriptionArticle.innerText = article.description
-
     prixComusArticle.innerText = article.pricePoint + " Comus"
     prixEuroArticle.innerText = article.priceEuro + " €"
-
-
-
 
     addBasketBtn.onclick = function (){
         const xhr = new XMLHttpRequest();
@@ -100,10 +89,6 @@ function showModal(article) {
                     notification.classList.remove('opacity-100', 'scale-100');
                     notification.classList.add('opacity-0', 'scale-90');
                 }, 5000);
-
-
-
-
             }
         };
     }
@@ -115,12 +100,9 @@ function showModal(article) {
 
 // Permet de fermer la fenêtre modale
 closeModalBtn.addEventListener("click", ()=>{
-
-
     // modalWindow.classList.remove("flex")
     overlay.classList.remove('opacity-100'); // Disparition de l'overlay
     modalWindow.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
-
     // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
     setTimeout(() => {
         overlay.classList.add('hidden', 'opacity-0');
