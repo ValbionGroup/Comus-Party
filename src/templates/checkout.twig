@@ -48,8 +48,8 @@
                 <div class="row-span-1 mb-20">
                     <h1 class="font-sans text-2xl">Adresse de facturation</h1>
                     <div class="flex flex-row justify-between gap-2 mt-3">
-                        <input type="text" value="nom" class="dark:bg-night-1 h-10 rounded-lg pl-2 w-full">
-                        <input type="text" value="adresse" class="dark:bg-night-1 h-10 rounded-lg pl-2 w-full">
+                        <input type="text" value="" placeholder="Nom complet" class="input h-10 w-full">
+                        <input type="text" value="" placeholder="Adresse" class="input h-10 w-full">
                     </div>
                 </div>
                 <div class="row-span-3">
@@ -60,7 +60,7 @@
 
                         <div class="rounded-lg hover:outline hover:outline-night-2">
                             <input type="checkbox" id="toggleCC" class="peer hidden">
-                            <label for="toggleCC" class="flex w-full h-auto p-3 bg-night-1 rounded-lg justify-between items-center gap-5 cursor-pointer
+                            <label for="toggleCC" class="flex w-full h-auto p-3 bg-night-2 rounded-lg justify-between items-center gap-5 cursor-pointer
                                                         peer-checked:rounded-b-none">
                                 <p class="">Carte bancaire</p>
                                 <div class="bg-white rounded-lg ml-3 w-28">
@@ -84,27 +84,27 @@
                                 </div>
                             </label>
 
-                            <div class="max-h-0 peer-checked:max-h-full peer-checked:bg-night-1 peer-checked:rounded-b-lg overflow-hidden
+                            <div class="max-h-0 peer-checked:max-h-full peer-checked:bg-night-2 peer-checked:rounded-b-lg overflow-hidden
                                         transition-all duration-200 ease-out">
                                 <div class="grid grid-cols-2 grid-rows-4 gap-2 m-4">
                                     <div class="col-span-full row-span-1">
                                         <label for="numCC">Numéro de la carte</label>
-                                        <input type="text" id="numCC" value="" class="dark:bg-night-base h-10 rounded-lg pl-2 w-full">
+                                        <input type="text" id="numCC" value="" class="input h-10 w-full">
                                     </div>
                                     <div class="col-span-full row-span-1">
                                         <label for="titulaireCC">Titulaire de la carte</label>
-                                        <input type="text" id="titulaireCC" value="" class="dark:bg-night-base h-10 rounded-lg pl-2 w-full">
+                                        <input type="text" id="titulaireCC" value="" class="input h-10 w-full">
                                     </div>
                                     <div class="col-span-1 row-span-1">
                                         <label for="dateCC">Date d'expiration</label>
-                                        <input type="text" id="dateCC" value="" class="dark:bg-night-base h-10 rounded-lg pl-2 w-full">
+                                        <input type="text" id="dateCC" value="" class="input h-10 w-full">
                                     </div>
                                     <div class="col-span-1 row-span-1">
                                         <label for="cryptogrammeCC">Cryptogramme</label>
-                                        <input type="text" id="cryptogrammeCC" value="" class="dark:bg-night-base h-10 rounded-lg pl-2 w-full">
+                                        <input type="text" id="cryptogrammeCC" value="" class="input h-10 w-full">
                                     </div>
                                     <div class="col-span-full row-span-1">
-                                        <div class="flex dark:bg-night-base h-9 rounded-lg w-full pl-2 items-center">
+                                        <div class="flex dark:bg-night-1 h-9 rounded-lg w-full pl-2 items-center">
                                             <input type="checkbox" id="saveCC">
                                             <label for="saveCC">Enregistrer la carte bancaire</label>
                                         </div>
@@ -117,7 +117,7 @@
 
                         <div class="rounded-lg hover:outline hover:outline-night-2">
                             <input type="checkbox" id="togglePaypal" class="peer hidden">
-                            <label for="togglePaypal" class="flex w-full h-auto p-3 bg-night-1 rounded-lg justify-between items-center gap-5 cursor-pointer
+                            <label for="togglePaypal" class="flex w-full h-auto p-3 bg-night-2 rounded-lg justify-between items-center gap-5 cursor-pointer
                                                         peer-checked:rounded-b-none">
                                 <p class="">Paypal</p>
                                 <div class="bg-white rounded-lg ml-3 w-28 justify-center flex">
@@ -145,7 +145,7 @@
             </div>
             <div class="flex flex-col h-auto">
                 <h1 class="font-sans text-2xl">Résumé</h1>
-                <div class="flex-col mx-5 bg-night-1 rounded-lg mt-3 gap-2">
+                <div class="flex-col mx-5 bg-night-2 rounded-lg mt-3 gap-2">
                     <div class="mx-2">
                         <ul>
                             <li class="flex gap-2 w-full border-b my-2 pb-1">
@@ -180,7 +180,7 @@
                     </div>
                     <hr>
                     <div class="flex flex-col m-2">
-                        <input type="submit" class="w-full h-8 bg-blue-violet-base rounded-md" value="Payer">
+                        <input type="submit" class="w-full btn-primary" value="Payer">
                     </div>
                 </div>
             </div>
