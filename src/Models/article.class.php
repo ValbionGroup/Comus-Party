@@ -7,6 +7,10 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
+
+use DateTime;
+
 /**
  * @brief Les 2 types possible pour les articles
  *
@@ -110,9 +114,9 @@ class Article {
      * @param string|null $name Le nom de l'article
      * @param ArticleType|null $type Le type de l'article
      * @param string|null $description La description de l'article
-     * @param int|null $price_point Le prix en point de l'article
-     * @param int|null $price_euro Le prix en euro de l'article
-     * @param string|null $path_img Le chemin de l'image de l'article
+     * @param int|null $pricePoint Le prix en point de l'article
+     * @param int|null $priceEuro Le prix en euro de l'article
+     * @param string|null $pathImg Le chemin de l'image de l'article
      */
     public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?ArticleType $type = null, ?string $description = null , ?int $pricePoint = null, ?int $priceEuro = null, ?string $pathImg = null)
     {
@@ -131,9 +135,9 @@ class Article {
     /**
      * @brief Retourne l'id de l'article
      *
-     * @return int L'id de l'article est retourné
+     * @return int|null L'id de l'article est retourné
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -152,9 +156,9 @@ class Article {
     /**
      * @brief Retourne le nom de l'article
      *
-     * @return string Le nom de l'article retourné
+     * @return string|null Le nom de l'article retourné
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -215,9 +219,9 @@ class Article {
     /**
      * @brief Retourne la date de création de l'article
      *
-     * @return DateTime La date de création de l'article qui est retournée
+     * @return DateTime|null La date de création de l'article qui est retournée
      */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }

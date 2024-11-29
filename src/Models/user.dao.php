@@ -7,6 +7,13 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
+
+use DateMalformedStringException;
+use DateTime;
+use Exception;
+use PDO;
+
 /**
  * @brief Classe UserDAO
  * @details La classe UserDAO permet de gérer les utilisateurs en base de données
@@ -49,6 +56,7 @@ class UserDAO {
      * @brief Retourne un objet User (ou null) à partir de l'ID passé en paramètre
      * @param int $id L'ID de l'utilisateur recherché
      * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findById(int $id): ?User {
         $stmt = $this->pdo->prepare(
@@ -62,8 +70,7 @@ class UserDAO {
         if ($userTab === false) {
             return null;
         }
-        $user = $this->hydrate($userTab);
-        return $user;
+        return $this->hydrate($userTab);
     }
 
     /**
@@ -92,7 +99,7 @@ class UserDAO {
      * @brief Hydrate un objet User à partir des données passées en paramètre
      * @param array $data Le tableau associatif contenant les données de l'utilisateur
      * @return User Objet retourné par la méthode, ici un utilisateur
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data): User {
         $user = new User();

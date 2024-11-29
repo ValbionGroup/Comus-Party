@@ -8,6 +8,9 @@
  */
 require_once __DIR__ . '/../include.php';
 
+use ComusParty\Models\Db;
+use PDO;
+use ComusParty\Models\PlayerDAO;
 use PHPUnit\Framework\TestCase;
 /**
  * @brief Classe PlayerDAOTest
@@ -72,9 +75,11 @@ class PlayerDAOTest extends TestCase
     public function testFindWithDetailByUuid(): void{
         $this->assertEquals('JohnDoe', $this->playerDAO->findWithDetailByUuid('uuid1')->getUsername());
     }
+
     /**
      * @brief Test de la méthode findWithDetailByUserId
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindWithDetailByUserId(): void{
         $this->assertEquals('JohnDoe', $this->playerDAO->findWithDetailByUserId(1)->getUsername());

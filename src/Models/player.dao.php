@@ -7,7 +7,14 @@
  * @version 0.1
  */
 
- use Ramsey\Uuid\Uuid; // Pour la création de l'uuid
+
+namespace ComusParty\Models;
+
+use DateMalformedStringException;
+use DateTime;
+use Exception;
+use PDO;
+use Ramsey\Uuid\Uuid; // Pour la création de l'uuid
 
 /**
  * @brief Classe PlayerDAO
@@ -64,8 +71,7 @@ class PlayerDAO {
         if ($playerTab === false) {
             return null;
         }
-        $player = $this->hydrate($playerTab);
-        return $player;
+        return $this->hydrate($playerTab);
     }
 
     /**
@@ -86,8 +92,7 @@ class PlayerDAO {
         if ($playerTab === false) {
             return null;
         }
-        $player = $this->hydrate($playerTab);
-        return $player;
+        return $this->hydrate($playerTab);
     }
 
     /**
@@ -112,14 +117,14 @@ class PlayerDAO {
         if ($tabPlayer === false || $tabPlayer['uuid'] === null) {
             return null;
         }
-        $player = $this->hydrate($tabPlayer);
-        return $player;
+        return $this->hydrate($tabPlayer);
     }
 
     /**
      * @brief Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre avec les détails de l'utilisateur associé
      * @param int $userId L'identifiant utilisateur recherché
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
+     * @throws DateMalformedStringException
      */
     public function findWithDetailByUserId(int $userId): ?Player {
         $stmt = $this->pdo->prepare(
@@ -137,8 +142,7 @@ class PlayerDAO {
         if ($tabPlayer === false) {
             return null;
         }
-        $player = $this->hydrate($tabPlayer);
-        return $player;
+        return $this->hydrate($tabPlayer);
     }
 
     /**
@@ -156,8 +160,7 @@ class PlayerDAO {
         if ($tabPlayers === false) {
             return null;
         }
-        $players = $this->hydrateMany($tabPlayers);
-        return $players;
+        return $this->hydrateMany($tabPlayers);
     }
 
     /**
@@ -179,15 +182,14 @@ class PlayerDAO {
         if ($tabPlayers === false) {
             return null;
         }
-        $players = $this->hydrateMany($tabPlayers);
-        return $players;
+        return $this->hydrateMany($tabPlayers);
     }
 
     /**
      * @brief Hydrate un objet Player avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif content les paramètres
      * @return Player L'objet retourné par la méthode, ici un joueur
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data) : Player {
         $player = new Player();

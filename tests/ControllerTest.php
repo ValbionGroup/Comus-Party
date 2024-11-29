@@ -8,6 +8,8 @@
  */
 require_once  __DIR__ . '/../include.php';
 
+use PDO;
+use ComusParty\Controllers\Controller;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;

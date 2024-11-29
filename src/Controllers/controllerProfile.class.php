@@ -1,6 +1,18 @@
 <?php
+/**
+ * @file    controllerProfile.class.php
+ * @brief   Ce fichier contient la déclaration & définition de la classe ControllerProfile.
+ * @author  Estéban DESESSARD
+ * @date    15/11/2024
+ * @version 0.2
+ */
 
-use models\NotFoundException;
+namespace ComusParty\Controllers;
+
+use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\Exception\NotFoundException;
+use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\UserDAO;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -8,7 +20,8 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * Contrôleur de la page profile, utilisé pour afficher le profil d'un joueur sous différents angles
+ * @brief Classe ControllerProfile
+ * @details Contrôleur de la page profile, utilisé pour afficher le profil d'un joueur sous différents angles (vu par lui-même, par un autre joueur, ou par un modérateur)
  */
 class ControllerProfile extends Controller {
 
@@ -24,7 +37,6 @@ class ControllerProfile extends Controller {
     /**
      * @brief Affiche le profil du joueur le demandant
      * @return void
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws NotFoundException|SyntaxError Exception levée dans le cas d'une erreur de syntaxe

@@ -7,6 +7,9 @@
  * @version 0.1
  */
 
+namespace ComusParty\Models;
+
+use DateTime;
 
 /**
  * @brief Classe User

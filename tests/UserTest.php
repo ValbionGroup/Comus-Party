@@ -8,6 +8,7 @@
  */
 require_once __DIR__ . '/../include.php';
 
+use ComusParty\Models\User;
 use PHPUnit\Framework\TestCase;
 /**
  * @brief Classe UserTest

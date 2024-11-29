@@ -9,6 +9,9 @@
 
 require_once __DIR__ . '/../include.php';
 
+use PDO;
+use ComusParty\Models\Db;
+use ComusParty\Models\UserDAO;
 use PHPUnit\Framework\TestCase;
 /**
  * @brief Classe UserDAOTest
