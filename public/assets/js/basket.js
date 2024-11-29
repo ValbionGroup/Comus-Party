@@ -15,7 +15,7 @@ let prixTotalPanier = document.getElementById("prixTotalPanier")
 let sousTotalPanier = document.getElementById("sousTotalPanier")
 
 /**
- * @brief Permet de vérifier s'il reste des articles dans la panier, si oui, alors ne rien faire, si non alors afficher que la panier est vide
+ * @brief Permet de vérifier s'il reste des articles dans le panier, si oui, alors ne rien faire, si non alors afficher que le panier est vide
  */
 
 function testArticleDansPanier(){
@@ -23,11 +23,11 @@ function testArticleDansPanier(){
     if(articles.length === 0){
         panierVide.classList.add("flex")
         panierVide.classList.remove("hidden")
-        console.log("pas d'articles")
+
     }else{
         panierVide.classList.add("hidden")
         panierVide.classList.remove("flex")
-        console.log("articles")
+
     }
 }
 testArticleDansPanier()
