@@ -19,6 +19,16 @@ function formatCryptogram(input) {
         .replace(/\D/g, '') // Supprimer les caractères non numériques
 }
 
+function price(){
+
+    let prices = document.querySelectorAll('.articlePrice');
+
+    let totalPrice = 0;
+    prices.forEach(price => {
+        totalPrice += parseFloat(price.textContent);
+    });
+    document.getElementById('total').innerText = totalPrice + "€";
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('#checkoutForm');
@@ -63,4 +73,14 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();  // Si le formulaire n'est pas valide, on empêche l'envoi
         }
     });
+
+    price();
 });
+
+
+function removeArticle(id){
+    let article = document.getElementById(id);
+
+    article.remove();
+    price();
+}
