@@ -1,5 +1,7 @@
 {% extends "/layouts/base.twig" %}
 
+{% block title %}Paiement{% endblock %}
+
 {% block layout %}
 
     <header class="w-full h-16">
@@ -43,7 +45,7 @@
     </header>
 
     <main class="bg-lavender-blush-base dark:bg-night-base flex flex-grow opacity-90 h-full overflow-auto">
-        <form class="grid grid-cols-3 w-full mx-20 mt-16">
+        <form id="checkoutForm" class="grid grid-cols-3 w-full mx-20 mt-16 group" novalidate>
             <div class="col-span-2 grid-rows-4 h-full mx-10 gap-4">
                 <div class="row-span-1 mb-20">
                     <h1 class="font-sans text-2xl">Adresse de facturation</h1>
@@ -88,20 +90,45 @@
                                         transition-all duration-200 ease-out">
                                 <div class="grid grid-cols-2 grid-rows-4 gap-2 m-4">
                                     <div class="col-span-full row-span-1">
-                                        <label for="numCC">Numéro de la carte</label>
-                                        <input type="text" id="numCC" value="" class="input h-10 w-full">
+                                        <label for="numCC">
+                                            <span>Numéro de la carte</span>
+                                            <input  type="text" id="numCC" name="numCC" pattern=".{19,}" maxlength="19" placeholder="1234 5678 9012 3456" inputmode="numeric"
+                                                     oninput="formatCardNumber(this)" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" required>
+                                            <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                Please enter a valid credit card number
+                                            </span>
+                                        </label>
+
                                     </div>
                                     <div class="col-span-full row-span-1">
-                                        <label for="titulaireCC">Titulaire de la carte</label>
-                                        <input type="text" id="titulaireCC" value="" class="input h-10 w-full">
+                                        <label for="titulaireCC">
+                                            <span>Titulaire de la carte</span>
+                                            <input type="text" id="titulaireCC" name="titulaireCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                                   placeholder="John Doe" pattern="^[a-z,A-Z]+$" required>
+                                            <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                    Please enter a valid name
+                                            </span>
+                                        </label>
                                     </div>
                                     <div class="col-span-1 row-span-1">
-                                        <label for="dateCC">Date d'expiration</label>
-                                        <input type="text" id="dateCC" value="" class="input h-10 w-full">
+                                        <label for="dateCC">
+                                            <span>Date d'expiration</span>
+                                            <input type="date" id="dateCC" name="dateCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                                   min="2024-11-30" value="" required>
+                                            <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                    Please enter a valid date
+                                            </span>
+                                        </label>
                                     </div>
                                     <div class="col-span-1 row-span-1">
-                                        <label for="cryptogrammeCC">Cryptogramme</label>
-                                        <input type="text" id="cryptogrammeCC" value="" class="input h-10 w-full">
+                                        <label for="cryptogramCC">
+                                            <span>Cryptogramme</span>
+                                            <input type="tel" id="cryptogramCC" name="cryptogramCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                                   oninput="formatCryptogram(this)" placeholder="123" pattern=".{3,}" maxlength="3" inputmode="numeric" required>
+                                            <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                    Please enter a correct cryptogram
+                                            </span>
+                                        </label>
                                     </div>
                                     <div class="col-span-full row-span-1">
                                         <div class="flex dark:bg-night-1 h-9 rounded-lg w-full pl-2 items-center">
@@ -180,10 +207,15 @@
                     </div>
                     <hr>
                     <div class="flex flex-col m-2">
-                        <input type="submit" class="w-full btn-primary" value="Payer">
+                        <input type="submit" id="submit" class="w-full btn-primary group-invalid:pointer-events-none group-invalid:opacity-30" value="Payer">
                     </div>
                 </div>
             </div>
         </form>
     </main>
+
+{% endblock %}
+
+{%  block scripts %}
+    <script src="/assets/js/checkout.js"></script>
 {% endblock %}
