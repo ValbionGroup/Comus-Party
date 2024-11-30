@@ -175,6 +175,7 @@
                 <div class="flex-col mx-5 bg-night-2 rounded-lg mt-3 gap-2">
                     <div class="mx-2">
                         <ul>
+                            {% for article in articles %}
                             <li class="flex gap-2 w-full border-b my-2 pb-1">
                                 <div class="w-20">
                                     <img src="" alt="article">
@@ -182,8 +183,9 @@
                                 <div class="flex flex-col gap-2 w-full">
                                     <div class="flex justify-between w-full">
                                         <div class="flex flex-col">
-                                            <p>Produit 1</p>
-                                            <p>Pfp</p>
+                                            <p>{{ article.name }}</p>
+                                            <p> {% if article.type == enum('ComusParty\\Models\\ArticleType').Banner %} Bannière {% endif %}
+                                                {% if article.type == enum('ComusParty\\Models\\ArticleType').ProfilePicture %} Photo de profile {% endif %}</p>
                                         </div>
                                         <button>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" class="hover:text-blue-violet-base">
@@ -192,10 +194,11 @@
                                         </button>
                                     </div>
                                     <div class="flex justify-between">
-                                        <p>prix</p>
+                                        <p>{{  article.priceEuro }}€</p>
                                     </div>
                                 </div>
                             </li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <hr>

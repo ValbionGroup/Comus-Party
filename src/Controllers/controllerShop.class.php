@@ -83,8 +83,15 @@ class ControllerShop extends Controller {
      * @throws SyntaxError
      */
     public function showCheckout(){
+        $articles = [];
+        foreach ($_SESSION['basket'] as $id) {
+            $managerArticle = new ArticleDAO($this->getPdo());
+            $article = $managerArticle->findById($id);
+            $articles[] = $article;
+        }
+
         $template = $this->getTwig()->load('checkout.twig');
-        echo $template->render();
+        echo $template->render(array('articles' => $articles));
     }
 
 
