@@ -45,18 +45,18 @@
     </header>
 
     <main class="bg-lavender-blush-base dark:bg-night-base flex flex-grow opacity-90 h-full overflow-auto">
-        <form id="checkoutForm" class="grid grid-cols-3 w-full mx-20 mt-16 group" novalidate>
-            <div class="col-span-2 grid-rows-4 h-full mx-10 gap-4">
+        <form id="checkoutForm" class="grid sm:grid-cols-3 grid-cols-1 w-full sm:mx-20 mx-0 mt-16 group" novalidate>
+            <div class="col-span-2 grid-rows-4 h-full sm:mx-10 mx-4 gap-4">
                 <div class="row-span-1 mb-20">
                     <h1 class="font-sans text-2xl">Adresse de facturation</h1>
-                    <div class="flex flex-row justify-between gap-2 mt-3">
+                    <div class="flex sm:flex-row flex-col justify-between gap-2 mt-3">
                         <input type="text" value="" placeholder="Nom complet" class="input h-10 w-full">
                         <input type="text" value="" placeholder="Adresse" class="input h-10 w-full">
                     </div>
                 </div>
                 <div class="row-span-3">
                     <h1 class="font-sans text-2xl">Méthode de paiement</h1>
-                    <div class="flex flex-col mt-3 gap-3 mb-52">
+                    <div class="flex flex-col mt-3 gap-3 sm:mb-52 mb-20">
 
                         <!-- Carte bancaire -->
 
@@ -171,8 +171,8 @@
                 </div>
             </div>
             <div class="flex flex-col h-auto">
-                <h1 class="font-sans text-2xl">Résumé</h1>
-                <div class="flex-col mx-5 bg-lavender-blush-2 dark:bg-night-2 rounded-lg mt-3 gap-2">
+                <h1 class="font-sans text-2xl sm:ml-0 ml-5 ">Résumé</h1>
+                <div class="flex-col sm:mx-5 mx-4 bg-lavender-blush-2 dark:bg-night-2 rounded-lg mt-3 gap-2 sm:mb-0 mb-52">
                     <div class="mx-2">
                         <ul>
                             {% for article in articles %}
