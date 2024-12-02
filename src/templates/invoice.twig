@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/builded.css">
-    <title>Facture n°{{ datas.number }}</title>
+    <title>Facture n°{{ invoiceId }}</title>
 </head>
 <body class="bg-gray-50 text-gray-800">
 <div class="facture border border-gray-300 p-6 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
     <div class="header text-center mb-6">
-        <h1 class="text-2xl font-bold text-gray-900">Facture n°{{ datas.number }}</h1>
+        <h1 class="text-2xl font-bold text-gray-900">Facture n°{{ invoiceId }}</h1>
     </div>
     <div class="flex justify-between items-center">
         <div>
             <div class="details mb-6 font-bold">
                 <p class="underline">Facturé à :</p>
-                <p class="text-sm font-medium"><strong>Client :</strong> {{ datas.customer }}</p>
-                <p class="text-sm font-medium"><strong>Adresse e-mail :</strong> {{ datas.email }}</p>
-                <p class="text-sm font-medium"><strong>Adresse de facturation :</strong> {{ datas.address }}</p>
+                <p class="text-sm font-medium"><strong>Client :</strong> {{ username }}</p>
+                <p class="text-sm font-medium"><strong>Adresse e-mail :</strong> {{ email }}</p>
             </div>
             <div class="details mb-6 font-bold">
                 <p class="underline">Dates :</p>
@@ -38,16 +37,16 @@
     </div>
 
     <div class="articles space-y-4">
-        {% for item in datas.items %}
+        {% for article in articles %}
             <div class="flex items-center p-4 border border-gray-300 rounded-lg bg-gray-100 shadow-sm">
-                <img src="{{ item.pathImg }}" alt="Image de {{ item.name }}"
+                <img src="{{ article.pathImg }}" alt="Image de {{ article.name }}"
                      class="w-16 h-16 rounded-md object-cover mr-4">
                 <div class="flex-1">
-                    <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+                    <h2 class="text-lg font-semibold">{{ article.name }}</h2>
                     <p class="text-sm text-gray-600">Quantité : 1</p>
-                    <p class="text-sm text-gray-600">Prix unitaire : {{ item.priceEuro }} €</p>
+                    <p class="text-sm text-gray-600">Prix unitaire : {{ article.priceEuro }} €</p>
                 </div>
-                <p class="text-right text-gray-900 font-bold">{{ item.priceEuro }} €</p>
+                <p class="text-right text-gray-900 font-bold">{{ article.priceEuro }} €</p>
             </div>
         {% endfor %}
     </div>

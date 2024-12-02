@@ -12,6 +12,9 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\PaymentException;
+use ComusParty\Models\Exception\UnauthorizedAccessException;
+use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
 use Twig\Environment;
@@ -155,13 +158,23 @@ class ControllerShop extends Controller {
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws UnauthorizedAccessException Exception levée dans le cas d'un accès non-autorisé à la facture
      */
     public function showInvoice(int $invoiceId)
     {
         $managerArticle = new ArticleDAO($this->getPdo());
+        $managerPlayer = new PlayerDAO($this->getPdo());
+        $managerUser = new UserDAO($this->getPdo());
+
         $articles = $managerArticle->findByInvoiceId($invoiceId);
+        $player = $managerPlayer->findWithDetailByUuid($_SESSION['uuid']);
+        $email = $managerUser->findById($player->getUserId())->getEmail();
+
         $template = $this->getTwig()->load('invoice.twig');
         echo $template->render(array(
+            'invoiceId' => $invoiceId,
+            'username' => $player->getUsername(),
+            'email' => $email,
             'articles' => $articles
         ));
     }
