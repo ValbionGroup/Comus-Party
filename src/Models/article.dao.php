@@ -10,6 +10,7 @@
 namespace ComusParty\Models;
 
 
+use ComusParty\Models\Exception\UnauthorizedAccessException;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
@@ -80,9 +81,24 @@ class ArticleDAO {
      * @param int|null $invoiceId L'ID de la facture
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws UnauthorizedAccessException Exception levée dans le cas où l'utilisateur n'a pas accès à la facture
      */
     public function findByInvoiceId(?int $invoiceId): ?array
     {
+        $stmt = $this->pdo->prepare(
+            'SELECT *
+          FROM ' . DB_PREFIX . 'invoice i
+          JOIN ' . DB_PREFIX . 'player p ON i.player_uuid = p.uuid
+          WHERE i.id = :id AND p.uuid = :uuid');
+        $stmt->bindParam(':id', $invoiceId);
+        $stmt->bindParam(':uuid', $_SESSION['uuid']);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $invoice = $stmt->fetch();
+        if ($invoice === false) {
+            throw new UnauthorizedAccessException('Vous n\'avez pas accès à cette facture.');
+        }
+
         $stmt = $this->pdo->prepare(
             'SELECT a.*
             FROM ' . DB_PREFIX . 'article a
