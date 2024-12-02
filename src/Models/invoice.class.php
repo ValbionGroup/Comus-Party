@@ -152,4 +152,27 @@ class Invoice
     {
         $this->articles = $articles;
     }
+
+    /**
+     * @brief Ajoute un article à l'attribut articles
+     * @param Article $article L'article à ajouter
+     * @return void
+     */
+    public function addArticle(Article $article): void
+    {
+        $this->articles[] = $article;
+    }
+
+    /**
+     * @brief Supprime un article de l'attribut articles
+     * @param Article $article L'article à supprimer
+     * @return void
+     */
+    public function removeArticle(Article $article): void
+    {
+        $key = array_search($article, $this->articles);
+        if ($key !== false) {
+            unset($this->articles[$key]);
+        }
+    }
 }
