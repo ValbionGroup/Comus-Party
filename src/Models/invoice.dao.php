@@ -9,8 +9,14 @@
 
 namespace ComusParty\Models;
 
+use DateMalformedStringException;
+use DateTime;
 use PDO;
 
+/**
+ * @brief Classe InvoiceDAO
+ * @details La classe InvoiceDAO permet de faire des opérations en lien avec les factures sur la base de données
+ */
 class InvoiceDAO
 {
     /**
@@ -47,6 +53,12 @@ class InvoiceDAO
         $this->pdo = $pdo;
     }
 
+    /**
+     * @brief Retourne un objet Invoice (ou null) à partir de l'ID passé en paramètre
+     * @param int|null $id L'ID de la facture recherchée
+     * @return Invoice|null
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
     public function findById(?int $id): ?Invoice
     {
         $stmt = $this->pdo->prepare(
@@ -63,11 +75,16 @@ class InvoiceDAO
         return $this->hydrate($invoice);
     }
 
+    /**
+     * @param array $invoiceTab Tableau contenant les informations de la facture
+     * @return Invoice Objet retourné par la méthode, ici une facture
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
     public function hydrate(array $invoiceTab): Invoice
     {
         $invoice = new Invoice();
         $invoice->setId($invoiceTab['id']);
-        $invoice->setCreatedAt($invoiceTab['created_at']);
+        $invoice->setCreatedAt(new DateTime($invoiceTab['created_at']));
         $invoice->setPlayerUuid($invoiceTab['player_uuid']);
         return $invoice;
     }
