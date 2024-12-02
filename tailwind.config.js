@@ -94,7 +94,7 @@ module.exports = {
     plugin(function ({theme, addUtilities}) {
       addUtilities({
         '.animated-gradient': {
-          'background': `linear-gradient(270deg, ${theme('colors.blue-violet.base')}, ${theme('colors.rose.base')}, ${theme('colors.celestial-blue.base')}, ${theme('colors.hot-magenta.base')})`,
+          'background': `linear-gradient(225deg, ${theme('colors.blue-violet.base')}, ${theme('colors.rose.base')}, ${theme('colors.celestial-blue.base')}, ${theme('colors.hot-magenta.base')})`,
           'background-size': '400% 400%',
         },
 
