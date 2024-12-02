@@ -86,6 +86,7 @@ class InvoiceDAO
         $invoice->setId($invoiceTab['id']);
         $invoice->setCreatedAt(new DateTime($invoiceTab['created_at']));
         $invoice->setPlayerUuid($invoiceTab['player_uuid']);
+        $invoice->setPaymentType($invoiceTab['payment_type']);
         return $invoice;
     }
 }
