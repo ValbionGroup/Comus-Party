@@ -4,7 +4,7 @@
  * @author  Estéban DESESSARD
  * @brief   Le fichier contient la déclaration & définition de la classe Invoice.
  * @date    02/12/2024
- * @version 0.1
+ * @version 0.2
  */
 
 namespace ComusParty\Models;
@@ -22,16 +22,19 @@ class Invoice
      * @var int|null
      */
     private ?int $id;
+
     /**
      * @brief L'UUID du joueur ayant généré et payé la facture
      * @var string|null
      */
     private ?string $playerUuid;
+
     /**
      * @brief Le type de paiement réalisé
      * @var string|null
      */
     private ?string $paymentType;
+
     /**
      * @brief La date de création de la facture
      * @var DateTime|null
@@ -39,17 +42,24 @@ class Invoice
     private ?DateTime $createdAt;
 
     /**
+     * @brief Les articles de la facture
+     * @var array|null
+     */
+    private ?array $articles;
+
+    /**
      * @param int|null $id L'ID de la facture
      * @param string|null $playerUuid L'UUID du joueur ayant généré et payé la facture
      * @param string|null $paymentType Le moyen de paiement utilisé
      * @param DateTime|null $createdAt La date de création de la facture
      */
-    public function __construct(?int $id = null, ?string $playerUuid = null, ?string $paymentType = null, ?DateTime $createdAt = null)
+    public function __construct(?int $id = null, ?string $playerUuid = null, ?string $paymentType = null, ?DateTime $createdAt = null, ?array $articles = null)
     {
         $this->id = $id;
         $this->playerUuid = $playerUuid;
         $this->paymentType = $paymentType;
         $this->createdAt = $createdAt;
+        $this->articles = $articles;
     }
 
     /**
@@ -63,7 +73,7 @@ class Invoice
 
     /**
      * @brief Modifie l'ID de la facture
-     * @param int $id
+     * @param int $id Le nouvel ID de la facture
      */
     public function setId(int $id): void
     {
@@ -72,7 +82,7 @@ class Invoice
 
     /**
      * @brief Retourne l'UUID du joueur ayant généré et payé la facture
-     * @return string
+     * @return string L'UUID du joueur
      */
     public function getPlayerUuid(): string
     {
@@ -81,7 +91,7 @@ class Invoice
 
     /**
      * @brief Modifie l'UUID du joueur ayant généré et payé la facture
-     * @param string $playerUuid
+     * @param string $playerUuid Le nouvel UUID du joueur
      */
     public function setPlayerUuid(string $playerUuid): void
     {
@@ -90,7 +100,7 @@ class Invoice
 
     /**
      * @brief Retourne le type de paiement réalisé
-     * @return string
+     * @return string Le type de paiement
      */
     public function getPaymentType(): string
     {
@@ -99,7 +109,7 @@ class Invoice
 
     /**
      * @brief Modifie le type de paiement réalisé
-     * @param string $paymentType
+     * @param string $paymentType Le nouveau type de paiement
      */
     public function setPaymentType(string $paymentType): void
     {
@@ -108,7 +118,7 @@ class Invoice
 
     /**
      * @brief Retourne la date de création de la facture
-     * @return DateTime
+     * @return DateTime La date de création de la facture
      */
     public function getCreatedAt(): DateTime
     {
@@ -117,10 +127,29 @@ class Invoice
 
     /**
      * @brief Modifie la date de création de la facture
-     * @param DateTime $createdAt
+     * @param DateTime $createdAt La nouvelle date de création de la facture
      */
     public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @brief Retourne les articles de la facture
+     * @return array Les articles de la facture
+     */
+    public function getArticles(): array
+    {
+        return $this->articles;
+    }
+
+    /**
+     * @brief Modifie les articles de la facture
+     * @param array $articles Les articles de la facture
+     * @return void
+     */
+    public function setArticles(array $articles): void
+    {
+        $this->articles = $articles;
     }
 }
