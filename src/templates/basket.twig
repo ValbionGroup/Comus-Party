@@ -29,23 +29,25 @@
                     </a>
                 </div>
 
-                <div class="w-full   flex flex-col ">
+                <div class="w-full grid grid-cols-1">
 
                     {% for article in articles %}
 
-                        <div id="eltPanier" class="article flex flex-row items-center w-full h-24  p-2  rounded-2xl   shadow-lg">
-                            <div class="mr-5">
+                        <div id="eltPanier" class="article grid grid-cols-6 gap-5 items-center w-full h-24  p-2  rounded-2xl   shadow-lg ">
+
+                            <div class="col-span-2 flex items-center">
                                 <img src="/assets{{ article.filePath }}" alt="Pas d'image" class="rounded-2xl cursor-pointer  {% if article.type == enum('ComusParty\\Models\\ArticleType').Banner %}w-80 {%  endif %} {% if article.type == enum('ComusParty\\Models\\ArticleType').ProfilePicture %}  w-16{%  endif %}">
                             </div>
-                            <div class="w-full flex justify-between  items-center">
-                                <div class="flex flex-col  ">
-                                    <h3 class="text-left text-2xl">{{ article.name }}</h3>
-                                    <p>{{ article.description }}</p>
-                                </div>
-                                <div class="flex flex-col ">
-                                    <p class="text-right">{{ article.pricePoint }} Cms</p>
-                                    <p class="text-right">{{ article.priceEuro }} €</p>
-                                </div>
+
+                            <div class="col-span-2 flex flex-col items-start ">
+                                <h3 class="text-left text-2xl">{{ article.name }}</h3>
+                                <p class="text-left">{{ article.description }}</p>
+                            </div>
+                            <div class="col-span-1 flex flex-col ">
+                                <p class="text-right">{{ article.pricePoint }} Cms</p>
+                                <p class="text-right">{{ article.priceEuro }} €</p>
+                            </div>
+                            <div class="col-span-1 flex justify-center">
                                 <span class="cursor-pointer remove-btn" onclick="removeArticle({{ article.id }})"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 4.75l-6.5 6.5m0-6.5l6.5 6.5"/></svg></span>
                             </div>
                         </div>
