@@ -75,10 +75,10 @@ module.exports = {
           '800': '#A89500'
         },
         'lavender-blush': {
-          'base': '#F7EDF0',
-          '1': '#E6C6D0',
-          '2': '#D49FAF',
-          '3': '#C3788F'
+          'base': '#FAF5F7',
+          '1': '#f7edf0',
+          '2': '#f0dae0',
+          '3': '#e5bcc7'
         },
         'night': {
           'base': '#171614',
@@ -135,51 +135,67 @@ module.exports = {
         },
 
         '.btn-primary': {
-          backgroundColor: theme('colors.celestial-blue.600'),
+          backgroundColor: theme('colors.blue-violet.base'),
           transition: 'all 0.3s ease-in-out',
           padding: theme('padding.2'),
+          color: theme('colors.lavender-blush.base'),
           borderRadius: theme('borderRadius.lg'),
           '&:hover': {
-            backgroundColor: theme('colors.celestial-blue.700'),
+            backgroundColor: theme('colors.blue-violet.600'),
           },
           '&:active': {
-            backgroundColor: theme('colors.celestial-blue.800'),
+            backgroundColor: theme('colors.blue-violet.700'),
           },
         },
         '.btn-secondary': {
-          backgroundColor: theme('colors.rose.600'),
+          backgroundColor: 'transparent',
+          borderWidth: '1px',
+          borderColor: theme('colors.night.base'),
           transition: 'all 0.3s ease-in-out',
           padding: theme('padding.2'),
           borderRadius: theme('borderRadius.lg'),
           '&:hover': {
-            backgroundColor: theme('colors.rose.700'),
+            color: theme('colors.lavender-blush.base'),
+            backgroundColor: theme('colors.night.2'),
           },
           '&:active': {
-            backgroundColor: theme('colors.rose.800'),
+            color: theme('colors.lavender-blush.base'),
+            backgroundColor: theme('colors.night.1'),
           },
+          '@media (prefers-color-scheme: dark)': {
+            borderColor: theme('colors.lavender-blush.base'),
+            '&:hover': {
+              color: theme('colors.night.base'),
+              backgroundColor: theme('colors.lavender-blush.2'),
+            },
+            '&:active': {
+              color: theme('colors.night.base'),
+              backgroundColor: theme('colors.lavender-blush.1'),
+            },
+          }
         },
         '.btn-success': {
-          backgroundColor: theme('colors.green.600'),
+          backgroundColor: theme('colors.green.base'),
           transition: 'all 0.3s ease-in-out',
           padding: theme('padding.2'),
           borderRadius: theme('borderRadius.lg'),
           '&:hover': {
-            backgroundColor: theme('colors.green.700'),
+            backgroundColor: theme('colors.green.600'),
           },
           '&:active': {
-            backgroundColor: theme('colors.green.800'),
+            backgroundColor: theme('colors.green.700'),
           },
         },
         '.btn-danger': {
-          backgroundColor: theme('colors.red.600'),
+          backgroundColor: theme('colors.red.base'),
           transition: 'all 0.3s ease-in-out',
           padding: theme('padding.2'),
           borderRadius: theme('borderRadius.lg'),
           '&:hover': {
-            backgroundColor: theme('colors.red.700'),
+            backgroundColor: theme('colors.red.600'),
           },
           '&:active': {
-            backgroundColor: theme('colors.red.800'),
+            backgroundColor: theme('colors.red.700'),
           },
         },
       });
