@@ -13,6 +13,7 @@ namespace ComusParty\Controllers;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\PaymentException;
 use ComusParty\Models\Exception\UnauthorizedAccessException;
+use ComusParty\Models\InvoiceDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
