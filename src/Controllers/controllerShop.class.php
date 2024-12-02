@@ -165,14 +165,16 @@ class ControllerShop extends Controller {
         $managerArticle = new ArticleDAO($this->getPdo());
         $managerPlayer = new PlayerDAO($this->getPdo());
         $managerUser = new UserDAO($this->getPdo());
+        $managerInvoice = new InvoiceDAO($this->getPdo());
 
         $articles = $managerArticle->findArticlesByInvoiceId($invoiceId);
         $player = $managerPlayer->findWithDetailByUuid($_SESSION['uuid']);
         $email = $managerUser->findById($player->getUserId())->getEmail();
+        $invoice = $managerInvoice->findById($invoiceId);
 
         $template = $this->getTwig()->load('invoice.twig');
         echo $template->render(array(
-            'invoiceId' => $invoiceId,
+            'invoice' => $invoice,
             'username' => $player->getUsername(),
             'email' => $email,
             'articles' => $articles
