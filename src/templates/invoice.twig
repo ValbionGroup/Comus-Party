@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/builded.css">
-    <title>Facture n°{{ invoiceId }}</title>
+    <title>Facture n°{{ invoice.id }}</title>
 </head>
 <body class="bg-gray-50 text-gray-800">
 <div class="facture border border-gray-300 p-6 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
     <div class="header text-center mb-6">
-        <h1 class="text-2xl font-bold text-gray-900">Facture n°{{ invoiceId }}</h1>
+        <h1 class="text-2xl font-bold text-gray-900">Facture n°{{ invoice.id }}</h1>
     </div>
     <div class="flex justify-between items-center">
         <div>
@@ -20,9 +20,12 @@
             </div>
             <div class="details mb-6 font-bold">
                 <p class="underline">Dates :</p>
-                <p class="text-sm font-medium"><strong>Date d'émission :</strong> {{ datas.date }}</p>
-                <p class="text-sm font-medium"><strong>Date de paiement :</strong> {{ datas.date }}</p>
-                <p class="text-sm font-medium"><strong>Date de livraison :</strong> {{ datas.date }}</p>
+                <p class="text-sm font-medium"><strong>Date d'émission :</strong> {{ invoice.createdAt|date("d/m/Y") }}
+                </p>
+                <p class="text-sm font-medium"><strong>Date de paiement :</strong> {{ invoice.createdAt|date("d/m/Y") }}
+                </p>
+                <p class="text-sm font-medium"><strong>Date de livraison
+                        :</strong> {{ invoice.createdAt|date("d/m/Y") }}</p>
             </div>
         </div>
         <div class="details mb-6 font-bold">
@@ -37,7 +40,9 @@
     </div>
 
     <div class="articles space-y-4">
+        {% set total = 0 %}
         {% for article in articles %}
+            {% set total = total + article.priceEuro %}
             <div class="flex items-center p-4 border border-gray-300 rounded-lg bg-gray-100 shadow-sm">
                 <img src="{{ article.pathImg }}" alt="Image de {{ article.name }}"
                      class="w-16 h-16 rounded-md object-cover mr-4">
@@ -52,9 +57,16 @@
     </div>
 
     <p class="text-lg font-semibold mt-6">
-        <strong>Total :</strong> {{ datas.total }} €
+        <strong>Total :</strong> {{ total }} €
         <br>
-        <strong>Mode de paiement :</strong> {{ datas.payment }}
+        <strong>Mode de paiement :</strong>
+        {% if invoice.paymentType == 'card' %}
+            Carte bancaire
+        {% elseif invoice.paymentType == 'paypal' %}
+            PayPal
+        {% else %}
+            Espèces
+        {% endif %}
     </p>
     <div class="footer text-center mt-6">
         <p class="text-sm text-gray-600">Merci pour votre achat ! | Comus Party</p>
