@@ -44,7 +44,7 @@ class Invoice
      * @param string|null $paymentType Le moyen de paiement utilisé
      * @param DateTime|null $createdAt La date de création de la facture
      */
-    public function __construct(?int $id, ?string $playerUuid, ?string $paymentType, ?DateTime $createdAt)
+    public function __construct(?int $id = null, ?string $playerUuid = null, ?string $paymentType = null, ?DateTime $createdAt = null)
     {
         $this->id = $id;
         $this->playerUuid = $playerUuid;
