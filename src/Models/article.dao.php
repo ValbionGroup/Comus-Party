@@ -76,6 +76,29 @@ class ArticleDAO {
     }
 
     /**
+     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de la facture passé en paramètre
+     * @param int|null $invoiceId L'ID de la facture
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function findByInvoiceId(?int $invoiceId): ?array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT a.*
+            FROM ' . DB_PREFIX . 'article a
+            JOIN ' . DB_PREFIX . 'invoice_row ir ON a.id = ir.article_id
+            WHERE ir.invoice_id = :invoice_id');
+        $stmt->bindParam(':invoice_id', $invoiceId);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $articles = $stmt->fetchAll();
+        if ($articles === false) {
+            return null;
+        }
+        return $this->hydrateMany($articles);
+    }
+
+    /**
      * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles enregistrés dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
