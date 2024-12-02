@@ -83,7 +83,7 @@ class ArticleDAO {
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws UnauthorizedAccessException Exception levée dans le cas où l'utilisateur n'a pas accès à la facture
      */
-    public function findByInvoiceId(?int $invoiceId): ?array
+    public function findArticlesByInvoiceId(?int $invoiceId): ?array
     {
         $stmt = $this->pdo->prepare(
             'SELECT *

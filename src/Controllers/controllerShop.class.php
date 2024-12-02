@@ -166,7 +166,7 @@ class ControllerShop extends Controller {
         $managerPlayer = new PlayerDAO($this->getPdo());
         $managerUser = new UserDAO($this->getPdo());
 
-        $articles = $managerArticle->findByInvoiceId($invoiceId);
+        $articles = $managerArticle->findArticlesByInvoiceId($invoiceId);
         $player = $managerPlayer->findWithDetailByUuid($_SESSION['uuid']);
         $email = $managerUser->findById($player->getUserId())->getEmail();
 
