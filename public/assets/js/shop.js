@@ -32,12 +32,12 @@ let nbrArticleDansPanier = document.getElementById("nbrArticleDansPanier")
 
 
 /**
- * @brief Permet de vérifier si des articles sont dans le panier, si ils y a des articles dans le panier alors le logo du panier est mis à jour à chaque fois que la page est raffraichie
+ * @brief Permet de vérifier si des articles sont dans le panier.
+ * @details Si ils y a des articles dans le panier alors le logo du panier est mis à jour à chaque fois que la page est raffraichie
  */
 
 function testArticleDansPanier(){
     let nbrArticles = nbrArticleDansPanier.textContent
-    console.log( nbrArticles)
     if(nbrArticles > 0){
         logoPanierRempli.classList.remove("hidden")
         logoPanierVide.classList.add("hidden")
@@ -51,7 +51,7 @@ testArticleDansPanier()
 
 /**
  * @brief Permet d'afficher la fenêtre modale de l'article correspondant
- * @param article L'article qui doit être afficher dans la fenêtre modale
+ * @param article L'article qui doit être affiché dans la fenêtre modale
  */
 
 function showModal(article) {
