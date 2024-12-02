@@ -12,6 +12,7 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\PaymentException;
+use DateMalformedStringException;
 use DateTime;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -144,5 +145,24 @@ class ControllerShop extends Controller {
         }
 
         return true;
+    }
+
+    /**
+     * @brief Affiche la facture générée grâce à l'ID passé en paramètre GET
+     * @param int $invoiceId L'ID de la facture à afficher
+     * @return void
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function showInvoice(int $invoiceId)
+    {
+        $managerArticle = new ArticleDAO($this->getPdo());
+        $articles = $managerArticle->findByInvoiceId($invoiceId);
+        $template = $this->getTwig()->load('invoice.twig');
+        echo $template->render(array(
+            'articles' => $articles
+        ));
     }
 }
