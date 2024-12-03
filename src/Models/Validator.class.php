@@ -140,4 +140,13 @@ class Validator
 
         return $valid;
     }
+
+    /**
+     * @brief Retourne les messages d'erreurs générés lors de la validation
+     * @return array Tableau contenant les messages d'erreurs pour chaque champ non valide
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
 }
