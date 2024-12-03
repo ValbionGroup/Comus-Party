@@ -11,6 +11,7 @@ require_once __DIR__ . '/../include.php';
 
 use ComusParty\Models\Article;
 use ComusParty\Models\Invoice;
+use ComusParty\Models\paymentType;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -24,6 +25,21 @@ class InvoiceTest extends TestCase
      * @var Invoice
      */
     private Invoice $invoice;
+
+    /**
+     * @brief Instanciation d'un objet Invoice pour les tests
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $this->invoice = new Invoice(
+            id: 1,
+            playerUuid: 'uuid1',
+            paymentType: paymentType::Card,
+            createdAt: new DateTime('2024-01-01'),
+            articles: []
+        );
+    }
 
     /**
      * @brief Test de la méthode getId
@@ -79,7 +95,7 @@ class InvoiceTest extends TestCase
      */
     public function testGetPaymentType(): void
     {
-        $this->assertEquals('Carte Bancaire', $this->invoice->getPaymentType());
+        $this->assertEquals(paymentType::Card, $this->invoice->getPaymentType());
     }
 
     /**
@@ -88,8 +104,18 @@ class InvoiceTest extends TestCase
      */
     public function testSetPaymentTypeWithValidPaymentType(): void
     {
-        $this->invoice->setPaymentType('PayPal');
-        $this->assertEquals('PayPal', $this->invoice->getPaymentType());
+        $this->invoice->setPaymentType(paymentType::PayPal);
+        $this->assertEquals(paymentType::PayPal, $this->invoice->getPaymentType());
+    }
+
+    /**
+     * @brief Test de la méthode setPaymentType avec un paramètre invalide
+     * @return void
+     */
+    public function testSetPaymentTypeWithInvalidPaymentTypeThrowTypeError(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->invoice->setPaymentType('ComusCoins');
     }
 
     /**
@@ -242,19 +268,5 @@ class InvoiceTest extends TestCase
     {
         $this->invoice->removeArticle(new Article());
         $this->assertEquals([], $this->invoice->getArticles());
-    }
-
-    /**
-     * @brief Instanciation d'un objet Invoice pour les tests
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $this->invoice = new Invoice(
-            id: 1,
-            playerUuid: 'uuid1',
-            paymentType: 'Carte Bancaire',
-            createdAt: new DateTime('2024-01-01'),
-            articles: []);
     }
 }
