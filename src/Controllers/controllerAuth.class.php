@@ -10,7 +10,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
-use ComusParty\Models\Exception\AuthentificationException;
+use ComusParty\Models\Exception\AuthenticationException;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use Twig\Environment;
@@ -23,14 +23,16 @@ use Twig\Loader\FilesystemLoader;
  * @brief Classe ControllerAuth
  * @details La classe ControllerAuth est un contrôleur permettant de gérer l'authentification des utilisateurs (connexion & inscription)
  */
-class ControllerAuth extends Controller {
+class ControllerAuth extends Controller
+{
 
     /**
      * @brief Constructeur de la classe ControllerAuth
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      */
-    public function __construct(FilesystemLoader $loader, Environment $twig) {
+    public function __construct(FilesystemLoader $loader, Environment $twig)
+    {
         parent::__construct($loader, $twig);
     }
 
@@ -57,7 +59,7 @@ class ControllerAuth extends Controller {
      * @param ?string $email Adresse e-mail fournie dans le formulaire de connexion
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
      * @return void
-     * @throws AuthentificationException Exception levée dans le cas d'une erreur d'authentification
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      */
     public function authenticate(?string $email, ?string $password): void
     {
@@ -65,26 +67,26 @@ class ControllerAuth extends Controller {
         $user = $userManager->findByEmail($email);
 
         if (is_null($user)) {
-            throw new AuthentificationException("Adresse e-mail ou mot de passe invalide");
+            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
         }
 
         if (is_null($user->getEmailVerifiedAt())) {
-            throw new AuthentificationException("Merci de vérifier votre adresse e-mail");
+            throw new AuthenticationException("Merci de vérifier votre adresse e-mail");
         }
 
         if ($user->getDisabled()) {
-            throw new AuthentificationException("Votre compte a été désactivé");
+            throw new AuthenticationException("Votre compte a été désactivé");
         }
 
         if (!password_verify($password, $user->getPassword())) {
-            throw new AuthentificationException("Adresse e-mail ou mot de passe invalide");
+            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
         }
 
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findWithDetailByUserId($user->getId());
 
         if (is_null($player)) {
-            throw new AuthentificationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+            throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
         }
 
         $_SESSION['uuid'] = $player->getUuid();
@@ -109,7 +111,8 @@ class ControllerAuth extends Controller {
      * @details Commence par démarrer la session afin de pouvoir y supprimer toutes les variables stockées dessus, puis détruit celle-ci.
      * @return void
      */
-    public function logOut() : void {
+    public function logOut(): void
+    {
         session_start();
         session_unset();
         session_destroy();

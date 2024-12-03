@@ -16,7 +16,7 @@ require_once __DIR__ . '/src/Models/Validator.class.php';
 require_once __DIR__ . '/src/Models/Exceptions/ErrorHandler.php';
 require_once __DIR__ . '/src/Models/Exceptions/NotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/MalformedRequestException.php';
-require_once __DIR__ . '/src/Models/Exceptions/AuthentificationException.php';
+require_once __DIR__ . '/src/Models/Exceptions/AuthenticationException.php';
 require_once __DIR__ . '/src/Models/Exceptions/ControllerNotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/MethodNotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/RouteNotFoundException.php';
