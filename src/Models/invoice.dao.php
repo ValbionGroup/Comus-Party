@@ -86,7 +86,19 @@ class InvoiceDAO
         $invoice->setId($invoiceTab['id']);
         $invoice->setCreatedAt(new DateTime($invoiceTab['created_at']));
         $invoice->setPlayerUuid($invoiceTab['player_uuid']);
-        $invoice->setPaymentType($invoiceTab['payment_type']);
+        switch ($invoiceTab['payment_type']) {
+            case 'card':
+                $invoice->setPaymentType(PaymentType::Card);
+                break;
+            case 'paypal':
+                $invoice->setPaymentType(PaymentType::PayPal);
+                break;
+            case 'comuscoins':
+                $invoice->setPaymentType(PaymentType::ComusCoins);
+                break;
+            default:
+                break;
+        }
         return $invoice;
     }
 }

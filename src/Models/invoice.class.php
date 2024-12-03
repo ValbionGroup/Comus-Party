@@ -14,14 +14,16 @@ use DateTime;
 /**
  * @brief Enumération des types de paiement
  * @details Voici les différentes possibilités de paiement à l'heure actuelle :
- *  - card : paiement par carte bancaire
- *  - paypal : paiement par PayPal
+ *  - Card : paiement par carte bancaire
+ *  - PayPal : paiement par PayPal
+ *  - ComusCoins : paiement avec les ComusCoins (la monnaie virtuelle de la plateforme)
  * @enum paymentType
  */
 enum paymentType
 {
-    case card;
-    case paypal;
+    case Card;
+    case PayPal;
+    case ComusCoins;
 }
 
 /**
