@@ -138,6 +138,7 @@ class Router
     /**
      * @brief Empêche la désérialisation de l'instance
      * @return void
+     * @throws Exception
      */
     public function __wakeup(): void
     {

@@ -17,6 +17,16 @@ namespace ComusParty\Models;
 class Validator
 {
     /**
+     * @details Les règles de validation sont stockées dans un tableau associatif. Les paramètres possibles par champ sont :
+     *  - required : booléen indiquant si le champ est obligatoire
+     *  - type : type de la valeur attendue (string, integer, numeric)
+     *  - format : format de la valeur attendue (expression régulière, FILTER_VALIDATE_EMAIL, FILTER_VALIDATE_URL, FILTER_VALIDATE_IP)
+     *  - min-length : longueur minimale de la valeur
+     *  - max-length : longueur maximale de la valeur
+     *  - exact-length : longueur exacte de la valeur
+     *  - min-value : valeur minimale
+     *  - max-value : valeur maximale
+     *
      * @var array $rules Tableau contenant les règles de validation
      */
     private array $rules;
@@ -58,6 +68,18 @@ class Validator
 
     /**
      * @brief Valide un champ spécifique en fonction de ses règles
+     *
+     * @details La méthode validateInput permet de valider un champ spécifique en fonction de ses règles
+     * Les règles peuvent être de plusieurs types :
+     *  - required : booléen indiquant si le champ est obligatoire
+     *  - type : type de la valeur attendue (string, integer, numeric)
+     *  - format : format de la valeur attendue (expression régulière, FILTER_VALIDATE_EMAIL, FILTER_VALIDATE_URL, FILTER_VALIDATE_IP)
+     *  - min-length : longueur minimale de la valeur
+     *  - max-length : longueur maximale de la valeur
+     *  - exact-length : longueur exacte de la valeur
+     *  - min-value : valeur minimale
+     *  - max-value : valeur maximale
+     *
      * @param string $input Nom du champ à valider
      * @param mixed $value Valeur du champ à valider
      * @param array $inputRules Tableau contenant les règles de validation pour le champ
