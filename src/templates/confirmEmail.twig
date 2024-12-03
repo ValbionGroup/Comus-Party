@@ -1,0 +1,8 @@
+{% if confirmationValid %}
+    <h1>{{ confirmationResult }}</h1>
+    <h2>Vous pouvez maintenant vous connecter</h2>
+    <a href="/login">Connexion</a>
+{% else %}
+    <h1>{{ confirmationResult }}</h1>
+    <h2>Nous n'avons pas pu confirmer votre compte</h2>
+{% endif %}

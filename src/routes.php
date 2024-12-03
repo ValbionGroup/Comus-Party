@@ -108,6 +108,11 @@ $router->post('/register', function () use ($loader, $twig) {
     throw new Exception("Données reçues incomplètes.");
 });
 
+$router->get('/confirm-email/:token', function (string $token) use($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
+    exit;
+});
+
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
     exit;

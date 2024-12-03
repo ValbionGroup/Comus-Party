@@ -170,7 +170,7 @@ class ControllerAuth extends Controller {
             // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
             if (!$existingUser && !$existingPlayer)
             {
-                $emailVerifToken = bin2hex(random_bytes(32)); // Générer un token de vérification de l'email
+                $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
                 $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
 
                 // Envoi du mail avec phpmailer
@@ -195,11 +195,11 @@ class ControllerAuth extends Controller {
                     $mail->Body = // Corps du message
                         '<p>Vous avez créer un compte sur le site Comus.</p>
                         <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
-                        <a href="http://localhost:8000/confirmEmail?emailVerifToken=' . $emailVerifToken . '"><button>Confirmer mon compte</button></a>';
+                        <a href="http://localhost:8000/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
                     $mail->AltBody = // Corps du message sans format HTML
                         'Vous avez créer un compte sur le site Comus.
                         Pour confirmer votre compte, cliquez sur le lien ci-dessous.
-                        http://localhost:8000/confirmEmail?emailVerifToken=' . $emailVerifToken;
+                        http://localhost:8000/confirm-email/' . urlencode($emailVerifToken);
 
                     $mail->send(); // Envoi du message
                 } catch (Exception $e) { echo "Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}"; }
@@ -263,5 +263,21 @@ class ControllerAuth extends Controller {
  */
     private function validateEmail($email) {
         return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    public function confirmEmail($emailVerifToken) {
+        $userDAO = new UserDAO($this->getPdo());
+        $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
+        if ($user) {
+            $userDAO->confirmUser($emailVerifToken);
+            $confirmationResult='Votre compte a bien été créé';
+            $confirmationValid = true;
+        } else {
+            $confirmationResult='La confirmation a echoué';
+            $confirmationValid = false;
+        }
+
+        global $twig;
+        echo $twig->render('confirmEmail.twig', ['confirmationResult' => $confirmationResult, 'confirmationValid' => $confirmationValid]);
     }
 }

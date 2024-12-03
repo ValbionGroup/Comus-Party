@@ -139,8 +139,10 @@ class UserDAO {
             return $stmtUser->execute();
     }
 
-    public function verifyEmail(int $userId): bool {
-        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user SET email_verified_at = NOW(), email_verif_token = NULL WHERE id = :id");
-        return $stmt->execute([':id' => $userId]);
+    public function confirmUser(string $emailVerifToken): bool  {
+        $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user SET email_verified_at = now(), email_verif_token = null WHERE email_verif_token = :email_verif_token");
+        $stmtUser->bindParam(':email_verif_token', $emailVerifToken);
+        return $stmtUser->execute();
     }
+
 }
