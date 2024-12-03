@@ -10,7 +10,8 @@ $dotenv->load();
 require_once __DIR__ . '/config/const.php';
 require_once __DIR__ . '/config/db.php';
 
-require_once __DIR__ . '/src/Models/Router.php';
+require_once __DIR__ . '/src/Models/Router.class.php';
+require_once __DIR__ . '/src/Models/Validator.class.php';
 
 require_once __DIR__ . '/src/Models/Exceptions/ErrorHandler.php';
 require_once __DIR__ . '/src/Models/Exceptions/NotFoundException.php';
