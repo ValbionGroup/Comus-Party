@@ -63,12 +63,30 @@ function showModal(article) {
     overlay.classList.add('opacity-100'); // Apparition de l'overlay
     modalWindow.classList.add('opacity-100'); // Apparition et glissement de la modale
     modalWindow.classList.remove('opacity-0'); // Retirer les classes d'animation de départ
+
     imgArticle.src = ""
     imgArticle.src = "assets" + article.filePath
     nomArticle.innerText = article.name
     descriptionArticle.innerText = article.description
     prixComusArticle.innerText = article.pricePoint + " Comus"
     prixEuroArticle.innerText = article.priceEuro + " €"
+
+    // TEST
+    console.log(typeof(article.id))
+    const xhr = new XMLHttpRequest();
+    let idArticleNumber = Number(article.id)
+    xhr.open("GET", `/shop/showInformation/${idArticleNumber}`, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Envoyer les données sous forme de paire clé=valeur
+    xhr.send();
+
+    xhr.onreadystatechange = function (){
+        if(xhr.readyState == 4 && xhr.status === 200){
+            let response = JSON.parse(xhr.responseText)
+            console.log(response)
+        }
+    }
 
     addBasketBtn.onclick = function (){
         const xhr = new XMLHttpRequest();

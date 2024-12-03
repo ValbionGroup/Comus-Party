@@ -93,37 +93,34 @@
 
 
     <div id="modale"
-         class="flex border-yellow-400 border-2 p-6 bg-lavender-blush-2 text-lavender-blush-base dark:bg-night-1 rounded-3xl absolute  left-1/2 -translate-x-1/2  transform  transition-all duration-300 z-50 opacity-0 hidden">
-        <div class="flex flex-col w-3/4 h-2/3">
-            <div>
-                <img src="/assets/img/" id="imgArticle" alt="" class="rounded-3xl ">
-            </div>
-            <div class="flex flex-row justify-items-start  text-lavender-blush-base">
-                <button type="submit" id="addBasketBtn"
-                        class="px-6 py-2 mt-5 border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300">
-                    Ajouter au panier
-                </button>
+         class=" grid grid-cols-8 grid-rows-8  h-min border-yellow-400 border-2  bg-lavender-blush-2 text-lavender-blush-base dark:bg-night-1 rounded-3xl absolute  left-1/2 -translate-x-1/2  transform  transition-all duration-300 z-50 opacity-0 hidden">
 
-                <button class="px-6 py-2 mt-5 ml-2 border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300"
-                        id="closeModalBtn">Quitter
-                </button>
+            <div class="col-start-1 col-end-5 row-start-1 row-end-9">
+                <img src="/assets/img/" id="imgArticle" alt="" class="rounded-3xl w-20">
             </div>
 
-        </div>
-        <div class="flex flex-col justify-between w-1/4">
-            <div class="flex flex-col ml-5">
+            <div class="col-start-5 col-end-9 row-start-1 row-end-5">
                 <h2 class="text-4xl" id="nomArticle">Nom</h2>
                 <p class="" id="descriptionArticle">Description</p>
             </div>
-            <div class="flex flex-row justify-around mb-0.5">
-                <p class=" p-2 rounded-2xl text-xl bg-lavender-blush-3" id="prixComusArticle">PriceComus</p>
+            <div class="col-start-5 col-end-9 row-start-5 row-end-7 flex-row">
+                <p class="rounded-2xl text-xl  " id="prixComusArticle">PriceComus</p>
+                <p class="rounded-2xl text-xl  " id="prixEuroArticle">PriceEuro</p>
+            </div>
+            <div class="col-start-5 col-end-9 row-start-7 row-end-9">
+                <button type="submit" id="addBasketBtn"
+                        class="  border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300">
+                    Ajouter au panier
+                </button>
 
-                <p class=" p-2 rounded-2xl text-xl  bg-lavender-blush-3" id="prixEuroArticle">PriceEuro</p>
+                <button class=" border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300"
+                        id="closeModalBtn">Quitter
+                </button>
+
             </div>
         </div>
 
 
-    </div>
     <div id="notification"
          class="fixed bottom-5 right-5 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out">
         <div>

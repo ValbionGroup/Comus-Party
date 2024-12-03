@@ -150,4 +150,24 @@ class ControllerShop extends Controller {
 
         return true;
     }
+
+    public function showInformation($id)
+    {
+        if ($id != null) {
+            $id_article = intval($id);
+
+
+            $managerArticle = new ArticleDAO($this->getPdo());
+            $article = $managerArticle->findById( $id_article );
+
+            echo json_encode([
+                'success' => true,
+                'type' => $article->getType()
+            ]);
+        } else {
+            echo "Erreur : ID de l'article non spécifié.";
+        }
+    }
+
+
 }
