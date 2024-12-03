@@ -12,6 +12,19 @@ namespace ComusParty\Models;
 use DateTime;
 
 /**
+ * @brief Enumération des types de paiement
+ * @details Voici les différentes possibilités de paiement à l'heure actuelle :
+ *  - card : paiement par carte bancaire
+ *  - paypal : paiement par PayPal
+ * @enum paymentType
+ */
+enum paymentType
+{
+    case card;
+    case paypal;
+}
+
+/**
  * @brief Classe Invoice
  * @details La classe Invoice représente une facture réalisée dans le cadre d'un achat d'un service non-impactant par un utilisateur sur la plateforme
  */
@@ -31,9 +44,9 @@ class Invoice
 
     /**
      * @brief Le type de paiement réalisé
-     * @var string|null
+     * @var paymentType|null
      */
-    private ?string $paymentType;
+    private ?paymentType $paymentType;
 
     /**
      * @brief La date de création de la facture
@@ -50,10 +63,10 @@ class Invoice
     /**
      * @param int|null $id L'ID de la facture
      * @param string|null $playerUuid L'UUID du joueur ayant généré et payé la facture
-     * @param string|null $paymentType Le moyen de paiement utilisé
+     * @param paymentType|null $paymentType Le moyen de paiement utilisé
      * @param DateTime|null $createdAt La date de création de la facture
      */
-    public function __construct(?int $id = null, ?string $playerUuid = null, ?string $paymentType = null, ?DateTime $createdAt = null, ?array $articles = null)
+    public function __construct(?int $id = null, ?string $playerUuid = null, ?paymentType $paymentType = null, ?DateTime $createdAt = null, ?array $articles = null)
     {
         $this->id = $id;
         $this->playerUuid = $playerUuid;
@@ -100,18 +113,18 @@ class Invoice
 
     /**
      * @brief Retourne le type de paiement réalisé
-     * @return string Le type de paiement
+     * @return paymentType Le type de paiement
      */
-    public function getPaymentType(): string
+    public function getPaymentType(): paymentType
     {
         return $this->paymentType;
     }
 
     /**
      * @brief Modifie le type de paiement réalisé
-     * @param string $paymentType Le nouveau type de paiement
+     * @param paymentType $paymentType Le nouveau type de paiement
      */
-    public function setPaymentType(string $paymentType): void
+    public function setPaymentType(paymentType $paymentType): void
     {
         $this->paymentType = $paymentType;
     }
