@@ -238,7 +238,9 @@ class PlayerDAO {
         // Genération de l'uuid du joueur
         $uuid = Uuid::uuid4()->toString();
 
-        $userId=PlayerDAO::getUserIdByEmail($email);
+        $userDao = new UserDAO($this->pdo);
+        $user = $userDao->findByEmail($email);
+        $userId = $user->getId();
 
         $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (:uuid, :username, :user_id)");
 
@@ -264,20 +266,5 @@ class PlayerDAO {
             return null;
         }
         return $this->hydrate($result);
-    }
-
-    /**
-     * @brief Retourne l'identifiant utilisateur associé à l'adresse e-mail
-     * @param string $email L'adresse e-mail dont l'ID utilisateur est recherché
-     * @return int L'identifiant utilisateur lié à l'adresse e-mail
-     */
-    public function getUserIdByEmail($email) {
-        $stmt = $this->pdo->prepare("SELECT u.id
-                                    FROM " . DB_PREFIX . "user u
-                                    WHERE u.email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $result = $stmt->fetch();
-        return $result['id'];
     }
 }
