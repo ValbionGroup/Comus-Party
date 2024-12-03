@@ -136,19 +136,19 @@ class Invoice
 
     /**
      * @brief Retourne les articles de la facture
-     * @return array Les articles de la facture
+     * @return null|array Les articles de la facture
      */
-    public function getArticles(): array
+    public function getArticles(): ?array
     {
         return $this->articles;
     }
 
     /**
      * @brief Modifie les articles de la facture
-     * @param array $articles Les articles de la facture
+     * @param null|array $articles Les articles de la facture
      * @return void
      */
-    public function setArticles(array $articles): void
+    public function setArticles(?array $articles): void
     {
         $this->articles = $articles;
     }
@@ -160,6 +160,10 @@ class Invoice
      */
     public function addArticle(Article $article): void
     {
+        $key = in_array($article, $this->articles);
+        if ($key !== false) {
+            return;
+        }
         $this->articles[] = $article;
     }
 
