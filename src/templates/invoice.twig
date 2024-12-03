@@ -60,12 +60,12 @@
         <strong>Total :</strong> {{ total }} €
         <br>
         <strong>Mode de paiement :</strong>
-        {% if invoice.paymentType == 'card' %}
+        {% if invoice.paymentType == enum('ComusParty\\Models\\PaymentType').Card %}
             Carte bancaire
-        {% elseif invoice.paymentType == 'paypal' %}
+        {% elseif invoice.paymentType == enum('ComusParty\\Models\\PaymentType').PayPal %}
             PayPal
-        {% else %}
-            Espèces
+        {% elseif invoice.paymentType == enum('ComusParty\\Models\\PaymentType').ComusCoins %}
+            Comus Coins
         {% endif %}
     </p>
     <div class="footer text-center mt-6">
