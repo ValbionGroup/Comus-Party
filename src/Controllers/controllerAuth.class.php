@@ -13,6 +13,7 @@ use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthentificationException;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
+use ComusParty\Models\Validator;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -23,14 +24,16 @@ use Twig\Loader\FilesystemLoader;
  * @brief Classe ControllerAuth
  * @details La classe ControllerAuth est un contrôleur permettant de gérer l'authentification des utilisateurs (connexion & inscription)
  */
-class ControllerAuth extends Controller {
+class ControllerAuth extends Controller
+{
 
     /**
      * @brief Constructeur de la classe ControllerAuth
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      */
-    public function __construct(FilesystemLoader $loader, Environment $twig) {
+    public function __construct(FilesystemLoader $loader, Environment $twig)
+    {
         parent::__construct($loader, $twig);
     }
 
@@ -61,6 +64,25 @@ class ControllerAuth extends Controller {
      */
     public function authenticate(?string $email, ?string $password): void
     {
+        $regles = [
+            'email' => [
+                'required' => true,
+                'type' => 'string',
+                'format' => FILTER_VALIDATE_EMAIL
+            ],
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 8
+            ]
+        ];
+
+        $validator = new Validator($regles);
+        if (!$validator->validate(['email' => $email, 'password' => $password])) {
+            var_dump($validator->getErrors());
+            throw new AuthentificationException("Adresse e-mail ou mot de passe invalide");
+        }
+
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
 
@@ -109,7 +131,8 @@ class ControllerAuth extends Controller {
      * @details Commence par démarrer la session afin de pouvoir y supprimer toutes les variables stockées dessus, puis détruit celle-ci.
      * @return void
      */
-    public function logOut() : void {
+    public function logOut(): void
+    {
         session_start();
         session_unset();
         session_destroy();
