@@ -19,7 +19,7 @@ use DateTime;
  *  - ComusCoins : paiement avec les ComusCoins (la monnaie virtuelle de la plateforme)
  * @enum paymentType
  */
-enum paymentType
+enum PaymentType
 {
     case Card;
     case PayPal;
@@ -46,9 +46,9 @@ class Invoice
 
     /**
      * @brief Le type de paiement réalisé
-     * @var paymentType|null
+     * @var PaymentType|null
      */
-    private ?paymentType $paymentType;
+    private ?PaymentType $paymentType;
 
     /**
      * @brief La date de création de la facture
@@ -56,25 +56,19 @@ class Invoice
      */
     private ?DateTime $createdAt;
 
-    /**
-     * @brief Les articles de la facture
-     * @var array|null
-     */
-    private ?array $articles;
 
     /**
      * @param int|null $id L'ID de la facture
      * @param string|null $playerUuid L'UUID du joueur ayant généré et payé la facture
-     * @param paymentType|null $paymentType Le moyen de paiement utilisé
+     * @param PaymentType|null $paymentType Le moyen de paiement utilisé
      * @param DateTime|null $createdAt La date de création de la facture
      */
-    public function __construct(?int $id = null, ?string $playerUuid = null, ?paymentType $paymentType = null, ?DateTime $createdAt = null, ?array $articles = null)
+    public function __construct(?int $id = null, ?string $playerUuid = null, ?PaymentType $paymentType = null, ?DateTime $createdAt = null)
     {
         $this->id = $id;
         $this->playerUuid = $playerUuid;
         $this->paymentType = $paymentType;
         $this->createdAt = $createdAt;
-        $this->articles = $articles;
     }
 
     /**
@@ -115,18 +109,18 @@ class Invoice
 
     /**
      * @brief Retourne le type de paiement réalisé
-     * @return paymentType Le type de paiement
+     * @return PaymentType Le type de paiement
      */
-    public function getPaymentType(): paymentType
+    public function getPaymentType(): PaymentType
     {
         return $this->paymentType;
     }
 
     /**
      * @brief Modifie le type de paiement réalisé
-     * @param paymentType $paymentType Le nouveau type de paiement
+     * @param PaymentType $paymentType Le nouveau type de paiement
      */
-    public function setPaymentType(paymentType $paymentType): void
+    public function setPaymentType(PaymentType $paymentType): void
     {
         $this->paymentType = $paymentType;
     }
@@ -147,51 +141,5 @@ class Invoice
     public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @brief Retourne les articles de la facture
-     * @return null|array Les articles de la facture
-     */
-    public function getArticles(): ?array
-    {
-        return $this->articles;
-    }
-
-    /**
-     * @brief Modifie les articles de la facture
-     * @param null|array $articles Les articles de la facture
-     * @return void
-     */
-    public function setArticles(?array $articles): void
-    {
-        $this->articles = $articles;
-    }
-
-    /**
-     * @brief Ajoute un article à l'attribut articles
-     * @param Article $article L'article à ajouter
-     * @return void
-     */
-    public function addArticle(Article $article): void
-    {
-        $key = in_array($article, $this->articles);
-        if ($key !== false) {
-            return;
-        }
-        $this->articles[] = $article;
-    }
-
-    /**
-     * @brief Supprime un article de l'attribut articles
-     * @param Article $article L'article à supprimer
-     * @return void
-     */
-    public function removeArticle(Article $article): void
-    {
-        $key = array_search($article, $this->articles);
-        if ($key !== false) {
-            unset($this->articles[$key]);
-        }
     }
 }

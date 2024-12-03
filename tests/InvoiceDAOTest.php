@@ -10,11 +10,9 @@
 require_once __DIR__ . '/../include.php';
 
 
-use ComusParty\Models\Article;
-use ComusParty\Models\ArticleType;
 use ComusParty\Models\Db;
 use ComusParty\Models\InvoiceDAO;
-use ComusParty\Models\paymentType;
+use ComusParty\Models\PaymentType;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -76,36 +74,14 @@ class InvoiceDAOTest extends TestCase
             'id' => 1,
             'player_uuid' => 'uuid1',
             'payment_type' => 'card',
-            'created_at' => '2024-01-01',
-            'articles' => [new Article(
-                id: 1,
-                createdAt: new DateTime('2024-01-01'),
-                updatedAt: new DateTime('2024-11-14'),
-                name: 'TestTitle',
-                type: ArticleType::ProfilePicture,
-                description: 'TestContent',
-                pricePoint: 500,
-                priceEuro: 5.0,
-                pathImg: 'test.jpg'
-            )]
+            'created_at' => '2024-01-01'
         ];
         $invoiceWithHydrate = $this->invoiceDAO->hydrate($data);
 
         $this->assertEquals(1, $invoiceWithHydrate->getId());
         $this->assertEquals('uuid1', $invoiceWithHydrate->getPlayerUuid());
-        $this->assertEquals(paymentType::Card, $invoiceWithHydrate->getPaymentType());
+        $this->assertEquals(PaymentType::Card, $invoiceWithHydrate->getPaymentType());
         $this->assertEquals(new DateTime('2024-01-01'), $invoiceWithHydrate->getCreatedAt());
-        $this->assertEquals([new Article(
-            id: 1,
-            createdAt: new DateTime('2024-01-01'),
-            updatedAt: new DateTime('2024-11-14'),
-            name: 'TestTitle',
-            type: ArticleType::ProfilePicture,
-            description: 'TestContent',
-            pricePoint: 500,
-            priceEuro: 5.0,
-            pathImg: 'test.jpg'
-        )], $invoiceWithHydrate->getArticles());
     }
 
     /**
@@ -144,9 +120,8 @@ class InvoiceDAOTest extends TestCase
 
         $this->assertEquals(1, $invoiceWithHydrate->getId());
         $this->assertEquals('uuid1', $invoiceWithHydrate->getPlayerUuid());
-        $this->assertEquals(paymentType::Card, $invoiceWithHydrate->getPaymentType());
+        $this->assertEquals(PaymentType::Card, $invoiceWithHydrate->getPaymentType());
         $this->assertEquals(new DateTime('2024-01-01'), $invoiceWithHydrate->getCreatedAt());
-        $this->assertNull($invoiceWithHydrate->getArticles());
     }
 
     /**

@@ -9,9 +9,8 @@
 
 require_once __DIR__ . '/../include.php';
 
-use ComusParty\Models\Article;
 use ComusParty\Models\Invoice;
-use ComusParty\Models\paymentType;
+use ComusParty\Models\PaymentType;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,9 +34,8 @@ class InvoiceTest extends TestCase
         $this->invoice = new Invoice(
             id: 1,
             playerUuid: 'uuid1',
-            paymentType: paymentType::Card,
-            createdAt: new DateTime('2024-01-01'),
-            articles: []
+            paymentType: PaymentType::Card,
+            createdAt: new DateTime('2024-01-01')
         );
     }
 
@@ -95,7 +93,7 @@ class InvoiceTest extends TestCase
      */
     public function testGetPaymentType(): void
     {
-        $this->assertEquals(paymentType::Card, $this->invoice->getPaymentType());
+        $this->assertEquals(PaymentType::Card, $this->invoice->getPaymentType());
     }
 
     /**
@@ -104,8 +102,8 @@ class InvoiceTest extends TestCase
      */
     public function testSetPaymentTypeWithValidPaymentType(): void
     {
-        $this->invoice->setPaymentType(paymentType::PayPal);
-        $this->assertEquals(paymentType::PayPal, $this->invoice->getPaymentType());
+        $this->invoice->setPaymentType(PaymentType::PayPal);
+        $this->assertEquals(PaymentType::PayPal, $this->invoice->getPaymentType());
     }
 
     /**
@@ -145,128 +143,5 @@ class InvoiceTest extends TestCase
     {
         $this->expectException(TypeError::class);
         $this->invoice->setCreatedAt('2024-01-02');
-    }
-
-    /**
-     * @brief Test de la méthode getArticles
-     * @return void
-     */
-    public function testGetArticles(): void
-    {
-        $this->assertEquals([], $this->invoice->getArticles());
-    }
-
-    /**
-     * @brief Test de la méthode setArticles avec un paramètre valide
-     * @return void
-     */
-    public function testSetArticlesWithValidArticles(): void
-    {
-        $this->invoice->setArticles([new Article()]);
-        $this->assertEquals([new Article()], $this->invoice->getArticles());
-    }
-
-    /**
-     * @brief Test de la méthode setArticles avec un paramètre null
-     * @return void
-     */
-    public function testSetArticlesWithNullArticles(): void
-    {
-        $this->invoice->setArticles(null);
-        $this->assertEquals(null, $this->invoice->getArticles());
-    }
-
-    /**
-     * @brief Test de la méthode setArticles avec un paramètre invalide
-     * @return void
-     */
-    public function testSetArticlesWithInvalidArticlesThrowTypeError(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->invoice->setArticles('articles');
-    }
-
-    /**
-     * @brief Test de la méthode addArticle avec un paramètre valide
-     * @return void
-     */
-    public function testAddArticleWithValidArticle(): void
-    {
-        $this->invoice->addArticle(new Article());
-        $this->assertEquals([new Article()], $this->invoice->getArticles());
-    }
-
-    /**
-     * @brief Test de la méthode addArticle avec un paramètre invalide
-     * @return void
-     */
-    public function testAddArticleWithInvalidArticleThrowTypeError(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->invoice->addArticle('article');
-    }
-
-    /**
-     * @brief Test de la méthode addArticle avec un paramètre null
-     * @return void
-     */
-    public function testAddArticleWithNullArticleThrowTypeError(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->invoice->addArticle(null);
-    }
-
-    /**
-     * @brief Test de la méthode addArticle avec un plusieurs fois le même article
-     * @return void
-     */
-    public function testAddArticleWithSameArticleAddOnlyOneArticle(): void
-    {
-        $article = new Article();
-        $this->invoice->addArticle($article);
-        $this->invoice->addArticle($article);
-        $this->assertEquals([new Article()], $this->invoice->getArticles());
-    }
-
-    /**
-     * @brief Test de la méthode removeArticle avec un paramètre valide
-     * @return void
-     */
-    public function testRemoveArticleWithValidArticle(): void
-    {
-        $article = new Article();
-        $this->invoice->addArticle($article);
-        $this->invoice->removeArticle($article);
-        $this->assertEquals([], $this->invoice->getArticles());
-    }
-
-    /**
-     * @brief Test de la méthode removeArticle avec un paramètre invalide
-     * @return void
-     */
-    public function testRemoveArticleWithInvalidArticleThrowTypeError(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->invoice->removeArticle('article');
-    }
-
-    /**
-     * @brief Test de la méthode removeArticle avec un paramètre null
-     * @return void
-     */
-    public function testRemoveArticleWithNullArticleThrowTypeError(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->invoice->removeArticle(null);
-    }
-
-    /**
-     * @brief Test de la méthode removeArticle avec un paramètre non présent dans la liste
-     * @return void
-     */
-    public function testRemoveArticleWithArticleNotInListIgnoreRemoveRequest(): void
-    {
-        $this->invoice->removeArticle(new Article());
-        $this->assertEquals([], $this->invoice->getArticles());
     }
 }

@@ -99,7 +99,6 @@ class InvoiceDAO
             default:
                 break;
         }
-        $invoice->setArticles($invoiceTab['articles']);
         return $invoice;
     }
 }
