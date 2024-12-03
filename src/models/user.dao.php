@@ -108,6 +108,11 @@ class UserDAO {
         return $user;
     }
 
+    /**
+     * @brief Retourne un objet User (ou null) à partir du token de vérification d'email passé en paramètre
+     * @param string $emailVerifToken Le token de vérification d'email de l'utilisateur
+     * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
+     */
     public function findByEmailVerifyToken(string $emailVerifToken): ?User {
         $stmt = $this->pdo->prepare(
             'SELECT *
@@ -139,6 +144,11 @@ class UserDAO {
             return $stmtUser->execute();
     }
 
+    /**
+     * @brief Confirme un utilisateur en mettant à jour la date de confirmation et en supprimant le token de vérification d'email
+     * @param string $emailVerifToken Le token de vérification d'email de l'utilisateur
+     * @return bool Retourne true si l'utilisateur a pu être confirmé, false sinon
+     */
     public function confirmUser(string $emailVerifToken): bool  {
         $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user SET email_verified_at = now(), email_verif_token = null WHERE email_verif_token = :email_verif_token");
         $stmtUser->bindParam(':email_verif_token', $emailVerifToken);
