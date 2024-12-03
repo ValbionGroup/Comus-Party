@@ -143,6 +143,7 @@ class ControllerAuth extends Controller {
      * @param ?string $password Le mot de passe de l'utilisateur
      * @return void
      * @todo Modifier le corps du mail (version HTMl) pour correspondre à la charte graphique (quand terminée)
+     * @todo Changer l'URL envoyé (localhost) pour le déploiement
      */
     public function register(?string $username, ?string $email, ?string $password): void {
         if(session_status() === PHP_SESSION_NONE) { session_start(); }
