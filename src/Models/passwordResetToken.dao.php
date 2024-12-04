@@ -71,6 +71,23 @@ class PasswordResetTokenDAO
     }
 
     /**
+     * @brief Retourne un objet PasswordResetToken (ou null) à partir du token passé en paramètre
+     * @param string $token Le token de réinitialisation de mot de passe recherché
+     * @return PasswordResetToken|null Objet PasswordResetToken (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
+     */
+    public function findByToken(string $token): ?PasswordResetToken
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .'pswd_reset_token WHERE token = :token');
+        $stmt->execute(['token' => $token]);
+        $row = $stmt->fetch();
+        if ($row === false) {
+            return null;
+        }
+        return new PasswordResetToken($row['user_id'], $row['token'], new DateTime($row['created_at']));
+    }
+
+    /**
      * @brief Insère un token de réinitialisation de mot de passe en base de données
      * @param PasswordResetToken $token Le token à insérer
      * @return bool Vrai si l'insertion a réussi, faux sinon
