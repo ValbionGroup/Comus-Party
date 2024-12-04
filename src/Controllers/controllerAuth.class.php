@@ -12,11 +12,15 @@ namespace ComusParty\Controllers;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
 use ComusParty\Models\Exception\MalformedRequestException;
+use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use ComusParty\Models\Validator;
 use DateMalformedStringException;
+use DateTime;
+use Exception;
+use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -67,11 +71,12 @@ class ControllerAuth extends Controller
     }
 
     /**
-     * @param string $email Adresse e-mail pré-remplie dans le formulaire d'inscription
-     * @return void
-     * @throws DateMalformedStringException
      * @todo Utiliser une template de mail quand disponible
      * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
+     * @param string $email Adresse e-mail pré-remplie dans le formulaire d'inscription
+     * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws RandomException Exception levée dans le cas d'une erreur de génération de nombre aléatoire
      */
     public function sendResetPasswordLink(string $email): void
     {
@@ -82,10 +87,11 @@ class ControllerAuth extends Controller
             return;
         }
 
-        $token = bin2hex(random_bytes(32));
-        $userManager->updateResetToken($user->getId(), $token);
+        $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+        $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(32)), new DateTime());
+        $tokenManager->insert($token);
 
-        $url = BASE_URL . "/reset-password/$token";
+        $url = BASE_URL . "/reset-password/".$token->getToken();
         $to = $user->getEmail();
         $subject = "Réinitialisation de votre mot de passe";
         // TODO: Utiliser une template mail pour les mails dès que possible
@@ -121,8 +127,9 @@ class ControllerAuth extends Controller
      * @param string $token Token de réinitialisation de mot de passe
      * @param string $password Nouveau mot de passe
      * @param string $passwordConfirm Confirmation du nouveau mot de passe
-     * @throws MalformedRequestException
-     * @throws DateMalformedStringException
+     * @throws MalformedRequestException Exception levée dans le cas d'une requête malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws Exception Exception levée dans le cas d'une erreur quelconque
      */
     public function resetPassword(string $token, string $password, string $passwordConfirm)
     {
@@ -160,8 +167,20 @@ class ControllerAuth extends Controller
         }
 
         $userManager = new UserDAO($this->getPdo());
-        $userManager->updatePassword($token->getUserId(), password_hash($password, PASSWORD_DEFAULT));
 
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $user = $userManager->findById($token->getUserId());
+        $user->setPassword($hashedPassword);
+
+        if (!$userManager->update($user)) {
+            throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
+        }
+
+        if (!$tokenManager->delete($token->getUserId())) {
+            throw new Exception("Erreur lors de la suppression du token", 500);
+        }
+
+        header('Location: /login');
     }
 
     /**
