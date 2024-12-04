@@ -10,7 +10,9 @@
 
 global $loader, $twig;
 
-use models\Router;
+use ComusParty\Controllers\ControllerFactory;
+use ComusParty\Models\Exception\ErrorHandler;
+use ComusParty\Models\Router;
 
 $router = Router::getInstance();
 
@@ -51,14 +53,19 @@ $router->post('/login', function () use ($loader, $twig) {
         header('Location: /');
         exit;
     }
-    if (isset($_POST['email']) && isset($_POST['password'])) {
-        ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
-            "email" => $_POST['email'],
-            "password" => $_POST['password']
-        ]);
-        exit;
+    try {
+        if (isset($_POST['email']) && isset($_POST['password'])) {
+            ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
+                "email" => $_POST['email'],
+                "password" => $_POST['password']
+            ]);
+            exit;
+        }
+        throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
+    } catch (Exception $e) {
+        ErrorHandler::addExceptionParametersToTwig($e);
+        ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
     }
-    throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
 });
 
 $router->get('/logout', function () use ($loader, $twig) {
@@ -83,15 +90,16 @@ $router->get('/shop', function () use ($loader, $twig) {
     }
     ControllerFactory::getController("shop", $loader, $twig)->call("show");
     exit;
+
 });
 
-$router->get('/shop/basket', function () {
+$router->get('/shop/basket', function ()  use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
-    echo "Page du panier<br/>";
-    echo "A IMPLEMENTER";
+
+    ControllerFactory::getController("basket",$loader,$twig)->call("show");
     exit;
 });
 
