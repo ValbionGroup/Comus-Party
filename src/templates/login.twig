@@ -14,6 +14,8 @@
             <div>
                 <label for="email" class="block">Adresse email</label>
                 <input type="email" name="email" id="email" class="w-full input" required>
+                <p class="input-error-text text-red-600 hidden" id="incorrectEmailFormat">Format d'e-mail invalide,
+                    veuillez entrer un e-mail valide.</p>
             </div>
             <div>
                 <label for="password" class="block">Mot de passe</label>
@@ -21,7 +23,7 @@
             </div>
 
             <div>
-                <button type="submit" class="w-full btn-primary">Se connecter</button>
+                <button id="submitButton" type="submit" class="w-full btn-primary">Se connecter</button>
             </div>
         </form>
     </div>
@@ -31,7 +33,7 @@
     <script language="JavaScript">
         window.onload = function () {
             const INPUT_EMAIL = document.getElementById('email');
-            INPUT_EMAIL.addEventListener('input', checkEmailRequirements());
+            INPUT_EMAIL.addEventListener("input", checkEmailRequirements);
         }
 
         /**
@@ -49,17 +51,21 @@
             const EMAIL = document.getElementById("email").value; // Email
             const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex pour valider le format de l'email
             // Variables
+            let inputEmail = document.getElementById('email');
             let incorrectEmailFormat = document.getElementById("incorrectEmailFormat");
             let submitButton = document.getElementById("submitButton");
 
             // Vérifications
             if (!EMAIL_REGEX.test(EMAIL)) {
-                submitButton.disabled = true;
-                incorrectEmailFormat.innerHTML = "Format d'email invalide, veuillez entrer un email valide.";
-                incorrectEmailFormat.style.display = "block";
+                submitButton.classList.add("disabled");
+                inputEmail.classList.add("input-error");
+                incorrectEmailFormat.classList.add("block");
+                incorrectEmailFormat.classList.remove("hidden");
             } else {
-                submitButton.disabled = false;
-                incorrectEmailFormat.style.display = "none";
+                inputEmail.classList.remove("input-error");
+                submitButton.classList.remove("disabled");
+                incorrectEmailFormat.classList.remove("block");
+                incorrectEmailFormat.classList.add("hidden");
             }
         }
     </script>
