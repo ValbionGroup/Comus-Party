@@ -1,7 +1,7 @@
 /**
  * @file    shop.js
  * @author  Mathis Rivrais--Nowakowski
- * @brief    Le fichier contient le JS nécessaire au bon fonctionnement de la page basket
+ * @brief   Le fichier contient le JS nécessaire au bon fonctionnement de la page basket
  * @date    14/11/2024
  * @version 0.4
  */
