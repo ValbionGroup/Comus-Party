@@ -91,6 +91,15 @@ class ControllerAuth extends Controller
         $message = "Bonjour, veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe : $url";
     }
 
+    /**
+     * @brief Affiche la page de réinitialisation de mot de passe
+     * @param string $token Token de réinitialisation de mot de passe
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
+     * @throws MalformedRequestException Exception levée dans le cas d'une requête malformée
+     */
     public function showResetPasswordPage(string $token): void
     {
         global $twig;
@@ -101,7 +110,16 @@ class ControllerAuth extends Controller
         echo $twig->render('reset-password.twig');
     }
 
-    public function resetPassword(string $token, string $password, string $passwordConfirm): string
+    /**
+     * @brief Réinitialise le mot de passe de l'utilisateur
+     * @details Vérifie que le mot de passe et sa confirmation sont identiques, puis les hashes avant de les stocker en base de données
+     * @param string $token Token de réinitialisation de mot de passe
+     * @param string $password Nouveau mot de passe
+     * @param string $passwordConfirm Confirmation du nouveau mot de passe
+     * @throws MalformedRequestException
+     * @throws DateMalformedStringException
+     */
+    public function resetPassword(string $token, string $password, string $passwordConfirm)
     {
         $rules = [
             'password' => [
