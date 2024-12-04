@@ -1,7 +1,7 @@
 <?php
 /**
  * @brief Gère les exceptions d'authentification
- * @file AuthentificationException.php
+ * @file AuthenticationException.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
  * @version 1.0
  * @date 2024-11-21
@@ -13,10 +13,10 @@ use Exception;
 use Throwable;
 
 /**
- * @brief Classe AuthentificationException
- * @details La classe AuthentificationException permet de gérer les exceptions liées à l'authentification
+ * @brief Classe AuthenticationException
+ * @details La classe AuthenticationException permet de gérer les exceptions liées à l'authentification
  */
-class AuthentificationException extends Exception
+class AuthenticationException extends Exception
 {
     public function __construct(string $message = "", int $code = 401, ?Throwable $previous = null)
     {
