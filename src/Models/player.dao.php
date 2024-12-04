@@ -214,21 +214,12 @@ class PlayerDAO {
      * @return array L'objet retourné par la méthode, ici un tableau (d'objets Player)
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
-    public function hydrateMany(array $data) : array {
+    public function hydrateMany(array $data): array
+    {
         $players = [];
         foreach ($data as $player) {
             $players[] = $this->hydrate($player);
         }
         return $players;
-    }
-
-    public function disableAccount($id)
-    {
-        $stmt = $this->pdo->prepare(
-            'UPDATE ' . DB_PREFIX . 'user
-            SET disabled = 1
-            WHERE id = :id');
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
     }
 }

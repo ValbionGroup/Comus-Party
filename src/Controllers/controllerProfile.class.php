@@ -91,17 +91,19 @@ class ControllerProfile extends Controller {
     public function disableAccount(?string $uuid)
     {
         if (is_null($uuid)) {
-            throw new NotFoundException('Joueur non-trouvé');
+            throw new NotFoundException('Player not found');
         }
         if ($_SESSION['uuid'] != $uuid) {
             throw new UnauthorizedAccessException('Vous n\'êtes pas autorisé à effectuer cette action');
         }
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findWithDetailByUuid($uuid);
-        if (is_null($player)) {
-            throw new NotFoundException('Player not found');
+        $userManager = new UserDAO($this->getPdo());
+        $user = $userManager->findById($player->getUserId());
+        if (is_null($user)) {
+            throw new NotFoundException('User not found');
         }
-        $playerManager->disableAccount($player->getUserId());
+        $userManager->disableAccount($user->getId());
         ControllerFactory::getController('auth', $this->getLoader(), $this->getTwig())->call('logout');
         header('Location: /');
     }
