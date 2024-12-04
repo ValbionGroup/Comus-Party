@@ -162,7 +162,7 @@ class ControllerShop extends Controller {
 
             echo json_encode([
                 'success' => true,
-                'type' => $article->getType()
+                'type' => $article->getType()->name
             ]);
         } else {
             echo "Erreur : ID de l'article non spécifié.";

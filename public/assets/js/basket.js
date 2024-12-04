@@ -62,8 +62,6 @@ removeButtons.forEach(button => {
  *  @param id L'id de l'article qu'il faut supprimer
  */
 function removeArticle(id){
-    console.log(id)
-    console.log(typeof(id))
     const xhr = new XMLHttpRequest();
     xhr.open("DELETE", `/shop/basket/remove/${id}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
