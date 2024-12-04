@@ -13,6 +13,7 @@ use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
+use ComusParty\Models\Validator;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -63,6 +64,25 @@ class ControllerAuth extends Controller
      */
     public function authenticate(?string $email, ?string $password): void
     {
+        $regles = [
+            'email' => [
+                'required' => true,
+                'type' => 'string',
+                'format' => FILTER_VALIDATE_EMAIL
+            ],
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 8
+            ]
+        ];
+
+        $validator = new Validator($regles);
+        if (!$validator->validate(['email' => $email, 'password' => $password])) {
+            var_dump($validator->getErrors());
+            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+        }
+
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
 
