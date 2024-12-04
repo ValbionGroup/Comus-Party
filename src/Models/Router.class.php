@@ -113,6 +113,7 @@ class Router
      *  Sinon, on lève une RouteNotFoundException
      *
      * @throws RouteNotFoundException Dans le cas où la route demandée n'existe pas
+     * @throws Exception Dans le cas où une autre exception est levée
      * @return void
      */
     public function matchRoute(): void
