@@ -2,9 +2,9 @@
 /**
  * @file    controllerAuth.class.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe ControllerFactory.
- * @date    14/11/2024
- * @version 0.4
+ * @brief   Le fichier contient la déclaration & définition de la classe ControllerAuth.
+ * @date    21/11/2024
+ * @version 0.5
  */
 
 namespace ComusParty\Controllers;
