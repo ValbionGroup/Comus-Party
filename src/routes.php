@@ -160,8 +160,29 @@ $router->get('/forgot-password', function () use ($loader, $twig) {
         header('Location: /');
         exit;
     }
+    ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
+    exit;
+});
 
-    ControllerFactory::getController("auth", $loader, $twig)->call("showResetPasswordPage");
+$router->get('/reset-password/:token', function (string $token) use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("showResetPasswordPage", ["token" => $token]);
+    exit;
+});
+
+$router->post('/reset-password/:token', function (string $token) use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
+        "token" => $token,
+        "password" => $_POST['password'],
+        "passwordConfirm" => $_POST['passwordConfirm']
+    ]);
     exit;
 });
 

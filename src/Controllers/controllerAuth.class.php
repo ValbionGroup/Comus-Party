@@ -11,8 +11,11 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
+use ComusParty\Models\Exception\MalformedRequestException;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
+use ComusParty\Models\Validator;
+use DateMalformedStringException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -50,7 +53,8 @@ class ControllerAuth extends Controller
     }
 
     /**
-     * @brief La méthode showForgotPasswordPage permet d'afficher la page de réinitialisation de mot de passe
+     * @brief Affiche la page de réinitialisation de mot de passe
+     * @return void
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
@@ -61,11 +65,72 @@ class ControllerAuth extends Controller
         echo $twig->render('forgot-password.twig');
     }
 
-    public function sendResetPasswordLink(): void
+    /**
+     * @param string $email Adresse e-mail pré-remplie dans le formulaire d'inscription
+     * @return void
+     * @throws DateMalformedStringException
+     * @todo Utiliser une template de mail quand disponible
+     * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
+     */
+    public function sendResetPasswordLink(string $email): void
     {
+        $userManager = new UserDAO($this->getPdo());
+        $user = $userManager->findByEmail($email);
 
+        if (is_null($user)) {
+            return;
+        }
+
+        $token = bin2hex(random_bytes(32));
+        $userManager->updateResetToken($user->getId(), $token);
+
+        $url = BASE_URL . "/reset-password/$token";
+        $to = $user->getEmail();
+        $subject = "Réinitialisation de votre mot de passe";
+        // TODO: Utiliser une template mail pour les mails dès que possible
+        $message = "Bonjour, veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe : $url";
     }
 
+    public function showResetPasswordPage(string $token): void
+    {
+        global $twig;
+
+        $userManager = new UserDAO($this->getPdo());
+        $user = $userManager->findByResetToken($token);
+
+        echo $twig->render('reset-password.twig');
+    }
+
+    public function resetPassword(string $token, string $password, string $passwordConfirm): string
+    {
+        $rules = [
+            'password' => [
+                'required' => true,
+                'minLength' => 8,
+                'maxLength' => 255
+            ],
+            'passwordConfirm' => [
+                'required' => true,
+                'minLength' => 8,
+                'maxLength' => 255
+            ]
+        ];
+        $validator = new Validator($rules);
+        $validated = $validator->validate([
+            'password' => $password,
+            'passwordConfirm' => $passwordConfirm
+        ]);
+
+        if (!$validated) {
+            throw new MalformedRequestException("Le mot de passe doit contenir entre 8 et 255 caractères");
+        }
+
+        if ($password !== $passwordConfirm) {
+            throw new MalformedRequestException("Les mots de passe ne correspondent pas");
+        }
+
+
+    }
 
     /**
      * @brief Traite la demande de connexion de l'utilisateur
@@ -78,6 +143,7 @@ class ControllerAuth extends Controller
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
      * @return void
      * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
+     * @throws DateMalformedStringException Erreur avec la création du DateTime
      */
     public function authenticate(?string $email, ?string $password): void
     {
