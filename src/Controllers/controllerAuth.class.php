@@ -12,6 +12,7 @@ namespace ComusParty\Controllers;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
 use ComusParty\Models\Exception\MalformedRequestException;
+use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use ComusParty\Models\Validator;
@@ -104,8 +105,12 @@ class ControllerAuth extends Controller
     {
         global $twig;
 
-        $userManager = new UserDAO($this->getPdo());
-        $user = $userManager->findByResetToken($token);
+        $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+        $token = $tokenManager->findByToken($token);
+
+        if (is_null($token)) {
+            throw new MalformedRequestException("Token invalide");
+        }
 
         echo $twig->render('reset-password.twig');
     }
@@ -147,6 +152,15 @@ class ControllerAuth extends Controller
             throw new MalformedRequestException("Les mots de passe ne correspondent pas");
         }
 
+        $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+        $token = $tokenManager->findByToken($token);
+
+        if (is_null($token)) {
+            throw new MalformedRequestException("Token invalide");
+        }
+
+        $userManager = new UserDAO($this->getPdo());
+        $userManager->updatePassword($token->getUserId(), password_hash($password, PASSWORD_DEFAULT));
 
     }
 
