@@ -146,7 +146,6 @@ class ControllerAuth extends Controller {
      * @todo Changer l'URL envoyé (localhost) pour le déploiement
      */
     public function register(?string $username, ?string $email, ?string $password): void {
-        if(session_status() === PHP_SESSION_NONE) { session_start(); }
         // Vérifier si l'email, le nom d'utilisateur et le mot de passe sont valides
         if ($this->validateUsername($username) &&
             $this->validateEmail($email) &&
@@ -192,13 +191,13 @@ class ControllerAuth extends Controller {
 
                     // Configuration du message
                     $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
-                    $mail->Subject = 'Confirmation de votre compte Comus Party' . MAIL_BASE; // Sujet du message
+                    $mail->Subject = 'Confirmation de votre compte' . MAIL_BASE; // Sujet du message
                     $mail->Body = // Corps du message
-                        '<p>Vous avez créer un compte sur le site Comus.</p>
+                        '<p>Vous avez créer un compte sur Comus Party.</p>
                         <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
                         <a href="http://localhost:8000/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
                     $mail->AltBody = // Corps du message sans format HTML
-                        'Vous avez créer un compte sur le site Comus.
+                        'Vous avez créer un compte sur Comus Party.
                         Pour confirmer votre compte, cliquez sur le lien ci-dessous.
                         http://localhost:8000/confirm-email/' . urlencode($emailVerifToken);
 
