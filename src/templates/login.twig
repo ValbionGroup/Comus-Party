@@ -26,3 +26,41 @@
         </form>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    <script language="JavaScript">
+        window.onload = function () {
+            const INPUT_EMAIL = document.getElementById('email');
+            INPUT_EMAIL.addEventListener('input', checkEmailRequirements());
+        }
+
+        /**
+         * @brief Vérifie si l'email respecte les exigences spécifiées.
+         *
+         * @details La fonction vérifie si l'email:
+         * - a un format valide
+         * Si l'email ne respecte pas ces exigences, le bouton de soumission est désactivé
+         * et un message d'erreur est affiché.
+         *
+         * @return void
+         */
+        function checkEmailRequirements() {
+            // Constantes
+            const EMAIL = document.getElementById("email").value; // Email
+            const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex pour valider le format de l'email
+            // Variables
+            let incorrectEmailFormat = document.getElementById("incorrectEmailFormat");
+            let submitButton = document.getElementById("submitButton");
+
+            // Vérifications
+            if (!EMAIL_REGEX.test(EMAIL)) {
+                submitButton.disabled = true;
+                incorrectEmailFormat.innerHTML = "Format d'email invalide, veuillez entrer un email valide.";
+                incorrectEmailFormat.style.display = "block";
+            } else {
+                submitButton.disabled = false;
+                incorrectEmailFormat.style.display = "none";
+            }
+        }
+    </script>
+{% endblock %}
