@@ -11,7 +11,7 @@ require_once __DIR__ . '/../include.php';
 
 use ComusParty\Controllers\Controller;
 use ComusParty\Controllers\ControllerAuth;
-use ComusParty\Models\Exception\AuthentificationException;
+use ComusParty\Models\Exception\AuthenticationException;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -29,18 +29,6 @@ class ControllerAuthTest extends TestCase
     private Controller $controller;
 
     /**
-     * @brief Méthode setUp exécutée avant chaque test
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $loader = new FilesystemLoader(__DIR__ . '/../src/templates');
-        $twig = new Environment($loader);
-        $this->controller = new ControllerAuth($loader, $twig);
-
-    }
-
-    /**
      * @brief Test de la méthode authenticate() avec un e-mail null
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une erreur de format de date
@@ -48,7 +36,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnNullEmail(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->expectException(AuthentificationException::class);
+        $this->expectException(AuthenticationException::class);
         $this->controller->authenticate(null, 'hashed_password1');
     }
 
@@ -60,7 +48,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnNullPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->expectException(AuthentificationException::class);
+        $this->expectException(AuthenticationException::class);
         $this->controller->authenticate('john.doe@example.com', null);
     }
 
@@ -81,7 +69,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnInvalidEmailAndValidPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->expectException(AuthentificationException::class);
+        $this->expectException(AuthenticationException::class);
         $this->controller->authenticate('john.doeexample.com', 'hashed_password1');
     }
 
@@ -92,7 +80,19 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnInexistantEmailAndValidPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->expectException(AuthentificationException::class);
+        $this->expectException(AuthenticationException::class);
         $this->controller->authenticate('john.danny@example.com', 'hashed_password1');
+    }
+
+    /**
+     * @brief Méthode setUp exécutée avant chaque test
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $loader = new FilesystemLoader(__DIR__ . '/../src/templates');
+        $twig = new Environment($loader);
+        $this->controller = new ControllerAuth($loader, $twig);
+
     }
 }
