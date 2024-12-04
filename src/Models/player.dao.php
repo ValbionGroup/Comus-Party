@@ -221,4 +221,14 @@ class PlayerDAO {
         }
         return $players;
     }
+
+    public function disableAccount($id)
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE ' . DB_PREFIX . 'user
+            SET disabled = 1
+            WHERE id = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
 }
