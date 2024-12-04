@@ -100,13 +100,14 @@
                     </div>
                 </form>
             </div>
-            <a href="" class="col-span-4 mt-10 btn-danger flex items-center justify-center gap-1 ml-10 sm:grid-cols-7">
+            <div onclick="showModalSuppression()"
+                 class="col-span-4 mt-10 btn-danger flex items-center justify-center gap-1 ml-10 sm:grid-cols-7">
                 <span class="font-semibold">Supprimer mon compte</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25 em" viewBox="0 0 24 24">
                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"
                           d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79s-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/>
                 </svg>
-            </a>
+            </div>
         </div>
 
         <div id="statistics" class="hidden">
@@ -140,10 +141,10 @@
 
     </div>
 
-    <div id="backgroundModal" class="fixed inset-0 bg-night-1 opacity-85 z-35"></div>
+    <div onclick="closeModal()" id="backgroundModal" class="hidden fixed inset-0 bg-night-1 opacity-85 z-35"></div>
 
     <div id="modalConfirmationSuppression"
-         class="w-full sm:w-1/2 bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl">
+         class="hidden w-full sm:w-1/2 bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl">
         <div class="modal-content m-2">
             <div class="pb-2">
                 <p class="text-2xl font-bold">Demande de suppression de compte</p>
@@ -165,10 +166,11 @@
                 <p class="font-semibold">Êtes-vous sûr de vouloir continuer ?</p>
             </div>
             <div class="flex gap-2 justify-end mt-3">
-                <button class="btn-secondary" onclick="closeModal(this)">Tout compte fait, j'abandonne</button>
-                <button class="btn-danger font-semibold" onclick="disableAccount(this)">Oui, je veux désactiver mon
+                <button class="btn-secondary" onclick="closeModal()">Tout compte fait, j'abandonne</button>
+                <a class="btn-danger font-semibold" href="/disable-account/{{ player.uuid }}">Oui, je veux désactiver
+                    mon
                     compte
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -232,6 +234,20 @@
                 default :
                     break;
             }
+        }
+
+        function closeModal() {
+            let modal = document.getElementById('modalConfirmationSuppression');
+            let background = document.getElementById('backgroundModal');
+            modal.classList.add("hidden");
+            background.classList.add("hidden");
+        }
+
+        function showModalSuppression() {
+            let modal = document.getElementById('modalConfirmationSuppression');
+            let background = document.getElementById('backgroundModal');
+            modal.classList.remove("hidden");
+            background.classList.remove("hidden");
         }
     </script>
 {% endblock %}
