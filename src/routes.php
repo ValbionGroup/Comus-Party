@@ -172,3 +172,12 @@ $router->put('/profile', function () {
     echo "A IMPLEMENTER";
     exit;
 });
+
+$router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("profile", $loader, $twig)->call("disableAccount", ["uuid" => $uuid]);
+    exit;
+});
