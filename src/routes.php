@@ -121,13 +121,6 @@ $router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
     ControllerFactory::getController("basket",$loader,$twig)->call("removeArticleBasket", ["id" => $id]);
     exit;
 });
-$router->get('/shop/showInformation/:id', function ($id) use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
-    ControllerFactory::getController("shop",$loader,$twig)->call("showInformation", ["id"=>$id]);
-});
 
 $router->get('/shop/basket/checkout', function () {
     if (!isset($_SESSION['uuid'])) {
