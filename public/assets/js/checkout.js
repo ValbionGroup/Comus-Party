@@ -19,6 +19,12 @@ function formatCryptogram(input) {
         .replace(/\D/g, '') // Supprimer les caractères non numériques
 }
 
+function formatExpirationDate(input) {
+    input.value = input.value
+        .replace(/\D/g, '') // Supprimer les caractères non numériques
+        .replace(/(\d{2})(?=\d)/g, '$1/') // Ajouter un / après les 2 premiers chiffres
+}
+
 function price(){
 
     let prices = document.querySelectorAll('.articlePrice');
@@ -33,7 +39,6 @@ function price(){
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('#checkoutForm');
     const submitButton = document.querySelector('#submit');
-    document.getElementById("dateCC").valueAsDate = new Date();
 
     // Fonction pour vérifier si le formulaire est valide
     function checkFormValidity() {
@@ -55,13 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Empêche l'envoi du formulaire par "Entrée" si le formulaire est invalide
     form.addEventListener('keydown', function (event) {
-        // Si la touche pressée est "Entrée" (keyCode 13) et que le formulaire est valide
         if (event.key === "Enter") {
             if (form.checkValidity()) {
-                // Laisser le formulaire se soumettre
                 return true;
             } else {
-                // Empêche la soumission si le formulaire n'est pas valide
                 event.preventDefault();
             }
         }

@@ -137,8 +137,8 @@
                                     <div class="col-span-1 row-span-1">
                                         <label for="dateCC">
                                             <span>Date d'expiration</span>
-                                            <input type="month" id="dateCC" name="dateCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
-                                                   value="" required>
+                                            <input type="tel" id="dateCC" name="dateCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                                   placeholder="MM/YY" value="" pattern="\d{2}/\d{2}" maxlength="5" oninput="formatExpirationDate(this)" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                                                     Please enter a valid date
                                             </span>
