@@ -50,6 +50,24 @@ class ControllerAuth extends Controller
     }
 
     /**
+     * @brief La méthode showForgotPasswordPage permet d'afficher la page de réinitialisation de mot de passe
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     */
+    public function showForgotPasswordPage(): void
+    {
+        global $twig;
+        echo $twig->render('forgot-password.twig');
+    }
+
+    public function sendResetPasswordLink(): void
+    {
+
+    }
+
+
+    /**
      * @brief Traite la demande de connexion de l'utilisateur
      * @details Vérifie si un utilisateur portant l'adresse e-mail fournie en paramètre existe.
      * Si oui, vérifie par la suite son adresse e-mail a bien été vérifiée. Dans le cas contraire, lève une exception

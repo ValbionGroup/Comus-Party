@@ -21,7 +21,7 @@ $router->get('/', function () use ($loader, $twig) {
         header('Location: /login');
         exit;
     }
-    ControllerFactory::getController("game",$loader,$twig)->call("show");
+    ControllerFactory::getController("game", $loader, $twig)->call("show");
     exit;
 });
 
@@ -93,13 +93,13 @@ $router->get('/shop', function () use ($loader, $twig) {
 
 });
 
-$router->get('/shop/basket', function ()  use ($loader, $twig) {
+$router->get('/shop/basket', function () use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
 
-    ControllerFactory::getController("basket",$loader,$twig)->call("show");
+    ControllerFactory::getController("basket", $loader, $twig)->call("show");
     exit;
 });
 
@@ -155,11 +155,22 @@ $router->post('/register', function () {
     exit;
 });
 
+$router->get('/forgot-password', function () use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+
+    ControllerFactory::getController("auth", $loader, $twig)->call("showResetPasswordPage");
+    exit;
+});
+
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
+
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
     exit;
 });
