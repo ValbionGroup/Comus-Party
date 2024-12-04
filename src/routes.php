@@ -164,6 +164,15 @@ $router->get('/forgot-password', function () use ($loader, $twig) {
     exit;
 });
 
+$router->post('/forgot-password', function () use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("sendResetPasswordLink", ["email" => $_POST['email']]);
+    exit;
+});
+
 $router->get('/reset-password/:token', function (string $token) use ($loader, $twig) {
     if (isset($_SESSION['uuid'])) {
         header('Location: /');
@@ -191,7 +200,6 @@ $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
         header('Location: /login');
         exit;
     }
-
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
     exit;
 });
