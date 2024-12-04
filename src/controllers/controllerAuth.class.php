@@ -195,11 +195,11 @@ class ControllerAuth extends Controller {
                     $mail->Body = // Corps du message
                         '<p>Vous avez créer un compte sur Comus Party.</p>
                         <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
-                        <a href="http://localhost:8000/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
+                        <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
                     $mail->AltBody = // Corps du message sans format HTML
                         'Vous avez créer un compte sur Comus Party.
                         Pour confirmer votre compte, cliquez sur le lien ci-dessous.
-                        http://localhost:8000/confirm-email/' . urlencode($emailVerifToken);
+                        "' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken);
 
                     $mail->send(); // Envoi du message
                 } catch (Exception $e) { echo "Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}"; }
