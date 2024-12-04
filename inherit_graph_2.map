@@ -1,0 +1,13 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="Node000000" href="$classComusParty_1_1Controllers_1_1Controller.html" title="Classe Controller." alt="" coords="5,104,82,130"/>
+<area shape="rect" id="Node000001" href="$classComusParty_1_1Controllers_1_1ControllerAuth.html" title="Classe ControllerAuth." alt="" coords="137,5,240,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="66,91,94,65,128,40,149,29,152,34,131,44,98,69,69,95"/>
+<area shape="rect" id="Node000002" href="$classComusParty_1_1Controllers_1_1ControllerBasket.html" title=" " alt="" coords="130,55,247,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="96,96,148,78,149,83,98,101"/>
+<area shape="rect" id="Node000003" href="$classComusParty_1_1Controllers_1_1ControllerGame.html" title="Classe ControllerGame." alt="" coords="133,104,244,130"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="97,114,132,114,132,120,97,120"/>
+<area shape="rect" id="Node000004" href="$classComusParty_1_1Controllers_1_1ControllerProfile.html" title="Classe ControllerProfile." alt="" coords="132,153,244,179"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="98,132,149,150,148,155,96,137"/>
+<area shape="rect" id="Node000005" href="$classComusParty_1_1Controllers_1_1ControllerShop.html" title="Classe ControllerShop." alt="" coords="135,203,242,228"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="69,139,98,165,131,189,152,200,149,205,128,194,94,169,66,142"/>
+</map>
