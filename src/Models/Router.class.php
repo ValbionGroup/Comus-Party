@@ -3,7 +3,7 @@
 /**
  * @brief Fichier de la classe Router
  *
- * @file Router.php
+ * @file Router.class.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
  * @version 1.0
  * @date 2024-11-12
@@ -22,25 +22,32 @@ use Exception;
 class Router
 {
     /**
+     * @var Router|null Instance du Router
+     */
+    private static ?Router $instance = null;
+    /**
      * @var array Tableau des routes
      */
     protected array $routes = [];
 
     /**
-     * @var Router|null Instance du Router
+     * @brief Constructeur de la classe Router
+     * @details Constructeur privé pour empêcher l'instanciation de la classe
      */
-    private static ?Router $instance = null;
+    private function __construct()
+    {
+    }
 
     /**
-     * @brief Permet d'ajouter une route au tableau de routes du Router
-     * @param string $method Méthode HTTP (GET, POST, PUT, DELETE)
-     * @param string $url URL demandée
-     * @param callable $target Action à effectuer
-     * @return void
+     * @brief Permet de récupérer l'instance du Router
+     * @return Router
      */
-    private function addRoute(string $method, string $url, callable $target): void
+    public static function getInstance(): Router
     {
-        $this->routes[$method][BASE_URI.$url] = $target;
+        if (is_null(self::$instance)) {
+            self::$instance = new Router();
+        }
+        return self::$instance;
     }
 
     /**
@@ -52,6 +59,18 @@ class Router
     public function get(string $url, callable $target): void
     {
         $this->addRoute('GET', $url, $target);
+    }
+
+    /**
+     * @brief Permet d'ajouter une route au tableau de routes du Router
+     * @param string $method Méthode HTTP (GET, POST, PUT, DELETE)
+     * @param string $url URL demandée
+     * @param callable $target Action à effectuer
+     * @return void
+     */
+    private function addRoute(string $method, string $url, callable $target): void
+    {
+        $this->routes[$method][BASE_URI . $url] = $target;
     }
 
     /**
@@ -87,7 +106,6 @@ class Router
         $this->addRoute('DELETE', $url, $target);
     }
 
-
     /**
      * @brief Permet d'accéder à la route demandée
      * @details Permet de vérifier si la route demandée existe.
@@ -114,38 +132,24 @@ class Router
             }
         }
 
-        throw new RouteNotFoundException('Route '.$url.' ('.$method.')'.' not found');
+        throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ')' . ' not found');
     }
 
     /**
-     * @brief Permet de récupérer l'instance du Router
-     * @return Router
+     * @brief Empêche la désérialisation de l'instance
+     * @return void
+     * @throws Exception
      */
-    public static function getInstance(): Router
+    public function __wakeup(): void
     {
-        if (is_null(self::$instance)) {
-            self::$instance = new Router();
-        }
-        return self::$instance;
+        throw new Exception("Cannot unserialize a singleton.");
     }
-
-    /**
-     * @brief Constructeur de la classe Router
-     * @details Constructeur privé pour empêcher l'instanciation de la classe
-     */
-    private function __construct() {}
 
     /**
      * @brief Empêche le clonage de l'instance
      * @return void
      */
-    private function __clone(): void {}
-
-    /**
-     * @brief Empêche la désérialisation de l'instance
-     * @return void
-     */
-    public function __wakeup(): void {
-        throw new Exception("Cannot unserialize a singleton.");
+    private function __clone(): void
+    {
     }
 }

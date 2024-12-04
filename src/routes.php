@@ -93,7 +93,7 @@ $router->get('/shop', function () use ($loader, $twig) {
 
 });
 
-$router->get('/shop/basket', function () {
+$router->get('/shop/basket', function ()  use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
