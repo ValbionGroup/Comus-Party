@@ -67,7 +67,7 @@ class PasswordResetTokenDAO
         if ($row === false) {
             return null;
         }
-        return new PasswordResetToken($row['user_id'], $row['token'], new DateTime($row['created_at']));
+        return $this->hydrate($row);
     }
 
     /**
@@ -84,7 +84,7 @@ class PasswordResetTokenDAO
         if ($row === false) {
             return null;
         }
-        return new PasswordResetToken($row['user_id'], $row['token'], new DateTime($row['created_at']));
+        return $this->hydrate($row);
     }
 
     /**
@@ -111,5 +111,31 @@ class PasswordResetTokenDAO
     {
         $stmt = $this->pdo->prepare('DELETE FROM '. DB_PREFIX .'pswd_reset_token WHERE user_id = :userId');
         return $stmt->execute(['userId' => $userId]);
+    }
+
+    /**
+     * @brief Hydrate un tableau de données en un objet PasswordResetToken
+     * @param array $row Le tableau de données à hydrater
+     * @return PasswordResetToken Objet PasswordResetToken retourné par la méthode
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
+     */
+    private function hydrate(array $row): PasswordResetToken
+    {
+        return new PasswordResetToken($row['user_id'], $row['token'], new DateTime($row['created_at']));
+    }
+
+    /**
+     * @brief Hydrate un tableau de données en un tableau d'objets PasswordResetToken
+     * @param array $rows Le tableau de données à hydrater
+     * @return array Objet PasswordResetToken retourné par la méthode
+     * @throws DateMalformedStringException
+     */
+    private function hydrateMany(array $rows): array
+    {
+        $tokens = [];
+        foreach ($rows as $row) {
+            $tokens[] = $this->hydrate($row);
+        }
+        return $tokens;
     }
 }
