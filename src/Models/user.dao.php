@@ -92,11 +92,11 @@ class UserDAO {
         );
 
         $email = $user->getEmail();
-        $verifiedAt = $user->getEmailVerifiedAt();
+        $verifiedAt = $user->getEmailVerifiedAt()->getTimestamp();
         $emailVerifyToken = $user->getEmailVerifyToken();
         $password = $user->getPassword();
         $disabled = $user->getDisabled();
-        $createdAt = $user->getCreatedAt();
+        $createdAt = $user->getCreatedAt()->getTimestamp();
         $id = $user->getId();
 
         $stmt->bindParam(':email', $email);
