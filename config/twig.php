@@ -39,7 +39,7 @@ $twig->addGlobal('auth', [
     'loggedXp' => $_SESSION['xp'] ?? null,
 ]);
 
-$twig->addGlobal('error', [
-    'code' => null,
-    'message' => null,
-]);
+if (isset($_SESSION['error'])) {
+    $twig->addGlobal('error', $_SESSION['error']);
+    unset($_SESSION['error']);
+}
