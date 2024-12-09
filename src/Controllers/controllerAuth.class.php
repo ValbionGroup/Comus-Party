@@ -185,12 +185,14 @@ class ControllerAuth extends Controller
             'password' => [
                 'required' => true,
                 'minLength' => 8,
-                'maxLength' => 255
+                'maxLength' => 255,
+                'format' => '/^[a-zA-Z0-9!@#$%^&*()_+-=]+$/'
             ],
             'passwordConfirm' => [
                 'required' => true,
                 'minLength' => 8,
-                'maxLength' => 255
+                'maxLength' => 255,
+                'format' => '/^[a-zA-Z0-9!@#$%^&*()_+-=]+$/'
             ]
         ];
         $validator = new Validator($rules);
