@@ -87,12 +87,12 @@ class Controller {
             return $this->{$method}(...array_values($args));
         } catch (Exception $e) {
             switch ($e->getCode()) {
-                case 403:
-                    ErrorHandler::displayFullScreenException($e);
+                case 401:
+                    ErrorHandler::addExceptionParametersToSession($e);
+                    header('Location: /login');
                     break;
                 default:
-                    ErrorHandler::addExceptionParametersToSession($e);
-                    header('Location: /');
+                    ErrorHandler::displayFullScreenException($e);
                     break;
             }
         }
