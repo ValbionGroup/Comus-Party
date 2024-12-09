@@ -193,11 +193,11 @@ class ControllerAuth extends Controller {
                     $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
                     $mail->Subject = 'Confirmation de votre compte' . MAIL_BASE; // Sujet du message
                     $mail->Body = // Corps du message
-                        '<p>Vous avez créer un compte sur Comus Party.</p>
+                        '<p>Vous avez créé un compte sur Comus Party.</p>
                         <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
                         <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
                     $mail->AltBody = // Corps du message sans format HTML
-                        'Vous avez créer un compte sur Comus Party.
+                        'Vous avez créé un compte sur Comus Party.
                         Pour confirmer votre compte, cliquez sur le lien ci-dessous.
                         "' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken);
 
@@ -280,14 +280,10 @@ class ControllerAuth extends Controller {
         $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
         if ($user) {
             $userDAO->confirmUser($emailVerifToken);
-            $confirmationResult='Votre compte a bien été créé';
-            $confirmationValid = true;
-        } else {
-            $confirmationResult='La confirmation a echoué';
-            $confirmationValid = false;
-        }
+            $confirmationResult='Votre compte a bien été confirmé, vous pouvez maintenant vous connecter';
+        } else { $confirmationResult='La confirmation a echoué'; }
 
         global $twig;
-        echo $twig->render('confirmEmail.twig', ['confirmationResult' => $confirmationResult, 'confirmationValid' => $confirmationValid]);
+        echo $twig->render('signUp.twig', ['confirmationResult' => $confirmationResult]);
     }
 }
