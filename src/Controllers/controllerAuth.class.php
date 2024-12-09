@@ -2,7 +2,7 @@
 /**
  * @file    controllerAuth.class.php
  * @author  Estéban DESESSARD, Lucas ESPIET
- * @brief   Le fichier contient la déclaration & définition de la classe ControllerFactory.
+ * @brief   Le fichier contient la déclaration & définition de la classe ControllerAuth.
  * @date    09/12/2024
  * @version 0.6
  */
