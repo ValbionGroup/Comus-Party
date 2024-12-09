@@ -11,7 +11,9 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
+use ComusParty\Models\Exception\ErrorHandler;
 use ComusParty\Models\Exception\MalformedRequestException;
+use ComusParty\Models\Exception\NotFoundException;
 use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
@@ -79,14 +81,31 @@ class ControllerAuth extends Controller
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws RandomException Exception levée dans le cas d'une erreur de génération de nombre aléatoire
      * @todo Utiliser une template de mail quand disponible
+     * @todo Changer la méthode de retour dès que possible
      * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
      */
     public function sendResetPasswordLink(string $email): void
     {
+        $validator = new Validator([
+            'email' => [
+                'required' => true,
+                'type' => 'string',
+                'format' => FILTER_VALIDATE_EMAIL
+            ]
+        ]);
+
+        if (!$validator->validate(['email' => $email])) {
+            ErrorHandler::addExceptionParametersToTwig(new MalformedRequestException("Adresse e-mail invalide"));
+            header('Location: /forgot-password');
+            return;
+        }
+
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
 
         if (is_null($user)) {
+            ErrorHandler::addExceptionParametersToTwig(new NotFoundException("Aucun utilisateur trouvé avec cette adresse e-mail"));
+            header('Location: /forgot-password');
             return;
         }
 
@@ -120,10 +139,10 @@ class ControllerAuth extends Controller
             $mail->send();
 
             // TODO: A changer
-            echo "ok";
+            echo "success";
         } catch (MailException $e) {
             // TODO: Modifier le système d'erreur
-            echo "Le mail n'a pas pu être envoyé. {$mail->ErrorInfo}";
+            echo "Le mail n'a pas pu être envoyé. $mail->ErrorInfo";
         }
     }
 
