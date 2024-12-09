@@ -5,16 +5,6 @@
 {% endblock %}
 
 {% block content %}
-    {% if confirmationValid is not null %}
-        <div id="confirmationPopup" 
-            class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg text-center z-50" 
-            x-data="{ open: true }" 
-            x-show="open"
-            x-init="autoHidePopup()">
-            <p>{{ confirmationResult }}</p>
-        </div>
-    {% endif %}
-
     <div class="w-full">
         <div class="mt-4 sm:mt-0">
             <h1 class="text-3xl font-bold">Inscription</h1>
