@@ -20,6 +20,9 @@ use ComusParty\Models\Validator;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
+use PHPMailer\PHPMailer\Exception as MailException;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -71,12 +74,12 @@ class ControllerAuth extends Controller
     }
 
     /**
-     * @todo Utiliser une template de mail quand disponible
-     * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
      * @param string $email Adresse e-mail pré-remplie dans le formulaire d'inscription
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws RandomException Exception levée dans le cas d'une erreur de génération de nombre aléatoire
+     * @todo Utiliser une template de mail quand disponible
+     * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
      */
     public function sendResetPasswordLink(string $email): void
     {
@@ -91,11 +94,35 @@ class ControllerAuth extends Controller
         $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(32)), new DateTime());
         $tokenManager->insert($token);
 
-        $url = BASE_URL . "/reset-password/".$token->getToken();
+        $url = BASE_URL . "/reset-password/" . $token->getToken();
         $to = $user->getEmail();
         $subject = "Réinitialisation de votre mot de passe";
         // TODO: Utiliser une template mail pour les mails dès que possible
         $message = "Bonjour, veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe : $url";
+
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->Host = MAIL_HOST;
+            $mail->SMTPAuth = true;
+            $mail->Port = MAIL_PORT;
+            $mail->Username = MAIL_USER;
+            $mail->Password = MAIL_PASS;
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->setFrom(MAIL_FROM);
+            $mail->isHTML(true);
+            $mail->Subject = $subject . MAIL_BASE;
+            $mail->AltBody = $message;
+            $mail->Body = $message;
+
+            $mail->addAddress($to);
+            $mail->send();
+
+            echo "ok";
+        } catch (MailException $e) {
+            echo "Le mail n'a pas pu être envoyé. {$mail->ErrorInfo}";
+        }
     }
 
     /**
