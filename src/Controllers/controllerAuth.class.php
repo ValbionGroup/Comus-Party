@@ -119,8 +119,10 @@ class ControllerAuth extends Controller
             $mail->addAddress($to);
             $mail->send();
 
+            // TODO: A changer
             echo "ok";
         } catch (MailException $e) {
+            // TODO: Modifier le système d'erreur
             echo "Le mail n'a pas pu être envoyé. {$mail->ErrorInfo}";
         }
     }
