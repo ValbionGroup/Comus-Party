@@ -63,7 +63,7 @@ $router->post('/login', function () use ($loader, $twig) {
         }
         throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
     } catch (Exception $e) {
-        ErrorHandler::addExceptionParametersToTwig($e);
+        ErrorHandler::addExceptionParametersToSession($e);
         ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
     }
 });
