@@ -10,7 +10,9 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\Db;
+use ComusParty\Models\Exception\ErrorHandler;
 use ComusParty\Models\Exception\MethodNotFoundException;
+use Exception;
 use PDO;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -81,7 +83,19 @@ class Controller {
         if (!method_exists($this, $method)) {
             throw new MethodNotFoundException('La méthode ' . $method . ' n\'existe pas dans le contrôleur ' . get_class($this));
         }
-        return $this->{$method}(...array_values($args));
+        try {
+            return $this->{$method}(...array_values($args));
+        } catch (Exception $e) {
+            switch ($e->getCode()) {
+                case 401:
+                    ErrorHandler::addExceptionParametersToSession($e);
+                    header('Location: /login');
+                    break;
+                default:
+                    ErrorHandler::displayFullScreenException($e);
+                    break;
+            }
+        }
     }
 
     /**

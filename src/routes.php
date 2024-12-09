@@ -63,7 +63,7 @@ $router->post('/login', function () use ($loader, $twig) {
         }
         throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
     } catch (Exception $e) {
-        ErrorHandler::addExceptionParametersToTwig($e);
+        ErrorHandler::addExceptionParametersToSession($e);
         ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
     }
 });
@@ -170,5 +170,14 @@ $router->put('/profile', function () {
     }
     echo "Mise à jour du profil<br/>";
     echo "A IMPLEMENTER";
+    exit;
+});
+
+$router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("profile", $loader, $twig)->call("disableAccount", ["uuid" => $uuid]);
     exit;
 });
