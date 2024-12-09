@@ -50,11 +50,16 @@ class ControllerShop extends Controller {
         $banners = $managerArticle->findAllBanners();
 
         $template = $this->getTwig()->load('shop.twig');
-
+        if(isset($_SESSION['basket'])){
+            $numberArticlesInBasket = count($_SESSION['basket']);
+        }else{
+            $numberArticlesInBasket = 0;
+        }
         echo $template->render(array(
             'articles' => $articles,
             'pfps' => $pfps,
-            'banners' => $banners
+            'banners' => $banners,
+            'numberArticlesInBasket' => $numberArticlesInBasket
         ));
     }
 

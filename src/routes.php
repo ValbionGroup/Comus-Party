@@ -103,23 +103,23 @@ $router->get('/shop/basket', function () use ($loader, $twig) {
     exit;
 });
 
-$router->post('/shop/basket/add/:id', function ($id) {
+$router->post('/shop/basket/add', function () use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
-    echo "Ajout d'un article au panier : " . $id . "<br/>";
-    echo "A IMPLEMENTER";
+
+    ControllerFactory::getController("basket",$loader,$twig)->call("addArticleToBasket");
     exit;
 });
 
-$router->delete('/shop/basket/remove/:id', function ($id) {
+$router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
-    echo "Suppression d'un article du panier : " . $id . "<br/>";
-    echo "A IMPLEMENTER";
+
+    ControllerFactory::getController("basket",$loader,$twig)->call("removeArticleBasket", ["id" => $id]);
     exit;
 });
 

@@ -1,10 +1,10 @@
 <?php
 /**
  * @file    controllerAuth.class.php
- * @author  Estéban DESESSARD
+ * @author  Estéban DESESSARD, Lucas ESPIET
  * @brief   Le fichier contient la déclaration & définition de la classe ControllerFactory.
- * @date    14/11/2024
- * @version 0.4
+ * @date    09/12/2024
+ * @version 0.6
  */
 
 namespace ComusParty\Controllers;
@@ -227,6 +227,25 @@ class ControllerAuth extends Controller
      */
     public function authenticate(?string $email, ?string $password): void
     {
+        $regles = [
+            'email' => [
+                'required' => true,
+                'type' => 'string',
+                'format' => FILTER_VALIDATE_EMAIL
+            ],
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 8
+            ]
+        ];
+
+        $validator = new Validator($regles);
+        if (!$validator->validate(['email' => $email, 'password' => $password])) {
+            var_dump($validator->getErrors());
+            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+        }
+
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
 

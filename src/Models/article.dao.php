@@ -95,8 +95,34 @@ class ArticleDAO {
     }
 
     /**
+     * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles correspondant aux id "ids"
+     * @param array $ids Le tableau contenant les ids des articles qu'on veut obtenir
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
+     * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'id d'articles dans le tableau, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     */
+    function findArticlesWithIds($ids)
+    {
+
+        if (!empty($ids)) {
+            $idsString = implode(',', $ids);
+
+            $stmt = $this->pdo->query('SELECT * FROM '. DB_PREFIX . 'article WHERE id IN ('.$idsString.')');
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $tabArticles = $stmt->fetchAll();
+
+            if ($tabArticles === false) {
+                return null;
+            }
+            $articles = $this->hydrateMany($tabArticles);
+            return $articles;
+        }
+        return null;
+    }
+
+    /**
      * @brief Retourne un tableau d'objets Article qui ont le type profile_picture dans la base de données
-     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type profile_picture (ou null si aucune joueur recensé)
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type pfp (ou null si aucun Article avec le type pfp recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type profile_picture dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
      * @throws DateMalformedStringException
      */
@@ -105,13 +131,14 @@ class ArticleDAO {
         $stmt = $this->pdo->query("SELECT *
         FROM ". DB_PREFIX ."article
         WHERE type = 'pfp'");
+
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPfps = $stmt->fetchAll();
+
         if($tabPfps === false){
             return null;
         }
         return $this->hydrateMany($tabPfps);
-
     }
 
     /**
@@ -207,7 +234,7 @@ class ArticleDAO {
 
         $article->setCreatedAt(new DateTime($data['created_at']));
         $article->setUpdatedAt(new DateTime($data['updated_at']));
-        $article->setPathImg($data['file_path']);
+        $article->setFilePath($data['file_path']);
 
         return $article;
     }

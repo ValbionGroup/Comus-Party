@@ -40,7 +40,7 @@ class ArticleTest extends TestCase
             description: 'TestContent',
             pricePoint: 500,
             priceEuro: 5.0,
-            pathImg: 'test.jpg'
+            filePath: 'test.jpg'
         );
     }
 
@@ -255,32 +255,32 @@ class ArticleTest extends TestCase
 
 
     /**
-     * @brief Test de la méthode getPathImg
+     * @brief Test de la méthode getFilePath
      * @return void
      */
-    public function testGetPathImg(): void
+    public function testGetFilePath(): void
     {
-        $this->assertEquals('test.jpg', $this->article->getPathImg());
+        $this->assertEquals('test.jpg', $this->article->getFilePath());
     }
 
     /**
-     * @brief Test de la méthode setPathImg avec un paramètre valide
+     * @brief Test de la méthode setFilePath avec un paramètre valide
      * @return void
      */
-    public function testSetPathImgWithValidPathImg(): void
+    public function testSetFilePathWithValidFilePath(): void
     {
-        $this->article->setPathImg('test2.jpg');
-        $this->assertEquals('test2.jpg', $this->article->getPathImg());
+        $this->article->setFilePath('test2.jpg');
+        $this->assertEquals('test2.jpg', $this->article->getFilePath());
     }
 
     /**
-     * @brief Test de la méthode setPathImg avec un paramètre null
+     * @brief Test de la méthode setFilePath avec un paramètre null
      * @return void
      */
-    public function testSetPathImgWithNullPathImg(): void
+    public function testSetFilePathWithNullFilePath(): void
     {
-        $this->article->setPathImg(null);
-        $this->assertEquals(null, $this->article->getPathImg());
+        $this->article->setFilePath(null);
+        $this->assertEquals(null, $this->article->getFilePath());
     }
 
     /**
