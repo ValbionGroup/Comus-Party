@@ -9,27 +9,29 @@
             <h1 class="text-3xl text-night mt-10 ml-3 mb-4 font-serif">Boutique</h1>
             <a class="mr-5 mt-8 cursor-pointer" href="/shop/basket">
                 {# Logo panier vide  #}
-{#                {% if numberArticlesInBasket == 0 %}#}
-                    <span id="logoPanierVide" class="z-40"><svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="3em" height="3em"
-                                viewBox="0 0 24 24"><g
-                                    fill="none"><path
-                                        d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path
-                                        fill="currentColor"
+                {#                {% if numberArticlesInBasket == 0 %} #}
+                <span id="logoPanierVide" class="z-40"><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="3em" height="3em"
+                            viewBox="0 0 24 24"><g
+                                fill="none"><path
+                                    d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path
+                                    fill="currentColor"
 
-                                        d="M10.464 3.282a2 2 0 0 1 2.964-.12l.108.12L17.469 8h2.985a1.49 1.49 0 0 1 1.484 1.655l-.092.766l-.1.74l-.082.554l-.095.595l-.108.625l-.122.648l-.136.661q-.108.5-.232.999a21 21 0 0 1-.832 2.583l-.221.54l-.214.488l-.202.434l-.094.194l-.249.49c-.32.61-.924.97-1.563 1.022l-.16.006H6.555a1.93 1.93 0 0 1-1.71-1.008l-.232-.45l-.18-.37l-.095-.205l-.2-.449a21.5 21.5 0 0 1-1.108-3.276a32 32 0 0 1-.156-.654l-.142-.648l-.127-.634l-.112-.613l-.1-.587l-.087-.554l-.074-.513l-.09-.683l-.066-.556l-.017-.153a1.49 1.49 0 0 1 1.348-1.64L3.543 8h2.989zM19.883 10H4.113l.062.484l.076.548l.092.604l.108.648q.06.333.126.682l.143.707c.076.358.16.722.25 1.084a19.5 19.5 0 0 0 1 2.957l.196.441l.182.384l.163.323l.072.138H17.41l.154-.303l.177-.365l.194-.423c.367-.825.787-1.918 1.095-3.152c.125-.5.236-1.008.335-1.507l.14-.738l.12-.709l.053-.339l.095-.637l.077-.57zm-9.897 2.836l.5 3a1 1 0 0 1-1.972.328l-.5-3a1 1 0 1 1 1.972-.328M15.048 12l.116.013A1 1 0 0 1 16 13.048l-.013.116l-.5 3a1 1 0 0 1-1.985-.212l.013-.116l.5-3A1 1 0 0 1 15.048 12M12 4.562L9.135 8h5.73z"/></g></svg>
+                                    d="M10.464 3.282a2 2 0 0 1 2.964-.12l.108.12L17.469 8h2.985a1.49 1.49 0 0 1 1.484 1.655l-.092.766l-.1.74l-.082.554l-.095.595l-.108.625l-.122.648l-.136.661q-.108.5-.232.999a21 21 0 0 1-.832 2.583l-.221.54l-.214.488l-.202.434l-.094.194l-.249.49c-.32.61-.924.97-1.563 1.022l-.16.006H6.555a1.93 1.93 0 0 1-1.71-1.008l-.232-.45l-.18-.37l-.095-.205l-.2-.449a21.5 21.5 0 0 1-1.108-3.276a32 32 0 0 1-.156-.654l-.142-.648l-.127-.634l-.112-.613l-.1-.587l-.087-.554l-.074-.513l-.09-.683l-.066-.556l-.017-.153a1.49 1.49 0 0 1 1.348-1.64L3.543 8h2.989zM19.883 10H4.113l.062.484l.076.548l.092.604l.108.648q.06.333.126.682l.143.707c.076.358.16.722.25 1.084a19.5 19.5 0 0 0 1 2.957l.196.441l.182.384l.163.323l.072.138H17.41l.154-.303l.177-.365l.194-.423c.367-.825.787-1.918 1.095-3.152c.125-.5.236-1.008.335-1.507l.14-.738l.12-.709l.053-.339l.095-.637l.077-.57zm-9.897 2.836l.5 3a1 1 0 0 1-1.972.328l-.5-3a1 1 0 1 1 1.972-.328M15.048 12l.116.013A1 1 0 0 1 16 13.048l-.013.116l-.5 3a1 1 0 0 1-1.985-.212l.013-.116l.5-3A1 1 0 0 1 15.048 12M12 4.562L9.135 8h5.73z"/></g></svg>
 
                 </span>
-{#                {% endif %}#}
+                {#                {% endif %} #}
                 {#  Logo panier rempli #}
-{#                {% if  numberArticlesInBasket  > 0 %}#}
+                {#                {% if  numberArticlesInBasket  > 0 %} #}
 
-                    <span id="logoPanierRempli" class="hidden relative flex justify-center flex-col text-center items-center  ">
+                <span id="logoPanierRempli"
+                      class="hidden relative flex justify-center flex-col text-center items-center  ">
                         <span class="absolute left-8 bottom-6 w-5 h-5  z-40  bg-lavender-blush-3 text-center  justify-center items-center rounded-full border border-lavender-blush-3 ">
                             <p class="relative bottom-1" id="nbrArticleDansPanier">{{ numberArticlesInBasket }}</p>
                         </span>
-                        <svg  xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24" class="relative z-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24"
+                             class="relative z-10">
 
                             <g fill="none" fill-rule="evenodd">
                                 <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/>
@@ -38,7 +40,7 @@
                             </g>
                         </svg>
                     </span>
-{#                {% endif %}#}
+                {#                {% endif %} #}
             </a>
 
 
@@ -93,37 +95,50 @@
 
 
     <div id="modalForPfp"
-         class="modal grid grid-cols-8 grid-rows-8 gap-2 w-2/5 h-min   bg-lavender-blush-2 text-lavender-blush-base dark:bg-night-1 rounded-3xl absolute  left-1/2 -translate-x-1/2  transform  transition-all duration-300 z-50 opacity-0 hidden">
+         class="modal grid grid-cols-8 grid-rows-8 gap-2 w-full sm:w-2/5  h-min   bg-lavender-blush-2 text-lavender-blush-base dark:bg-night-1 rounded-3xl absolute  left-1/2 -translate-x-1/2  transform  transition-all duration-300 z-50 opacity-0 hidden">
 
-            <div class="col-start-1 col-end-5 row-start-1 row-end-9">
-                <img src="/assets/img/" id="imgArticlePfp" alt="" class="rounded-3xl shadow-lg">
-            </div>
+        <div class="col-start-1 col-end-5 row-start-1 row-end-9">
+            <img src="/assets/img/" id="imgArticlePfp" alt="" class="rounded-3xl shadow-lg">
+        </div>
 
-            <div class="col-start-5 col-end-9 row-start-1 row-end-4">
-                <h2 class="text-4xl" id="nomArticlePfp">Nom</h2>
-                <p class="" id="descriptionArticlePfp">Description</p>
+        <div class="col-start-5 col-end-9 row-start-1 row-end-4">
+            <h2 class="text-4xl" id="nomArticlePfp">Nom</h2>
+            <p class="" id="descriptionArticlePfp">Description</p>
+        </div>
+        <div class="col-start-5 col-end-9 row-start-4 row-span-3  flex flex-col">
+            <div class="flex align-middle items-center">
+                <p class="rounded-2xl text-xl" id="prixComusArticlePfp"></p>
+                <svg class="text-maize-800 dark:text-maize-700" xmlns="http://www.w3.org/2000/svg"
+                     width="1.5em" height="1.5em"
+                     viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                       stroke-width="2">
+                        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0"/>
+                        <path d="M14.8 9A2 2 0 0 0 13 8h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1-1.8-1M12 7v10"/>
+                    </g>
+                </svg>
             </div>
-            <div class="col-start-5 col-end-9 row-start-4 row-span-2 grid grid-cols-2">
-                <p class="rounded-2xl text-xl col-span-1 " id="prixComusArticlePfp">PriceComus</p>
-                <p class="rounded-2xl text-xl col-span-1 " id="prixEuroArticlePfp">PriceEuro</p>
+            <div>
+                <p class="rounded-2xl text-xl  " id="prixEuroArticlePfp">PriceEuro</p>
             </div>
-            <div class="col-start-5 col-end-9 row-start-7 row-span-2">
-                <button type="submit" id="addBasketBtn"
-                        class=" text-2xl border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300">
-                    Ajouter au panier
-                </button>
+        </div>
+        <div class="col-start-5 col-end-9 row-start-7 row-span-2 gap-3 flex">
+            <button type="submit" id="addBasketBtn"
+                    class="p-5 w-25 h-10 bg-blue-violet-base hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110">
+                Ajouter au panier
+            </button>
 
-                <button class=" text-2xl border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300"
-                        id="closeModalBtn">Quitter
-                </button>
+            <button class="p-5 w-20 h-10  bg-blue-violet-base hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110"
+                    id="closeModalBtn">Quitter
+            </button>
 
-            </div>
+        </div>
     </div>
 
     <div id="modalForBanner"
-         class=" modal grid grid-cols-8 grid-rows-8 gap-2 w-3/5 h-96    bg-lavender-blush-2 text-lavender-blush-base dark:bg-night-1 rounded-3xl absolute  left-1/2 -translate-x-1/2  transform  transition-all duration-300 z-50 opacity-0 hidden">
+         class=" modal grid grid-cols-8 grid-rows-8 gap-2 w-full sm:w-3/5 h-96    bg-lavender-blush-2 text-lavender-blush-base dark:bg-night-1 rounded-3xl absolute  left-1/2 -translate-x-1/2  transform  transition-all duration-300 z-50 opacity-0 hidden">
 
-        <div class="col-start-1 col-end-9 row-start-1 row-end-4">
+        <div class="col-start-1 col-end-9 row-start-1 row-end-4 ">
             <img src="/assets/img/" id="imgArticleBanner" alt="" class="rounded-3xl shadow-lg">
         </div>
 
@@ -131,17 +146,31 @@
             <h2 class="text-4xl" id="nomArticleBanner">Nom</h2>
             <p class="" id="descriptionArticleBanner">Description</p>
         </div>
-        <div class="col-start-6 col-end-8 row-start-5 row-span-2 flex-row">
-            <p class="rounded-2xl text-xl  " id="prixComusArticleBanner">PriceComus</p>
-            <p class="rounded-2xl text-xl  " id="prixEuroArticleBanner">PriceEuro</p>
+        <div class="col-start-6 col-end-8 row-start-5 row-span-2 ">
+            <div class="flex align-middle items-center">
+                <p class="rounded-2xl text-xl  " id="prixComusArticleBanner"></p>
+                <svg class="text-maize-800 dark:text-maize-700" xmlns="http://www.w3.org/2000/svg"
+                     width="1.5em" height="1.5em"
+                     viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                       stroke-width="2">
+                        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0"/>
+                        <path d="M14.8 9A2 2 0 0 0 13 8h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1-1.8-1M12 7v10"/>
+                    </g>
+                </svg>
+            </div>
+            <div>
+                <p class="rounded-2xl text-xl  " id="prixEuroArticleBanner">PriceEuro</p>
+            </div>
         </div>
-        <div class="col-start-2 col-end-8 row-start-8 row-end-9">
+
+        <div class="col-start-2 col-end-8 row-start-8 row-span-2 flex gap-5">
             <button type="submit" id="addBasketBtn"
-                    class=" text-2xl border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300">
+                    class="p-5 w-30 h-10 bg-blue-violet-base hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110">
                 Ajouter au panier
             </button>
 
-            <button class="closeModalBtn text-2xl border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300"
+            <button class="closeModalBtn p-5 w-20 h-10 bg-blue-violet-base hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110"
                     id="closeModalBtn">Quitter
             </button>
 

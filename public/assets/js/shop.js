@@ -93,7 +93,7 @@ function showModalPfp(article) {
     imgArticlePfp.src = "assets" + article.filePath
     nomArticlePfp.innerText = article.name
     descriptionArticlePfp.innerText = article.description
-    prixComusArticlePfp.innerText = article.pricePoint + " Comus"
+    prixComusArticlePfp.innerText = article.pricePoint
     prixEuroArticlePfp.innerText = article.priceEuro + " €"
 
     addBasketBtn.onclick = function (){
@@ -161,7 +161,7 @@ function showModalBanner(article) {
     imgArticleBanner.src = "assets" + article.filePath
     nomArticleBanner.innerText = article.name
     descriptionArticleBanner.innerText = article.description
-    prixComusArticleBanner.innerText = article.pricePoint + " Comus"
+    prixComusArticleBanner.innerText = article.pricePoint
     prixEuroArticleBanner.innerText = article.priceEuro + " €"
 
     addBasketBtn.onclick = function (){
