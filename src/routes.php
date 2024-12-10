@@ -213,3 +213,11 @@ $router->put('/profile', function () {
     echo "A IMPLEMENTER";
     exit;
 });
+
+$router->get('/invoice/:id', function ($id) use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("shop", $loader, $twig)->call("showInvoice", ["invoiceId" => $id]);
+});

@@ -12,6 +12,11 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\PaymentException;
+use ComusParty\Models\Exception\UnauthorizedAccessException;
+use ComusParty\Models\InvoiceDAO;
+use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\UserDAO;
+use DateMalformedStringException;
 use DateTime;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -149,5 +154,36 @@ class ControllerShop extends Controller {
         }
 
         return true;
+    }
+
+    /**
+     * @brief Affiche la facture générée grâce à l'ID passé en paramètre GET
+     * @param int $invoiceId L'ID de la facture à afficher
+     * @return void
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws UnauthorizedAccessException Exception levée dans le cas d'un accès non-autorisé à la facture
+     */
+    public function showInvoice(int $invoiceId)
+    {
+        $managerArticle = new ArticleDAO($this->getPdo());
+        $managerPlayer = new PlayerDAO($this->getPdo());
+        $managerUser = new UserDAO($this->getPdo());
+        $managerInvoice = new InvoiceDAO($this->getPdo());
+
+        $articles = $managerArticle->findArticlesByInvoiceId($invoiceId);
+        $player = $managerPlayer->findWithDetailByUuid($_SESSION['uuid']);
+        $email = $managerUser->findById($player->getUserId())->getEmail();
+        $invoice = $managerInvoice->findById($invoiceId);
+
+        $template = $this->getTwig()->load('invoice.twig');
+        echo $template->render(array(
+            'invoice' => $invoice,
+            'username' => $player->getUsername(),
+            'email' => $email,
+            'articles' => $articles
+        ));
     }
 }

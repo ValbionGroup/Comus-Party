@@ -41,6 +41,8 @@ require_once __DIR__ . '/src/Models/game.class.php';
 require_once __DIR__ . '/src/Models/game.dao.php';
 require_once __DIR__ . '/src/Models/article.class.php';
 require_once __DIR__ . '/src/Models/article.dao.php';
+require_once __DIR__ . '/src/Models/invoice.class.php';
+require_once __DIR__ . '/src/Models/invoice.dao.php';
 require_once __DIR__ . '/src/Models/statistics.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.dao.php';
