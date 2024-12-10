@@ -10,6 +10,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\Db;
+use ComusParty\Models\Exception\AuthenticationException;
 use ComusParty\Models\Exception\ErrorHandler;
 use ComusParty\Models\Exception\MethodNotFoundException;
 use Exception;
@@ -86,8 +87,8 @@ class Controller {
         try {
             return $this->{$method}(...array_values($args));
         } catch (Exception $e) {
-            switch ($e->getCode()) {
-                case 401:
+            switch ($e::class) {
+                case AuthenticationException::class:
                     ErrorHandler::addExceptionParametersToSession($e);
                     header('Location: /login');
                     break;
