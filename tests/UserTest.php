@@ -8,7 +8,9 @@
  */
 require_once __DIR__ . '/../include.php';
 
+use ComusParty\Models\User;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @brief Classe UserTest
  * @details La classe UserTest permet de tester les méthodes de la classe User

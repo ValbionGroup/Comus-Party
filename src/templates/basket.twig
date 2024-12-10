@@ -1,0 +1,107 @@
+{% extends 'layouts/default.twig' %}
+
+{% block title %}
+    Panier
+{% endblock %}
+
+{% block content %}
+    <div class="w-full flex flex-col md:flex-row gap-y-10 md:gap-y-0">
+        {# Panier #}
+        <div class="flex flex-col w-2/3 h-min mt-5 ml-5">
+            <h2 class="font-semibold text-xl mb-3 font-serif">Panier</h2>
+            <div id="panier"
+                 class="flex flex-col justify-center text-center items-center bg-lavender-blush-1  dark:bg-night-1 w-full h-96  rounded-2xl overflow-y-auto ">
+                {#                {% if articles is null %} #}
+                <div id="panierVide" class="flex flex-col justify-center text-center items-center ">
+                <span class="mt-6 mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em"
+                                             viewBox="0 0 24 24"><g
+                                fill="none"><path
+                                    d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path
+                                    fill="currentColor"
+                                    d="M10.464 3.282a2 2 0 0 1 2.964-.12l.108.12L17.469 8h2.985a1.49 1.49 0 0 1 1.484 1.655l-.092.766l-.1.74l-.082.554l-.095.595l-.108.625l-.122.648l-.136.661q-.108.5-.232.999a21 21 0 0 1-.832 2.583l-.221.54l-.214.488l-.202.434l-.094.194l-.249.49c-.32.61-.924.97-1.563 1.022l-.16.006H6.555a1.93 1.93 0 0 1-1.71-1.008l-.232-.45l-.18-.37l-.095-.205l-.2-.449a21.5 21.5 0 0 1-1.108-3.276a32 32 0 0 1-.156-.654l-.142-.648l-.127-.634l-.112-.613l-.1-.587l-.087-.554l-.074-.513l-.09-.683l-.066-.556l-.017-.153a1.49 1.49 0 0 1 1.348-1.64L3.543 8h2.989zM19.883 10H4.113l.062.484l.076.548l.092.604l.108.648q.06.333.126.682l.143.707c.076.358.16.722.25 1.084a19.5 19.5 0 0 0 1 2.957l.196.441l.182.384l.163.323l.072.138H17.41l.154-.303l.177-.365l.194-.423c.367-.825.787-1.918 1.095-3.152c.125-.5.236-1.008.335-1.507l.14-.738l.12-.709l.053-.339l.095-.637l.077-.57zm-9.897 2.836l.5 3a1 1 0 0 1-1.972.328l-.5-3a1 1 0 1 1 1.972-.328M15.048 12l.116.013A1 1 0 0 1 16 13.048l-.013.116l-.5 3a1 1 0 0 1-1.985-.212l.013-.116l.5-3A1 1 0 0 1 15.048 12M12 4.562L9.135 8h5.73z"/></g></svg></span>
+
+
+                    <h2 class="font-semibold text-xl mt-5">Votre panier est vide</h2>
+                    <p class="mt-2">Vous n'avez pas encore ajouté d'articles dans votre panier. Parcourez le site pour
+                        trouver des articles incroyables !</p>
+                    <a href="/shop">
+                        <button class="px-6 py-2 mt-5 border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300">
+                            Découvrir des articles
+                        </button>
+                    </a>
+                </div>
+
+                <div class="w-full grid grid-cols-1">
+
+                    {% for article in articles %}
+
+                        <div id="eltPanier"
+                             class="article grid grid-cols-6 gap-5 items-center w-full h-24  p-2  rounded-2xl   shadow-lg ">
+
+                            <div class="col-span-2 flex items-center">
+                                <img src="/assets{{ article.filePath }}" alt="Pas d'image"
+                                     class="rounded-2xl cursor-pointer  {% if article.type == enum('ComusParty\\Models\\ArticleType').Banner %}w-80 {% endif %} {% if article.type == enum('ComusParty\\Models\\ArticleType').ProfilePicture %}  w-16{% endif %}">
+                            </div>
+
+                            <div class="col-span-2 flex flex-col items-start ">
+                                <h3 class="text-left text-2xl">{{ article.name }}</h3>
+                                <p class="text-left">{{ article.description }}</p>
+                            </div>
+                            <div class="col-span-1 flex flex-col ">
+                                <p class="text-right">{{ article.pricePoint }} Cms</p>
+                                <p class="text-right">{{ article.priceEuro }} €</p>
+                            </div>
+                            <div class="col-span-1 flex justify-center">
+                                <span class="cursor-pointer remove-btn" onclick="removeArticle({{ article.id }})"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                            viewBox="0 0 16 16"><path fill="none" stroke="currentColor"
+                                                                      stroke-linecap="round" stroke-linejoin="round"
+                                                                      stroke-width="1.5"
+                                                                      d="m11.25 4.75l-6.5 6.5m0-6.5l6.5 6.5"/></svg></span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+
+        {# Résumé #}
+        <div class="flex flex-col w-1/3 h-72 mt-5 ml-5 mr-5">
+            <h2 class="font-semibold text-xl mb-3 font-serif">Résumé</h2>
+            <div class="bg-lavender-blush-3 dark:bg-night-2 dark:text-lavender-blush-base w-full h-72 rounded-2xl flex flex-col justify-center text-center items-center ">
+                <div class="flex justify-around w-full mt-12">
+                    <h3>Prix officiel</h3>
+                    <span id="prixTotalPanier">{{ prixTotalPanier }}€</span>
+                </div>
+                <div class="flex justify-around w-full font-semibold ">
+                    <h3>Sous-total</h3>
+                    <span id="sousTotalPanier">{{ prixTotalPanier }}€</span>
+                </div>
+                <a href="">
+                    <button class="px-6 py-2 mt-5 border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-1 dark:bg-night-2  dark:hover:border-night-3 dark:text-lavender-blush-base dark:hover:text-lavender-blush-base transition duration-300">
+                        Procéder au paiement
+                    </button>
+                </a>
+                <div class="flex items-center justify-center">
+
+                    <span class="px-4  mt-8 font-semibold text-gray-900 border-gray-600 border-b border-t">OU</span>
+
+                </div>
+
+                <a href="/shop" class="mt-6 mb-4">Continuer mes achats</a>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="notification"
+         class="fixed bottom-5 right-5 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out">
+        <div>
+            <p id="notificationMessage"></p>
+        </div>
+
+    </div>
+    <script src="/assets/js/basket.js"></script>
+{% endblock %}

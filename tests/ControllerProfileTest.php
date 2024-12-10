@@ -1,7 +1,7 @@
 <?php
 /**
- * @file controllerProfileTest.php
- * @brief Le fichier contient la déclaration et la définition de la classe GameDao
+ * @file ControllerProfileTest.php
+ * @brief Le fichier contient la déclaration et la définition de la classe controllerProfile
  * @author Conchez-Boueytou Robin
  * @date 14/11/2024
  * @version 0.1
@@ -10,13 +10,15 @@
 
 require_once  __DIR__ . '/../include.php';
 
-use models\NotFoundException;
+use ComusParty\Controllers\Controller;
+use ComusParty\Controllers\ControllerProfile;
+use ComusParty\Models\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
+use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
-use Twig\Environment;
 
 /**
  * @brief Classe controllerProfileTest
