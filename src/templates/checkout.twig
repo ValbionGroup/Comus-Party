@@ -6,12 +6,12 @@
 
     <header class="w-full h-16">
         <nav class="grid grid-cols-6 items-center h-16">
-            <a href="/" class="col-span-2">Comus-Party</a>
+            <a href="/" class="col-span-2 text-lavender-blush-1">Comus-Party</a>
             <div class="col-span-2">
                 <ul class="flex gap-2 justify-center items-center">
                     <li class="flex items-center w-full after:border-b after:border-1 after:mx-2 after:my-0 after:hidden after:border-white after:w-full sm:after:inline-block after:content-['']">
                         <a href="/shop/basket">
-                            <span class="flex gap-2 after:content-['>'] after:mx-2 after:text-white sm:after:hidden ">
+                            <span class="flex gap-2 after:content-['>'] after:mx-2 text-lavender-blush-1 after:text-white sm:after:hidden ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
                                     <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9v-1h2v1c0 6.075-4.925 11-11 11S1 18.075 1 12S5.925 1 12 1c1.498 0 2.928.3 4.232.844l.923.385l-.77 1.846l-.923-.385A9 9 0 0 0 12 3m11.414 1.5L12 15.914L6.086 10L7.5 8.586l4.5 4.5l10-10z"/>
                                 </svg>
@@ -21,7 +21,7 @@
                     </li>
                     <li class="flex items-center w-full after:border-b after:border-1 after:mx-2 after:my-0 after:hidden after:border-white after:opacity-50 after:h-1 after:w-full sm:after:inline-block after:content-['']">
                         <a href="/shop/basket/checkout">
-                            <span class="flex gap-2">
+                            <span class="flex gap-2 text-lavender-blush-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><circle cx="4" cy="12" r="3" fill="currentColor"><animate id="svgSpinners3DotsBounce0" attributeName="cy" begin="0;svgSpinners3DotsBounce1.end+0.25s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle><circle cx="12" cy="12" r="3" fill="currentColor"><animate attributeName="cy" begin="svgSpinners3DotsBounce0.begin+0.1s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle><circle cx="20" cy="12" r="3" fill="currentColor"><animate id="svgSpinners3DotsBounce1" attributeName="cy" begin="svgSpinners3DotsBounce0.begin+0.2s" calcMode="spline" dur="0.6s" keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle></svg>
                                 Paiement
                             </span>
@@ -29,7 +29,7 @@
                     </li>
                     <li>
                         <a href="">
-                            <span class="flex gap-2 opacity-50">
+                            <span class="flex gap-2 opacity-50 text-lavender-blush-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 32 32"><path fill="currentColor" d="M16 4C9.383 4 4 9.383 4 16s5.383 12 12 12s12-5.383 12-12S22.617 4 16 4m0 2c5.535 0 10 4.465 10 10s-4.465 10-10 10S6 21.535 6 16S10.465 6 16 6m0 4c-2.2 0-4 1.8-4 4h2c0-1.117.883-2 2-2s2 .883 2 2a1.78 1.78 0 0 1-1.219 1.688l-.406.124A2.02 2.02 0 0 0 15 17.72V19h2v-1.281l.406-.125A3.81 3.81 0 0 0 20 14c0-2.2-1.8-4-4-4m-1 10v2h2v-2z"/></svg>
                                 Finalisation
                             </span>
@@ -119,7 +119,7 @@
                                             <input  type="text" id="numCC" name="numCC" pattern=".{19,}" maxlength="19" placeholder="1234 5678 9012 3456" inputmode="numeric"
                                                      oninput="formatCardNumber(this)" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                                                Please enter a valid credit card number
+                                                Veuiller entrer un numéro de carte valide
                                             </span>
                                         </label>
 
@@ -130,7 +130,7 @@
                                             <input type="text" id="titulaireCC" name="titulaireCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                                                    placeholder="John Doe" pattern="^[a-z,A-Z]+$" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                                                    Please enter a valid name
+                                                    Veuiller entrer un nom valide
                                             </span>
                                         </label>
                                     </div>
@@ -140,7 +140,7 @@
                                             <input type="tel" id="dateCC" name="dateCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                                                    placeholder="MM/YY" value="" pattern="\d{2}/\d{2}" maxlength="5" oninput="formatExpirationDate(this)" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                                                    Please enter a valid date
+                                                    Veuiller entrer une date valide
                                             </span>
                                         </label>
                                     </div>
@@ -150,7 +150,7 @@
                                             <input type="tel" id="cryptogramCC" name="cryptogramCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown)]:border-red-500 peer"
                                                    oninput="formatCryptogram(this)" placeholder="123" pattern=".{3,}" maxlength="3" inputmode="numeric" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):invalid]:block">
-                                                    Please enter a correct cryptogram
+                                                    Veuiller entrer un cryptogramme valide
                                             </span>
                                         </label>
                                     </div>
@@ -226,8 +226,8 @@
                         </ul>
                     </div>
                     <div class="mx-2">
-                        <div class="flex justify-between my-2">
-                            <p class="text-xl">Total</p>
+                        <div class="flex justify-end my-2 gap-2">
+                            <p class="text-xl"><strong>Total: </strong></p>
                             <p id="total" class="text-xl">-</p>
                         </div>
                     </div>
