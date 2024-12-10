@@ -7,11 +7,14 @@
  * @version 0.1
  */
 
+namespace ComusParty\Controllers;
+
+use ComusParty\Models\GameDao;
 use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * @brief Classe ControllerGame

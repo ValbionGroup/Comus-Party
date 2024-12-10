@@ -7,8 +7,14 @@
  * @version 0.2
  */
 
+namespace ComusParty\Models;
 
 
+use ComusParty\Models\Exception\NotFoundException;
+use DateMalformedStringException;
+use DateTime;
+use Exception;
+use PDO;
 
 /**
  * @brief Classe ArticleDAO
@@ -62,18 +68,57 @@ class ArticleDAO {
             WHERE id = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Article');
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $article = $stmt->fetch();
         if ($article === false) {
             return null;
         }
-        return $article;
+        return $this->hydrate($article);
+    }
+
+    /**
+     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de la facture passé en paramètre
+     * @param int|null $invoiceId L'ID de la facture
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
+     */
+    public function findArticlesByInvoiceId(?int $invoiceId): ?array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT *
+          FROM ' . DB_PREFIX . 'invoice i
+          JOIN ' . DB_PREFIX . 'player p ON i.player_uuid = p.uuid
+          WHERE i.id = :id AND p.uuid = :uuid');
+        $stmt->bindParam(':id', $invoiceId);
+        $stmt->bindParam(':uuid', $_SESSION['uuid']);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $invoice = $stmt->fetch();
+        if ($invoice === false) {
+            throw new NotFoundException('Cette facture n\'existe pas.');
+        }
+
+        $stmt = $this->pdo->prepare(
+            'SELECT a.*
+            FROM ' . DB_PREFIX . 'article a
+            JOIN ' . DB_PREFIX . 'invoice_row ir ON a.id = ir.article_id
+            WHERE ir.invoice_id = :invoice_id');
+        $stmt->bindParam(':invoice_id', $invoiceId);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $articles = $stmt->fetchAll();
+        if ($articles === false) {
+            return null;
+        }
+        return $this->hydrateMany($articles);
     }
 
     /**
      * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles enregistrés dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     * @throws DateMalformedStringException
      */
 
     public function findAll() : ?array {
@@ -85,34 +130,61 @@ class ArticleDAO {
         if ($tabArticles === false) {
             return null;
         }
-        $articles = $this->hydrateMany($tabArticles);
-        return $articles;
+        return $this->hydrateMany($tabArticles);
+    }
+
+    /**
+     * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles correspondant aux id "ids"
+     * @param array $ids Le tableau contenant les ids des articles qu'on veut obtenir
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
+     * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'id d'articles dans le tableau, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     */
+    function findArticlesWithIds($ids)
+    {
+
+        if (!empty($ids)) {
+            $idsString = implode(',', $ids);
+
+            $stmt = $this->pdo->query('SELECT * FROM ' . DB_PREFIX . 'article WHERE id IN (' . $idsString . ')');
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $tabArticles = $stmt->fetchAll();
+
+            if ($tabArticles === false) {
+                return null;
+            }
+            $articles = $this->hydrateMany($tabArticles);
+            return $articles;
+        }
+        return null;
     }
 
     /**
      * @brief Retourne un tableau d'objets Article qui ont le type profile_picture dans la base de données
-     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type profile_picture (ou null si aucune joueur recensé)
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type pfp (ou null si aucun Article avec le type pfp recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type profile_picture dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     * @throws DateMalformedStringException
      */
 
     public function findAllPfps() : ?array{
         $stmt = $this->pdo->query("SELECT *
         FROM ". DB_PREFIX ."article
-        WHERE type = 'profile_picture'");
+        WHERE type = 'pfp'");
+
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPfps = $stmt->fetchAll();
+
         if($tabPfps === false){
             return null;
         }
-        $pfps = $this->hydrateMany($tabPfps);
-        return $pfps;
-
+        return $this->hydrateMany($tabPfps);
     }
 
     /**
      * @brief Retourne un tableau d'objets Article qui ont le type banner dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type banner (ou null si aucune joueur recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type banner dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     * @throws DateMalformedStringException
      */
     public function findAllBanners() : ?array{
         $stmt = $this->pdo->query("SELECT *
@@ -123,8 +195,7 @@ class ArticleDAO {
         if($tabBanners === false){
             return null;
         }
-        $banners = $this->hydrateMany($tabBanners);
-        return $banners;
+        return $this->hydrateMany($tabBanners);
 
     }
 
@@ -150,8 +221,7 @@ class ArticleDAO {
         if ($pfp === false) {
             return null;
         }
-        $article = $this->hydrate($pfp);
-        return $article;
+        return $this->hydrate($pfp);
     }
 
     /**
@@ -175,8 +245,7 @@ class ArticleDAO {
         if ($banner === false) {
             return null;
         }
-        $article = $this->hydrate($banner);
-        return $article;
+        return $this->hydrate($banner);
     }
 
 
@@ -184,7 +253,7 @@ class ArticleDAO {
      * @brief Hydrate un objet Article avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif content les paramètres
      * @return Article L'objet retourné par la méthode, ici un article
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data) : Article {
         $article = new Article();
@@ -204,7 +273,7 @@ class ArticleDAO {
 
         $article->setCreatedAt(new DateTime($data['created_at']));
         $article->setUpdatedAt(new DateTime($data['updated_at']));
-        $article->setPathImg($data['file_path']);
+        $article->setFilePath($data['file_path']);
 
         return $article;
     }
