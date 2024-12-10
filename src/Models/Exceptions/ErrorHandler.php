@@ -43,17 +43,16 @@ class ErrorHandler
     }
 
     /**
-     * Ajout les données d'une erreur en variable globale Twig
+     * Ajout les données d'une erreur en variable de session
      *
      * @param Exception $exception
      * @return void
      */
-    public static function addExceptionParametersToTwig(Exception $exception): void
+    public static function addExceptionParametersToSession(Exception $exception): void
     {
-        global $twig;
-        $twig->addGlobal('error', [
+        $_SESSION['error'] = [
             'code' => $exception->getCode() ?? 500,
             'message' => $exception->getMessage() ?? 'Une erreur interne est survenue'
-        ]);
+        ];
     }
 }
