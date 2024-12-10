@@ -157,9 +157,11 @@ function autocomplete(inp, arr) {
                     }
 
                     a.appendChild(b);
+                    b.className = "input rounded-none";
                 }
             }
         }
+        inp.classList.add("rounded-t-lg");
     });
     /*execute a function presses a key on the keyboard:*/
     inp.addEventListener("keydown", function(e) {
