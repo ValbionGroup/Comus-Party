@@ -93,12 +93,12 @@ $router->get('/shop', function () use ($loader, $twig) {
 
 });
 
-$router->get('/shop/basket', function ()  use ($loader, $twig) {
+$router->get('/shop/basket', function () use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
-    ControllerFactory::getController("basket",$loader,$twig)->call("show");
+    ControllerFactory::getController("basket", $loader, $twig)->call("show");
     exit;
 });
 
@@ -108,7 +108,7 @@ $router->post('/shop/basket/add', function () use ($loader, $twig) {
         exit;
     }
 
-    ControllerFactory::getController("basket",$loader,$twig)->call("addArticleToBasket");
+    ControllerFactory::getController("basket", $loader, $twig)->call("addArticleToBasket");
     exit;
 });
 
@@ -118,7 +118,7 @@ $router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
         exit;
     }
 
-    ControllerFactory::getController("basket",$loader,$twig)->call("removeArticleBasket", ["id" => $id]);
+    ControllerFactory::getController("basket", $loader, $twig)->call("removeArticleBasket", ["id" => $id]);
     exit;
 });
 
@@ -142,15 +142,25 @@ $router->post('/shop/basket/checkout', function () {
     exit;
 });
 
-$router->get('/register', function () {
-    echo "Page d'inscription<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/register', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("showRegistrationPage");
     exit;
 });
 
-$router->post('/register', function () {
-    echo "Traitement de l'inscription<br/>";
-    echo "A IMPLEMENTER";
+$router->post('/register', function () use ($loader, $twig) {
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        ControllerFactory::getController("auth", $loader, $twig)->call("register", [
+            "username" => $_POST['username'],
+            "email" => $_POST['email'],
+            "password" => $_POST['password']
+        ]);
+        exit;
+    }
+    throw new Exception("Données reçues incomplètes.");
+});
+
+$router->get('/confirm-email/:token', function (string $token) use($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
     exit;
 });
 

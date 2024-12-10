@@ -19,18 +19,19 @@ let sousTotalPanier = document.getElementById("sousTotalPanier")
  ** @details Si le panier ne contient aucun article, affiche un message indiquant que celui-ci est vide.
  */
 
-function testArticleDansPanier(){
+function testArticleDansPanier() {
     let articles = document.querySelectorAll(".article")
-    if(articles.length === 0){
+    if (articles.length === 0) {
         panierVide.classList.add("flex")
         panierVide.classList.remove("hidden")
 
-    }else{
+    } else {
         panierVide.classList.add("hidden")
         panierVide.classList.remove("flex")
 
     }
 }
+
 testArticleDansPanier()
 /**
  * @brief Permet de supprimer un article du panier
@@ -61,7 +62,7 @@ removeButtons.forEach(button => {
  * @brief Permet de supprimer un article du panier dans la base de données ainsi que de mettre à jour le prix
  *  @param id L'id de l'article qu'il faut supprimer
  */
-function removeArticle(id){
+function removeArticle(id) {
     const xhr = new XMLHttpRequest();
     xhr.open("DELETE", `/shop/basket/remove/${id}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -69,15 +70,15 @@ function removeArticle(id){
     xhr.send();
 
     // Gérer la réponse du serveur
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let response =  JSON.parse(xhr.responseText)
+            let response = JSON.parse(xhr.responseText)
             let prixTotalPanierActuel = prixTotalPanier.textContent
             // Le parseint permet de récupérer que la valeur numérique du prix actuel du panier, c'est-à-dire sans le sigle "€"
 
-            prixTotalPanierApresSuppressionArticle= parseInt(prixTotalPanierActuel.replace(/[^\d]/g, ''), 10) - response.prixArticle;
-            sousTotalPanier.textContent = prixTotalPanierApresSuppressionArticle +"€"
-            prixTotalPanier.textContent = prixTotalPanierApresSuppressionArticle+"€"
+            prixTotalPanierApresSuppressionArticle = parseInt(prixTotalPanierActuel.replace(/[^\d]/g, ''), 10) - response.prixArticle;
+            sousTotalPanier.textContent = prixTotalPanierApresSuppressionArticle + "€"
+            prixTotalPanier.textContent = prixTotalPanierApresSuppressionArticle + "€"
         }
     };
 }

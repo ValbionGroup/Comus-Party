@@ -46,22 +46,23 @@ let nbrArticleDansPanier = document.getElementById("nbrArticleDansPanier")
  * @details Si ils y a des articles dans le panier alors le logo du panier est mis à jour à chaque fois que la page est raffraichie
  */
 
-function testArticleDansPanier(){
+function testArticleDansPanier() {
     let nbrArticles = nbrArticleDansPanier.textContent
-    if(nbrArticles > 0){
+    if (nbrArticles > 0) {
         logoPanierRempli.classList.remove("hidden")
         logoPanierVide.classList.add("hidden")
         nbrArticleDansPanier.textContent = nbrArticles
-    }else{
+    } else {
         logoPanierVide.classList.remove("hidden")
         logoPanierRempli.classList.add("hidden")
     }
 }
+
 testArticleDansPanier()
 
 
 modals.forEach(modal => {
-    modal.addEventListener('click', function (){
+    modal.addEventListener('click', function () {
         // modalWindow.classList.remove("flex")
         overlay.classList.remove('opacity-100'); // Disparition de l'overlay
         modal.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
@@ -96,7 +97,7 @@ function showModalPfp(article) {
     prixComusArticlePfp.innerText = article.pricePoint + " Comus"
     prixEuroArticlePfp.innerText = article.priceEuro + " €"
 
-    addBasketBtn.onclick = function (){
+    addBasketBtn.onclick = function () {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/shop/basket/add", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -105,21 +106,22 @@ function showModalPfp(article) {
         xhr.send("id_article=" + article.id);
 
         // Gérer la réponse du serveur
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                let response =  JSON.parse(xhr.responseText)
-                if(response.taillePanier > 0){
+                let response = JSON.parse(xhr.responseText)
+                if (response.taillePanier > 0) {
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
                     nbrArticleDansPanier.textContent = response.taillePanier
-                }else{
+                } else {
                     logoPanierVide.classList.remove("hidden")
                     logoPanierRempli.classList.add("hidden")
                 }
                 // Préparer la notification si l'article a été supprimé du panier
                 if (response.success) {
                     notificationMessage.textContent = "Article ajouté au panier"
-                    notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";   if(response.taillePanier > 0){
+                    notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                    if (response.taillePanier > 0) {
                     }
                 } else {
                     notificationMessage.textContent = "Article déjà présent dans le panier"
@@ -164,7 +166,7 @@ function showModalBanner(article) {
     prixComusArticleBanner.innerText = article.pricePoint + " Comus"
     prixEuroArticleBanner.innerText = article.priceEuro + " €"
 
-    addBasketBtn.onclick = function (){
+    addBasketBtn.onclick = function () {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/shop/basket/add", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -173,21 +175,22 @@ function showModalBanner(article) {
         xhr.send("id_article=" + article.id);
 
         // Gérer la réponse du serveur
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                let response =  JSON.parse(xhr.responseText)
-                if(response.taillePanier > 0){
+                let response = JSON.parse(xhr.responseText)
+                if (response.taillePanier > 0) {
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
                     nbrArticleDansPanier.textContent = response.taillePanier
-                }else{
+                } else {
                     logoPanierVide.classList.remove("hidden")
                     logoPanierRempli.classList.add("hidden")
                 }
                 // Préparer la notification si l'article a été supprimé du panier
                 if (response.success) {
                     notificationMessage.textContent = "Article ajouté au panier"
-                    notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";   if(response.taillePanier > 0){
+                    notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                    if (response.taillePanier > 0) {
                     }
                 } else {
                     notificationMessage.textContent = "Article déjà présent dans le panier"
@@ -208,14 +211,15 @@ function showModalBanner(article) {
 
 
 }
+
 closeModalBtns.forEach(closeModalBtn => {
-    closeModalBtn.addEventListener("click", function (){
-    overlay.classList.remove('opacity-100'); // Disparition de l'overlay
-    modalWindowForPfp.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
-    // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
-    setTimeout(() => {
-        overlay.classList.add('hidden', 'opacity-0');
-        modalWindowForPfp.classList.add('hidden', 'opacity-0', 'translate-y-4');
-    }, 300); // Durée de la transition
-})
+    closeModalBtn.addEventListener("click", function () {
+        overlay.classList.remove('opacity-100'); // Disparition de l'overlay
+        modalWindowForPfp.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
+        // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
+        setTimeout(() => {
+            overlay.classList.add('hidden', 'opacity-0');
+            modalWindowForPfp.classList.add('hidden', 'opacity-0', 'translate-y-4');
+        }, 300); // Durée de la transition
+    })
 })
