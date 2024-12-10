@@ -185,14 +185,14 @@ class ControllerAuth extends Controller
             'password' => [
                 'required' => true,
                 'minLength' => 8,
-                'maxLength' => 255,
-                'format' => '/^[a-zA-Z0-9!@#$%^&*()_+-=]+$/'
+                'maxLength' => 120,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
             ],
             'passwordConfirm' => [
                 'required' => true,
                 'minLength' => 8,
-                'maxLength' => 255,
-                'format' => '/^[a-zA-Z0-9!@#$%^&*()_+-=]+$/'
+                'maxLength' => 120,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
             ]
         ];
         $validator = new Validator($rules);
@@ -202,7 +202,7 @@ class ControllerAuth extends Controller
         ]);
 
         if (!$validated) {
-            throw new MalformedRequestException("Le mot de passe doit contenir entre 8 et 255 caractères");
+            throw new MalformedRequestException($validator->getErrors());
         }
 
         if ($password !== $passwordConfirm) {
