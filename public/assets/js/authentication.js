@@ -56,6 +56,7 @@ function checkUsernameRequirements() {
     const FORBIDDEN_CHARACTERS = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/; // Caractères interdits
     const USERNAME = document.getElementById("username").value; // Nom d'utilisateur
     // Variables
+    let inputUsername = document.getElementById('username');
     let usernameTooShort = document.getElementById("usernameTooShort");
     let usernameForbiddenCharacters = document.getElementById("usernameForbiddenCharacters");
     let submitButton = document.getElementById("submitButton");
@@ -63,21 +64,34 @@ function checkUsernameRequirements() {
     // Vérifications
     // Le nom d'utilisateur doit contenir au moins 3 caractères
     if (USERNAME.length < MIN_USERNAME_LENGTH) {
-        submitButton.disabled = true;
+        submitButton.classList.add("disabled");
+        inputUsername.classList.add("input-error");
+        usernameTooShort.classList.add("block");
+        usernameTooShort.classList.remove("hidden");
         usernameTooShort.innerHTML="Le nom d'utilisateur doit contenir au moins " + MIN_USERNAME_LENGTH + " caractères";
-        usernameTooShort.style.display = "block";
-    } else { usernameTooShort.style.display = "none"; }
+    } else {
+        inputUsername.classList.remove("input-error");
+        submitButton.classList.remove("disabled");
+        usernameTooShort.classList.remove("block");
+        usernameTooShort.classList.add("hidden");
+    }
 
     // Le nom d'utilisateur ne doit pas contenir de caractères speciaux
     if (FORBIDDEN_CHARACTERS.test(USERNAME)) {
-        submitButton.disabled = true;
-        usernameForbiddenCharacters.innerHTML="Le nom d'utilisateur ne doit pas contenir de caractères speciaux";
-        usernameForbiddenCharacters.style.display = "block";
-    } else { usernameForbiddenCharacters.style.display = "none"; }
+        submitButton.classList.add("disabled");
+        inputUsername.classList.add("input-error");
+        usernameForbiddenCharacters.classList.add("block");
+        usernameForbiddenCharacters.classList.remove("hidden");
+    } else {
+        inputUsername.classList.remove("input-error");
+        submitButton.classList.remove("disabled");
+        usernameForbiddenCharacters.classList.remove("block");
+        usernameForbiddenCharacters.classList.add("hidden");
+    }
 
     // Tout est bon, le bouton de soumission est activé
     if (!USERNAME.length < MIN_USERNAME_LENGTH && !FORBIDDEN_CHARACTERS.test(USERNAME))
-    { submitButton.disabled = false; }
+    { submitButton.classList.remove("disabled"); }
 }
 
 /**
@@ -95,17 +109,21 @@ function checkEmailRequirements() {
     const EMAIL = document.getElementById("email").value; // Email
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex pour valider le format de l'email
     // Variables
+    let inputEmail = document.getElementById('email');
     let incorrectEmailFormat = document.getElementById("incorrectEmailFormat");
     let submitButton = document.getElementById("submitButton");
     
     // Vérifications
     if (!EMAIL_REGEX.test(EMAIL)) {
-        submitButton.disabled = true;
-        incorrectEmailFormat.innerHTML = "Format d'email invalide, veuillez entrer un email valide.";
-        incorrectEmailFormat.style.display = "block";
+        submitButton.classList.add("disabled");
+        inputEmail.classList.add("input-error");
+        incorrectEmailFormat.classList.add("block");
+        incorrectEmailFormat.classList.remove("hidden");
     } else {
-        submitButton.disabled = false;
-        incorrectEmailFormat.style.display = "none";
+        inputEmail.classList.remove("input-error");
+        submitButton.classList.remove("disabled");
+        incorrectEmailFormat.classList.remove("block");
+        incorrectEmailFormat.classList.add("hidden");
     }
 }
 
@@ -133,6 +151,7 @@ function checkPasswordRequirements() {
     const SPECIAL_CHARACTER = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/; // Caractère special
     const PASSWORD = document.getElementById("password").value; // Mot de passe
     // Variables
+    let inputPassword = document.getElementById('password');
     let passwordTooShort = document.getElementById("passwordTooShort");
     let passwordNoUppercase = document.getElementById("passwordNoUppercase");
     let passwordNoLowercase = document.getElementById("passwordNoLowercase");
@@ -143,38 +162,69 @@ function checkPasswordRequirements() {
     // Vérifications
     // Le mot de passe doit contenir au moins 8 caractères
     if (PASSWORD.length < MIN_PASSWORD_LENGTH) {
-        submitButton.disabled = true;
+        submitButton.classList.add("disabled");
+        inputPassword.classList.add("input-error");
+        passwordTooShort.classList.add("block");
+        passwordTooShort.classList.remove("hidden");
         passwordTooShort.innerHTML="Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères";
-        passwordTooShort.style.display = "block";
-    } else { passwordTooShort.style.display = "none"; }
+    } else {
+        inputPassword.classList.remove("input-error");
+        submitButton.classList.remove("disabled");
+        passwordTooShort.classList.remove("block");
+        passwordTooShort.classList.add("hidden");
+    }
 
     // Le mot de passe doit contenir au moins une majuscule
     if (!UPPERCASE_LETTER.test(PASSWORD)) {
-        submitButton.disabled = true;
-        passwordNoUppercase.innerHTML="Le mot de passe doit contenir au moins une majuscule";
-        passwordNoUppercase.style.display = "block";
-    } else { passwordNoUppercase.style.display = "none"; }
+        submitButton.classList.add("disabled");
+        inputPassword.classList.add("input-error");
+        passwordNoUppercase.classList.add("block");
+        passwordNoUppercase.classList.remove("hidden");
+    } else {
+        inputPassword.classList.remove("input-error");
+        submitButton.classList.remove("disabled");
+        passwordNoUppercase.classList.remove("block");
+        passwordNoUppercase.classList.add("hidden");
+    }
 
     // Le mot de passe doit contenir au moins une minuscule
     if (!LOWERCASE_LETTER.test(PASSWORD)) {
-        submitButton.disabled = true;
-        passwordNoLowercase.innerHTML="Le mot de passe doit contenir au moins une minuscule";
-        passwordNoLowercase.style.display = "block";
-    } else { passwordNoLowercase.style.display = "none"; }
+        submitButton.classList.add("disabled");
+        inputPassword.classList.add("input-error");
+        passwordNoLowercase.classList.add("block");
+        passwordNoLowercase.classList.remove("hidden");
+    } else {
+        inputPassword.classList.remove("input-error");
+        submitButton.classList.remove("disabled");
+        passwordNoLowercase.classList.remove("block");
+        passwordNoLowercase.classList.add("hidden");
+    }
 
     // Le mot de passe doit contenir au moins un chiffre
     if (!NUMBERS.test(PASSWORD)) {
-        submitButton.disabled = true;
-        passwordNoNumber.innerHTML="Le mot de passe doit contenir au moins un chiffre";
-        passwordNoNumber.style.display = "block";
-    } else { passwordNoNumber.style.display = "none"; }
+        submitButton.classList.add("disabled");
+        inputPassword.classList.add("input-error");
+        passwordNoNumber.classList.add("block");
+        passwordNoNumber.classList.remove("hidden");
+    } else {
+        inputPassword.classList.remove("input-error");
+        submitButton.classList.remove("disabled");
+        passwordNoNumber.classList.remove("block");
+        passwordNoNumber.classList.add("hidden");
+    }
 
     // Le mot de passe doit contenir au moins un caractère special
     if (!SPECIAL_CHARACTER.test(PASSWORD)) {
-        submitButton.disabled = true;
-        passwordNoSpecialCharacter.innerHTML="Le mot de passe doit contenir au moins un caractère special";
-        passwordNoSpecialCharacter.style.display = "block";
-    } else { passwordNoSpecialCharacter.style.display = "none"; }
+        submitButton.classList.add("disabled");
+        inputPassword.classList.add("input-error");
+        passwordNoSpecialCharacter.classList.add("block");
+        passwordNoSpecialCharacter.classList.remove("hidden");
+    } else {
+        inputPassword.classList.remove("input-error");
+        submitButton.classList.remove("disabled");
+        passwordNoSpecialCharacter.classList.remove("block");
+        passwordNoSpecialCharacter.classList.add("hidden");
+    }
 
     // Tout est bon, le bouton de soumission est activé
     if (PASSWORD.length >= MIN_PASSWORD_LENGTH &&
@@ -182,7 +232,7 @@ function checkPasswordRequirements() {
         LOWERCASE_LETTER.test(PASSWORD) &&
         NUMBERS.test(PASSWORD) &&
         SPECIAL_CHARACTER.test(PASSWORD))
-        { submitButton.disabled = false; }
+        { submitButton.classList.remove("disabled"); }
 }
 
 
@@ -201,17 +251,24 @@ function checkPasswordsMatch() {
     const PASSWORD = document.getElementById("password").value;
     const CONFIRM_PASSWORD = document.getElementById("passwordConfirm").value;
     // Variables
+    let inputPassword = document.getElementById('password');
     let notMachingPasswords = document.getElementById("notMachingPasswords");
     let submitButton = document.getElementById("submitButton");
         
     // Vérifications
     if (!(CONFIRM_PASSWORD == PASSWORD)) {
-        submitButton.disabled = true;
-        notMachingPasswords.innerHTML="Les mots de passe ne sont pas identiques";
-        notMachingPasswords.style.display = "block";
-    } else { notMachingPasswords.style.display = "none"; }
+        submitButton.classList.add("disabled");
+        inputPassword.classList.add("input-error");
+        notMachingPasswords.classList.add("block");
+        notMachingPasswords.classList.remove("hidden");
+    } else {
+        inputPassword.classList.remove("input-error");
+        submitButton.classList.remove("disabled");
+        notMachingPasswords.classList.remove("block");
+        notMachingPasswords.classList.add("hidden");
+    }
 
     // Tout est bon, le bouton de soumission est activé
     if(CONFIRM_PASSWORD == PASSWORD)
-    { submitButton.disabled = false; }
+    { submitButton.classList.remove("disabled"); }
 }
