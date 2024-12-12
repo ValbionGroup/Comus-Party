@@ -157,15 +157,22 @@ class ControllerAuth extends Controller
 
 
 
+
     /**
-     * @brief Enregistre un nouvel utilisateur et son joueur associé et envoie un email de confirmation d'email
-     * @details Vérifie si l'email, le nom d'utilisateur et le mot de passe sont valides, puis crée un nouvel utilisateur et son joueur associé
-     * en base de données. Si l'utilisateur est créé, envoi un email de confirmation d'email.
-     * Si l'utilisateur et le joueur existent déjà, la méthode renvoie un message d'erreur approprié.
-     * @param ?string $username Le nom d'utilisateur du joueur
-     * @param ?string $email L'adresse e-mail de l'utilisateur
-     * @param ?string $password Le mot de passe de l'utilisateur
+     * @brief La méthode register permet d'inscrire un utilisateur
+     * @details Vérifie si un utilisateur portant l'adresse e-mail fournie en paramètre existe.
+     * Si oui, lève une exception.
+     * Vérifie que le nom d'utilisateur fourni n'existe pas déjà en base de données.
+     * Si oui, lève une exception.
+     * Crée un utilisateur avec l'adresse e-mail fournie, un mot de passe hashé fourni
+     * et un token de vérification de l'email.
+     * Envoie un mail avec phpmailer contenant un lien de confirmation de compte.
+     * Crée un joueur avec l'identifiant utilisateur créé, le nom d'utilisateur fourni et l'adresse e-mail fournie.
+     * @param ?string $username Nom d'utilisateur fourni dans le formulaire d'inscription
+     * @param ?string $email Adresse e-mail fournie dans le formulaire d'inscription
+     * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
      * @return void
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      * @todo Modifier le corps du mail (version HTMl) pour correspondre à la charte graphique (quand terminée)
      * @todo Changer l'URL envoyé (localhost) pour le déploiement
      */
