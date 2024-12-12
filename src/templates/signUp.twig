@@ -16,33 +16,33 @@
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" autofocus class="w-full input" required>
 
-                <p id="usernameTooShort" style="color: red; display: none;"></p>
-                <p id="usernameForbiddenCharacters" style="color: red; display: none;"></p>
+                <p class="input-error-text text-red-600 hidden" id="usernameTooShort"></p>
+                <p class="input-error-text text-red-600 hidden" id="usernameForbiddenCharacters">Le nom d'utilisateur ne doit pas contenir de caractères speciaux</p>
             </div>
 
             <div class="flex flex-col m-5">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Email" class="w-full input" required>
 
-                <p id="incorrectEmailFormat" style="color: red; display: none;"></p>
+                <p class="input-error-text text-red-600 hidden" id="incorrectEmailFormat">Format d'email invalide, veuillez entrer un email valide.</p>
             </div>
 
             <div class="flex flex-col m-5">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Mot de passe" class="w-full input" required>
 
-                <p id="passwordTooShort" style="color: red; display: none;"></p>
-                <p id="passwordNoUppercase" style="color: red; display: none;"></p>
-                <p id="passwordNoLowercase" style="color: red; display: none;"></p>
-                <p id="passwordNoNumber" style="color: red; display: none;"></p>
-                <p id="passwordNoSpecialCharacter" style="color: red; display: none;"></p>
+                <p class="input-error-text text-red-600 hidden" id="passwordTooShort"></p>
+                <p class="input-error-text text-red-600 hidden" id="passwordNoUppercase">Le mot de passe doit contenir au moins une majuscule</p>
+                <p class="input-error-text text-red-600 hidden" id="passwordNoLowercase">Le mot de passe doit contenir au moins une minuscule</p>
+                <p class="input-error-text text-red-600 hidden" id="passwordNoNumber">Le mot de passe doit contenir au moins un chiffre</p>
+                <p class="input-error-text text-red-600 hidden" id="passwordNoSpecialCharacter">Le mot de passe doit contenir au moins un caractère special</p>
             </div>
 
             <div class="flex flex-col m-5">
                 <label for="passwordConfirm">Confirmation du mot de passe</label>
                 <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmation du mot de passe" class="w-full input" required>
 
-                <p id="notMachingPasswords" style="color: red; display: none;"></p>
+                <p class="input-error-text text-red-600 hidden" id="notMachingPasswords">Les mots de passe ne sont pas identiques</p>
             </div>
 
             <button type="submit" id="submitButton" class="w-full btn-primary">Valider</button>
@@ -50,4 +50,7 @@
         {% if resultMessage %} <p>{{ resultMessage }}</p> {% endif %}
         {% if confirmationResult %} <p>{{ confirmationResult }}</p> {% endif %}
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src="/assets/js/authentication.js"></script>
 {% endblock %}

@@ -171,123 +171,100 @@ class ControllerAuth extends Controller
      * @todo Changer l'URL envoyé (localhost) pour le déploiement
      */
     public function register(?string $username, ?string $email, ?string $password): void {
-        // Vérifier si l'email, le nom d'utilisateur et le mot de passe sont valides
-        if ($this->validateUsername($username) &&
-            $this->validateEmail($email) &&
-            $this->validatePassword($password)) {
 
-            // Initialiser la variable de message de résultat
-            $resultMessage = null;
+        $rules = [
+            'username' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 3
+            ],
+            'email' => [
+                'required' => true,
+                'type' => 'string',
+                'format' => FILTER_VALIDATE_EMAIL
+            ],
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 8
+            ]
+        ];
 
-            // Hash le mot de passe
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $validator = new Validator($rules);
+
+        if(!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
+            throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
+        }
+
+        // Hash le mot de passe
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 
-            $userDAO = new UserDAO($this->getPdo());
-            $playerDAO = new PlayerDAO($this->getPdo());
+        $userDAO = new UserDAO($this->getPdo());
+        $playerDAO = new PlayerDAO($this->getPdo());
 
-            // Vérifier si l'utilisateur et le joueur existent
-            $existingUser = $userDAO->findByEmail($email) !== null;
-            $existingPlayer = $playerDAO->findByUsername($username) !== null;
+        // Vérifier si l'utilisateur et le joueur existent
+        $existingUser = $userDAO->findByEmail($email) !== null;
+        $existingPlayer = $playerDAO->findByUsername($username) !== null;
 
-            $resultUser = false;
+        $resultUser = false;
 
-            // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
-            if (!$existingUser && !$existingPlayer)
-            {
-                $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
-                $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
+        // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
+        if (!$existingUser && !$existingPlayer)
+        {
+            $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
+            $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
 
-                // Envoi du mail avec phpmailer
-                $mail = new PHPMailer(true); // Création d'un objet PHPMailer
-                try {
-                    // Configuration technique
-                    $mail->isSMTP(); // Utilisation du protocole SMTP
-                    $mail->Host = MAIL_HOST; // Hôte du serveur SMTP
-                    $mail->SMTPAuth = true; // Authentification SMTP
-                    $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
-                    $mail->Port = MAIL_PORT; // Port SMTP
+            // Envoi du mail avec phpmailer
+            $mail = new PHPMailer(true); // Création d'un objet PHPMailer
+            try {
+                // Configuration technique
+                $mail->isSMTP(); // Utilisation du protocole SMTP
+                $mail->Host = MAIL_HOST; // Hôte du serveur SMTP
+                $mail->SMTPAuth = true; // Authentification SMTP
+                $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
+                $mail->Port = MAIL_PORT; // Port SMTP
 
-                    // Configuration de l'authentification
-                    $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
-                    $mail->Password = MAIL_PASS; // Mot de passe de l'expéditeur
-                    $mail->setFrom(MAIL_FROM); // Adresse de l'expéditeur
-                    $mail->addAddress($email); // Adresse du destinataire
+                // Configuration de l'authentification
+                $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
+                $mail->Password = MAIL_PASS; // Mot de passe de l'expéditeur
+                $mail->setFrom(MAIL_FROM); // Adresse de l'expéditeur
+                $mail->addAddress($email); // Adresse du destinataire
 
-                    // Configuration du message
-                    $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
-                    $mail->Subject = 'Confirmation de votre compte' . MAIL_BASE; // Sujet du message
-                    $mail->Body = // Corps du message
-                        '<p>Vous avez créé un compte sur Comus Party.</p>
-                        <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
-                        <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
-                    $mail->AltBody = // Corps du message sans format HTML
-                        'Vous avez créé un compte sur Comus Party.
-                        Pour confirmer votre compte, cliquez sur le lien ci-dessous.
-                        "' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken);
+                // Configuration du message
+                $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
+                $mail->Subject = 'Confirmation de votre compte' . MAIL_BASE; // Sujet du message
+                $mail->Body = // Corps du message
+                    '<p>Vous avez créé un compte sur Comus Party.</p>
+                    <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
+                    <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
+                $mail->AltBody = // Corps du message sans format HTML
+                    'Vous avez créé un compte sur Comus Party.
+                    Pour confirmer votre compte, cliquez sur le lien ci-dessous.
+                    "' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken);
 
-                    $mail->send(); // Envoi du message
-                } catch (Exception $e) { echo "Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}"; }
-            }
+                $mail->send(); // Envoi du message
+            } catch (Exception $e) { echo "Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}"; }
+        }
 
-            // Créer le joueur si l'utilisateur est créé avec succès
-            if ($resultUser) { $playerDAO->createPlayer($username, $email); }
+        // Créer le joueur si l'utilisateur est créé avec succès
+        if ($resultUser) { $playerDAO->createPlayer($username, $email); }
 
-            if (!$existingUser && !$existingPlayer) { $resultMessage = "Inscription validée"; }
-            elseif(!$existingUser && $existingPlayer) { $resultMessage = "Création du joueur échouée (nom d'utilisateur existant)"; }
-            elseif($existingUser && !$existingPlayer) { $resultMessage = "Création de l'utilisateur échouée (email existant)"; }
-            else { $resultMessage = "Création de l'utilisateur et du joueur échouées (email et nom d'utilisateur existants)"; }
-        } else { $resultMessage = "Données reçues non valides (email, nom d'utilisateur ou mot de passe non valides)"; }
+        $userManager = new UserDAO($this->getPdo());
+        $user = $userManager->findByEmail($email);
 
-        $_SESSION['resultMessage'] = $resultMessage;
+        if (is_null($user)) {
+            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+        }
 
-        global $twig;
-        echo $twig->render('signUp.twig', ['resultMessage' => $resultMessage]);
-    }
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findWithDetailByUserId($user->getId());
 
-    /**
-     * @brief Valide le nom d'utilisateur par rapport à des critères définis.
-     *
-     * @details Le nom d'utilisateur doit répondre aux critères suivants:
-     * - Avoir au moins 3 caractères
-     * - Ne pas contenir de caractères spéciaux
-     *
-     * @param string $username Le nom d'utilisateur à valider.
-     * @return bool Renvoie true si le nom d'utilisateur répond à tous les critères, false sinon.
-     */
-    private function validateUsername($username) {
-        return strlen($username) >= 3 && !strpbrk($username, '@#$%^&*()+=[]{}|;:",\'<>?/\\ ');
-    }
+        if (is_null($player)) {
+            throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+        }
 
-    /**
-     * @brief Valide le mot de passe par rapport à des critères définis.
-     *
-     * @details Le mot de passe doit répondre aux critères suivants:
-     * - Avoir au moins 8 caractères
-     * - Contenir au moins une lettre majuscule
-     * - Contenir au moins une lettre minuscule
-     * - Contenir au moins un chiffre
-     * - Contenir au moins un caractère spécial
-     *
-     * @param string $password Le mot de passe à valider.
-     * @return bool Renvoie true si le mot de passe répond à tous les critères, false sinon.
-     */
-    private function validatePassword($password) {
-        return strlen($password) >= 8 && preg_match('/[A-Z]/', $password) &&
-               preg_match('/[a-z]/', $password) && preg_match('/\d/', $password) &&
-               preg_match('/[\W]/', $password);
-    }
-
-/**
- * @brief Valide l'email par rapport à des critères définis.
- *
- * @details Vérifie que l'email est dans un format valide utilisant le filtre PHP FILTER_VALIDATE_EMAIL.
- *
- * @param string $email L'email à valider.
- * @return bool Renvoie true si l'email est dans un format valide, false sinon.
- */
-    private function validateEmail($email) {
-        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+        header('Location: /');
     }
 
 /**
