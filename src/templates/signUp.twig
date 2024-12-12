@@ -47,6 +47,11 @@
 
             <button type="submit" id="submitButton" class="w-full btn-primary">Valider</button>
         </form>
+        
+        <div class="flex justify-center mt-7">
+            <a href="/login"
+               class="text-center justify dark:text-night-3 hover:underline transition-all ease-in-out">Vous avez déjà un compte ? <span class="font-semibold">Connectez-vous dès maintenant</span></a>
+        </div>
         {% if resultMessage %} <p>{{ resultMessage }}</p> {% endif %}
         {% if confirmationResult %} <p>{{ confirmationResult }}</p> {% endif %}
     </div>
