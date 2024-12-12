@@ -48,9 +48,12 @@ class ControllerBasket extends Controller
 
         $articles = $managerArticle->findArticlesWithIds($_SESSION['basket']);
         $prixTotalPanier = 0;
-        foreach($articles as $article){
-            $prixTotalPanier += $article->getPriceEuro();
+        if($articles != null){
+            foreach($articles as $article){
+                $prixTotalPanier += $article->getPriceEuro();
+            }
         }
+
         echo $template->render(
             array(
                 'articles' => $articles,

@@ -84,6 +84,26 @@ class ControllerShop extends Controller {
         echo $template->render(array('articles' => $articles));
     }
 
+    /**
+     * @brief Permet d'afficher la page de paiement
+     *
+     * @return void
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function showCheckout(){
+        $articles = [];
+        foreach ($_SESSION['basket'] as $id) {
+            $managerArticle = new ArticleDAO($this->getPdo());
+            $article = $managerArticle->findById($id);
+            $articles[] = $article;
+        }
+
+        $template = $this->getTwig()->load('checkout.twig');
+        echo $template->render(array('articles' => $articles));
+    }
+
 
     /**
      * @brief Exécute l'algorithme de Luhn sur le numéro de carte passé en paramètre
