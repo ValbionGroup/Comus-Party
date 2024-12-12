@@ -127,13 +127,14 @@ function autocomplete(inp, arr) {
         closeAllLists();
         if (!val) { return false;}
         currentFocus = -1;
-        /*create a DIV element that will contain the items (values):*/
+
+
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
-        /*append the DIV element as a child of the autocomplete container:*/
+        a.setAttribute("class", "autocomplete-items absolute top-[72px] w-full bg-night-1 rounded-b-lg");
+
         this.parentNode.appendChild(a);
-        /*for each item in the array...*/
+
         if(arr !== null){
             for (i = 0; i < arr.length; i++) {
                 /*check if the item starts with the same letters as the text field value:*/
@@ -156,12 +157,12 @@ function autocomplete(inp, arr) {
                         closeAllLists();
                     }
 
+                    inp.setAttribute("class", "!rounded-b-none input h-10 w-full mt-2");
+                    b.setAttribute("class", "ml-2");
                     a.appendChild(b);
-                    b.className = "input rounded-none";
                 }
             }
         }
-        inp.classList.add("rounded-t-lg");
     });
     /*execute a function presses a key on the keyboard:*/
     inp.addEventListener("keydown", function(e) {
@@ -211,6 +212,7 @@ function autocomplete(inp, arr) {
         for (let i = 0; i < x.length; i++) {
             if (elmnt !== x[i] && elmnt !== inp) {
                 x[i].parentNode.removeChild(x[i]);
+                inp.setAttribute("class", "!rounded-b-lg input h-10 w-full mt-2");
             }
         }
     }

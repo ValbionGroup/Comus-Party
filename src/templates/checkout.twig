@@ -45,13 +45,13 @@
             <div class="col-span-2 grid-rows-4 h-full sm:m x-10 mx-4 gap-4">
                 <div class="row-span-1 mb-20">
                     <h1 class="font-sans text-2xl">Adresse de facturation</h1>
-                    <div class="grid sm:grid-rows-3 grid-row-1 gap-5 mt-5">
-                        <div class="grid sm:grid-cols-2 grid-cols-1 gap-4">
-                            <label for="name">
+                    <div class="flex flex-col gap-5 mt-5">
+                        <div class="flex justify-between gap-4">
+                            <label for="name" class="w-full">
                                 <span>Nom complet</span>
                                 <input type="text" id="nom" value="" placeholder="Nom complet" class="input h-10 w-full mt-2">
                             </label>
-                            <label for="adress">
+                            <label for="adress" class="w-full flex flex-col relative">
                                 <span>Adresse</span>
                                 <input type="text" id="adresse" value="" placeholder="Adresse" class="input h-10 w-full mt-2")>
                             </label>
@@ -60,23 +60,21 @@
                             <span>Complément d'adresse</span>
                             <input type="text" id="complement" value="" placeholder="Complément" class="input h-10 w-full mt-2">
                         </label>
-                        <div class="grid grid-cols-3 gap-4">
-                            <label for="city">
+                        <div class="flex justify-between gap-4">
+                            <label for="city" class="w-full">
                                 <span>Ville</span>
                                 <input type="text" id="city" value="" placeholder="Ville" class="input h-10 w-full mt-2">
                             </label>
-                            <label for="postalCode">
+                            <label for="zipCode" class="w-full">
                                 <span>Code Postal</span>
                                 <input type="text" id="zipCode" value="" placeholder="Code Postal" class="input h-10 w-full mt-2">
                             </label>
-                            <label for="country">
+                            <label for="country" class="w-full">
                                 <span>Pays</span>
                                 <input type="text" id="country" value="" placeholder="Pays" class="input h-10 w-full mt-2">
                             </label>
                         </div>
                     </div>
-
-
                 </div>
                 <div class="row-span-3">
                     <h1 class="font-sans text-2xl">Méthode de paiement</h1>
