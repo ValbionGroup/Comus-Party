@@ -74,6 +74,42 @@ class UserDAO {
     }
 
     /**
+     * @brief Met à jour un utilisateur en base de données
+     * @param User $user L'utilisateur à mettre à jour
+     * @return bool Retourne true si la mise à jour a réussi, false sinon
+     */
+    public function update(User $user): bool
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE '.DB_PREFIX.'user
+            SET email = :email,
+                email_verified_at = :email_verified_at,
+                email_verif_token = :email_verif_token,
+                password = :password,
+                disabled = :disabled,
+                created_at = :created_at
+            WHERE id = :id'
+        );
+
+        $email = $user->getEmail();
+        $verifiedAt = $user->getEmailVerifiedAt()->getTimestamp();
+        $emailVerifyToken = $user->getEmailVerifyToken();
+        $password = $user->getPassword();
+        $disabled = $user->getDisabled();
+        $createdAt = $user->getCreatedAt()->getTimestamp();
+        $id = $user->getId();
+
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':email_verified_at', $verifiedAt);
+        $stmt->bindParam(':email_verif_token', $emailVerifyToken);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':disabled', $disabled);
+        $stmt->bindParam(':created_at', $createdAt);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
+
+    /**
      * Retourne un utilisateur en fonction de son email
      *
      * @param string|null $email Email de l'utilisateur

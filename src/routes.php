@@ -21,7 +21,7 @@ $router->get('/', function () use ($loader, $twig) {
         header('Location: /login');
         exit;
     }
-    ControllerFactory::getController("game",$loader,$twig)->call("show");
+    ControllerFactory::getController("game", $loader, $twig)->call("show");
     exit;
 });
 
@@ -93,12 +93,13 @@ $router->get('/shop', function () use ($loader, $twig) {
 
 });
 
-$router->get('/shop/basket', function ()  use ($loader, $twig) {
+$router->get('/shop/basket', function () use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
-    ControllerFactory::getController("basket",$loader,$twig)->call("show");
+
+    ControllerFactory::getController("basket", $loader, $twig)->call("show");
     exit;
 });
 
@@ -151,6 +152,46 @@ $router->get('/register', function () {
 $router->post('/register', function () {
     echo "Traitement de l'inscription<br/>";
     echo "A IMPLEMENTER";
+    exit;
+});
+
+$router->get('/forgot-password', function () use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
+    exit;
+});
+
+$router->post('/forgot-password', function () use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("sendResetPasswordLink", ["email" => $_POST['email']]);
+    exit;
+});
+
+$router->get('/reset-password/:token', function (string $token) use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("showResetPasswordPage", ["token" => $token]);
+    exit;
+});
+
+$router->post('/reset-password/:token', function (string $token) use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
+        "token" => $token,
+        "password" => $_POST['password'],
+        "passwordConfirm" => $_POST['passwordConfirm']
+    ]);
     exit;
 });
 
