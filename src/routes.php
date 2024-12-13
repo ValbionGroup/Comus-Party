@@ -230,3 +230,8 @@ $router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("disableAccount", ["uuid" => $uuid]);
     exit;
 });
+
+$router->get('/cgu', function () use ($loader, $twig) {
+    ControllerFactory::getController("cgu", $loader, $twig)->call("show");
+    exit;
+});

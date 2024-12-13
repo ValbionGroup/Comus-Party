@@ -31,6 +31,7 @@ require_once __DIR__ . '/src/Controllers/controllerGame.class.php';
 require_once __DIR__ . '/src/Controllers/controllerShop.class.php';
 require_once __DIR__ . '/src/Controllers/controllerAuth.class.php';
 require_once __DIR__ . '/src/Controllers/controllerBasket.class.php';
+require_once __DIR__ . '/src/Controllers/controllerPolicy.class.php';
 
 require_once __DIR__ . '/src/Models/db.class.php';
 require_once __DIR__ . '/src/Models/player.class.php';
