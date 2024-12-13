@@ -149,4 +149,23 @@ class UserDAO {
         $user->setUpdatedAt(new DateTime($data['updated_at']));
         return $user;
     }
+
+    /**
+     * @brief Désactive un compte utilisateur à partir de l'ID passé en paramètre
+     * @details La demande de suppression effective d'un compte n'est pas possible.
+     *   Afin de supprimer son compte, un joueur doit avant tout le désactiver.
+     *   Une fois le compte désactivé, le joueur possède 30 jours pour demander à récupérer celui-ci.
+     *   Au bout de cette période, toutes les données sont définitivement supprimées.
+     * @param $id L'ID du compte utilisateur à désactiver
+     * @return void
+     */
+    public function disableAccount($id): void
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE ' . DB_PREFIX . 'user
+            SET disabled = 1
+            WHERE id = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
 }

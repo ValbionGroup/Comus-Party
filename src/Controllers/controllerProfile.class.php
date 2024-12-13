@@ -10,9 +10,13 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\Exception\ControllerNotFoundException;
+use ComusParty\Models\Exception\MethodNotFoundException;
 use ComusParty\Models\Exception\NotFoundException;
+use ComusParty\Models\Exception\UnauthorizedAccessException;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
+use DateMalformedStringException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -73,5 +77,34 @@ class ControllerProfile extends Controller {
             "pfp" => $pfpPath,
             "banner" => $bannerPath
         ));
+    }
+
+    /**
+     * @param string|null $uuid L'UUID du joueur à désactiver
+     * @return void
+     * @throws NotFoundException Exception levée dans le cas où le joueur n'est pas trouvé
+     * @throws UnauthorizedAccessException Exception levée dans le cas où l'utilisateur n'est pas autorisé à effectuer cette action
+     * @throws ControllerNotFoundException Exception levée dans le cas où le contrôleur n'est pas trouvé
+     * @throws MethodNotFoundException Exception levée dans le cas où la méthode n'est pas trouvée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function disableAccount(?string $uuid)
+    {
+        if (is_null($uuid)) {
+            throw new NotFoundException('Player not found');
+        }
+        if ($_SESSION['uuid'] != $uuid) {
+            throw new UnauthorizedAccessException('Vous n\'êtes pas autorisé à effectuer cette action');
+        }
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findWithDetailByUuid($uuid);
+        $userManager = new UserDAO($this->getPdo());
+        $user = $userManager->findById($player->getUserId());
+        if (is_null($user)) {
+            throw new NotFoundException('User not found');
+        }
+        $userManager->disableAccount($user->getId());
+        ControllerFactory::getController('auth', $this->getLoader(), $this->getTwig())->call('logout');
+        header('Location: /');
     }
 }
