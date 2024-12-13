@@ -232,6 +232,6 @@ $router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
 });
 
 $router->get('/cgu', function () use ($loader, $twig) {
-    ControllerFactory::getController("cgu", $loader, $twig)->call("show");
+    ControllerFactory::getController("policy", $loader, $twig)->call("showCgu");
     exit;
 });
