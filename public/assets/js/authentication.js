@@ -34,6 +34,9 @@ window.onload = function() {
 
     const INPUT_TERMS_OF_SERVICE = document.getElementById("termsOfService");
     INPUT_TERMS_OF_SERVICE.addEventListener("change", checkTermsOfService);
+
+    const INPUT_PRIVACY_POLICY = document.getElementById("privacyPolicy");
+    INPUT_PRIVACY_POLICY.addEventListener("change", checkPrivacyPolicy);
 }
 
 
@@ -283,6 +286,19 @@ function checkTermsOfService() {
 
     // Vérifications
     if (inputTermsOfService.checked) {
+        submitButton.classList.remove("disabled");
+    } else {
+        submitButton.classList.add("disabled");
+    }
+}
+
+function checkPrivacyPolicy() {
+    // Variables
+    let submitButton = document.getElementById("submitButton");
+    let inputPrivacyPolicy = document.getElementById("privacyPolicy");
+
+    // Vérifications
+    if (inputPrivacyPolicy.checked) {
         submitButton.classList.remove("disabled");
     } else {
         submitButton.classList.add("disabled");
