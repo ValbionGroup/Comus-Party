@@ -127,6 +127,10 @@ $router->get('/shop/basket/checkout', function () use($loader, $twig) {
         header('Location: /login');
         exit;
     }
+    if (empty($_SESSION['basket'])) {
+        header('Location: /shop');
+        exit;
+    }
     ControllerFactory::getController("shop", $loader, $twig)->call("showCheckout");
     exit;
 });
