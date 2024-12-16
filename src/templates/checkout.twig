@@ -49,7 +49,11 @@
                         <div class="flex justify-between gap-4">
                             <label for="name" class="w-full">
                                 <span>Nom complet</span>
-                                <input type="text" id="nom" value="" placeholder="Nom complet" class="input h-10 w-full mt-2">
+                                <input type="text" id="nom" value="" placeholder="Nom complet" class="input h-10 w-full mt-2"
+                                       pattern="^[A-Za-zÀ-ÿ]+ [A-Za-zÀ-ÿ]+$" required>
+                                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                    Veuillez entrer un nom valide
+                                </span>
                             </label>
                             <label for="adress" class="w-full flex flex-col relative">
                                 <span>Adresse</span>
@@ -117,7 +121,7 @@
                                             <input  type="text" id="numCC" name="numCC" pattern=".{19,}" maxlength="19" placeholder="1234 5678 9012 3456" inputmode="numeric"
                                                      oninput="formatCardNumber(this)" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                                                Veuiller entrer un numéro de carte valide
+                                                Veuillez entrer un numéro de carte valide
                                             </span>
                                         </label>
                                     </div>
@@ -127,7 +131,7 @@
                                             <input type="text" id="titulaireCC" name="titulaireCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                                                    placeholder="John Doe" pattern="^[A-Za-zÀ-ÿ]+ [A-Za-zÀ-ÿ]+$" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                                                    Veuiller entrer un nom valide
+                                                    Veuillez entrer un nom valide
                                             </span>
                                         </label>
                                     </div>
@@ -137,7 +141,7 @@
                                             <input type="tel" id="dateCC" name="dateCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                                                    placeholder="MM/YY" value="" pattern="^(0?[1-9]|1[0-2])/?[0-9]{0,2}$" maxlength="5" oninput="formatExpirationDate(this)" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-                                                    Veuiller entrer une date valide
+                                                    Veuillez entrer une date valide
                                             </span>
                                         </label>
 
@@ -146,7 +150,7 @@
                                             <input type="tel" id="cryptogramCC" name="cryptogramCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown)]:border-red-500 peer"
                                                    oninput="formatCryptogram(this)" placeholder="123" pattern=".{3,}" maxlength="3" inputmode="numeric" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):invalid]:block">
-                                                    Veuiller entrer un cryptogramme valide
+                                                    Veuillez entrer un cryptogramme valide
                                             </span>
                                         </label>
                                     </div>
