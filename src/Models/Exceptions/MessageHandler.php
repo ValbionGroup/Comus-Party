@@ -2,7 +2,7 @@
 /**
  * @brief Gestion de l'affichage des erreurs
  *
- * @file ErrorHandler.php
+ * @file MessageHandler.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
  * @version 1.0
  * @date 2024-11-21
@@ -17,9 +17,9 @@ use Twig\Error\SyntaxError;
 
 /**
  * @brief Gestion de l'affichage des erreurs
- * @details La classe ErrorHandler permet de gérer l'affichage des erreurs de l'application
+ * @details La classe MessageHandler permet de gérer l'affichage des erreurs de l'application
  */
-class ErrorHandler
+class MessageHandler
 {
     /**
      * Lève une erreur bloquante.

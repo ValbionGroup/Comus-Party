@@ -11,7 +11,7 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
-use ComusParty\Models\Exception\ErrorHandler;
+use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\Exception\MalformedRequestException;
 use ComusParty\Models\Exception\NotFoundException;
 use ComusParty\Models\PasswordResetToken;
@@ -95,7 +95,7 @@ class ControllerAuth extends Controller
         ]);
 
         if (!$validator->validate(['email' => $email])) {
-            ErrorHandler::addExceptionParametersToTwig(new MalformedRequestException("Adresse e-mail invalide"));
+            MessageHandler::addExceptionParametersToTwig(new MalformedRequestException("Adresse e-mail invalide"));
             header('Location: /forgot-password');
             return;
         }
@@ -104,7 +104,7 @@ class ControllerAuth extends Controller
         $user = $userManager->findByEmail($email);
 
         if (is_null($user)) {
-            ErrorHandler::addExceptionParametersToTwig(new NotFoundException("Aucun utilisateur trouvé avec cette adresse e-mail"));
+            MessageHandler::addExceptionParametersToTwig(new NotFoundException("Aucun utilisateur trouvé avec cette adresse e-mail"));
             header('Location: /forgot-password');
             return;
         }
