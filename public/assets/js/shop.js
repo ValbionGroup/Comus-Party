@@ -11,6 +11,7 @@ let pfps = document.querySelectorAll(".pfp");
 let modalWindowForPfp = document.getElementById("modalForPfp")
 let modalWindowForBanner = document.getElementById("modalForBanner")
 let modalWindow = document.getElementById("modalForBanner")
+let modalsContent = document.querySelectorAll(".modalContent")
 let closeModalBtn = document.getElementById("closeModalBtn")
 let addBasketBtnPfp = document.getElementById("addBasketBtnPfp")
 let addBasketBtnBanner = document.getElementById("addBasketBtnBanner")
@@ -72,6 +73,25 @@ closeModalBtnsClass.forEach(btn => {
             overlay.classList.add('hidden', 'opacity-0');
             this.parentElement.parentElement.parentElement.parentElement.classList.add('hidden', 'opacity-0', 'translate-y-4');
         }, 300); // Durée de la transition
+    })
+})
+
+modals.forEach(modal => {
+    modal.addEventListener("click", function (){
+        // modalWindow.classList.remove("flex")
+        overlay.classList.remove('opacity-100'); // Disparition de l'overlay
+        modal.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
+        // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
+        setTimeout(() => {
+            overlay.classList.add('hidden', 'opacity-0');
+            modal.classList.add('hidden', 'opacity-0', 'translate-y-4');
+        }, 300); // Durée de la transition
+    })
+})
+modalsContent.forEach(modal => {
+    modal.addEventListener("click", function (){
+        console.log("hihi")
+        event.stopPropagation(); // Empêche la propagation à la div parent
     })
 })
 
