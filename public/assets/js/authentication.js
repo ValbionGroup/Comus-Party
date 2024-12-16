@@ -31,6 +31,9 @@ window.onload = function() {
 
     const INPUT_CONFIRM_PASSWORD = document.getElementById("passwordConfirm");
     INPUT_CONFIRM_PASSWORD.addEventListener("input", checkPasswordsMatch);
+
+    const INPUT_TERMS_OF_SERVICE = document.getElementById("termsOfService");
+    INPUT_TERMS_OF_SERVICE.addEventListener("change", checkTermsOfService);
 }
 
 
@@ -271,4 +274,17 @@ function checkPasswordsMatch() {
     // Tout est bon, le bouton de soumission est activé
     if(CONFIRM_PASSWORD == PASSWORD)
     { submitButton.classList.remove("disabled"); }
+}
+
+function checkTermsOfService() {
+    // Variables
+    let submitButton = document.getElementById("submitButton");
+    let inputTermsOfService = document.getElementById("termsOfService");
+
+    // Vérifications
+    if (inputTermsOfService.checked) {
+        submitButton.classList.remove("disabled");
+    } else {
+        submitButton.classList.add("disabled");
+    }
 }
