@@ -80,7 +80,6 @@ class ControllerAuth extends Controller
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws RandomException Exception levée dans le cas d'une erreur de génération de nombre aléatoire
      * @todo Utiliser une template de mail quand disponible
-     * @todo Changer la méthode de retour dès que possible
      * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
      */
     public function sendResetPasswordLink(string $email): void
