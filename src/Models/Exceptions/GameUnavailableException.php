@@ -11,6 +11,7 @@
 namespace ComusParty\Models\Exceptions;
 
 use Exception;
+use Throwable;
 
 /**
  * @brief Classe GameUnavailableException
