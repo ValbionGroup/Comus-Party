@@ -49,7 +49,7 @@
                         <div class="flex justify-between gap-4">
                             <label for="name" class="w-full">
                                 <span>Nom complet</span>
-                                <input type="text" id="nom" value="" placeholder="Nom complet" class="input h-10 w-full mt-2"
+                                <input type="text" id="nom" value="" placeholder="Nom complet" class="input h-10 w-full mt-2 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                                        pattern="^[A-Za-zÀ-ÿ]+ [A-Za-zÀ-ÿ]+$" required>
                                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                                                     Veuillez entrer un nom valide
@@ -57,7 +57,7 @@
                             </label>
                             <label for="adress" class="w-full flex flex-col relative">
                                 <span>Adresse</span>
-                                <input type="text" id="adresse" value="" placeholder="Adresse" class="input h-10 w-full mt-2")>
+                                <input type="text" id="adresse" value="" placeholder="Adresse" class="input h-10 w-full mt-2">
                             </label>
                         </div>
                         <label for="complement">
@@ -71,7 +71,11 @@
                             </label>
                             <label for="zipCode" class="w-full">
                                 <span>Code Postal</span>
-                                <input type="text" id="zipCode" value="" placeholder="Code Postal" class="input h-10 w-full mt-2">
+                                <input type="text" id="zipCode" value="" placeholder="Code Postal" class="input h-10 w-full mt-2 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                oninput="formatZipCode(this)" pattern=".{5}" maxlength="5" required>
+                                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                    Veuillez entrer un code postal valide
+                                </span>
                             </label>
                             <label for="country" class="w-full">
                                 <span>Pays</span>

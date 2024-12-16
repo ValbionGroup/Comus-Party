@@ -3,9 +3,15 @@
  *   @author Conchez-Boueytou Robin
  *   @brief Fichier js permettant de gérer le formulaire de paiement
  *   @details
- *   @date 29/11/2024
+ *   @date 16/12/2024
  *   @version 0.1
  */
+
+function formatZipCode(input) {
+    input.value = input.value
+        .replace(/\D/g, '') // Supprimer les caractères non numériques
+}
+
 function formatCardNumber(input) {
     input.value = input.value
         .replace(/\D/g, '') // Supprimer les caractères non numériques
