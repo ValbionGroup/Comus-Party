@@ -44,7 +44,7 @@ if (isset($_SESSION['error'])) {
     unset($_SESSION['error']);
 }
 
-if (isset($_SESSION['message'])) {
-    $twig->addGlobal('message', $_SESSION['message']);
-    unset($_SESSION['message']);
+if (isset($_SESSION['success'])) {
+    $twig->addGlobal('success', $_SESSION['success']);
+    unset($_SESSION['success']);
 }
