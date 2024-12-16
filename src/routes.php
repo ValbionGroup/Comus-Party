@@ -12,6 +12,7 @@ global $loader, $twig;
 
 use ComusParty\Controllers\ControllerFactory;
 use ComusParty\Models\Exception\MessageHandler;
+use ComusParty\Models\Exception\UnauthorizedAccessException;
 use ComusParty\Models\Router;
 
 $router = Router::getInstance();
@@ -129,6 +130,7 @@ $router->get('/shop/basket/checkout', function () use($loader, $twig) {
         exit;
     }
     if (empty($_SESSION['basket'])) {
+        MessageHandler::addExceptionParametersToSession(new UnauthorizedAccessException("Votre panier est vide"));
         header('Location: /shop');
         exit;
     }
