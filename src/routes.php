@@ -136,8 +136,15 @@ $router->post('/shop/basket/checkout', function () {
         header('Location: /login');
         exit;
     }
-    echo "Traitement du paiement<br/>";
-    echo "A IMPLEMENTER";
+    exit;
+});
+
+$router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("shop", $loader, $twig)->call("checkPaymentRequirement", array($_POST));
     exit;
 });
 

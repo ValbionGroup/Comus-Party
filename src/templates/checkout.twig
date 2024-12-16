@@ -41,7 +41,7 @@
     </header>
 
     <main class="bg-lavender-blush-base dark:bg-night-base flex flex-grow opacity-90 h-full overflow-auto">
-        <form id="checkoutForm" class="grid sm:grid-cols-3 grid-cols-1 w-full sm:mx-20 mx-0 mt-16 group" novalidate>
+        <form id="checkoutForm" action="/shop/basket/checkout/confirm" method="post" class="grid sm:grid-cols-3 grid-cols-1 w-full sm:mx-20 mx-0 mt-16 group" novalidate>
             <div class="col-span-2 grid-rows-4 h-full sm:m x-10 mx-4 gap-4">
                 <div class="row-span-1 mb-20">
                     <h1 class="font-sans text-2xl">Adresse de facturation</h1>
@@ -120,9 +120,9 @@
                                         peer-checked:transition-all peer-checked:duration-1000 peer-checked:ease-in">
                                 <div class="flex flex-col gap-2 m-4">
                                     <div class="w-full">
-                                        <label for="numCC">
+                                        <label for="cardNumber">
                                             <span>Numéro de la carte</span>
-                                            <input  type="text" id="numCC" name="numCC" pattern=".{19,}" maxlength="19" placeholder="1234 5678 9012 3456" inputmode="numeric"
+                                            <input  type="text" id="$cardNumber" name="cardNumber" pattern=".{19,}" maxlength="19" placeholder="1234 5678 9012 3456" inputmode="numeric"
                                                      oninput="formatCardNumber(this)" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                                                 Veuillez entrer un numéro de carte valide
@@ -140,18 +140,18 @@
                                         </label>
                                     </div>
                                     <div class="flex flex-col sm:flex-row gap-2 w-full">
-                                        <label for="dateCC" class="w-full">
+                                        <label for="expirationDate" class="w-full">
                                             <span>Date d'expiration</span>
-                                            <input type="tel" id="dateCC" name="dateCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                            <input type="tel" id="expirationDate" name="expirationDate" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                                                    placeholder="MM/YY" value="" pattern="^(0?[1-9]|1[0-2])/?[0-9]{0,2}$" maxlength="5" oninput="formatExpirationDate(this)" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                                                     Veuillez entrer une date valide
                                             </span>
                                         </label>
 
-                                        <label for="cryptogramCC" class="w-full">
+                                        <label for="cvv" class="w-full">
                                             <span>Cryptogramme</span>
-                                            <input type="tel" id="cryptogramCC" name="cryptogramCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown)]:border-red-500 peer"
+                                            <input type="tel" id="cvv" name="cvv" class="input h-10 w-full invalid:[&:not(:placeholder-shown)]:border-red-500 peer"
                                                    oninput="formatCryptogram(this)" placeholder="123" pattern=".{3,}" maxlength="3" inputmode="numeric" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):invalid]:block">
                                                     Veuillez entrer un cryptogramme valide

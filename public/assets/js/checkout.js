@@ -4,7 +4,7 @@
  *   @brief Fichier js permettant de gérer le formulaire de paiement
  *   @details
  *   @date 16/12/2024
- *   @version 0.1
+ *   @version 0.2
  */
 
 function formatZipCode(input) {
