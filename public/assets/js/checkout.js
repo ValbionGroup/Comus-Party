@@ -84,14 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-function removeArticle(id){
-    let article = document.getElementById(id);
-
-    article.remove();
-    price();
-}
-
-
 const getData = async (searchTerm) => {
     if (searchTerm.length < 3) {
         return null;
