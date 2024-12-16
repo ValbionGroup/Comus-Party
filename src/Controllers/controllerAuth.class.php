@@ -1,19 +1,30 @@
 <?php
 /**
  * @file    controllerAuth.class.php
- * @author  Estéban DESESSARD
+ * @author  Estéban DESESSARD, Lucas ESPIET
  * @brief   Le fichier contient la déclaration & définition de la classe ControllerAuth.
- * @date    21/11/2024
- * @version 0.5
+ * @date    09/12/2024
+ * @version 0.6
  */
 
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
+use ComusParty\Models\Exception\MalformedRequestException;
+use ComusParty\Models\Exception\MessageHandler;
+use ComusParty\Models\PasswordResetToken;
+use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use ComusParty\Models\Validator;
+use DateMalformedStringException;
+use DateTime;
+use Exception;
+use PHPMailer\PHPMailer\Exception as MailException;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -51,6 +62,174 @@ class ControllerAuth extends Controller
     }
 
     /**
+     * @brief Affiche la page de réinitialisation de mot de passe
+     * @return void
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     */
+    public function showForgotPasswordPage(): void
+    {
+        global $twig;
+        echo $twig->render('forgot-password.twig');
+    }
+
+    /**
+     * @param string $email Adresse e-mail pré-remplie dans le formulaire d'inscription
+     * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws RandomException Exception levée dans le cas d'une erreur de génération de nombre aléatoire
+     * @todo Utiliser une template de mail quand disponible
+     * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
+     */
+    public function sendResetPasswordLink(string $email): void
+    {
+        $validator = new Validator([
+            'email' => [
+                'required' => true,
+                'type' => 'string',
+                'format' => FILTER_VALIDATE_EMAIL
+            ]
+        ]);
+
+        if (!$validator->validate(['email' => $email])) {
+            MessageHandler::addExceptionParametersToSession(new MalformedRequestException("Adresse e-mail invalide"));
+            header('Location: /forgot-password');
+            return;
+        }
+
+        $userManager = new UserDAO($this->getPdo());
+        $user = $userManager->findByEmail($email);
+
+        if (is_null($user)) {
+            MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
+            header('Location: /login');
+        }
+
+        $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+        $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(32)), new DateTime());
+        $tokenManager->insert($token);
+
+        $url = BASE_URL . "/reset-password/" . $token->getToken();
+        $to = $user->getEmail();
+        $subject = "Réinitialisation de votre mot de passe";
+        // TODO: Utiliser une template mail pour les mails dès que possible
+        $message = "Bonjour, veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe : $url";
+
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->Host = MAIL_HOST;
+            $mail->SMTPAuth = true;
+            $mail->Port = MAIL_PORT;
+            $mail->Username = MAIL_USER;
+            $mail->Password = MAIL_PASS;
+            $mail->SMTPSecure = MAIL_SECURITY;
+            $mail->setFrom(MAIL_FROM);
+            $mail->isHTML(true);
+            $mail->Subject = $subject . MAIL_BASE;
+            $mail->AltBody = $message;
+            $mail->Body = $message;
+
+            $mail->addAddress($to);
+            $mail->send();
+        } catch (MailException $e) {
+        }
+
+        MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
+        header('Location: /login');
+    }
+
+    /**
+     * @brief Affiche la page de réinitialisation de mot de passe
+     * @param string $token Token de réinitialisation de mot de passe
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
+     * @throws MalformedRequestException Exception levée dans le cas d'une requête malformée
+     */
+    public function showResetPasswordPage(string $token): void
+    {
+        global $twig;
+
+        $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+        $token = $tokenManager->findByToken($token);
+
+        if (is_null($token)) {
+            throw new MalformedRequestException("Token invalide");
+        }
+
+        echo $twig->render('reset-password.twig');
+    }
+
+    /**
+     * @brief Réinitialise le mot de passe de l'utilisateur
+     * @details Vérifie que le mot de passe et sa confirmation sont identiques, puis les hashes avant de les stocker en base de données
+     * @param string $token Token de réinitialisation de mot de passe
+     * @param string $password Nouveau mot de passe
+     * @param string $passwordConfirm Confirmation du nouveau mot de passe
+     * @throws MalformedRequestException Exception levée dans le cas d'une requête malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws Exception Exception levée dans le cas d'une erreur quelconque
+     */
+    public function resetPassword(string $token, string $password, string $passwordConfirm)
+    {
+        $rules = [
+            'password' => [
+                'required' => true,
+                'minLength' => 8,
+                'maxLength' => 120,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+            ],
+            'passwordConfirm' => [
+                'required' => true,
+                'minLength' => 8,
+                'maxLength' => 120,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+            ]
+        ];
+        $validator = new Validator($rules);
+        $validated = $validator->validate([
+            'password' => $password,
+            'passwordConfirm' => $passwordConfirm
+        ]);
+
+        if (!$validated) {
+            throw new MalformedRequestException($validator->getErrors());
+        }
+
+        if ($password !== $passwordConfirm) {
+            throw new MalformedRequestException("Les mots de passe ne correspondent pas");
+        }
+
+        $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+        $token = $tokenManager->findByToken($token);
+
+        if (is_null($token)) {
+            throw new MalformedRequestException("Token invalide");
+        }
+
+        $userManager = new UserDAO($this->getPdo());
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $user = $userManager->findById($token->getUserId());
+        $user->setPassword($hashedPassword);
+
+        if (!$userManager->update($user)) {
+            throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
+        }
+
+        if (!$tokenManager->delete($token->getUserId())) {
+            throw new Exception("Erreur lors de la suppression du token", 500);
+        }
+
+        MessageHandler::addMessageParametersToSession("Votre mot de passe a bien été réinitialisé");
+        header('Location: /login');
+    }
+
+    /**
      * @brief Traite la demande de connexion de l'utilisateur
      * @details Vérifie si un utilisateur portant l'adresse e-mail fournie en paramètre existe.
      * Si oui, vérifie par la suite son adresse e-mail a bien été vérifiée. Dans le cas contraire, lève une exception
@@ -61,6 +240,7 @@ class ControllerAuth extends Controller
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
      * @return void
      * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
+     * @throws DateMalformedStringException Erreur avec la création du DateTime
      */
     public function authenticate(?string $email, ?string $password): void
     {
