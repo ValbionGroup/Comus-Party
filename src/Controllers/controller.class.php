@@ -87,7 +87,7 @@ class Controller
         if (!method_exists($this, $method) || !is_callable([$this, $method])) {
             throw new MethodNotFoundException('La méthode ' . $method . ' n\'existe pas dans le contrôleur ' . get_class($this));
         }
-        
+
         try {
             return $this->{$method}(...array_values($args));
         } catch (Exception $e) {
@@ -101,6 +101,8 @@ class Controller
                     break;
             }
         }
+
+        return null;
     }
 
     /**
