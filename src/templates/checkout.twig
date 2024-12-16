@@ -110,8 +110,8 @@
 
                             <div class="max-h-0 peer-checked:max-h-full peer-checked:bg-lavender-blush-2 dark:peer-checked:bg-night-2 peer-checked:rounded-b-lg overflow-hidden
                                         peer-checked:transition-all peer-checked:duration-1000 peer-checked:ease-in">
-                                <div class="grid grid-cols-2 grid-rows-4 gap-2 m-4">
-                                    <div class="col-span-full row-span-1">
+                                <div class="flex flex-col gap-2 m-4">
+                                    <div class="w-full">
                                         <label for="numCC">
                                             <span>Numéro de la carte</span>
                                             <input  type="text" id="numCC" name="numCC" pattern=".{19,}" maxlength="19" placeholder="1234 5678 9012 3456" inputmode="numeric"
@@ -120,9 +120,8 @@
                                                 Veuiller entrer un numéro de carte valide
                                             </span>
                                         </label>
-
                                     </div>
-                                    <div class="col-span-full row-span-1">
+                                    <div class="w-full">
                                         <label for="titulaireCC">
                                             <span>Titulaire de la carte</span>
                                             <input type="text" id="titulaireCC" name="titulaireCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
@@ -132,18 +131,17 @@
                                             </span>
                                         </label>
                                     </div>
-                                    <div class="col-span-1 row-span-1">
-                                        <label for="dateCC">
+                                    <div class="flex flex-col sm:flex-row gap-2 w-full">
+                                        <label for="dateCC" class="w-full">
                                             <span>Date d'expiration</span>
                                             <input type="tel" id="dateCC" name="dateCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
-                                                   placeholder="MM/YY" value="" pattern="\d{2}/\d{2}" maxlength="5" oninput="formatExpirationDate(this)" required>
+                                                   placeholder="MM/YY" value="" pattern="^(0?[1-9]|1[0-2])/?[0-9]{0,2}$" maxlength="5" oninput="formatExpirationDate(this)" required>
                                             <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
                                                     Veuiller entrer une date valide
                                             </span>
                                         </label>
-                                    </div>
-                                    <div class="col-span-1 row-span-1">
-                                        <label for="cryptogramCC">
+
+                                        <label for="cryptogramCC" class="w-full">
                                             <span>Cryptogramme</span>
                                             <input type="tel" id="cryptogramCC" name="cryptogramCC" class="input h-10 w-full invalid:[&:not(:placeholder-shown)]:border-red-500 peer"
                                                    oninput="formatCryptogram(this)" placeholder="123" pattern=".{3,}" maxlength="3" inputmode="numeric" required>
@@ -151,12 +149,6 @@
                                                     Veuiller entrer un cryptogramme valide
                                             </span>
                                         </label>
-                                    </div>
-                                    <div class="col-span-full row-span-1">
-                                        <div class="flex bg-lavender-blush-1 dark:bg-night-1 h-9 rounded-lg w-full pl-2 items-center">
-                                            <input type="checkbox" id="saveCC">
-                                            <label for="saveCC">Enregistrer la carte bancaire</label>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

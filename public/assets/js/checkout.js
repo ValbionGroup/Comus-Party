@@ -10,7 +10,6 @@ function formatCardNumber(input) {
     input.value = input.value
         .replace(/\D/g, '') // Supprimer les caractères non numériques
         .replace(/(\d{4})(?=\d)/g, '$1 '); // Ajouter des espaces après chaque groupe de 4 chiffres
-
 }
 
 function formatCryptogram(input) {
