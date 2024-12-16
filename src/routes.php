@@ -109,7 +109,7 @@ $router->post('/shop/basket/add', function () use ($loader, $twig) {
         exit;
     }
 
-    ControllerFactory::getController("basket",$loader,$twig)->call("addArticleToBasket");
+    ControllerFactory::getController("basket", $loader, $twig)->call("addArticleToBasket");
     exit;
 });
 
@@ -119,7 +119,7 @@ $router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
         exit;
     }
 
-    ControllerFactory::getController("basket",$loader,$twig)->call("removeArticleBasket", ["id" => $id]);
+    ControllerFactory::getController("basket", $loader, $twig)->call("removeArticleBasket", ["id" => $id]);
     exit;
 });
 
@@ -228,5 +228,14 @@ $router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
         exit;
     }
     ControllerFactory::getController("profile", $loader, $twig)->call("disableAccount", ["uuid" => $uuid]);
+    exit;
+});
+
+$router->post('/', function () use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", ["suggestion" => $_POST['suggestion']]);
     exit;
 });
