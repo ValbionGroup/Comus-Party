@@ -12,7 +12,8 @@ let modalWindowForPfp = document.getElementById("modalForPfp")
 let modalWindowForBanner = document.getElementById("modalForBanner")
 let modalWindow = document.getElementById("modalForBanner")
 let closeModalBtn = document.getElementById("closeModalBtn")
-let addBasketBtn = document.getElementById("addBasketBtn")
+let addBasketBtnPfp = document.getElementById("addBasketBtnPfp")
+let addBasketBtnBanner = document.getElementById("addBasketBtnBanner")
 let overlay = document.getElementById("overlay")
 let notification = document.getElementById('notification');
 let notificationMessage = document.getElementById("notificationMessage")
@@ -96,7 +97,8 @@ function showModalPfp(article) {
     prixComusArticlePfp.innerText = article.pricePoint
     prixEuroArticlePfp.innerText = article.priceEuro + " €"
 
-    addBasketBtn.onclick = function (){
+    addBasketBtnPfp.onclick = function (){
+
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/shop/basket/add", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -108,6 +110,7 @@ function showModalPfp(article) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
+                console.log(response)
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
@@ -137,8 +140,6 @@ function showModalPfp(article) {
             }
         };
     }
-
-
 }
 
 /**
@@ -164,18 +165,18 @@ function showModalBanner(article) {
     prixComusArticleBanner.innerText = article.pricePoint
     prixEuroArticleBanner.innerText = article.priceEuro + " €"
 
-    addBasketBtn.onclick = function (){
+    addBasketBtnBanner.onclick = function (){
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/shop/basket/add", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
         // Envoyer les données sous forme de paire clé=valeur
         xhr.send("id_article=" + article.id);
-
         // Gérer la réponse du serveur
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
+                console.log(response)
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
@@ -207,9 +208,11 @@ function showModalBanner(article) {
     }
 
 
+
 }
 closeModalBtns.forEach(closeModalBtn => {
     closeModalBtn.addEventListener("click", function (){
+
     overlay.classList.remove('opacity-100'); // Disparition de l'overlay
     modalWindowForPfp.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
     // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture

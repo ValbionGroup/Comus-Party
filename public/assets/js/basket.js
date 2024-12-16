@@ -74,8 +74,7 @@ function removeArticle(id){
             let response =  JSON.parse(xhr.responseText)
             let prixTotalPanierActuel = prixTotalPanier.textContent
             // Le parseint permet de récupérer que la valeur numérique du prix actuel du panier, c'est-à-dire sans le sigle "€"
-
-            prixTotalPanierApresSuppressionArticle= parseInt(prixTotalPanierActuel.replace(/[^\d]/g, ''), 10) - response.prixArticle;
+            prixTotalPanierApresSuppressionArticle = parseFloat(prixTotalPanierActuel)  - response.prixArticle;
             sousTotalPanier.textContent = prixTotalPanierApresSuppressionArticle +"€"
             prixTotalPanier.textContent = prixTotalPanierApresSuppressionArticle+"€"
         }
