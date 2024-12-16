@@ -64,7 +64,6 @@ testArticleDansPanier()
 
 closeModalBtnsClass.forEach(btn => {
     btn.addEventListener('click', function (){
-        console.log(this.parentElement.parentElement.parentElement.parentElement.id)
         // modalWindow.classList.remove("flex")
         overlay.classList.remove('opacity-100'); // Disparition de l'overlay
         this.parentElement.parentElement.parentElement.parentElement.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
@@ -90,7 +89,6 @@ modals.forEach(modal => {
 })
 modalsContent.forEach(modal => {
     modal.addEventListener("click", function (){
-        console.log("hihi")
         event.stopPropagation(); // Empêche la propagation à la div parent
     })
 })
@@ -131,7 +129,7 @@ function showModalPfp(article) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
-                console.log(response)
+
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
@@ -197,7 +195,6 @@ function showModalBanner(article) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
-                console.log(response)
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
