@@ -11,9 +11,8 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
-use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\Exception\MalformedRequestException;
-use ComusParty\Models\Exception\NotFoundException;
+use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
@@ -95,7 +94,7 @@ class ControllerAuth extends Controller
         ]);
 
         if (!$validator->validate(['email' => $email])) {
-            MessageHandler::addExceptionParametersToTwig(new MalformedRequestException("Adresse e-mail invalide"));
+            MessageHandler::addExceptionParametersToSession(new MalformedRequestException("Adresse e-mail invalide"));
             header('Location: /forgot-password');
             return;
         }
@@ -104,9 +103,8 @@ class ControllerAuth extends Controller
         $user = $userManager->findByEmail($email);
 
         if (is_null($user)) {
-            MessageHandler::addExceptionParametersToTwig(new NotFoundException("Aucun utilisateur trouvé avec cette adresse e-mail"));
-            header('Location: /forgot-password');
-            return;
+            MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
+            header('Location: /login');
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
@@ -137,13 +135,11 @@ class ControllerAuth extends Controller
 
             $mail->addAddress($to);
             $mail->send();
-
-            // TODO: A changer
-            echo "success";
         } catch (MailException $e) {
-            // TODO: Modifier le système d'erreur
-            echo "Le mail n'a pas pu être envoyé. $mail->ErrorInfo";
         }
+
+        MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
+        header('Location: /login');
     }
 
     /**
@@ -230,6 +226,7 @@ class ControllerAuth extends Controller
             throw new Exception("Erreur lors de la suppression du token", 500);
         }
 
+        MessageHandler::addMessageParametersToSession("Votre mot de passe a bien été réinitialisé");
         header('Location: /login');
     }
 
