@@ -9,28 +9,47 @@
     <title>{% block title %}-{% endblock %} | Comus Party</title>
 </head>
 <body class="h-screen overflow-hidden animated-gradient animate-gradient dark:text-lavender-blush-base text-night-base">
-    {% block layout %}{% endblock %}
+{% block layout %}{% endblock %}
 
-    {% if error.code != null %}
-        <div id="errorMessage"
-             class="absolute bottom-6 right-6 bg-red-500 text-red-200 px-5 py-3 shadow-md rounded-2xl">
-            <p class="font-semibold">Une erreur est survenue !</p>
-            <span class="font-semibold">{{ error.code }}</span> : {{ error.message }}
-        </div>
-    {% endif %}
+{% if error.code != null %}
+    <div id="errorMessage"
+         class="absolute bottom-6 right-6 bg-red-500 text-red-200 px-5 py-3 shadow-md rounded-2xl">
+        <p class="font-semibold">Une erreur est survenue !</p>
+        <span class="font-semibold">{{ error.code }}</span> : {{ error.message }}
+    </div>
+{% endif %}
 
-    <script language="JavaScript">
-        const errorMessage = document.getElementById('errorMessage');
-        if (errorMessage) {
-            setTimeout(() => {
-                errorMessage.style.transition = "transform 0.7s ease-out";
-                errorMessage.style.transform = "translateX(500px)";
-                errorMessage.addEventListener('transitionend', () => {
-                    errorMessage.remove();
-                });
-            }, 5000);
-        }
-    </script>
-    {% block scripts %}{% endblock %}
+{% if message != null %}
+    <div id="successMessage"
+         class="absolute bottom-6 right-6 bg-green-500 text-green-200 px-5 py-3 shadow-md rounded-2xl">
+        <p class="font-semibold">Génial !</p>
+        <span class="font-semibold">{{ message }}</span>
+    </div>
+{% endif %}
+
+<script language="JavaScript">
+    const errorMessage = document.getElementById('errorMessage');
+    if (errorMessage) {
+        setTimeout(() => {
+            errorMessage.style.transition = "transform 0.7s ease-out";
+            errorMessage.style.transform = "translateX(500px)";
+            errorMessage.addEventListener('transitionend', () => {
+                errorMessage.remove();
+            });
+        }, 5000);
+    }
+
+    const successMessage = document.getElementById('errorMessage');
+    if (successMessage) {
+        setTimeout(() => {
+            successMessage.style.transition = "transform 0.7s ease-out";
+            successMessage.style.transform = "translateX(500px)";
+            successMessage.addEventListener('transitionend', () => {
+                successMessage.remove();
+            });
+        }, 5000);
+    }
+</script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

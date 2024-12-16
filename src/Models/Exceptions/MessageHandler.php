@@ -4,7 +4,7 @@
  *
  * @file MessageHandler.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
- * @version 1.0
+ * @version 1.1
  * @date 2024-11-21
  */
 
@@ -54,5 +54,16 @@ class MessageHandler
             'code' => $exception->getCode() ?? 500,
             'message' => $exception->getMessage() ?? 'Une erreur interne est survenue'
         ];
+    }
+
+    /**
+     * Ajout les données d'un message en variable de session
+     *
+     * @param string $message Message à afficher
+     * @return void
+     */
+    public static function addMessageParametersToSession(string $message): void
+    {
+        $_SESSION['success'] = $message;
     }
 }
