@@ -288,10 +288,10 @@ class ControllerAuth extends Controller
         $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
         if ($user) {
             $userDAO->confirmUser($emailVerifToken);
-            $confirmationResult='Votre compte a bien été confirmé, vous pouvez maintenant vous connecter';
-        } else { $confirmationResult='La confirmation a echoué'; }
-
-        global $twig;
-        echo $twig->render('signUp.twig', ['confirmationResult' => $confirmationResult]);
+            header('Location: /');
+        } else {
+            header('Location: /register');
+            throw new AuthenticationException("La confirmation a echoué");
+        }
     }
 }
