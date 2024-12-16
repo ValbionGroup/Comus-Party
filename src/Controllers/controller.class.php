@@ -22,7 +22,8 @@ use Twig\Loader\FilesystemLoader;
  * @brief Classe Controller
  * @details La classe Controller est la classe mère de tous les contrôleurs
  */
-class Controller {
+class Controller
+{
     /**
      * @brief La connexion à la base de données
      * @var PDO
@@ -81,10 +82,12 @@ class Controller {
      * @throws MethodNotFoundException Exception levée dans le cas où la méhode n'existe pas
      * @todo Vérifier le reste du traitement de l'exception (Cf PR 64 GitHub)
      */
-    public function call(string $method, ?array $args = []) : mixed {
-        if (!method_exists($this, $method)) {
+    public function call(string $method, ?array $args = []): mixed
+    {
+        if (!method_exists($this, $method) || !is_callable([$this, $method])) {
             throw new MethodNotFoundException('La méthode ' . $method . ' n\'existe pas dans le contrôleur ' . get_class($this));
         }
+        
         try {
             return $this->{$method}(...array_values($args));
         } catch (Exception $e) {
