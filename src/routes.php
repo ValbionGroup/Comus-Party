@@ -21,7 +21,7 @@ $router->get('/', function () use ($loader, $twig) {
         header('Location: /login');
         exit;
     }
-    ControllerFactory::getController("game", $loader, $twig)->call("show");
+    ControllerFactory::getController("game", $loader, $twig)->call("showHomePage");
     exit;
 });
 
@@ -109,7 +109,7 @@ $router->post('/shop/basket/add', function () use ($loader, $twig) {
         exit;
     }
 
-    ControllerFactory::getController("basket",$loader,$twig)->call("addArticleToBasket");
+    ControllerFactory::getController("basket", $loader, $twig)->call("addArticleToBasket");
     exit;
 });
 
@@ -119,7 +119,7 @@ $router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
         exit;
     }
 
-    ControllerFactory::getController("basket",$loader,$twig)->call("removeArticleBasket", ["id" => $id]);
+    ControllerFactory::getController("basket", $loader, $twig)->call("removeArticleBasket", ["id" => $id]);
     exit;
 });
 
