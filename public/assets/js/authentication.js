@@ -279,6 +279,15 @@ function checkPasswordsMatch() {
     { submitButton.classList.remove("disabled"); }
 }
 
+/**
+ * @brief Vérifie si le joueur a accepté les conditions d'utilisation.
+ *
+ * @details La fonction vérifie si le bouton de confirmation des conditions
+ * d'utilisation est coché. Si le bouton est coché, le bouton de soumission est
+ * activé. Si le bouton est décoché, le bouton de soumission est désactivé.
+ *
+ * @return void
+ */
 function checkTermsOfService() {
     // Variables
     let submitButton = document.getElementById("submitButton");
@@ -292,6 +301,15 @@ function checkTermsOfService() {
     }
 }
 
+/**
+ * @brief Vérifie si le joueur a accepté la politique de confidentialité.
+ *
+ * @details La fonction vérifie si le bouton de confirmation de la politique de
+ * confidentialité est coché. Si le bouton est coché, le bouton de soumission est
+ * activé. Si le bouton est décoché, le bouton de soumission est désactivé.
+ *
+ * @return void
+ */
 function checkPrivacyPolicy() {
     // Variables
     let submitButton = document.getElementById("submitButton");
