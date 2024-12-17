@@ -109,4 +109,18 @@ class ControllerProfile extends Controller
         ControllerFactory::getController('auth', $this->getLoader(), $this->getTwig())->call('logout');
         header('Location: /');
     }
+
+
+    public function showAllArticlesOwnedByPlayer()
+    {
+
+        $articleManager = new ArticleDAO($this->getPdo());
+        $articles = $articleManager->findAllArticleWithUuidPlayer();
+
+        $template = $this->getTwig()->load('profil.twig');
+
+        echo $template->render(array(
+            "articles" => $articles
+        ));
+    }
 }
