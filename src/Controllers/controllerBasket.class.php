@@ -94,9 +94,11 @@ class ControllerBasket extends Controller
                 ]);
 
             } else {
+                $taillePanier = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => false,
-                    'message' => "L'article est déjà dans le panier."
+                    'message' => "L'article est déjà dans le panier.",
+                    'taillePanier' => $taillePanier
                 ]);
 
             }

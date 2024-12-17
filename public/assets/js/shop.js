@@ -129,7 +129,7 @@ function showModalPfp(article) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
-
+                console.log(response)
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
@@ -150,6 +150,14 @@ function showModalPfp(article) {
                 // Afficher la notification
                 notification.classList.remove('opacity-0', 'scale-90');
                 notification.classList.add('opacity-100', 'scale-100');
+
+                overlay.classList.remove('opacity-100'); // Disparition de l'overlay
+                modalWindowForPfp.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
+                // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
+                setTimeout(() => {
+                    overlay.classList.add('hidden', 'opacity-0');
+                    modalWindowForPfp.classList.add('hidden', 'opacity-0', 'translate-y-4');
+                }, 300); // Durée de la transition
 
                 // Masquer la notification après 5 secondes
                 setTimeout(() => {
@@ -194,7 +202,9 @@ function showModalBanner(article) {
         // Gérer la réponse du serveur
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
+
                 let response =  JSON.parse(xhr.responseText)
+                console.log(response)
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
@@ -216,6 +226,13 @@ function showModalBanner(article) {
                 notification.classList.remove('opacity-0', 'scale-90');
                 notification.classList.add('opacity-100', 'scale-100');
 
+                overlay.classList.remove('opacity-100'); // Disparition de l'overlay
+                modalWindowForBanner.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
+                // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
+                setTimeout(() => {
+                    overlay.classList.add('hidden', 'opacity-0');
+                    this.parentElement.parentElement.parentElement.parentElement.classList.add('hidden', 'opacity-0', 'translate-y-4');
+                }, 300); // Durée de la transition
                 // Masquer la notification après 5 secondes
                 setTimeout(() => {
                     notification.classList.remove('opacity-100', 'scale-100');
@@ -228,15 +245,3 @@ function showModalBanner(article) {
 
 
 }
-closeModalBtns.forEach(closeModalBtn => {
-    closeModalBtn.addEventListener("click", function (){
-
-    overlay.classList.remove('opacity-100'); // Disparition de l'overlay
-    modalWindowForPfp.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
-    // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
-    setTimeout(() => {
-        overlay.classList.add('hidden', 'opacity-0');
-        modalWindowForPfp.classList.add('hidden', 'opacity-0', 'translate-y-4');
-    }, 300); // Durée de la transition
-})
-})
