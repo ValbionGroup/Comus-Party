@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\Models\Suggestion;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -30,6 +31,8 @@ class ControllerSuggestion extends Controller
 
     public function sendSuggestion($suggestion)
     {
-        echo $suggestion;
+        $suggestion = new Suggestion($suggestion, $_SESSION['uuid']);
+        $managerSuggestion = new SuggestionDAO($this->getPdo());
+        $managerSuggestion->create($suggestion);
     }
 }
