@@ -32,7 +32,12 @@ class ControllerSuggestion extends Controller
         parent::__construct($loader, $twig);
     }
 
-    public function sendSuggestion($suggestion)
+    /**
+     * @brief Permet d'envoyer une suggestion et de l'insérer en base de données
+     * @param Suggestion $suggestion La suggestion rédigée
+     * @return void
+     */
+    public function sendSuggestion(Suggestion $suggestion): void
     {
         $suggestion = new Suggestion($suggestion, $_SESSION['uuid']);
         $managerSuggestion = new SuggestionDAO($this->getPdo());

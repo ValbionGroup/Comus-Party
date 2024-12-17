@@ -50,6 +50,11 @@ class SuggestionDAO
         $this->pdo = $pdo;
     }
 
+    /**
+     * @brief Insert une suggestion en base de données et retourne le résultat de l'exécution
+     * @param Suggestion $suggestion La suggestion à insérer
+     * @return bool
+     */
     public function create(Suggestion $suggestion): bool
     {
         $stmt = $this->pdo->prepare('INSERT INTO ' . DB_PREFIX . 'suggestion (content, author_uuid) VALUES (:content, :author_uuid)');
