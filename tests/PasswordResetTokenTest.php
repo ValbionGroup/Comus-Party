@@ -20,7 +20,7 @@ class PasswordResetTokenTest extends TestCase
 {
     /**
      * @brief Classe PasswordResetToken
-     * @var PasswordResetToken
+     * @var PasswordResetToken $passwordResetToken
      */
     private PasswordResetToken $passwordResetToken;
 
