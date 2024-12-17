@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\Models\Exceptions\GameSettingsException;
 use ComusParty\Models\Exceptions\GameUnavailableException;
 use ComusParty\Models\GameDao;
 use ComusParty\Models\GameState;
@@ -57,7 +58,8 @@ class ControllerGame extends Controller
      * @param int $id ID du jeu
      * @param array $settings Paramètres du jeu
      * @param array $players Joueurs de la partie
-     * @throws GameUnavailableException
+     * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
+     * @throws GameSettingsException Exception levée si les paramètres du jeu ne sont pas valides
      */
     public function initGame(int $id, array $settings, array $players): void
     {
@@ -68,9 +70,24 @@ class ControllerGame extends Controller
         }
 
         $gameFolder = $this->getGameFolder($id);
-        $settings = $this->getGameSettings($id);
+        $gameSettings = $this->getGameSettings($id);
 
-        if (sizeof($settings) == 0) {
+        if (sizeof($gameSettings) == 0) {
+            throw new GameUnavailableException("Les paramètres du jeu ne sont pas disponibles");
+        }
+
+        if (sizeof($settings) != sizeof($gameSettings["modifiableSettings"])) {
+            throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
+        }
+
+        foreach ($settings as $key => $value) {
+            if (!array_key_exists($key, $gameSettings["modifiableSettings"])) {
+                throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
+            }
+
+            if (!in_array($value, $gameSettings["modifiableSettings"][$key])) {
+                throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
+            }
         }
     }
 
