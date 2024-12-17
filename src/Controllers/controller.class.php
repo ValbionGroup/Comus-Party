@@ -11,7 +11,7 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\Db;
 use ComusParty\Models\Exception\AuthenticationException;
-use ComusParty\Models\Exception\ErrorHandler;
+use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\Exception\MethodNotFoundException;
 use Exception;
 use PDO;
@@ -93,11 +93,11 @@ class Controller
         } catch (Exception $e) {
             switch ($e::class) {
                 case AuthenticationException::class:
-                    ErrorHandler::addExceptionParametersToSession($e);
+                    MessageHandler::addExceptionParametersToSession($e);
                     header('Location: /login');
                     break;
                 default:
-                    ErrorHandler::displayFullScreenException($e);
+                    MessageHandler::displayFullScreenException($e);
                     break;
             }
         }

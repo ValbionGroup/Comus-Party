@@ -14,7 +14,7 @@ require_once __DIR__ . '/config/mail.php';
 require_once __DIR__ . '/src/Models/Router.class.php';
 require_once __DIR__ . '/src/Models/Validator.class.php';
 
-require_once __DIR__ . '/src/Models/Exceptions/ErrorHandler.php';
+require_once __DIR__ . '/src/Models/Exceptions/MessageHandler.php';
 require_once __DIR__ . '/src/Models/Exceptions/NotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/MalformedRequestException.php';
 require_once __DIR__ . '/src/Models/Exceptions/AuthenticationException.php';
