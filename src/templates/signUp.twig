@@ -45,14 +45,16 @@
                 <p class="input-error-text text-red-600 hidden" id="notMachingPasswords">Les mots de passe ne sont pas identiques</p>
             </div>
 
-            <div class="flex justify-center">
-                <input id="termsOfService" name="termsOfService" type="checkbox" required>
-                <label for="termsOfService">J'accepte les <a href="/terms-of-service" class="text-night-2 dark:text-lavender-blush-2 hover:underline transition-all ease-in-out">conditions d'utilisation</a></label>
-            </div>
+            <div>
+                <div class="flex justify-center">
+                    <input id="termsOfService" name="termsOfService" type="checkbox" required>
+                    <label for="termsOfService">J'accepte les <a href="/terms-of-service" class="text-night-2 dark:text-lavender-blush-2 font-semibold hover:underline transition-all ease-in-out">conditions d'utilisation</a></label>
+                </div>
 
-            <div class="flex justify-center">
-                <input id="privacyPolicy" name="privacyPolicy" type="checkbox" required>
-                <label for="privacyPolicy">J'accepte la <a href="/privacy-policy" class="text-night-2 dark:text-lavender-blush-2 hover:underline transition-all ease-in-out">politique de confidentialité</a></label>
+                <div class="flex justify-center">
+                    <input id="privacyPolicy" name="privacyPolicy" type="checkbox" required>
+                    <label for="privacyPolicy">J'accepte la <a href="/privacy-policy" class="text-night-2 dark:text-lavender-blush-2 font-semibold hover:underline transition-all ease-in-out">politique de confidentialité</a></label>
+                </div>
             </div>
 
             <button type="submit" id="submitButton" class="w-full btn-primary">Valider</button>
