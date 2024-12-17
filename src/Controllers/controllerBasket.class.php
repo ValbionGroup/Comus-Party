@@ -48,7 +48,7 @@ class ControllerBasket extends Controller
 
         $articles = $managerArticle->findArticlesWithIds($_SESSION['basket']);
         $prixTotalPanier = 0;
-        if($articles != null){
+        if($articles){
             foreach($articles as $article){
                 $prixTotalPanier += $article->getPriceEuro();
             }
@@ -80,10 +80,6 @@ class ControllerBasket extends Controller
         if (isset($_POST['id_article'])) {
             $id_article = intval($_POST['id_article']);
 
-            // Initialiser le panier s'il n'existe pas
-            if (!isset($_SESSION['basket'])) {
-                $_SESSION['basket'] = [];
-            }
 
             // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
             if (!in_array($id_article, $_SESSION['basket'])) {

@@ -23,7 +23,6 @@ use DateTime;
 use Exception;
 use PHPMailer\PHPMailer\Exception as MailException;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -294,13 +293,14 @@ class ControllerAuth extends Controller
         $_SESSION['comusCoin'] = $player->getComusCoin();
         $_SESSION['elo'] = $player->getElo();
         $_SESSION['xp'] = $player->getXp();
+        $_SESSION['basket'] = [];
 
         $articleManager = new ArticleDAO($this->getPdo());
         $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
         if (is_null($pfp)) {
             $pfpPath = 'default-pfp.jpg';
         } else {
-            $pfpPath = $pfp->getPathImg();
+            $pfpPath = $pfp->getFilePath();
         }
         $_SESSION['pfpPath'] = $pfpPath;
         header('Location: /');
