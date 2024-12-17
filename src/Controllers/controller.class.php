@@ -13,6 +13,7 @@ use ComusParty\Models\Db;
 use ComusParty\Models\Exception\AuthenticationException;
 use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\Exception\MethodNotFoundException;
+use Error;
 use Exception;
 use PDO;
 use Twig\Environment;
@@ -100,6 +101,8 @@ class Controller
                     MessageHandler::displayFullScreenException($e);
                     break;
             }
+        } catch (Error $e) {
+            MessageHandler::displayFullScreenError($e);
         }
 
         return null;
