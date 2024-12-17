@@ -17,7 +17,7 @@ let pfpEuroPrice = document.getElementById("pfpEuroPrice")
 let equipButton = document.getElementById("equipButton")
 
 function infoArticlePfp(article){
-    console.log(article)
+    consol
 }
 
 
