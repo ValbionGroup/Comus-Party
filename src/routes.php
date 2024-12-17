@@ -31,8 +31,10 @@ $router->get('/profile', function () use ($loader, $twig) {
         header('Location: /login');
         exit;
     }
+
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", [
         "playerUuid" => $_SESSION["uuid"]
+
     ]);
     exit;
 });
