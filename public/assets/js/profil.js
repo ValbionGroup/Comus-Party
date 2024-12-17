@@ -12,12 +12,14 @@ let background = document.getElementById('backgroundModal');
 
 let pfpTitle = document.getElementById("pfpTitle")
 let pfpDescription = document.getElementById("pfpDescription")
-let pfpComusPrice = document.getElementById("pfpComusPrice")
-let pfpEuroPrice = document.getElementById("pfpEuroPrice")
+
 let equipButton = document.getElementById("equipButton")
 
 function infoArticlePfp(article){
-    consol
+    console.log(article)
+    pfpTitle.textContent = article.name
+    pfpDescription.textContent = article.description
+
 }
 
 
