@@ -14,12 +14,38 @@ let pfpTitle = document.getElementById("pfpTitle")
 let pfpDescription = document.getElementById("pfpDescription")
 
 let equipButton = document.getElementById("equipButton")
+let modalPfp = document.getElementById("modalPfp")
+
+let modals = document.querySelectorAll(".modal")
+let pfps = document.querySelectorAll(".pfp")
+
+
+
+function activeBorderOnPfp(pfp){
+    console.log(pfp.classList)
+
+    pfps.forEach(pfp=> pfp.classList.remove("activePfp"))
+    pfp.classList.add("activePfp")
+}
 
 function infoArticlePfp(article){
     console.log(article)
     pfpTitle.textContent = article.name
     pfpDescription.textContent = article.description
 
+}
+function showModalPfp(){
+    modalPfp.classList.remove("hidden")
+    background.classList.remove("hidden")
+}
+function closeModal(){
+    modals.forEach(modal => {
+        if (!modal.classList.contains("hidden")) {
+            modal.classList.add("hidden");
+        }
+    });
+
+    background.classList.add("hidden")
 }
 
 
@@ -72,10 +98,10 @@ function afficher(section) {
     }
 }
 
-function closeModal() {
-    modal.classList.add("hidden");
-    background.classList.add("hidden");
-}
+// function closeModal() {
+//     modal.classList.add("hidden");
+//     background.classList.add("hidden");
+// }
 
 function showModalSuppression() {
     modal.classList.remove("hidden");
