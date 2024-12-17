@@ -133,10 +133,13 @@ class ControllerBasket extends Controller
                 $managerArticle = new ArticleDAO($this->getPdo());
                 $article = $managerArticle->findById( $id_article );
                 $prixArticle = $article->getPriceEuro();
+                $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => true,
                     'message' => "Article supprimé du panier !",
                     'prixArticle' => $prixArticle,
+                    'taillePanier' => $numberArticlesInBasket
+
                 ]);
             } else {
                 echo json_encode([

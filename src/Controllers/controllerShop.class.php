@@ -59,7 +59,7 @@ class ControllerShop extends Controller {
             'articles' => $articles,
             'pfps' => $pfps,
             'banners' => $banners,
-            'numberArticlesInBasket' => $numberArticlesInBasket
+            'taillePanier' => $numberArticlesInBasket
         ));
     }
 
