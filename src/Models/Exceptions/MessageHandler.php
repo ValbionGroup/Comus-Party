@@ -22,13 +22,13 @@ use Twig\Error\SyntaxError;
 class MessageHandler
 {
     /**
-     * Lève une erreur bloquante.
+     * @brief Lève une erreur bloquante.
      *
-     * @param Exception $exception
+     * @param Exception $exception Exception à afficher
      * @return void
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
+     * @throws LoaderError Erreur de chargement de template
+     * @throws RuntimeError Erreur d'exécution de template
+     * @throws SyntaxError Erreur de syntaxe de template
      */
     public static function displayFullScreenException(Exception $exception): void
     {
@@ -43,9 +43,9 @@ class MessageHandler
     }
 
     /**
-     * Ajout les données d'une erreur en variable de session
+     * @brief Ajout les données d'une erreur en variable de session
      *
-     * @param Exception $exception
+     * @param Exception $exception Exception à afficher
      * @return void
      */
     public static function addExceptionParametersToSession(Exception $exception): void
@@ -57,7 +57,7 @@ class MessageHandler
     }
 
     /**
-     * Ajout les données d'un message en variable de session
+     * @brief Ajout les données d'un message en variable de session
      *
      * @param string $message Message à afficher
      * @return void
