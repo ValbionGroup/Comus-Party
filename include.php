@@ -23,6 +23,8 @@ require_once __DIR__ . '/src/Models/Exceptions/MethodNotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/RouteNotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/UnauthorizedAccessException.php';
 require_once __DIR__ . '/src/Models/Exceptions/PaymentException.php';
+require_once __DIR__ . '/src/Models/Exceptions/GameUnavailableException.php';
+require_once __DIR__ . '/src/Models/Exceptions/GameSettingsException.php';
 
 require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/Controllers/controller.class.php';
