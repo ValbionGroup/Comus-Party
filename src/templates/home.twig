@@ -1,6 +1,8 @@
-{%  extends "/layouts/default.twig" %}
+{% extends "/layouts/default.twig" %}
 {% block title %}Accueil{% endblock %}
 {% block content %}
+    <div onclick="closeModal()" id="backgroundModal" class="hidden fixed inset-0 bg-night-1 opacity-85 z-40"></div>
+
     <div class="overflow-y-auto scrollbar-thumb-night-base scrollbar-track-night-base h-full w-full">
         <div class="flex flex-col sm:flex-row justify-between mb-10">
             <h1 class="text-4xl ml-5 mt-5 font-serif">Jeux</h1>
@@ -14,11 +16,12 @@
                 />
                 <!-- Search Icon -->
                 <span class="absolute top-2.5 left-3 text-gray-400 pointer-events-none">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </span>
             </div>
         </div>
 
@@ -61,8 +64,60 @@
         </div>
 
     </div>
+    <div class="absolute bottom-2 right-2 border-lavender-blush-base border-2 rounded-full p-2 hover:cursor-pointer hover:scale-105 ease-in-out transition-all"
+         onclick="showModalSuggestion()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" d="M10 19.5h4M10.667 22h2.666"/>
+                <path d="m7.41 13.68l1.105 1.04c.31.291.485.698.485 1.123C9 16.482 9.518 17 10.157 17h3.686c.639 0 1.157-.518 1.157-1.157c0-.425.176-.832.485-1.123l1.104-1.04c1.542-1.461 2.402-3.382 2.41-5.378L19 8.218C19 4.807 15.866 2 12 2S5 4.807 5 8.218v.084c.009 1.996.87 3.917 2.41 5.379Z"/>
+            </g>
+        </svg>
+    </div>
+    <div id="modalSuggestion"
+         class="hidden w-full sm:w-1/2 bg-lavender-blush-2 dark:bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl z-50">
+        <div class="modal-content m-2">
+            <div class="pb-2">
+                <p class="text-2xl font-bold">Formulaire de suggestion</p>
+            </div>
+            <hr>
+            <div class="pt-5 text-justify">
+                <p>
+                    Vous avez une idée d'amélioration pour Comus Party ? Envoyez-la à l'équipe de développement en
+                    remplissant le formulaire ci-dessous !
+                </p>
+                <br>
+                <form method="POST">
+                    <div class="flex flex-col gap-2">
+                        <label for="suggestion" class="font-semibold">Votre suggestion :</label>
+                        <textarea id="suggestion" name="suggestion"
+                                  class="w-full h-32 p-2 border dark:border-lavender-blush-base border-night-base rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-violet-base focus:border-blue-violet-base bg-lavender-blush-base dark:bg-night-3"
+                                  minlength="10" maxlength="2048"></textarea>
+                    </div>
+                    <div class="flex justify-end mt-5 gap-4">
+                        <button type="submit" class="btn-primary">Envoyer</button>
+                        <div class="btn-secondary hover:cursor-pointer" onclick="closeModal()">Annuler</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
     <script src="/assets/js/home.js"></script>
+    <script>
+        function closeModal() {
+            let modal = document.getElementById('modalSuggestion');
+            let background = document.getElementById('backgroundModal');
+            modal.classList.add("hidden");
+            background.classList.add("hidden");
+        }
+
+        function showModalSuggestion() {
+            let modal = document.getElementById('modalSuggestion');
+            let background = document.getElementById('backgroundModal');
+            modal.classList.remove("hidden");
+            background.classList.remove("hidden");
+        }
+    </script>
 {% endblock %}

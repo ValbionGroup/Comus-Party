@@ -10,7 +10,10 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\Db;
+use ComusParty\Models\Exception\AuthenticationException;
+use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\Exception\MethodNotFoundException;
+use Exception;
 use PDO;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -76,12 +79,25 @@ class Controller {
      * @param array|null $args Les arguments à passer à la méthode
      * @return mixed  Le résultat de la méthode appelée
      * @throws MethodNotFoundException Exception levée dans le cas où la méhode n'existe pas
+     * @todo Vérifier le reste du traitement de l'exception (Cf PR 64 GitHub)
      */
     public function call(string $method, ?array $args = []) : mixed {
         if (!method_exists($this, $method)) {
             throw new MethodNotFoundException('La méthode ' . $method . ' n\'existe pas dans le contrôleur ' . get_class($this));
         }
-        return $this->{$method}(...array_values($args));
+        try {
+            return $this->{$method}(...array_values($args));
+        } catch (Exception $e) {
+            switch ($e::class) {
+                case AuthenticationException::class:
+                    MessageHandler::addExceptionParametersToSession($e);
+                    header('Location: /login');
+                    break;
+                default:
+                    MessageHandler::displayFullScreenException($e);
+                    break;
+            }
+        }
     }
 
     /**

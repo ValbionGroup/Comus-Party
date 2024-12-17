@@ -11,7 +11,7 @@
 global $loader, $twig;
 
 use ComusParty\Controllers\ControllerFactory;
-use ComusParty\Models\Exception\ErrorHandler;
+use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\Router;
 
 $router = Router::getInstance();
@@ -21,7 +21,7 @@ $router->get('/', function () use ($loader, $twig) {
         header('Location: /login');
         exit;
     }
-    ControllerFactory::getController("game",$loader,$twig)->call("show");
+    ControllerFactory::getController("game", $loader, $twig)->call("showHomePage");
     exit;
 });
 
@@ -63,7 +63,7 @@ $router->post('/login', function () use ($loader, $twig) {
         }
         throw new Exception("Merci de renseigner une adresse e-mail et un mot de passe valides");
     } catch (Exception $e) {
-        ErrorHandler::addExceptionParametersToTwig($e);
+        MessageHandler::addExceptionParametersToSession($e);
         ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
     }
 });
@@ -164,6 +164,46 @@ $router->get('/confirm-email/:token', function (string $token) use($loader, $twi
     exit;
 });
 
+$router->get('/forgot-password', function () use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
+    exit;
+});
+
+$router->post('/forgot-password', function () use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("sendResetPasswordLink", ["email" => $_POST['email']]);
+    exit;
+});
+
+$router->get('/reset-password/:token', function (string $token) use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("showResetPasswordPage", ["token" => $token]);
+    exit;
+});
+
+$router->post('/reset-password/:token', function (string $token) use ($loader, $twig) {
+    if (isset($_SESSION['uuid'])) {
+        header('Location: /');
+        exit;
+    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
+        "token" => $token,
+        "password" => $_POST['password'],
+        "passwordConfirm" => $_POST['passwordConfirm']
+    ]);
+    exit;
+});
+
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
@@ -189,4 +229,13 @@ $router->get('/invoice/:id', function ($id) use ($loader, $twig) {
         exit;
     }
     ControllerFactory::getController("shop", $loader, $twig)->call("showInvoice", ["invoiceId" => $id]);
+});
+
+$router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("profile", $loader, $twig)->call("disableAccount", ["uuid" => $uuid]);
+    exit;
 });

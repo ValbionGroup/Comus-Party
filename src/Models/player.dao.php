@@ -217,7 +217,8 @@ class PlayerDAO {
      * @return array L'objet retourné par la méthode, ici un tableau (d'objets Player)
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
-    public function hydrateMany(array $data) : array {
+    public function hydrateMany(array $data): array
+    {
         $players = [];
         foreach ($data as $player) {
             $players[] = $this->hydrate($player);
