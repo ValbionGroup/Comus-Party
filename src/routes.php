@@ -230,3 +230,12 @@ $router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("disableAccount", ["uuid" => $uuid]);
     exit;
 });
+
+$router->post('/', function () use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", ["suggestion" => $_POST['suggestion']]);
+    exit;
+});
