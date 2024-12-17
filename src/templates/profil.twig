@@ -50,10 +50,42 @@
                     </button>
                 </div>
             </div>
-            <div>
-                <h1>Coucou</h1>
-            </div>
+{#            MODALE #}
 
+            <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+                <div class="bg-white rounded-lg shadow-lg w-2/3 h-2/3 flex">
+                    <!-- Section gauche : Liste des photos de profil -->
+                    <div class="w-1/3 bg-gray-100 p-4 overflow-y-auto">
+                        <!-- Liste des photos -->
+                        <div class="space-y-4">
+                            <!-- Exemple de photo -->
+                            <div
+                                    class="w-16 h-16 bg-gray-300 rounded cursor-pointer hover:ring-2 hover:ring-blue-500"
+                                    onmouseover="updateDescription('Photo 1', 'Description de la photo 1.')">
+                                <img src="https://via.placeholder.com/64" alt="Photo 1" class="w-full h-full object-cover rounded">
+                            </div>
+                            <div
+                                    class="w-16 h-16 bg-gray-300 rounded cursor-pointer hover:ring-2 hover:ring-blue-500"
+                                    onmouseover="updateDescription('Photo 2', 'Description de la photo 2.')">
+                                <img src="https://via.placeholder.com/64" alt="Photo 2" class="w-full h-full object-cover rounded">
+                            </div>
+                            <div
+                                    class="w-16 h-16 bg-gray-300 rounded cursor-pointer hover:ring-2 hover:ring-blue-500"
+                                    onmouseover="updateDescription('Photo 3', 'Description de la photo 3.')">
+                                <img src="https://via.placeholder.com/64" alt="Photo 3" class="w-full h-full object-cover rounded">
+                            </div>
+                            <!-- Ajoutez d'autres photos selon vos besoins -->
+                        </div>
+                    </div>
+
+                    <!-- Section droite : Description -->
+                    <div class="w-2/3 p-6 flex flex-col justify-center items-center">
+                        <h2 id="photo-title" class="text-2xl font-semibold mb-4">Titre de la photo</h2>
+                        <p id="photo-description" class="text-gray-600 text-lg text-center">Passez la souris sur une photo pour voir la description.</p>
+                    </div>
+                </div>
+            </div>
+            {#Fin MODALE#}
         </div>
 
         <div id="settings" class="hidden grid grid-cols-2 sm:grid-cols-7 lg:grid-cols-12 md:ml-20">
