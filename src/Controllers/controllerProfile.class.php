@@ -27,14 +27,16 @@ use Twig\Loader\FilesystemLoader;
  * @brief Classe ControllerProfile
  * @details Contrôleur de la page profile, utilisé pour afficher le profil d'un joueur sous différents angles (vu par lui-même, par un autre joueur, ou par un modérateur)
  */
-class ControllerProfile extends Controller {
+class ControllerProfile extends Controller
+{
 
     /**
      * @brief Constructeur de la classe ControllerProfile
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      */
-    public function __construct(FilesystemLoader $loader, Environment $twig) {
+    public function __construct(FilesystemLoader $loader, Environment $twig)
+    {
         parent::__construct($loader, $twig);
     }
 
@@ -62,13 +64,13 @@ class ControllerProfile extends Controller {
         if (is_null($pfp)) {
             $pfpPath = 'default-pfp.jpg';
         } else {
-            $pfpPath = $pfp->getPathImg();
+            $pfpPath = $pfp->getFilePath();
         }
         $banner = $articleManager->findActiveBannerByPlayerUuid($player->getUuid());
         if (is_null($banner)) {
             $bannerPath = 'default-banner.jpg';
         } else {
-            $bannerPath = $banner->getPathImg();
+            $bannerPath = $banner->getFilePath();
         }
         $template = $this->getTwig()->load('profil.twig');
         echo $template->render(array(
