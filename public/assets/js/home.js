@@ -43,7 +43,7 @@ function closeModal() {
     background.classList.add("hidden");
 }
 
-function showBakgroundModal() {
+function showBackgroundModal() {
     let background = document.getElementById('backgroundModal');
     background.classList.remove("hidden");
 }
@@ -51,12 +51,12 @@ function showBakgroundModal() {
 function showModalSuggestion() {
     let modal = document.getElementById('modalSuggestion');
     modal.classList.remove("hidden");
-    showBakgroundModal();
+    showBackgroundModal();
 }
 
 function showModalGame(e) {
     let gameId = e.parentNode.parentNode.id;
     let modal = document.getElementById(`modalGame${gameId}`);
     modal.classList.remove("hidden");
-    showBakgroundModal();
+    showBackgroundModal();
 }
