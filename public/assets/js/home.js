@@ -31,3 +31,32 @@ searchBar.addEventListener('input', (e) => {
 
     // Réorganiser les cartes (le navigateur gère automatiquement la disposition des grilles)
 });
+
+function closeModal() {
+    let modals = document.querySelectorAll(".modal")
+    modals.forEach(modal => {
+        if (!modal.classList.contains("hidden")) {
+            modal.classList.add("hidden");
+        }
+    });
+    let background = document.getElementById('backgroundModal');
+    background.classList.add("hidden");
+}
+
+function showBakgroundModal() {
+    let background = document.getElementById('backgroundModal');
+    background.classList.remove("hidden");
+}
+
+function showModalSuggestion() {
+    let modal = document.getElementById('modalSuggestion');
+    modal.classList.remove("hidden");
+    showBakgroundModal();
+}
+
+function showModalGame(e) {
+    let gameId = e.parentNode.parentNode.id;
+    let modal = document.getElementById(`modalGame${gameId}`);
+    modal.classList.remove("hidden");
+    showBakgroundModal();
+}
