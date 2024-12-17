@@ -259,7 +259,6 @@ class ControllerAuth extends Controller
 
         $validator = new Validator($regles);
         if (!$validator->validate(['email' => $email, 'password' => $password])) {
-            var_dump($validator->getErrors());
             throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
         }
 
