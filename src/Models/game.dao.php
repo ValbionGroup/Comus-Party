@@ -93,7 +93,7 @@ class GameDao
         $game->setState($this->transformState($gameTab['state']));
         $game->setCreatedAt(new DateTime($gameTab['created_at']));
         $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
-        $game->setTags($gameTab['tag_name'] ?? null);
+        $game->setTags($gameTab['tags'] ?? null);
         return $game;
     }
 
@@ -151,13 +151,18 @@ class GameDao
     public function findAllWithTags(): array
     {
         $stmt = $this->pdo->prepare(
-            'SELECT g.*, t.name as tag_name
+            'SELECT g.*, GROUP_CONCAT(t.name) as tags
             FROM ' . DB_PREFIX . 'game g
             JOIN ' . DB_PREFIX . 'tagged tg ON g.id = tg.game_id
-            JOIN ' . DB_PREFIX . 'tag t ON tg.tag_id = t.id');
+            JOIN ' . DB_PREFIX . 'tag t ON tg.tag_id = t.id
+            GROUP BY g.id;');
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $gamesTab = $stmt->fetchAll();
+        $gamesTab = array_map(function ($game) {
+            $game['tags'] = explode(',', $game['tags']);
+            return $game;
+        }, $gamesTab);
         return $this->hydrateMany($gamesTab);
     }
 }
