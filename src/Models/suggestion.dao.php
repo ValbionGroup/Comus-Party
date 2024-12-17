@@ -50,13 +50,13 @@ class SuggestionDAO
         $this->pdo = $pdo;
     }
 
-    public function create(Suggestion $suggestion): void
+    public function create(Suggestion $suggestion): bool
     {
         $stmt = $this->pdo->prepare('INSERT INTO ' . DB_PREFIX . 'suggestion (content, author_uuid) VALUES (:content, :author_uuid)');
         $content = $suggestion->getContent();
         $authorUuid = $suggestion->getAuthorUuid();
         $stmt->bindParam(':content', $content);
         $stmt->bindParam(':author_uuid', $authorUuid);
-        $stmt->execute();
+        return $stmt->execute();
     }
 }
