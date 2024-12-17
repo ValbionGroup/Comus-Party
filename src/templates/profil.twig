@@ -60,7 +60,7 @@
                         <div class="flex">
                             <!-- Exemple de photo -->
                             {% for pfp in pfps %}
-                                <div class="w-20 h-20 m-1 pfp cursor-pointer" onmouseover="">
+                                <div class="w-20 h-20 m-1 pfp cursor-pointer" onmouseover="infoArticlePfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
                                     <img src="assets{{ pfp.filePath }}" alt="Pas d'image" class="rounded-3xl w-20 h-20">
                                 </div>
                             {% endfor %}
@@ -86,8 +86,22 @@
 
                     <!-- Section droite : Description -->
                     <div class="w-1/3 p-6 flex flex-col justify-center items-center dark:bg-night-3">
-                        <h2 id="photo-title" class="text-2xl font-semibold mb-4">Titre de la photo</h2>
-                        <p id="photo-description" class="text-gray-600 text-lg text-center">Passez la souris sur une photo pour voir la description.</p>
+                        <h2 id="pfpTitle" class="text-2xl font-semibold mb-4">Titre de la photo</h2>
+                        <p id="pfpDescription" class="text-gray-600 text-lg text-lavender-blush-base text-center mb-4">
+                            Passez la souris sur une photo pour voir la description.
+                        </p>
+                        <p id="pfpComusPrice" class="text-lg text-gray-800 mb-2">
+                            Prix en Comus : <span class="font-semibold">--</span>
+                        </p>
+                        <p id="pfpEuroPrice" class="text-lg text-gray-800 mb-6">
+                            Prix en Euros : <span class="font-semibold">--</span>
+                        </p>
+                        <button
+                                id="equipButton"
+                                class="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 transition duration-200"
+                                onclick="equipItem()">
+                            Équiper
+                        </button>
                     </div>
                 </div>
             </div>

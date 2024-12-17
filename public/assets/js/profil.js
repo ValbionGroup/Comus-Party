@@ -1,12 +1,27 @@
+// Déclaration des variables
+let profileBtn = document.getElementById('btnProfile');
+let settingsBtn = document.getElementById('btnSettings');
+let statisticsBtn = document.getElementById('btnStatistics');
+
+let profileBlock = document.getElementById('profile');
+let settingsBlock = document.getElementById('settings');
+let statisticsBlock = document.getElementById('statistics');
+
+let modal = document.getElementById('modalConfirmationSuppression');
+let background = document.getElementById('backgroundModal');
+
+let pfpTitle = document.getElementById("pfpTitle")
+let pfpDescription = document.getElementById("pfpDescription")
+let pfpComusPrice = document.getElementById("pfpComusPrice")
+let pfpEuroPrice = document.getElementById("pfpEuroPrice")
+let equipButton = document.getElementById("equipButton")
+
+function infoArticlePfp(article){
+    console.log(article)
+}
+
+
 function afficher(section) {
-    let profileBtn = document.getElementById('btnProfile');
-    let settingsBtn = document.getElementById('btnSettings');
-    let statisticsBtn = document.getElementById('btnStatistics');
-
-    let profileBlock = document.getElementById('profile');
-    let settingsBlock = document.getElementById('settings');
-    let statisticsBlock = document.getElementById('statistics');
-
     switch (section) {
         case 'profile' :
             profileBlock.classList.remove("hidden");
@@ -56,15 +71,11 @@ function afficher(section) {
 }
 
 function closeModal() {
-    let modal = document.getElementById('modalConfirmationSuppression');
-    let background = document.getElementById('backgroundModal');
     modal.classList.add("hidden");
     background.classList.add("hidden");
 }
 
 function showModalSuppression() {
-    let modal = document.getElementById('modalConfirmationSuppression');
-    let background = document.getElementById('backgroundModal');
     modal.classList.remove("hidden");
     background.classList.remove("hidden");
 }
