@@ -81,9 +81,9 @@ class MessageHandler
     {
         global $twig;
         $template = $twig->load('errors.twig');
-        http_response_code(($error->getCode() == 0) ?? 500);
+        http_response_code(500);
         echo $template->render([
-            'error' => ($error->getCode() == 0) ?? 500,
+            'error' => ($error->getCode() == 0) ? 500 : $error->getCode(),
             'message' => $error->getMessage() ?? 'Une erreur interne est survenue'
         ]);
         die;
