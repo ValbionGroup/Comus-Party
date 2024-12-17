@@ -38,13 +38,37 @@ class PasswordResetTokenDAOTest extends TestCase
     }
 
     /**
+     * @brief Test de la méthode delete avec un paramètre valide
+     * @return void
+     */
+    public function testDeleteOk(): void
+    {
+        try {
+            $this->passwordResetTokenDAO->delete(4);
+            $this->assertTrue(true);
+        } catch (Exception $e) {
+            $this->fail("Exception thrown: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * @brief Test de la méthode delete avec un paramètre invalide
+     * @return void
+     */
+    public function testDeleteThrowErrorWhenIdIsNull(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->passwordResetTokenDAO->delete(null);
+    }
+
+    /**
      * @brief Test de la méthode findByUserId avec un paramètre valide, mais un ID inexistant en base de données
      * @return void
      */
     public function testInsertOk(): void
     {
         try {
-            $this->passwordResetTokenDAO->insert(new PasswordResetToken(5, 'tokenTest', new DateTime('2020-01-01 00:00:00')));
+            $this->passwordResetTokenDAO->insert(new PasswordResetToken(4, 'tokenTest', new DateTime('2020-01-01 00:00:00')));
             $this->assertTrue(true);
         } catch (Exception $e) {
             $this->fail("Exception thrown: " . $e->getMessage());
@@ -58,7 +82,7 @@ class PasswordResetTokenDAOTest extends TestCase
     public function testInsertThrowErrorWhenTokenIsNull(): void
     {
         $this->expectException(TypeError::class);
-        $this->passwordResetTokenDAO->insert(new PasswordResetToken(5, null, new DateTime('2020-01-01 00:00:00')));
+        $this->passwordResetTokenDAO->insert(new PasswordResetToken(4, null, new DateTime('2020-01-01 00:00:00')));
     }
 
     /**
@@ -79,30 +103,6 @@ class PasswordResetTokenDAOTest extends TestCase
     {
         $this->expectException(PDOException::class);
         $this->passwordResetTokenDAO->insert(new PasswordResetToken(1, 'reset_token_1', new DateTime('2020-01-01 00:00:00')));
-    }
-
-    /**
-     * @brief Test de la méthode delete avec un paramètre valide
-     * @return void
-     */
-    public function testDeleteOk(): void
-    {
-        try {
-            $this->passwordResetTokenDAO->delete(5);
-            $this->assertTrue(true);
-        } catch (Exception $e) {
-            $this->fail("Exception thrown: " . $e->getMessage());
-        }
-    }
-
-    /**
-     * @brief Test de la méthode delete avec un paramètre invalide
-     * @return void
-     */
-    public function testDeleteThrowErrorWhenIdIsNull(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->passwordResetTokenDAO->delete(null);
     }
 
     /**
