@@ -10,6 +10,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\Suggestion;
+use ComusParty\Models\SuggestionDAO;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 

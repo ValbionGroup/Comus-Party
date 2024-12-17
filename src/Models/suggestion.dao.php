@@ -3,17 +3,17 @@
  * @file    suggestion.dao.php
  * @author  Estéban DESESSARD
  * @brief   Le fichier contient la déclaration & définition de la classe SuggestionDAO.
- * @date    17/11/2024
+ * @date    17/12/2024
  * @version 0.1
  */
 
-namespace Models;
+namespace ComusParty\Models;
 
-use ComusParty\Models\Suggestion;
+use PDO;
 
 /**
  * @brief Classe SuggestionDAO
- * @details La classe SuggestionDAO permet de faire des opérations sur la table suggestion dans la base de données
+ * @details La classe SuggestionDAO permet de gérer les suggestions en base de données
  */
 class SuggestionDAO
 {
@@ -50,16 +50,13 @@ class SuggestionDAO
         $this->pdo = $pdo;
     }
 
-    /**
-     * @brief Crée une suggestion dans la base de données
-     * @param Suggestion $suggestion La suggestion à créer
-     * @return void
-     */
     public function create(Suggestion $suggestion): void
     {
-        $stmt = $this->pdo->prepare('INSERT INTO ' . DB_PREFIX . ' (content, author_uuid) VALUES (:content, :author_uuid)');
-        $stmt->bindParam(':content', $suggestion->getContent());
-        $stmt->bindParam(':author_uuid', $suggestion->getAuthorUuid());
+        $stmt = $this->pdo->prepare('INSERT INTO ' . DB_PREFIX . 'suggestion (content, author_uuid) VALUES (:content, :author_uuid)');
+        $content = $suggestion->getContent();
+        $authorUuid = $suggestion->getAuthorUuid();
+        $stmt->bindParam(':content', $content);
+        $stmt->bindParam(':author_uuid', $authorUuid);
         $stmt->execute();
     }
 }

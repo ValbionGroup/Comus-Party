@@ -47,6 +47,8 @@ require_once __DIR__ . '/src/Models/invoice.dao.php';
 require_once __DIR__ . '/src/Models/statistics.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.dao.php';
+require_once __DIR__ . '/src/Models/suggestion.class.php';
+require_once __DIR__ . '/src/Models/suggestion.dao.php';
 
 session_start();
 require_once __DIR__ . '/config/twig.php';
