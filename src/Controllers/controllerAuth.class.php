@@ -293,6 +293,7 @@ class ControllerAuth extends Controller
         $_SESSION['comusCoin'] = $player->getComusCoin();
         $_SESSION['elo'] = $player->getElo();
         $_SESSION['xp'] = $player->getXp();
+        $_SESSION['basket'] = [];
 
         $articleManager = new ArticleDAO($this->getPdo());
         $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
