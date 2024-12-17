@@ -56,12 +56,12 @@ class ControllerGame extends Controller
      * @brief Permet d'initialiser le jeu après validation des paramètres et que les joueurs soient prêts
      *
      * @param int $id ID du jeu
-     * @param array $settings Paramètres du jeu
+     * @param array|null $settings Paramètres du jeu
      * @param array $players Joueurs de la partie
-     * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
      * @throws GameSettingsException Exception levée si les paramètres du jeu ne sont pas valides
+     * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
      */
-    public function initGame(int $id, array $settings, array $players): void
+    public function initGame(int $id, array $players, ?array $settings): void
     {
         $game = (new GameDao($this->getPdo()))->findById($id);
 
@@ -76,18 +76,22 @@ class ControllerGame extends Controller
             throw new GameUnavailableException("Les paramètres du jeu ne sont pas disponibles");
         }
 
-        if (sizeof($settings) != sizeof($gameSettings["modifiableSettings"])) {
-            throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
-        }
-
-        foreach ($settings as $key => $value) {
-            if (!array_key_exists($key, $gameSettings["modifiableSettings"])) {
+        if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
+            if (sizeof($settings) != sizeof($gameSettings["modifiableSettings"])) {
                 throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
             }
 
-            if (!in_array($value, $gameSettings["modifiableSettings"][$key])) {
-                throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
+            foreach ($settings as $key => $value) {
+                if (!array_key_exists($key, $gameSettings["modifiableSettings"])) {
+                    throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
+                }
+
+                if (!in_array($value, $gameSettings["modifiableSettings"][$key])) {
+                    throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
+                }
             }
+        } else {
+            $settings = [];
         }
     }
 
@@ -99,7 +103,7 @@ class ControllerGame extends Controller
      */
     private function getGameFolder(int $id): string
     {
-        return realpath(__DIR__ . "/../..") . "/games/$id";
+        return realpath(__DIR__ . "/../..") . "/games/game$id";
     }
 
     /**
