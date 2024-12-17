@@ -9,8 +9,10 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\Suggestion;
 use ComusParty\Models\SuggestionDAO;
+use Exception;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -34,6 +36,11 @@ class ControllerSuggestion extends Controller
     {
         $suggestion = new Suggestion($suggestion, $_SESSION['uuid']);
         $managerSuggestion = new SuggestionDAO($this->getPdo());
-        $managerSuggestion->create($suggestion);
+        if ($managerSuggestion->create($suggestion)) {
+            MessageHandler::addMessageParametersToSession('Suggestion envoyée avec succès');
+        } else {
+            MessageHandler::addExceptionParametersToSession(new Exception('Erreur lors de l\'envoi de la suggestion'));
+        }
+        header('Location: /');
     }
 }
