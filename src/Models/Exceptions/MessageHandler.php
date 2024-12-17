@@ -2,9 +2,9 @@
 /**
  * @brief Gestion de l'affichage des erreurs
  *
- * @file ErrorHandler.php
+ * @file MessageHandler.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
- * @version 1.0
+ * @version 1.1
  * @date 2024-11-21
  */
 
@@ -17,9 +17,9 @@ use Twig\Error\SyntaxError;
 
 /**
  * @brief Gestion de l'affichage des erreurs
- * @details La classe ErrorHandler permet de gérer l'affichage des erreurs de l'application
+ * @details La classe MessageHandler permet de gérer l'affichage des erreurs de l'application
  */
-class ErrorHandler
+class MessageHandler
 {
     /**
      * Lève une erreur bloquante.
@@ -54,5 +54,16 @@ class ErrorHandler
             'code' => $exception->getCode() ?? 500,
             'message' => $exception->getMessage() ?? 'Une erreur interne est survenue'
         ];
+    }
+
+    /**
+     * Ajout les données d'un message en variable de session
+     *
+     * @param string $message Message à afficher
+     * @return void
+     */
+    public static function addMessageParametersToSession(string $message): void
+    {
+        $_SESSION['success'] = $message;
     }
 }
