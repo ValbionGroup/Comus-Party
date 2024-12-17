@@ -448,6 +448,7 @@ class ControllerAuth extends Controller
             throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
         }
 
+        MessageHandler::addMessageParametersToSession("Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter.");
         header('Location: /');
     }
 
@@ -466,6 +467,7 @@ class ControllerAuth extends Controller
         $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
         if ($user) {
             $userDAO->confirmUser($emailVerifToken);
+            MessageHandler::addMessageParametersToSession("Votre compte a bien été confirmé. Vous pouvez maintenant vous connecter.");
             header('Location: /');
         } else {
             header('Location: /register');
