@@ -117,6 +117,7 @@ class ControllerProfile extends Controller
     }
 
     /**
+     * @brief Permet de mettre à jour la photo de profil ou la bannière d'un joueur
      * @param string|null $player_uuid L'UUID du joueur à désactiver
      * @param string $idArticle L'id de l'article à activer
      * @return void
