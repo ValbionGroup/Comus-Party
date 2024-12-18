@@ -199,10 +199,10 @@ class PlayerDAO {
         $player->setXp($data['xp']);
         $player->setElo($data['elo']);
         $player->setComusCoin($data['comus_coin']);
-        $player->getStatistics()->setPlayerUuid($data['uuid']);
-        $player->getStatistics()->setGamesPlayed($data['games_played']);
-        $player->getStatistics()->setGamesWon($data['games_won']);
-        $player->getStatistics()->setGamesHosted($data['games_hosted']);
+        $player->getStatistics()->setPlayerUuid($data['uuid'] ?? null);
+        $player->getStatistics()->setGamesPlayed($data['games_played'] ?? null);
+        $player->getStatistics()->setGamesWon($data['games_won'] ?? null);
+        $player->getStatistics()->setGamesHosted($data['games_hosted'] ?? null);
         $player->setUserId($data['user_id']);
         return $player;
     }
