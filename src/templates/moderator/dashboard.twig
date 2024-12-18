@@ -1,0 +1,15 @@
+{% extends "/layouts/default.twig" %}
+{% block title %}Accueil{% endblock %}
+{% block content %}
+    <div onclick="closeModal()" id="backgroundModal" class="hidden fixed inset-0 bg-night-1 opacity-85 z-40"></div>
+
+    <div class="overflow-y-auto scrollbar-thumb-night-base scrollbar-track-night-base h-full w-full">
+        <div class="flex flex-col sm:flex-row justify-between mb-10">
+            <h1 class="text-4xl ml-5 mt-5 font-serif">Dashboard de modération</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/assets/js/home.js"></script>
+{% endblock %}
