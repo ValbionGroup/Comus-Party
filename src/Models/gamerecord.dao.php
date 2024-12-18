@@ -58,7 +58,7 @@ class GameRecordDAO
      * @return GameRecord[] Tableau d'objets GameRecord
      * @throws Exception
      */
-    public function hydrateMany(array $rows): array
+    private function hydrateMany(array $rows): array
     {
         $gameRecords = [];
         foreach ($rows as $row) {
@@ -73,7 +73,7 @@ class GameRecordDAO
      * @return GameRecord Enregistrement de la partie hydraté
      * @throws Exception
      */
-    public function hydrate(array $row): GameRecord
+    private function hydrate(array $row): GameRecord
     {
         $hostedBy = (new PlayerDAO($this->getPdo()))->findByUuid($row["hostedBy"]);
         $game = (new GameDAO($this->getPdo()))->findById($row["game"]);
