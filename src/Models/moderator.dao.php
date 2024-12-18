@@ -23,7 +23,7 @@ class ModeratorDAO
 {
     /**
      * @brief La connexion à la base de données
-     * @var PDO|null
+     * @var PDO|null Connexion à la BD
      */
     private ?PDO $pdo;
 
