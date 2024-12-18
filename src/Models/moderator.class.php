@@ -23,26 +23,31 @@ class Moderator
      * @var string|null
      */
     private ?string $uuid;
+
     /**
      * @brief L'identifiant de l'utilisateur associé au modérateur
      * @var int|null
      */
     private ?int $userId;
+
     /**
      * @brief Le prénom du modérateur
      * @var string|null
      */
     private ?string $firstName;
+
     /**
      * @brief Le nom de famille du modérateur
      * @var string|null
      */
     private ?string $lastName;
+
     /**
      * @brief La date de création du profil de modérateur
      * @var DateTime|null
      */
     private ?DateTime $createdAt;
+
     /**
      * @brief La date de mise à jour du profil de modérateur
      * @var DateTime|null
@@ -51,12 +56,12 @@ class Moderator
 
     /**
      * @brief Constructeur de la classe Moderator
-     * @param string|null $uuid
-     * @param int|null $userId
-     * @param string|null $firstName
-     * @param string|null $lastName
-     * @param DateTime|null $createdAt
-     * @param DateTime|null $updatedAt
+     * @param string|null $uuid L'UUID du modérateur
+     * @param int|null $userId L'identifiant de l'utilisateur associé au modérateur
+     * @param string|null $firstName Le prénom du modérateur
+     * @param string|null $lastName Le nom de famille du modérateur
+     * @param DateTime|null $createdAt La date de création du profil de modérateur
+     * @param DateTime|null $updatedAt La date de mise à jour du profil de modérateur
      */
     public function __construct(?string $uuid = null,
                                 ?int $userId = null,
@@ -75,7 +80,7 @@ class Moderator
 
     /**
      * @brief Retourne l'UUID du modérateur
-     * @return string|null
+     * @return string|null L'UUID du modérateur
      */
     public function getUuid(): ?string
     {
@@ -83,7 +88,7 @@ class Moderator
     }
     /**
      * @brief Retourne l'identifiant de l'utilisateur associé au modérateur
-     * @return int|null
+     * @return int|null L'identifiant de l'utilisateur associé au modérateur
      */
     public function getUserId(): ?int
     {
@@ -91,7 +96,7 @@ class Moderator
     }
     /**
      * @brief Retourne le prénom du modérateur
-     * @return string|null
+     * @return string|null Le prénom du modérateur
      */
     public function getFirstName(): ?string
     {
@@ -99,7 +104,7 @@ class Moderator
     }
     /**
      * @brief Retourne le nom de famille du modérateur
-     * @return string|null
+     * @return string|null Le nom de famille du modérateur
      */
     public function getLastName(): ?string
     {
@@ -107,7 +112,7 @@ class Moderator
     }
     /**
      * @brief Retourne la date de création du profil de modérateur
-     * @return DateTime|null
+     * @return DateTime|null La date de création du profil de modérateur
      */
     public function getCreatedAt(): ?DateTime
     {
@@ -115,7 +120,7 @@ class Moderator
     }
     /**
      * @brief Retourne la date de mise à jour du profil de modérateur
-     * @return DateTime|null
+     * @return DateTime|null La date de mise à jour du profil de modérateur
      */
     public function getUpdatedAt(): ?DateTime
     {
