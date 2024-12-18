@@ -58,12 +58,12 @@ class Moderator
      * @param DateTime|null $createdAt
      * @param DateTime|null $updatedAt
      */
-    public function __construct(?string $uuid,
-                                ?int $userId,
-                                ?string $firstName,
-                                ?string $lastName,
-                                ?DateTime $createdAt,
-                                ?DateTime $updatedAt
+    public function __construct(?string $uuid = null,
+                                ?int $userId = null,
+                                ?string $firstName = null,
+                                ?string $lastName = null,
+                                ?DateTime $createdAt = null,
+                                ?DateTime $updatedAt = null
     ){
         $this->uuid = $uuid;
         $this->userId = $userId;
