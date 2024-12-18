@@ -67,8 +67,54 @@ class SuggestionDAO
         return $stmt->execute();
     }
 
-    public function findAll()
+    /**
+     * @brief Récupère toutes les suggestions en base de données
+     * @return array|null Un tableau de suggestions ou null si aucune suggestion n'est trouvée
+     */
+    public function findAll(): ?array
     {
+        $stmt = $this->pdo->prepare(
+            'SELECT s.*, p.username
+            FROM ' . DB_PREFIX . 'suggestion s
+            JOIN ' . DB_PREFIX . 'player p ON s.author_uuid = p.uuid'
+        );
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $suggestsTab = $stmt->fetchAll();
+        if (!$suggestsTab) {
+            return null;
+        }
+        return $this->hydrateMany($suggestsTab);
+    }
 
+    /**
+     * @brief Hydrate un tableau de données en plusieurs suggestions
+     * @param array $suggestsTab Le tableau associatif contenant les tableaux de données des suggestions
+     * @return array Un tableau d'objets Suggestion
+     */
+    private function hydrateMany(array $suggestsTab): array
+    {
+        $suggests = [];
+        if ($suggestsTab) {
+            foreach ($suggestsTab as $suggestTab) {
+                $suggests[] = $this->hydrate($suggestTab);
+            }
+        }
+        return $suggests;
+    }
+
+    /**
+     * @brief Hydrate un tableau de données en une suggestion
+     * @param array $data Le tableau associatif contenant les données de la suggestion
+     * @return Suggestion
+     */
+    public function hydrate(array $data): Suggestion
+    {
+        $suggestion = new Suggestion();
+        $suggestion->setContent($data['content']);
+        $suggestion->setAuthorUuid($data['author_uuid']);
+        $suggestion->setCreatedAt($data['created_at']);
+        $suggestion->setAuthorUsername($data['username']);
+        return $suggestion;
     }
 }
