@@ -38,7 +38,7 @@ class ControllerDashboard extends Controller
     public function showDashboard()
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
-        $suggestions = $suggestsManager->findAll();
+        $suggestions = $suggestsManager->findAllWaiting();
         $template = $this->getTwig()->load('moderator/dashboard.twig');
         echo $template->render(array(
             "suggestions" => $suggestions

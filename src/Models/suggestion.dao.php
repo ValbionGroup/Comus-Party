@@ -75,15 +75,16 @@ class SuggestionDAO
     }
 
     /**
-     * @brief Récupère toutes les suggestions en base de données
+     * @brief Récupère toutes les suggestions en base de données qui ne sont pas traitées
      * @return array|null Un tableau de suggestions ou null si aucune suggestion n'est trouvée
      */
-    public function findAll(): ?array
+    public function findAllWaiting(): ?array
     {
         $stmt = $this->pdo->prepare(
             'SELECT s.*, p.username
             FROM ' . DB_PREFIX . 'suggestion s
-            JOIN ' . DB_PREFIX . 'player p ON s.author_uuid = p.uuid'
+            JOIN ' . DB_PREFIX . 'player p ON s.author_uuid = p.uuid
+            WHERE s.treated_by IS NULL'
         );
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
