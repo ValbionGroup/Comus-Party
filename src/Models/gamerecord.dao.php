@@ -43,7 +43,7 @@ class GameRecordDAO
      */
     public function findByGameId(int $gameId): array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . " game_record WHERE game = :gameId");
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE game = :gameId");
         $stmt->execute([
             "gameId" => $gameId
         ]);
@@ -111,7 +111,7 @@ class GameRecordDAO
      */
     public function findByUuid(string $uuid): ?GameRecord
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . " game_record WHERE uuid = :uuid");
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE uuid = :uuid");
         $stmt->execute([
             "uuid" => $uuid
         ]);
