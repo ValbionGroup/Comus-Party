@@ -124,7 +124,7 @@ $router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
     exit;
 });
 
-$router->get('/shop/basket/checkout', function () use($loader, $twig) {
+$router->get('/shop/basket/checkout', function () use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
@@ -243,6 +243,10 @@ $router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
     exit;
 });
 
+$router->get('/game/test/:id', function ($id) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("initGame", ["id" => $id, "settings" => [], "players" => []]);
+});
+
 $router->post('/', function () use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
@@ -254,5 +258,10 @@ $router->post('/', function () use ($loader, $twig) {
 
 $router->get('/cgu', function () use ($loader, $twig) {
     ControllerFactory::getController("policy", $loader, $twig)->call("showCgu");
+    exit;
+});
+
+$router->get('/privacy', function () use ($loader, $twig) {
+    ControllerFactory::getController("policy", $loader, $twig)->call("showPrivacyPolicy");
     exit;
 });

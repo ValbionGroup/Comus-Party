@@ -2,9 +2,9 @@
 /**
  * @file    controllerPolicy.class.php
  * @brief   Ce fichier contient la déclaration & définition de la classe ControllerPolicy.
- * @author  Estéban DESESSARD
+ * @author  Estéban DESESSARD & Lucas ESPIET
  * @date    14/12/2024
- * @version 1.0
+ * @version 1.1
  */
 
 namespace ComusParty\Controllers;
@@ -41,6 +41,12 @@ class ControllerPolicy extends Controller
     public function showCgu()
     {
         $template = $this->getTwig()->load('cgu.twig');
+        echo $template->render();
+    }
+
+    public function showPrivacyPolicy()
+    {
+        $template = $this->getTwig()->load('privacy-policy.twig');
         echo $template->render();
     }
 }
