@@ -60,7 +60,12 @@ class SuggestionDAO
     public function create(Suggestion $suggestion): bool
     {
         $stmt = $this->pdo->prepare('INSERT INTO ' . DB_PREFIX . 'suggestion (object, content, author_uuid) VALUES (:object, :content, :author_uuid)');
-        $object = $suggestion->getObject();
+        $object = match ($suggestion->getObject()) {
+            SuggestObject::BUG => 'bug',
+            SuggestObject::GAME => 'jeu',
+            SuggestObject::UI => 'ui',
+            SuggestObject::OTHER => 'other',
+        };
         $content = $suggestion->getContent();
         $authorUuid = $suggestion->getAuthorUuid();
         $stmt->bindParam(':object', $object);
@@ -114,6 +119,14 @@ class SuggestionDAO
     public function hydrate(array $data): Suggestion
     {
         $suggestion = new Suggestion();
+        $suggestion->setObject(
+            match ($data['object']) {
+                'bug' => SuggestObject::BUG,
+                'jeu' => SuggestObject::GAME,
+                'ui' => SuggestObject::UI,
+                'other' => SuggestObject::OTHER,
+            }
+        );
         $suggestion->setContent($data['content']);
         $suggestion->setAuthorUuid($data['author_uuid']);
         $suggestion->setCreatedAt(new DateTime($data['created_at']));

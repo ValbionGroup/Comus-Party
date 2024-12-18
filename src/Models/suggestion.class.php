@@ -12,12 +12,43 @@ namespace ComusParty\Models;
 use DateTime;
 
 /**
+ * @brief Les 4 thèmes pour les suggestions
+ * @enum SuggestObject
+ */
+enum SuggestObject
+{
+    /**
+     * @brief Bug
+     */
+    case BUG;
+
+    /**
+     * @brief Ajout d'un jeu
+     */
+    case GAME;
+
+    /**
+     * @brief Interface utilisateur
+     */
+    case UI;
+
+    /**
+     * @biref Autres
+     */
+    case OTHER;
+}
+
+/**
  * @brief Classe Suggestion
  * @details La classe Suggestion répertorie une suggestion effectuée par un utilisateur de la plateforme
  */
 class Suggestion
 {
-    private ?string $object;
+    /**
+     * @brief L'objet de la suggestion
+     * @var SuggestObject|null
+     */
+    private ?SuggestObject $object;
 
     /**
      * @brief Le contenu de la suggestion
@@ -51,6 +82,7 @@ class Suggestion
 
     /**
      * @brief Le constructeur de la classe Suggestion
+     * @param SuggestObject|null $object L'objet de la suggestion
      * @param string|null $content Le contenu de la suggestion
      * @param string|null $authorUuid L'UUID de l'auteur de la suggestion
      * @param string|null $authorUsername Le nom d'utilisateur de l'auteur de la suggestion
@@ -58,12 +90,12 @@ class Suggestion
      * @param string|null $treatedBy L'UUID du modérateur ayant traité la suggestion
      */
     public function __construct(
-        ?string   $object = null,
-        ?string   $content = null,
-        ?string   $authorUuid = null,
-        ?string   $authorUsername = null,
-        ?DateTime $createdAt = null,
-        ?string   $treatedBy = null
+        ?SuggestObject $object = null,
+        ?string        $content = null,
+        ?string        $authorUuid = null,
+        ?string        $authorUsername = null,
+        ?DateTime      $createdAt = null,
+        ?string        $treatedBy = null
     )
     {
         $this->object = $object;
@@ -76,18 +108,18 @@ class Suggestion
 
     /**
      * @brief Permet de récupérer l'objet de la suggestion
-     * @return string|null L'objet de la suggestion
+     * @return SuggestObject|null L'objet de la suggestion
      */
-    public function getObject(): ?string
+    public function getObject(): ?SuggestObject
     {
         return $this->object;
     }
 
     /**
      * @brief Permet de définir l'objet de la suggestion
-     * @param string|null $object L'objet de la suggestion
+     * @param SuggestObject|null $object L'objet de la suggestion
      */
-    public function setObject(?string $object): void
+    public function setObject(?SuggestObject $object): void
     {
         $this->object = $object;
     }
