@@ -247,10 +247,13 @@ class ArticleDAO {
         SET ir.active = 1 
         WHERE i.player_uuid = :uuid AND ir.article_id = :idArticle'
         );
-
         $stmt->bindParam(':uuid', $uuid);
         $stmt->bindParam(':idArticle', $idArticle);
         $stmt->execute();
+        $article = $this->findById($idArticle);
+        $_SESSION['pfpPath'] = $article->getFilePath();
+
+
 
     }
 

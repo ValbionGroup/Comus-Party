@@ -77,7 +77,6 @@ class ControllerProfile extends Controller
 //        $pfps = $articleManager->findAllPfps();
         $banners = $articleManager->findAllBanners();
 
-
         $template = $this->getTwig()->load('profil.twig');
         echo $template->render(array(
             "player" => $player,

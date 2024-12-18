@@ -19,11 +19,9 @@ let modalPfp = document.getElementById("modalPfp")
 let modals = document.querySelectorAll(".modal")
 let pfps = document.querySelectorAll(".pfp")
 let playerPfp = document.getElementById("pfpPlayer")
-
+let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
 
 function activeBorderOnPfp(pfp){
-    console.log(pfp.classList)
-
     pfps.forEach(pfp=> pfp.classList.remove("activePfp"))
     pfp.classList.add("activePfp")
 }
@@ -103,7 +101,6 @@ function equipArticle(){
     pfps.forEach(pfp=> {
 
         if(pfp.classList.contains("activePfp")){
-            console.log(pfp.id)
             let idArticle = parseInt(pfp.id, 10)
             const xhr = new XMLHttpRequest();
             xhr.open("POST", `/profile/updateStyle/${pfp.id}`, true);
@@ -114,14 +111,13 @@ function equipArticle(){
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let response =  JSON.parse(xhr.responseText)
-                    console.log(playerPfp)
                     playerPfp.src = "/assets/img/pfp/" + response.articlePath
-                    console.log(response)
+                    pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
                 }
             };
         }
-
     })
+    closeModal()
 
 }
 
