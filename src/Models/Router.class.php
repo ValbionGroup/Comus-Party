@@ -1,11 +1,10 @@
 <?php
-
 /**
  * @brief Fichier de la classe Router
  *
  * @file Router.class.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
- * @version 1.0
+ * @version 1.1
  * @date 2024-12-18
  */
 
