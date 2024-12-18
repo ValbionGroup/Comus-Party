@@ -62,7 +62,7 @@
                             <!-- Exemple de photo -->
                             {% for pfp in pfpsOwned %}
                                 <div  class=" w-20 h-20 m-1 pfp cursor-pointer" onclick="infoArticlePfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
-                                    <img id="{{ pfp.id }}" src="assets/img/pfp/{{ pfp.filePath }}" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeBorderOnPfp(this)">
+                                    <img id="{{ pfp.id }}" src="assets/img/pfp/{{ pfp.filePath }}" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
                                 </div>
                             {% endfor %}
 
@@ -81,7 +81,7 @@
                         <button
                                 id="equipButton"
                                 class="px-4 py-2 dark:bg-night-2 text-lavender-blush-base rounded shadow hover:bg-night-1 transition duration-200"
-                                onclick="equipArticle(this)">
+                                onclick="equipArticlePfp(this)">
                             Équiper
                         </button>
                     </div>

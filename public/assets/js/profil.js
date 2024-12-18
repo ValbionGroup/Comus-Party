@@ -21,7 +21,7 @@ let pfps = document.querySelectorAll(".pfp")
 let playerPfp = document.getElementById("pfpPlayer")
 let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
 
-function activeBorderOnPfp(pfp){
+function activeShadowOnPfp(pfp){
     pfps.forEach(pfp=> pfp.classList.remove("activePfp"))
     pfp.classList.add("activePfp")
 }
@@ -96,7 +96,7 @@ function afficher(section) {
 }
 
 
-function equipArticle(){
+function equipArticlePfp(){
 
     pfps.forEach(pfp=> {
 

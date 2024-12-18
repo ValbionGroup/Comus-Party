@@ -74,7 +74,6 @@ class ControllerProfile extends Controller
         }
 
         $pfpsOwned = $articleManager->findAllPfpsWithUuidPlayer($player->getUuid());
-//        $pfps = $articleManager->findAllPfps();
         $banners = $articleManager->findAllBanners();
 
         $template = $this->getTwig()->load('profil.twig');
@@ -83,7 +82,6 @@ class ControllerProfile extends Controller
             "user" => $user,
             "pfp" => $pfpPath,
             "banner" => $bannerPath,
-//            "articles" => $articles,
             "pfpsOwned" => $pfpsOwned,
             "banners" => $banners
         ));
@@ -118,6 +116,11 @@ class ControllerProfile extends Controller
         header('Location: /');
     }
 
+    /**
+     * @param string|null $player_uuid L'UUID du joueur à désactiver
+     * @param string $idArticle L'id de l'article à activer
+     * @return void
+     */
     public function updateStyle(?string $player_uuid, int $idArticle)
     {
         if (is_null($player_uuid)) {
