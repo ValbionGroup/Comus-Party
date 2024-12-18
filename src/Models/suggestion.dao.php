@@ -120,6 +120,7 @@ class SuggestionDAO
     public function hydrate(array $data): Suggestion
     {
         $suggestion = new Suggestion();
+        $suggestion->setId($data['id']);
         $suggestion->setObject(
             match ($data['object']) {
                 'bug' => SuggestObject::BUG,

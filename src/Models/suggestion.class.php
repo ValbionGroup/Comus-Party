@@ -45,6 +45,12 @@ enum SuggestObject
 class Suggestion
 {
     /**
+     * @brief L'identifiant de la suggestion
+     * @var int|null
+     */
+    private ?int $id;
+
+    /**
      * @brief L'objet de la suggestion
      * @var SuggestObject|null
      */
@@ -90,6 +96,7 @@ class Suggestion
      * @param string|null $treatedBy L'UUID du modérateur ayant traité la suggestion
      */
     public function __construct(
+        ?int           $id = null,
         ?SuggestObject $object = null,
         ?string        $content = null,
         ?string        $authorUuid = null,
@@ -98,12 +105,31 @@ class Suggestion
         ?string        $treatedBy = null
     )
     {
+        $this->id = $id;
         $this->object = $object;
         $this->content = $content;
         $this->authorUuid = $authorUuid;
         $this->authorUsername = $authorUsername;
         $this->createdAt = $createdAt;
         $this->treatedBy = $treatedBy;
+    }
+
+    /**
+     * @brief Permet de récupérer l'identifiant de la suggestion
+     * @return int|null L'identifiant de la suggestion
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @brief Permet de définir l'identifiant de la suggestion
+     * @param int|null $id L'identifiant de la suggestion
+     */
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
     }
 
     /**
