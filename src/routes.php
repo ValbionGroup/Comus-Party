@@ -251,3 +251,8 @@ $router->post('/', function () use ($loader, $twig) {
     ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", ["suggestion" => $_POST['suggestion']]);
     exit;
 });
+
+$router->get('/cgu', function () use ($loader, $twig) {
+    ControllerFactory::getController("policy", $loader, $twig)->call("showCgu");
+    exit;
+});
