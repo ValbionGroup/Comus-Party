@@ -12,6 +12,7 @@
 namespace ComusParty\Models;
 
 use ComusParty\Models\Exception\RouteNotFoundException;
+use ComusParty\Models\Exception\UnauthorizedAccessException;
 use Exception;
 
 /**
@@ -56,9 +57,9 @@ class Router
      * @param callable $target Action à effectuer
      * @return void
      */
-    public function get(string $url, callable $target): void
+    public function get(string $url, callable $target, ?string $middleware = null): void
     {
-        $this->addRoute('GET', $url, $target);
+        $this->addRoute('GET', $url, $target, $middleware);
     }
 
     /**
@@ -68,9 +69,13 @@ class Router
      * @param callable $target Action à effectuer
      * @return void
      */
-    private function addRoute(string $method, string $url, callable $target): void
+    private function addRoute(string $method, string $url, callable $target, ?string $middleware = null): void
     {
-        $this->routes[$method][BASE_URI . $url] = $target;
+        if (is_null($middleware)) {
+            $middleware = '*';
+        }
+
+        $this->routes[$method][$middleware][BASE_URI . $url] = $target;
     }
 
     /**
@@ -79,9 +84,9 @@ class Router
      * @param callable $target Action à effectuer
      * @return void
      */
-    public function post(string $url, callable $target): void
+    public function post(string $url, callable $target, ?string $middleware = null): void
     {
-        $this->addRoute('POST', $url, $target);
+        $this->addRoute('POST', $url, $target, $middleware);
     }
 
     /**
@@ -90,9 +95,9 @@ class Router
      * @param callable $target Action à effectuer
      * @return void
      */
-    public function put(string $url, callable $target): void
+    public function put(string $url, callable $target, ?string $middleware = null): void
     {
-        $this->addRoute('PUT', $url, $target);
+        $this->addRoute('PUT', $url, $target, $middleware);
     }
 
     /**
@@ -101,9 +106,9 @@ class Router
      * @param callable $target Action à effectuer
      * @return void
      */
-    public function delete(string $url, callable $target): void
+    public function delete(string $url, callable $target, ?string $middleware = null): void
     {
-        $this->addRoute('DELETE', $url, $target);
+        $this->addRoute('DELETE', $url, $target, $middleware);
     }
 
     /**
@@ -120,20 +125,45 @@ class Router
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $url = $_SERVER['REQUEST_URI'];
+        $role = $_SESSION['role'];
 
         if (isset($this->routes[$method])) {
-            foreach ($this->routes[$method] as $routeUrl => $target) {
+            if (!is_null($role)) {
+                if (isset($this->routes[$method][$role])) {
+                    foreach ($this->routes[$method][$role] as $routeUrl => $target) {
+                        if ($this->callFunctionFromRoute($routeUrl, $target, $url)) return;
+                    }
+                }
+            }
 
-                $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
-                if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
-                    $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                    call_user_func_array($target, $params);
-                    return;
+            if (!is_null($this->routes[$method]['*'])) {
+                foreach ($this->routes[$method]['*'] as $routeUrl => $target) {
+                    if ($this->callFunctionFromRoute($routeUrl, $target, $url)) return;
+                }
+            }
+
+            foreach ($this->routes[$method] as $target) {
+                foreach (array_keys($target) as $routeUrl) {
+                    $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
+                    if (preg_match('#^' . $pattern . '$#', $url)) {
+                        throw new UnauthorizedAccessException('Unauthorized access to route ' . $url . ' (' . $method . ')');
+                    }
                 }
             }
         }
-
+        
         throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ')' . ' not found');
+    }
+
+    private function callFunctionFromRoute(string $routeUrl, callable $target, string $url): bool
+    {
+        $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
+        if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
+            $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+            call_user_func_array($target, $params);
+            return true;
+        }
+        return false;
     }
 
     /**
