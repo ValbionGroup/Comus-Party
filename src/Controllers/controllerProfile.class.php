@@ -140,10 +140,7 @@ class ControllerProfile extends Controller
             $article = $articleManager->findById($idArticle);
             echo json_encode([
                 'articlePath' => $article->getFilePath()
-
             ]);
         }
-
-
     }
 }

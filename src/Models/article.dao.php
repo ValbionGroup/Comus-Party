@@ -135,8 +135,6 @@ class ArticleDAO {
         return $this->hydrateMany($articles);
     }
 
-
-
     /**
      * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles enregistrés dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
