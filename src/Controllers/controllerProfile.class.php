@@ -73,8 +73,8 @@ class ControllerProfile extends Controller
             $bannerPath = $banner->getFilePath();
         }
 
-        $articles = $articleManager->findAllArticleWithUuidPlayer($player->getUuid());
-        $pfps = $articleManager->findAllPfps();
+        $pfpsOwned = $articleManager->findAllPfpsWithUuidPlayer($player->getUuid());
+//        $pfps = $articleManager->findAllPfps();
         $banners = $articleManager->findAllBanners();
 
 
@@ -84,8 +84,8 @@ class ControllerProfile extends Controller
             "user" => $user,
             "pfp" => $pfpPath,
             "banner" => $bannerPath,
-            "articles" => $articles,
-            "pfps" => $pfps,
+//            "articles" => $articles,
+            "pfpsOwned" => $pfpsOwned,
             "banners" => $banners
         ));
     }
@@ -131,7 +131,12 @@ class ControllerProfile extends Controller
         }
         $articleManager = new ArticleDAO($this->getPdo());
         $articleManager->updateActiveArticle($player->getUuid(), $idArticle);
-
+        echo json_encode([
+            'success' => true,
+            'message' => "Article maj !",
+            'idArticle' => $idArticle,
+            'uuidPlayer' =>$player_uuid
+        ]);
 
     }
 

@@ -29,7 +29,6 @@ function activeBorderOnPfp(pfp){
 }
 
 function infoArticlePfp(article){
-    console.log(article)
     pfpTitle.textContent = article.name
     pfpDescription.textContent = article.description
 
@@ -98,10 +97,31 @@ function afficher(section) {
     }
 }
 
-// function closeModal() {
-//     modal.classList.add("hidden");
-//     background.classList.add("hidden");
-// }
+
+function equipArticle(){
+
+    pfps.forEach(pfp=> {
+
+        if(pfp.classList.contains("activePfp")){
+            console.log(pfp.id)
+            let idArticle = parseInt(pfp.id, 10)
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", `/profile/updateStyle/${pfp.id}`, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            // Envoyer les données sous forme de paire clé=valeur
+            xhr.send();
+            // Gérer la réponse du serveur
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let response =  JSON.parse(xhr.responseText)
+                    console.log(response)
+                }
+            };
+        }
+
+    })
+
+}
 
 function showModalSuppression() {
     modal.classList.remove("hidden");

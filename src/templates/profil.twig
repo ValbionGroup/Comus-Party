@@ -60,9 +60,9 @@
                         <!-- Liste des photos -->
                         <div class="flex">
                             <!-- Exemple de photo -->
-                            {% for pfp in pfps %}
-                                <div class=" w-20 h-20 m-1 pfp cursor-pointer" onclick="infoArticlePfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
-                                    <img src="assets{{ pfp.filePath }}" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeBorderOnPfp(this)">
+                            {% for pfp in pfpsOwned %}
+                                <div  class=" w-20 h-20 m-1 pfp cursor-pointer" onclick="infoArticlePfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
+                                    <img id="{{ pfp.id }}" src="assets/img/pfp/{{ pfp.filePath }}" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeBorderOnPfp(this)">
                                 </div>
                             {% endfor %}
 
@@ -81,7 +81,7 @@
                         <button
                                 id="equipButton"
                                 class="px-4 py-2 dark:bg-night-2 text-lavender-blush-base rounded shadow hover:bg-night-1 transition duration-200"
-                                onclick="equipItem()">
+                                onclick="equipArticle(this)">
                             Équiper
                         </button>
                     </div>

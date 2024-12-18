@@ -55,7 +55,7 @@
                         {% for pfp in pfps %}
                             <div class="w-20 h-20 m-1 pfp cursor-pointer"
                                  onclick="showModalPfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
-                                <img src="assets{{ pfp.filePath }}" alt="Pas d'image" class="rounded-3xl w-20 h-20">
+                                <img src="assets/img/{{ pfp.filePath }}" alt="Pas d'image" class="rounded-3xl w-20 h-20">
 
                             </div>
 
@@ -76,7 +76,7 @@
 
                                  onclick="showModalBanner({ id : '{{ banner.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}'})">
 
-                                <img src="assets{{ banner.filePath }}" alt=""
+                                <img src="assets/img/{{ banner.filePath }}" alt=""
                                      class="w-80 rounded-2xl">
                             </div>
 

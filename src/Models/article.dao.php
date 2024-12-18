@@ -120,14 +120,14 @@ class ArticleDAO {
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
      */
-    public function findAllArticleWithUuidPlayer(string $uuid): ?array
+    public function findAllPfpsWithUuidPlayer(string $uuid): ?array
     {
         $stmt = $this->pdo->prepare(
             'SELECT a.*
             FROM ' . DB_PREFIX . 'article a
             JOIN ' . DB_PREFIX . 'invoice_row ir ON a.id = ir.article_id
             JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
-            WHERE i.player_uuid = :uuid');
+            WHERE i.player_uuid = :uuid AND type = "pfp" ');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -238,6 +238,7 @@ class ArticleDAO {
         SET ir.active = 1 
         WHERE i.player_uuid = :uuid AND ir.article_id = :idArticle'
         );
+
         $stmt->bindParam(':uuid', $uuid);
         $stmt->bindParam(':idArticle', $idArticle);
         $stmt->execute();

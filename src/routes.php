@@ -39,6 +39,19 @@ $router->get('/profile', function () use ($loader, $twig) {
     exit;
 });
 
+$router->post('/profile/updateStyle/:idArticle', function($idArticle) use ($loader, $twig){
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
+        "uuidPlayer" => $_SESSION["uuid"],
+        "idArticle" => $idArticle
+        ]);
+    exit;
+
+});
+
 // Route pour afficher le formulaire de connexion
 $router->get('/login', function () use ($loader, $twig) {
     if (isset($_SESSION['uuid'])) {
