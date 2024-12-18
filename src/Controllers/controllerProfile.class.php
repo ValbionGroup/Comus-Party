@@ -136,13 +136,7 @@ class ControllerProfile extends Controller
         $articleManager->updateActiveArticle($player->getUuid(), $idArticle);
         $article = $articleManager->findById($idArticle);
         echo json_encode([
-            'success' => true,
-            'message' => "Article maj !",
-            'idArticle' => $idArticle,
-            'uuidPlayer' =>$player_uuid,
             'articlePath' => $article->getFilePath()
         ]);
-
     }
-
 }

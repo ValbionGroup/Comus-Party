@@ -231,13 +231,16 @@ class ArticleDAO {
      */
     public function updateActiveArticle(string $uuid, int $idArticle)
     {
+        $pfpActive = $this->findActivePfpByPlayerUuid($uuid);
+        $idPfpActive = $pfpActive->getId();
         $stmt = $this->pdo->prepare(
             'UPDATE '. DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
         SET ir.active = 0 
-        WHERE i.player_uuid = :uuid');
+        WHERE i.player_uuid = :uuid AND ir.invoice_id = :idArticleActif');
         $stmt->bindParam(':uuid', $uuid);
+        $stmt->bindParam(':idArticleActif', $idPfpActive);
         $stmt->execute();
 
         $stmt = $this->pdo->prepare(
