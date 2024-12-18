@@ -54,6 +54,7 @@ class Router
      * @brief Ajout d'une route GET
      * @param string $url URL demandée
      * @param callable $target Action à effectuer
+     * @param string|null $middleware Middleware à utiliser
      * @return void
      */
     public function get(string $url, callable $target, ?string $middleware = null): void
@@ -66,6 +67,7 @@ class Router
      * @param string $method Méthode HTTP (GET, POST, PUT, DELETE)
      * @param string $url URL demandée
      * @param callable $target Action à effectuer
+     * @param string|null $middleware Middleware à utiliser
      * @return void
      */
     private function addRoute(string $method, string $url, callable $target, ?string $middleware = null): void
@@ -81,6 +83,7 @@ class Router
      * @brief Ajout d'une route POST
      * @param string $url URL demandée
      * @param callable $target Action à effectuer
+     * @param string|null $middleware Middleware à utiliser
      * @return void
      */
     public function post(string $url, callable $target, ?string $middleware = null): void
@@ -92,6 +95,7 @@ class Router
      * @brief Ajout d'une route PUT
      * @param string $url URL demandée
      * @param callable $target Action à effectuer
+     * @param string|null $middleware Middleware à utiliser
      * @return void
      */
     public function put(string $url, callable $target, ?string $middleware = null): void
@@ -103,6 +107,7 @@ class Router
      * @brief Ajout d'une route DELETE
      * @param string $url URL demandée
      * @param callable $target Action à effectuer
+     * @param string|null $middleware Middleware à utiliser
      * @return void
      */
     public function delete(string $url, callable $target, ?string $middleware = null): void
