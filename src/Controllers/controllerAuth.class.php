@@ -312,7 +312,7 @@ class ControllerAuth extends Controller
             $_SESSION['uuid'] = $moderator->getUuid();
             $_SESSION['firstName'] = $moderator->getFirstName();
             $_SESSION['lastName'] = $moderator->getLastName();
-            header('Location: /moderator');
+            header('Location: /');
         }
 
     }
