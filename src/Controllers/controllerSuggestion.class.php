@@ -12,7 +12,6 @@ namespace ComusParty\Controllers;
 use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\Suggestion;
 use ComusParty\Models\SuggestionDAO;
-use DateTime;
 use Exception;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -40,7 +39,7 @@ class ControllerSuggestion extends Controller
      */
     public function sendSuggestion(string $content): void
     {
-        $suggestionObject = new Suggestion($content, $_SESSION['uuid'], $_SESSION['username'], new DateTime());
+        $suggestionObject = new Suggestion($content, $_SESSION['uuid'], $_SESSION['username']);
         $managerSuggestion = new SuggestionDAO($this->getPdo());
         if ($managerSuggestion->create($suggestionObject)) {
             MessageHandler::addMessageParametersToSession('Suggestion envoyée avec succès');
