@@ -19,10 +19,16 @@
             <div class="flex flex-col gap-4 h-full w-[calc(33%-2rem)]">
                 <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Suggestions en attente</p>
-                    <div class="flex flex-col gap-2 ml-2 mt-2">
+                    <div class="flex flex-col gap-2 mx-2 mt-2">
                         {% for suggestion in suggestions %}
-                            <div class="flex">
-                                {{ suggestion.content }}
+                            <div class="flex p-2 bg-night-base rounded-md hover:scale-105 transition-all ease-in-out">
+                                <p class="underline mr-1">Thème : </p>
+                                <p>
+                                    {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').BUG %}🐛 Bug{% endif %}
+                                    {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').GAME %}🎮 Jeu{% endif %}
+                                    {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').UI %}📲 Interface Utilisateur{% endif %}
+                                    {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').OTHER %}🔧 Autres{% endif %}
+                                </p>
                             </div>
                         {% endfor %}
                     </div>
