@@ -60,10 +60,28 @@ class ModeratorDao
      * @return Moderator|null Objet retourné par la méthode, ici un modérateur (ou null si non-trouvé)
      * @throws DateMalformedStringException
      */
-    public function findBuUuid(string $uuid): ?Moderator
+    public function findByUuid(string $uuid): ?Moderator
     {
         $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .' moderator WHERE uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $moderatorTab = $stmt->fetch();
+        if ($moderatorTab === false) {
+            return null;
+        }
+        return $this->hydrate($moderatorTab);
+    }
+    /**
+     * @brief Retourne un objet Moderator (ou null) à partir de l'ID utilisateur passé en paramètre
+     * @param int $userId L'ID de l'utilisateur du modérateur recherché
+     * @return Moderator|null Objet retourné par la méthode, ici un modérateur (ou null si non-trouvé)
+     * @throws DateMalformedStringException
+     */
+    public function findByUserId(int $userId): ?Moderator
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .' moderator WHERE user_id = :user_id');
+        $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $moderatorTab = $stmt->fetch();
