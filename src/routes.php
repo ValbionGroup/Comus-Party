@@ -12,6 +12,7 @@ global $loader, $twig;
 
 use ComusParty\Controllers\ControllerFactory;
 use ComusParty\Models\Exception\MessageHandler;
+use ComusParty\Models\Exception\UnauthorizedAccessException;
 use ComusParty\Models\Router;
 
 $router = Router::getInstance();
@@ -122,13 +123,17 @@ $router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
     exit;
 });
 
-$router->get('/shop/basket/checkout', function () {
+$router->get('/shop/basket/checkout', function () use($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
     }
-    echo "Page de paiement<br/>";
-    echo "A IMPLEMENTER";
+    if (empty($_SESSION['basket'])) {
+        MessageHandler::addExceptionParametersToSession(new UnauthorizedAccessException("Votre panier est vide"));
+        header('Location: /shop');
+        exit;
+    }
+    ControllerFactory::getController("shop", $loader, $twig)->call("showCheckout");
     exit;
 });
 
@@ -137,8 +142,15 @@ $router->post('/shop/basket/checkout', function () {
         header('Location: /login');
         exit;
     }
-    echo "Traitement du paiement<br/>";
-    echo "A IMPLEMENTER";
+    exit;
+});
+
+$router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("shop", $loader, $twig)->call("checkPaymentRequirement", array($_POST));
     exit;
 });
 
@@ -237,5 +249,14 @@ $router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
         exit;
     }
     ControllerFactory::getController("profile", $loader, $twig)->call("disableAccount", ["uuid" => $uuid]);
+    exit;
+});
+
+$router->post('/', function () use ($loader, $twig) {
+    if (!isset($_SESSION['uuid'])) {
+        header('Location: /login');
+        exit;
+    }
+    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", ["suggestion" => $_POST['suggestion']]);
     exit;
 });
