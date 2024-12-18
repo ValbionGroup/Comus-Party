@@ -118,6 +118,7 @@ class Router
      *  Sinon, on lève une RouteNotFoundException
      *
      * @throws RouteNotFoundException Dans le cas où la route demandée n'existe pas
+     * @throws UnauthorizedAccessException Dans le cas où l'utilisateur n'a pas les droits pour accéder à la route
      * @throws Exception Dans le cas où une autre exception est levée
      * @return void
      */
@@ -151,10 +152,17 @@ class Router
                 }
             }
         }
-        
+
         throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ')' . ' not found');
     }
 
+    /**
+     * @brief Permet d'appeler la fonction associée à la route
+     * @param string $routeUrl URL de la route
+     * @param callable $target Fonction à appeler
+     * @param string $url URL demandée par l'utilisateur
+     * @return bool Retourne true si la fonction a été appelée, false sinon
+     */
     private function callFunctionFromRoute(string $routeUrl, callable $target, string $url): bool
     {
         $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
