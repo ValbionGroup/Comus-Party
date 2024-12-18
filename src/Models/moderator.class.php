@@ -20,37 +20,37 @@ class Moderator
 {
     /**
      * @brief L'UUID du modérateur, identifiant unique
-     * @var string|null
+     * @var string|null UUID
      */
     private ?string $uuid;
 
     /**
      * @brief L'identifiant de l'utilisateur associé au modérateur
-     * @var int|null
+     * @var int|null Identifiant de l'utilisateur lié
      */
     private ?int $userId;
 
     /**
      * @brief Le prénom du modérateur
-     * @var string|null
+     * @var string|null Prénom
      */
     private ?string $firstName;
 
     /**
      * @brief Le nom de famille du modérateur
-     * @var string|null
+     * @var string|null Nom de famille
      */
     private ?string $lastName;
 
     /**
      * @brief La date de création du profil de modérateur
-     * @var DateTime|null
+     * @var DateTime|null Date de création
      */
     private ?DateTime $createdAt;
 
     /**
      * @brief La date de mise à jour du profil de modérateur
-     * @var DateTime|null
+     * @var DateTime|null Date de mise à jour
      */
     private ?DateTime $updatedAt;
 
