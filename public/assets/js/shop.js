@@ -110,7 +110,7 @@ function showModalPfp(article) {
     modalWindowForPfp.classList.remove('opacity-0'); // Retirer les classes d'animation de départ
 
     imgArticlePfp.src = ""
-    imgArticlePfp.src = "assets" + article.filePath
+    imgArticlePfp.src = "assets/img/pfp/" + article.filePath
     nomArticlePfp.innerText = article.name
     descriptionArticlePfp.innerText = article.description
     prixComusArticlePfp.innerText = article.pricePoint
@@ -186,7 +186,7 @@ function showModalBanner(article) {
     modalWindowForBanner.classList.remove('opacity-0'); // Retirer les classes d'animation de départ
 
     imgArticleBanner.src = ""
-    imgArticleBanner.src = "assets" + article.filePath
+    imgArticleBanner.src = "assets/img/banner/" + article.filePath
     nomArticleBanner.innerText = article.name
     descriptionArticleBanner.innerText = article.description
     prixComusArticleBanner.innerText = article.pricePoint
