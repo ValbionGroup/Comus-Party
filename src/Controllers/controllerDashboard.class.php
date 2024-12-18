@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\Models\SuggestionDAO;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -36,7 +37,11 @@ class ControllerDashboard extends Controller
      */
     public function showDashboard()
     {
+        $suggestsManager = new SuggestionDAO($this->getPdo());
+        $suggestions = $suggestsManager->findAll();
         $template = $this->getTwig()->load('moderator/dashboard.twig');
-        echo $template->render();
+        echo $template->render(array(
+            "suggestions" => $suggestions
+        ));
     }
 }

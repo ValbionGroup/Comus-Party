@@ -20,9 +20,11 @@
                 <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Suggestions en attente</p>
                     <div class="flex flex-col gap-2 ml-2 mt-2">
-                        <p>Suggestion 1</p>
-                        <p>Suggestion 2</p>
-                        <p>Suggestion 3</p>
+                        {% for suggestion in suggestions %}
+                            <div class="flex">
+                                {{ suggestion.content }}
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
