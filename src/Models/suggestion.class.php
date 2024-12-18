@@ -17,6 +17,8 @@ use DateTime;
  */
 class Suggestion
 {
+    private ?string $object;
+
     /**
      * @brief Le contenu de la suggestion
      * @var string|null
@@ -56,6 +58,7 @@ class Suggestion
      * @param string|null $treatedBy L'UUID du modérateur ayant traité la suggestion
      */
     public function __construct(
+        ?string   $object = null,
         ?string   $content = null,
         ?string   $authorUuid = null,
         ?string   $authorUsername = null,
@@ -63,11 +66,30 @@ class Suggestion
         ?string   $treatedBy = null
     )
     {
+        $this->object = $object;
         $this->content = $content;
         $this->authorUuid = $authorUuid;
         $this->authorUsername = $authorUsername;
         $this->createdAt = $createdAt;
         $this->treatedBy = $treatedBy;
+    }
+
+    /**
+     * @brief Permet de récupérer l'objet de la suggestion
+     * @return string|null L'objet de la suggestion
+     */
+    public function getObject(): ?string
+    {
+        return $this->object;
+    }
+
+    /**
+     * @brief Permet de définir l'objet de la suggestion
+     * @param string|null $object L'objet de la suggestion
+     */
+    public function setObject(?string $object): void
+    {
+        $this->object = $object;
     }
 
     /**
