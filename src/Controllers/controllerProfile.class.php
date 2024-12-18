@@ -119,17 +119,20 @@ class ControllerProfile extends Controller
         header('Location: /');
     }
 
-
-    public function showAllArticlesOwnedByPlayer()
+    public function updateStyle(?string $player_uuid, int $idArticle)
     {
-
+        if (is_null($player_uuid)) {
+            throw new NotFoundException('Player not found');
+        }
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findWithDetailByUuid($player_uuid);
+        if (is_null($player)) {
+            throw new NotFoundException('Player not found');
+        }
         $articleManager = new ArticleDAO($this->getPdo());
-        $articles = $articleManager->findAllArticleWithUuidPlayer();
+        $articleManager->updateActiveArticle($player->getUuid(), $idArticle);
 
-        $template = $this->getTwig()->load('profil.twig');
 
-        echo $template->render(array(
-            "articles" => $articles
-        ));
     }
+
 }

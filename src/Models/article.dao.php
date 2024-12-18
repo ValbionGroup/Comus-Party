@@ -224,6 +224,26 @@ class ArticleDAO {
         return $this->hydrateMany($tabBanners);
 
     }
+    /**
+     * @brief Met à jour l'article en active dans la base de données
+     * @param string $uuid L'UUID du joueur
+     * @param int $idArticle L'ID de l'article
+     */
+    public function updateActiveArticle(string $uuid, int $idArticle)
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE '. DB_PREFIX . 'invoice_row ir
+        JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
+        JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
+        SET ir.active = 1 
+        WHERE i.player_uuid = :uuid AND ir.article_id = :idArticle'
+        );
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->bindParam(':idArticle', $idArticle);
+        $stmt->execute();
+
+    }
+
 
 
     /**

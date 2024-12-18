@@ -75,6 +75,7 @@ class InvoiceDAO
         return $this->hydrate($invoice);
     }
 
+
     /**
      * @param array $invoiceTab Tableau contenant les informations de la facture
      * @return Invoice Objet retourné par la méthode, ici une facture
