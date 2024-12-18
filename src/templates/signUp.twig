@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="w-full">
+    <div class="w-full sm:overflow-y-auto sm:h-full">
         <div class="mt-4 sm:mt-0">
             <h1 class="text-3xl font-bold">Inscription</h1>
         </div>
@@ -29,7 +29,21 @@
 
             <div class="flex flex-col">
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Mot de passe" class="w-full input" required>
+                <div class="flex w-full">
+                    <input type="password" id="password" name="password" placeholder="Mot de passe" class="w-full input" required>
+                    <!-- Bouton icone oeil -->
+                    <button type="button" id="togglePassword">
+                        <!-- Icone oeil -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="eyeOpenIcon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <!-- Icone oeil barré -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="eyeClosedIcon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.971 9.971 0 012.327-4.988m1.765-1.635A9.956 9.956 0 0112 5c4.477 0 8.267 2.943 9.542 7-.34 1.083-.81 2.083-1.387 2.98M9.879 9.879a3 3 0 104.243 4.243m-4.243-4.243L4.22 4.22m15.56 15.56l-4.242-4.242" />
+                        </svg>
+                    </button>
+                </div>
 
                 <p class="input-error-text text-red-600 hidden" id="passwordTooShort"></p>
                 <p class="input-error-text text-red-600 hidden" id="passwordNoUppercase">Le mot de passe doit contenir au moins une majuscule</p>
@@ -40,7 +54,21 @@
 
             <div class="flex flex-col">
                 <label for="passwordConfirm">Confirmation du mot de passe</label>
-                <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmation du mot de passe" class="w-full input" required>
+                <div class="flex w-full">
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmation du mot de passe" class="w-full input" required>
+                    <!-- Bouton icone oeil -->
+                    <button type="button" id="togglePasswordConfirm">
+                        <!-- Icone oeil -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="eyeOpenIconConfirm">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <!-- Icone oeil barré -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="eyeClosedIconConfirm">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.971 9.971 0 012.327-4.988m1.765-1.635A9.956 9.956 0 0112 5c4.477 0 8.267 2.943 9.542 7-.34 1.083-.81 2.083-1.387 2.98M9.879 9.879a3 3 0 104.243 4.243m-4.243-4.243L4.22 4.22m15.56 15.56l-4.242-4.242" />
+                        </svg>
+                    </button>
+                </div>
 
                 <p class="input-error-text text-red-600 hidden" id="notMachingPasswords">Les mots de passe ne sont pas identiques</p>
             </div>

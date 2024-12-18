@@ -37,6 +37,50 @@ window.onload = function() {
 
     const INPUT_PRIVACY_POLICY = document.getElementById("privacyPolicy");
     INPUT_PRIVACY_POLICY.addEventListener("change", checkPrivacyPolicy);
+
+    addPasswordVisibilityListeners();
+}
+
+/**
+ * @brief Ajoute des listeners aux boutons permettant de toggler la visibilité des mots de passe
+ *        dans le formulaire d'inscription.
+ *
+ * @details Les boutons sont "togglePassword" et "togglePasswordConfirm" dans le formulaire
+ *          d'inscription.
+ *
+ * @return void
+ */
+function addPasswordVisibilityListeners()
+{
+    const INPUT_PASSWORD = document.getElementById("password");
+    const TOGGLE_PASSWORD_BUTTON = document.getElementById('togglePassword');
+    const EYE_OPEN_ICON = document.getElementById('eyeOpenIcon');
+    const EYE_CLOSED_ICON = document.getElementById('eyeClosedIcon');
+
+    const INPUT_CONFIRM_PASSWORD = document.getElementById("passwordConfirm");
+    const TOGGLE_PASSWORD_CONFIRM_BUTTON = document.getElementById('togglePasswordConfirm');
+    const EYE_OPEN_ICON_CONFIRM = document.getElementById('eyeOpenIconConfirm');
+    const EYE_CLOSED_ICON_CONFIRM = document.getElementById('eyeClosedIconConfirm');
+
+    TOGGLE_PASSWORD_BUTTON.addEventListener('click', () => {
+        // Toggle visibilité password
+        const isPasswordHidden = INPUT_PASSWORD.type === 'password';
+        INPUT_PASSWORD.type = isPasswordHidden ? 'text' : 'password';
+
+        // Toggle l'icone
+        EYE_OPEN_ICON.classList.toggle('hidden');
+        EYE_CLOSED_ICON.classList.toggle('hidden');
+    });
+
+    TOGGLE_PASSWORD_CONFIRM_BUTTON.addEventListener('click', () => {
+        // Toggle visibilité password
+        const isPasswordHidden = INPUT_CONFIRM_PASSWORD.type === 'password';
+        INPUT_CONFIRM_PASSWORD.type = isPasswordHidden ? 'text' : 'password';
+
+        // Toggle l'icone
+        EYE_OPEN_ICON_CONFIRM.classList.toggle('hidden');
+        EYE_CLOSED_ICON_CONFIRM.classList.toggle('hidden');
+    });
 }
 
 
