@@ -287,8 +287,7 @@ class ControllerAuth extends Controller
 
         if (is_null($player) && is_null($moderator)) {
             throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
-        }
-        elseif (!is_null($player)){
+        } elseif (!is_null($player)) {
             $_SESSION['role'] = 'player';
             $_SESSION['uuid'] = $player->getUuid();
             $_SESSION['username'] = $player->getUsername();
@@ -306,8 +305,7 @@ class ControllerAuth extends Controller
             }
             $_SESSION['pfpPath'] = $pfpPath;
             header('Location: /');
-        }
-        else{
+        } else {
             $_SESSION['role'] = 'moderator';
             $_SESSION['uuid'] = $moderator->getUuid();
             $_SESSION['firstName'] = $moderator->getFirstName();
@@ -324,7 +322,6 @@ class ControllerAuth extends Controller
      */
     public function logOut(): void
     {
-        session_start();
         session_unset();
         session_destroy();
         header('Location: /login');
