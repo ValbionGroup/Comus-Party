@@ -147,6 +147,7 @@ class Router
 
                 // Redirection vers la page de connexion si l'utilisateur n'est pas connecté
                 header('Location: /login');
+                exit;
             } else {
                 if ($this->checkRouteAndCall($role, $method, $url)) return;
                 if ($this->checkRouteAndCall('*', $method, $url)) return;
