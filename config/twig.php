@@ -37,6 +37,7 @@ $twig->addGlobal('auth', [
     'loggedComusCoin' => $_SESSION['comusCoin'] ?? null,
     'loggedElo' => $_SESSION['elo'] ?? null,
     'loggedXp' => $_SESSION['xp'] ?? null,
+    'role' => $_SESSION['role'] ?? null
 ]);
 
 if (isset($_SESSION['error'])) {
