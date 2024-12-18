@@ -254,6 +254,9 @@ $router->post('/', function () use ($loader, $twig) {
         header('Location: /login');
         exit;
     }
-    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", ["suggestion" => $_POST['suggestion']]);
+    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", [
+        "object" => $_POST['object'],
+        "suggestion" => $_POST['suggestion']
+    ]);
     exit;
 });

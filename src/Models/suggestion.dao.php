@@ -59,9 +59,11 @@ class SuggestionDAO
      */
     public function create(Suggestion $suggestion): bool
     {
-        $stmt = $this->pdo->prepare('INSERT INTO ' . DB_PREFIX . 'suggestion (content, author_uuid) VALUES (:content, :author_uuid)');
+        $stmt = $this->pdo->prepare('INSERT INTO ' . DB_PREFIX . 'suggestion (object, content, author_uuid) VALUES (:object, :content, :author_uuid)');
+        $object = $suggestion->getObject();
         $content = $suggestion->getContent();
         $authorUuid = $suggestion->getAuthorUuid();
+        $stmt->bindParam(':object', $object);
         $stmt->bindParam(':content', $content);
         $stmt->bindParam(':author_uuid', $authorUuid);
         return $stmt->execute();

@@ -37,9 +37,9 @@ class ControllerSuggestion extends Controller
      * @param string $content Le contenu de la suggestion rédigée
      * @return void
      */
-    public function sendSuggestion(string $content): void
+    public function sendSuggestion(string $object, string $content): void
     {
-        $suggestionObject = new Suggestion($content, $_SESSION['uuid'], $_SESSION['username']);
+        $suggestionObject = new Suggestion($object, $content, $_SESSION['uuid'], $_SESSION['username']);
         $managerSuggestion = new SuggestionDAO($this->getPdo());
         if ($managerSuggestion->create($suggestionObject)) {
             MessageHandler::addMessageParametersToSession('Suggestion envoyée avec succès');
