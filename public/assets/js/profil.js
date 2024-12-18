@@ -18,7 +18,7 @@ let modalPfp = document.getElementById("modalPfp")
 
 let modals = document.querySelectorAll(".modal")
 let pfps = document.querySelectorAll(".pfp")
-
+let playerPfp = document.getElementById("pfpPlayer")
 
 
 function activeBorderOnPfp(pfp){
@@ -114,6 +114,8 @@ function equipArticle(){
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let response =  JSON.parse(xhr.responseText)
+                    console.log(playerPfp)
+                    playerPfp.src = "/assets/img/pfp/" + response.articlePath
                     console.log(response)
                 }
             };

@@ -131,11 +131,13 @@ class ControllerProfile extends Controller
         }
         $articleManager = new ArticleDAO($this->getPdo());
         $articleManager->updateActiveArticle($player->getUuid(), $idArticle);
+        $article = $articleManager->findById($idArticle);
         echo json_encode([
             'success' => true,
             'message' => "Article maj !",
             'idArticle' => $idArticle,
-            'uuidPlayer' =>$player_uuid
+            'uuidPlayer' =>$player_uuid,
+            'articlePath' => $article->getFilePath()
         ]);
 
     }

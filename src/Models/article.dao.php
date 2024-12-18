@@ -235,6 +235,15 @@ class ArticleDAO {
             'UPDATE '. DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
+        SET ir.active = 0 
+        WHERE i.player_uuid = :uuid');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+
+        $stmt = $this->pdo->prepare(
+            'UPDATE '. DB_PREFIX . 'invoice_row ir
+        JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
+        JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
         SET ir.active = 1 
         WHERE i.player_uuid = :uuid AND ir.article_id = :idArticle'
         );
