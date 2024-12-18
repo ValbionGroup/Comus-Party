@@ -113,7 +113,7 @@ class GameRecord
     /**
      * @brief Getter de l'attribut uuid
      *
-     * @return string
+     * @return string Identifiant de la partie
      */
     public function getUuid(): string
     {
@@ -123,7 +123,7 @@ class GameRecord
     /**
      * @brief Getter de l'attribut game
      *
-     * @return Game
+     * @return Game Jeu de la partie
      */
     public function getGame(): Game
     {
@@ -133,7 +133,7 @@ class GameRecord
     /**
      * @brief Getter de l'attribut hostedBy
      *
-     * @return Player
+     * @return Player Joueur qui a créé la partie
      */
     public function getHostedBy(): Player
     {
@@ -143,7 +143,7 @@ class GameRecord
     /**
      * @brief Getter de l'attribut players
      *
-     * @return array|null
+     * @return Player[]|null Tableau des joueurs
      */
     public function getPlayers(): ?array
     {
@@ -153,7 +153,7 @@ class GameRecord
     /**
      * @brief Setter de l'attribut players
      *
-     * @param array|null $players Tableau des joueurs
+     * @param Player[]|null $players Tableau des joueurs
      * @return void
      */
     public function setPlayers(?array $players): void
@@ -164,7 +164,7 @@ class GameRecord
     /**
      * @brief Getter de l'attribut state
      *
-     * @return GameRecordState
+     * @return GameRecordState Etat de la partie
      */
     public function getState(): GameRecordState
     {
@@ -185,7 +185,7 @@ class GameRecord
     /**
      * @brief Getter de l'attribut createdAt
      *
-     * @return DateTime
+     * @return DateTime Date de création de la partie
      */
     public function getCreatedAt(): DateTime
     {
@@ -195,7 +195,7 @@ class GameRecord
     /**
      * @brief Getter de l'attribut updatedAt
      *
-     * @return DateTime
+     * @return DateTime Date de dernière mise à jour de la partie
      */
     public function getUpdatedAt(): DateTime
     {
@@ -216,7 +216,7 @@ class GameRecord
     /**
      * @brief Getter de l'attribut finishedAt
      *
-     * @return DateTime|null
+     * @return DateTime|null Date de fin de la partie
      */
     public function getFinishedAt(): ?DateTime
     {
