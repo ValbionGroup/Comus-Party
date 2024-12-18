@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file moderatorDao.dao.php
+ * @file moderator.dao.php
  * @author Conchez-Boueytou Robin
  * @brief Le fichier contient la déclaration & définition de la classe ModeratorDAO.
  * @details
@@ -19,7 +19,7 @@ use PDO;
  * @brief Classe ModeratorDAO
  * @details La classe ModeratorDAO permet de faire des opérations sur la table moderator dans la base de données
  */
-class ModeratorDao
+class ModeratorDAO
 {
     /**
      * @brief La connexion à la base de données
@@ -80,8 +80,8 @@ class ModeratorDao
      */
     public function findByUserId(int $userId): ?Moderator
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .' moderator WHERE user_id = :user_id');
-        $stmt->bindParam(':user_id', $userId);
+        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .'moderator WHERE user_id = :userId');
+        $stmt->bindParam(':userId', $userId);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $moderatorTab = $stmt->fetch();
