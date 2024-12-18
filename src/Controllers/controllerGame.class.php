@@ -61,9 +61,9 @@ class ControllerGame extends Controller
      * @throws GameSettingsException Exception levée si les paramètres du jeu ne sont pas valides
      * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
      */
-    public function initGame(int $id, array $players, ?array $settings): void
+    public function initGame(string $uuid, array $players, ?array $settings): void
     {
-        $game = (new GameDao($this->getPdo()))->findById($id);
+        $game = (new GameDAO($this->getPdo()))->findById($id);
 
         if ($game->getState() != GameState::AVAILABLE) {
             throw new GameUnavailableException("Le jeu n'est pas disponible");
@@ -93,6 +93,12 @@ class ControllerGame extends Controller
         } else {
             $settings = [];
         }
+
+        echo json_encode([
+            "gameFolder" => $gameFolder,
+            "settings" => $settings,
+            "players" => $players
+        ]);
     }
 
     /**
