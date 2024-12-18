@@ -21,14 +21,14 @@ use PDO;
 class GameRecordDAO
 {
     /**
-     * @brief La connexion à la base de données
-     * @var PDO|null
+     * @brief Connexion à la base de données
+     * @var PDO|null Connexion à la base de données
      */
     private ?PDO $pdo;
 
     /**
-     * @brief Le constructeur de la classe UserDAO
-     * @param PDO|null $pdo
+     * @brief Constructeur de la classe UserDAO
+     * @param PDO|null $pdo Connexion à la base de données
      */
     public function __construct(?PDO $pdo)
     {
@@ -36,9 +36,26 @@ class GameRecordDAO
     }
 
     /**
+     * @brief Retourne la liste des parties grâce à l'ID du jeu
+     * @param int $gameId ID de la partie
+     * @return GameRecord[] Tableau d'objets GameRecord
+     * @throws Exception
+     */
+    public function findByGameId(int $gameId): array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . " game_record WHERE game = :gameId");
+        $stmt->execute([
+            "gameId" => $gameId
+        ]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        return $this->hydrateMany($stmt->fetch());
+    }
+
+    /**
      * @brief Retourne la liste des parties
      * @param array $rows Tableau de lignes de la table game_record
-     * @return array Tableau d'objets GameRecord
+     * @return GameRecord[] Tableau d'objets GameRecord
      * @throws Exception
      */
     public function hydrateMany(array $rows): array
@@ -119,16 +136,5 @@ class GameRecordDAO
     public function setPdo(?PDO $pdo): void
     {
         $this->pdo = $pdo;
-    }
-
-    public function findByGameId(int $gameId): ?array
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . " game_record WHERE game = :gameId");
-        $stmt->execute([
-            "gameId" => $gameId
-        ]);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        return $stmt->fetch();
     }
 }
