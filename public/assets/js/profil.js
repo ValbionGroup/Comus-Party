@@ -1,3 +1,11 @@
+/**
+ * @file    profil.js
+ * @author  Mathis RIVRAIS--NOWAKOWSKI
+ * @brief   Le fichier js de la page profil
+ * @date    18/12/2024
+ * @version 0.1
+ */
+
 // Déclaration des variables
 let profileBtn = document.getElementById('btnProfile');
 let settingsBtn = document.getElementById('btnSettings');
