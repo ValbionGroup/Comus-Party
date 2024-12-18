@@ -115,7 +115,7 @@ class ArticleDAO {
     }
 
     /**
-     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de l'user
+     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de l'user correspondants à l'ensemble des photos de profil possédées
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
