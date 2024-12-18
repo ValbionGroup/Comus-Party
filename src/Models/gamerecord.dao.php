@@ -43,7 +43,7 @@ class GameRecordDAO
      */
     public function findByGameId(int $gameId): array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE game = :gameId");
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE game_id = :gameId");
         $stmt->execute([
             "gameId" => $gameId
         ]);
@@ -103,10 +103,10 @@ class GameRecordDAO
     }
 
     /**
-     * @brief Retourne un objet GameRecord (ou null) à partir de l'ID passé en paramètre
+     * @brief Retourne un objet GameRecord (ou null) à partir de l'UUID passé en paramètre
      *
-     * @param string $uuid L'ID de la partie recherchée
-     * @return GameRecord|null Objet retourné par la méthode, ici une partie (ou null si non-trouvée)
+     * @param string $uuid L'UUID de la partie recherchée
+     * @return GameRecord|null Enregistrement de la partie (GameRecord) (ou null si non-trouvé)
      * @throws Exception
      */
     public function findByUuid(string $uuid): ?GameRecord
@@ -136,5 +136,49 @@ class GameRecordDAO
     public function setPdo(?PDO $pdo): void
     {
         $this->pdo = $pdo;
+    }
+
+
+    /**
+     * @brief Retourne un tableau d'objets GameRecord (ou null) à partir de l'UUID passé en paramètre
+     *
+     * @param string $uuid L'UUID de la partie recherchée
+     * @return GameRecord[]|null Tableau de GameRecord (ou null si non-trouvé)
+     * @throws Exception
+     */
+    public function findByHosterUuid(string $uuid): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE hosted_by = :uuid");
+        $stmt->execute([
+            "uuid" => $uuid
+        ]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        return $this->hydrateMany($stmt->fetch());
+    }
+
+
+    /**
+     * @brief Retourne un objet GameRecord (ou null) à partir de l'ID passé en paramètre
+     *
+     * @param GameRecordState $state L'état de la partie recherchée
+     * @return GameRecord[]|null Tableau de GameRecord (ou null si non-trouvé)
+     * @throws Exception
+     */
+    public function findByState(GameRecordState $state): ?array
+    {
+        $state = match ($state) {
+            GameRecordState::WAITING => "waiting",
+            GameRecordState::STARTED => "started",
+            GameRecordState::FINISHED => "finished",
+        };
+
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE state = :state");
+        $stmt->execute([
+            "state" => $state
+        ]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        return $this->hydrateMany($stmt->fetch());
     }
 }
