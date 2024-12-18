@@ -6,7 +6,7 @@
  * @file Router.class.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
  * @version 1.0
- * @date 2024-11-12
+ * @date 2024-12-18
  */
 
 namespace ComusParty\Models;
