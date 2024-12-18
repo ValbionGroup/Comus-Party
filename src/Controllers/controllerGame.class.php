@@ -11,7 +11,7 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\Exceptions\GameSettingsException;
 use ComusParty\Models\Exceptions\GameUnavailableException;
-use ComusParty\Models\GameDao;
+use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameState;
 use Twig\Environment;
 use Twig\Error\LoaderError;

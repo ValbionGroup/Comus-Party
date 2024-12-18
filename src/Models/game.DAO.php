@@ -2,9 +2,9 @@
 /**
  * @file game.dao.php
  * @brief Le fichier contient la déclaration et la définition de la classe GameDao
- * @author Conchez-Boueytou Robin
+ * @author Conchez-Boueytou Robin, ESPIET Lucas
  * @date 13/11/2024
- * @version 0.1
+ * @version 0.2
  */
 
 namespace ComusParty\Models;
@@ -16,7 +16,7 @@ use PDO;
  * @brief Classe GameDao
  * @details La classe GameDao permet de faire des opérations sur la table game de la base de données
  */
-class GameDao
+class GameDAO
 {
     /**
      * Classe PDO pour la connexion à la base de données
@@ -30,7 +30,8 @@ class GameDao
      *
      * @param PDO|null $pdo La connexion à la base de données
      */
-    public function __construct(?PDO $pdo){
+    public function __construct(?PDO $pdo)
+    {
         $this->pdo = $pdo;
     }
 
@@ -61,10 +62,11 @@ class GameDao
      * @param int $id L'identifiant du jeu
      * @return Game|null L'objet Game correspondant à l'identifiant ou null
      */
-    public function findById(int $id): ?Game{
+    public function findById(int $id): ?Game
+    {
         $stmt = $this->pdo->prepare(
             'SELECT *
-            FROM '. DB_PREFIX .'game
+            FROM ' . DB_PREFIX . 'game
             WHERE id = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -77,41 +79,12 @@ class GameDao
     }
 
     /**
-     * @brief Retourne un tableau d'objets Game à partir de la table game
-     *
-     * @return array Le tableau d'objets Game
-     */
-    public function findAll(): array{
-        $stmt = $this->pdo->prepare(
-            'SELECT *
-            FROM '. DB_PREFIX .'game');
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $gamesTab = $stmt->fetchAll();
-        return $this->hydrateMany($gamesTab);
-    }
-
-    /**
-     * @brief Retourne l'état du jeu en type Etat à partir d'un état de type string
-     *
-     * @param string $state L'état du jeu
-     * @return ?GameState L'état du jeu en type State
-     */
-    public function transformState(string $state):?GameState{
-        return match (strtoupper($state)) {
-            'AVAILABLE' => GameState::AVAILABLE,
-            'UNAVAILABLE' => GameState::UNAVAILABLE,
-            'MAINTENANCE' => GameState::MAINTENANCE,
-            default => null,
-        };
-    }
-
-    /**
      * @brief Hydrate un d'objet Game à partir d'un tableau de jeux de la table game passé en paramètre
      *
      * @return Game Un objet Game
      */
-    public function hydrate(array $gameTab): Game{
+    public function hydrate(array $gameTab): Game
+    {
         $game = new Game();
         $game->setId($gameTab['id']);
         $game->setName($gameTab['name']);
@@ -124,12 +97,45 @@ class GameDao
     }
 
     /**
+     * @brief Retourne l'état du jeu en type Etat à partir d'un état de type string
+     *
+     * @param string $state L'état du jeu
+     * @return ?GameState L'état du jeu en type State
+     */
+    public function transformState(string $state): ?GameState
+    {
+        return match (strtoupper($state)) {
+            'AVAILABLE' => GameState::AVAILABLE,
+            'UNAVAILABLE' => GameState::UNAVAILABLE,
+            'MAINTENANCE' => GameState::MAINTENANCE,
+            default => null,
+        };
+    }
+
+    /**
+     * @brief Retourne un tableau d'objets Game à partir de la table game
+     *
+     * @return array Le tableau d'objets Game
+     */
+    public function findAll(): array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT *
+            FROM ' . DB_PREFIX . 'game');
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $gamesTab = $stmt->fetchAll();
+        return $this->hydrateMany($gamesTab);
+    }
+
+    /**
      * @brief Hydrate un tableau d'objets Game à partir de la table game
      * @details Cette méthode appelle, pour chaque jeu du tableau, la méthode hydrate
      * @param array $gamesTab Le tableau de jeux
      * @return array Le tableau d'objets Game
      */
-    public function hydrateMany(array $gamesTab): array{
+    public function hydrateMany(array $gamesTab): array
+    {
         $games = [];
         foreach ($gamesTab as $gameTab) {
             $games[] = $this->hydrate($gameTab);
