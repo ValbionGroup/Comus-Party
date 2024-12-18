@@ -21,14 +21,19 @@
                     <p class="font-serif text-xl">Suggestions en attente</p>
                     <div class="flex flex-col gap-2 mx-2 mt-2">
                         {% for suggestion in suggestions %}
-                            <div class="flex p-2 bg-night-base rounded-md hover:scale-105 transition-all ease-in-out">
-                                <p class="underline mr-1">Thème : </p>
-                                <p>
-                                    {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').BUG %}🐛 Bug{% endif %}
-                                    {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').GAME %}🎮 Jeu{% endif %}
-                                    {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').UI %}📲 Interface Utilisateur{% endif %}
-                                    {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').OTHER %}🔧 Autres{% endif %}
-                                </p>
+                            <div class="flex p-2 bg-night-base rounded-md hover:scale-105 transition-all ease-in-out justify-between">
+                                <div class="flex">
+                                    <p class="underline mr-1">Thème : </p>
+                                    <p>
+                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').BUG %}🐛 Bug{% endif %}
+                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').GAME %}🎮 Jeu{% endif %}
+                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').UI %}📲 Interface Utilisateur{% endif %}
+                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').OTHER %}🔧 Autres{% endif %}
+                                    </p>
+                                </div>
+                                <div>
+                                    {{ suggestion.createdAt|time_diff }}
+                                </div>
                             </div>
                         {% endfor %}
                     </div>

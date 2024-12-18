@@ -11,6 +11,7 @@
 
 use Twig\Extension\CoreExtension;
 use Twig\Extension\DebugExtension;
+use Twig\Extra\Date\DateExtension;
 use Twig\Extra\Intl\IntlExtension;
 
 /**
@@ -28,6 +29,7 @@ $twig = new Twig\Environment($loader, [
 $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
 $twig->addExtension(new DebugExtension());
 $twig->addExtension(new IntlExtension());
+$twig->addExtension(new DateExtension());
 
 $twig->addGlobal('auth', [
     'pfpPath' => $_SESSION['pfpPath'] ?? null,
