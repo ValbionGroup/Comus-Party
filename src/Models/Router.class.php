@@ -121,6 +121,14 @@ class Router
      *  Si oui, on effectue ce qui a été défini pour cette route.
      *  Sinon, on lève une RouteNotFoundException
      *
+     * La gestion des Middlewares permet les cas suivant :
+     *  - Si l'utilisateur n'est pas connecté, il ne peut accéder qu'aux routes définies pour les invités (guest)
+     *  - Si l'utilisateur est connecté, il ne peut accéder qu'aux routes définies pour son rôle
+     *  - Si une route est définie pour tous les rôles (*), elle est accessible par tous les utilisateurs (connectés ou non)
+     *  - Si une route est définie pour tous les rôles mais nécessite une connexion (auth), elle est accessible par tous les utilisateurs connectés
+     *
+     * Si aucune route ne correspond à la demande mais existe pour un autre rôle, on lève une UnauthorizedAccessException
+     *
      * @throws RouteNotFoundException Dans le cas où la route demandée n'existe pas
      * @throws UnauthorizedAccessException Dans le cas où l'utilisateur n'a pas les droits pour accéder à la route
      * @throws Exception Dans le cas où une autre exception est levée
@@ -133,18 +141,17 @@ class Router
         $role = $_SESSION['role'] ?? null;
 
         if (isset($this->routes[$method])) {
-            if (!is_null($role)) {
-                if (isset($this->routes[$method][$role])) {
-                    foreach ($this->routes[$method][$role] as $routeUrl => $target) {
-                        if ($this->callFunctionFromRoute($routeUrl, $target, $url)) return;
-                    }
-                }
-            }
+            if (is_null($role)) {
+                if ($this->checkRouteAndCall('guest', $method, $url)) return;
+                if ($this->checkRouteAndCall('*', $method, $url)) return;
 
-            if (!is_null($this->routes[$method]['*'])) {
-                foreach ($this->routes[$method]['*'] as $routeUrl => $target) {
-                    if ($this->callFunctionFromRoute($routeUrl, $target, $url)) return;
-                }
+                // Redirection vers la page de connexion si l'utilisateur n'est pas connecté
+                header('Location: /login');
+                exit;
+            } else {
+                if ($this->checkRouteAndCall($role, $method, $url)) return;
+                if ($this->checkRouteAndCall('*', $method, $url)) return;
+                if ($this->checkRouteAndCall('auth', $method, $url)) return;
             }
 
             foreach ($this->routes[$method] as $target) {
@@ -158,6 +165,23 @@ class Router
         }
 
         throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ')' . ' not found');
+    }
+
+    /**
+     * @brief Permet de vérifier si une route existe
+     * @param string $middleware Middleware à vérifier
+     * @param string $method Méthode HTTP (GET, POST, PUT, DELETE)
+     * @param string $url URL demandée
+     * @return bool Retourne true si la fonction a été appelée, false sinon
+     */
+    private function checkRouteAndCall(string $middleware, string $method, string $url): bool
+    {
+        if (isset($this->routes[$method][$middleware])) {
+            foreach ($this->routes[$method][$middleware] as $routeUrl => $target) {
+                if ($this->callFunctionFromRoute($routeUrl, $target, $url)) return true;
+            }
+        }
+        return false;
     }
 
     /**
