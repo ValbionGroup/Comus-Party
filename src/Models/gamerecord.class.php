@@ -47,42 +47,42 @@ class GameRecord
 {
     /**
      * @brief Identifiant de la partie
-     * @var string
+     * @var string Identifiant de la partie
      */
     private string $uuid;
     /**
      * @brief Jeu de la partie
-     * @var Game
+     * @var Game Jeu de la partie
      */
     private Game $game;
     /**
      * @brief Joueur qui a créé la partie
-     * @var Player
+     * @var Player Joueur qui a créé la partie
      */
     private Player $hostedBy;
     /**
      * @brief Joueurs de la partie
-     * @var array|null
+     * @var Player[]|null Joueurs de la partie
      */
     private ?array $players;
     /**
      * @brief Etat de la partie
-     * @var GameRecordState
+     * @var GameRecordState Etat de la partie
      */
     private GameRecordState $state;
     /**
      * @brief Date de création de la partie
-     * @var DateTime
+     * @var DateTime Date de création de la partie
      */
     private DateTime $createdAt;
     /**
      * @brief Date de dernière mise à jour de la partie
-     * @var DateTime
+     * @var DateTime Date de dernière mise à jour de la partie
      */
     private DateTime $updatedAt;
     /**
      * @brief Date de fin de la partie
-     * @var DateTime|null
+     * @var DateTime|null ate de fin de la partie
      */
     private ?DateTime $finishedAt;
 
