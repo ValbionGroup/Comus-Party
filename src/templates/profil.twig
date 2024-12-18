@@ -59,12 +59,18 @@
                     <div class="w-2/3 dark:bg-night-2 p-4 overflow-y-auto">
                         <!-- Liste des photos -->
                         <div class="flex">
-                            <!-- Exemple de photo -->
-                            {% for pfp in pfpsOwned %}
-                                <div  class=" w-20 h-20 m-1 pfp cursor-pointer" onclick="infoArticlePfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
-                                    <img id="{{ pfp.id }}" src="assets/img/pfp/{{ pfp.filePath }}" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
-                                </div>
-                            {% endfor %}
+                            <div   class=" w-20 h-20 m-1 pfp cursor-pointer" onclick="infoArticlePfp({ id : '0', name : 'Photo de profil par défaut', description : 'La photo de Caca', filePath : 'default-pfp.jpg'})">
+                                <img id="defaultPfp" src="assets/img/pfp/default-pfp.jpg" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
+                            </div>
+                            {% if pfpsOwned %}
+                                <!-- Exemple de photo -->
+                                {% for pfp in pfpsOwned %}
+                                    <div  class=" w-20 h-20 m-1 cursor-pointer" onclick="infoArticlePfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', filePath : '{{ pfp.filePath }}'})">
+                                        <img id="{{ pfp.id }}" src="assets/img/pfp/{{ pfp.filePath }}" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
 
                         </div>
                     </div>
@@ -81,7 +87,7 @@
                         <button
                                 id="equipButton"
                                 class="px-4 py-2 dark:bg-night-2 text-lavender-blush-base rounded shadow hover:bg-night-1 transition duration-200"
-                                onclick="equipArticlePfp(this)">
+                                onclick="equipArticlePfp()">
                             Équiper
                         </button>
                     </div>

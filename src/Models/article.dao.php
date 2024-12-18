@@ -132,9 +132,6 @@ class ArticleDAO {
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $articles = $stmt->fetchAll();
-        if ($articles === false) {
-            throw new NotFoundException('Le joueur ne possède pas d\'articles.');
-        }
         return $this->hydrateMany($articles);
     }
 
@@ -227,27 +224,30 @@ class ArticleDAO {
     /**
      * @brief Met à jour l'article en active dans la base de données
      * @param string $uuid L'UUID du joueur
-     * @param int $idArticle L'ID de l'article
+     * @param string $idArticle L'ID de l'article
      */
-    public function updateActiveArticle(string $uuid, int $idArticle)
+    public function updateActiveArticle(string $uuid, string $idArticle)
     {
         $pfpActive = $this->findActivePfpByPlayerUuid($uuid);
-        $idPfpActive = $pfpActive->getId();
-        $stmt = $this->pdo->prepare(
-            'UPDATE '. DB_PREFIX . 'invoice_row ir
+        // Si pfp déjà équipé
+        if($pfpActive != null){
+            $idPfpActive = $pfpActive->getId();
+            $stmt = $this->pdo->prepare(
+                'UPDATE '. DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
-        SET ir.active = 0 
+        SET ir.active = 0
         WHERE i.player_uuid = :uuid AND ir.invoice_id = :idArticleActif');
-        $stmt->bindParam(':uuid', $uuid);
-        $stmt->bindParam(':idArticleActif', $idPfpActive);
-        $stmt->execute();
+            $stmt->bindParam(':uuid', $uuid);
+            $stmt->bindParam(':idArticleActif', $idPfpActive);
+            $stmt->execute();
+        }
 
         $stmt = $this->pdo->prepare(
             'UPDATE '. DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
-        SET ir.active = 1 
+        SET ir.active = 1
         WHERE i.player_uuid = :uuid AND ir.article_id = :idArticle'
         );
         $stmt->bindParam(':uuid', $uuid);
@@ -255,12 +255,19 @@ class ArticleDAO {
         $stmt->execute();
         $article = $this->findById($idArticle);
         $_SESSION['pfpPath'] = $article->getFilePath();
-
-
-
     }
 
-
+    public function deleteActiveArticleForPfp(string $uuid)
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE '. DB_PREFIX . 'invoice_row ir
+        JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
+        JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
+        SET ir.active = 0 
+        WHERE i.player_uuid = :uuid AND a.type = "pfp"');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+    }
 
     /**
      * @brief Retourne la photo de profile active que le joueur possède sous forme d'objet Article

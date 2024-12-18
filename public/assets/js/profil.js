@@ -20,22 +20,25 @@ let modals = document.querySelectorAll(".modal")
 let pfps = document.querySelectorAll(".pfp")
 let playerPfp = document.getElementById("pfpPlayer")
 let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
+let defaultPfp = document.getElementById("defaultPfp")
 
-function activeShadowOnPfp(pfp){
-    pfps.forEach(pfp=> pfp.classList.remove("activePfp"))
+function activeShadowOnPfp(pfp) {
+    pfps.forEach(pfp => pfp.classList.remove("activePfp"))
     pfp.classList.add("activePfp")
 }
 
-function infoArticlePfp(article){
+function infoArticlePfp(article) {
     pfpTitle.textContent = article.name
     pfpDescription.textContent = article.description
 
 }
-function showModalPfp(){
+
+function showModalPfp() {
     modalPfp.classList.remove("hidden")
     background.classList.remove("hidden")
 }
-function closeModal(){
+
+function closeModal() {
     modals.forEach(modal => {
         if (!modal.classList.contains("hidden")) {
             modal.classList.add("hidden");
@@ -96,26 +99,29 @@ function afficher(section) {
 }
 
 
-function equipArticlePfp(){
+function equipArticlePfp() {
 
-    pfps.forEach(pfp=> {
+    pfps.forEach(pfp => {
 
-        if(pfp.classList.contains("activePfp")){
-            let idArticle = parseInt(pfp.id, 10)
+        if (pfp.classList.contains("activePfp")) {
+            console.log(pfp.id)
             const xhr = new XMLHttpRequest();
             xhr.open("POST", `/profile/updateStyle/${pfp.id}`, true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             // Envoyer les données sous forme de paire clé=valeur
             xhr.send();
             // Gérer la réponse du serveur
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    let response =  JSON.parse(xhr.responseText)
+                    let response = JSON.parse(xhr.responseText)
+                    console.log(response)
                     playerPfp.src = "/assets/img/pfp/" + response.articlePath
                     pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
                 }
             };
+
         }
+
     })
     closeModal()
 
