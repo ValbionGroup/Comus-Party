@@ -9,6 +9,8 @@
 
 namespace ComusParty\Models;
 
+use DateMalformedStringException;
+use DateTime;
 use PDO;
 
 /**
@@ -104,14 +106,15 @@ class SuggestionDAO
     /**
      * @brief Hydrate un tableau de données en une suggestion
      * @param array $data Le tableau associatif contenant les données de la suggestion
-     * @return Suggestion
+     * @return Suggestion Objet retourné par la méthode, ici une suggestion
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data): Suggestion
     {
         $suggestion = new Suggestion();
         $suggestion->setContent($data['content']);
         $suggestion->setAuthorUuid($data['author_uuid']);
-        $suggestion->setCreatedAt($data['created_at']);
+        $suggestion->setCreatedAt(new DateTime($data['created_at']));
         $suggestion->setAuthorUsername($data['username']);
         return $suggestion;
     }
