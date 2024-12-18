@@ -30,7 +30,8 @@ class GameDao
      *
      * @param PDO|null $pdo La connexion à la base de données
      */
-    public function __construct(?PDO $pdo){
+    public function __construct(?PDO $pdo)
+    {
         $this->pdo = $pdo;
     }
 
@@ -61,10 +62,11 @@ class GameDao
      * @param int $id L'identifiant du jeu
      * @return Game|null L'objet Game correspondant à l'identifiant ou null
      */
-    public function findById(int $id): ?Game{
+    public function findById(int $id): ?Game
+    {
         $stmt = $this->pdo->prepare(
             'SELECT *
-            FROM '. DB_PREFIX .'game
+            FROM ' . DB_PREFIX . 'game
             WHERE id = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -77,18 +79,22 @@ class GameDao
     }
 
     /**
-     * @brief Retourne un tableau d'objets Game à partir de la table game
+     * @brief Hydrate un d'objet Game à partir d'un tableau de jeux de la table game passé en paramètre
      *
-     * @return array Le tableau d'objets Game
+     * @return Game Un objet Game
      */
-    public function findAll(): array{
-        $stmt = $this->pdo->prepare(
-            'SELECT *
-            FROM '. DB_PREFIX .'game');
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $gamesTab = $stmt->fetchAll();
-        return $this->hydrateMany($gamesTab);
+    public function hydrate(array $gameTab): Game
+    {
+        $game = new Game();
+        $game->setId($gameTab['id']);
+        $game->setName($gameTab['name']);
+        $game->setDescription($gameTab['description']);
+        $game->setPathImg($gameTab['img_path']);
+        $game->setState($this->transformState($gameTab['state']));
+        $game->setCreatedAt(new DateTime($gameTab['created_at']));
+        $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
+        $game->setTags($gameTab['tags'] ?? null);
+        return $game;
     }
 
     /**
@@ -97,7 +103,8 @@ class GameDao
      * @param string $state L'état du jeu
      * @return ?GameState L'état du jeu en type State
      */
-    public function transformState(string $state):?GameState{
+    public function transformState(string $state): ?GameState
+    {
         return match (strtoupper($state)) {
             'AVAILABLE' => GameState::AVAILABLE,
             'UNAVAILABLE' => GameState::UNAVAILABLE,
@@ -107,20 +114,19 @@ class GameDao
     }
 
     /**
-     * @brief Hydrate un d'objet Game à partir d'un tableau de jeux de la table game passé en paramètre
+     * @brief Retourne un tableau d'objets Game à partir de la table game
      *
-     * @return Game Un objet Game
+     * @return array Le tableau d'objets Game
      */
-    public function hydrate(array $gameTab): Game{
-        $game = new Game();
-        $game->setId($gameTab['id']);
-        $game->setName($gameTab['name']);
-        $game->setDescription($gameTab['description']);
-        $game->setPathImg($gameTab['img_path']);
-        $game->setState($this->transformState($gameTab['state']));
-        $game->setCreatedAt(new DateTime($gameTab['created_at']));
-        $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
-        return $game;
+    public function findAll(): array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT *
+            FROM ' . DB_PREFIX . 'game');
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $gamesTab = $stmt->fetchAll();
+        return $this->hydrateMany($gamesTab);
     }
 
     /**
@@ -129,7 +135,8 @@ class GameDao
      * @param array $gamesTab Le tableau de jeux
      * @return array Le tableau d'objets Game
      */
-    public function hydrateMany(array $gamesTab): array{
+    public function hydrateMany(array $gamesTab): array
+    {
         $games = [];
         foreach ($gamesTab as $gameTab) {
             $games[] = $this->hydrate($gameTab);
@@ -137,4 +144,25 @@ class GameDao
         return $games;
     }
 
+    /**
+     * @brief Retourne un tableau d'objets Game à partir de la table game avec leurs tags associés
+     * @return array Le tableau d'objets Game
+     */
+    public function findAllWithTags(): array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT g.*, GROUP_CONCAT(t.name) as tags
+            FROM ' . DB_PREFIX . 'game g
+            JOIN ' . DB_PREFIX . 'tagged tg ON g.id = tg.game_id
+            JOIN ' . DB_PREFIX . 'tag t ON tg.tag_id = t.id
+            GROUP BY g.id;');
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $gamesTab = $stmt->fetchAll();
+        $gamesTab = array_map(function ($game) {
+            $game['tags'] = explode(',', $game['tags']);
+            return $game;
+        }, $gamesTab);
+        return $this->hydrateMany($gamesTab);
+    }
 }

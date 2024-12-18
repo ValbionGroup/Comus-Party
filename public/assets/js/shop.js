@@ -11,14 +11,16 @@ let pfps = document.querySelectorAll(".pfp");
 let modalWindowForPfp = document.getElementById("modalForPfp")
 let modalWindowForBanner = document.getElementById("modalForBanner")
 let modalWindow = document.getElementById("modalForBanner")
+let modalsContent = document.querySelectorAll(".modalContent")
 let closeModalBtn = document.getElementById("closeModalBtn")
-let addBasketBtn = document.getElementById("addBasketBtn")
+let addBasketBtnPfp = document.getElementById("addBasketBtnPfp")
+let addBasketBtnBanner = document.getElementById("addBasketBtnBanner")
 let overlay = document.getElementById("overlay")
 let notification = document.getElementById('notification');
 let notificationMessage = document.getElementById("notificationMessage")
 
 let modals = document.querySelectorAll('.modal')
-let closeModalBtns = document.querySelectorAll('.closeModalBtn')
+let closeModalBtnsClass = document.querySelectorAll('.closeModalBtnClass')
 /*
 Déclaration des attributs des articles présent dans le twig
  */
@@ -60,8 +62,21 @@ function testArticleDansPanier(){
 testArticleDansPanier()
 
 
+closeModalBtnsClass.forEach(btn => {
+    btn.addEventListener('click', function (){
+        // modalWindow.classList.remove("flex")
+        overlay.classList.remove('opacity-100'); // Disparition de l'overlay
+        this.parentElement.parentElement.parentElement.parentElement.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
+        // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
+        setTimeout(() => {
+            overlay.classList.add('hidden', 'opacity-0');
+            this.parentElement.parentElement.parentElement.parentElement.classList.add('hidden', 'opacity-0', 'translate-y-4');
+        }, 300); // Durée de la transition
+    })
+})
+
 modals.forEach(modal => {
-    modal.addEventListener('click', function (){
+    modal.addEventListener("click", function (){
         // modalWindow.classList.remove("flex")
         overlay.classList.remove('opacity-100'); // Disparition de l'overlay
         modal.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
@@ -70,6 +85,11 @@ modals.forEach(modal => {
             overlay.classList.add('hidden', 'opacity-0');
             modal.classList.add('hidden', 'opacity-0', 'translate-y-4');
         }, 300); // Durée de la transition
+    })
+})
+modalsContent.forEach(modal => {
+    modal.addEventListener("click", function (){
+        event.stopPropagation(); // Empêche la propagation à la div parent
     })
 })
 
@@ -93,10 +113,11 @@ function showModalPfp(article) {
     imgArticlePfp.src = "assets" + article.filePath
     nomArticlePfp.innerText = article.name
     descriptionArticlePfp.innerText = article.description
-    prixComusArticlePfp.innerText = article.pricePoint + " Comus"
+    prixComusArticlePfp.innerText = article.pricePoint
     prixEuroArticlePfp.innerText = article.priceEuro + " €"
 
-    addBasketBtn.onclick = function (){
+    addBasketBtnPfp.onclick = function (){
+
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/shop/basket/add", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -108,6 +129,7 @@ function showModalPfp(article) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
+
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
@@ -137,8 +159,6 @@ function showModalPfp(article) {
             }
         };
     }
-
-
 }
 
 /**
@@ -161,17 +181,16 @@ function showModalBanner(article) {
     imgArticleBanner.src = "assets" + article.filePath
     nomArticleBanner.innerText = article.name
     descriptionArticleBanner.innerText = article.description
-    prixComusArticleBanner.innerText = article.pricePoint + " Comus"
+    prixComusArticleBanner.innerText = article.pricePoint
     prixEuroArticleBanner.innerText = article.priceEuro + " €"
 
-    addBasketBtn.onclick = function (){
+    addBasketBtnBanner.onclick = function (){
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/shop/basket/add", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
         // Envoyer les données sous forme de paire clé=valeur
         xhr.send("id_article=" + article.id);
-
         // Gérer la réponse du serveur
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -207,9 +226,11 @@ function showModalBanner(article) {
     }
 
 
+
 }
 closeModalBtns.forEach(closeModalBtn => {
     closeModalBtn.addEventListener("click", function (){
+
     overlay.classList.remove('opacity-100'); // Disparition de l'overlay
     modalWindowForPfp.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
     // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture

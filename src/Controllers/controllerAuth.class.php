@@ -11,9 +11,8 @@ namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
-use ComusParty\Models\Exception\ErrorHandler;
 use ComusParty\Models\Exception\MalformedRequestException;
-use ComusParty\Models\Exception\NotFoundException;
+use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
@@ -24,7 +23,6 @@ use DateTime;
 use Exception;
 use PHPMailer\PHPMailer\Exception as MailException;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -81,7 +79,6 @@ class ControllerAuth extends Controller
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws RandomException Exception levée dans le cas d'une erreur de génération de nombre aléatoire
      * @todo Utiliser une template de mail quand disponible
-     * @todo Changer la méthode de retour dès que possible
      * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
      */
     public function sendResetPasswordLink(string $email): void
@@ -95,7 +92,7 @@ class ControllerAuth extends Controller
         ]);
 
         if (!$validator->validate(['email' => $email])) {
-            ErrorHandler::addExceptionParametersToTwig(new MalformedRequestException("Adresse e-mail invalide"));
+            MessageHandler::addExceptionParametersToSession(new MalformedRequestException("Adresse e-mail invalide"));
             header('Location: /forgot-password');
             return;
         }
@@ -104,9 +101,8 @@ class ControllerAuth extends Controller
         $user = $userManager->findByEmail($email);
 
         if (is_null($user)) {
-            ErrorHandler::addExceptionParametersToTwig(new NotFoundException("Aucun utilisateur trouvé avec cette adresse e-mail"));
-            header('Location: /forgot-password');
-            return;
+            MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
+            header('Location: /login');
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
@@ -137,13 +133,11 @@ class ControllerAuth extends Controller
 
             $mail->addAddress($to);
             $mail->send();
-
-            // TODO: A changer
-            echo "success";
         } catch (MailException $e) {
-            // TODO: Modifier le système d'erreur
-            echo "Le mail n'a pas pu être envoyé. $mail->ErrorInfo";
         }
+
+        MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
+        header('Location: /login');
     }
 
     /**
@@ -230,6 +224,7 @@ class ControllerAuth extends Controller
             throw new Exception("Erreur lors de la suppression du token", 500);
         }
 
+        MessageHandler::addMessageParametersToSession("Votre mot de passe a bien été réinitialisé");
         header('Location: /login');
     }
 
@@ -263,7 +258,6 @@ class ControllerAuth extends Controller
 
         $validator = new Validator($regles);
         if (!$validator->validate(['email' => $email, 'password' => $password])) {
-            var_dump($validator->getErrors());
             throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
         }
 
@@ -298,13 +292,14 @@ class ControllerAuth extends Controller
         $_SESSION['comusCoin'] = $player->getComusCoin();
         $_SESSION['elo'] = $player->getElo();
         $_SESSION['xp'] = $player->getXp();
+        $_SESSION['basket'] = [];
 
         $articleManager = new ArticleDAO($this->getPdo());
         $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
         if (is_null($pfp)) {
             $pfpPath = 'default-pfp.jpg';
         } else {
-            $pfpPath = $pfp->getPathImg();
+            $pfpPath = $pfp->getFilePath();
         }
         $_SESSION['pfpPath'] = $pfpPath;
         header('Location: /');

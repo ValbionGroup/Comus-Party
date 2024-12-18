@@ -14,7 +14,7 @@ require_once __DIR__ . '/config/mail.php';
 require_once __DIR__ . '/src/Models/Router.class.php';
 require_once __DIR__ . '/src/Models/Validator.class.php';
 
-require_once __DIR__ . '/src/Models/Exceptions/ErrorHandler.php';
+require_once __DIR__ . '/src/Models/Exceptions/MessageHandler.php';
 require_once __DIR__ . '/src/Models/Exceptions/NotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/MalformedRequestException.php';
 require_once __DIR__ . '/src/Models/Exceptions/AuthenticationException.php';
@@ -31,6 +31,7 @@ require_once __DIR__ . '/src/Controllers/controllerGame.class.php';
 require_once __DIR__ . '/src/Controllers/controllerShop.class.php';
 require_once __DIR__ . '/src/Controllers/controllerAuth.class.php';
 require_once __DIR__ . '/src/Controllers/controllerBasket.class.php';
+require_once __DIR__ . '/src/Controllers/controllerSuggestion.class.php';
 require_once __DIR__ . '/src/Controllers/controllerPolicy.class.php';
 
 require_once __DIR__ . '/src/Models/db.class.php';
@@ -47,6 +48,8 @@ require_once __DIR__ . '/src/Models/invoice.dao.php';
 require_once __DIR__ . '/src/Models/statistics.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.dao.php';
+require_once __DIR__ . '/src/Models/suggestion.class.php';
+require_once __DIR__ . '/src/Models/suggestion.dao.php';
 
 session_start();
 require_once __DIR__ . '/config/twig.php';
