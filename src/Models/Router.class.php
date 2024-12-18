@@ -130,7 +130,7 @@ class Router
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $url = $_SERVER['REQUEST_URI'];
-        $role = $_SESSION['role'];
+        $role = $_SESSION['role'] ?? null;
 
         if (isset($this->routes[$method])) {
             if (!is_null($role)) {
