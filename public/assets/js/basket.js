@@ -9,32 +9,32 @@
 let removeButtons = document.querySelectorAll('.remove-btn');
 let notification = document.getElementById('notification');
 
-let panier = document.getElementById("panier")
-let panierVide = document.getElementById("panierVide")
-let prixTotalPanier = document.getElementById("prixTotalPanier")
-let sousTotalPanier = document.getElementById("sousTotalPanier")
-let btnProcederAuPaiement = document.getElementById("btnPaiement")
+let basket = document.getElementById("basket")
+let emptyBasket = document.getElementById("emptyBasket")
+let totalPriceBasket = document.getElementById("totalPriceBasket")
+let subTotalBasket = document.getElementById("subTotalBasket")
+let paymentBtn = document.getElementById("paymentBtn")
 
 /**
- ** @brief Vérifie le contenu du panier
- ** @details Si le panier ne contient aucun article, affiche un message indiquant que celui-ci est vide.
+ ** @brief Vérifie le contenu du basket
+ ** @details Si le basket ne contient aucun article, affiche un message indiquant que celui-ci est vide.
  */
 
-function testArticleDansPanier(){
+function testArticleInBasket(){
     let articles = document.querySelectorAll(".article")
     if(articles.length === 0){
-        panierVide.classList.add("flex")
-        panierVide.classList.remove("hidden")
+        emptyBasket.classList.add("flex")
+        emptyBasket.classList.remove("hidden")
 
     }else{
-        panierVide.classList.add("hidden")
-        panierVide.classList.remove("flex")
+        emptyBasket.classList.add("hidden")
+        emptyBasket.classList.remove("flex")
 
     }
 }
-testArticleDansPanier()
+testArticleInBasket()
 /**
- * @brief Permet de supprimer un article du panier
+ * @brief Permet de supprimer un article du basket
  */
 removeButtons.forEach(button => {
     button.addEventListener('click', function () {
@@ -43,7 +43,7 @@ removeButtons.forEach(button => {
         const parentDiv = this.parentElement.parentElement;
         parentDiv.remove();
         testArticleDansPanier()
-        notificationMessage.textContent = "Article retiré du panier"
+        notificationMessage.textContent = "Article retiré du basket"
         notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
         // Afficher la notification
         notification.classList.remove('opacity-0', 'scale-90');
@@ -59,7 +59,7 @@ removeButtons.forEach(button => {
 });
 
 /**
- * @brief Permet de supprimer un article du panier dans la base de données ainsi que de mettre à jour le prix
+ * @brief Permet de supprimer un article du basket dans la base de données ainsi que de mettre à jour le prix
  *  @param id L'id de l'article qu'il faut supprimer
  */
 function removeArticle(id){
@@ -73,15 +73,15 @@ function removeArticle(id){
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response =  JSON.parse(xhr.responseText)
-            let prixTotalPanierActuel = prixTotalPanier.textContent
-            // Le parseint permet de récupérer que la valeur numérique du prix actuel du panier, c'est-à-dire sans le sigle "€"
+            let prixTotalPanierActuel = totalPriceBasket.textContent
+            // Le parseint permet de récupérer que la valeur numérique du prix actuel du basket, c'est-à-dire sans le sigle "€"
             prixTotalPanierApresSuppressionArticle = parseFloat(prixTotalPanierActuel)  - response.prixArticle;
-            sousTotalPanier.textContent = prixTotalPanierApresSuppressionArticle +"€"
-            prixTotalPanier.textContent = prixTotalPanierApresSuppressionArticle+"€"
+            subTotalBasket.textContent = prixTotalPanierApresSuppressionArticle +"€"
+            totalPriceBasket.textContent = prixTotalPanierApresSuppressionArticle+"€"
             if(response.numberArticlesInBasket == 0){
-                btnProcederAuPaiement.disabled = true
+                paymentBtn.disabled = true
             }else{
-                btnProcederAuPaiement.disabled = false
+                paymentBtn.disabled = false
             }
         }
     };

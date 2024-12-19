@@ -130,7 +130,7 @@ $router->get('/shop/basket/checkout', function () use($loader, $twig) {
         exit;
     }
     if (empty($_SESSION['basket'])) {
-        MessageHandler::addExceptionParametersToSession(new UnauthorizedAccessException("Votre panier est vide"));
+        MessageHandler::addExceptionParametersToSession(new UnauthorizedAccessException("Votre basket est vide"));
         header('Location: /shop');
         exit;
     }

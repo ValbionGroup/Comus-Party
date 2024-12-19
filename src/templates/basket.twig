@@ -9,10 +9,10 @@
         {# Panier #}
         <div class="flex flex-col md:w-2/3 h-min m-5">
             <h2 class="font-semibold text-xl mb-3 font-serif">Panier</h2>
-            <div id="panier"
+            <div id="basket"
                  class="flex flex-col justify-center text-center items-center bg-lavender-blush-1  dark:bg-night-1 sm:w-full sm:h-96  rounded-2xl overflow-y-auto ">
 
-                <div id="panierVide" class="flex flex-col justify-center text-center items-center ">
+                <div id="emptyBasket" class="flex flex-col justify-center text-center items-center ">
                 <span class="mt-6 mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em"
                                              viewBox="0 0 24 24"><g
                                 fill="none"><path
@@ -21,8 +21,8 @@
                                     d="M10.464 3.282a2 2 0 0 1 2.964-.12l.108.12L17.469 8h2.985a1.49 1.49 0 0 1 1.484 1.655l-.092.766l-.1.74l-.082.554l-.095.595l-.108.625l-.122.648l-.136.661q-.108.5-.232.999a21 21 0 0 1-.832 2.583l-.221.54l-.214.488l-.202.434l-.094.194l-.249.49c-.32.61-.924.97-1.563 1.022l-.16.006H6.555a1.93 1.93 0 0 1-1.71-1.008l-.232-.45l-.18-.37l-.095-.205l-.2-.449a21.5 21.5 0 0 1-1.108-3.276a32 32 0 0 1-.156-.654l-.142-.648l-.127-.634l-.112-.613l-.1-.587l-.087-.554l-.074-.513l-.09-.683l-.066-.556l-.017-.153a1.49 1.49 0 0 1 1.348-1.64L3.543 8h2.989zM19.883 10H4.113l.062.484l.076.548l.092.604l.108.648q.06.333.126.682l.143.707c.076.358.16.722.25 1.084a19.5 19.5 0 0 0 1 2.957l.196.441l.182.384l.163.323l.072.138H17.41l.154-.303l.177-.365l.194-.423c.367-.825.787-1.918 1.095-3.152c.125-.5.236-1.008.335-1.507l.14-.738l.12-.709l.053-.339l.095-.637l.077-.57zm-9.897 2.836l.5 3a1 1 0 0 1-1.972.328l-.5-3a1 1 0 1 1 1.972-.328M15.048 12l.116.013A1 1 0 0 1 16 13.048l-.013.116l-.5 3a1 1 0 0 1-1.985-.212l.013-.116l.5-3A1 1 0 0 1 15.048 12M12 4.562L9.135 8h5.73z"/></g></svg></span>
 
 
-                    <h2 class="font-semibold text-xl mt-5">Votre panier est vide</h2>
-                    <p class="mt-2">Vous n'avez pas encore ajouté d'articles dans votre panier. Parcourez le site pour
+                    <h2 class="font-semibold text-xl mt-5">Votre basket est vide</h2>
+                    <p class="mt-2">Vous n'avez pas encore ajouté d'articles dans votre basket. Parcourez le site pour
                         trouver des articles incroyables !</p>
                     <a href="/shop">
                         <button class="px-6 py-2 mt-5 mb-5 border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-3 dark:bg-night-1 dark:hover:border-night-1 dark:text-lavender-blush-base  dark:hover:text-lavender-blush-base transition duration-300">
@@ -67,11 +67,11 @@
             <div class="bg-lavender-blush-3 dark:bg-night-2 dark:text-lavender-blush-base w-full h-72 rounded-2xl flex flex-col justify-center text-center items-center ">
                 <div class="flex justify-around w-full mt-12">
                     <h3>Prix officiel</h3>
-                    <span id="prixTotalPanier">{{ prixTotalPanier }}€</span>
+                    <span id="totalPriceBasket">{{ prixTotalPanier }}€</span>
                 </div>
                 <div class="flex justify-around w-full font-semibold ">
                     <h3>Sous-total</h3>
-                    <span id="sousTotalPanier">{{ prixTotalPanier }}€</span>
+                    <span id="subTotalBasket">{{ prixTotalPanier }}€</span>
                 </div>
                 <a href="">
                     <button class="px-6 py-2 mt-5 border-2 border-lavender-blush-base text-night hover:bg-lavender-blush-base hover:text-lavender-blush-3 dark:border-lavender-blush-base  font-semibold rounded-md dark:hover:bg-night-1 dark:bg-night-2  dark:hover:border-night-3 dark:text-lavender-blush-base dark:hover:text-lavender-blush-base transition duration-300">

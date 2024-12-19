@@ -34,7 +34,7 @@ class ControllerBasket extends Controller
     }
 
     /**
-     * @brief Affiche le panier avec la liste des articles (si article dans panier)
+     * @brief Affiche le basket avec la liste des articles (si article dans basket)
      * @return void
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
@@ -47,17 +47,17 @@ class ControllerBasket extends Controller
         $managerArticle = new ArticleDAO($this->getPdo());
 
         $articles = $managerArticle->findArticlesWithIds($_SESSION['basket']);
-        $prixTotalPanier = 0;
+        $totalPriceBasket = 0;
         if($articles){
             foreach($articles as $article){
-                $prixTotalPanier += $article->getPriceEuro();
+                $totalPriceBasket += $article->getPriceEuro();
             }
         }
 
         echo $template->render(
             array(
                 'articles' => $articles,
-                'prixTotalPanier' => $prixTotalPanier,
+                'totalPriceBasket' => $totalPriceBasket,
                 )
 
         );
@@ -65,7 +65,7 @@ class ControllerBasket extends Controller
 
 
     /**
-     * @brief Permet d'ajouter un article au panier
+     * @brief Permet d'ajouter un article au basket
      *
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
@@ -81,7 +81,7 @@ class ControllerBasket extends Controller
             $id_article = intval($_POST['id_article']);
 
 
-            // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
+            // Ajouter l'ID de l'article au basket s'il n'y est pas déjà
             if (!in_array($id_article, $_SESSION['basket'])) {
                 $_SESSION['basket'][] = $id_article;
                 $numberArticlesInBasket = count($_SESSION['basket']);
@@ -89,7 +89,7 @@ class ControllerBasket extends Controller
 
                 echo json_encode([
                     'success' => true,
-                    'message' => "Article ajouté au panier !",
+                    'message' => "Article ajouté au basket !",
                     'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
 
@@ -97,7 +97,7 @@ class ControllerBasket extends Controller
                 $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => false,
-                    'message' => "L'article est déjà dans le panier.",
+                    'message' => "L'article est déjà dans le basket.",
                     'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
 
@@ -111,7 +111,7 @@ class ControllerBasket extends Controller
 
 
     /**
-     * @brief Permet de supprimer un article du panier
+     * @brief Permet de supprimer un article du basket
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
@@ -123,7 +123,7 @@ class ControllerBasket extends Controller
         if ($id != null) {
             $id_article = intval($id);
 
-            // Retirer l'ID de l'article au panier s'il n'y est pas déjà
+            // Retirer l'ID de l'article au basket s'il n'y est pas déjà
             if (in_array($id_article, $_SESSION['basket'])) {
                 $key = array_search($id_article, $_SESSION['basket'], true);
                 if ($key !== false) {
@@ -132,19 +132,19 @@ class ControllerBasket extends Controller
                 }
                 $managerArticle = new ArticleDAO($this->getPdo());
                 $article = $managerArticle->findById( $id_article );
-                $prixArticle = $article->getPriceEuro();
+                $priceArticle = $article->getPriceEuro();
                 $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => true,
-                    'message' => "Article supprimé du panier !",
-                    'prixArticle' => $prixArticle,
+                    'message' => "Article supprimé du basket !",
+                    'priceArticle' => $priceArticle,
                     'numberArticlesInBasket' => $numberArticlesInBasket
 
                 ]);
             } else {
                 echo json_encode([
                     'success' => false,
-                    'message' => "L'article n'est pas dans le panier."
+                    'message' => "L'article n'est pas dans le basket."
                 ]);
 
             }
