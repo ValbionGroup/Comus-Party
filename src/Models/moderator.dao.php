@@ -62,7 +62,7 @@ class ModeratorDAO
      */
     public function findByUuid(string $uuid): ?Moderator
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM ' . DB_PREFIX . ' moderator WHERE uuid = :uuid');
+        $stmt = $this->pdo->prepare('SELECT * FROM ' . DB_PREFIX . 'moderator WHERE uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
