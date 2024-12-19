@@ -468,7 +468,7 @@ class ControllerAuth extends Controller
         if ($user) {
             $userDAO->confirmUser($emailVerifToken);
             MessageHandler::addMessageParametersToSession("Votre compte a bien été confirmé. Vous pouvez maintenant vous connecter.");
-            header('Location: /');
+            header('Location: /login');
         } else {
             header('Location: /register');
             throw new AuthenticationException("La confirmation a echoué");
