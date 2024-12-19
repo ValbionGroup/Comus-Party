@@ -402,13 +402,14 @@ VALUES (1, NULL, 'First Win', 'Win your first game', 'bronze', '100xp', '2024-11
 
 CREATE TABLE `cp_suggestion`
 (
-    `id`          int(11)     NOT NULL,
-    `content`     text        NOT NULL,
-    `author_uuid` varchar(63) NOT NULL,
-    `created_at`  timestamp   NOT NULL DEFAULT current_timestamp(),
-    `treated_at`  timestamp   NULL     DEFAULT NULL,
-    `treated_by`  varchar(63)          DEFAULT NULL,
-    `accepted`    tinyint(1)  NOT NULL DEFAULT 0
+    `id`          int(11)                         NOT NULL,
+    `object`      enum ('bug','jeu','ui','other') NOT NULL,
+    `content`     text                            NOT NULL,
+    `author_uuid` varchar(63)                     NOT NULL,
+    `treated_by`  varchar(63)                              DEFAULT NULL,
+    `accepted`    tinyint(1)                      NOT NULL DEFAULT 0,
+    `created_at`  timestamp                       NOT NULL DEFAULT current_timestamp(),
+    `treated_at`  timestamp                       NULL     DEFAULT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -417,14 +418,16 @@ CREATE TABLE `cp_suggestion`
 -- Déchargement des données de la table `cp_suggestion`
 --
 
-INSERT INTO `cp_suggestion` (`id`, `content`, `author_uuid`, `created_at`, `treated_at`, `treated_by`, `accepted`)
-VALUES (1, 'Améliorer la performance des pages en optimisant les requêtes SQL.', 'uuid1', '2024-12-17 07:30:00',
-        '2024-12-18 08:30:00', 'mod_uuid1', 0),
-       (2, 'Ajouter un système de notifications pour les nouvelles suggestions traitées.', 'uuid2',
-        '2024-12-17 08:00:00', '2024-12-17 09:00:00', 'mod_uuid2', 1),
-       (3, 'Permettre l\'exportation des suggestions au format CSV.', 'uuid3', '2024-12-17 10:15:00', NULL, NULL, 0),
-       (4, 'Intégrer un module de filtrage pour trier les suggestions par statut.', 'uuid4', '2024-12-17 12:45:00',
-        '2024-12-17 13:00:00', 'mod_uuid1', 1);
+INSERT INTO `cp_suggestion` (`id`, `object`, `content`, `author_uuid`, `treated_by`, `accepted`, `created_at`,
+                             `treated_at`)
+VALUES (1, 'bug', 'Améliorer la performance des pages en optimisant les requêtes SQL.', 'uuid1', 'mod_uuid1', 0,
+        '2024-12-17 07:30:00', '2024-12-18 08:30:00'),
+       (2, 'ui', 'Ajouter un système de notifications pour les nouvelles suggestions traitées.', 'uuid2', 'mod_uuid2',
+        1, '2024-12-17 08:00:00', '2024-12-17 09:00:00'),
+       (3, 'other', 'Permettre l\'exportation des suggestions au format CSV.', 'uuid3', NULL, 0, '2024-12-17 10:15:00',
+        NULL),
+       (4, 'ui', 'Intégrer un module de filtrage pour trier les suggestions par statut.', 'uuid4', 'mod_uuid1', 1,
+        '2024-12-17 12:45:00', '2024-12-17 13:00:00');
 
 -- --------------------------------------------------------
 

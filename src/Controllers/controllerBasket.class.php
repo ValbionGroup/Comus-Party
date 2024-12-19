@@ -9,13 +9,12 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\Controllers\Controller;
 use ComusParty\Models\ArticleDAO;
 use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use Twig\Loader\FilesystemLoader;
 
 
 /**
@@ -40,8 +39,9 @@ class ControllerBasket extends Controller
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function show(){
-        $template = $this->getTwig()->load('basket.twig');
+    public function show()
+    {
+        $template = $this->getTwig()->load('player/basket.twig');
 
 
         $managerArticle = new ArticleDAO($this->getPdo());
@@ -85,7 +85,6 @@ class ControllerBasket extends Controller
             }
             // Ajouter l'ID de l'article au basket s'il n'y est pas déjà
             if (!in_array($id_article, $_SESSION['basket'])) {
-
                 $_SESSION['basket'][] = $id_article;
                 $numberArticlesInBasket = count($_SESSION['basket']);
 
