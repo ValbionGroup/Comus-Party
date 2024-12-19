@@ -265,3 +265,9 @@ $router->get('/cgu', function () use ($loader, $twig) {
     ControllerFactory::getController("policy", $loader, $twig)->call("showCgu");
     exit;
 });
+
+$router->put('/suggest/deny/:id', function ($id) use ($loader, $twig) {
+    echo json_encode(["success" => true]);
+//    ControllerFactory::getController("dashboard", $loader, $twig)->call("denySuggestion", ["id" => $id]);
+    exit;
+}, 'moderator');
