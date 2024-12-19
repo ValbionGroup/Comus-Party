@@ -18,7 +18,7 @@ use Twig\Loader\FilesystemLoader;
 
 
 /**
- * La classe ControllerBasket permet de faire le lien entre la vue et l'objet Basket
+ * La classe ControllerBasket permet de faire le lien entre la vue et l'objet panier
  */
 class ControllerBasket extends Controller
 {
@@ -47,18 +47,18 @@ class ControllerBasket extends Controller
         $managerArticle = new ArticleDAO($this->getPdo());
 
         $articles = $managerArticle->findArticlesWithIds($_SESSION['basket']);
-        $prixTotalPanier = 0;
-        if ($articles) {
-            foreach ($articles as $article) {
-                $prixTotalPanier += $article->getPriceEuro();
+        $totalPriceBasket = 0;
+        if($articles){
+            foreach($articles as $article){
+                $totalPriceBasket += $article->getPriceEuro();
             }
         }
 
         echo $template->render(
             array(
                 'articles' => $articles,
-                'prixTotalPanier' => $prixTotalPanier,
-            )
+                'totalPriceBasket' => $totalPriceBasket,
+                )
 
         );
     }
@@ -80,23 +80,27 @@ class ControllerBasket extends Controller
         if (isset($_POST['id_article'])) {
             $id_article = intval($_POST['id_article']);
 
-
-            // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
+            if(!isset($_SESSION['basket'])){
+                $_SESSION['basket'] = array();
+            }
+            // Ajouter l'ID de l'article au basket s'il n'y est pas déjà
             if (!in_array($id_article, $_SESSION['basket'])) {
                 $_SESSION['basket'][] = $id_article;
-                $taillePanier = count($_SESSION['basket']);
+                $numberArticlesInBasket = count($_SESSION['basket']);
 
 
                 echo json_encode([
                     'success' => true,
                     'message' => "Article ajouté au panier !",
-                    'taillePanier' => $taillePanier
+                    'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
 
             } else {
+                $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => false,
-                    'message' => "L'article est déjà dans le panier."
+                    'message' => "L'article est déjà dans le panier.",
+                    'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
 
             }
@@ -104,6 +108,8 @@ class ControllerBasket extends Controller
             echo "Erreur : ID de l'article non spécifié.";
         }
     }
+
+
 
 
     /**
@@ -114,13 +120,12 @@ class ControllerBasket extends Controller
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function removeArticleBasket($id)
-    {
+    public function removeArticleBasket($id){
 
         if ($id != null) {
             $id_article = intval($id);
 
-            // Retirer l'ID de l'article au panier s'il n'y est pas déjà
+            // Retirer l'ID de l'article au basket s'il n'y est pas déjà
             if (in_array($id_article, $_SESSION['basket'])) {
                 $key = array_search($id_article, $_SESSION['basket'], true);
                 if ($key !== false) {
@@ -128,12 +133,14 @@ class ControllerBasket extends Controller
                     unset($_SESSION['basket'][$key]);
                 }
                 $managerArticle = new ArticleDAO($this->getPdo());
-                $article = $managerArticle->findById($id_article);
-                $prixArticle = $article->getPriceEuro();
+                $article = $managerArticle->findById( $id_article );
+                $priceEuroArticle = $article->getPriceEuro();
+                $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => true,
                     'message' => "Article supprimé du panier !",
-                    'prixArticle' => $prixArticle,
+                    'priceEuroArticle' => $priceEuroArticle,
+                    'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
             } else {
                 echo json_encode([
