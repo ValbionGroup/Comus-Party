@@ -1,7 +1,7 @@
 /**
  * @file    basket.js
  * @author  Mathis Rivrais--Nowakowski
- * @brief   Le fichier contient le JS nécessaire au bon fonctionnement de la page basket
+ * @brief   Le fichier contient le JS nécessaire au bon fonctionnement de la page panier
  * @date    14/11/2024
  * @version 0.4
  */
@@ -9,29 +9,30 @@
 let removeButtons = document.querySelectorAll('.remove-btn');
 let notification = document.getElementById('notification');
 
-let panier = document.getElementById("panier")
-let panierVide = document.getElementById("panierVide")
-let prixTotalPanier = document.getElementById("prixTotalPanier")
-let sousTotalPanier = document.getElementById("sousTotalPanier")
+let basket = document.getElementById("basket")
+let emptyBasket = document.getElementById("emptyBasket")
+let totalPriceBasket = document.getElementById("totalPriceBasket")
+let subTotalBasket = document.getElementById("subTotalBasket")
+let paymentBtn = document.getElementById("paymentBtn")
 
 /**
  ** @brief Vérifie le contenu du panier
  ** @details Si le panier ne contient aucun article, affiche un message indiquant que celui-ci est vide.
  */
 
-function testArticleDansPanier(){
+function testArticleInBasket(){
     let articles = document.querySelectorAll(".article")
-    if(articles.length === 0){
-        panierVide.classList.add("flex")
-        panierVide.classList.remove("hidden")
+    if(articles.length == 0){
+        emptyBasket.classList.add("flex")
+        emptyBasket.classList.remove("hidden")
 
     }else{
-        panierVide.classList.add("hidden")
-        panierVide.classList.remove("flex")
+        emptyBasket.classList.add("hidden")
+        emptyBasket.classList.remove("flex")
 
     }
 }
-testArticleDansPanier()
+testArticleInBasket()
 /**
  * @brief Permet de supprimer un article du panier
  */
@@ -41,7 +42,7 @@ removeButtons.forEach(button => {
         // Supprimer la div parente du bouton
         const parentDiv = this.parentElement.parentElement;
         parentDiv.remove();
-        testArticleDansPanier()
+        testArticleInBasket()
         notificationMessage.textContent = "Article retiré du panier"
         notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
         // Afficher la notification
@@ -72,11 +73,16 @@ function removeArticle(id){
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response =  JSON.parse(xhr.responseText)
-            let prixTotalPanierActuel = prixTotalPanier.textContent
-            // Le parseint permet de récupérer que la valeur numérique du prix actuel du panier, c'est-à-dire sans le sigle "€"
-            prixTotalPanierApresSuppressionArticle = parseFloat(prixTotalPanierActuel)  - response.prixArticle;
-            sousTotalPanier.textContent = prixTotalPanierApresSuppressionArticle +"€"
-            prixTotalPanier.textContent = prixTotalPanierApresSuppressionArticle+"€"
+            let actualTotalPriceBasket = totalPriceBasket.textContent
+            // Le parseint permet de récupérer que la valeur numérique du prix actuel du basket, c'est-à-dire sans le sigle "€"
+            totalPriceAfterDeletingArticle = parseFloat(actualTotalPriceBasket)  - response.priceEuroArticle;
+            subTotalBasket.textContent = totalPriceAfterDeletingArticle +"€"
+            totalPriceBasket.textContent = totalPriceAfterDeletingArticle+"€"
+            if(response.numberArticlesInBasket === 0){
+                paymentBtn.disabled = true
+            }else{
+                paymentBtn.disabled = false
+            }
         }
     };
 }

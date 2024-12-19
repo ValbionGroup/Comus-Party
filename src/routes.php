@@ -12,47 +12,32 @@ global $loader, $twig;
 
 use ComusParty\Controllers\ControllerFactory;
 use ComusParty\Models\Exception\MessageHandler;
+use ComusParty\Models\Exception\UnauthorizedAccessException;
 use ComusParty\Models\Router;
 
 $router = Router::getInstance();
 
 $router->get('/', function () use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     ControllerFactory::getController("game", $loader, $twig)->call("showHomePage");
     exit;
-});
+}, 'player');
 
 // Route pour afficher le profil
 $router->get('/profile', function () use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", [
         "playerUuid" => $_SESSION["uuid"]
     ]);
     exit;
-});
+}, 'player');
 
 // Route pour afficher le formulaire de connexion
 $router->get('/login', function () use ($loader, $twig) {
-    if (isset($_SESSION['uuid'])) {
-        header('Location: /');
-        exit;
-    }
     ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
     exit;
-});
+}, 'guest');
 
 // Route pour traiter la soumission du formulaire de connexion
 $router->post('/login', function () use ($loader, $twig) {
-    if (isset($_SESSION['uuid'])) {
-        header('Location: /');
-        exit;
-    }
     try {
         if (isset($_POST['email']) && isset($_POST['password'])) {
             ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
@@ -66,82 +51,58 @@ $router->post('/login', function () use ($loader, $twig) {
         MessageHandler::addExceptionParametersToSession($e);
         ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
     }
-});
+}, 'guest');
 
 $router->get('/logout', function () use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     ControllerFactory::getController("auth", $loader, $twig)->call("logout");
     exit;
-});
+}, 'auth');
 
 $router->get('/game/:code', function ($code) {
     echo "Page de jeu en cours : " . $code . "<br/>";
     echo "A IMPLEMENTER";
     exit;
-});
+}, 'player');
 
 $router->get('/shop', function () use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     ControllerFactory::getController("shop", $loader, $twig)->call("show");
     exit;
-
-});
+}, 'player');
 
 $router->get('/shop/basket', function () use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
-
     ControllerFactory::getController("basket", $loader, $twig)->call("show");
     exit;
-});
+}, 'player');
 
 $router->post('/shop/basket/add', function () use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
-
     ControllerFactory::getController("basket", $loader, $twig)->call("addArticleToBasket");
     exit;
-});
+}, 'player');
 
 $router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
 
     ControllerFactory::getController("basket", $loader, $twig)->call("removeArticleBasket", ["id" => $id]);
     exit;
-});
+}, 'player');
 
-$router->get('/shop/basket/checkout', function () {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
+$router->get('/shop/basket/checkout', function () use ($loader, $twig) {
+    if (empty($_SESSION['basket'])) {
+        MessageHandler::addExceptionParametersToSession(new UnauthorizedAccessException("Votre panier est vide"));
+        header('Location: /shop');
         exit;
     }
-    echo "Page de paiement<br/>";
-    echo "A IMPLEMENTER";
+    ControllerFactory::getController("shop", $loader, $twig)->call("showCheckout");
     exit;
-});
+}, 'player');
 
 $router->post('/shop/basket/checkout', function () {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
-    echo "Traitement du paiement<br/>";
-    echo "A IMPLEMENTER";
     exit;
-});
+}, 'player');
+
+$router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) {
+    ControllerFactory::getController("shop", $loader, $twig)->call("checkPaymentRequirement", array($_POST));
+    exit;
+}, 'player');
 
 $router->get('/register', function () {
     echo "Page d'inscription<br/>";
@@ -156,77 +117,55 @@ $router->post('/register', function () {
 });
 
 $router->get('/forgot-password', function () use ($loader, $twig) {
-    if (isset($_SESSION['uuid'])) {
-        header('Location: /');
-        exit;
-    }
     ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
     exit;
-});
+}, 'guest');
 
 $router->post('/forgot-password', function () use ($loader, $twig) {
-    if (isset($_SESSION['uuid'])) {
-        header('Location: /');
-        exit;
-    }
     ControllerFactory::getController("auth", $loader, $twig)->call("sendResetPasswordLink", ["email" => $_POST['email']]);
     exit;
-});
+}, 'guest');
 
 $router->get('/reset-password/:token', function (string $token) use ($loader, $twig) {
-    if (isset($_SESSION['uuid'])) {
-        header('Location: /');
-        exit;
-    }
     ControllerFactory::getController("auth", $loader, $twig)->call("showResetPasswordPage", ["token" => $token]);
     exit;
-});
+}, 'guest');
 
 $router->post('/reset-password/:token', function (string $token) use ($loader, $twig) {
-    if (isset($_SESSION['uuid'])) {
-        header('Location: /');
-        exit;
-    }
     ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
         "token" => $token,
         "password" => $_POST['password'],
         "passwordConfirm" => $_POST['passwordConfirm']
     ]);
     exit;
-});
+}, 'guest');
 
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     ControllerFactory::getController("profile", $loader, $twig)->call("showByPlayer", ["playerUuid" => $uuid]);
     exit;
-});
+}, 'player');
 
 $router->put('/profile', function () {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     echo "Mise à jour du profil<br/>";
     echo "A IMPLEMENTER";
     exit;
 });
 
 $router->get('/invoice/:id', function ($id) use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     ControllerFactory::getController("shop", $loader, $twig)->call("showInvoice", ["invoiceId" => $id]);
-});
+}, 'player');
 
 $router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
     ControllerFactory::getController("profile", $loader, $twig)->call("disableAccount", ["uuid" => $uuid]);
+    exit;
+}, 'player');
+
+$router->post('/', function () use ($loader, $twig) {
+    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", ["suggestion" => $_POST['suggestion']]);
+    exit;
+}, 'player');
+
+$router->get('/cgu', function () use ($loader, $twig) {
+    ControllerFactory::getController("policy", $loader, $twig)->call("showCgu");
     exit;
 });

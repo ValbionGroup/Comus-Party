@@ -46,8 +46,8 @@ class ControllerGame extends Controller
     public function showHomePage()
     {
         $gameManager = new GameDAO($this->getPdo());
-        $games = $gameManager->findAll();
-        $template = $this->getTwig()->load('home.twig');
+        $games = $gameManager->findAllWithTags();
+        $template = $this->getTwig()->load('player/home.twig');
         echo $template->render(array(
             "games" => $games
         ));

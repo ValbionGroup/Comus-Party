@@ -30,6 +30,8 @@
     "twig/intl-extra": "^3.13",
     "twig/twig": "^3.14",
     "phpmailer/phpmailer": "^6.9",
+    "siniliote-twig/date-extra": "^3.4",
+    "symfony/translation-contracts": "^3.5",
     "cboden/ratchet": "^0.4.4"
   },
   "require-dev": {

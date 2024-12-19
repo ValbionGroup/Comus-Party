@@ -10,6 +10,7 @@
 namespace ComusParty\Models;
 
 use DateTime;
+use Exception;
 use PDO;
 
 /**
@@ -61,6 +62,7 @@ class GameDAO
      *
      * @param int $id L'identifiant du jeu
      * @return Game|null L'objet Game correspondant à l'identifiant ou null
+     * @throws Exception
      */
     public function findById(int $id): ?Game
     {
@@ -82,6 +84,7 @@ class GameDAO
      * @brief Hydrate un d'objet Game à partir d'un tableau de jeux de la table game passé en paramètre
      *
      * @return Game Un objet Game
+     * @throws Exception
      */
     public function hydrate(array $gameTab): Game
     {
@@ -93,6 +96,7 @@ class GameDAO
         $game->setState($this->transformState($gameTab['state']));
         $game->setCreatedAt(new DateTime($gameTab['created_at']));
         $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
+        $game->setTags($gameTab['tags'] ?? null);
         return $game;
     }
 
@@ -143,4 +147,25 @@ class GameDAO
         return $games;
     }
 
+    /**
+     * @brief Retourne un tableau d'objets Game à partir de la table game avec leurs tags associés
+     * @return array Le tableau d'objets Game
+     */
+    public function findAllWithTags(): array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT g.*, GROUP_CONCAT(t.name) as tags
+            FROM ' . DB_PREFIX . 'game g
+            JOIN ' . DB_PREFIX . 'tagged tg ON g.id = tg.game_id
+            JOIN ' . DB_PREFIX . 'tag t ON tg.tag_id = t.id
+            GROUP BY g.id;');
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $gamesTab = $stmt->fetchAll();
+        $gamesTab = array_map(function ($game) {
+            $game['tags'] = explode(',', $game['tags']);
+            return $game;
+        }, $gamesTab);
+        return $this->hydrateMany($gamesTab);
+    }
 }

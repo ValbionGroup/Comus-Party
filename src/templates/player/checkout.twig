@@ -1,0 +1,307 @@
+{% extends "/layouts/base.twig" %}
+
+{% block title %}Paiement{% endblock %}
+
+{% block layout %}
+
+    <header class="w-full sm:h-16 h-24">
+        <nav class="sm:grid sm:grid-cols-6 flex flex-col justify-center items-center h-full gap-y-4 m-2">
+            <a href="/" class="sm:col-span-2 text-lavender-blush-1">Comus-Party</a>
+            <div class="col-span-2">
+                <ul class="flex gap-2 justify-center items-center">
+                    <li class="flex items-center w-full after:border-b after:border-1 after:mx-2 after:my-0 after:hidden after:border-white after:w-full sm:after:inline-block after:content-['']">
+                        <a href="/shop/basket">
+                            <span class="flex gap-2 after:content-['>'] after:mx-2 text-lavender-blush-1 after:text-white sm:after:hidden after:text-2xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em"
+                                     viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                          d="M12 3a9 9 0 1 0 9 9v-1h2v1c0 6.075-4.925 11-11 11S1 18.075 1 12S5.925 1 12 1c1.498 0 2.928.3 4.232.844l.923.385l-.77 1.846l-.923-.385A9 9 0 0 0 12 3m11.414 1.5L12 15.914L6.086 10L7.5 8.586l4.5 4.5l10-10z"/>
+                                </svg>
+                                Panier
+                            </span>
+                        </a>
+                    </li>
+                    <li class="flex items-center w-full after:border-b after:border-1 after:mx-2 after:my-0 after:hidden after:border-white after:opacity-50 after:h-1 after:w-full sm:after:inline-block after:content-['']">
+                        <a href="/shop/basket/checkout">
+                            <span class="flex gap-2 text-lavender-blush-1 after:content-['>'] sm:after:hidden after:opacity-50 after:text-2xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em"
+                                     viewBox="0 0 24 24"><circle cx="4" cy="12" r="3" fill="currentColor"><animate
+                                                id="svgSpinners3DotsBounce0" attributeName="cy"
+                                                begin="0;svgSpinners3DotsBounce1.end+0.25s" calcMode="spline" dur="0.6s"
+                                                keySplines=".33,.66,.66,1;.33,0,.66,.33" values="12;6;12"/></circle><circle
+                                            cx="12" cy="12" r="3" fill="currentColor"><animate attributeName="cy"
+                                                                                               begin="svgSpinners3DotsBounce0.begin+0.1s"
+                                                                                               calcMode="spline"
+                                                                                               dur="0.6s"
+                                                                                               keySplines=".33,.66,.66,1;.33,0,.66,.33"
+                                                                                               values="12;6;12"/></circle><circle
+                                            cx="20" cy="12" r="3" fill="currentColor"><animate
+                                                id="svgSpinners3DotsBounce1" attributeName="cy"
+                                                begin="svgSpinners3DotsBounce0.begin+0.2s" calcMode="spline" dur="0.6s"
+                                                keySplines=".33,.66,.66,1;.33,0,.66,.33"
+                                                values="12;6;12"/></circle></svg>
+                                Paiement
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="flex gap-2 opacity-50 text-lavender-blush-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em"
+                                     viewBox="0 0 32 32"><path fill="currentColor"
+                                                               d="M16 4C9.383 4 4 9.383 4 16s5.383 12 12 12s12-5.383 12-12S22.617 4 16 4m0 2c5.535 0 10 4.465 10 10s-4.465 10-10 10S6 21.535 6 16S10.465 6 16 6m0 4c-2.2 0-4 1.8-4 4h2c0-1.117.883-2 2-2s2 .883 2 2a1.78 1.78 0 0 1-1.219 1.688l-.406.124A2.02 2.02 0 0 0 15 17.72V19h2v-1.281l.406-.125A3.81 3.81 0 0 0 20 14c0-2.2-1.8-4-4-4m-1 10v2h2v-2z"/></svg>
+                                Finalisation
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="bg-lavender-blush-base dark:bg-night-base flex flex-grow opacity-90 h-full overflow-auto">
+        <form id="checkoutForm" action="/shop/basket/checkout/confirm" method="post"
+              class="grid sm:grid-cols-3 grid-cols-1 w-full sm:mx-20 mx-0 mt-16 group" novalidate>
+            <div class="col-span-2 grid-rows-4 h-full sm:m x-10 mx-4 gap-4">
+                <div class="row-span-1 mb-20">
+                    <h1 class="font-sans text-2xl">Adresse de facturation</h1>
+                    <div class="flex flex-col gap-5 mt-5">
+                        <div class="flex justify-between gap-4">
+                            <label for="name" class="w-full">
+                                <span>Nom complet</span>
+                                <input type="text" id="nom" value="" placeholder="Doe John"
+                                       class="input h-10 w-full mt-2 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                       pattern="^[A-Za-zÀ-ÿ]+(-[A-Za-zÀ-ÿ]+)*\s+[A-Za-zÀ-ÿ]+(-[A-Za-zÀ-ÿ]+)*$" required>
+                                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                    Veuillez entrer un nom valide
+                                </span>
+                            </label>
+                            <label for="adress" class="w-full flex flex-col relative">
+                                <span>Adresse</span>
+                                <input type="text" id="adresse" value="" placeholder="Adresse"
+                                       class="input h-10 w-full mt-2">
+                            </label>
+                        </div>
+                        <label for="complement">
+                            <span>Complément d'adresse</span>
+                            <input type="text" id="complement" value="" placeholder="Complément"
+                                   class="input h-10 w-full mt-2">
+                        </label>
+                        <div class="flex justify-between gap-4">
+                            <label for="city" class="w-full">
+                                <span>Ville</span>
+                                <input type="text" id="city" value="" placeholder="Ville"
+                                       class="input h-10 w-full mt-2">
+                            </label>
+                            <label for="zipCode" class="w-full">
+                                <span>Code Postal</span>
+                                <input type="text" id="zipCode" value="" placeholder="Code Postal"
+                                       class="input h-10 w-full mt-2 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                       oninput="formatZipCode(this)" pattern=".{5}" maxlength="5" required>
+                                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                    Veuillez entrer un code postal valide
+                                </span>
+                            </label>
+                            <label for="country" class="w-full">
+                                <span>Pays</span>
+                                <input type="text" id="country" value="" placeholder="Pays"
+                                       class="input h-10 w-full mt-2">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-span-3">
+                    <h1 class="font-sans text-2xl">Méthode de paiement</h1>
+                    <div class="flex flex-col mt-3 gap-3 sm:mb-52 mb-20">
+
+                        <!-- Carte bancaire -->
+
+                        <div class="rounded-lg ">
+                            <input type="radio" id="toggleCC" name="togglePayment" class="peer hidden">
+                            <label for="toggleCC" class="flex w-full h-auto p-3 bg-lavender-blush-2 dark:bg-night-2 rounded-lg justify-between items-center gap-5 cursor-pointer
+                                                        peer-checked:rounded-b-none transition-all duration-500 ease-in-out">
+                                <p class="">Carte bancaire</p>
+                                <div class="bg-white rounded-lg ml-3 w-28">
+                                    <svg class="h-10 p-2" viewBox="0 0 793 200" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_175_135)">
+                                            <path d="M160.673 157.818H130.637L149.424 41.6545H179.458L160.673 157.818Z"
+                                                  fill="#00579F"/>
+                                            <path d="M269.557 44.4944C263.632 42.144 254.236 39.5489 242.617 39.5489C212.955 39.5489 192.067 55.366 191.939 77.9798C191.693 94.6642 206.894 103.931 218.263 109.494C229.884 115.179 233.834 118.889 233.834 123.956C233.716 131.738 224.444 135.326 215.796 135.326C203.805 135.326 197.379 133.476 187.615 129.147L183.66 127.291L179.456 153.367C186.501 156.576 199.48 159.424 212.955 159.549C244.471 159.549 264.989 143.977 265.232 119.878C265.352 106.654 257.325 96.5218 240.02 88.242C229.514 82.9269 223.081 79.343 223.081 73.9048C223.204 68.9609 228.522 63.8971 240.381 63.8971C250.146 63.6491 257.32 65.9962 262.755 68.345L265.472 69.5785L269.557 44.4944Z"
+                                                  fill="#00579F"/>
+                                            <path d="M309.477 116.665C311.951 109.992 321.469 84.1637 321.469 84.1637C321.344 84.4117 323.938 77.3671 325.421 73.0424L327.52 83.0518C327.52 83.0518 333.208 110.857 334.443 116.665C329.749 116.665 315.41 116.665 309.477 116.665ZM346.553 41.6545H323.32C316.156 41.6545 310.712 43.7536 307.621 51.2926L263.006 157.816H294.522C294.522 157.816 299.711 143.479 300.826 140.391C304.284 140.391 334.942 140.391 339.39 140.391C340.252 144.469 342.974 157.816 342.974 157.816H370.785L346.553 41.6545Z"
+                                                  fill="#00579F"/>
+                                            <path d="M105.549 41.6545L76.1341 120.867L72.9198 104.802C67.4815 86.2645 50.426 66.1243 31.3928 56.1101L58.3362 157.695H90.0986L137.31 41.6545H105.549Z"
+                                                  fill="#00579F"/>
+                                            <path d="M48.8196 41.6545H0.494386L0 44.0017C37.6967 53.6414 62.6625 76.8776 72.9198 104.806L62.4145 51.4191C60.6849 44 55.3698 41.8993 48.8196 41.6545Z"
+                                                  fill="#FAA61A"/>
+                                        </g>
+                                        <path d="M675.166 21.2951H588.053V177.803H675.166V21.2951Z" fill="#FF5A00"/>
+                                        <path d="M593.852 99.549C593.852 67.7513 608.8 39.5296 631.738 21.2951C614.857 8.02191 593.562 0 570.334 0C515.308 0 470.785 44.5232 470.785 99.549C470.785 154.575 515.308 199.098 570.334 199.098C593.562 199.098 614.857 191.076 631.738 177.803C608.768 159.826 593.852 131.347 593.852 99.549Z"
+                                              fill="#EB001B"/>
+                                        <path d="M792.692 99.549C792.692 154.575 748.169 199.098 693.143 199.098C669.915 199.098 648.62 191.076 631.738 177.803C654.966 159.536 669.625 131.347 669.625 99.549C669.625 67.7513 654.676 39.5296 631.738 21.2951C648.587 8.02191 669.882 0 693.111 0C748.169 0 792.692 44.8131 792.692 99.549Z"
+                                              fill="#F79E1B"/>
+                                        <defs>
+                                            <clipPath id="clip0_175_135">
+                                                <rect width="370.785" height="120" fill="white"
+                                                      transform="translate(0 39.549)"/>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                            </label>
+
+                            <div class="max-h-0 peer-checked:max-h-full opacity-0 peer-checked:opacity-100 peer-checked:bg-lavender-blush-2 dark:peer-checked:bg-night-2 peer-checked:rounded-b-lg overflow-hidden
+                                        transition-all duration-1000 ease-in-out">
+                                <div class="flex flex-col gap-2 m-4">
+                                    <div class="w-full">
+                                        <label for="cardNumber">
+                                            <span>Numéro de la carte</span>
+                                            <input type="text" id="$cardNumber" name="cardNumber" pattern=".{19,}"
+                                                   maxlength="19" placeholder="1234 5678 9012 3456" inputmode="numeric"
+                                                   oninput="formatCardNumber(this)"
+                                                   class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                                   required>
+                                            <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                Veuillez entrer un numéro de carte valide
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="titulaireCC">
+                                            <span>Titulaire de la carte</span>
+                                            <input type="text" id="titulaireCC" name="titulaireCC"
+                                                   class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                                   placeholder="Doe John"
+                                                   pattern="^[A-Za-zÀ-ÿ]+(-[A-Za-zÀ-ÿ]+)*\s+[A-Za-zÀ-ÿ]+(-[A-Za-zÀ-ÿ]+)*$"
+                                                   required>
+                                            <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                    Veuillez entrer un nom valide
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="flex flex-col sm:flex-row gap-2 w-full">
+                                        <label for="expirationDate" class="w-full">
+                                            <span>Date d'expiration</span>
+                                            <input type="tel" id="expirationDate" name="expirationDate"
+                                                   class="input h-10 w-full invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
+                                                   placeholder="MM/YY" value="" pattern="^(0?[1-9]|1[0-2])/?[0-9]{0,2}$"
+                                                   maxlength="5" oninput="formatExpirationDate(this)" required>
+                                            <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                                                    Veuillez entrer une date valide
+                                            </span>
+                                        </label>
+
+                                        <label for="cvv" class="w-full">
+                                            <span>Cryptogramme</span>
+                                            <input type="tel" id="cvv" name="cvv"
+                                                   class="input h-10 w-full invalid:[&:not(:placeholder-shown)]:border-red-500 peer"
+                                                   oninput="formatCryptogram(this)" placeholder="123" pattern=".{3,}"
+                                                   maxlength="3" inputmode="numeric" required>
+                                            <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):invalid]:block">
+                                                    Veuillez entrer un cryptogramme valide
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Paypal -->
+
+                        <div class="rounded-lg hover:outline hover:outline-lavender-blush-2 dark:hover:outline-night-2">
+                            <input type="radio" id="togglePaypal" name="togglePayment" class="peer hidden">
+                            <label for="togglePaypal" class="flex w-full h-auto p-3 bg-lavender-blush-2 dark:bg-night-2 rounded-lg justify-between items-center gap-5 cursor-pointer
+                                                        peer-checked:rounded-b-none">
+                                <p class="">Paypal</p>
+                                <div class="bg-white rounded-lg ml-3 w-28 justify-center flex">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="h-10 p-2"
+                                         viewBox="0 0 170 48">
+                                        <g clip-path="url(#a)">
+                                            <path fill="#003087"
+                                                  d="M62.56 28.672a10.111 10.111 0 0 0 9.983-8.56c.78-4.967-3.101-9.303-8.6-9.303H55.08a.689.689 0 0 0-.69.585l-3.95 25.072a.643.643 0 0 0 .634.742h4.69a.689.689 0 0 0 .688-.585l1.162-7.365a.689.689 0 0 1 .689-.586h4.257Zm3.925-8.786c-.29 1.836-1.709 3.189-4.425 3.189h-3.474l1.053-6.68h3.411c2.81.006 3.723 1.663 3.435 3.496v-.005Zm26.378-1.18H88.41a.69.69 0 0 0-.69.585l-.144.924s-3.457-3.775-9.575-1.225c-3.51 1.461-5.194 4.48-5.91 6.69 0 0-2.277 6.718 2.87 10.417 0 0 4.771 3.556 10.145-.22l-.093.589a.642.642 0 0 0 .634.742h4.451a.689.689 0 0 0 .69-.585l2.708-17.175a.643.643 0 0 0-.634-.742Zm-6.547 9.492a4.996 4.996 0 0 1-4.996 4.276 4.513 4.513 0 0 1-1.397-.205c-1.92-.616-3.015-2.462-2.7-4.462a4.996 4.996 0 0 1 5.014-4.277c.474-.005.946.065 1.398.206 1.913.614 3.001 2.46 2.686 4.462h-.005Z"/>
+                                            <path fill="#0070E0"
+                                                  d="M126.672 28.672a10.115 10.115 0 0 0 9.992-8.56c.779-4.967-3.101-9.303-8.602-9.303h-8.86a.69.69 0 0 0-.689.585l-3.962 25.079a.637.637 0 0 0 .365.683.64.64 0 0 0 .269.06h4.691a.69.69 0 0 0 .689-.586l1.163-7.365a.688.688 0 0 1 .689-.586l4.255-.007Zm3.925-8.786c-.29 1.836-1.709 3.189-4.426 3.189h-3.473l1.054-6.68h3.411c2.808.006 3.723 1.663 3.434 3.496v-.005Zm26.377-1.18h-4.448a.69.69 0 0 0-.689.585l-.146.924s-3.456-3.775-9.574-1.225c-3.509 1.461-5.194 4.48-5.911 6.69 0 0-2.276 6.718 2.87 10.417 0 0 4.772 3.556 10.146-.22l-.093.589a.637.637 0 0 0 .365.683c.084.04.176.06.269.06h4.451a.686.686 0 0 0 .689-.586l2.709-17.175a.657.657 0 0 0-.148-.518.632.632 0 0 0-.49-.224Zm-6.546 9.492a4.986 4.986 0 0 1-4.996 4.276 4.513 4.513 0 0 1-1.399-.205c-1.921-.616-3.017-2.462-2.702-4.462a4.996 4.996 0 0 1 4.996-4.277c.475-.005.947.064 1.399.206 1.933.614 3.024 2.46 2.707 4.462h-.005Z"/>
+                                            <path fill="#003087"
+                                                  d="m109.205 19.131-5.367 9.059-2.723-8.992a.69.69 0 0 0-.664-.492h-4.842a.516.516 0 0 0-.496.689l4.88 15.146-4.413 7.138a.517.517 0 0 0 .442.794h5.217a.858.858 0 0 0 .741-.418l13.632-22.552a.516.516 0 0 0-.446-.789h-5.215a.858.858 0 0 0-.746.417Z"/>
+                                            <path fill="#0070E0"
+                                                  d="m161.982 11.387-3.962 25.079a.637.637 0 0 0 .365.683c.084.04.176.06.269.06h4.689a.688.688 0 0 0 .689-.586l3.963-25.079a.637.637 0 0 0-.146-.517.645.645 0 0 0-.488-.225h-4.69a.69.69 0 0 0-.689.585Z"/>
+                                            <path fill="#001C64"
+                                                  d="M37.146 22.26c-1.006 5.735-5.685 10.07-11.825 10.07h-3.898c-.795 0-1.596.736-1.723 1.55l-1.707 10.835c-.099.617-.388.822-1.013.822h-6.27c-.634 0-.784-.212-.689-.837l.72-7.493-7.526-.389c-.633 0-.862-.345-.772-.977l5.135-32.56c.099-.617.483-.882 1.106-.882h13.023c6.269 0 10.235 4.22 10.72 9.692 3.73 2.52 5.474 5.873 4.72 10.168Z"/>
+                                            <path fill="#0070E0"
+                                                  d="m12.649 25.075-1.907 12.133-1.206 7.612a1.034 1.034 0 0 0 1.016 1.19h6.622a1.27 1.27 0 0 0 1.253-1.072l1.743-11.06a1.27 1.27 0 0 1 1.253-1.071h3.898A12.46 12.46 0 0 0 37.617 22.26c.675-4.307-1.492-8.228-5.201-10.165a9.96 9.96 0 0 1-.12 1.37 12.461 12.461 0 0 1-12.295 10.54h-6.1a1.268 1.268 0 0 0-1.252 1.07Z"/>
+                                            <path fill="#003087"
+                                                  d="M10.741 37.208H3.03a1.035 1.035 0 0 1-1.018-1.192L7.208 3.072A1.268 1.268 0 0 1 8.46 2H21.7c6.269 0 10.827 4.562 10.72 10.089a11.567 11.567 0 0 0-5.399-1.287H15.983a1.27 1.27 0 0 0-1.254 1.071l-2.08 13.202-1.908 12.133Z"/>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="a">
+                                                <path fill="#fff" d="M0 0h166v44.01H0z" transform="translate(2 2)"/>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                            </label>
+
+                            <div class="max-h-0 overflow-hidden opacity-0
+                                        peer-checked:max-h-full peer-checked:opacity-100
+
+                                        bg-lavender-blush-2 dark:bg-night-2 rounded-b-lg">
+                                <div class="p-4">
+                                    <p>Connectez-vous à votre compte Paypal</p>
+                                    <button class="btn-primary w-full mt-4">
+                                        Se connecter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col h-auto">
+                <h1 class="font-sans text-2xl sm:ml-0 ml-5 ">Résumé</h1>
+                <div class="flex-col sm:mx-5 mx-4 bg-lavender-blush-2 dark:bg-night-2 rounded-lg mt-3 gap-2 sm:mb-0 mb-52">
+                    <div class="mx-2">
+                        <ul>
+                            {% for article in articles %}
+                                <li class="flex gap-2 w-full border-b border-lavender-blush-3 dark:border-night-3 my-2 pb-1 article"
+                                    id="{{ article.id }}">
+                                    <div class="w-20">
+                                        <img src="" alt="article">
+                                    </div>
+                                    <div class="flex flex-col gap-2 w-full">
+                                        <div class="flex justify-between w-full">
+                                            <div class="flex flex-col">
+                                                <p>{{ article.name }}</p>
+                                                <p> {% if article.type == enum('ComusParty\\Models\\ArticleType').Banner %} Bannière {% endif %}
+                                                    {% if article.type == enum('ComusParty\\Models\\ArticleType').ProfilePicture %} Photo de profile {% endif %}</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <p class="articlePrice">{{ article.priceEuro }}€</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex justify-end my-2 gap-2">
+                            <p class="text-xl"><strong>Total: </strong></p>
+                            <p id="total" class="text-xl">-</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col m-2">
+                        <input type="submit" id="submit"
+                               class="w-full btn-primary group-invalid:pointer-events-none group-invalid:opacity-30"
+                               value="Payer">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </main>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="/assets/js/checkout.js"></script>
+{% endblock %}
