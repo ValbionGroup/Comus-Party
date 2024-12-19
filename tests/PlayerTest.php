@@ -11,6 +11,7 @@ require_once __DIR__ . '/../include.php';
 
 use ComusParty\Models\Player;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @brief Classe PlayerTest
  * @details La classe PlayerTest permet de tester les méthodes de la classe Player

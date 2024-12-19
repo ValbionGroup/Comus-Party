@@ -9,9 +9,9 @@
 require_once __DIR__ . '/../include.php';
 
 use ComusParty\Models\Db;
-use PDO;
 use ComusParty\Models\PlayerDAO;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @brief Classe PlayerDAOTest
  * @details La classe PlayerDAOTest permet de tester les méthodes de la classe PlayerDAO
