@@ -140,8 +140,7 @@ class ControllerBasket extends Controller
                     'success' => true,
                     'message' => "Article supprimé du panier !",
                     'priceEuroArticle' => $priceEuroArticle,
-                    'numberArticlesInBasket' => $numberArticlesInBasket
-
+                    'numberArticlesInBasket' => $numberArticlesInBaskets
                 ]);
             } else {
                 echo json_encode([
