@@ -10,6 +10,7 @@
 use ComusParty\Models\Db;
 use ComusParty\Models\Suggestion;
 use ComusParty\Models\SuggestionDAO;
+use ComusParty\Models\SuggestObject;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../include.php';
@@ -33,8 +34,11 @@ class SuggestionDAOTest extends TestCase
     public function testCreateWithExistantUuid(): void
     {
         $suggestion = new Suggestion(
+            object: SuggestObject::BUG,
             content: 'TestContent',
-            authorUuid: 'uuid1'
+            authorUuid: 'uuid1',
+            authorUsername: 'username1',
+            createdAt: new DateTime('now')
         );
         $this->assertTrue($this->suggestionDAO->create($suggestion));
     }
@@ -46,8 +50,11 @@ class SuggestionDAOTest extends TestCase
     public function testCreateWithNonExistantUuid(): void
     {
         $suggestion = new Suggestion(
+            object: SuggestObject::BUG,
             content: 'TestContent',
-            authorUuid: 'uuid69'
+            authorUuid: 'uuid69',
+            authorUsername: 'username1',
+            createdAt: new DateTime('now')
         );
         $this->expectException(PDOException::class);
         $this->suggestionDAO->create($suggestion);
@@ -60,11 +67,30 @@ class SuggestionDAOTest extends TestCase
     public function testCreateWithNullUuid(): void
     {
         $suggestion = new Suggestion(
+            object: SuggestObject::BUG,
             content: 'TestContent',
-            authorUuid: null
+            authorUuid: null,
+            authorUsername: 'username1',
+            createdAt: new DateTime('now')
         );
         $this->expectException(PDOException::class);
         $this->suggestionDAO->create($suggestion);
+    }
+
+    /**
+     * @brief Test de la méthode create avec un username null
+     * @return void
+     */
+    public function testCreateWithNullUsername(): void
+    {
+        $suggestion = new Suggestion(
+            object: SuggestObject::BUG,
+            content: 'TestContent',
+            authorUuid: 'uuid1',
+            authorUsername: null,
+            createdAt: new DateTime('now')
+        );
+        $this->assertTrue($this->suggestionDAO->create($suggestion));
     }
 
     /**

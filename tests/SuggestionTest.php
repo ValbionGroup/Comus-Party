@@ -10,6 +10,7 @@
 require_once __DIR__ . '/../include.php';
 
 use ComusParty\Models\Suggestion;
+use ComusParty\Models\SuggestObject;
 use PHPUnit\Framework\TestCase;
 
 class SuggestionTest extends TestCase
@@ -53,8 +54,13 @@ class SuggestionTest extends TestCase
     protected function setUp(): void
     {
         $this->suggestion = new Suggestion(
+            id: 1,
+            object: SuggestObject::BUG,
             content: 'Ajouter une interface dynamique',
             authorUuid: 'uuid1',
+            authorUsername: 'username1',
+            createdAt: new DateTime('now'),
+            treatedBy: 'moderator1'
         );
     }
 }
