@@ -136,7 +136,7 @@ class ControllerBasket extends Controller
                 $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => true,
-                    'message' => "Article supprimé du basket !",
+                    'message' => "Article supprimé du panier !",
                     'priceEuroArticle' => $priceEuroArticle,
                     'numberArticlesInBasket' => $numberArticlesInBasket
 
@@ -144,7 +144,7 @@ class ControllerBasket extends Controller
             } else {
                 echo json_encode([
                     'success' => false,
-                    'message' => "L'article n'est pas dans le basket."
+                    'message' => "L'article n'est pas dans le panier."
                 ]);
 
             }
