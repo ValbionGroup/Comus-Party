@@ -212,7 +212,7 @@ function showModalBanner(article) {
                 }
                 // Préparer la notification si l'article a été supprimé du basket
                 if (response.success) {
-                    notificationMessage.textContent = "Article ajouté au basket"
+                    notificationMessage.textContent = "Article ajouté au panier"
                     notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";   if(response.numberArticlesInBasket > 0){
                     }
                 } else {
