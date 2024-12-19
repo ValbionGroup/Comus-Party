@@ -41,7 +41,8 @@ function denySuggest(e) {
     // Gérer la réponse du serveur
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText)
+            let response = JSON.parse(xhr.responseText);
+            console.log(response);
             if (response.success) {
                 closeModal();
                 location.reload();

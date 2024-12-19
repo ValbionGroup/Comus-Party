@@ -44,4 +44,22 @@ class ControllerDashboard extends Controller
             "suggestions" => $suggestions
         ));
     }
+
+    public function denySuggestion($id)
+    {
+        $suggestsManager = new SuggestionDAO($this->getPdo());
+        if ($suggestsManager->deny($id)) {
+            echo json_encode([
+                'success' => true,
+                'message' => "Suggestion rejetée avec succès !",
+            ]);
+            exit;
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => "Erreur lors du rejet de la suggestion",
+            ]);
+            exit;
+        }
+    }
 }

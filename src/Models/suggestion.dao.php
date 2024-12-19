@@ -135,4 +135,18 @@ class SuggestionDAO
         $suggestion->setAuthorUsername($data['username']);
         return $suggestion;
     }
+
+    /**
+     * @brief Modifie l'attribut accepted d'une suggestion en base de données et retourne le résultat de l'exécution
+     * @param int|null $id L'identifiant de la suggestion
+     * @return bool Résultat de l'exécution
+     */
+    public function deny($id): bool
+    {
+        $stmt = $this->pdo->prepare('UPDATE ' . DB_PREFIX . 'suggestion SET treated_by = :treated_by WHERE id = :id');
+        $stmt->bindParam(':treated_by', $_SESSION['uuid']);
+        $stmt->bindParam(':id', $id);
+
+        return $stmt->execute();
+    }
 }
