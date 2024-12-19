@@ -1,7 +1,7 @@
 /**
  * @file    basket.js
  * @author  Mathis Rivrais--Nowakowski
- * @brief   Le fichier contient le JS nécessaire au bon fonctionnement de la page basket
+ * @brief   Le fichier contient le JS nécessaire au bon fonctionnement de la page panier
  * @date    14/11/2024
  * @version 0.4
  */
@@ -16,8 +16,8 @@ let subTotalBasket = document.getElementById("subTotalBasket")
 let paymentBtn = document.getElementById("paymentBtn")
 
 /**
- ** @brief Vérifie le contenu du basket
- ** @details Si le basket ne contient aucun article, affiche un message indiquant que celui-ci est vide.
+ ** @brief Vérifie le contenu du panier
+ ** @details Si le panier ne contient aucun article, affiche un message indiquant que celui-ci est vide.
  */
 
 function testArticleInBasket(){
@@ -34,7 +34,7 @@ function testArticleInBasket(){
 }
 testArticleInBasket()
 /**
- * @brief Permet de supprimer un article du basket
+ * @brief Permet de supprimer un article du panier
  */
 removeButtons.forEach(button => {
     button.addEventListener('click', function () {
@@ -43,7 +43,7 @@ removeButtons.forEach(button => {
         const parentDiv = this.parentElement.parentElement;
         parentDiv.remove();
         testArticleInBasket()
-        notificationMessage.textContent = "Article retiré du basket"
+        notificationMessage.textContent = "Article retiré du panier"
         notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
         // Afficher la notification
         notification.classList.remove('opacity-0', 'scale-90');
@@ -59,7 +59,7 @@ removeButtons.forEach(button => {
 });
 
 /**
- * @brief Permet de supprimer un article du basket dans la base de données ainsi que de mettre à jour le prix
+ * @brief Permet de supprimer un article du panier dans la base de données ainsi que de mettre à jour le prix
  *  @param id L'id de l'article qu'il faut supprimer
  */
 function removeArticle(id){
