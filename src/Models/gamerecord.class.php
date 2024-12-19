@@ -121,6 +121,17 @@ class GameRecord
     }
 
     /**
+     * @brief Setter de l'attribut uuid
+     *
+     * @param string $uuid Identifiant de la partie
+     * @return void
+     */
+    public function setUuid(string $uuid): void
+    {
+        $this->uuid = $uuid;
+    }
+
+    /**
      * @brief Getter de l'attribut game
      *
      * @return Game Jeu de la partie
@@ -131,6 +142,17 @@ class GameRecord
     }
 
     /**
+     * @brief Setter de l'attribut game
+     *
+     * @param Game $game Jeu de la partie
+     * @return void
+     */
+    public function setGame(Game $game): void
+    {
+        $this->game = $game;
+    }
+
+    /**
      * @brief Getter de l'attribut hostedBy
      *
      * @return Player Joueur qui a créé la partie
@@ -138,6 +160,17 @@ class GameRecord
     public function getHostedBy(): Player
     {
         return $this->hostedBy;
+    }
+
+    /**
+     * @brief Setter de l'attribut hostedBy
+     *
+     * @param Player $player Joueur qui a créé la partie
+     * @return void
+     */
+    public function setHostedBy(Player $player): void
+    {
+        $this->hostedBy = $player;
     }
 
     /**
@@ -190,6 +223,17 @@ class GameRecord
     public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @brief Setter de l'attribut createdAt
+     *
+     * @param DateTime $createdAt Date de création de la partie
+     * @return void
+     */
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 
     /**
