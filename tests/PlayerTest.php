@@ -1,7 +1,7 @@
 <?php
 /**
  * @file PlayerTest.php
- * @brief Le fichier contient la déclaration et la définition de la classe Player
+ * @brief Le fichier contient la déclaration et la définition de la classe PlayerTest
  * @author Conchez-Boueytou Robin
  * @date 14/11/2024
  * @version 0.1

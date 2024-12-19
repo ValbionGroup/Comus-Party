@@ -1,7 +1,7 @@
 <?php
 /**
  * @file UserTest.php
- * @brief Le fichier contient la déclaration et la définition de la classe User
+ * @brief Le fichier contient la déclaration et la définition de la classe UserTest
  * @author Conchez-Boueytou Robin
  * @date 14/11/2024
  * @version 0.1
