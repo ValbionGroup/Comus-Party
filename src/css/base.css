@@ -17,6 +17,10 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     font-weight: 600;
 }
 
+.activePfp{
+    box-shadow: 0px 7px 15px 5px rgba(0, 0, 0, 0.5);
+
+}
 /* Fonts */
 
 @layer base {

@@ -29,10 +29,10 @@
             <!-- Avatar de profil -->
             <div class="col-span-2">
                 <div class="flex justify-center">
-                    <img class="rounded-full mb-4" width="150em" src="/assets/img/pfp/{{ pfp }}" alt="profile_picture">
+                    <img id="pfpPlayer" class="rounded-full mb-4" width="150em" src="/assets/img/pfp/{{ pfp }}" alt="profile_picture">
                 </div>
                 <div>
-                    <button class="flex gap-3 btn-primary items-center w-full justify-center">
+                    <button class="flex gap-3 btn-primary items-center w-full justify-center" onclick="showModalPfp()">
                         Modifier
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
                     </button>
@@ -44,13 +44,49 @@
                     <img class="rounded-2xl mb-4" src="/assets/img/banner/{{ banner }}" alt="banner">
                 </div>
                 <div>
-                    <button class="flex gap-3 btn-primary items-center w-full justify-center">
+                    <button class="flex gap-3 btn-primary items-center w-full justify-center" >
                         Modifier
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M20.131 3.16a3 3 0 0 0-4.242 0l-.707.708l4.95 4.95l.706-.707a3 3 0 0 0 0-4.243l-.707-.707Zm-1.414 7.072l-4.95-4.95l-9.09 9.091a1.5 1.5 0 0 0-.401.724l-1.029 4.455a1 1 0 0 0 1.2 1.2l4.456-1.028a1.5 1.5 0 0 0 .723-.401z"/></g></svg>
                     </button>
                 </div>
             </div>
 
+                <div id="modalPfp" class="modal z-50 flex flex-row absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-3xl  shadow-lg sm:w-2/3 sm:h-2/3 w-11/12 overflow-hidden hidden ">
+                    <!-- Section gauche : Liste des photos de profil -->
+                    <div class="sm:w-2/3 w-7/12 dark:bg-night-2 p-4 overflow-y-auto">
+                        <!-- Liste des photos -->
+                        <div class="flex">
+                            <div   class=" w-20 h-20 m-1 pfp cursor-pointer" onclick="infoArticlePfp({ id : '0', name : 'Photo de profil par défaut', description : 'La photo par défaut', filePath : 'default-pfp.jpg'})">
+                                <img id="defaultPfp" src="assets/img/pfp/default-pfp.jpg" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
+                            </div>
+                            {% if pfpsOwned %}
+                                <!-- Exemple de photo -->
+                                {% for pfp in pfpsOwned %}
+                                    <div  class=" w-20 h-20 m-1 cursor-pointer" onclick="infoArticlePfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', filePath : '{{ pfp.filePath }}'})">
+                                        <img id="{{ pfp.id }}" src="assets/img/pfp/{{ pfp.filePath }}" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- Section droite : Description -->
+                    <div class="sm:w-1/3 w-5/12 p-6 flex flex-col justify-center items-center relative dark:bg-night-3">
+                        <button class="absolute right-1 top-1 text-lavender-blush-base  transition duration-200"
+                                onclick="closeModal()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M16.066 8.995a.75.75 0 1 0-1.06-1.061L12 10.939L8.995 7.934a.75.75 0 1 0-1.06 1.06L10.938 12l-3.005 3.005a.75.75 0 0 0 1.06 1.06L12 13.06l3.005 3.006a.75.75 0 0 0 1.06-1.06L13.062 12z"/></svg>
+                        </button>
+                        <h2 id="pfpTitle" class="text-2xl font-semibold mb-4">Titre de la photo</h2>
+                        <p id="pfpDescription" class="text-gray-600 text-lg text-lavender-blush-base text-center mb-4">
+                            Passez la souris sur une photo pour voir la description.
+                        </p>
+                        <button
+                                id="equipButton"
+                                class="px-4 py-2 dark:bg-night-2 text-lavender-blush-base rounded shadow hover:bg-night-1 transition duration-200"
+                                onclick="equipArticlePfp()">
+                            Équiper
+                        </button>
+                    </div>
+                </div>
         </div>
 
         <div id="settings" class="hidden grid grid-cols-2 sm:grid-cols-7 lg:grid-cols-12 md:ml-20">
@@ -141,8 +177,9 @@
 
     </div>
 
-    <div onclick="closeModal()" id="backgroundModal" class="hidden fixed inset-0 bg-night-1 opacity-85 z-35"></div>
 
+
+    <div onclick="closeModal()" id="backgroundModal" class="hidden fixed inset-0 bg-night-1 opacity-85 z-10"></div>
     <div id="modalConfirmationSuppression"
          class="hidden w-full sm:w-1/2 bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl">
         <div class="modal-content m-2">
@@ -173,80 +210,8 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block scripts %}
-    <script language="JavaScript">
-        function afficher(section) {
-            let profileBtn = document.getElementById('btnProfile');
-            let settingsBtn = document.getElementById('btnSettings');
-            let statisticsBtn = document.getElementById('btnStatistics');
-
-            let profileBlock = document.getElementById('profile');
-            let settingsBlock = document.getElementById('settings');
-            let statisticsBlock = document.getElementById('statistics');
-
-            switch (section) {
-                case 'profile' :
-                    profileBlock.classList.remove("hidden");
-                    profileBtn.classList.add("active");
-                    profileBtn.classList.remove("hover:scale-105");
-
-                    settingsBlock.classList.add("hidden");
-                    settingsBtn.classList.remove("active");
-                    settingsBtn.classList.add("hover:scale-105");
-
-                    statisticsBlock.classList.add("hidden");
-                    statisticsBtn.classList.remove("active");
-                    statisticsBtn.classList.add("hover:scale-105");
-                    break;
-
-                case 'settings' :
-                    profileBlock.classList.add("hidden");
-                    profileBtn.classList.remove("active");
-                    profileBtn.classList.add("hover:scale-105");
-
-                    settingsBlock.classList.remove("hidden");
-                    settingsBtn.classList.add("active");
-                    settingsBtn.classList.remove("hover:scale-105");
-
-                    statisticsBlock.classList.add("hidden");
-                    statisticsBtn.classList.remove("active");
-                    statisticsBtn.classList.add("hover:scale-105");
-                    break;
-
-                case 'statistics' :
-                    profileBlock.classList.add("hidden");
-                    profileBtn.classList.remove("active");
-                    profileBtn.classList.add("hover:scale-105");
-
-                    settingsBlock.classList.add("hidden");
-                    settingsBtn.classList.remove("active");
-                    settingsBtn.classList.add("hover:scale-105");
-
-                    statisticsBlock.classList.remove("hidden");
-                    statisticsBtn.classList.add("active");
-                    statisticsBtn.classList.remove("hover:scale-105");
-                    break;
-
-                default :
-                    break;
-            }
-        }
-
-        function closeModal() {
-            let modal = document.getElementById('modalConfirmationSuppression');
-            let background = document.getElementById('backgroundModal');
-            modal.classList.add("hidden");
-            background.classList.add("hidden");
-        }
-
-        function showModalSuppression() {
-            let modal = document.getElementById('modalConfirmationSuppression');
-            let background = document.getElementById('backgroundModal');
-            modal.classList.remove("hidden");
-            background.classList.remove("hidden");
-        }
-    </script>
+<script src="/assets/js/profil.js"></script>
 {% endblock %}
