@@ -9,7 +9,9 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\SuggestionDAO;
+use Exception;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -49,16 +51,12 @@ class ControllerDashboard extends Controller
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         if ($suggestsManager->deny($id)) {
-            echo json_encode([
-                'success' => true,
-                'message' => "Suggestion rejetée avec succès !",
-            ]);
+            MessageHandler::addMessageParametersToSession("La suggestion a bien été refusée");
+            echo json_encode(['success' => true]);
             exit;
         } else {
-            echo json_encode([
-                'success' => false,
-                'message' => "Erreur lors du rejet de la suggestion",
-            ]);
+            MessageHandler::addExceptionParametersToSession(new Exception("Une erreur est survenue lors du refus de la suggestion"));
+            echo json_encode(['success' => false]);
             exit;
         }
     }
