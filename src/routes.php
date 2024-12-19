@@ -174,3 +174,8 @@ $router->put('/suggest/deny/:id', function ($id) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("denySuggestion", ["id" => $id]);
     exit;
 }, 'moderator');
+
+$router->get('/', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("showDashboard");
+    exit;
+}, 'moderator');
