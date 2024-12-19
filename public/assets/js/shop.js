@@ -1,7 +1,7 @@
 /**
  * @file    shop.js
  * @author  Mathis Rivrais--Nowakowski
- * @brief   Le fichier contient le JS nécessaire au bon fonctionnement de la page basket
+ * @brief   Le fichier contient le JS nécessaire au bon fonctionnement de la page panier
  * @date    14/11/2024
  * @version 0.4
  */
@@ -44,8 +44,8 @@ let numberArticlesInBasket = document.getElementById("numberArticlesInBasket")
 
 
 /**
- * @brief Permet de vérifier si des articles sont dans le basket.
- * @details Si ils y a des articles dans le basket alors le logo du basket est mis à jour à chaque fois que la page est raffraichie
+ * @brief Permet de vérifier si des articles sont dans le panier.
+ * @details Si ils y a des articles dans le panier alors le logo du panier est mis à jour à chaque fois que la page est raffraichie
  */
 
 function testArticleInBasket(){
