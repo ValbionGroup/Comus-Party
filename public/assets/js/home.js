@@ -56,7 +56,33 @@ function showModalSuggestion() {
 
 function showModalGame(e) {
     let gameId = e.parentNode.parentNode.id;
-    let modal = document.getElementById(`modalGame${gameId}`);
+    let modal = document.getElementById(`modalGame`);
+    let spanGameName = document.getElementById('spanGameName');
+    let spanGameDescription = document.getElementById('spanGameDescription');
+    let divGameTags = document.getElementById('divGameTags');
+
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `/game/informations/${gameId}`, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // Envoyer les données sous forme de paire clé=valeur
+    xhr.send();
+
+    // Gérer la réponse du serveur
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                spanGameName.innerText = response.game.name;
+                spanGameDescription.innerText = response.game.description;
+                divGameTags.innerHTML = "";
+                response.game.tags.forEach(tag => {
+                    divGameTags.innerHTML += `<p class="border-2 rounded-full border-blue-violet-base py-0.5 px-2 text-center">${tag}</p>`;
+                });
+            }
+        }
+    };
+
     modal.classList.remove("hidden");
     showBackgroundModal();
 }
