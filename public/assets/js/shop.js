@@ -108,7 +108,6 @@ function showModalPfp(article) {
     overlay.classList.add('opacity-100'); // Apparition de l'overlay
     modalWindowForPfp.classList.add('opacity-100'); // Apparition et glissement de la modale
     modalWindowForPfp.classList.remove('opacity-0'); // Retirer les classes d'animation de départ
-
     imgArticlePfp.src = ""
     imgArticlePfp.src = "assets/img/pfp/" + article.filePath
     nameArticlePfp.innerText = article.name
