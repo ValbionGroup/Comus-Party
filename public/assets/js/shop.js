@@ -228,7 +228,7 @@ function showModalBanner(article) {
                 // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
                 setTimeout(() => {
                     overlay.classList.add('hidden', 'opacity-0');
-                    this.parentElement.parentElement.parentElement.parentElement.classList.add('hidden', 'opacity-0', 'translate-y-4');
+                    modalWindowForBanner.classList.add('hidden', 'opacity-0', 'translate-y-4');
                 }, 300); // Durée de la transition
                 // Masquer la notification après 5 secondes
                 setTimeout(() => {
