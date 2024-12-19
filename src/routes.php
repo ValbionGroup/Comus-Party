@@ -161,7 +161,10 @@ $router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
 }, 'player');
 
 $router->post('/', function () use ($loader, $twig) {
-    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", ["suggestion" => $_POST['suggestion']]);
+    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", [
+        "object" => $_POST["object"],
+        "suggestion" => $_POST['suggestion']
+    ]);
     exit;
 }, 'player');
 
