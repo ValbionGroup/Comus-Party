@@ -73,9 +73,9 @@ function removeArticle(id){
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response =  JSON.parse(xhr.responseText)
-            let actualTotalPriceBasket = totalPriceBasket.textContent
+            let currentTotalPriceBasket = totalPriceBasket.textContent
             // Le parseint permet de récupérer que la valeur numérique du prix actuel du basket, c'est-à-dire sans le sigle "€"
-            totalPriceAfterDeletingArticle = parseFloat(actualTotalPriceBasket)  - response.priceEuroArticle;
+            totalPriceAfterDeletingArticle = parseFloat(currentTotalPriceBasket)  - response.priceEuroArticle;
             subTotalBasket.textContent = totalPriceAfterDeletingArticle +"€"
             totalPriceBasket.textContent = totalPriceAfterDeletingArticle+"€"
             if(response.numberArticlesInBasket === 0){
