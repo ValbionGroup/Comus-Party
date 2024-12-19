@@ -47,6 +47,11 @@ function showModalPfp() {
 }
 
 function closeModal() {
+    pfps.forEach(pfp =>{
+        if(pfp.classList.contains("activePfp")){
+            pfp.classList.remove("activePfp")
+        }
+    })
     modals.forEach(modal => {
         if (!modal.classList.contains("hidden")) {
             modal.classList.add("hidden");
