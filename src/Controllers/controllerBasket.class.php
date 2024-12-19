@@ -19,7 +19,7 @@ use Twig\Error\SyntaxError;
 
 
 /**
- * La classe ControllerBasket permet de faire le lien entre la vue et l'objet Basket
+ * La classe ControllerBasket permet de faire le lien entre la vue et l'objet panier
  */
 class ControllerBasket extends Controller
 {
@@ -34,7 +34,7 @@ class ControllerBasket extends Controller
     }
 
     /**
-     * @brief Affiche le basket avec la liste des articles (si article dans basket)
+     * @brief Affiche le panier avec la liste des articles (si article dans panier)
      * @return void
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
@@ -65,7 +65,7 @@ class ControllerBasket extends Controller
 
 
     /**
-     * @brief Permet d'ajouter un article au basket
+     * @brief Permet d'ajouter un article au panier
      *
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
@@ -114,7 +114,7 @@ class ControllerBasket extends Controller
 
 
     /**
-     * @brief Permet de supprimer un article du basket
+     * @brief Permet de supprimer un article du panier
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
