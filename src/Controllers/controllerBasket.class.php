@@ -89,7 +89,7 @@ class ControllerBasket extends Controller
 
                 echo json_encode([
                     'success' => true,
-                    'message' => "Article ajouté au basket !",
+                    'message' => "Article ajouté au panier !",
                     'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
 
@@ -97,7 +97,7 @@ class ControllerBasket extends Controller
                 $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => false,
-                    'message' => "L'article est déjà dans le basket.",
+                    'message' => "L'article est déjà dans le panier.",
                     'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
 
