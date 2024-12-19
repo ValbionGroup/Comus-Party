@@ -48,7 +48,7 @@ let numberArticlesInBasket = document.getElementById("numberArticlesInBasket")
  * @details Si ils y a des articles dans le basket alors le logo du basket est mis à jour à chaque fois que la page est raffraichie
  */
 
-function testArticleDansPanier(){
+function testArticleInBasket(){
     let nbrArticles = numberArticlesInBasket.textContent
     if(nbrArticles > 0){
         filledBasketLogo.classList.remove("hidden")
@@ -59,7 +59,7 @@ function testArticleDansPanier(){
         filledBasketLogo.classList.add("hidden")
     }
 }
-testArticleDansPanier()
+testArticleInBasket()
 
 
 closeModalBtnsClass.forEach(btn => {

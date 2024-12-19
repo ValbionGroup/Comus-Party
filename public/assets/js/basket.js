@@ -22,7 +22,7 @@ let paymentBtn = document.getElementById("paymentBtn")
 
 function testArticleInBasket(){
     let articles = document.querySelectorAll(".article")
-    if(articles.length === 0){
+    if(articles.length == 0){
         emptyBasket.classList.add("flex")
         emptyBasket.classList.remove("hidden")
 
@@ -42,7 +42,7 @@ removeButtons.forEach(button => {
         // Supprimer la div parente du bouton
         const parentDiv = this.parentElement.parentElement;
         parentDiv.remove();
-        testArticleDansPanier()
+        testArticleInBasket()
         notificationMessage.textContent = "Article retiré du basket"
         notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
         // Afficher la notification
@@ -73,12 +73,12 @@ function removeArticle(id){
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response =  JSON.parse(xhr.responseText)
-            let prixTotalPanierActuel = totalPriceBasket.textContent
+            let actualTotalPriceBasket = totalPriceBasket.textContent
             // Le parseint permet de récupérer que la valeur numérique du prix actuel du basket, c'est-à-dire sans le sigle "€"
-            prixTotalPanierApresSuppressionArticle = parseFloat(prixTotalPanierActuel)  - response.prixArticle;
-            subTotalBasket.textContent = prixTotalPanierApresSuppressionArticle +"€"
-            totalPriceBasket.textContent = prixTotalPanierApresSuppressionArticle+"€"
-            if(response.numberArticlesInBasket == 0){
+            totalPriceAfterDeletingArticle = parseFloat(actualTotalPriceBasket)  - response.priceEuroArticle;
+            subTotalBasket.textContent = totalPriceAfterDeletingArticle +"€"
+            totalPriceBasket.textContent = totalPriceAfterDeletingArticle+"€"
+            if(response.numberArticlesInBasket === 0){
                 paymentBtn.disabled = true
             }else{
                 paymentBtn.disabled = false

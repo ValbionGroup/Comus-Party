@@ -132,12 +132,12 @@ class ControllerBasket extends Controller
                 }
                 $managerArticle = new ArticleDAO($this->getPdo());
                 $article = $managerArticle->findById( $id_article );
-                $priceArticle = $article->getPriceEuro();
+                $priceEuroArticle = $article->getPriceEuro();
                 $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => true,
                     'message' => "Article supprimé du basket !",
-                    'priceArticle' => $priceArticle,
+                    'priceEuroArticle' => $priceEuroArticle,
                     'numberArticlesInBasket' => $numberArticlesInBasket
 
                 ]);
