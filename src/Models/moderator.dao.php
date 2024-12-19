@@ -62,26 +62,8 @@ class ModeratorDAO
      */
     public function findByUuid(string $uuid): ?Moderator
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .' moderator WHERE uuid = :uuid');
+        $stmt = $this->pdo->prepare('SELECT * FROM ' . DB_PREFIX . ' moderator WHERE uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $moderatorTab = $stmt->fetch();
-        if ($moderatorTab === false) {
-            return null;
-        }
-        return $this->hydrate($moderatorTab);
-    }
-    /**
-     * @brief Retourne un objet Moderator (ou null) à partir de l'ID utilisateur passé en paramètre
-     * @param int $userId L'ID de l'utilisateur du modérateur recherché
-     * @return Moderator|null Objet retourné par la méthode, ici un modérateur (ou null si non-trouvé)
-     * @throws DateMalformedStringException
-     */
-    public function findByUserId(int $userId): ?Moderator
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .'moderator WHERE user_id = :userId');
-        $stmt->bindParam(':userId', $userId);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $moderatorTab = $stmt->fetch();
@@ -107,6 +89,40 @@ class ModeratorDAO
         $moderator->setCreatedAt(new DateTime($data['created_at']));
         $moderator->setUpdatedAt(new DateTime($data['updated_at']));
         return $moderator;
+    }
+
+    /**
+     * @brief Retourne un objet Moderator (ou null) à partir de l'ID utilisateur passé en paramètre
+     * @param int $userId L'ID de l'utilisateur du modérateur recherché
+     * @return Moderator|null Objet retourné par la méthode, ici un modérateur (ou null si non-trouvé)
+     * @throws DateMalformedStringException
+     */
+    public function findByUserId(int $userId): ?Moderator
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM ' . DB_PREFIX . 'moderator WHERE user_id = :userId');
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $moderatorTab = $stmt->fetch();
+        if ($moderatorTab === false) {
+            return null;
+        }
+        return $this->hydrate($moderatorTab);
+    }
+
+    /**
+     * @brief Hydrate un tableau d'objets Moderator avec les valeurs des tableaux associatifs passés en paramètre
+     * @param array $data Le tableau associatif content les paramètres
+     * @return array L'objet retourné par la méthode, ici un tableau de modérateurs
+     * @throws DateMalformedStringException
+     */
+    public function hydrateMany(array $data): array
+    {
+        $moderators = [];
+        foreach ($data as $moderator) {
+            $moderators[] = $this->hydrate($moderator);
+        }
+        return $moderators;
     }
 
 }
