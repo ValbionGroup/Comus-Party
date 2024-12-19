@@ -73,7 +73,6 @@ function removeArticle(id){
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response =  JSON.parse(xhr.responseText)
-            console.log(response)
             let prixTotalPanierActuel = prixTotalPanier.textContent
             // Le parseint permet de récupérer que la valeur numérique du prix actuel du panier, c'est-à-dire sans le sigle "€"
             prixTotalPanierApresSuppressionArticle = parseFloat(prixTotalPanierActuel)  - response.prixArticle;

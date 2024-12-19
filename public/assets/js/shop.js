@@ -129,7 +129,6 @@ function showModalPfp(article) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response =  JSON.parse(xhr.responseText)
-                console.log(response)
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
@@ -204,7 +203,6 @@ function showModalBanner(article) {
             if (xhr.readyState === 4 && xhr.status === 200) {
 
                 let response =  JSON.parse(xhr.responseText)
-                console.log(response)
                 if(response.taillePanier > 0){
                     logoPanierRempli.classList.remove("hidden")
                     logoPanierVide.classList.add("hidden")
