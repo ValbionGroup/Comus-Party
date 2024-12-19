@@ -18,6 +18,10 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
+/**
+ * @biref Classe ControllerDashboard
+ * @details La classe gère les actions relatives au dashboard de modération
+ */
 class ControllerDashboard extends Controller
 {
     /**
@@ -47,7 +51,12 @@ class ControllerDashboard extends Controller
         ));
     }
 
-    public function denySuggestion($id)
+    /**
+     * @brief Refuse une suggestion et affiche le résultat de l'exécution de la requête en base de données
+     * @param int $id L'identifiant de la suggestion à refuser
+     * @return void
+     */
+    public function denySuggestion(int $id)
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         if ($suggestsManager->deny($id)) {
@@ -59,5 +68,25 @@ class ControllerDashboard extends Controller
             echo json_encode(['success' => false]);
             exit;
         }
+    }
+
+    /**
+     * @brief Récupère les informations à propos d'une sugestion et les renvoi sous format JSON
+     * @param int|null $id L'identifiant de la suggestion à récupérer
+     * @return void
+     */
+    public function getSuggestionInfo(?int $id) {
+        $suggestsManager = new SuggestionDAO($this->getPdo());
+        $suggestion = $suggestsManager->findById($id);
+        echo json_encode([
+            "success" => true,
+            "suggestion" => [
+                "id" => $suggestion->getId(),
+                "object" => $suggestion->getObject()->name,
+                "content" => $suggestion->getContent(),
+                "author_username" => $suggestion->getAuthorUsername(),
+            ],
+        ]);
+        exit;
     }
 }

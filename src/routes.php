@@ -179,3 +179,8 @@ $router->get('/', function () use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("showDashboard");
     exit;
 }, 'moderator');
+
+$router->get('/suggest/:id', function ($id) use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getSuggestionInfo", ["id" => $id]);
+    exit;
+}, 'moderator');
