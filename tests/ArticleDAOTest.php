@@ -298,4 +298,8 @@ class ArticleDAOTest extends TestCase
     {
         $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('42uuid'));
     }
+
+
 }
+
+
