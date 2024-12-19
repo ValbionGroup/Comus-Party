@@ -1,3 +1,12 @@
+/**
+ *   @file dashboard.js
+ *   @author Estéban DESESSARD
+ *   @brief Fichier JS permettant de gérer les différentes interactions sur le dashboard
+ *   @details
+ *   @date 19/12/2024
+ *   @version 0.1
+ */
+
 function closeModal() {
     let modals = document.querySelectorAll(".modal")
     modals.forEach(modal => {
