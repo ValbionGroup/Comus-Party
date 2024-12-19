@@ -254,6 +254,7 @@ class ArticleDAO {
         $article = $this->findById($idArticle);
         $_SESSION['pfpPath'] = $article->getFilePath();
     }
+
     /**
      * @brief Supprime toutes les pfps pour les mettre à 0 en active
      * @param string $uuid L'UUID du joueur
