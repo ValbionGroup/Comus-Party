@@ -19,7 +19,6 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
-use function MongoDB\BSON\toJSON;
 
 /**
  * @brief Classe ControllerGame
@@ -58,7 +57,6 @@ class ControllerGame extends Controller
      * @brief Permet d'initialiser le jeu après validation des paramètres et que les joueurs soient prêts
      *
      * @param string $uuid UUID de la partie
-     * @param array $players Joueurs de la partie
      * @param array|null $settings Paramètres du jeu
      * @throws GameSettingsException Exception levée si les paramètres du jeu ne sont pas valides
      * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
@@ -96,14 +94,6 @@ class ControllerGame extends Controller
         } else {
             $settings = [];
         }
-
-
-
-        echo json_encode([
-            "gameFolder" => $gameFolder,
-            "settings" => $settings,
-            "players" =>
-        ]);
     }
 
     /**
