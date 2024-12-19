@@ -260,3 +260,8 @@ $router->post('/', function () use ($loader, $twig) {
     ]);
     exit;
 });
+
+$router->get('/cgu', function () use ($loader, $twig) {
+    ControllerFactory::getController("policy", $loader, $twig)->call("showCgu");
+    exit;
+});
