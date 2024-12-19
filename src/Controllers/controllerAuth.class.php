@@ -449,7 +449,7 @@ class ControllerAuth extends Controller
         }
 
         MessageHandler::addMessageParametersToSession("Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter.");
-        header('Location: /');
+        header('Location: /login');
     }
 
 /**
