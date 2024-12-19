@@ -63,8 +63,8 @@
                     {% endif %}
                     {% if auth.role == 'moderator' %}
                         <div class="flex items-center gap-2">
-                            <img src="/assets/img/pfp/{{ auth.pfpPath }}" alt="pfp" class="rounded-full size-8">
-                            <p class="font-semibold text-lavender-blush-base">{{ auth.loggedUsername }}</p>
+                            <img src="/assets/img/pfp/default-pfp.jpg" alt="pfp" class="rounded-full size-8">
+                            <p class="font-semibold text-lavender-blush-base">{{ auth.firstName }} {{ auth.lastName }}</p>
                         </div>
                     {% endif %}
                     <a href="/logout">
