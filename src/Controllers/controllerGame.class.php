@@ -12,12 +12,14 @@ namespace ComusParty\Controllers;
 use ComusParty\Models\Exceptions\GameSettingsException;
 use ComusParty\Models\Exceptions\GameUnavailableException;
 use ComusParty\Models\GameDAO;
+use ComusParty\Models\GameRecordDAO;
 use ComusParty\Models\GameState;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
+use function MongoDB\BSON\toJSON;
 
 /**
  * @brief Classe ControllerGame
@@ -55,22 +57,23 @@ class ControllerGame extends Controller
     /**
      * @brief Permet d'initialiser le jeu après validation des paramètres et que les joueurs soient prêts
      *
-     * @param int $id ID du jeu
-     * @param array|null $settings Paramètres du jeu
+     * @param string $uuid UUID de la partie
      * @param array $players Joueurs de la partie
+     * @param array|null $settings Paramètres du jeu
      * @throws GameSettingsException Exception levée si les paramètres du jeu ne sont pas valides
      * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
      */
-    public function initGame(string $uuid, array $players, ?array $settings): void
+    public function initGame(string $uuid, ?array $settings): void
     {
-        $game = (new GameDAO($this->getPdo()))->findById($id);
+        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByUuid($uuid);
+        $game = $gameRecord->getGame();
 
         if ($game->getState() != GameState::AVAILABLE) {
             throw new GameUnavailableException("Le jeu n'est pas disponible");
         }
 
-        $gameFolder = $this->getGameFolder($id);
-        $gameSettings = $this->getGameSettings($id);
+        $gameFolder = $this->getGameFolder($game->getId());
+        $gameSettings = $this->getGameSettings($game->getId());
 
         if (sizeof($gameSettings) == 0) {
             throw new GameUnavailableException("Les paramètres du jeu ne sont pas disponibles");
@@ -94,10 +97,12 @@ class ControllerGame extends Controller
             $settings = [];
         }
 
+
+
         echo json_encode([
             "gameFolder" => $gameFolder,
             "settings" => $settings,
-            "players" => $players
+            "players" =>
         ]);
     }
 
