@@ -29,15 +29,16 @@ let pfps = document.querySelectorAll(".pfp")
 let playerPfp = document.getElementById("pfpPlayer")
 let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
 let defaultPfp = document.getElementById("defaultPfp")
-
+let inputSelectedPfp = document.getElementById("selectedPfp")
 function activeShadowOnPfp(pfp) {
-    pfps.forEach(pfp => pfp.classList.remove("activePfp"))
-    pfp.classList.add("activePfp")
+    pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
+    pfp.classList.add("shadow-lg")
 }
 
 function infoArticlePfp(article) {
     pfpTitle.textContent = article.name
     pfpDescription.textContent = article.description
+    inputSelectedPfp.value = article.id
 
 }
 
@@ -48,8 +49,8 @@ function showModalPfp() {
 
 function closeModal() {
     pfps.forEach(pfp =>{
-        if(pfp.classList.contains("activePfp")){
-            pfp.classList.remove("activePfp")
+        if(pfp.classList.contains("shadow-lg")){
+            pfp.classList.remove("shadow-lg")
         }
     })
     modals.forEach(modal => {
@@ -113,31 +114,22 @@ function afficher(section) {
 
 
 function equipArticlePfp() {
-
-    pfps.forEach(pfp => {
-
-        if (pfp.classList.contains("activePfp")) {
-            console.log(pfp.id)
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", `/profile/updateStyle/${pfp.id}`, true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            // Envoyer les données sous forme de paire clé=valeur
-            xhr.send();
-            // Gérer la réponse du serveur
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    let response = JSON.parse(xhr.responseText)
-                    console.log(response)
-                    playerPfp.src = "/assets/img/pfp/" + response.articlePath
-                    pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
-                }
-            };
-
+    let idArticle = selectedPfp.value
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `/profile/updateStyle/${idArticle}`, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // Envoyer les données sous forme de paire clé=valeur
+    xhr.send();
+    // Gérer la réponse du serveur
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText)
+            console.log(response)
+            playerPfp.src = "/assets/img/pfp/" + response.articlePath
+            pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
         }
-
-    })
+    };
     closeModal()
-
 }
 
 function showModalSuppression() {

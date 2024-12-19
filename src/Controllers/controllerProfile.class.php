@@ -120,6 +120,9 @@ class ControllerProfile extends Controller
      */
     public function updateStyle(?string $player_uuid, string $idArticle)
     {
+                    echo json_encode([
+                'articlePath' => "default-pfp.jpg",
+            ]);
         if (is_null($player_uuid)) {
             throw new NotFoundException('Player not found');
         }
@@ -130,12 +133,14 @@ class ControllerProfile extends Controller
         }
         $articleManager = new ArticleDAO($this->getPdo());
         if($idArticle == "defaultPfp"){
+
             $articleManager->deleteActiveArticleForPfp($player->getUuid());
             $_SESSION['pfpPath'] = "default-pfp.jpg";
             echo json_encode([
                 'articlePath' => "default-pfp.jpg",
             ]);
-        }else{
+        }
+        else{
             $articleManager->updateActiveArticle($player->getUuid(), $idArticle);
             $article = $articleManager->findById($idArticle);
             echo json_encode([
