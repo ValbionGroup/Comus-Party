@@ -1,7 +1,7 @@
 <?php
 /**
  * @file controllerTest.php
- * @brief Le fichier contient la déclaration et la définition de la classe GameDao
+ * @brief Le fichier contient la déclaration et la définition de la classe PlayerDAOTest
  * @author Conchez-Boueytou Robin
  * @date 14/11/2024
  * @version 0.1
@@ -9,9 +9,9 @@
 require_once __DIR__ . '/../include.php';
 
 use ComusParty\Models\Db;
-use PDO;
 use ComusParty\Models\PlayerDAO;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @brief Classe PlayerDAOTest
  * @details La classe PlayerDAOTest permet de tester les méthodes de la classe PlayerDAO
@@ -24,13 +24,7 @@ class PlayerDAOTest extends TestCase
      * @var PlayerDAO
      */
     private PlayerDAO $playerDAO;
-    protected function setUp(): void
-    {
-        /**
-         * @brief Instanciation d'un objet PlayerDAO pour les tests
-         */
-        $this->playerDAO = new PlayerDAO(Db::getInstance()->getConnection());
-    }
+
     /**
      * @brief Test de la méthode getPlayerDAO
      * @return void
@@ -39,6 +33,7 @@ class PlayerDAOTest extends TestCase
     {
         $this->assertInstanceOf(PlayerDAO::class, $this->playerDAO);
     }
+
     /**
      * @brief Test de la méthode setPlayerDAO
      * @return void
@@ -48,7 +43,6 @@ class PlayerDAOTest extends TestCase
         $this->playerDAO = new PlayerDAO(Db::getInstance()->getConnection());
         $this->assertInstanceOf(PlayerDAO::class, $this->playerDAO);
     }
-
 
     /**
      * @brief Test de la méthode findByUuid
@@ -63,7 +57,8 @@ class PlayerDAOTest extends TestCase
      * @brief Test de la méthode findByUserId
      * @return void
      */
-    public function testFindByUserId(): void{
+    public function testFindByUserId(): void
+    {
         $this->assertEquals('JohnDoe', $this->playerDAO->findByUserId(1)->getUsername());
     }
 
@@ -72,7 +67,8 @@ class PlayerDAOTest extends TestCase
      * @return void
      * @throws DateMalformedStringException
      */
-    public function testFindWithDetailByUuid(): void{
+    public function testFindWithDetailByUuid(): void
+    {
         $this->assertEquals('JohnDoe', $this->playerDAO->findWithDetailByUuid('uuid1')->getUsername());
     }
 
@@ -81,7 +77,8 @@ class PlayerDAOTest extends TestCase
      * @return void
      * @throws DateMalformedStringException
      */
-    public function testFindWithDetailByUserId(): void{
+    public function testFindWithDetailByUserId(): void
+    {
         $this->assertEquals('JohnDoe', $this->playerDAO->findWithDetailByUserId(1)->getUsername());
     }
 
@@ -90,8 +87,9 @@ class PlayerDAOTest extends TestCase
      * @return void
      * @throws DateMalformedStringException
      */
-    public function testFindAll(): void{
-        $this->assertEquals('JohnDoe',$this->playerDAO->findAll()[0]->getUsername());
+    public function testFindAll(): void
+    {
+        $this->assertEquals('JohnDoe', $this->playerDAO->findAll()[0]->getUsername());
     }
 
     /**
@@ -99,8 +97,9 @@ class PlayerDAOTest extends TestCase
      * @return void
      * @throws DateMalformedStringException
      */
-    public function testFindAllWithDetail(): void{
-        $this->assertEquals('JohnDoe',$this->playerDAO->findAllWithDetail()[0]->getUsername());
+    public function testFindAllWithDetail(): void
+    {
+        $this->assertEquals('JohnDoe', $this->playerDAO->findAllWithDetail()[0]->getUsername());
     }
 
     /**
@@ -127,6 +126,7 @@ class PlayerDAOTest extends TestCase
 
         $this->assertEquals('PlayerOne', $player->getUsername());
     }
+
     /**
      * @brief Test de la méthode HydrateMany
      * @return void
@@ -149,20 +149,28 @@ class PlayerDAOTest extends TestCase
             'games_hosted' => 5,
             'user_id' => 1],
             ['uuid' => 'uuid-player2',
-            'username' => 'PlayerTwo',
-            'created_at' => '2024-01-01',
-            'updated_at' => '2024-11-14',
-            'elo' => 100,
-            'xp' => 100,
-            'level' => 1,
-            'rank' => 1,
-            'comus_coins' => 50,
-            'games_played' => 10,
-            'games_won' => 5,
-            'games_hosted' => 5,
-            'user_id' => 2]]);
+                'username' => 'PlayerTwo',
+                'created_at' => '2024-01-01',
+                'updated_at' => '2024-11-14',
+                'elo' => 100,
+                'xp' => 100,
+                'level' => 1,
+                'rank' => 1,
+                'comus_coins' => 50,
+                'games_played' => 10,
+                'games_won' => 5,
+                'games_hosted' => 5,
+                'user_id' => 2]]);
 
         $this->assertEquals('PlayerOne', $player[0]->getUsername());
         $this->assertEquals('PlayerTwo', $player[1]->getUsername());
+    }
+
+    protected function setUp(): void
+    {
+        /**
+         * @brief Instanciation d'un objet PlayerDAO pour les tests
+         */
+        $this->playerDAO = new PlayerDAO(Db::getInstance()->getConnection());
     }
 }
