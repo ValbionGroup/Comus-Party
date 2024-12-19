@@ -80,9 +80,12 @@ class ControllerBasket extends Controller
         if (isset($_POST['id_article'])) {
             $id_article = intval($_POST['id_article']);
 
-
+            if(!isset($_SESSION['basket'])){
+                $_SESSION['basket'] = array();
+            }
             // Ajouter l'ID de l'article au basket s'il n'y est pas déjà
             if (!in_array($id_article, $_SESSION['basket'])) {
+
                 $_SESSION['basket'][] = $id_article;
                 $numberArticlesInBasket = count($_SESSION['basket']);
 
