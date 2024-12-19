@@ -72,7 +72,7 @@ class ControllerProfile extends Controller
         } else {
             $bannerPath = $banner->getFilePath();
         }
-        $template = $this->getTwig()->load('profil.twig');
+        $template = $this->getTwig()->load('player/profil.twig');
         echo $template->render(array(
             "player" => $player,
             "user" => $user,

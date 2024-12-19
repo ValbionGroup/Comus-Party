@@ -22,7 +22,13 @@ $router->get('/', function () use ($loader, $twig) {
         header('Location: /login');
         exit;
     }
-    ControllerFactory::getController("game", $loader, $twig)->call("showHomePage");
+    if ($_SESSION['role'] == 'player') {
+        ControllerFactory::getController("game", $loader, $twig)->call("showHomePage");
+    } else if ($_SESSION['role'] == 'moderator') {
+        ControllerFactory::getController("dashboard", $loader, $twig)->call("showDashboard");
+    } else {
+        throw new UnauthorizedAccessException("Vous n'avez pas les droits pour accéder à cette page");
+    }
     exit;
 });
 
@@ -124,7 +130,7 @@ $router->delete('/shop/basket/remove/:id', function ($id) use ($loader, $twig) {
     exit;
 });
 
-$router->get('/shop/basket/checkout', function () use($loader, $twig) {
+$router->get('/shop/basket/checkout', function () use ($loader, $twig) {
     if (!isset($_SESSION['uuid'])) {
         header('Location: /login');
         exit;
@@ -248,7 +254,10 @@ $router->post('/', function () use ($loader, $twig) {
         header('Location: /login');
         exit;
     }
-    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", ["suggestion" => $_POST['suggestion']]);
+    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", [
+        "object" => $_POST['object'],
+        "suggestion" => $_POST['suggestion']
+    ]);
     exit;
 });
 

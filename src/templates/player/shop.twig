@@ -9,7 +9,6 @@
             <h1 class="text-3xl text-night mt-10 ml-3 mb-4 font-serif">Boutique</h1>
             <a class="mr-5 mt-8 cursor-pointer" href="/shop/basket">
                 {# Logo panier vide  #}
-                {#                {% if numberArticlesInBasket == 0 %} #}
                 <span id="logoPanierVide" class="z-40"><svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="3em" height="3em"
@@ -21,10 +20,8 @@
                                     d="M10.464 3.282a2 2 0 0 1 2.964-.12l.108.12L17.469 8h2.985a1.49 1.49 0 0 1 1.484 1.655l-.092.766l-.1.74l-.082.554l-.095.595l-.108.625l-.122.648l-.136.661q-.108.5-.232.999a21 21 0 0 1-.832 2.583l-.221.54l-.214.488l-.202.434l-.094.194l-.249.49c-.32.61-.924.97-1.563 1.022l-.16.006H6.555a1.93 1.93 0 0 1-1.71-1.008l-.232-.45l-.18-.37l-.095-.205l-.2-.449a21.5 21.5 0 0 1-1.108-3.276a32 32 0 0 1-.156-.654l-.142-.648l-.127-.634l-.112-.613l-.1-.587l-.087-.554l-.074-.513l-.09-.683l-.066-.556l-.017-.153a1.49 1.49 0 0 1 1.348-1.64L3.543 8h2.989zM19.883 10H4.113l.062.484l.076.548l.092.604l.108.648q.06.333.126.682l.143.707c.076.358.16.722.25 1.084a19.5 19.5 0 0 0 1 2.957l.196.441l.182.384l.163.323l.072.138H17.41l.154-.303l.177-.365l.194-.423c.367-.825.787-1.918 1.095-3.152c.125-.5.236-1.008.335-1.507l.14-.738l.12-.709l.053-.339l.095-.637l.077-.57zm-9.897 2.836l.5 3a1 1 0 0 1-1.972.328l-.5-3a1 1 0 1 1 1.972-.328M15.048 12l.116.013A1 1 0 0 1 16 13.048l-.013.116l-.5 3a1 1 0 0 1-1.985-.212l.013-.116l.5-3A1 1 0 0 1 15.048 12M12 4.562L9.135 8h5.73z"/></g></svg>
 
                 </span>
-                {#                {% endif %} #}
-                {#  Logo panier rempli #}
-                {#                {% if  numberArticlesInBasket  > 0 %} #}
 
+                {# Logo panier rempli #}
                 <span id="logoPanierRempli"
                       class="hidden relative flex justify-center flex-col text-center items-center  ">
                         <span class="absolute left-8 bottom-6 w-5 h-5  z-40  bg-lavender-blush-3 text-center  justify-center items-center rounded-full border border-lavender-blush-3 ">
@@ -112,7 +109,8 @@
                 <!-- Title and Description -->
                 <div class="text-center">
                     <h2 id="nomArticlePfp"
-                        class="text-2xl sm:text-3xl font-semibold text-gray-800 dark:text-gray-100">Titre de la photo</h2>
+                        class="text-2xl sm:text-3xl font-semibold text-gray-800 dark:text-gray-100">Titre de la
+                        photo</h2>
                     <p id="descriptionArticlePfp"
                        class="mt-2 text-gray-600 dark:text-gray-300 text-sm sm:text-base">
                         Description courte et captivante de cette superbe photo de profil.
@@ -123,7 +121,8 @@
                 <div class="flex justify-around items-center text-center">
                     <div>
                         <p class="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200">Prix en CC</p>
-                        <p id="prixComusArticlePfp" class="flex items-center justify-center text-xl sm:text-2xl text-yellow-600">
+                        <p id="prixComusArticlePfp"
+                           class="flex items-center justify-center text-xl sm:text-2xl text-yellow-600">
                             <svg class="mr-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="9"></circle>
@@ -183,7 +182,8 @@
                 <div class="flex justify-center gap-10 items-center text-center px-6">
                     <div>
                         <p class="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200">Prix</p>
-                        <p id="prixComusArticleBanner" class="flex items-center justify-center text-xl sm:text-2xl text-yellow-600">
+                        <p id="prixComusArticleBanner"
+                           class="flex items-center justify-center text-xl sm:text-2xl text-yellow-600">
                             <svg class="mr-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="9"></circle>
@@ -192,7 +192,7 @@
                             300 CC
                         </p>
                     </div>
-                    <div >
+                    <div>
                         <p class="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200">€</p>
                         <p id="prixEuroArticleBanner" class="text-xl sm:text-2xl text-green-600">24.99 €</p>
                     </div>
