@@ -84,21 +84,21 @@ class ControllerBasket extends Controller
             // Ajouter l'ID de l'article au panier s'il n'y est pas déjà
             if (!in_array($id_article, $_SESSION['basket'])) {
                 $_SESSION['basket'][] = $id_article;
-                $taillePanier = count($_SESSION['basket']);
+                $numberArticlesInBasket = count($_SESSION['basket']);
 
 
                 echo json_encode([
                     'success' => true,
                     'message' => "Article ajouté au panier !",
-                    'taillePanier' => $taillePanier
+                    'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
 
             } else {
-                $taillePanier = count($_SESSION['basket']);
+                $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([
                     'success' => false,
                     'message' => "L'article est déjà dans le panier.",
-                    'taillePanier' => $taillePanier
+                    'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
 
             }
@@ -138,7 +138,7 @@ class ControllerBasket extends Controller
                     'success' => true,
                     'message' => "Article supprimé du panier !",
                     'prixArticle' => $prixArticle,
-                    'taillePanier' => $numberArticlesInBasket
+                    'numberArticlesInBasket' => $numberArticlesInBasket
 
                 ]);
             } else {

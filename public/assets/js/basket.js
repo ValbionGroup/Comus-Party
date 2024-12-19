@@ -78,7 +78,7 @@ function removeArticle(id){
             prixTotalPanierApresSuppressionArticle = parseFloat(prixTotalPanierActuel)  - response.prixArticle;
             sousTotalPanier.textContent = prixTotalPanierApresSuppressionArticle +"€"
             prixTotalPanier.textContent = prixTotalPanierApresSuppressionArticle+"€"
-            if(response.taillePanier == 0){
+            if(response.numberArticlesInBasket == 0){
                 btnProcederAuPaiement.disabled = true
             }else{
                 btnProcederAuPaiement.disabled = false
