@@ -1,7 +1,7 @@
 <?php
 /**
  * @file UserTest.php
- * @brief Le fichier contient la déclaration et la définition de la classe GameDao
+ * @brief Le fichier contient la déclaration et la définition de la classe User
  * @author Conchez-Boueytou Robin
  * @date 14/11/2024
  * @version 0.1
@@ -10,6 +10,7 @@ require_once __DIR__ . '/../include.php';
 
 use ComusParty\Models\User;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @brief Classe UserTest
  * @details La classe UserTest permet de tester les méthodes de la classe User
@@ -22,22 +23,7 @@ class UserTest extends TestCase
      * @var User
      */
     private User $user;
-    protected function setUp(): void
-    {
-        /**
-         * @brief Instanciation d'un objet User pour les tests
-         */
-        $this->user = new User(
-            id: 1,
-            email: 'user1@example.com',
-            emailVerifiedAt: new DateTime('2024-11-06'),
-            emailVerifyToken: 'token123',
-            password: 'password_hash1',
-            disabled: 0,
-            created_at: new DateTime('2024-11-06'),
-            updated_at: new DateTime('2024-11-06')
-        );
-    }
+
     /**
      * @brief Test de la méthode getUser
      * @return void
@@ -46,6 +32,7 @@ class UserTest extends TestCase
     {
         $this->assertInstanceOf(User::class, $this->user);
     }
+
     /**
      * @brief Test de la méthode setUser
      * @return void
@@ -206,5 +193,22 @@ class UserTest extends TestCase
     {
         $this->user->setUpdatedAt(new DateTime('2024-11-07'));
         $this->assertEquals(new DateTime('2024-11-07'), $this->user->getUpdatedAt());
+    }
+
+    protected function setUp(): void
+    {
+        /**
+         * @brief Instanciation d'un objet User pour les tests
+         */
+        $this->user = new User(
+            id: 1,
+            email: 'user1@example.com',
+            emailVerifiedAt: new DateTime('2024-11-06'),
+            emailVerifyToken: 'token123',
+            password: 'password_hash1',
+            disabled: 0,
+            created_at: new DateTime('2024-11-06'),
+            updated_at: new DateTime('2024-11-06')
+        );
     }
 }
