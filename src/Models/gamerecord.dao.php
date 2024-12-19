@@ -71,7 +71,7 @@ class GameRecordDAO
      * @brief Retourne la liste des parties
      * @param array $row Ligne de la table game_record
      * @return GameRecord Enregistrement de la partie hydraté
-     * @throws Exception
+     * @throws Exception Exception levée en cas d'erreur lors de l'hydratation
      */
     private function hydrate(array $row): GameRecord
     {
