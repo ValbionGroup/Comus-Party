@@ -172,3 +172,8 @@ $router->get('/cgu', function () use ($loader, $twig) {
     ControllerFactory::getController("policy", $loader, $twig)->call("showCgu");
     exit;
 });
+
+$router->get('/game/informations/:id', function ($id) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("getGameInformations", ["id" => $id]);
+    exit;
+}, 'player');
