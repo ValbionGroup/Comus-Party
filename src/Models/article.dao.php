@@ -10,6 +10,7 @@
 namespace ComusParty\Models;
 
 
+use ComusParty\Models\Exception\NotFoundException;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
@@ -73,6 +74,44 @@ class ArticleDAO {
             return null;
         }
         return $this->hydrate($article);
+    }
+
+    /**
+     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de la facture passé en paramètre
+     * @param int|null $invoiceId L'ID de la facture
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
+     */
+    public function findArticlesByInvoiceId(?int $invoiceId): ?array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT *
+          FROM ' . DB_PREFIX . 'invoice i
+          JOIN ' . DB_PREFIX . 'player p ON i.player_uuid = p.uuid
+          WHERE i.id = :id AND p.uuid = :uuid');
+        $stmt->bindParam(':id', $invoiceId);
+        $stmt->bindParam(':uuid', $_SESSION['uuid']);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $invoice = $stmt->fetch();
+        if ($invoice === false) {
+            throw new NotFoundException('Cette facture n\'existe pas.');
+        }
+
+        $stmt = $this->pdo->prepare(
+            'SELECT a.*
+            FROM ' . DB_PREFIX . 'article a
+            JOIN ' . DB_PREFIX . 'invoice_row ir ON a.id = ir.article_id
+            WHERE ir.invoice_id = :invoice_id');
+        $stmt->bindParam(':invoice_id', $invoiceId);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $articles = $stmt->fetchAll();
+        if ($articles === false) {
+            return null;
+        }
+        return $this->hydrateMany($articles);
     }
 
     /**

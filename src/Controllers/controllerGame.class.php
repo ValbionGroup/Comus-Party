@@ -4,17 +4,17 @@
  * @brief Le fichier contient la déclaration et la définition de la classe ControllerGame
  * @author Conchez-Boueytou Robin
  * @date 13/11/2024
- * @version 0.1
+ * @version 0.2
  */
 
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\GameDao;
 use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * @brief Classe ControllerGame
@@ -39,7 +39,8 @@ class ControllerGame extends Controller
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function show(){
+    public function showHomePage()
+    {
         $gameManager = new GameDAO($this->getPdo());
         $games = $gameManager->findAll();
         $template = $this->getTwig()->load('home.twig');

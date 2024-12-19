@@ -16,7 +16,7 @@ use Twig\Extra\Intl\IntlExtension;
 /**
  * @brief Instance de FilesystemLoader
  */
-$loader = new Twig\Loader\FilesystemLoader(__DIR__.'/../src/templates');
+$loader = new Twig\Loader\FilesystemLoader(__DIR__ . '/../src/templates');
 
 /**
  * @brief Instance de Twig
@@ -39,7 +39,12 @@ $twig->addGlobal('auth', [
     'loggedXp' => $_SESSION['xp'] ?? null,
 ]);
 
-$twig->addGlobal('error', [
-    'code' => null,
-    'message' => null,
-]);
+if (isset($_SESSION['error'])) {
+    $twig->addGlobal('error', $_SESSION['error']);
+    unset($_SESSION['error']);
+}
+
+if (isset($_SESSION['success'])) {
+    $twig->addGlobal('success', $_SESSION['success']);
+    unset($_SESSION['success']);
+}

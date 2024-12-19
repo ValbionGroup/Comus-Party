@@ -9,11 +9,12 @@ $dotenv->load();
 
 require_once __DIR__ . '/config/const.php';
 require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/config/mail.php';
 
 require_once __DIR__ . '/src/Models/Router.class.php';
 require_once __DIR__ . '/src/Models/Validator.class.php';
 
-require_once __DIR__ . '/src/Models/Exceptions/ErrorHandler.php';
+require_once __DIR__ . '/src/Models/Exceptions/MessageHandler.php';
 require_once __DIR__ . '/src/Models/Exceptions/NotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/MalformedRequestException.php';
 require_once __DIR__ . '/src/Models/Exceptions/AuthenticationException.php';
@@ -40,7 +41,11 @@ require_once __DIR__ . '/src/Models/game.class.php';
 require_once __DIR__ . '/src/Models/game.dao.php';
 require_once __DIR__ . '/src/Models/article.class.php';
 require_once __DIR__ . '/src/Models/article.dao.php';
+require_once __DIR__ . '/src/Models/invoice.class.php';
+require_once __DIR__ . '/src/Models/invoice.dao.php';
 require_once __DIR__ . '/src/Models/statistics.class.php';
+require_once __DIR__ . '/src/Models/passwordResetToken.class.php';
+require_once __DIR__ . '/src/Models/passwordResetToken.dao.php';
 
 session_start();
 require_once __DIR__ . '/config/twig.php';
