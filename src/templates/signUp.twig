@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="w-full sm:overflow-y-auto sm:h-full">
+    <div class="w-full">
         <div class="mt-4 sm:mt-0">
             <h1 class="text-3xl font-bold">Inscription</h1>
         </div>
         
         <!-- Formulaire pour l'inscription de l'utilisateur -->
         <form id="registrationForm" action="" method="post" class="mt-8 space-y-6">
-            <div class="flex flex-col">
+            <div>
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" autofocus class="w-full input" required>
 
@@ -20,14 +20,14 @@
                 <p class="input-error-text text-red-600 hidden" id="usernameForbiddenCharacters">Le nom d'utilisateur ne doit pas contenir de caractères speciaux</p>
             </div>
 
-            <div class="flex flex-col">
+            <div>
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Email" class="w-full input" required>
 
                 <p class="input-error-text text-red-600 hidden" id="incorrectEmailFormat">Format d'email invalide, veuillez entrer un email valide.</p>
             </div>
 
-            <div class="flex flex-col">
+            <div>
                 <label for="password">Mot de passe</label>
                 <div class="flex w-full">
                     <input type="password" id="password" name="password" placeholder="Mot de passe" class="w-full input" required>
@@ -52,7 +52,7 @@
                 <p class="input-error-text text-red-600 hidden" id="passwordNoSpecialCharacter">Le mot de passe doit contenir au moins un caractère special</p>
             </div>
 
-            <div class="flex flex-col">
+            <div>
                 <label for="passwordConfirm">Confirmation du mot de passe</label>
                 <div class="flex w-full">
                     <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmation du mot de passe" class="w-full input" required>
