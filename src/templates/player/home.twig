@@ -139,8 +139,20 @@
     <div id="modalSuggestion"
          class="modal hidden w-full sm:w-1/2 bg-lavender-blush-2 dark:bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl z-50">
         <div class="modal-content m-2">
-            <div class="pb-2">
-                <p class="text-2xl font-bold">Formulaire de suggestion</p>
+            <div class="flex justify-between">
+                <div class="pb-2">
+                    <p class="text-2xl font-bold">Formulaire de suggestion</p>
+                </div>
+                <div>
+                    <button onclick="closeModal()">
+                        <svg class="hover:scale-125 hover:text-red-500 transition-all ease-in-out"
+                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" d="M6 18l12-12M6 6l12 12"/>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
             </div>
             <hr>
             <div class="pt-5 text-justify">
@@ -151,10 +163,23 @@
                 <br>
                 <form method="POST">
                     <div class="flex flex-col gap-2">
-                        <label for="suggestion" class="font-semibold">Votre suggestion :</label>
-                        <textarea id="suggestion" name="suggestion"
-                                  class="w-full h-32 p-2 border dark:border-lavender-blush-base border-night-base rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-violet-base focus:border-blue-violet-base bg-lavender-blush-base dark:bg-night-3"
-                                  minlength="10" maxlength="2048"></textarea>
+                        <div class="flex flex-col gap-2">
+                            <label for="object" class="font-semibold">Catégorie</label>
+                            <select id="object" name="object"
+                                    class="input">
+                                <option disabled selected>Sélectionnez une option</option>
+                                <option value="bug">Signaler un bug</option>
+                                <option value="game">Suggérer un nouveau jeu</option>
+                                <option value="ui">Amélioration de l'interface</option>
+                                <option value="other">Autres...</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="suggestion" class="font-semibold">Votre suggestion :</label>
+                            <textarea id="suggestion" name="suggestion"
+                                      class="w-full h-32 input"
+                                      minlength="10" maxlength="2048"></textarea>
+                        </div>
                     </div>
                     <div class="flex justify-end mt-5 gap-4">
                         <button type="submit" class="btn-primary">Envoyer</button>

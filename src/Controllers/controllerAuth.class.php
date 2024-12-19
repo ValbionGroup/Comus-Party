@@ -13,6 +13,7 @@ use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Exception\AuthenticationException;
 use ComusParty\Models\Exception\MalformedRequestException;
 use ComusParty\Models\Exception\MessageHandler;
+use ComusParty\Models\ModeratorDao;
 use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
@@ -258,10 +259,8 @@ class ControllerAuth extends Controller
 
         $validator = new Validator($regles);
         if (!$validator->validate(['email' => $email, 'password' => $password])) {
-            var_dump($validator->getErrors());
             throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
         }
-
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
 
@@ -280,30 +279,40 @@ class ControllerAuth extends Controller
         if (!password_verify($password, $user->getPassword())) {
             throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
         }
+        $moderatorManager = new ModeratorDAO($this->getPdo());
+        $moderator = $moderatorManager->findByUserId($user->getId());
 
         $playerManager = new PlayerDAO($this->getPdo());
-        $player = $playerManager->findWithDetailByUserId($user->getId());
+        $player = $playerManager->findByUserId($user->getId());
 
-        if (is_null($player)) {
+        if (is_null($player) && is_null($moderator)) {
             throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
-        }
+        } elseif (!is_null($player)) {
+            $_SESSION['role'] = 'player';
+            $_SESSION['uuid'] = $player->getUuid();
+            $_SESSION['username'] = $player->getUsername();
+            $_SESSION['comusCoin'] = $player->getComusCoin();
+            $_SESSION['elo'] = $player->getElo();
+            $_SESSION['xp'] = $player->getXp();
+            $_SESSION['basket'] = [];
 
-        $_SESSION['uuid'] = $player->getUuid();
-        $_SESSION['username'] = $player->getUsername();
-        $_SESSION['comusCoin'] = $player->getComusCoin();
-        $_SESSION['elo'] = $player->getElo();
-        $_SESSION['xp'] = $player->getXp();
-        $_SESSION['basket'] = [];
-
-        $articleManager = new ArticleDAO($this->getPdo());
-        $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
-        if (is_null($pfp)) {
-            $pfpPath = 'default-pfp.jpg';
+            $articleManager = new ArticleDAO($this->getPdo());
+            $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+            if (is_null($pfp)) {
+                $pfpPath = 'default-pfp.jpg';
+            } else {
+                $pfpPath = $pfp->getFilePath();
+            }
+            $_SESSION['pfpPath'] = $pfpPath;
+            header('Location: /');
         } else {
-            $pfpPath = $pfp->getFilePath();
+            $_SESSION['role'] = 'moderator';
+            $_SESSION['uuid'] = $moderator->getUuid();
+            $_SESSION['firstName'] = $moderator->getFirstName();
+            $_SESSION['lastName'] = $moderator->getLastName();
+            header('Location: /');
         }
-        $_SESSION['pfpPath'] = $pfpPath;
-        header('Location: /');
+
     }
 
     /**
@@ -313,7 +322,6 @@ class ControllerAuth extends Controller
      */
     public function logOut(): void
     {
-        session_start();
         session_unset();
         session_destroy();
         header('Location: /login');

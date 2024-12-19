@@ -28,13 +28,15 @@ use Twig\Loader\FilesystemLoader;
  * @brief Classe ControllerShop
  * @details La classe ControllerShop permet de gérer les actions liées à la boutique
  */
-class ControllerShop extends Controller {
+class ControllerShop extends Controller
+{
     /**
      * @brief Constructeur de la classe ControllerShop
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      */
-    public function __construct(FilesystemLoader $loader, Environment $twig) {
+    public function __construct(FilesystemLoader $loader, Environment $twig)
+    {
         parent::__construct($loader, $twig);
     }
 
@@ -47,17 +49,18 @@ class ControllerShop extends Controller {
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function show() {
+    public function show()
+    {
         $managerArticle = new ArticleDAO($this->getPdo());
 
         $articles = $managerArticle->findAll();
         $pfps = $managerArticle->findAllPfps();
         $banners = $managerArticle->findAllBanners();
 
-        $template = $this->getTwig()->load('shop.twig');
-        if(isset($_SESSION['basket'])){
+        $template = $this->getTwig()->load('player/shop.twig');
+        if (isset($_SESSION['basket'])) {
             $numberArticlesInBasket = count($_SESSION['basket']);
-        }else{
+        } else {
             $numberArticlesInBasket = 0;
         }
         echo $template->render(array(
@@ -76,45 +79,34 @@ class ControllerShop extends Controller {
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function showAll(){
+    public function showAll()
+    {
         $managerArticle = new ArticleDAO($this->getPdo());
         $articles = $managerArticle->findAll();
-        $template = $this->getTwig()->load('shop.twig');
+        $template = $this->getTwig()->load('player/shop.twig');
 
         echo $template->render(array('articles' => $articles));
     }
 
-
     /**
-     * @brief Exécute l'algorithme de Luhn sur le numéro de carte passé en paramètre
-     * @details L'algorithme de Luhn parcourt le numéro de carte de la manière suivante :
-     * - Multiplie par 2 chaque chiffre en position paire (en partant de 0)
-     * - Si le résultat de la multiplication est supérieur ou égal à 10, additionne les chiffres du résultat et ajoute le résultat à la somme totale
-     * - Ajoute les chiffres en position impaire à la somme totale
-     * - Calcule la clé de Luhn (10 - (somme totale % 10))
-     * - Si la clé de Luhn est égale au dernier chiffre du numéro de carte, alors le numéro de carte est valide
-     * @param string|null $card Numéro de carte bancaire à vérifier
-     * @return bool
+     * @brief Permet d'afficher la page de paiement
+     *
+     * @return void
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    private function checkLuhnValid(?string $card): bool
+    public function showCheckout()
     {
-        $sum = 0;
-        $length = strlen($card);
-
-        for ($i = 0; $i < $length - 1; $i++) {
-            if ($i % 2 == 0) {
-                $digit = (int)$card[$i] * 2;
-                if ($digit >= 10) {
-                    $digitStr = (string)$digit;
-                    $digit = (int)$digitStr[0] + (int)$digitStr[1];
-                }
-                $sum += $digit;
-            } else {
-                $sum += (int)$card[$i];
-            }
+        $articles = [];
+        foreach ($_SESSION['basket'] as $id) {
+            $managerArticle = new ArticleDAO($this->getPdo());
+            $article = $managerArticle->findById($id);
+            $articles[] = $article;
         }
-        $key = 10 - ($sum % 10) % 10;
-        return $key == $card[$length - 1];
+
+        $template = $this->getTwig()->load('player/checkout.twig');
+        echo $template->render(array('articles' => $articles));
     }
 
     /**
@@ -157,6 +149,38 @@ class ControllerShop extends Controller {
     }
 
     /**
+     * @brief Exécute l'algorithme de Luhn sur le numéro de carte passé en paramètre
+     * @details L'algorithme de Luhn parcourt le numéro de carte de la manière suivante :
+     * - Multiplie par 2 chaque chiffre en position paire (en partant de 0)
+     * - Si le résultat de la multiplication est supérieur ou égal à 10, additionne les chiffres du résultat et ajoute le résultat à la somme totale
+     * - Ajoute les chiffres en position impaire à la somme totale
+     * - Calcule la clé de Luhn (10 - (somme totale % 10))
+     * - Si la clé de Luhn est égale au dernier chiffre du numéro de carte, alors le numéro de carte est valide
+     * @param string|null $card Numéro de carte bancaire à vérifier
+     * @return bool
+     */
+    private function checkLuhnValid(?string $card): bool
+    {
+        $sum = 0;
+        $length = strlen($card);
+
+        for ($i = 0; $i < $length - 1; $i++) {
+            if ($i % 2 == 0) {
+                $digit = (int)$card[$i] * 2;
+                if ($digit >= 10) {
+                    $digitStr = (string)$digit;
+                    $digit = (int)$digitStr[0] + (int)$digitStr[1];
+                }
+                $sum += $digit;
+            } else {
+                $sum += (int)$card[$i];
+            }
+        }
+        $key = 10 - ($sum % 10) % 10;
+        return $key == $card[$length - 1];
+    }
+
+    /**
      * @brief Affiche la facture générée grâce à l'ID passé en paramètre GET
      * @param int $invoiceId L'ID de la facture à afficher
      * @return void
@@ -178,7 +202,7 @@ class ControllerShop extends Controller {
         $email = $managerUser->findById($player->getUserId())->getEmail();
         $invoice = $managerInvoice->findById($invoiceId);
 
-        $template = $this->getTwig()->load('invoice.twig');
+        $template = $this->getTwig()->load('player/invoice.twig');
         echo $template->render(array(
             'invoice' => $invoice,
             'username' => $player->getUsername(),
