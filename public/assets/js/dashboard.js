@@ -30,6 +30,7 @@ function showModalSuggest(e) {
     let spanObjectSuggest = document.getElementById(`spanObjectSuggest`);
     let spanAuthorSuggest = document.getElementById(`spanAuthorSuggest`);
     let spanContentSuggest = document.getElementById(`spanContentSuggest`);
+    let idSuggestion = document.getElementById(`idSuggestion`);
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `/suggest/${suggestId}`, true);
@@ -57,19 +58,19 @@ function showModalSuggest(e) {
                         spanObjectSuggest.innerText = "🔧 Autres";
                         break;
                 }
+                idSuggestion.value = response.suggestion.id;
                 spanAuthorSuggest.innerHTML = response.suggestion.author_username;
                 spanContentSuggest.innerHTML = response.suggestion.content;
             }
         }
     };
 
-
     modal.classList.remove("hidden");
     showBackgroundModal();
 }
 
 function denySuggest(e) {
-    let id = e.parentNode.parentNode.parentNode.parentNode.id.slice(15);
+    let id = e.children[0].value;
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", `/suggest/deny/${id}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

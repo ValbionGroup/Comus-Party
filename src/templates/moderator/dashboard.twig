@@ -16,6 +16,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="flex flex-col gap-4 h-full w-[calc(100%-2rem)] lg:w-[calc(33%-2rem)]">
                 <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Suggestions en attente</p>
@@ -66,10 +68,12 @@
                                             <span id="spanObjectSuggest"></span>
                                         </p>
                                         <p class="text-xl"><span
-                                                    class="font-semibold underline">Auteur :</span> <span id="spanAuthorSuggest"></span>
+                                                    class="font-semibold underline">Auteur :</span> <span
+                                                    id="spanAuthorSuggest"></span>
                                         </p>
                                         <p class="text-xl"><span
-                                                        class="font-semibold underline">Suggestion :</span> <span id="spanContentSuggest"></span>
+                                                    class="font-semibold underline">Suggestion :</span> <span
+                                                    id="spanContentSuggest"></span>
                                         </p>
                                     </div>
                                     <div class="h-12 text-white justify-around flex mt-8">
@@ -86,7 +90,8 @@
                                         </button>
                                         <button class="w-40 h-10 bg-red-500 hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110"
                                                 onclick="denySuggest(this)">
-                                                <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-300 ease-out">
+                                            <input type="hidden" id="idSuggestion" value="">
+                                            <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-300 ease-out">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                          viewBox="0 0 24 24">
                                                         <path fill="currentColor" fill-rule="evenodd"
