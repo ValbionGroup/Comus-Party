@@ -53,6 +53,7 @@ require_once __DIR__ . '/src/Models/suggestion.class.php';
 require_once __DIR__ . '/src/Models/suggestion.dao.php';
 require_once __DIR__ . '/src/Models/moderator.class.php';
 require_once __DIR__ . '/src/Models/moderator.dao.php';
+require_once __DIR__ . '/src/Models/mailer.class.php';
 
 session_start();
 require_once __DIR__ . '/config/twig.php';
