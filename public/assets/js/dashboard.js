@@ -70,9 +70,29 @@ function showModalSuggest(e) {
 }
 
 function denySuggest(e) {
-    let id = e.children[0].value;
+    let id = e.parentNode.children[0].value;
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", `/suggest/deny/${id}`, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // Envoyer les données sous forme de paire clé=valeur
+    xhr.send();
+
+    // Gérer la réponse du serveur
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                closeModal();
+                location.reload();
+            }
+        }
+    };
+}
+
+function acceptSuggest(e) {
+    let id = e.parentNode.children[0].value;
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", `/suggest/accept/${id}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     // Envoyer les données sous forme de paire clé=valeur
     xhr.send();
