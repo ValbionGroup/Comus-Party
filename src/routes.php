@@ -40,10 +40,7 @@ $router->get('/profile', function () use ($loader, $twig) {
 });
 
 $router->post('/profile/updateStyle/:idArticle', function($idArticle) use ($loader, $twig){
-    if (!isset($_SESSION['uuid'])) {
-        header('Location: /login');
-        exit;
-    }
+
     ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
         "uuidPlayer" => $_SESSION["uuid"],
         "idArticle" => $idArticle
