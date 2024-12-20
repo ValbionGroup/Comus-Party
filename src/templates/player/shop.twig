@@ -51,9 +51,7 @@
                             <div class="w-20 h-20 m-1 pfp cursor-pointer"
                                  onclick="showModalPfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
                                 <img src="assets/img/pfp/{{ pfp.filePath }}" alt="{{ pfp.name }}" class="rounded-3xl w-20 h-20">
-
                             </div>
-
                         {% endfor %}
                     </div>
                 </div>
@@ -165,7 +163,7 @@
                 <!-- Pricing Section -->
                 <div class="flex justify-center gap-10 items-center text-center px-6">
                     <div>
-                        <p class="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200">Prix</p>
+                        <p class="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200">Prix en CC</p>
                         <p id="priceComusArticleBanner" class="flex items-center justify-center text-xl sm:text-2xl text-yellow-600">
                             <svg class="mr-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -176,7 +174,7 @@
                         </p>
                     </div>
                     <div>
-                        <p class="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200">0€</p>
+                        <p class="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200">Prix en euro</p>
                         <p id="priceEuroArticleBanner" class="text-xl sm:text-2xl text-green-600">0€</p>
                     </div>
                 </div>

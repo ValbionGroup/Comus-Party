@@ -177,3 +177,18 @@ $router->get('/game/informations/:id', function ($id) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("getGameInformations", ["id" => $id]);
     exit;
 }, 'player');
+
+$router->put('/suggest/deny/:id', function ($id) use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("denySuggestion", ["id" => $id]);
+    exit;
+}, 'moderator');
+
+$router->get('/', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("showDashboard");
+    exit;
+}, 'moderator');
+
+$router->get('/suggest/:id', function ($id) use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getSuggestionInfo", ["id" => $id]);
+    exit;
+}, 'moderator');
