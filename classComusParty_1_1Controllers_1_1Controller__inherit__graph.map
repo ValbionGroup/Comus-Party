@@ -1,0 +1,19 @@
+<map id="Controller" name="Controller">
+<area shape="rect" id="Node000001" title="Classe Controller." alt="" coords="5,179,82,204"/>
+<area shape="rect" id="Node000002" href="$classComusParty_1_1Controllers_1_1ControllerAuth.html" title="Classe ControllerAuth." alt="" coords="149,5,252,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,163,79,101,101,69,128,40,147,29,150,33,131,44,105,72,84,104,56,165"/>
+<area shape="rect" id="Node000003" href="$classComusParty_1_1Controllers_1_1ControllerBasket.html" title=" " alt="" coords="142,55,259,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="59,164,88,126,128,89,148,79,151,83,131,94,92,129,63,167"/>
+<area shape="rect" id="Node000004" href="$classComusParty_1_1Controllers_1_1ControllerDashboard.html" title=" " alt="" coords="131,104,270,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="76,168,129,138,155,128,157,133,131,143,79,172"/>
+<area shape="rect" id="Node000005" href="$classComusParty_1_1Controllers_1_1ControllerGame.html" title="Classe ControllerGame." alt="" coords="145,153,256,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="96,180,144,172,145,178,97,186"/>
+<area shape="rect" id="Node000006" href="$classComusParty_1_1Controllers_1_1ControllerPolicy.html" title="Classe ControllerPolicy." alt="" coords="145,203,256,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="97,197,145,204,144,210,96,202"/>
+<area shape="rect" id="Node000007" href="$classComusParty_1_1Controllers_1_1ControllerProfile.html" title="Classe ControllerProfile." alt="" coords="144,252,256,278"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="79,211,131,238,157,249,155,254,129,243,77,215"/>
+<area shape="rect" id="Node000008" href="$classComusParty_1_1Controllers_1_1ControllerShop.html" title="Classe ControllerShop." alt="" coords="147,301,254,327"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="63,216,92,253,131,288,151,298,148,303,128,292,89,257,59,219"/>
+<area shape="rect" id="Node000009" href="$classComusParty_1_1Controllers_1_1ControllerSuggestion.html" title="Classe ControllerSuggestion." alt="" coords="130,351,271,376"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="56,218,84,278,105,310,131,337,148,348,145,352,128,342,101,313,79,281,51,220"/>
+</map>

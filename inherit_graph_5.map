@@ -1,0 +1,19 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,104,83,130"/>
+<area shape="rect" id="Node000001" href="$classComusParty_1_1Models_1_1Exception_1_1AuthenticationException.html" title="Classe AuthenticationException." alt="" coords="149,5,310,31"/>
+<area shape="poly" id="edge9_Node000000_Node000001" title=" " alt="" coords="65,91,94,64,129,40,155,29,157,34,132,45,97,68,69,95"/>
+<area shape="rect" id="Node000002" href="$classComusParty_1_1Models_1_1Exception_1_1MalformedRequestException.html" title="Classe MalformedRequestException." alt="" coords="136,55,322,80"/>
+<area shape="poly" id="edge10_Node000000_Node000002" title=" " alt="" coords="97,98,130,89,171,78,172,83,131,94,98,103"/>
+<area shape="rect" id="Node000003" href="$classComusParty_1_1Models_1_1Exception_1_1NotFoundException.html" title="Classe NotFoundException." alt="" coords="162,104,296,130"/>
+<area shape="poly" id="edge11_Node000000_Node000003" title=" " alt="" coords="98,114,162,114,162,120,98,120"/>
+<area shape="rect" id="Node000007" href="$classComusParty_1_1Models_1_1Exception_1_1PaymentException.html" title="Classe PaymentException." alt="" coords="165,153,294,179"/>
+<area shape="poly" id="edge15_Node000000_Node000007" title=" " alt="" coords="98,130,131,140,172,150,171,155,130,145,97,135"/>
+<area shape="rect" id="Node000008" href="$classComusParty_1_1Models_1_1Exception_1_1UnauthorizedAccessException.html" title="Classe UnauthorizedAccessException." alt="" coords="131,203,328,228"/>
+<area shape="poly" id="edge16_Node000000_Node000008" title=" " alt="" coords="69,139,97,166,132,189,157,200,155,205,129,194,94,170,65,143"/>
+<area shape="rect" id="Node000004" href="$classComusParty_1_1Models_1_1Exception_1_1ControllerNotFoundException.html" title="Classe ControllerNotFoundException." alt="" coords="376,55,565,80"/>
+<area shape="poly" id="edge12_Node000003_Node000004" title=" " alt="" coords="310,98,404,78,405,84,311,103"/>
+<area shape="rect" id="Node000005" href="$classComusParty_1_1Models_1_1Exception_1_1MethodNotFoundException.html" title="Classe MethodNotFoundException." alt="" coords="382,104,559,130"/>
+<area shape="poly" id="edge13_Node000003_Node000005" title=" " alt="" coords="312,114,381,114,381,120,312,120"/>
+<area shape="rect" id="Node000006" href="$classComusParty_1_1Models_1_1Exception_1_1RouteNotFoundException.html" title="Classe RouteNotFoundException." alt="" coords="386,153,555,179"/>
+<area shape="poly" id="edge14_Node000003_Node000006" title=" " alt="" coords="311,131,405,150,404,155,310,136"/>
+</map>
