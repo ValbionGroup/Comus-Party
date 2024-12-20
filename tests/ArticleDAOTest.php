@@ -286,13 +286,4 @@ class ArticleDAOTest extends TestCase
     {
         $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('42uuid'));
     }
-
-    /**
-     * @brief Instanciation d'un objet ArticleDAO pour les tests
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $this->articleDAO = new ArticleDAO(Db::getInstance()->getConnection());
-    }
 }

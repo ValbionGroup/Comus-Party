@@ -32,6 +32,7 @@ require_once __DIR__ . '/src/Controllers/controllerShop.class.php';
 require_once __DIR__ . '/src/Controllers/controllerAuth.class.php';
 require_once __DIR__ . '/src/Controllers/controllerBasket.class.php';
 require_once __DIR__ . '/src/Controllers/controllerSuggestion.class.php';
+require_once __DIR__ . '/src/Controllers/controllerDashboard.class.php';
 require_once __DIR__ . '/src/Controllers/controllerPolicy.class.php';
 
 require_once __DIR__ . '/src/Models/db.class.php';
@@ -50,6 +51,8 @@ require_once __DIR__ . '/src/Models/passwordResetToken.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.dao.php';
 require_once __DIR__ . '/src/Models/suggestion.class.php';
 require_once __DIR__ . '/src/Models/suggestion.dao.php';
+require_once __DIR__ . '/src/Models/moderator.class.php';
+require_once __DIR__ . '/src/Models/moderator.dao.php';
 
 session_start();
 require_once __DIR__ . '/config/twig.php';
