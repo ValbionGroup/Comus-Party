@@ -118,7 +118,7 @@ class Article {
      * @param float|null $priceEuro Le prix en euro de l'article
      * @param string|null $filePath Le chemin de l'image de l'article
      */
-    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?ArticleType $type = null, ?string $description = null , ?int $pricePoint = null, ?float $priceEuro = null, ?string $filePath = null)
+    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?ArticleType $type = null, ?string $description = null, ?int $pricePoint = null, ?float $priceEuro = null, ?string $filePath = null)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;

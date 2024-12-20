@@ -8,10 +8,9 @@
  */
 
 use ComusParty\Models\Article;
+use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\ArticleType;
 use ComusParty\Models\Db;
-use PDO;
-use ComusParty\Models\ArticleDAO;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../include.php';
@@ -27,16 +26,6 @@ class ArticleDAOTest extends TestCase
      * @var ArticleDAO
      */
     private ArticleDAO $articleDAO;
-
-    /**
-     * @brief Instanciation d'un objet ArticleDAO pour les tests
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $this->articleDAO = new ArticleDAO(Db::getInstance()->getConnection());
-    }
-
 
     /**
      * @brief Test de l'instanciation de la classe ArticleDAO génère une instance de la classe ArticleDAO
@@ -168,7 +157,6 @@ class ArticleDAOTest extends TestCase
         $articles = $this->articleDAO->hydrateMany('array');
     }
 
-
     /**
      * @brief Test de la méthode findById avec un ID valide et existant dans la base de données
      * @return void
@@ -297,5 +285,14 @@ class ArticleDAOTest extends TestCase
     public function testFindActiveBannerByPlayerUuidWithInvalidUuid(): void
     {
         $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('42uuid'));
+    }
+
+    /**
+     * @brief Instanciation d'un objet ArticleDAO pour les tests
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $this->articleDAO = new ArticleDAO(Db::getInstance()->getConnection());
     }
 }

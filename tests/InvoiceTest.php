@@ -26,20 +26,6 @@ class InvoiceTest extends TestCase
     private Invoice $invoice;
 
     /**
-     * @brief Instanciation d'un objet Invoice pour les tests
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $this->invoice = new Invoice(
-            id: 1,
-            playerUuid: 'uuid1',
-            paymentType: PaymentType::Card,
-            createdAt: new DateTime('2024-01-01')
-        );
-    }
-
-    /**
      * @brief Test de la méthode getId
      * @return void
      */
@@ -143,5 +129,19 @@ class InvoiceTest extends TestCase
     {
         $this->expectException(TypeError::class);
         $this->invoice->setCreatedAt('2024-01-02');
+    }
+
+    /**
+     * @brief Instanciation d'un objet Invoice pour les tests
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $this->invoice = new Invoice(
+            id: 1,
+            playerUuid: 'uuid1',
+            paymentType: PaymentType::Card,
+            createdAt: new DateTime('2024-01-01')
+        );
     }
 }
