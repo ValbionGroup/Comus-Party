@@ -8,6 +8,8 @@
  * @date 2024-12-20
  */
 
+namespace ComusParty\Models;
+
 use PHPMailer\PHPMailer\Exception as MailException;
 
 /**
