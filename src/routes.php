@@ -37,8 +37,7 @@ $router->post('/profile/updateStyle/:idArticle', function($idArticle) use ($load
         "idArticle" => $idArticle
         ]);
     exit;
-
-});
+}, 'player');
 
 // Route pour afficher le formulaire de connexion
 $router->get('/login', function () use ($loader, $twig) {
