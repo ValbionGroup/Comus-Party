@@ -361,7 +361,6 @@ class ControllerAuth extends Controller
      * @return void
      * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      * @todo Modifier le corps du mail (version HTMl) pour correspondre à la charte graphique (quand terminée)
-     * @todo Changer l'URL envoyé (localhost) pour le déploiement
      */
     public function register(?string $username, ?string $email, ?string $password): void {
 
@@ -417,6 +416,8 @@ class ControllerAuth extends Controller
                 $mail->SMTPAuth = true; // Authentification SMTP
                 $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
                 $mail->Port = MAIL_PORT; // Port SMTP
+                $mail->CharSet = 'UTF-8';
+                $mail->Encoding = 'base64';
 
                 // Configuration de l'authentification
                 $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
@@ -459,6 +460,7 @@ class ControllerAuth extends Controller
 
         MessageHandler::addMessageParametersToSession("Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter.");
         header('Location: /login');
+        exit;
     }
 
 /**
@@ -478,6 +480,7 @@ class ControllerAuth extends Controller
             $userDAO->confirmUser($emailVerifToken);
             MessageHandler::addMessageParametersToSession("Votre compte a bien été confirmé. Vous pouvez maintenant vous connecter.");
             header('Location: /login');
+            exit;
         } else {
             header('Location: /register');
             throw new AuthenticationException("La confirmation a echoué");
