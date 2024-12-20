@@ -23,6 +23,8 @@ require_once __DIR__ . '/src/Models/Exceptions/MethodNotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/RouteNotFoundException.php';
 require_once __DIR__ . '/src/Models/Exceptions/UnauthorizedAccessException.php';
 require_once __DIR__ . '/src/Models/Exceptions/PaymentException.php';
+require_once __DIR__ . '/src/Models/Exceptions/GameUnavailableException.php';
+require_once __DIR__ . '/src/Models/Exceptions/GameSettingsException.php';
 
 require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/Controllers/controller.class.php';
@@ -49,6 +51,8 @@ require_once __DIR__ . '/src/Models/invoice.dao.php';
 require_once __DIR__ . '/src/Models/statistics.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.dao.php';
+require_once __DIR__ . '/src/Models/gameRecord.class.php';
+require_once __DIR__ . '/src/Models/gameRecord.dao.php';
 require_once __DIR__ . '/src/Models/suggestion.class.php';
 require_once __DIR__ . '/src/Models/suggestion.dao.php';
 require_once __DIR__ . '/src/Models/moderator.class.php';

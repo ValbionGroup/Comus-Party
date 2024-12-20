@@ -6,9 +6,8 @@ use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\Exception\NotFoundException;
 use ComusParty\Models\Exception\UnauthorizedAccessException;
 
-require __DIR__.'/../include.php';
-
-require __DIR__.'/../src/routes.php';
+require __DIR__ . '/../include.php';
+require __DIR__ . '/../src/routes.php';
 
 try {
     $router->matchRoute();
