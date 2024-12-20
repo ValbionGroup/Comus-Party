@@ -44,9 +44,8 @@ class GameRecordDAO
     public function findByGameId(int $gameId): array
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE game_id = :gameId");
-        $stmt->execute([
-            "gameId" => $gameId
-        ]);
+        $stmt->bindParam(":gameId", $gameId);
+        $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
         return $this->hydrateMany($stmt->fetch());
@@ -112,9 +111,8 @@ class GameRecordDAO
     public function findByUuid(string $uuid): ?GameRecord
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE uuid = :uuid");
-        $stmt->execute([
-            "uuid" => $uuid
-        ]);
+        $stmt->bindParam(":uuid", $uuid);
+        $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
         return $this->hydrate($stmt->fetch());
@@ -149,9 +147,8 @@ class GameRecordDAO
     public function findByHosterUuid(string $uuid): ?array
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE hosted_by = :uuid");
-        $stmt->execute([
-            "uuid" => $uuid
-        ]);
+        $stmt->bindParam(":uuid", $uuid);
+        $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
         return $this->hydrateMany($stmt->fetch());
@@ -174,9 +171,8 @@ class GameRecordDAO
         };
 
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE state = :state");
-        $stmt->execute([
-            "state" => $state
-        ]);
+        $stmt->bindParam(":state", $state);
+        $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
         return $this->hydrateMany($stmt->fetch());
