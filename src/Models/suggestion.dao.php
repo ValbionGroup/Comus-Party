@@ -135,4 +135,42 @@ class SuggestionDAO
         $suggestion->setAuthorUsername($data['username']);
         return $suggestion;
     }
+
+    /**
+     * @brief Modifie l'attribut accepted d'une suggestion en base de données et retourne le résultat de l'exécution
+     * @param int|null $id L'identifiant de la suggestion
+     * @return bool Résultat de l'exécution
+     */
+    public function deny(?int $id): bool
+    {
+        $stmt = $this->pdo->prepare('UPDATE ' . DB_PREFIX . 'suggestion SET treated_by = :treated_by WHERE id = :id');
+        $stmt->bindParam(':treated_by', $_SESSION['uuid']);
+        $stmt->bindParam(':id', $id);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * @brief Récupère une suggestion en base de données par son identifiant
+     * @param int|null $id L'identifiant de la suggestion
+     * @return Suggestion|null La suggestion ou null si aucune suggestion n'est trouvée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function findById(?int $id)
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT s.*, p.username
+            FROM ' . DB_PREFIX . 'suggestion s
+            JOIN ' . DB_PREFIX . 'player p ON s.author_uuid = p.uuid
+            WHERE s.id = :id'
+        );
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $suggestTab = $stmt->fetch();
+        if (!$suggestTab) {
+            return null;
+        }
+        return $this->hydrate($suggestTab);
+    }
 }
