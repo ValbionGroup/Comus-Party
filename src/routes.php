@@ -110,7 +110,7 @@ $router->get('/register', function () use ($loader, $twig) {
 });
 
 $router->post('/register', function () use ($loader, $twig) {
-    if (isset($_POST['email']) && isset($_POST['password'])) {
+    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
         ControllerFactory::getController("auth", $loader, $twig)->call("register", [
             "username" => $_POST['username'],
             "email" => $_POST['email'],
@@ -124,7 +124,7 @@ $router->post('/register', function () use ($loader, $twig) {
 $router->get('/confirm-email/:token', function (string $token) use($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
     exit;
-});
+}, 'guest');
 
 $router->get('/forgot-password', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
