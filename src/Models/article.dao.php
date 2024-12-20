@@ -235,7 +235,7 @@ class ArticleDAO {
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
         SET ir.active = 0
-        WHERE i.player_uuid = :uuid AND ir.invoice_id = :idArticleActif');
+        WHERE i.player_uuid = :uuid AND ir.article_id = :idArticleActif');
             $stmt->bindParam(':uuid', $uuid);
             $stmt->bindParam(':idArticleActif', $idPfpActive);
             $stmt->execute();
