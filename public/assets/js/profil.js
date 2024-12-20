@@ -114,7 +114,7 @@ function afficher(section) {
 
 
 function equipArticlePfp() {
-    let idArticle = selectedPfp.value
+    let idArticle = inputSelectedPfp.value
     const xhr = new XMLHttpRequest();
     xhr.open("POST", `/profile/updateStyle/${idArticle}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
