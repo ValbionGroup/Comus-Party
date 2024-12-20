@@ -124,7 +124,6 @@ function equipArticlePfp() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText)
-            console.log(response)
             playerPfp.src = "/assets/img/pfp/" + response.articlePath
             pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
         }
