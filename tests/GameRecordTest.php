@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Test class for GameRecord
+ * @brief Classe de test pour GameRecord
  *
  * @file GameRecordTest.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
@@ -17,14 +17,14 @@ use ComusParty\Models\Player;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @brief Test class for GameRecord
+ * @brief Classe GameRecordTest
  * @details La classe GameRecordTest permet de tester les méthodes de la classe GameRecord
  */
 class GameRecordTest extends TestCase
 {
     /**
-     * @brief The game record to test
-     * @var GameRecord $gameRecord The game record to test
+     * @brief Instance de GameRecord pour les tests
+     * @var GameRecord $gameRecord Instance de GameRecord pour les tests
      */
     private GameRecord $gameRecord;
 
