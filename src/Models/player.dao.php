@@ -80,7 +80,7 @@ class PlayerDAO
      * @param array $data Le tableau associatif content les paramètres
      * @return Player L'objet retourné par la méthode, ici un joueur
      * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
-     * @TODO Modifier la manière de traiter les statistiques ( représentation bancale)
+     * @TODO Modifier la manière de traiter les statistiques (représentation bancale)
      */
     public function hydrate(array $data): Player
     {
@@ -233,47 +233,6 @@ class PlayerDAO
     }
 
     /**
-     * @brief Hydrate un objet Player avec les valeurs du tableau associatif passé en paramètre
-     * @param array $data Le tableau associatif content les paramètres
-     * @return Player L'objet retourné par la méthode, ici un joueur
-     * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
-     */
-    public function hydrate(array $data) : Player {
-        $player = new Player();
-        $player->setStatistics(new Statistics());
-        $player->setUuid($data['uuid']);
-        $player->setUsername($data['username']);
-        $player->setCreatedAt(new DateTime($data['created_at']));
-        $player->setUpdatedAt(new DateTime($data['updated_at']));
-        $player->setXp($data['xp']);
-        $player->setElo($data['elo']);
-        $player->setComusCoin($data['comus_coin']);
-        $player->getStatistics()->setPlayerUuid($data['uuid'] ?? null);
-        $player->getStatistics()->setGamesPlayed($data['games_played'] ?? null);
-        $player->getStatistics()->setGamesWon($data['games_won'] ?? null);
-        $player->getStatistics()->setGamesHosted($data['games_hosted'] ?? null);
-        $player->setUserId($data['user_id']);
-        return $player;
-    }
-
-    /**
-     * @brief Hydrate un tableau d'objets Player avec les valeurs des tableaux associatifs du tableau passé en paramètre
-     * @details Cette méthode appelle, pour chaque tableau associatif contenu dans celui passé en paramètre, la méthode hydrate() définie ci-dessus.
-     * @param array $data Le tableau de tableaux associatifs
-     * @return array L'objet retourné par la méthode, ici un tableau (d'objets Player)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     */
-    public function hydrateMany(array $data): array
-    {
-        $players = [];
-        foreach ($data as $player) {
-            $players[] = $this->hydrate($player);
-        }
-        return $players;
-    }
-
-
-    /**
      * @brief Crée un nouveau joueur dans la base de données
      *
      * @details Cette méthode génère un UUID unique pour le joueur, récupère l'identifiant utilisateur à partir de l'adresse e-mail,
@@ -306,7 +265,8 @@ class PlayerDAO
      * @param string|null $username Le nom d'utilisateur du joueur à retrouver
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
      */
-    public function findByUsername(?string $username): ?Player {
+    public function findByUsername(?string $username): ?Player
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "player WHERE username = :username");
         $stmt->bindParam(':username', $username);
         $stmt->execute();
