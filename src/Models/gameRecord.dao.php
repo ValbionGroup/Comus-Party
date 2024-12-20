@@ -53,7 +53,7 @@ class GameRecordDAO
     }
 
     /**
-     * @brief Retourne la liste des parties
+     * @brief Retourne la liste des parties hydratées
      * @param array $rows Tableau de lignes de la table game_record
      * @return GameRecord[] Tableau d'objets GameRecord
      * @throws Exception
@@ -68,7 +68,7 @@ class GameRecordDAO
     }
 
     /**
-     * @brief Retourne la liste des parties
+     * @brief Retourne un enregistrement de partie hydraté
      * @param array $row Ligne de la table game_record
      * @return GameRecord Enregistrement de la partie hydraté
      * @throws Exception Exception levée en cas d'erreur lors de l'hydratation
