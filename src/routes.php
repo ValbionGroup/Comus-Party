@@ -30,6 +30,15 @@ $router->get('/profile', function () use ($loader, $twig) {
     exit;
 }, 'player');
 
+$router->post('/profile/updateStyle/:idArticle', function($idArticle) use ($loader, $twig){
+
+    ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
+        "uuidPlayer" => $_SESSION["uuid"],
+        "idArticle" => $idArticle
+        ]);
+    exit;
+}, 'player');
+
 // Route pour afficher le formulaire de connexion
 $router->get('/login', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
