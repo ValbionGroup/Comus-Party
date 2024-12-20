@@ -20,9 +20,9 @@ let paymentBtn = document.getElementById("paymentBtn")
  ** @details Si le panier ne contient aucun article, affiche un message indiquant que celui-ci est vide.
  */
 
-function testArticleInBasket(){
+function testArticleInBasket() {
     let articles = document.querySelectorAll(".article")
-    if(articles.length == 0){
+    if(articles.length === 0){
         emptyBasket.classList.add("flex")
         emptyBasket.classList.remove("hidden")
         paymentBtn.disabled = true
@@ -34,6 +34,7 @@ function testArticleInBasket(){
         paymentBtn.classList.remove("opacity-50")
     }
 }
+
 testArticleInBasket()
 /**
  * @brief Permet de supprimer un article du panier

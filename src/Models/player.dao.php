@@ -15,8 +15,6 @@ use Exception;
 use PDO;
 use Ramsey\Uuid\Uuid;
 
-// Pour la création de l'uuid
-
 /**
  * @brief Classe PlayerDAO
  * @details La classe PlayerDAO permet de faire des opérations sur la table player dans la base de données
@@ -82,7 +80,7 @@ class PlayerDAO
      * @param array $data Le tableau associatif content les paramètres
      * @return Player L'objet retourné par la méthode, ici un joueur
      * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
-     * @TODO Modifier la manière de traiter les statistiques ( représentation bancale)
+     * @TODO Modifier la manière de traiter les statistiques (représentation bancale)
      */
     public function hydrate(array $data): Player
     {
@@ -267,7 +265,8 @@ class PlayerDAO
      * @param string|null $username Le nom d'utilisateur du joueur à retrouver
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
      */
-    public function findByUsername(?string $username): ?Player {
+    public function findByUsername(?string $username): ?Player
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "player WHERE username = :username");
         $stmt->bindParam(':username', $username);
         $stmt->execute();

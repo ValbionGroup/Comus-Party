@@ -58,8 +58,7 @@ class ControllerBasket extends Controller
             array(
                 'articles' => $articles,
                 'totalPriceBasket' => $totalPriceBasket,
-                )
-
+            )
         );
     }
 

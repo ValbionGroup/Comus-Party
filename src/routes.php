@@ -107,7 +107,7 @@ $router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) 
 $router->get('/register', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showRegistrationPage");
     exit;
-});
+}, 'guest');
 
 $router->post('/register', function () use ($loader, $twig) {
     if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
@@ -119,7 +119,7 @@ $router->post('/register', function () use ($loader, $twig) {
         exit;
     }
     throw new Exception("Données reçues incomplètes.");
-});
+}, 'guest');
 
 $router->get('/confirm-email/:token', function (string $token) use($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
