@@ -22,14 +22,17 @@ let paymentBtn = document.getElementById("paymentBtn")
 
 function testArticleInBasket(){
     let articles = document.querySelectorAll(".article")
+    console.log("Articles" + articles.length)
     if(articles.length == 0){
         emptyBasket.classList.add("flex")
         emptyBasket.classList.remove("hidden")
-
+        paymentBtn.disabled = false
+        paymentBtn.classList.add("opacity-50")
     }else{
         emptyBasket.classList.add("hidden")
         emptyBasket.classList.remove("flex")
-
+        paymentBtn.disabled = false
+        paymentBtn.classList.remove("opacity-50")
     }
 }
 testArticleInBasket()
