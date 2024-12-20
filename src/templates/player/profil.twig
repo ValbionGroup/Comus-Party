@@ -63,9 +63,9 @@
                 </div>
             </div>
 
-                <div id="modalPfp"  class="modal z-50 flex flex-row absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-3xl  shadow-lg sm:w-2/3 sm:h-2/3 w-11/12 h-5/6 overflow-hidden hidden ">
+                <div id="modalPfp"  class="modal z-50 flex md:flex-row flex-col absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-3xl  shadow-lg md:w-2/3 md:h-2/3 w-11/12  overflow-hidden hidden ">
                     <!-- Section gauche : Liste des photos de profil -->
-                    <div class="sm:w-2/3 w-7/12 dark:bg-night-2 p-4 overflow-y-auto">
+                    <div class="md:w-2/3 w-full dark:bg-night-2 p-4 md:overflow-y-auto overflow-x-auto">
                         <!-- Liste des photos -->
                         <div class="flex">
                             <div   class=" w-20 h-20 m-1 pfp cursor-pointer" onclick="infoArticlePfp({ id : '0', name : 'Photo de profil par défaut', description : 'La photo par défaut', filePath : 'default-pfp.jpg'})">
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <!-- Section droite : Description -->
-                    <div class="sm:w-1/3 w-5/12 p-6 flex flex-col justify-center items-center relative dark:bg-night-3">
+                    <div class="md:w-1/3 w-full p-6 flex flex-col justify-center items-center relative dark:bg-night-3">
                         <button class="absolute right-1 top-1 text-lavender-blush-base  transition duration-200"
                                 onclick="closeModal()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M16.066 8.995a.75.75 0 1 0-1.06-1.061L12 10.939L8.995 7.934a.75.75 0 1 0-1.06 1.06L10.938 12l-3.005 3.005a.75.75 0 0 0 1.06 1.06L12 13.06l3.005 3.006a.75.75 0 0 0 1.06-1.06L13.062 12z"/></svg>
