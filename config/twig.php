@@ -11,6 +11,7 @@
 
 use Twig\Extension\CoreExtension;
 use Twig\Extension\DebugExtension;
+use Twig\Extra\Date\DateExtension;
 use Twig\Extra\Intl\IntlExtension;
 
 /**
@@ -28,6 +29,7 @@ $twig = new Twig\Environment($loader, [
 $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
 $twig->addExtension(new DebugExtension());
 $twig->addExtension(new IntlExtension());
+$twig->addExtension(new DateExtension());
 
 $twig->addGlobal('auth', [
     'pfpPath' => $_SESSION['pfpPath'] ?? null,
@@ -37,6 +39,9 @@ $twig->addGlobal('auth', [
     'loggedComusCoin' => $_SESSION['comusCoin'] ?? null,
     'loggedElo' => $_SESSION['elo'] ?? null,
     'loggedXp' => $_SESSION['xp'] ?? null,
+    'role' => $_SESSION['role'] ?? null,
+    'firstName' => $_SESSION['firstName'] ?? null,
+    'lastName' => $_SESSION['lastName'] ?? null,
 ]);
 
 if (isset($_SESSION['error'])) {
