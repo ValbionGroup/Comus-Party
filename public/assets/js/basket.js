@@ -22,7 +22,6 @@ let paymentBtn = document.getElementById("paymentBtn")
 
 function testArticleInBasket(){
     let articles = document.querySelectorAll(".article")
-    console.log("Articles" + articles.length)
     if(articles.length == 0){
         emptyBasket.classList.add("flex")
         emptyBasket.classList.remove("hidden")
