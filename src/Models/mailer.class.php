@@ -146,8 +146,11 @@ class Mailer
      * @brief Fonction permettant de générer un message HTML avec la template de mail
      * @return string Retourne le message HTML
      */
-    private function generateHTMLMessage(): string
+    public function generateHTMLMessage(): string
     {
-        return "<html lang='fr'><body>" . $this->message . "</body></html>";
+        $content = file_get_contents(__DIR__ . '/../templates/mail.twig');
+        $content = str_replace('{{ subject }}', $this->getSubject(), $content);
+        $content = str_replace('{{ message }}', $this->getMessage(), $content);
+        return $content;
     }
 }
