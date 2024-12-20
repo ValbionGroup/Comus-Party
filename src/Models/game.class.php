@@ -21,7 +21,8 @@ use DateTime;
  *
  * @enum GameState
  */
-enum GameState {
+enum GameState
+{
     /**
      * @brief L'état AVAILABLE indique que le jeu est disponible pour les utilisateurs.
      */
@@ -94,6 +95,13 @@ class Game
     private ?DateTime $updatedAt;
 
     /**
+     * @brief Liste des tags du jeu
+     *
+     * @var array|null
+     */
+    private ?array $tags;
+
+    /**
      * @brief Constructeur de la classe Game
      * @param int|null $id Identifiant du jeu
      * @param string|null $name Nom du jeu
@@ -102,6 +110,7 @@ class Game
      * @param GameState|null $state État du jeu
      * @param DateTime|null $createdAt Date de création du jeu
      * @param DateTime|null $updatedAt Date de mise à jour du jeu
+     * @param array|null $tags Liste des tags du jeu
      */
     public function __construct(
         ?int       $id = null,
@@ -110,7 +119,8 @@ class Game
         ?string    $pathImg = null,
         ?GameState $state = null,
         ?DateTime  $createdAt = null,
-        ?DateTime  $updatedAt = null)
+        ?DateTime  $updatedAt = null,
+        ?array     $tags = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -119,6 +129,7 @@ class Game
         $this->state = $state;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->tags = $tags;
     }
 
     /**
@@ -256,6 +267,7 @@ class Game
     {
         return $this->updatedAt;
     }
+
     /**
      * @brief Modifie la date de mise à jour du jeu
      *
@@ -265,5 +277,26 @@ class Game
     public function setUpdatedAt(?DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @brief Retourne la liste des tags du jeu
+     *
+     * @return array|null La liste des tags du jeu
+     */
+    public function getTags(): ?array
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @brief Modifie la liste des tags du jeu
+     *
+     * @param array|null $tags La liste des tags du jeu
+     * @return void
+     */
+    public function setTags(?array $tags): void
+    {
+        $this->tags = $tags;
     }
 }
