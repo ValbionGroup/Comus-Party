@@ -23,6 +23,7 @@ let pfpDescription = document.getElementById("pfpDescription")
 
 let equipButton = document.getElementById("equipButton")
 let modalPfp = document.getElementById("modalPfp")
+let modalBanner = document.getElementById("modalBanner")
 
 let modals = document.querySelectorAll(".modal")
 let pfps = document.querySelectorAll(".pfp")
@@ -44,6 +45,11 @@ function infoArticlePfp(article) {
 
 function showModalPfp() {
     modalPfp.classList.remove("hidden")
+    background.classList.remove("hidden")
+}
+
+function showModalBanner() {
+    modalBanner.classList.remove("hidden")
     background.classList.remove("hidden")
 }
 

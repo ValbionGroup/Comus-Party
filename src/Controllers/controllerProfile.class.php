@@ -29,6 +29,7 @@ use Twig\Loader\FilesystemLoader;
  */
 class ControllerProfile extends Controller
 {
+    private $deleteActiveArticleForPfp;
 
     /**
      * @brief Constructeur de la classe ControllerProfile
@@ -73,6 +74,7 @@ class ControllerProfile extends Controller
             $bannerPath = $banner->getFilePath();
         }
         $pfpsOwned = $articleManager->findAllPfpsByUuidPlayer($player->getUuid());
+        $bannersOwned = $articleManager->findAllBannersByUuidPlayer($player->getUuid());
         $template = $this->getTwig()->load('player/profil.twig');
         echo $template->render(array(
             "player" => $player,
@@ -80,6 +82,7 @@ class ControllerProfile extends Controller
             "pfp" => $pfpPath,
             "banner" => $bannerPath,
             "pfpsOwned" => $pfpsOwned,
+            "bannerOwned" => $bannersOwned
         ));
     }
 
