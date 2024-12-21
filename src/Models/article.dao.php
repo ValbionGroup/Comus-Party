@@ -136,6 +136,28 @@ class ArticleDAO {
     }
 
     /**
+     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de l'user correspondants à l'ensemble des bannières possédées
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
+     */
+    public function findAllBannersByUuidPlayer(string $uuid): ?array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT a.*
+            FROM ' . DB_PREFIX . 'article a
+            JOIN ' . DB_PREFIX . 'invoice_row ir ON a.id = ir.article_id
+            JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
+            WHERE i.player_uuid = :uuid AND type = "banner" ');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $articles = $stmt->fetchAll();
+        return $this->hydrateMany($articles);
+    }
+
+
+    /**
      * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles enregistrés dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
