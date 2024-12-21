@@ -82,7 +82,7 @@ class ControllerProfile extends Controller
             "pfp" => $pfpPath,
             "banner" => $bannerPath,
             "pfpsOwned" => $pfpsOwned,
-            "bannerOwned" => $bannersOwned
+            "bannersOwned" => $bannersOwned
         ));
     }
 

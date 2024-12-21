@@ -105,15 +105,15 @@
                 <!-- Section gauche : Liste des bannieres -->
                 <div class="md:w-2/3 md:h-full h-1/2 w-full dark:bg-night-2 p-4 md:overflow-y-auto ">
                     <!-- Liste des bannières -->
-                    <div class="flex">
-                        <div   class=" w-20 h-20 m-1 pfp cursor-pointer" onclick="infoArticlePfp({ id : '0', name : 'Photo de profil par défaut', description : 'La photo par défaut', filePath : 'default-pfp.jpg'})">
-                            <img id="defaultPfp" src="assets/img/pfp/default-pfp.jpg" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
+                    <div class="flex flex-col">
+                        <div   class=" w-full h-32 m-1 banner cursor-pointer" onclick="infoArticleBanner({ id : '0', name : 'Banner par défaut', description : 'Banner par défaut', filePath : 'default-banner.jpg'})">
+                            <img id="defaultPfp" src="assets/img/banner/default-banner.jpg" alt="Pas d'image" class="pfp rounded-3xl w-full h-32" onclick="activeShadowOnPfp(this)">
                         </div>
-                        {% if pfpsOwned %}
+                        {% if bannersOwned %}
                             <!-- Exemple de photo -->
                             {% for banner in bannersOwned %}
-                                <div  class=" w-20 h-20 m-1 cursor-pointer" onclick="infoArticlePfp({ id : '{{ banner.id }}', name : '{{ banner.name }}', description : '{{ banner.description }}', filePath : '{{ banner.filePath }}'})">
-                                    <img id="{{ banner.id }}" src="assets/img/pfp/{{ banner.filePath }}" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
+                                <div  class=" w-full h-32 m-1 cursor-pointer" onclick="infoArticleBanner({ id : '{{ banner.id }}', name : '{{ banner.name }}', description : '{{ banner.description }}', filePath : '{{ banner.filePath }}'})">
+                                    <img id="{{ banner.id }}" src="assets/img/banner/{{ banner.filePath }}" alt="Pas d'image" class="banner rounded-3xl w-full h-32" onclick="activeShadowOnPfp(this)">
                                 </div>
                             {% endfor %}
                         {% endif %}
@@ -125,11 +125,11 @@
                             onclick="closeModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M16.066 8.995a.75.75 0 1 0-1.06-1.061L12 10.939L8.995 7.934a.75.75 0 1 0-1.06 1.06L10.938 12l-3.005 3.005a.75.75 0 0 0 1.06 1.06L12 13.06l3.005 3.006a.75.75 0 0 0 1.06-1.06L13.062 12z"/></svg>
                     </button>
-                    <h2 id="pfpTitle" class="text-2xl font-semibold mb-4">Titre de la photo</h2>
-                    <p id="pfpDescription" class="text-gray-600 text-lg text-lavender-blush-base text-center mb-4">
+                    <h2 id="bannerTitle" class="text-2xl font-semibold mb-4">Titre de la photo</h2>
+                    <p id="bannerDescription" class="text-gray-600 text-lg text-lavender-blush-base text-center mb-4">
                         Passez la souris sur une photo pour voir la description.
                     </p>
-                    <input type="hidden" value="" id="selectedPfp">
+                    <input type="hidden" value="" id="selectedBanner">
                     <button
                             id="equipButton"
                             class="px-4 py-2 dark:bg-night-2 text-lavender-blush-base rounded shadow hover:bg-night-1 transition duration-200"

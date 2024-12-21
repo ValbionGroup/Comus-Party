@@ -21,6 +21,9 @@ let background = document.getElementById('backgroundModal');
 let pfpTitle = document.getElementById("pfpTitle")
 let pfpDescription = document.getElementById("pfpDescription")
 
+let bannerTitle = document.getElementById("bannerTitle")
+let bannerDescription = document.getElementById("bannerDescription")
+
 let equipButton = document.getElementById("equipButton")
 let modalPfp = document.getElementById("modalPfp")
 let modalBanner = document.getElementById("modalBanner")
@@ -31,6 +34,7 @@ let playerPfp = document.getElementById("pfpPlayer")
 let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
 let defaultPfp = document.getElementById("defaultPfp")
 let inputSelectedPfp = document.getElementById("selectedPfp")
+let inputSelectedBanner = document.getElementById("selectedBanner")
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -40,6 +44,12 @@ function infoArticlePfp(article) {
     pfpTitle.textContent = article.name
     pfpDescription.textContent = article.description
     inputSelectedPfp.value = article.id
+
+}
+function infoArticleBanner(article) {
+    bannerTitle.textContent = article.name
+    bannerDescription.textContent = article.description
+    inputSelectedBanner.value = article.id
 
 }
 
