@@ -31,10 +31,11 @@ let modalBanner = document.getElementById("modalBanner")
 let modals = document.querySelectorAll(".modal")
 let pfps = document.querySelectorAll(".pfp")
 let playerPfp = document.getElementById("pfpPlayer")
+let playerBanner = document.getElementById("bannerPlayer")
 let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
 let defaultPfp = document.getElementById("defaultPfp")
-let inputSelectedPfp = document.getElementById("selectedPfp")
-let inputSelectedBanner = document.getElementById("selectedBanner")
+let inputSelectedArticleId = document.getElementById("selectedArticleId")
+let inputSelectedArticleType = document.getElementById("selectedArticleType")
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -43,14 +44,15 @@ function activeShadowOnPfp(pfp) {
 function infoArticlePfp(article) {
     pfpTitle.textContent = article.name
     pfpDescription.textContent = article.description
-    inputSelectedPfp.value = article.id
+    inputSelectedArticleId.value = article.id
+    inputSelectedArticleType.value = article.type
 
 }
 function infoArticleBanner(article) {
     bannerTitle.textContent = article.name
     bannerDescription.textContent = article.description
-    inputSelectedBanner.value = article.id
-
+    inputSelectedArticleId.value = article.id
+    inputSelectedArticleType.value = article.type
 }
 
 function showModalPfp() {
@@ -129,10 +131,12 @@ function afficher(section) {
 }
 
 
-function equipArticlePfp() {
-    let idArticle = inputSelectedPfp.value
+function equipArticle() {
+    let idArticle = inputSelectedArticleId.value
+    let typeArticle = inputSelectedArticleType.value
+    console.log(typeArticle)
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/profile/updateStyle/${idArticle}`, true);
+    xhr.open("POST", `/profile/updateStyle/${idArticle}/${typeArticle}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     // Envoyer les données sous forme de paire clé=valeur
     xhr.send();
@@ -140,8 +144,14 @@ function equipArticlePfp() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText)
-            playerPfp.src = "/assets/img/pfp/" + response.articlePath
-            pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
+            console.log(response)
+            if(typeArticle === "banner"){
+                playerBanner.src = "/assets/img/banner/" + response.articlePath
+            }else if(typeArticle === "pfp"){
+                playerPfp.src = "/assets/img/pfp/" + response.articlePath
+                pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
+            }
+
         }
     };
     closeModal()
