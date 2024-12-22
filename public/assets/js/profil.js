@@ -130,6 +130,7 @@ function afficher(section) {
     }
 }
 
+// Fonction permettant d'équiper un article
 
 function equipArticle() {
     let idArticle = inputSelectedArticleId.value
