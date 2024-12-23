@@ -128,6 +128,8 @@ class ControllerAuth extends Controller
             $mail->SMTPSecure = MAIL_SECURITY;
             $mail->setFrom(MAIL_FROM);
             $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';
+            $mail->Encoding = 'base64';
             $mail->Subject = $subject . MAIL_BASE;
             $mail->AltBody = $message;
             $mail->Body = $message;
@@ -137,6 +139,9 @@ class ControllerAuth extends Controller
             $mail->addAddress($to);
             $mail->send();
         } catch (MailException $e) {
+            MessageHandler::addExceptionParametersToSession($e);
+            header('Location: /forgot-password');
+            return;
         }
 
         MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
