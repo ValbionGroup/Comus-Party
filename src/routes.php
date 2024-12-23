@@ -30,6 +30,15 @@ $router->get('/profile', function () use ($loader, $twig) {
     exit;
 }, 'player');
 
+$router->post('/profile/updateStyle/:idArticle', function($idArticle) use ($loader, $twig){
+
+    ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
+        "uuidPlayer" => $_SESSION["uuid"],
+        "idArticle" => $idArticle
+        ]);
+    exit;
+}, 'player');
+
 // Route pour afficher le formulaire de connexion
 $router->get('/login', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
@@ -161,7 +170,10 @@ $router->get('/disable-account/:uuid', function ($uuid) use ($loader, $twig) {
 }, 'player');
 
 $router->post('/', function () use ($loader, $twig) {
-    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", ["suggestion" => $_POST['suggestion']]);
+    ControllerFactory::getController("suggestion", $loader, $twig)->call("sendSuggestion", [
+        "object" => $_POST["object"],
+        "suggestion" => $_POST['suggestion']
+    ]);
     exit;
 }, 'player');
 
@@ -169,3 +181,18 @@ $router->get('/cgu', function () use ($loader, $twig) {
     ControllerFactory::getController("policy", $loader, $twig)->call("showCgu");
     exit;
 });
+
+$router->put('/suggest/deny/:id', function ($id) use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("denySuggestion", ["id" => $id]);
+    exit;
+}, 'moderator');
+
+$router->get('/', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("showDashboard");
+    exit;
+}, 'moderator');
+
+$router->get('/suggest/:id', function ($id) use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getSuggestionInfo", ["id" => $id]);
+    exit;
+}, 'moderator');

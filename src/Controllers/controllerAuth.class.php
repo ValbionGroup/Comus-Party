@@ -133,6 +133,8 @@ class ControllerAuth extends Controller
             $mail->Subject = $subject . MAIL_BASE;
             $mail->AltBody = $message;
             $mail->Body = $message;
+            $mail->CharSet = "UTF-8";
+            $mail->Encoding = 'base64';
 
             $mail->addAddress($to);
             $mail->send();

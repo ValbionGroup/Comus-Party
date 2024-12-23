@@ -25,11 +25,13 @@ function testArticleInBasket(){
     if(articles.length == 0){
         emptyBasket.classList.add("flex")
         emptyBasket.classList.remove("hidden")
-
+        paymentBtn.disabled = true
+        paymentBtn.classList.add("opacity-50")
     }else{
         emptyBasket.classList.add("hidden")
         emptyBasket.classList.remove("flex")
-
+        paymentBtn.disabled = false
+        paymentBtn.classList.remove("opacity-50")
     }
 }
 testArticleInBasket()
