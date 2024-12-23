@@ -123,4 +123,24 @@ class ControllerGame extends Controller
 
         return json_decode(file_get_contents($settingsFile), true);
     }
+
+    /**
+     * @brief Récupère les informations d'un jeu et le retourne au format JSON
+     * @param int|null $id L'identifiant du jeu
+     * @return void
+     */
+    public function getGameInformations(?int $id) {
+        $gameManager = new GameDAO($this->getPdo());
+        $game = $gameManager->findWithDetailsById($id);
+        echo json_encode([
+            "success" => true,
+            "game" => [
+                "id" => $game->getId(),
+                "name" => $game->getName(),
+                "description" => $game->getDescription(),
+                "tags" => $game->getTags(),
+            ],
+        ]);
+        exit;
+    }
 }
