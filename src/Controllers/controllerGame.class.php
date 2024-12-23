@@ -2,9 +2,9 @@
 /**
  * @file controllerGame.class.php
  * @brief Le fichier contient la déclaration et la définition de la classe ControllerGame
- * @author Conchez-Boueytou Robin
- * @date 13/11/2024
- * @version 0.2
+ * @author Conchez-Boueytou Robin, ESPIET Lucas
+ * @date 23/12/2024
+ * @version 0.3
  */
 
 namespace ComusParty\Controllers;
