@@ -92,7 +92,7 @@ class GameRecord
      * @param string $uuid Identifiant de la partie
      * @param Game $game Jeu de la partie
      * @param Player $hostedBy Joueur qui a créé la partie
-     * @param array|null $players Joueurs de la partie
+     * @param Player[]|null $players Joueurs de la partie
      * @param GameRecordState $state Etat de la partie
      * @param DateTime $createdAt Date de création de la partie
      * @param DateTime $updatedAt Date de dernière mise à jour de la partie

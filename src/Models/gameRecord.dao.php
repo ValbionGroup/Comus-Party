@@ -208,4 +208,36 @@ class GameRecordDAO
         }
         return $this->hydrateMany($gameRecords);
     }
+
+    /**
+     * @brief Insère un enregistrement de partie en base de données
+     * @param GameRecord $gameRecord Enregistrement de la partie à insérer
+     * @return bool Retourne true si l'insertion a réussi, false sinon
+     */
+    public function insert(GameRecord $gameRecord): bool
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (uuid, game_id, hosted_by, state, created_at, updated_at, finished_at) VALUES (:uuid, :gameId, :hostedBy, :state, :createdAt, :updatedAt, :finishedAt)");
+
+        $uuid = $gameRecord->getUuid();
+        $gameId = $gameRecord->getGame()->getId();
+        $hostUuid = $gameRecord->getHostedBy()->getUuid();
+        $state = match ($gameRecord->getState()) {
+            GameRecordState::WAITING => "waiting",
+            GameRecordState::STARTED => "started",
+            GameRecordState::FINISHED => "finished",
+        };
+        $createdAt = $gameRecord->getCreatedAt()->format("Y-m-d H:i:s");
+        $updatedAt = $gameRecord->getUpdatedAt()?->format("Y-m-d H:i:s");
+        $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
+
+        $stmt->bindParam(":uuid", $uuid);
+        $stmt->bindParam(":gameId", $gameId);
+        $stmt->bindParam(":hostedBy", $hostUuid);
+        $stmt->bindParam(":state", $state);
+        $stmt->bindParam(":createdAt", $createdAt);
+        $stmt->bindParam(":updatedAt", $updatedAt);
+        $stmt->bindParam(":finishedAt", $finishedAt);
+
+        return $stmt->execute();
+    }
 }
