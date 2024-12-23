@@ -12,8 +12,14 @@ namespace ComusParty\Controllers;
 use ComusParty\Models\Exceptions\GameSettingsException;
 use ComusParty\Models\Exceptions\GameUnavailableException;
 use ComusParty\Models\GameDAO;
+use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
+use ComusParty\Models\GameRecordState;
 use ComusParty\Models\GameState;
+use ComusParty\Models\PlayerDAO;
+use DateTime;
+use Exception;
+use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -139,6 +145,53 @@ class ControllerGame extends Controller
                 "name" => $game->getName(),
                 "description" => $game->getDescription(),
                 "tags" => $game->getTags(),
+            ],
+        ]);
+        exit;
+    }
+
+    public function showGame(string $code): void
+    {
+        $template = $this->getTwig()->load('player/game-settings.twig');
+        echo $template->render([
+            "isHoster" => true,
+        ]);
+    }
+
+    /**
+     * @throws GameUnavailableException
+     * @throws RandomException
+     * @throws Exception
+     */
+    public function createGame(int $gameId): void
+    {
+        $game = (new GameDAO($this->getPdo()))->findById($gameId);
+
+        if ($game->getState() != GameState::AVAILABLE) {
+            throw new GameUnavailableException("Le jeu n'est pas disponible");
+        }
+
+        $host = (new PlayerDAO($this->getPdo()))->findByUuid($_SESSION['uuid']);
+        $generatedCode = bin2hex(random_bytes(16));
+
+        $gameRecord = new GameRecord(
+            $generatedCode,
+            $game,
+            $host,
+            [$host],
+            GameRecordState::WAITING,
+            new DateTime(),
+            new DateTime(),
+            null
+        );
+
+        (new GameRecordDAO($this->getPdo()))->insert($gameRecord);
+
+        echo json_encode([
+            "success" => true,
+            "game" => [
+                "code" => $generatedCode,
+                "gameId" => $gameId,
             ],
         ]);
         exit;
