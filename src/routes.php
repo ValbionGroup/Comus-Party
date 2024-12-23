@@ -67,10 +67,14 @@ $router->get('/logout', function () use ($loader, $twig) {
     exit;
 }, 'auth');
 
-$router->get('/game/:code', function ($code) {
-    echo "Page de jeu en cours : " . $code . "<br/>";
-    echo "A IMPLEMENTER";
-    exit;
+$router->get('/game/:code', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("showGame", ["code" => $code]);
+}, 'player');
+
+$router->post('/game/create', function () use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("createGame", [
+        "gameId" => $_POST['gameId'],
+    ]);
 }, 'player');
 
 $router->get('/shop', function () use ($loader, $twig) {
