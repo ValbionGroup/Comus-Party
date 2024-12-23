@@ -38,17 +38,20 @@ class GameRecordDAO
     /**
      * @brief Retourne la liste des parties grâce à l'ID du jeu
      * @param int $gameId ID de la partie
-     * @return GameRecord[] Tableau d'objets GameRecord
+     * @return GameRecord[]|null Tableau d'objets GameRecord (ou null si une erreur survient)
      * @throws Exception
      */
-    public function findByGameId(int $gameId): array
+    public function findByGameId(int $gameId): ?array
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE game_id = :gameId");
         $stmt->bindParam(":gameId", $gameId);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        return $this->hydrateMany($stmt->fetch());
+        $gameRecords = $stmt->fetchAll();
+        if (!$gameRecords) {
+            return null;
+        }
+        return $this->hydrateMany($gameRecords);
     }
 
     /**
@@ -74,19 +77,17 @@ class GameRecordDAO
      */
     private function hydrate(array $row): GameRecord
     {
-        $hostedBy = (new PlayerDAO($this->getPdo()))->findByUuid($row["hostedBy"]);
-        $game = (new GameDAO($this->getPdo()))->findById($row["game"]);
+        $hostedBy = (new PlayerDAO($this->getPdo()))->findByUuid($row["hosted_by"]);
+        $game = (new GameDAO($this->getPdo()))->findById($row["game_id"]);
         $gameRecordState = match ($row["state"]) {
             "waiting" => GameRecordState::WAITING,
             "started" => GameRecordState::STARTED,
             "finished" => GameRecordState::FINISHED,
         };
-        $finishedAt = $row["finishedAt"] ? new DateTime($row["finishedAt"]) : null;
-        $players = null;
-        if ($row['player'] !== null) {
-            for ($i = 0; $i < count($row['player']); $i++) {
-                $players[] = (new PlayerDAO($this->getPdo()))->findByUuid($row['player'][$i]);
-            }
+        $finishedAt = $row["finished_at"] ? new DateTime($row["finished_at"]) : null;
+        $players = $this->findPlayersByGameRecordUuid($row["uuid"]);
+        if (!is_null($players)) {
+            $players = array_map(fn($player) => (new PlayerDAO($this->getPdo()))->findByUuid($player["player_uuid"]), $players);
         }
 
         return new GameRecord(
@@ -95,10 +96,28 @@ class GameRecordDAO
             $hostedBy,
             $players,
             $gameRecordState,
-            new DateTime($row["createdAt"]),
-            new DateTime($row["startedAt"]),
+            new DateTime($row["created_at"]),
+            new DateTime($row["updated_at"]),
             $finishedAt
         );
+    }
+
+    /**
+     * @brief Retourne la liste des parties grâce à l'ID du joueur
+     * @param string $uuid UUID de la partie
+     * @return array|null
+     */
+    private function findPlayersByGameRecordUuid(string $uuid): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT player_uuid FROM " . DB_PREFIX . "played WHERE game_uuid = :uuid");
+        $stmt->bindParam(":uuid", $uuid);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $players = $stmt->fetchAll();
+        if (!$players) {
+            return null;
+        }
+        return $players;
     }
 
     /**
@@ -115,7 +134,11 @@ class GameRecordDAO
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-        return $this->hydrate($stmt->fetch());
+        $gameRecord = $stmt->fetch();
+        if (!$gameRecord) {
+            return null;
+        }
+        return $this->hydrate($gameRecord);
     }
 
     /**
@@ -151,7 +174,11 @@ class GameRecordDAO
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-        return $this->hydrateMany($stmt->fetch());
+        $gameRecords = $stmt->fetchAll();
+        if (!$gameRecords) {
+            return null;
+        }
+        return $this->hydrateMany($gameRecords);
     }
 
 
@@ -175,6 +202,10 @@ class GameRecordDAO
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-        return $this->hydrateMany($stmt->fetch());
+        $gameRecords = $stmt->fetchAll();
+        if (!$gameRecords) {
+            return null;
+        }
+        return $this->hydrateMany($gameRecords);
     }
 }
