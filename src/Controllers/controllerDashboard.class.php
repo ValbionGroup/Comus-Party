@@ -71,6 +71,25 @@ class ControllerDashboard extends Controller
     }
 
     /**
+     * @brief Accepte une suggestion et affiche le résultat de l'exécution de la requête en base de données
+     * @param int $id L'identifiant de la suggestion à refuser
+     * @return void
+     */
+    public function acceptSuggestion(int $id)
+    {
+        $suggestsManager = new SuggestionDAO($this->getPdo());
+        if ($suggestsManager->accept($id)) {
+            MessageHandler::addMessageParametersToSession("La suggestion a bien été acceptée");
+            echo json_encode(['success' => true]);
+            exit;
+        } else {
+            MessageHandler::addExceptionParametersToSession(new Exception("Une erreur est survenue lors de l'acceptation de la suggestion"));
+            echo json_encode(['success' => false]);
+            exit;
+        }
+    }
+
+    /**
      * @brief Récupère les informations à propos d'une sugestion et les renvoi sous format JSON
      * @param int|null $id L'identifiant de la suggestion à récupérer
      * @return void

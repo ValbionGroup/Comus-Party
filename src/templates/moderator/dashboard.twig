@@ -77,7 +77,9 @@
                                         </p>
                                     </div>
                                     <div class="h-12 text-white justify-around flex mt-8">
-                                        <button class="w-40 h-10 bg-green-500 hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110">
+                                        <input type="hidden" id="idSuggestion" value="">
+                                        <button class="w-40 h-10 bg-green-500 hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110"
+                                                onclick="acceptSuggest(this)">
                                                 <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-200 ease-out">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                          viewBox="0 0 24 24">
@@ -90,7 +92,6 @@
                                         </button>
                                         <button class="w-40 h-10 bg-red-500 hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110"
                                                 onclick="denySuggest(this)">
-                                            <input type="hidden" id="idSuggestion" value="">
                                             <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-300 ease-out">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                          viewBox="0 0 24 24">
