@@ -515,10 +515,10 @@ VALUES (1, 'john.doe@example.com', '$2y$10$pWjH9MFAmeO8quFTZWSube4mx1KUiYiNXgIf0
 -- --------------------------------------------------------
 
 --
--- Structure de la table `cp_winned`
+-- Structure de la table `wp_won`
 --
 
-CREATE TABLE `cp_winned`
+CREATE TABLE `wp_won`
 (
     `game_uuid`   varchar(63) NOT NULL,
     `player_uuid` varchar(63) NOT NULL
@@ -527,10 +527,10 @@ CREATE TABLE `cp_winned`
   COLLATE = utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `cp_winned`
+-- Déchargement des données de la table `wp_won`
 --
 
-INSERT INTO `cp_winned` (`game_uuid`, `player_uuid`)
+INSERT INTO `wp_won` (`game_uuid`, `player_uuid`)
 VALUES ('game_rec_uuid1', 'uuid1'),
        ('game_rec_uuid2', 'uuid2'),
        ('game_rec_uuid3', 'uuid3'),
@@ -664,9 +664,9 @@ ALTER TABLE `cp_user`
     ADD UNIQUE KEY `email` (`email`);
 
 --
--- Index pour la table `cp_winned`
+-- Index pour la table `wp_won`
 --
-ALTER TABLE `cp_winned`
+ALTER TABLE `wp_won`
     ADD PRIMARY KEY (`game_uuid`, `player_uuid`),
     ADD KEY `fk_winned_player_uuid` (`player_uuid`);
 
@@ -816,9 +816,9 @@ ALTER TABLE `cp_tagged`
     ADD CONSTRAINT `fk_tagged_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `cp_tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `cp_winned`
+-- Contraintes pour la table `wp_won`
 --
-ALTER TABLE `cp_winned`
+ALTER TABLE `wp_won`
     ADD CONSTRAINT `fk_winned_game_uuid` FOREIGN KEY (`game_uuid`) REFERENCES `cp_game_record` (`uuid`),
     ADD CONSTRAINT `fk_winned_player_uuid` FOREIGN KEY (`player_uuid`) REFERENCES `cp_player` (`uuid`);
 COMMIT;
