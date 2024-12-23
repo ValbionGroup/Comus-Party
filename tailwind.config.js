@@ -2,7 +2,7 @@
 const plugin = require('tailwindcss/plugin');
 const theme = require("tailwindcss/defaultTheme");
 module.exports = {
-    content: ["./src/**/*.{js,html,php,twig}"],
+    content: ["./src/**/*.{js,html,php,twig}", "./public/**/*.js"],
     theme: {
         fontFamily: {
             'serif': ["'Londrina Solid'", "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],
@@ -198,6 +198,16 @@ module.exports = {
                         backgroundColor: theme('colors.red.700'),
                     },
                 },
+                '.btn-disabled': {
+                    backgroundColor: theme('colors.gray.200'),
+                    padding: theme('padding.2'),
+                    borderRadius: theme('borderRadius.xl'),
+                    color: theme('colors.gray.400'),
+                    '@media (prefers-color-scheme: dark)': {
+                        backgroundColor: theme('colors.gray.700'),
+                        color: theme('colors.gray.400'),
+                    }
+                }
             });
         }),
     ],
