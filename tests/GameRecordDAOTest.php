@@ -8,6 +8,8 @@
  * @date 2024-12-20
  */
 
+require_once  __DIR__ . '/../include.php';
+
 use ComusParty\Models\Db;
 use ComusParty\Models\GameRecordDAO;
 use ComusParty\Models\GameRecordState;
@@ -41,36 +43,67 @@ class GameRecordDAOTest extends TestCase
      */
     public function testFindByStateOk(): void
     {
-        $this->assertEquals(1, $this->gameRecordDAO->findByState(GameRecordState::WAITING)[0]->getId());
+        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByState(GameRecordState::STARTED)[0]->getUuid());
     }
 
-    public function testFindByUuid()
+    /**
+     * @brief Test de la méthode findByUuid avec un uuid valide
+     * @return void
+     * @throws Exception
+     */
+    public function testFindByUuidOk()
     {
-
+        $this->assertEquals(GameRecordState::STARTED, $this->gameRecordDAO->findByUuid("game_rec_uuid1")->getState());
     }
 
-    public function testFindByHosterUuid()
+    /**
+     * @brief Test de la méthode findByHosterUuid avec un uuid valide
+     * @return void
+     * @throws Exception
+     */
+    public function testFindByHosterUuidOk()
     {
-
+        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByHosterUuid("uuid1")[0]->getUuid());
     }
 
-    public function testSetPdo()
-    {
-
-    }
-
-    public function testFindByGameId()
-    {
-
-    }
-
+    /**
+     * @brief Test de la méthode getPdo
+     * @return void
+     * @throws Exception
+     */
     public function testGetPdo()
     {
-
+        $this->assertEquals(Db::getInstance()->getConnection(), $this->gameRecordDAO->getPdo());
     }
 
+    /**
+     * @brief Test de la méthode setPdo
+     * @return void
+     * @throws Exception
+     */
+    public function testSetPdoOk()
+    {
+        $this->gameRecordDAO->setPdo(Db::getInstance()->getConnection());
+        $this->assertEquals($this->gameRecordDAO->getPdo(), Db::getInstance()->getConnection());
+    }
+
+    /**
+     * @brief Test de la méthode findByGameId avec un id de jeu valide
+     * @return void
+     * @throws Exception
+     */
+    public function testFindByGameIdOk()
+    {
+        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByGameId(1)[0]->getUuid());
+    }
+
+    /**
+     * @brief Test de la méthode __construct
+     * @return void
+     * @throws Exception
+     */
     public function test__construct()
     {
-
+        $this->assertInstanceOf(GameRecordDAO::class, $this->gameRecordDAO);
     }
 }
