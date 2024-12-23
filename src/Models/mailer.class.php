@@ -81,7 +81,7 @@ class Mailer
      */
     public function setSubject(string $subject): void
     {
-        $this->subject = $subject;
+        $this->subject = htmlentities($subject);
     }
 
     /**
@@ -99,7 +99,7 @@ class Mailer
      */
     public function setMessage(string $message): void
     {
-        $this->message = $message;
+        $this->message = htmlentities($message);
     }
 
     /**
@@ -127,7 +127,7 @@ class Mailer
             $mail->CharSet = 'UTF-8';
             $mail->Encoding = 'base64';
             $mail->Subject = $this->subject . MAIL_BASE;
-            $mail->AltBody = $this->message;
+            $mail->AltBody = htmlentities($this->message);
             $mail->Body = $this->generateHTMLMessage();
 
             foreach ($this->to as $email) {
