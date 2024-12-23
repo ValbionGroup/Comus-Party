@@ -27,7 +27,7 @@ class GameRecordDAO
     private ?PDO $pdo;
 
     /**
-     * @brief Constructeur de la classe UserDAO
+     * @brief Constructeur de la classe GameRecordDAO
      * @param PDO|null $pdo Connexion à la base de données
      */
     public function __construct(?PDO $pdo)
@@ -103,7 +103,7 @@ class GameRecordDAO
     }
 
     /**
-     * @brief Retourne la liste des parties grâce à l'ID du joueur
+     * @brief Retourne la liste des joueurs dans une partie grâce à l'UUID de celle-ci
      * @param string $uuid UUID de la partie
      * @return array|null
      */
@@ -161,9 +161,9 @@ class GameRecordDAO
 
 
     /**
-     * @brief Retourne un tableau d'objets GameRecord (ou null) à partir de l'UUID passé en paramètre
+     * @brief Retourne un tableau d'objets GameRecord (ou null) à partir de l'UUID passé en paramètre correspondant aux parties hébergées par un joueur
      *
-     * @param string $uuid L'UUID de la partie recherchée
+     * @param string $uuid L'UUID du joueur ayant hébergé les parties
      * @return GameRecord[]|null Tableau de GameRecord (ou null si non-trouvé)
      * @throws Exception
      */
@@ -183,9 +183,9 @@ class GameRecordDAO
 
 
     /**
-     * @brief Retourne un objet GameRecord (ou null) à partir de l'ID passé en paramètre
+     * @brief Retourne un tableau d'objets GameRecord (ou null) à partir de l'état passé en paramètre
      *
-     * @param GameRecordState $state L'état de la partie recherchée
+     * @param GameRecordState $state L'état des parties recherchées
      * @return GameRecord[]|null Tableau de GameRecord (ou null si non-trouvé)
      * @throws Exception
      */
