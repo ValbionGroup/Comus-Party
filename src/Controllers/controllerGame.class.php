@@ -164,19 +164,56 @@ class ControllerGame extends Controller
 
     public function showGame(string $code): void
     {
-        $template = $this->getTwig()->load('player/game-settings.twig');
-        echo $template->render([
-            "isHoster" => true,
-        ]);
+        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByUuid($code);
+        if ($gameRecord == null || $gameRecord->getGame()->getState() != GameState::AVAILABLE) {
+            throw new NotFoundException("La partie n'existe pas");
+        }
+
+        if ($gameRecord->getState() == GameRecordState::WAITING) {
+            $this->showGameSettings($gameRecord);
+        } else if ($gameRecord->getState() == GameRecordState::STARTED) {
+            echo "La partie a déjà commencé";
+        } else {
+            echo "La partie est terminée";
+        }
+
+        exit;
     }
 
     /**
      * @brief Affiche la page des paramètres de la partie
      * @param GameRecord $gameRecord Instance de GameRecord
      * @return void
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     */
+    private function showGameSettings(GameRecord $gameRecord): void
+    {
+        $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
+        if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
+            $settings = $this->getGameModiableSettings($gameRecord->getGame()->getId());
+        } else {
+            $settings = [];
+        }
+
+        $template = $this->getTwig()->load('player/game-settings.twig');
+        echo $template->render([
+            "code" => $gameRecord->getUuid(),
+            "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
+            "players" => $gameRecord->getPlayers(),
+            "game" => $gameRecord->getGame(),
+            "gameFileInfos" => $gameSettings["game"],
+            "settings" => $settings,
+        ]);
+    }
+
+    /**
+     * @brief Crée une partie en base de données pour un jeu donné
+     * @param int $gameId Identifiant du jeu
+     * @return void
+     * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
+     * @throws RandomException Exception levée en cas d'erreur lors de la génération du code
      */
     public function createGame(int $gameId): void
     {
