@@ -71,7 +71,7 @@ $router->get('/game/:code', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("showGame", ["code" => $code]);
 }, 'player');
 
-$router->get('/game/create/:gameId', function (int $gameId) use ($loader, $twig) {
+$router->post('/game/create/:gameId', function (int $gameId) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("createGame", [
         "gameId" => $gameId,
     ]);
