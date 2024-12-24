@@ -6,9 +6,36 @@
     <section class="grid grid-cols-5 w-full h-full gap-6">
         <div class="col-span-2 bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
             <h3 class="text-xl font-serif">Paramètre de la partie</h3>
-            <div class="mt-3 overflow-y-auto">
-
+            {% if isHost %}
+            <div class="mt-3 flex flex-col gap-2">
+                {% for key, value in settings %}
+                    <div class="flex flex-row justify-between gap-2 items-center">
+                        <label class="w-fit text-nowrap" for="{{ key }}">{{ value.name }}</label>
+                        {% if value.type != 'select' %}
+                            <input type="{{ value.type }}" class="input w-full !bg-lavender-blush-2 dark:!bg-night-2" id="{{ key }}" name="{{ key }}" value="{{ value.default }}"
+                                    {% if value.type == 'number' %}
+                                        min="{{ value.min }}" max="{{ value.max }}"
+                                    {% elseif value.type == 'text' %}
+                                        placeholder="{{ value.placeholder }}"
+                                        pattern="{{ value.pattern }}"
+                                        minlength="{{ value.minlength }}"
+                                        maxlength="{{ value.maxlength }}"
+                                    {% endif %}
+                            />
+                        {% else %}
+                            <select class="input w-full !bg-lavender-blush-2 dark:!bg-night-2" id="{{ key }}" name="{{ key }}">
+                                {% for option in value.options %}
+                                    <option value="{{ option.value }}">{{ option.label }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
+            <button class="btn-primary w-full mt-3">Sauvegarder les paramètres</button>
+            {% else %}
+                <p class="text-center p-2 italic rounded-xl bg-lavender-blush-1 dark:bg-night-1">En attente de l'hôte</p>
+            {% endif %}
         </div>
         <div class="col-span-2 bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
             <h3 class="text-xl font-serif">Informations sur le jeu</h3>
@@ -18,17 +45,22 @@
         </div>
         <div class="col-span-1 flex flex-col gap-4">
             <div class="flex flex-col gap-2">
-                {% if isHoster %}
+                {% if isHost %}
                     <button class="btn-primary w-full">Lancer le jeu</button>
                 {% else %}
                     <p class="text-center p-2 italic rounded-xl bg-lavender-blush-1 dark:bg-night-1">En attente de l'hôte</p>
                 {% endif %}
                 <button class="btn-danger w-full">Quitter la partie</button>
             </div>
-            <div class="h-full bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
+            <div class="h-full max-h-96 bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
                 <h3 class="text-xl font-serif">Joueurs</h3>
                 <div class="mt-3 overflow-y-auto">
-
+                    {% for player in players %}
+                        <div class="flex flex-row gap-3 items-center">
+                            <img src="/assets/img/pfp/default-pfp.jpg" class="size-8 rounded-full" />
+                            <p class="text-lg">{{ player.username }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="h-full bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
