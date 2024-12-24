@@ -79,6 +79,14 @@ $router->delete('/game/:code/quit', function ($code) use ($loader, $twig) {
     exit;
 }, 'player');
 
+$router->post('/game/:code/start', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("initGame", [
+        "code" => $code,
+        "settings" => $_POST['settings']
+    ]);
+    exit;
+}, 'player');
+
 $router->post('/game/create/:gameId', function (int $gameId) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("createGame", [
         "gameId" => $gameId,
