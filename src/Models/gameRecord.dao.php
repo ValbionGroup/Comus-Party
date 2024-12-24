@@ -208,4 +208,79 @@ class GameRecordDAO
         }
         return $this->hydrateMany($gameRecords);
     }
+
+    /**
+     * @brief Insère un enregistrement de partie en base de données
+     * @param GameRecord $gameRecord Enregistrement de la partie à insérer
+     * @return bool Retourne true si l'insertion a réussi, false sinon
+     */
+    public function insert(GameRecord $gameRecord): bool
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (uuid, game_id, hosted_by, state, created_at, updated_at, finished_at) VALUES (:uuid, :gameId, :hostedBy, :state, :createdAt, :updatedAt, :finishedAt)");
+
+        $uuid = $gameRecord->getUuid();
+        $gameId = $gameRecord->getGame()->getId();
+        $hostUuid = $gameRecord->getHostedBy()->getUuid();
+        $state = match ($gameRecord->getState()) {
+            GameRecordState::WAITING => "waiting",
+            GameRecordState::STARTED => "started",
+            GameRecordState::FINISHED => "finished",
+        };
+        $createdAt = $gameRecord->getCreatedAt()->format("Y-m-d H:i:s");
+        $updatedAt = $gameRecord->getUpdatedAt()?->format("Y-m-d H:i:s");
+        $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
+
+        $stmt->bindParam(":uuid", $uuid);
+        $stmt->bindParam(":gameId", $gameId);
+        $stmt->bindParam(":hostedBy", $hostUuid);
+        $stmt->bindParam(":state", $state);
+        $stmt->bindParam(":createdAt", $createdAt);
+        $stmt->bindParam(":updatedAt", $updatedAt);
+        $stmt->bindParam(":finishedAt", $finishedAt);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * @brief Supprime un enregistrement de partie en base de données
+     * @param string $uuid UUID de la partie à supprimer
+     * @return bool Retourne true si la suppression a réussi, false sinon
+     */
+    public function delete(string $uuid): bool
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "game_record WHERE uuid = :uuid");
+        $stmt->bindParam(":uuid", $uuid);
+        return $stmt->execute();
+    }
+
+    /**
+     * @brief Ajoute un joueur à une partie en base de données
+     * @param GameRecord $gameRecord Enregistrement de la partie
+     * @param Player $player Joueur à ajouter
+     * @return bool Retourne true si l'ajout a réussi, false sinon
+     */
+    public function addPlayer(GameRecord $gameRecord, Player $player): bool
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "played (game_uuid, player_uuid) VALUES (:gameUuid, :playerUuid)");
+        $gameRecord->addPlayer($player);
+        $playerUuid = $player->getUuid();
+        $gameUuid = $gameRecord->getUuid();
+        $stmt->bindParam(":gameUuid", $gameUuid);
+        $stmt->bindParam(":playerUuid", $playerUuid);
+        return $stmt->execute();
+    }
+
+    /**
+     * @brief Supprime un joueur d'une partie
+     * @param string $gameUuid UUID de la partie
+     * @param string $playerUuid UUID du joueur à supprimer
+     * @return bool Retourne true si la suppression a réussi, false sinon
+     */
+    public function removePlayer(string $gameUuid, string $playerUuid): bool
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_uuid = :gameUuid AND player_uuid = :playerUuid");
+        $stmt->bindParam(":gameUuid", $gameUuid);
+        $stmt->bindParam(":playerUuid", $playerUuid);
+        return $stmt->execute();
+    }
 }

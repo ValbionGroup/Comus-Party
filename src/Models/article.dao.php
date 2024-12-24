@@ -10,7 +10,7 @@
 namespace ComusParty\Models;
 
 
-use ComusParty\Models\Exception\NotFoundException;
+use ComusParty\App\Exception\NotFoundException;
 use DateMalformedStringException;
 use DateTime;
 use Exception;

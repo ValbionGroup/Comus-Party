@@ -1,17 +1,16 @@
 <?php
 /**
  * @brief Fichier de la classe Router
- *
- * @file Router.class.php
+ * @file Router.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
- * @version 1.1
+ * @version 1.2
  * @date 2024-12-18
  */
 
-namespace ComusParty\Models;
+namespace ComusParty\App;
 
-use ComusParty\Models\Exception\RouteNotFoundException;
-use ComusParty\Models\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exception\RouteNotFoundException;
+use ComusParty\App\Exception\UnauthorizedAccessException;
 use Exception;
 
 /**
@@ -166,7 +165,7 @@ class Router
             }
         }
 
-        throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ')' . ' not found');
+        throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ') not found');
     }
 
     /**

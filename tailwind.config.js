@@ -2,7 +2,7 @@
 const plugin = require('tailwindcss/plugin');
 const theme = require("tailwindcss/defaultTheme");
 module.exports = {
-    content: ["./src/**/*.{js,html,php,twig}"],
+    content: ["./src/**/*.{js,html,php,twig}", "./public/**/*.js"],
     theme: {
         fontFamily: {
             'serif': ["'Londrina Solid'", "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],
@@ -102,7 +102,7 @@ module.exports = {
                     appearance: 'none',
                     lineHeight: theme('leading.thight'),
                     transition: 'all 0.3s ease-in-out',
-                    borderRadius: theme('borderRadius.lg'),
+                    borderRadius: theme('borderRadius.xl'),
                     backgroundColor: theme('colors.lavender-blush.1'),
                     borderWidth: '1px',
                     outline: 'none',
@@ -139,7 +139,7 @@ module.exports = {
                     transition: 'all 0.3s ease-in-out',
                     padding: theme('padding.2'),
                     color: theme('colors.lavender-blush.base'),
-                    borderRadius: theme('borderRadius.lg'),
+                    borderRadius: theme('borderRadius.xl'),
                     '&:hover': {
                         backgroundColor: theme('colors.blue-violet.600'),
                     },
@@ -191,6 +191,7 @@ module.exports = {
                     transition: 'all 0.3s ease-in-out',
                     padding: theme('padding.2'),
                     borderRadius: theme('borderRadius.xl'),
+                    color: theme('colors.lavender-blush.base'),
                     '&:hover': {
                         backgroundColor: theme('colors.red.600'),
                     },
@@ -198,6 +199,16 @@ module.exports = {
                         backgroundColor: theme('colors.red.700'),
                     },
                 },
+                '.btn-disabled': {
+                    backgroundColor: theme('colors.gray.200'),
+                    padding: theme('padding.2'),
+                    borderRadius: theme('borderRadius.xl'),
+                    color: theme('colors.gray.400'),
+                    '@media (prefers-color-scheme: dark)': {
+                        backgroundColor: theme('colors.gray.700'),
+                        color: theme('colors.gray.400'),
+                    }
+                }
             });
         }),
     ],

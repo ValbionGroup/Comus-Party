@@ -9,7 +9,7 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\Models\Exception\ControllerNotFoundException;
+use ComusParty\App\Exception\ControllerNotFoundException;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 

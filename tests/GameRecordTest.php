@@ -280,4 +280,68 @@ class GameRecordTest extends TestCase
         $this->expectException(TypeError::class);
         $this->gameRecord->setCreatedAt('2024-01-02');
     }
+
+    /**
+     * @brief Test de la méthode addPlayer avec un paramètre valide
+     * @return void
+     */
+    public function testAddPlayerOk(): void
+    {
+        $player = new Player(
+            'uuid2',
+            'username2',
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+        );
+        $this->gameRecord->addPlayer($player);
+        $this->assertEquals([new Player(), new Player(), $player], $this->gameRecord->getPlayers());
+        $this->gameRecord->removePlayer($player);
+    }
+
+    /**
+     * @brief Test de la méthode addPlayer avec un paramètre invalide
+     * @return void
+     */
+    public function testAddPlayerWithInvalidPlayer(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->gameRecord->addPlayer('player');
+    }
+
+    /**
+     * @brief Test de la méthode removePlayer avec un paramètre valide
+     * @return void
+     */
+    public function testRemovePlayerOk(): void
+    {
+        $player = new Player(
+            'uuid2',
+            'username2',
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+        );
+        $this->gameRecord->addPlayer($player);
+        $this->gameRecord->removePlayer($player);
+        $this->assertEquals([new Player(), new Player()], $this->gameRecord->getPlayers());
+    }
+
+    /**
+     * @brief Test de la méthode removePlayer avec un paramètre invalide
+     * @return void
+     */
+    public function testRemovePlayerWithInvalidPlayer(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->gameRecord->removePlayer('player');
+    }
 }

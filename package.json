@@ -2,7 +2,8 @@
   "scripts": {
     "start": "php -S localhost:8000 -t public",
     "build": "tailwindcss build -i src/css/base.css -o public/assets/css/builded.css --minify",
-    "watch": "tailwindcss build -i src/css/base.css -o public/assets/css/builded.css --watch"
+    "watch": "tailwindcss build -i src/css/base.css -o public/assets/css/builded.css --watch",
+    "start-ws": "php ws-server.php"
   },
   "devDependencies": {
     "@jothepro/doxygen-awesome-css": "github:jothepro/doxygen-awesome-css",

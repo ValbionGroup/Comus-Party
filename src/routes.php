@@ -10,10 +10,10 @@
 
 global $loader, $twig;
 
+use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\MessageHandler;
+use ComusParty\App\Router;
 use ComusParty\Controllers\ControllerFactory;
-use ComusParty\Models\Exception\MessageHandler;
-use ComusParty\Models\Exception\UnauthorizedAccessException;
-use ComusParty\Models\Router;
 
 $router = Router::getInstance();
 
@@ -30,12 +30,12 @@ $router->get('/profile', function () use ($loader, $twig) {
     exit;
 }, 'player');
 
-$router->post('/profile/updateStyle/:idArticle', function($idArticle) use ($loader, $twig){
+$router->post('/profile/updateStyle/:idArticle', function ($idArticle) use ($loader, $twig) {
 
     ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
         "uuidPlayer" => $_SESSION["uuid"],
         "idArticle" => $idArticle
-        ]);
+    ]);
     exit;
 }, 'player');
 
@@ -67,10 +67,22 @@ $router->get('/logout', function () use ($loader, $twig) {
     exit;
 }, 'auth');
 
-$router->get('/game/:code', function ($code) {
-    echo "Page de jeu en cours : " . $code . "<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/game/:code', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("showGame", ["code" => $code]);
+}, 'player');
+
+$router->delete('/game/:code/quit', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("quitGame", [
+        "code" => $code,
+        "playerUuid" => $_SESSION['uuid']
+    ]);
     exit;
+}, 'player');
+
+$router->post('/game/create/:gameId', function (int $gameId) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("createGame", [
+        "gameId" => $gameId,
+    ]);
 }, 'player');
 
 $router->get('/shop', function () use ($loader, $twig) {

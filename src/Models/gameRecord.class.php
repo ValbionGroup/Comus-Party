@@ -92,7 +92,7 @@ class GameRecord
      * @param string $uuid Identifiant de la partie
      * @param Game $game Jeu de la partie
      * @param Player $hostedBy Joueur qui a créé la partie
-     * @param array|null $players Joueurs de la partie
+     * @param Player[]|null $players Joueurs de la partie
      * @param GameRecordState $state Etat de la partie
      * @param DateTime $createdAt Date de création de la partie
      * @param DateTime $updatedAt Date de dernière mise à jour de la partie
@@ -276,5 +276,28 @@ class GameRecord
     public function setFinishedAt(?DateTime $finishedAt): void
     {
         $this->finishedAt = $finishedAt;
+    }
+
+    /**
+     * @brief Ajoute un joueur à la partie
+     * @param Player $player Joueur à ajouter
+     * @return void
+     */
+    public function addPlayer(Player $player): void
+    {
+        $this->players[] = $player;
+    }
+
+    /**
+     * @brief Supprime un joueur de la partie
+     * @param Player $player Joueur à supprimer
+     * @return void
+     */
+    public function removePlayer(Player $player): void
+    {
+        $key = array_search($player, $this->players);
+        if ($key !== false) {
+            unset($this->players[$key]);
+        }
     }
 }

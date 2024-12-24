@@ -9,7 +9,7 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\Models\Exception\MessageHandler;
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\Suggestion;
 use ComusParty\Models\SuggestionDAO;
 use ComusParty\Models\SuggestObject;
