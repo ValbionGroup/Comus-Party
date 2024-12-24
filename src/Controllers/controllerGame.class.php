@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\Models\Exception\NotFoundException;
 use ComusParty\Models\Exceptions\GameSettingsException;
 use ComusParty\Models\Exceptions\GameUnavailableException;
 use ComusParty\Models\GameDAO;
@@ -103,7 +104,7 @@ class ControllerGame extends Controller
     }
 
     /**
-     * @brief Récupère le dossier du jeu dont l'UUID est passé en paramètre
+     * @brief Récupère le dossier du jeu dont l'ID est passé en paramètre
      *
      * @param int $id
      * @return string Chemin du dossier du jeu
@@ -114,7 +115,18 @@ class ControllerGame extends Controller
     }
 
     /**
-     * @brief Récupère les paramètres du jeu dont l'UUID est passé en paramètre
+     * @brief Récupère les paramètres modifiables du jeu dont l'ID est passé en paramètre
+     * @param int $id ID du jeu
+     * @return array Tableau associatif contenant les paramètres modifiables du jeu
+     */
+    private function getGameModiableSettings(int $id): array
+    {
+        $allSettings = $this->getGameSettings($id);
+        return $allSettings["modifiableSettings"];
+    }
+
+    /**
+     * @brief Récupère les paramètres du jeu dont l'ID est passé en paramètre
      *
      * @param int $id ID du jeu
      * @return array Tableau associatif contenant les paramètres du jeu
@@ -159,9 +171,12 @@ class ControllerGame extends Controller
     }
 
     /**
-     * @throws GameUnavailableException
-     * @throws RandomException
-     * @throws Exception
+     * @brief Affiche la page des paramètres de la partie
+     * @param GameRecord $gameRecord Instance de GameRecord
+     * @return void
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function createGame(int $gameId): void
     {
