@@ -200,7 +200,10 @@ class ControllerGame extends Controller
             null
         );
 
-        (new GameRecordDAO($this->getPdo()))->insert($gameRecord);
+        $gameRecordManager = new GameRecordDAO($this->getPdo());
+        $gameRecordManager->insert($gameRecord);
+        $gameRecordManager->addPlayer($gameRecord->getUuid(), $host->getUuid());
+
 
         echo json_encode([
             "success" => true,
