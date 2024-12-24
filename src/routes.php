@@ -10,8 +10,8 @@
 
 global $loader, $twig;
 
-use ComusParty\App\MessageHandler;
 use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\MessageHandler;
 use ComusParty\App\Router;
 use ComusParty\Controllers\ControllerFactory;
 
@@ -30,12 +30,12 @@ $router->get('/profile', function () use ($loader, $twig) {
     exit;
 }, 'player');
 
-$router->post('/profile/updateStyle/:idArticle', function($idArticle) use ($loader, $twig){
+$router->post('/profile/updateStyle/:idArticle', function ($idArticle) use ($loader, $twig) {
 
     ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
         "uuidPlayer" => $_SESSION["uuid"],
         "idArticle" => $idArticle
-        ]);
+    ]);
     exit;
 }, 'player');
 
