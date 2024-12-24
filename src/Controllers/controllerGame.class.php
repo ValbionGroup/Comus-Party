@@ -190,7 +190,7 @@ class ControllerGame extends Controller
         if ($gameRecord->getState() == GameRecordState::WAITING) {
             $this->showGameSettings($gameRecord);
         } else if ($gameRecord->getState() == GameRecordState::STARTED) {
-            echo "La partie a déjà commencé";
+            $this->showInGame($gameRecord);
         } else {
             echo "La partie est terminée";
         }
@@ -235,6 +235,17 @@ class ControllerGame extends Controller
     {
         $allSettings = $this->getGameSettings($id);
         return $allSettings["modifiableSettings"];
+    }
+
+    private function showInGame(GameRecord $gameRecord): void
+    {
+        $template = $this->getTwig()->load('player/in-game.twig');
+        echo $template->render([
+            "code" => $gameRecord->getUuid(),
+            "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
+            "players" => $gameRecord->getPlayers(),
+            "game" => $gameRecord->getGame()
+        ]);
     }
 
     /**
