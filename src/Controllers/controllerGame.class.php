@@ -209,6 +209,34 @@ class ControllerGame extends Controller
     }
 
     /**
+     * @brief Quitte une partie
+     * @param string $code UUID de la partie à quitter
+     * @param string $playerUuid UUID du joueur qui quitte la partie
+     * @return void
+     * @throws NotFoundException Exception levée si la partie n'existe pas
+     */
+    public function quitGame(string $code, string $playerUuid): void
+    {
+        $gameRecordManager = new GameRecordDAO($this->getPdo());
+        $gameRecord = $gameRecordManager->findByUuid($code);
+
+        if ($gameRecord == null) {
+            throw new NotFoundException("La partie n'existe pas");
+        }
+
+        $gameRecordManager->removePlayer($code, $playerUuid);
+
+        if ($gameRecord->getHostedBy()->getUuid() == $playerUuid) {
+            $gameRecordManager->delete($code);
+        }
+
+        echo json_encode([
+            "success" => true,
+        ]);
+        exit;
+    }
+
+    /**
      * @brief Crée une partie en base de données pour un jeu donné
      * @param int $gameId Identifiant du jeu
      * @return void

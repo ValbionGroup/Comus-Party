@@ -71,6 +71,14 @@ $router->get('/game/:code', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("showGame", ["code" => $code]);
 }, 'player');
 
+$router->delete('/game/:code/quit', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("quitGame", [
+        "code" => $code,
+        "playerUuid" => $_SESSION['uuid']
+    ]);
+    exit;
+}, 'player');
+
 $router->post('/game/create/:gameId', function (int $gameId) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("createGame", [
         "gameId" => $gameId,
