@@ -230,7 +230,7 @@ class ControllerGame extends Controller
             $generatedCode,
             $game,
             $host,
-            [$host],
+            null,
             GameRecordState::WAITING,
             new DateTime(),
             new DateTime(),
@@ -239,7 +239,7 @@ class ControllerGame extends Controller
 
         $gameRecordManager = new GameRecordDAO($this->getPdo());
         $gameRecordManager->insert($gameRecord);
-        $gameRecordManager->addPlayer($gameRecord->getUuid(), $host->getUuid());
+        $gameRecordManager->addPlayer($gameRecord, $host);
 
 
         echo json_encode([

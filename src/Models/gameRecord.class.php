@@ -277,4 +277,27 @@ class GameRecord
     {
         $this->finishedAt = $finishedAt;
     }
+
+    /**
+     * @brief Ajoute un joueur à la partie
+     * @param Player $player Joueur à ajouter
+     * @return void
+     */
+    public function addPlayer(Player $player): void
+    {
+        $this->players[] = $player;
+    }
+
+    /**
+     * @brief Supprime un joueur de la partie
+     * @param Player $player Joueur à supprimer
+     * @return void
+     */
+    public function removePlayer(Player $player): void
+    {
+        $key = array_search($player, $this->players);
+        if ($key !== false) {
+            unset($this->players[$key]);
+        }
+    }
 }
