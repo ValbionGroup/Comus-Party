@@ -30,10 +30,10 @@ Comus Party est une application de mini-jeux en ligne, elle est développée dan
 Comus Party fonctionne avec Tailwind CSS pour l'interface ainsi que Twig en tant que framework. Les fichiers du site sont donc des fichiers twig (`fichier.twig`) et le reste en PHP (`fichier.php`).<br/>
 Le projet comporte aussi des fichiers JavaScript pour les fonctionnalités dynamiques.
 
-Le projet suit une architecture MVC (Modèle-Vue-Contrôleur) qui garantit une séparation claire des responsabilités, avec
-une couche Modèle (`Models`) gérant les données, une couche Vue (`templates`) pour l'interface utilisateur, et une
-couche Contrôleur (`Controllers`) assurant la coordination entre les deux. Cette organisation modulaire facilite la
-maintenance et l'évolution du code tout en respectant les bonnes pratiques de développement.
+Le projet suit le modèle MVC (Modèle-Vue-Contrôleur) qui garantit une séparation claire des responsabilités, avec une
+couche Modèle (`Models`) gérant les données, une couche Vue (`templates`) pour l'interface utilisateur, et une couche
+Contrôleur (`Controllers`) assurant la coordination entre les deux. Cette organisation facilite la maintenance et
+l'évolution du code tout en respectant les bonnes pratiques de développement.
 
 #### Développer
 
