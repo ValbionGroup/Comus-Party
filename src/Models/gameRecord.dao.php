@@ -166,7 +166,7 @@ class GameRecordDAO
      * @return GameRecord[]|null Tableau de GameRecord (ou null si non-trouvé)
      * @throws Exception
      */
-    public function findByHosterUuid(string $uuid): ?array
+    public function findByHostUuid(string $uuid): ?array
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE hosted_by = :uuid");
         $stmt->bindParam(":uuid", $uuid);

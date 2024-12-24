@@ -8,7 +8,7 @@
  * @date 2024-12-20
  */
 
-require_once  __DIR__ . '/../include.php';
+require_once __DIR__ . '/../include.php';
 
 use ComusParty\Models\Db;
 use ComusParty\Models\GameRecordDAO;
@@ -63,7 +63,7 @@ class GameRecordDAOTest extends TestCase
      */
     public function testFindByHosterUuidOk()
     {
-        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByHosterUuid("uuid1")[0]->getUuid());
+        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByHostUuid("uuid1")[0]->getUuid());
     }
 
     /**
