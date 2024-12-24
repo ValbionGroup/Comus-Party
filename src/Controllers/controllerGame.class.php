@@ -9,9 +9,9 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\Models\Exception\NotFoundException;
-use ComusParty\Models\Exceptions\GameSettingsException;
-use ComusParty\Models\Exceptions\GameUnavailableException;
+use ComusParty\App\Exception\GameSettingsException;
+use ComusParty\App\Exception\GameUnavailableException;
+use ComusParty\App\Exception\NotFoundException;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
@@ -19,7 +19,6 @@ use ComusParty\Models\GameRecordState;
 use ComusParty\Models\GameState;
 use ComusParty\Models\PlayerDAO;
 use DateTime;
-use Exception;
 use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;

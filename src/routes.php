@@ -10,10 +10,10 @@
 
 global $loader, $twig;
 
+use ComusParty\App\MessageHandler;
+use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\Router;
 use ComusParty\Controllers\ControllerFactory;
-use ComusParty\Models\Exception\MessageHandler;
-use ComusParty\Models\Exception\UnauthorizedAccessException;
-use ComusParty\Models\Router;
 
 $router = Router::getInstance();
 

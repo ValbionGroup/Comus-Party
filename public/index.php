@@ -2,19 +2,16 @@
 
 global $router;
 
-use ComusParty\Models\Exception\MessageHandler;
-use ComusParty\Models\Exception\NotFoundException;
-use ComusParty\Models\Exception\UnauthorizedAccessException;
+use ComusParty\App\MessageHandler;
+use ComusParty\App\Exception\NotFoundException;
+use ComusParty\App\Exception\UnauthorizedAccessException;
 
 require __DIR__ . '/../include.php';
 require __DIR__ . '/../src/routes.php';
 
 try {
     $router->matchRoute();
-} catch (NotFoundException $e) {
-    MessageHandler::displayFullScreenException($e);
-    exit;
-} catch (UnauthorizedAccessException $e) {
+} catch (NotFoundException|UnauthorizedAccessException $e) {
     MessageHandler::displayFullScreenException($e);
     exit;
 }
