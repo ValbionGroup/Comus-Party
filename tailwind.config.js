@@ -102,7 +102,7 @@ module.exports = {
                     appearance: 'none',
                     lineHeight: theme('leading.thight'),
                     transition: 'all 0.3s ease-in-out',
-                    borderRadius: theme('borderRadius.lg'),
+                    borderRadius: theme('borderRadius.xl'),
                     backgroundColor: theme('colors.lavender-blush.1'),
                     borderWidth: '1px',
                     outline: 'none',
@@ -139,7 +139,7 @@ module.exports = {
                     transition: 'all 0.3s ease-in-out',
                     padding: theme('padding.2'),
                     color: theme('colors.lavender-blush.base'),
-                    borderRadius: theme('borderRadius.lg'),
+                    borderRadius: theme('borderRadius.xl'),
                     '&:hover': {
                         backgroundColor: theme('colors.blue-violet.600'),
                     },
@@ -191,6 +191,7 @@ module.exports = {
                     transition: 'all 0.3s ease-in-out',
                     padding: theme('padding.2'),
                     borderRadius: theme('borderRadius.xl'),
+                    color: theme('colors.lavender-blush.base'),
                     '&:hover': {
                         backgroundColor: theme('colors.red.600'),
                     },
