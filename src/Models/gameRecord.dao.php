@@ -240,4 +240,32 @@ class GameRecordDAO
 
         return $stmt->execute();
     }
+
+    /**
+     * @brief Ajoute un joueur à une partie en base de données
+     * @param string $gameUuid UUID de la partie
+     * @param string $playerUuid UUID du joueur à ajouter
+     * @return bool Retourne true si l'ajout a réussi, false sinon
+     */
+    public function addPlayer(string $gameUuid, string $playerUuid): bool
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "played (game_uuid, player_uuid) VALUES (:gameUuid, :playerUuid)");
+        $stmt->bindParam(":gameUuid", $gameUuid);
+        $stmt->bindParam(":playerUuid", $playerUuid);
+        return $stmt->execute();
+    }
+
+    /**
+     * @brief Supprime un joueur d'une partie
+     * @param string $gameUuid UUID de la partie
+     * @param string $playerUuid UUID du joueur à supprimer
+     * @return bool Retourne true si la suppression a réussi, false sinon
+     */
+    public function removePlayer(string $gameUuid, string $playerUuid): bool
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_uuid = :gameUuid AND player_uuid = :playerUuid");
+        $stmt->bindParam(":gameUuid", $gameUuid);
+        $stmt->bindParam(":playerUuid", $playerUuid);
+        return $stmt->execute();
+    }
 }
