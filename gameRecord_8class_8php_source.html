@@ -1,0 +1,314 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/Models/gameRecord.class.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('gameRecord_8class_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">gameRecord.class.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="gameRecord_8class_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceComusParty_1_1Models.html">ComusParty\Models</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>use DateTime;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90e">   26</a></span><span class="keyword">enum</span> <a class="code hl_enumeration" href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90e">GameRecordState</a></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">case</span> WAITING;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">case</span> STARTED;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90eadbd1812bee789fbf3548cf79d3f2b400">FINISHED</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90eadbd1812bee789fbf3548cf79d3f2b400">   40</a></span>}</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="};">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html">   46</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1Models_1_1GameRecord.html">GameRecord</a></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>{</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#aedc88a983d203149a4557dc1597ed64d">   52</a></span>    <span class="keyword">private</span> <span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a71b43efba951a3d315fd73786ca819d0">   57</a></span>    <span class="keyword">private</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1Game.html">Game</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a71b43efba951a3d315fd73786ca819d0">$game</a>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a54dbed7c0c8a87a137e985f9c40e57a3">   62</a></span>    <span class="keyword">private</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1Player.html">Player</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a54dbed7c0c8a87a137e985f9c40e57a3">$hostedBy</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#aa936ddf60bac85822d54577d0b2e7c26">   67</a></span>    <span class="keyword">private</span> ?array <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aa936ddf60bac85822d54577d0b2e7c26">$players</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a20c77763c07102cfe599b1b3e71e28af">   72</a></span>    <span class="keyword">private</span> <a class="code hl_enumeration" href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90e">GameRecordState</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a20c77763c07102cfe599b1b3e71e28af">$state</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a479fde0e5affee7654f315d79c4c54be">   77</a></span>    <span class="keyword">private</span> DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#ad61536d92e1a1a6bb8233adfb15bc755">   82</a></span>    <span class="keyword">private</span> DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a02024528402c63e1920b7245776feae8">   87</a></span>    <span class="keyword">private</span> ?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a02024528402c63e1920b7245776feae8">$finishedAt</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#ab008f1159ff36b7858dc7613acb08d14">  101</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#ab008f1159ff36b7858dc7613acb08d14">__construct</a>(<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>, <a class="code hl_class" href="classComusParty_1_1Models_1_1Game.html">Game</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a71b43efba951a3d315fd73786ca819d0">$game</a>, <a class="code hl_class" href="classComusParty_1_1Models_1_1Player.html">Player</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a54dbed7c0c8a87a137e985f9c40e57a3">$hostedBy</a>, ?array <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aa936ddf60bac85822d54577d0b2e7c26">$players</a>, <a class="code hl_enumeration" href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90e">GameRecordState</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a20c77763c07102cfe599b1b3e71e28af">$state</a>, DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>, DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>, ?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a02024528402c63e1920b7245776feae8">$finishedAt</a>)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        $this-&gt;uuid = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        $this-&gt;game = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a71b43efba951a3d315fd73786ca819d0">$game</a>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        $this-&gt;hostedBy = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a54dbed7c0c8a87a137e985f9c40e57a3">$hostedBy</a>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        $this-&gt;players = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aa936ddf60bac85822d54577d0b2e7c26">$players</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        $this-&gt;state = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a20c77763c07102cfe599b1b3e71e28af">$state</a>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        $this-&gt;createdAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        $this-&gt;updatedAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        $this-&gt;finishedAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a02024528402c63e1920b7245776feae8">$finishedAt</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a225c1e47e0322aa545ec071d5b0eaa54">  118</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#a225c1e47e0322aa545ec071d5b0eaa54">getUuid</a>(): string</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aedc88a983d203149a4557dc1597ed64d">$this-&gt;uuid</a>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="foldopen" id="foldopen00129" data-start="{" data-end="}">
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a268cb176d55146c7ca54e80fde015145">  129</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#a268cb176d55146c7ca54e80fde015145">setUuid</a>(<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>): void</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        $this-&gt;uuid = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
+</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="foldopen" id="foldopen00139" data-start="{" data-end="}">
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a96157fd38a233e05103d9040a66725cc">  139</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#a96157fd38a233e05103d9040a66725cc">getGame</a>(): <a class="code hl_class" href="classComusParty_1_1Models_1_1Game.html">Game</a></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a71b43efba951a3d315fd73786ca819d0">$this-&gt;game</a>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    }</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="foldopen" id="foldopen00150" data-start="{" data-end="}">
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#ab3b889017451e6a6ef1ee671b7a32f27">  150</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#ab3b889017451e6a6ef1ee671b7a32f27">setGame</a>(<a class="code hl_class" href="classComusParty_1_1Models_1_1Game.html">Game</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a71b43efba951a3d315fd73786ca819d0">$game</a>): void</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        $this-&gt;game = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a71b43efba951a3d315fd73786ca819d0">$game</a>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    }</div>
+</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#ada6a4d9d29aaee2576131896612be3ff">  160</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#ada6a4d9d29aaee2576131896612be3ff">getHostedBy</a>(): <a class="code hl_class" href="classComusParty_1_1Models_1_1Player.html">Player</a></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    {</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a54dbed7c0c8a87a137e985f9c40e57a3">$this-&gt;hostedBy</a>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    }</div>
+</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#ae4aa9377f4f61dd62067a6f5040b198a">  171</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#ae4aa9377f4f61dd62067a6f5040b198a">setHostedBy</a>(<a class="code hl_class" href="classComusParty_1_1Models_1_1Player.html">Player</a> $player): void</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        $this-&gt;hostedBy = $player;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    }</div>
+</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="foldopen" id="foldopen00181" data-start="{" data-end="}">
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#ab40216e967201316b8a7ab24d0872197">  181</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#ab40216e967201316b8a7ab24d0872197">getPlayers</a>(): ?array</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aa936ddf60bac85822d54577d0b2e7c26">$this-&gt;players</a>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    }</div>
+</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="foldopen" id="foldopen00192" data-start="{" data-end="}">
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a47b5b78ad49aaaf19b9c9525259874c5">  192</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#a47b5b78ad49aaaf19b9c9525259874c5">setPlayers</a>(?array <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aa936ddf60bac85822d54577d0b2e7c26">$players</a>): void</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    {</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        $this-&gt;players = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#aa936ddf60bac85822d54577d0b2e7c26">$players</a>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    }</div>
+</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="foldopen" id="foldopen00202" data-start="{" data-end="}">
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#afbf787ced76807989fb3093e1772c5a1">  202</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#afbf787ced76807989fb3093e1772c5a1">getState</a>(): <a class="code hl_enumeration" href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90e">GameRecordState</a></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    {</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a20c77763c07102cfe599b1b3e71e28af">$this-&gt;state</a>;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    }</div>
+</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="foldopen" id="foldopen00213" data-start="{" data-end="}">
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a3a654628c0f3495fbe385dab98f1558c">  213</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#a3a654628c0f3495fbe385dab98f1558c">setState</a>(<a class="code hl_enumeration" href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90e">GameRecordState</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a20c77763c07102cfe599b1b3e71e28af">$state</a>): void</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        $this-&gt;state = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a20c77763c07102cfe599b1b3e71e28af">$state</a>;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    }</div>
+</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="foldopen" id="foldopen00223" data-start="{" data-end="}">
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a0f0455d4aafe27d1b0720c3bcfff2847">  223</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#a0f0455d4aafe27d1b0720c3bcfff2847">getCreatedAt</a>(): DateTime</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a479fde0e5affee7654f315d79c4c54be">$this-&gt;createdAt</a>;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    }</div>
+</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="foldopen" id="foldopen00234" data-start="{" data-end="}">
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#ad7a3f64fde42387673dead9d6d19f48c">  234</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#ad7a3f64fde42387673dead9d6d19f48c">setCreatedAt</a>(DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>): void</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    {</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        $this-&gt;createdAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    }</div>
+</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="foldopen" id="foldopen00244" data-start="{" data-end="}">
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a789bc1a92b41cf8c0958231bc1f27131">  244</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#a789bc1a92b41cf8c0958231bc1f27131">getUpdatedAt</a>(): DateTime</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#ad61536d92e1a1a6bb8233adfb15bc755">$this-&gt;updatedAt</a>;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    }</div>
+</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="foldopen" id="foldopen00255" data-start="{" data-end="}">
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#aad640362086483afa83fbaa097d97293">  255</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#aad640362086483afa83fbaa097d97293">setUpdatedAt</a>(DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>): void</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        $this-&gt;updatedAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    }</div>
+</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="foldopen" id="foldopen00265" data-start="{" data-end="}">
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#a81c0dbdb6cbebb845ba5413d7fae8595">  265</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#a81c0dbdb6cbebb845ba5413d7fae8595">getFinishedAt</a>(): ?DateTime</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    {</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a02024528402c63e1920b7245776feae8">$this-&gt;finishedAt</a>;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    }</div>
+</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="foldopen" id="foldopen00276" data-start="{" data-end="}">
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1GameRecord.html#ac956c91cca76fed8539048e12c62136d">  276</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1GameRecord.html#ac956c91cca76fed8539048e12c62136d">setFinishedAt</a>(?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a02024528402c63e1920b7245776feae8">$finishedAt</a>): void</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    {</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        $this-&gt;finishedAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1GameRecord.html#a02024528402c63e1920b7245776feae8">$finishedAt</a>;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    }</div>
+</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html">ComusParty\Models\GameRecord</a></div><div class="ttdoc">Classe GameRecord.</div><div class="ttdef"><b>Definition</b> <a href="#l00046">gameRecord.class.php:47</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a02024528402c63e1920b7245776feae8"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a02024528402c63e1920b7245776feae8">ComusParty\Models\GameRecord\$finishedAt</a></div><div class="ttdeci">DateTime $finishedAt</div><div class="ttdef"><b>Definition</b> <a href="#l00087">gameRecord.class.php:87</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a0f0455d4aafe27d1b0720c3bcfff2847"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a0f0455d4aafe27d1b0720c3bcfff2847">ComusParty\Models\GameRecord\getCreatedAt</a></div><div class="ttdeci">getCreatedAt()</div><div class="ttdoc">Getter de l'attribut createdAt.</div><div class="ttdef"><b>Definition</b> <a href="#l00223">gameRecord.class.php:223</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a20c77763c07102cfe599b1b3e71e28af"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a20c77763c07102cfe599b1b3e71e28af">ComusParty\Models\GameRecord\$state</a></div><div class="ttdeci">GameRecordState $state</div><div class="ttdef"><b>Definition</b> <a href="#l00072">gameRecord.class.php:72</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a225c1e47e0322aa545ec071d5b0eaa54"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a225c1e47e0322aa545ec071d5b0eaa54">ComusParty\Models\GameRecord\getUuid</a></div><div class="ttdeci">getUuid()</div><div class="ttdoc">Getter de l'attribut uuid.</div><div class="ttdef"><b>Definition</b> <a href="#l00118">gameRecord.class.php:118</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a268cb176d55146c7ca54e80fde015145"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a268cb176d55146c7ca54e80fde015145">ComusParty\Models\GameRecord\setUuid</a></div><div class="ttdeci">setUuid(string $uuid)</div><div class="ttdoc">Setter de l'attribut uuid.</div><div class="ttdef"><b>Definition</b> <a href="#l00129">gameRecord.class.php:129</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a3a654628c0f3495fbe385dab98f1558c"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a3a654628c0f3495fbe385dab98f1558c">ComusParty\Models\GameRecord\setState</a></div><div class="ttdeci">setState(GameRecordState $state)</div><div class="ttdoc">Setter de l'attribut state.</div><div class="ttdef"><b>Definition</b> <a href="#l00213">gameRecord.class.php:213</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a479fde0e5affee7654f315d79c4c54be"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a479fde0e5affee7654f315d79c4c54be">ComusParty\Models\GameRecord\$createdAt</a></div><div class="ttdeci">DateTime $createdAt</div><div class="ttdef"><b>Definition</b> <a href="#l00077">gameRecord.class.php:77</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a47b5b78ad49aaaf19b9c9525259874c5"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a47b5b78ad49aaaf19b9c9525259874c5">ComusParty\Models\GameRecord\setPlayers</a></div><div class="ttdeci">setPlayers(?array $players)</div><div class="ttdoc">Setter de l'attribut players.</div><div class="ttdef"><b>Definition</b> <a href="#l00192">gameRecord.class.php:192</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a54dbed7c0c8a87a137e985f9c40e57a3"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a54dbed7c0c8a87a137e985f9c40e57a3">ComusParty\Models\GameRecord\$hostedBy</a></div><div class="ttdeci">Player $hostedBy</div><div class="ttdef"><b>Definition</b> <a href="#l00062">gameRecord.class.php:62</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a71b43efba951a3d315fd73786ca819d0"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a71b43efba951a3d315fd73786ca819d0">ComusParty\Models\GameRecord\$game</a></div><div class="ttdeci">Game $game</div><div class="ttdef"><b>Definition</b> <a href="#l00057">gameRecord.class.php:57</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a789bc1a92b41cf8c0958231bc1f27131"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a789bc1a92b41cf8c0958231bc1f27131">ComusParty\Models\GameRecord\getUpdatedAt</a></div><div class="ttdeci">getUpdatedAt()</div><div class="ttdoc">Getter de l'attribut updatedAt.</div><div class="ttdef"><b>Definition</b> <a href="#l00244">gameRecord.class.php:244</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a81c0dbdb6cbebb845ba5413d7fae8595"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a81c0dbdb6cbebb845ba5413d7fae8595">ComusParty\Models\GameRecord\getFinishedAt</a></div><div class="ttdeci">getFinishedAt()</div><div class="ttdoc">Getter de l'attribut finishedAt.</div><div class="ttdef"><b>Definition</b> <a href="#l00265">gameRecord.class.php:265</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_a96157fd38a233e05103d9040a66725cc"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#a96157fd38a233e05103d9040a66725cc">ComusParty\Models\GameRecord\getGame</a></div><div class="ttdeci">getGame()</div><div class="ttdoc">Getter de l'attribut game.</div><div class="ttdef"><b>Definition</b> <a href="#l00139">gameRecord.class.php:139</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_aa936ddf60bac85822d54577d0b2e7c26"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#aa936ddf60bac85822d54577d0b2e7c26">ComusParty\Models\GameRecord\$players</a></div><div class="ttdeci">array $players</div><div class="ttdef"><b>Definition</b> <a href="#l00067">gameRecord.class.php:67</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_aad640362086483afa83fbaa097d97293"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#aad640362086483afa83fbaa097d97293">ComusParty\Models\GameRecord\setUpdatedAt</a></div><div class="ttdeci">setUpdatedAt(DateTime $updatedAt)</div><div class="ttdoc">Setter de l'attribut updatedAt.</div><div class="ttdef"><b>Definition</b> <a href="#l00255">gameRecord.class.php:255</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_ab008f1159ff36b7858dc7613acb08d14"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#ab008f1159ff36b7858dc7613acb08d14">ComusParty\Models\GameRecord\__construct</a></div><div class="ttdeci">__construct(string $uuid, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, DateTime $createdAt, DateTime $updatedAt, ?DateTime $finishedAt)</div><div class="ttdoc">Constructeur de la classe GameRecord.</div><div class="ttdef"><b>Definition</b> <a href="#l00101">gameRecord.class.php:101</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_ab3b889017451e6a6ef1ee671b7a32f27"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#ab3b889017451e6a6ef1ee671b7a32f27">ComusParty\Models\GameRecord\setGame</a></div><div class="ttdeci">setGame(Game $game)</div><div class="ttdoc">Setter de l'attribut game.</div><div class="ttdef"><b>Definition</b> <a href="#l00150">gameRecord.class.php:150</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_ab40216e967201316b8a7ab24d0872197"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#ab40216e967201316b8a7ab24d0872197">ComusParty\Models\GameRecord\getPlayers</a></div><div class="ttdeci">getPlayers()</div><div class="ttdoc">Getter de l'attribut players.</div><div class="ttdef"><b>Definition</b> <a href="#l00181">gameRecord.class.php:181</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_ac956c91cca76fed8539048e12c62136d"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#ac956c91cca76fed8539048e12c62136d">ComusParty\Models\GameRecord\setFinishedAt</a></div><div class="ttdeci">setFinishedAt(?DateTime $finishedAt)</div><div class="ttdoc">Setter de l'attribut finishedAt.</div><div class="ttdef"><b>Definition</b> <a href="#l00276">gameRecord.class.php:276</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_ad61536d92e1a1a6bb8233adfb15bc755"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#ad61536d92e1a1a6bb8233adfb15bc755">ComusParty\Models\GameRecord\$updatedAt</a></div><div class="ttdeci">DateTime $updatedAt</div><div class="ttdef"><b>Definition</b> <a href="#l00082">gameRecord.class.php:82</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_ad7a3f64fde42387673dead9d6d19f48c"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#ad7a3f64fde42387673dead9d6d19f48c">ComusParty\Models\GameRecord\setCreatedAt</a></div><div class="ttdeci">setCreatedAt(DateTime $createdAt)</div><div class="ttdoc">Setter de l'attribut createdAt.</div><div class="ttdef"><b>Definition</b> <a href="#l00234">gameRecord.class.php:234</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_ada6a4d9d29aaee2576131896612be3ff"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#ada6a4d9d29aaee2576131896612be3ff">ComusParty\Models\GameRecord\getHostedBy</a></div><div class="ttdeci">getHostedBy()</div><div class="ttdoc">Getter de l'attribut hostedBy.</div><div class="ttdef"><b>Definition</b> <a href="#l00160">gameRecord.class.php:160</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_ae4aa9377f4f61dd62067a6f5040b198a"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#ae4aa9377f4f61dd62067a6f5040b198a">ComusParty\Models\GameRecord\setHostedBy</a></div><div class="ttdeci">setHostedBy(Player $player)</div><div class="ttdoc">Setter de l'attribut hostedBy.</div><div class="ttdef"><b>Definition</b> <a href="#l00171">gameRecord.class.php:171</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_aedc88a983d203149a4557dc1597ed64d"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#aedc88a983d203149a4557dc1597ed64d">ComusParty\Models\GameRecord\$uuid</a></div><div class="ttdeci">string $uuid</div><div class="ttdef"><b>Definition</b> <a href="#l00052">gameRecord.class.php:52</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecord_html_afbf787ced76807989fb3093e1772c5a1"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecord.html#afbf787ced76807989fb3093e1772c5a1">ComusParty\Models\GameRecord\getState</a></div><div class="ttdeci">getState()</div><div class="ttdoc">Getter de l'attribut state.</div><div class="ttdef"><b>Definition</b> <a href="#l00202">gameRecord.class.php:202</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Game_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1Game.html">ComusParty\Models\Game</a></div><div class="ttdoc">Classe Game.</div><div class="ttdef"><b>Definition</b> <a href="game_8class_8php_source.html#l00046">game.class.php:47</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html">ComusParty\Models\Player</a></div><div class="ttdoc">Classe Player.</div><div class="ttdef"><b>Definition</b> <a href="player_8class_8php_source.html#l00018">player.class.php:18</a></div></div>
+<div class="ttc" id="anamespaceComusParty_1_1Models_html"><div class="ttname"><a href="namespaceComusParty_1_1Models.html">ComusParty\Models</a></div><div class="ttdef"><b>Definition</b> <a href="article_8class_8php_source.html#l00010">article.class.php:10</a></div></div>
+<div class="ttc" id="anamespaceComusParty_1_1Models_html_a7bfe41d101854926d85a9404cd72a90e"><div class="ttname"><a href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90e">ComusParty\Models\GameRecordState</a></div><div class="ttdeci">GameRecordState</div><div class="ttdoc">Enumération des états d'une partie.</div><div class="ttdef"><b>Definition</b> <a href="#l00026">gameRecord.class.php:27</a></div></div>
+<div class="ttc" id="anamespaceComusParty_1_1Models_html_a7bfe41d101854926d85a9404cd72a90eadbd1812bee789fbf3548cf79d3f2b400"><div class="ttname"><a href="namespaceComusParty_1_1Models.html#a7bfe41d101854926d85a9404cd72a90eadbd1812bee789fbf3548cf79d3f2b400">ComusParty\Models\FINISHED</a></div><div class="ttdeci">@ FINISHED</div><div class="ttdoc">L'état WAITING indique que la partie est en attente de joueurs pour démarrer.</div><div class="ttdef"><b>Definition</b> <a href="#l00040">gameRecord.class.php:39</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li><li class="navelem"><a class="el" href="gameRecord_8class_8php.html">gameRecord.class.php</a></li>
+    <li class="footer">Généré le Mardi 24 Décembre 2024 16:27:48 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

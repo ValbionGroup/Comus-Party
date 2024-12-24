@@ -1,0 +1,28 @@
+var classComusParty_1_1Models_1_1Game =
+[
+    [ "__construct", "classComusParty_1_1Models_1_1Game.html#a11bd7823027d60cd0683991486309229", null ],
+    [ "getCreatedAt", "classComusParty_1_1Models_1_1Game.html#a0f0455d4aafe27d1b0720c3bcfff2847", null ],
+    [ "getDescription", "classComusParty_1_1Models_1_1Game.html#a2e7bb35c71bf1824456ceb944cb7a845", null ],
+    [ "getId", "classComusParty_1_1Models_1_1Game.html#a12251d0c022e9e21c137a105ff683f13", null ],
+    [ "getName", "classComusParty_1_1Models_1_1Game.html#a3d0963e68bb313b163a73f2803c64600", null ],
+    [ "getPathImg", "classComusParty_1_1Models_1_1Game.html#a15ca8e2ac1d48f3677b49ad30ea7be6b", null ],
+    [ "getState", "classComusParty_1_1Models_1_1Game.html#afbf787ced76807989fb3093e1772c5a1", null ],
+    [ "getTags", "classComusParty_1_1Models_1_1Game.html#ae07173ab06a20e2f5bd928cc0518e01f", null ],
+    [ "getUpdatedAt", "classComusParty_1_1Models_1_1Game.html#a789bc1a92b41cf8c0958231bc1f27131", null ],
+    [ "setCreatedAt", "classComusParty_1_1Models_1_1Game.html#a29e08b68eaa931e0624c27c30d4d463e", null ],
+    [ "setDescription", "classComusParty_1_1Models_1_1Game.html#acee77db44e361e2773e2734033f2a1c5", null ],
+    [ "setId", "classComusParty_1_1Models_1_1Game.html#a02a5667ab1839b99445c63ed76e3eb39", null ],
+    [ "setName", "classComusParty_1_1Models_1_1Game.html#a8c5eb02203dacfc67899b597d6fa12a9", null ],
+    [ "setPathImg", "classComusParty_1_1Models_1_1Game.html#a7dc1e9349f051144fe9906cff557d037", null ],
+    [ "setState", "classComusParty_1_1Models_1_1Game.html#a232a65b7ec2814744354bdfbee2a3c53", null ],
+    [ "setTags", "classComusParty_1_1Models_1_1Game.html#ae3816bd5c0db4d2da4333cdb6f301379", null ],
+    [ "setUpdatedAt", "classComusParty_1_1Models_1_1Game.html#a6a8f2e22ee946100b942d81036f29047", null ],
+    [ "$createdAt", "classComusParty_1_1Models_1_1Game.html#a479fde0e5affee7654f315d79c4c54be", null ],
+    [ "$description", "classComusParty_1_1Models_1_1Game.html#a166882b9613466de882dd8727762f2db", null ],
+    [ "$id", "classComusParty_1_1Models_1_1Game.html#a3587bd00e5602c1800515b6f9ffbebc5", null ],
+    [ "$name", "classComusParty_1_1Models_1_1Game.html#a58551b63ba97fb35b928f11f36b1fac6", null ],
+    [ "$pathImg", "classComusParty_1_1Models_1_1Game.html#ad85c4e3ae4fbf39300ff299d56edc0f1", null ],
+    [ "$state", "classComusParty_1_1Models_1_1Game.html#a263e1dc5271002936791325271becc7b", null ],
+    [ "$tags", "classComusParty_1_1Models_1_1Game.html#af40937aefe42b49a87fa9ae1c3909c2c", null ],
+    [ "$updatedAt", "classComusParty_1_1Models_1_1Game.html#ad61536d92e1a1a6bb8233adfb15bc755", null ]
+];
