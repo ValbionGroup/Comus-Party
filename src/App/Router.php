@@ -165,7 +165,7 @@ class Router
             }
         }
 
-        throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ')' . ' not found');
+        throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ') not found');
     }
 
     /**
