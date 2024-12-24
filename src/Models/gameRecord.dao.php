@@ -103,24 +103,6 @@ class GameRecordDAO
     }
 
     /**
-     * @brief Retourne la liste des joueurs dans une partie grâce à l'UUID de celle-ci
-     * @param string $uuid UUID de la partie
-     * @return array|null
-     */
-    private function findPlayersByGameRecordUuid(string $uuid): ?array
-    {
-        $stmt = $this->pdo->prepare("SELECT player_uuid FROM " . DB_PREFIX . "played WHERE game_uuid = :uuid");
-        $stmt->bindParam(":uuid", $uuid);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $players = $stmt->fetchAll();
-        if (!$players) {
-            return null;
-        }
-        return $players;
-    }
-
-    /**
      * @brief Retourne un objet GameRecord (ou null) à partir de l'UUID passé en paramètre
      *
      * @param string $uuid L'UUID de la partie recherchée
@@ -159,6 +141,23 @@ class GameRecordDAO
         $this->pdo = $pdo;
     }
 
+    /**
+     * @brief Retourne la liste des joueurs dans une partie grâce à l'UUID de celle-ci
+     * @param string $uuid UUID de la partie
+     * @return array|null
+     */
+    private function findPlayersByGameRecordUuid(string $uuid): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT player_uuid FROM " . DB_PREFIX . "played WHERE game_uuid = :uuid");
+        $stmt->bindParam(":uuid", $uuid);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $players = $stmt->fetchAll();
+        if (!$players) {
+            return null;
+        }
+        return $players;
+    }
 
     /**
      * @brief Retourne un tableau d'objets GameRecord (ou null) à partir de l'UUID passé en paramètre correspondant aux parties hébergées par un joueur
@@ -239,6 +238,32 @@ class GameRecordDAO
         $stmt->bindParam(":finishedAt", $finishedAt);
 
         return $stmt->execute();
+    }
+
+    /**
+     * @brief Met à jour un enregistrement de partie en base de données
+     * @param GameRecord $gameRecord Enregistrement de la partie à mettre à jour
+     * @return void
+     */
+    public function update(GameRecord $gameRecord): void
+    {
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, updated_at = :updatedAt, finished_at = :finishedAt WHERE uuid = :uuid");
+
+        $state = match ($gameRecord->getState()) {
+            GameRecordState::WAITING => "waiting",
+            GameRecordState::STARTED => "started",
+            GameRecordState::FINISHED => "finished",
+        };
+        $updatedAt = $gameRecord->getUpdatedAt()?->format("Y-m-d H:i:s");
+        $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
+        $uuid = $gameRecord->getUuid();
+
+        $stmt->bindParam(":state", $state);
+        $stmt->bindParam(":updatedAt", $updatedAt);
+        $stmt->bindParam(":finishedAt", $finishedAt);
+        $stmt->bindParam(":uuid", $uuid);
+
+        $stmt->execute();
     }
 
     /**
