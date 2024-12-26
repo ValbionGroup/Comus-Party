@@ -22,7 +22,7 @@
                                            class="input w-full !bg-lavender-blush-2 dark:!bg-night-2" id="{{ key }}"
                                            name="{{ key }}" value="{{ value.default }}"
                                             {% if value.type == 'number' %}
-                                                min="{{ value.min }}" max="{{ value.max }}"
+                                                min="{{ value.min }}" max="{{ value.max }}" step="{{ value.step }}"
                                             {% elseif value.type == 'text' %}
                                                 placeholder="{{ value.placeholder }}"
                                                 pattern="{{ value.pattern }}"
