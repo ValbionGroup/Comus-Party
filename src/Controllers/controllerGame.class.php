@@ -253,7 +253,7 @@ class ControllerGame extends Controller
     private function showInGame(GameRecord $gameRecord): void
     {
         $players = $gameRecord->getPlayers();
-        if (!array_key_exists($_SESSION['uuid'], array_map(fn($player) => $player->getUuid(), $players))) {
+        if (!in_array($_SESSION['uuid'], array_map(fn($player) => $player->getUuid(), $players))) {
             throw new UnauthorizedAccessException("Vous n'êtes pas dans la partie");
         }
 
