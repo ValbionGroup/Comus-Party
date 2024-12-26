@@ -209,7 +209,7 @@ class ControllerGame extends Controller
         } else if ($gameRecord->getState() == GameRecordState::STARTED) {
             $this->showInGame($gameRecord);
         } else {
-            echo "La partie est terminée";
+            throw new Exception("Cette partie est terminée", 404);
         }
 
         exit;
