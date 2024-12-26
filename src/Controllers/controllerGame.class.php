@@ -119,6 +119,18 @@ class ControllerGame extends Controller
         } else {
             $settings = [];
         }
+
+        $gameRecord->setState(GameRecordState::STARTED);
+        $gameRecord->setUpdatedAt(new DateTime());
+        (new GameRecordDAO($this->getPdo()))->update($gameRecord);
+
+        echo json_encode([
+            "success" => true,
+            "game" => [
+                "code" => $code,
+                "gameId" => $game->getId(),
+            ],
+        ]);
     }
 
     /**
@@ -240,6 +252,11 @@ class ControllerGame extends Controller
 
     private function showInGame(GameRecord $gameRecord): void
     {
+        $players = $gameRecord->getPlayers();
+        if (!array_key_exists($_SESSION['uuid'], array_map(fn($player) => $player->getUuid(), $players))) {
+            throw new UnauthorizedAccessException("Vous n'êtes pas dans la partie");
+        }
+
         $template = $this->getTwig()->load('player/in-game.twig');
         echo $template->render([
             "code" => $gameRecord->getUuid(),
@@ -247,6 +264,7 @@ class ControllerGame extends Controller
             "players" => $gameRecord->getPlayers(),
             "game" => $gameRecord->getGame(),
             "chat" => $this->getGameSettings($gameRecord->getGame()->getId())["settings"]["chatEnabled"],
+
         ]);
     }
 
