@@ -11,20 +11,23 @@ require_once __DIR__ . '/config/const.php';
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/config/mail.php';
 
-require_once __DIR__ . '/src/Models/Router.class.php';
-require_once __DIR__ . '/src/Models/Validator.class.php';
+require_once __DIR__ . '/src/App/Router.php';
+require_once __DIR__ . '/src/App/Validator.php';
+require_once __DIR__ . '/src/App/MessageHandler.php';
 
-require_once __DIR__ . '/src/Models/Exceptions/MessageHandler.php';
-require_once __DIR__ . '/src/Models/Exceptions/NotFoundException.php';
-require_once __DIR__ . '/src/Models/Exceptions/MalformedRequestException.php';
-require_once __DIR__ . '/src/Models/Exceptions/AuthenticationException.php';
-require_once __DIR__ . '/src/Models/Exceptions/ControllerNotFoundException.php';
-require_once __DIR__ . '/src/Models/Exceptions/MethodNotFoundException.php';
-require_once __DIR__ . '/src/Models/Exceptions/RouteNotFoundException.php';
-require_once __DIR__ . '/src/Models/Exceptions/UnauthorizedAccessException.php';
-require_once __DIR__ . '/src/Models/Exceptions/PaymentException.php';
-require_once __DIR__ . '/src/Models/Exceptions/GameUnavailableException.php';
-require_once __DIR__ . '/src/Models/Exceptions/GameSettingsException.php';
+require_once __DIR__ . '/src/App/Exception/NotFoundException.php';
+require_once __DIR__ . '/src/App/Exception/MalformedRequestException.php';
+require_once __DIR__ . '/src/App/Exception/AuthenticationException.php';
+require_once __DIR__ . '/src/App/Exception/ControllerNotFoundException.php';
+require_once __DIR__ . '/src/App/Exception/MethodNotFoundException.php';
+require_once __DIR__ . '/src/App/Exception/RouteNotFoundException.php';
+require_once __DIR__ . '/src/App/Exception/UnauthorizedAccessException.php';
+require_once __DIR__ . '/src/App/Exception/PaymentException.php';
+require_once __DIR__ . '/src/App/Exception/GameUnavailableException.php';
+require_once __DIR__ . '/src/App/Exception/GameSettingsException.php';
+
+require_once __DIR__ . '/src/App/Socket/Chat.php';
+require_once __DIR__ . '/src/App/Socket/Game.php';
 
 require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/Controllers/controller.class.php';

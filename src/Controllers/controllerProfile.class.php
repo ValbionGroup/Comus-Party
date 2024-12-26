@@ -9,11 +9,11 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\Exception\ControllerNotFoundException;
+use ComusParty\App\Exception\MethodNotFoundException;
+use ComusParty\App\Exception\NotFoundException;
+use ComusParty\App\Exception\UnauthorizedAccessException;
 use ComusParty\Models\ArticleDAO;
-use ComusParty\Models\Exception\ControllerNotFoundException;
-use ComusParty\Models\Exception\MethodNotFoundException;
-use ComusParty\Models\Exception\NotFoundException;
-use ComusParty\Models\Exception\UnauthorizedAccessException;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
