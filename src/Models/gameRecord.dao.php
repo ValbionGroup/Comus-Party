@@ -247,19 +247,17 @@ class GameRecordDAO
      */
     public function update(GameRecord $gameRecord): void
     {
-        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, updated_at = :updatedAt, finished_at = :finishedAt WHERE uuid = :uuid");
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, finished_at = :finishedAt WHERE uuid = :uuid");
 
         $state = match ($gameRecord->getState()) {
             GameRecordState::WAITING => "waiting",
             GameRecordState::STARTED => "started",
             GameRecordState::FINISHED => "finished",
         };
-        $updatedAt = $gameRecord->getUpdatedAt()?->format("Y-m-d H:i:s");
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
         $uuid = $gameRecord->getUuid();
 
         $stmt->bindParam(":state", $state);
-        $stmt->bindParam(":updatedAt", $updatedAt);
         $stmt->bindParam(":finishedAt", $finishedAt);
         $stmt->bindParam(":uuid", $uuid);
 
