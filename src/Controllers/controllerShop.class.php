@@ -125,15 +125,27 @@ class ControllerShop extends Controller
         $cardNumber = preg_replace('/\s/', '', $datas['cardNumber']);
 
         if (strlen($cardNumber) !== 16) {
-            throw new PaymentException("Le numéro de carte doit contenir 16 chiffres");
+            echo json_encode([
+                'success' => false,
+                'message' => 'Le numéro de la carte doit contenir 16 chiffres.'
+            ]);
+            return false;
         }
 
         if (!$this->checkLuhnValid($cardNumber)) {
-            throw new PaymentException("Le numéro de carte n'est pas valide");
+            echo json_encode([
+                'success' => false,
+                'message' => "Le numéro de carte n'est pas valide."
+            ]);
+            return false;
         }
 
         if (strlen($datas['cvv']) !== 3) {
-            throw new PaymentException("Le cryptogramme de sécurité doit contenir 3 chiffres");
+            echo json_encode([
+                'success' => false,
+                'message' => "Le cryptogramme de sécurité doit contenir 3 chiffres"
+            ]);
+            return false;
         }
 
 
@@ -142,8 +154,16 @@ class ControllerShop extends Controller
         $expirationDate->setDate(2000 + (int)$year, (int)$month, 1);
         $now = new DateTime();
         if ($expirationDate < $now) {
-            throw new PaymentException("La carte a expiré");
+            echo json_encode([
+                'success' => false,
+                'message' => "La carte a expiré."
+            ]);
+            return false;
         }
+
+        echo json_encode([
+            'success' => true
+        ]);
 
         return true;
     }
