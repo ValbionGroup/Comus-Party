@@ -82,7 +82,7 @@ $router->delete('/game/:code/quit', function ($code) use ($loader, $twig) {
 $router->post('/game/:code/start', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("initGame", [
         "code" => $code,
-        "settings" => $_POST['settings']
+        "settings" => json_decode($_POST['settings'], true)
     ]);
     exit;
 }, 'player');
