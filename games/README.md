@@ -16,6 +16,8 @@ fichier `settings.json` :
     "type": "Type du jeu"
   },
   "settings": {
+    "minPlayers": 1,
+    "maxPlayers": 4,
     "isNode": true,
     "nodeServer": "URL du serveur Node",
     "chatEnabled": true

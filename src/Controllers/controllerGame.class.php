@@ -102,6 +102,11 @@ class ControllerGame extends Controller
             throw new GameUnavailableException("Les paramètres du jeu ne sont pas disponibles");
         }
 
+        $nbPlayers = sizeof($gameRecord->getPlayers());
+        if ($nbPlayers < $gameSettings["settings"]["minPlayers"] || $nbPlayers > $gameSettings["settings"]["maxPlayers"]) {
+            throw new GameSettingsException("Le nombre de joueurs est de " . $nbPlayers . " alors que le jeu nécessite entre " . $gameSettings["settings"]["minPlayers"] . " et " . $gameSettings["settings"]["maxPlayers"] . " joueurs");
+        }
+
         if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
             if (sizeof($settings) != sizeof($gameSettings["modifiableSettings"])) {
                 throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
