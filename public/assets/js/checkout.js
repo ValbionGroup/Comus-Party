@@ -7,6 +7,8 @@
  *   @version 0.2
  */
 
+let notificationMessage = document.getElementById("notificationMessage");
+
 function formatZipCode(input) {
     input.value = input.value
         .replace(/\D/g, '') // Supprimer les caractères non numériques
@@ -29,7 +31,7 @@ function formatExpirationDate(input) {
         .replace(/(\d{2})(?=\d)/g, '$1/') // Ajouter un / après les 2 premiers chiffres
 }
 
-function price(){
+function price() {
 
     let prices = document.querySelectorAll('.articlePrice');
 
@@ -77,6 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
     submitButton.addEventListener('click', function (event) {
         if (!form.checkValidity()) {
             event.preventDefault();  // Si le formulaire n'est pas valide, on empêche l'envoi
+        } else {
+            sendForm();
         }
     });
 
@@ -115,10 +119,12 @@ const getData = async (searchTerm) => {
 
 function autocomplete(inp, arr) {
     let currentFocus;
-    inp.addEventListener("input", function() {
+    inp.addEventListener("input", function () {
         let a, b, i, val = this.value;
         closeAllLists();
-        if (!val) { return false;}
+        if (!val) {
+            return false;
+        }
         currentFocus = -1;
 
 
@@ -128,7 +134,7 @@ function autocomplete(inp, arr) {
 
         this.parentNode.appendChild(a);
 
-        if(arr !== null){
+        if (arr !== null) {
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].label.substr(0, val.length).toUpperCase() === val.toUpperCase()) {
                     b = document.createElement("DIV");
@@ -136,9 +142,10 @@ function autocomplete(inp, arr) {
                     b.innerHTML += arr[i].label.substr(val.length);
                     b.innerHTML += "<input type='hidden' value='" + arr[i].street + "'>";
 
-                    b.addEventListener("click", chooseAdress,false);
+                    b.addEventListener("click", chooseAdress, false);
                     b.myParam = arr[i];
-                    function chooseAdress(arr){
+
+                    function chooseAdress(arr) {
                         inp.value = this.getElementsByTagName("input")[0].value;
                         document.getElementById("city").value = arr.currentTarget.myParam.city;
                         document.getElementById("zipCode").value = arr.currentTarget.myParam.zipCode;
@@ -153,7 +160,7 @@ function autocomplete(inp, arr) {
             }
         }
     });
-    inp.addEventListener("keydown", function(e) {
+    inp.addEventListener("keydown", function (e) {
         let x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode === 40) {
@@ -169,6 +176,7 @@ function autocomplete(inp, arr) {
             }
         }
     });
+
     function addActive(x) {
         if (!x) return false;
         removeActive(x);
@@ -176,11 +184,13 @@ function autocomplete(inp, arr) {
         if (currentFocus < 0) currentFocus = (x.length - 1);
         x[currentFocus].classList.add("autocomplete-active");
     }
+
     function removeActive(x) {
         for (let i = 0; i < x.length; i++) {
             x[i].classList.remove("autocomplete-active");
         }
     }
+
     function closeAllLists(elmnt) {
         let x = document.getElementsByClassName("autocomplete-items");
         for (let i = 0; i < x.length; i++) {
@@ -190,6 +200,7 @@ function autocomplete(inp, arr) {
             }
         }
     }
+
     /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
@@ -200,3 +211,41 @@ adressInput = document.getElementById("adresse");
 adressInput.addEventListener("input", async function () {
     autocomplete(document.getElementById("adresse"), await getData(adressInput.value));
 });
+
+function sendForm() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/shop/basket/checkout/confirm", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Envoyer les données sous forme de paire clé=valeur
+    xhr.send(new URLSearchParams(new FormData(document.getElementById("checkoutForm"))));
+    // Gérer la réponse du serveur
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText)
+            if (response.success) {
+                console.log("Paiement accepté");
+            } else {
+                notificationMessage.textContent = response.message;
+                notification.className = "z-50 fixed bottom-5 right-5 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                // Afficher la notification
+                notification.classList.remove('opacity-0', 'scale-90');
+                notification.classList.add('opacity-100', 'scale-100');
+
+                overlay.classList.remove('opacity-100'); // Disparition de l'overlay
+                modalWindowForBanner.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
+                // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
+                setTimeout(() => {
+                    overlay.classList.add('hidden', 'opacity-0');
+                    modalWindowForBanner.classList.add('hidden', 'opacity-0', 'translate-y-4');
+                }, 300); // Durée de la transition
+                // Masquer la notification après 5 secondes
+                setTimeout(() => {
+                    notification.classList.remove('opacity-100', 'scale-100');
+                    notification.classList.add('opacity-0', 'scale-90');
+                }, 5000);
+            }
+
+        }
+    };
+}
