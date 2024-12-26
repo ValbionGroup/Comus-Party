@@ -278,7 +278,9 @@ class ArticleDAO {
             $stmt->execute();
             $pfp = $this->findById($idArticle);
             $_SESSION['pfpPath'] = $pfp->getFilePath();
-        }elseif($typeArticle == "banner") {
+        }
+
+        if($typeArticle == "banner") {
             $bannerActive = $this->findActiveBannerByPlayerUuid($uuid);
 
             //Si banner déjà équipé
@@ -293,6 +295,7 @@ class ArticleDAO {
                 $stmt->bindParam(':uuid', $uuid);
                 $stmt->bindParam(':idArticleActif', $idBannerActive);
                 $stmt->execute();
+
             }
 
             //Met en active la bannière choisie
@@ -304,10 +307,10 @@ class ArticleDAO {
         WHERE i.player_uuid = :uuid AND ir.article_id = :idArticle'
             );
             $stmt->bindParam(':uuid', $uuid);
-            $stmt->bindParam(':idArticle', $idBannerActive);
+            $stmt->bindParam(':idArticle', $idArticle);
             $stmt->execute();
             $banner = $this->findById($idArticle);
-            $_SESSION['pfpPath'] = $banner->getFilePath();
+            $_SESSION['bannerPath'] = $banner->getFilePath();
         }
 
 

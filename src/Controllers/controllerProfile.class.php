@@ -132,25 +132,29 @@ class ControllerProfile extends Controller
             throw new NotFoundException('Player not found');
         }
         $articleManager = new ArticleDAO($this->getPdo());
-        if($idArticle == 0 && $typeArticle == "pfp"){
+        if($idArticle == 0 && $typeArticle === "pfp"){
 
             $articleManager->deleteActiveArticleForPfp($player->getUuid());
             $_SESSION['pfpPath'] = "default-pfp.jpg";
             echo json_encode([
                 'articlePath' => "default-pfp.jpg",
             ]);
-        }elseif ($idArticle == 0 && $typeArticle == "banner") {
+        }
+        if ($idArticle == 0 && $typeArticle === "banner") {
             $articleManager->deleteActiveArticleForBanner($player->getUuid());
             $_SESSION['bannerPath'] = "default-banner.jpg";
             echo json_encode([
                 'articlePath' => "default-banner.jpg",
             ]);
         }
-        else{
+        if($idArticle != 0){
             $articleManager->updateActiveArticle($player->getUuid(), $idArticle, $typeArticle);
             $article = $articleManager->findById($idArticle);
+
             echo json_encode([
-                'articlePath' => $article->getFilePath()
+                'articlePath' => $article->getFilePath(),
+                'typeArticle' => $typeArticle,
+                'idArticle' => $idArticle
             ]);
         }
     }
