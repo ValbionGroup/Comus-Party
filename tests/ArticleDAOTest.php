@@ -298,4 +298,53 @@ class ArticleDAOTest extends TestCase
     {
         $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('42uuid'));
     }
+
+    /**
+     * @brief Test de la méthode deleteActiveArticleForPfp avec un UUID valide mais non-existant dans la base de données
+     * @return void
+     */
+    public function testDeleteActiveArticleForPfpWithInvalidUuid(): void
+    {
+        $this->expectException(PDOException::class);
+        $this->articleDAO->deleteActiveArticleForPfp('42uuid');
+    }
+
+    /**
+     * @brief Test de la méthode deleteActiveArticleForBanner avec un UUID valide
+     * @return void
+     */
+    public function testDeleteActiveArticleForBannerWithValidUuid(): void
+    {
+        $this->articleDAO->deleteActiveArticleForBanner('uuid1');
+        $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('uuid1'));
+    }
+    /**
+     * @brief Test de la méthode updateActiveArticle avec un UUID valide et un ID d'article valide
+     * @return void
+     */
+    public function testUpdateActiveArticleWithValidUuidAndValidArticleId(): void
+    {
+        $this->articleDAO->updateActiveArticle('uuid1', '1');
+        $this->assertInstanceOf(Article::class, $this->articleDAO->findActiveBannerByPlayerUuid('uuid1'));
+    }
+
+    /**
+     * @brief Test de la méthode updateActiveArticle avec un UUID valide et un ID d'article invalide
+     * @return void
+     */
+    public function testUpdateActiveArticleWithValidUuidAndInvalidArticleId(): void
+    {
+        $this->expectException(PDOException::class);
+        $this->articleDAO->updateActiveArticle('uuid1', '42');
+    }
+
+    /**
+     * @brief Test de la méthode updateActiveArticle avec un UUID invalide et un ID d'article invalide
+     * @return void
+     */
+    public function testUpdateActiveArticleWithInvalidUuidAndInvalidArticleId(): void
+    {
+        $this->expectException(PDOException::class);
+        $this->articleDAO->updateActiveArticle('42uuid', '42');
+    }
 }
