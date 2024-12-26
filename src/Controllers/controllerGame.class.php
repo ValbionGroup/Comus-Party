@@ -221,6 +221,7 @@ class ControllerGame extends Controller
             "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
             "players" => $gameRecord->getPlayers(),
             "game" => $gameRecord->getGame(),
+            "chat" => $gameSettings["settings"]["chatEnabled"],
             "gameFileInfos" => $gameSettings["game"],
             "settings" => $settings,
         ]);
@@ -244,7 +245,8 @@ class ControllerGame extends Controller
             "code" => $gameRecord->getUuid(),
             "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
             "players" => $gameRecord->getPlayers(),
-            "game" => $gameRecord->getGame()
+            "game" => $gameRecord->getGame(),
+            "chat" => $this->getGameSettings($gameRecord->getGame()->getId())["settings"]["chatEnabled"],
         ]);
     }
 

@@ -12,22 +12,24 @@
                 </p>
             </div>
         </div>
-        <div class="h-full bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
-            <h3 class="text-xl font-serif">Chat</h3>
-            <div class="mt-3 overflow-y-auto h-full flex flex-col" id="chatContent">
+        {% if chat %}
+            <div class="h-full bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
+                <h3 class="text-xl font-serif">Chat</h3>
+                <div class="mt-3 overflow-y-auto h-full flex flex-col" id="chatContent">
 
+                </div>
+                <div class="flex flex-row w-full gap-2">
+                    <input type="text" class="input w-full !bg-lavender-blush-2 dark:!bg-night-2" id="chatInput"
+                           name="chatInput" placeholder="Écrire un message..."/>
+                    <button class="btn-primary" id="sendChat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="m3.4 20.4l17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a.993.993 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12L2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <div class="flex flex-row w-full gap-2">
-                <input type="text" class="input w-full !bg-lavender-blush-2 dark:!bg-night-2" id="chatInput"
-                       name="chatInput" placeholder="Écrire un message..."/>
-                <button class="btn-primary" id="sendChat">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                              d="m3.4 20.4l17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a.993.993 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12L2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
+        {% endif %}
     </section>
 {% endblock %}
 
