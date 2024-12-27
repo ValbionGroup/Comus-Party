@@ -383,7 +383,8 @@ class ControllerAuth extends Controller
             'password' => [
                 'required' => true,
                 'type' => 'string',
-                'min-length' => 8
+                'min-length' => 8,
+                'max-length' => 64
             ]
         ];
 

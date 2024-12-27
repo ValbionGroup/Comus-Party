@@ -104,6 +104,7 @@ function checkConditions(event) {
     const MIN_USERNAME_LENGTH = 3;
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const MIN_PASSWORD_LENGTH = 8;
+    const MAX_PASSWORD_LENGTH = 64;
     const UPPERCASE_LETTER = /[A-Z]/;
     const LOWERCASE_LETTER = /[a-z]/;
     const NUMBERS = /\d/;
@@ -113,6 +114,7 @@ function checkConditions(event) {
     const isUsernameValid = inputUsername.value.length >= MIN_USERNAME_LENGTH && !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(inputUsername.value);
     const isEmailValid = EMAIL_REGEX.test(inputEmail.value);
     const isPasswordValid = inputPassword.value.length >= MIN_PASSWORD_LENGTH &&
+                            inputPassword.value.length <= MAX_PASSWORD_LENGTH &&
                             UPPERCASE_LETTER.test(inputPassword.value) &&
                             LOWERCASE_LETTER.test(inputPassword.value) &&
                             NUMBERS.test(inputPassword.value) &&
@@ -137,6 +139,7 @@ function checkConditions(event) {
         updateErrorMessage(input, "incorrectEmailFormat", EMAIL_REGEX.test(input.value), "Format d'email incorrect");
     } else if (input === inputPassword) {
         updateErrorMessage(input, "passwordTooShort", input.value.length >= MIN_PASSWORD_LENGTH, "Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères");
+        updateErrorMessage(input, "passwordTooLong", input.value.length <= MAX_PASSWORD_LENGTH, "Le mot de passe doit être au maximum de " + MAX_PASSWORD_LENGTH + " caractères");
         updateErrorMessage(input, "passwordNoUppercase", UPPERCASE_LETTER.test(input.value), "Le mot de passe doit contenir au moins une majuscule");
         updateErrorMessage(input, "passwordNoLowercase", LOWERCASE_LETTER.test(input.value), "Le mot de passe doit contenir au moins une minuscule");
         updateErrorMessage(input, "passwordNoNumber", NUMBERS.test(input.value), "Le mot de passe doit contenir au moins un chiffre");
