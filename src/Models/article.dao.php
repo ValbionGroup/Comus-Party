@@ -245,6 +245,7 @@ class ArticleDAO {
      * @brief Met à jour l'article en active dans la base de données
      * @param string $uuid L'UUID du joueur
      * @param string $idArticle L'ID de l'article
+     * @param string $typeArticle Le type de l'article
      */
     public function updateActiveArticle(string $uuid, string $idArticle, string $typeArticle)
     {
