@@ -49,7 +49,7 @@ class GameRecord
      * @brief Identifiant de la partie
      * @var string Identifiant de la partie
      */
-    private string $uuid;
+    private string $code;
     /**
      * @brief Jeu de la partie
      * @var Game Jeu de la partie
@@ -89,7 +89,7 @@ class GameRecord
     /**
      * @brief Constructeur de la classe GameRecord
      *
-     * @param string $uuid Identifiant de la partie
+     * @param string $code Identifiant de la partie
      * @param Game $game Jeu de la partie
      * @param Player $hostedBy Joueur qui a créé la partie
      * @param Player[]|null $players Joueurs de la partie
@@ -98,9 +98,9 @@ class GameRecord
      * @param DateTime $updatedAt Date de dernière mise à jour de la partie
      * @param DateTime|null $finishedAt Date de fin de la partie
      */
-    public function __construct(string $uuid, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, DateTime $createdAt, DateTime $updatedAt, ?DateTime $finishedAt)
+    public function __construct(string $code, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, DateTime $createdAt, DateTime $updatedAt, ?DateTime $finishedAt)
     {
-        $this->uuid = $uuid;
+        $this->code = $code;
         $this->game = $game;
         $this->hostedBy = $hostedBy;
         $this->players = $players;
@@ -115,20 +115,20 @@ class GameRecord
      *
      * @return string Identifiant de la partie
      */
-    public function getUuid(): string
+    public function getCode(): string
     {
-        return $this->uuid;
+        return $this->code;
     }
 
     /**
      * @brief Setter de l'attribut uuid
      *
-     * @param string $uuid Identifiant de la partie
+     * @param string $code Identifiant de la partie
      * @return void
      */
-    public function setUuid(string $uuid): void
+    public function setCode(string $code): void
     {
-        $this->uuid = $uuid;
+        $this->code = $code;
     }
 
     /**
