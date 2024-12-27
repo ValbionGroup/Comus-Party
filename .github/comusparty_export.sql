@@ -564,7 +564,7 @@ ALTER TABLE `cp_game`
 -- Index pour la table `cp_game_record`
 --
 ALTER TABLE `cp_game_record`
-    ADD PRIMARY KEY (`uuid`),
+    ADD PRIMARY KEY (`code`),
     ADD KEY `fk_game_record_game_id` (`game_id`),
     ADD KEY `fk_game_record_hosted_uuid` (`hosted_by`);
 
