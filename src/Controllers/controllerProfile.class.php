@@ -154,7 +154,6 @@ class ControllerProfile extends Controller
 
             echo json_encode([
                 'articlePath' => $article->getFilePath(),
-                'typeArticle' => $typeArticle,
                 'idArticle' => $idArticle
             ]);
         }
