@@ -43,7 +43,7 @@ class GameRecordDAOTest extends TestCase
      */
     public function testFindByStateOk(): void
     {
-        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByState(GameRecordState::STARTED)[0]->getUuid());
+        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByState(GameRecordState::STARTED)[0]->getCode());
     }
 
     /**
