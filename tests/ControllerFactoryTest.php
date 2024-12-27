@@ -24,7 +24,6 @@ class ControllerFactoryTest extends TestCase
 {
     /**
      * @brief Test de la méthode getController
-     * @throws \ComusParty\Models\Exception\ControllerNotFoundException
      */
     public function testGetController()
     {

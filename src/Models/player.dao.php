@@ -135,7 +135,7 @@ class PlayerDAO
             FROM ' . DB_PREFIX . 'player pr
             JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
             LEFT JOIN ' . DB_PREFIX . 'played pd ON pr.uuid = pd.player_uuid
-            LEFT JOIN ' . DB_PREFIX . 'winned w ON pr.uuid = w.player_uuid
+            LEFT JOIN ' . DB_PREFIX . 'won w ON pr.uuid = w.player_uuid
             LEFT JOIN ' . DB_PREFIX . 'game_record gr ON pr.uuid = gr.hosted_by
             WHERE pr.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
@@ -161,7 +161,7 @@ class PlayerDAO
             FROM ' . DB_PREFIX . 'player pr
             JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
             LEFT JOIN ' . DB_PREFIX . 'played pd ON pr.uuid = pd.player_uuid
-            LEFT JOIN ' . DB_PREFIX . 'winned w ON pr.uuid = w.player_uuid
+            LEFT JOIN ' . DB_PREFIX . 'won w ON pr.uuid = w.player_uuid
             LEFT JOIN ' . DB_PREFIX . 'game_record gr ON pr.uuid = gr.hosted_by
             WHERE u.id = :userId');
         $stmt->bindParam(':userId', $userId);
@@ -222,7 +222,7 @@ class PlayerDAO
             FROM ' . DB_PREFIX . 'player pr
             JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
             LEFT JOIN ' . DB_PREFIX . 'played pd ON pr.uuid = pd.player_uuid
-            LEFT JOIN ' . DB_PREFIX . 'winned w ON pr.uuid = w.player_uuid
+            LEFT JOIN ' . DB_PREFIX . 'won w ON pr.uuid = w.player_uuid
             LEFT JOIN ' . DB_PREFIX . 'game_record gr ON pr.uuid = gr.hosted_by');
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPlayers = $stmt->fetchAll();

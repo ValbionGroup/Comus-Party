@@ -9,11 +9,11 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\Exception\ControllerNotFoundException;
+use ComusParty\App\Exception\MethodNotFoundException;
+use ComusParty\App\Exception\NotFoundException;
+use ComusParty\App\Exception\UnauthorizedAccessException;
 use ComusParty\Models\ArticleDAO;
-use ComusParty\Models\Exception\ControllerNotFoundException;
-use ComusParty\Models\Exception\MethodNotFoundException;
-use ComusParty\Models\Exception\NotFoundException;
-use ComusParty\Models\Exception\UnauthorizedAccessException;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
@@ -72,12 +72,14 @@ class ControllerProfile extends Controller
         } else {
             $bannerPath = $banner->getFilePath();
         }
+        $pfpsOwned = $articleManager->findAllPfpsByUuidPlayer($player->getUuid());
         $template = $this->getTwig()->load('player/profil.twig');
         echo $template->render(array(
             "player" => $player,
             "user" => $user,
             "pfp" => $pfpPath,
-            "banner" => $bannerPath
+            "banner" => $bannerPath,
+            "pfpsOwned" => $pfpsOwned,
         ));
     }
 
@@ -108,5 +110,38 @@ class ControllerProfile extends Controller
         $userManager->disableAccount($user->getId());
         ControllerFactory::getController('auth', $this->getLoader(), $this->getTwig())->call('logout');
         header('Location: /');
+    }
+
+    /**
+     * @brief Permet de mettre à jour la photo de profil ou la bannière d'un joueur
+     * @param string|null $player_uuid L'UUID du joueur à désactiver
+     * @param string $idArticle L'id de l'article à activer
+     * @return void
+     */
+    public function updateStyle(?string $player_uuid, string $idArticle)
+    {
+        if (is_null($player_uuid)) {
+            throw new NotFoundException('Player not found');
+        }
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findWithDetailByUuid($player_uuid);
+        if (is_null($player)) {
+            throw new NotFoundException('Player not found');
+        }
+        $articleManager = new ArticleDAO($this->getPdo());
+        if($idArticle == 0){
+
+            $articleManager->deleteActiveArticleForPfp($player->getUuid());
+            $_SESSION['pfpPath'] = "default-pfp.jpg";
+            echo json_encode([
+                'articlePath' => "default-pfp.jpg",
+            ]);
+        }else{
+            $articleManager->updateActiveArticle($player->getUuid(), $idArticle);
+            $article = $articleManager->findById($idArticle);
+            echo json_encode([
+                'articlePath' => $article->getFilePath()
+            ]);
+        }
     }
 }

@@ -137,13 +137,34 @@ class SuggestionDAO
     }
 
     /**
-     * @brief Modifie l'attribut accepted d'une suggestion en base de données et retourne le résultat de l'exécution
-     * @param int|null $id L'identifiant de la suggestion
+     * @brief Refuse une suggestio en modifiant un attribut en base de données et retourne le résultat de l'exécution
+     * @details L'attribut modifié st :
+     *   - treated_by : replacement par l'uuid de l'utilisateur connecté
+     *   (l'attrbiut threated_at est mis à jour automatiquement par la base de données)
+     * @param int|null $id L'identifiant de la suggestion à refuser
      * @return bool Résultat de l'exécution
      */
     public function deny(?int $id): bool
     {
         $stmt = $this->pdo->prepare('UPDATE ' . DB_PREFIX . 'suggestion SET treated_by = :treated_by WHERE id = :id');
+        $stmt->bindParam(':treated_by', $_SESSION['uuid']);
+        $stmt->bindParam(':id', $id);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * @brief Accepte une suggestio en modifiant ses attributs en base de données et retourne le résultat de l'exécution
+     * @details Les attributs modifiés sont :
+     *   - treated_by : replacement par l'uuid de l'utilisateur connecté,
+     *   - accepted : 1
+     *   (l'attrbiut threated_at est mis à jour automatiquement par la base de données)
+     * @param int|null $id L'identifiant de la suggestion à accepter
+     * @return bool Résultat de l'exécution
+     */
+    public function accept(?int $id): bool
+    {
+        $stmt = $this->pdo->prepare('UPDATE ' . DB_PREFIX . 'suggestion SET treated_by = :treated_by, accepted = 1 WHERE id = :id');
         $stmt->bindParam(':treated_by', $_SESSION['uuid']);
         $stmt->bindParam(':id', $id);
 

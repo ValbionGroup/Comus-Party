@@ -10,9 +10,9 @@
 
 require_once  __DIR__ . '/../include.php';
 
+use ComusParty\App\Exception\NotFoundException;
 use ComusParty\Controllers\Controller;
 use ComusParty\Controllers\ControllerProfile;
-use ComusParty\Models\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Error\LoaderError;
