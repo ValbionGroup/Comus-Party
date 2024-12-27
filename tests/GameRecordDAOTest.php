@@ -51,9 +51,9 @@ class GameRecordDAOTest extends TestCase
      * @return void
      * @throws Exception
      */
-    public function testFindByUuidOk()
+    public function testFindByCodeOk()
     {
-        $this->assertEquals(GameRecordState::STARTED, $this->gameRecordDAO->findByUuid("game_rec_uuid1")->getState());
+        $this->assertEquals(GameRecordState::STARTED, $this->gameRecordDAO->findByCode("game_rec_uuid1")->getState());
     }
 
     /**
@@ -63,7 +63,7 @@ class GameRecordDAOTest extends TestCase
      */
     public function testFindByHosterUuidOk()
     {
-        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByHostUuid("uuid1")[0]->getUuid());
+        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByHostUuid("uuid1")[0]->getCode());
     }
 
     /**
@@ -94,7 +94,7 @@ class GameRecordDAOTest extends TestCase
      */
     public function testFindByGameIdOk()
     {
-        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByGameId(1)[0]->getUuid());
+        $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByGameId(1)[0]->getCode());
     }
 
     /**
