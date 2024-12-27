@@ -183,8 +183,18 @@ $router->get('/cgu', function () use ($loader, $twig) {
     exit;
 });
 
+$router->get('/game/informations/:id', function ($id) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("getGameInformations", ["id" => $id]);
+    exit;
+}, 'player');
+
 $router->put('/suggest/deny/:id', function ($id) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("denySuggestion", ["id" => $id]);
+    exit;
+}, 'moderator');
+
+$router->put('/suggest/accept/:id', function ($id) use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("acceptSuggestion", ["id" => $id]);
     exit;
 }, 'moderator');
 
