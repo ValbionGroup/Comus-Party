@@ -397,7 +397,6 @@ class ControllerAuth extends Controller
         // Hash le mot de passe
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-
         $userDAO = new UserDAO($this->getPdo());
         $playerDAO = new PlayerDAO($this->getPdo());
 
@@ -405,50 +404,59 @@ class ControllerAuth extends Controller
         $existingUser = $userDAO->findByEmail($email) !== null;
         $existingPlayer = $playerDAO->findByUsername($username) !== null;
 
-        $resultUser = false;
+        if ($existingUser) {
+            throw new AuthenticationException("L'adresse e-mail est déjà utilisée");
+        }
+
+        if ($existingPlayer) {
+            throw new AuthenticationException("Le nom d'utilisateur est déjà utilisé");
+        }
 
         // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
-        if (!$existingUser && !$existingPlayer)
-        {
-            $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
-            $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
+        $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
+        $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
 
-            // Envoi du mail avec phpmailer
-            $mail = new PHPMailer(true); // Création d'un objet PHPMailer
-            try {
-                // Configuration technique
-                $mail->isSMTP(); // Utilisation du protocole SMTP
-                $mail->Host = MAIL_HOST; // Hôte du serveur SMTP
-                $mail->SMTPAuth = true; // Authentification SMTP
-                $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
-                $mail->Port = MAIL_PORT; // Port SMTP
-                $mail->CharSet = 'UTF-8';
-                $mail->Encoding = 'base64';
+        if (!$resultUser) {
+            throw new Exception("Erreur lors de la création de l'utilisateur");
+        }
 
-                // Configuration de l'authentification
-                $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
-                $mail->Password = MAIL_PASS; // Mot de passe de l'expéditeur
-                $mail->setFrom(MAIL_FROM); // Adresse de l'expéditeur
-                $mail->addAddress($email); // Adresse du destinataire
+        // Envoi du mail avec phpmailer
+        $mail = new PHPMailer(true); // Création d'un objet PHPMailer
+        try {
+            // Configuration technique
+            $mail->isSMTP(); // Utilisation du protocole SMTP
+            $mail->Host = MAIL_HOST; // Hôte du serveur SMTP
+            $mail->SMTPAuth = true; // Authentification SMTP
+            $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
+            $mail->Port = MAIL_PORT; // Port SMTP
+            $mail->CharSet = 'UTF-8';
+            $mail->Encoding = 'base64';
 
-                // Configuration du message
-                $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
-                $mail->Subject = 'Confirmation de votre compte' . MAIL_BASE; // Sujet du message
-                $mail->Body = // Corps du message
-                    '<p>Vous avez créé un compte sur Comus Party.</p>
-                    <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
-                    <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
-                $mail->AltBody = // Corps du message sans format HTML
-                    'Vous avez créé un compte sur Comus Party.
-                    Pour confirmer votre compte, cliquez sur le lien ci-dessous.
-                    "' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken);
+            // Configuration de l'authentification
+            $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
+            $mail->Password = MAIL_PASS; // Mot de passe de l'expéditeur
+            $mail->setFrom(MAIL_FROM); // Adresse de l'expéditeur
+            $mail->addAddress($email); // Adresse du destinataire
 
-                $mail->send(); // Envoi du message
-            } catch (Exception $e) { echo "Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}"; }
+            // Configuration du message
+            $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
+            $mail->Subject = 'Confirmation de votre compte' . MAIL_BASE; // Sujet du message
+            $mail->Body = // Corps du message
+                '<p>Vous avez créé un compte sur Comus Party.</p>
+                <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
+                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
+            $mail->AltBody = // Corps du message sans format HTML
+                'Vous avez créé un compte sur Comus Party.
+                Pour confirmer votre compte, cliquez sur le lien ci-dessous.
+                "' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken);
+
+            $mail->send(); // Envoi du message
+        } catch (Exception $e) {
+            throw new Exception("Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}");
         }
 
         // Créer le joueur si l'utilisateur est créé avec succès
-        if ($resultUser) { $playerDAO->createPlayer($username, $email); }
+        $playerDAO->createPlayer($username, $email);
 
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
