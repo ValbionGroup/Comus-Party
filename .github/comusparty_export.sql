@@ -123,12 +123,13 @@ VALUES (1, 'Game One', 'First game description', '/img/game1.png', 'available', 
 
 CREATE TABLE `cp_game_record`
 (
-    `code`       varchar(32)                           NOT NULL,
-    `game_id`    bigint(20)                            NOT NULL,
-    `hosted_by`  varchar(63)                           NOT NULL,
-    `state`      enum ('waiting','started','finished') NOT NULL DEFAULT 'waiting',
-    `created_at` timestamp                             NOT NULL DEFAULT current_timestamp(),
-    `updated_at` timestamp                             NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+    `code`        varchar(32)                           NOT NULL,
+    `game_id`     bigint(20)                            NOT NULL,
+    `hosted_by`   varchar(63)                           NOT NULL,
+    `state`       enum ('waiting','started','finished') NOT NULL DEFAULT 'waiting',
+    `created_at`  timestamp                             NOT NULL DEFAULT current_timestamp(),
+    `updated_at`  timestamp                             NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    `finished_at` timestamp                                      DEFAULT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
