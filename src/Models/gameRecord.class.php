@@ -98,7 +98,7 @@ class GameRecord
      * @param DateTime $updatedAt Date de dernière mise à jour de la partie
      * @param DateTime|null $finishedAt Date de fin de la partie
      */
-    public function __construct(string $code, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, DateTime $createdAt, DateTime $updatedAt, ?DateTime $finishedAt)
+    public function __construct(string $code, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, DateTime $createdAt, DateTime $updatedAt, ?DateTime $finishedAt = null)
     {
         $this->code = $code;
         $this->game = $game;
