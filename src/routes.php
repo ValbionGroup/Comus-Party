@@ -14,7 +14,6 @@ use ComusParty\App\Exception\UnauthorizedAccessException;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Router;
 use ComusParty\Controllers\ControllerFactory;
-use ComusParty\Models\ArticleType;
 
 $router = Router::getInstance();
 
@@ -36,7 +35,7 @@ $router->post('/profile/updateStyle/:idArticle/:typeArticle', function ($idArtic
         "uuidPlayer" => $_SESSION["uuid"],
         "idArticle" => $idArticle,
         "typeArticle" => $typeArticle
-        ]);
+    ]);
     exit;
 }, 'player');
 
