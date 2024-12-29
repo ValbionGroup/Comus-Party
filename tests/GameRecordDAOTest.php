@@ -57,6 +57,16 @@ class GameRecordDAOTest extends TestCase
     }
 
     /**
+     * @brief Test de la méthode findByCode avec un code inexistant
+     * @return void
+     * @throws Exception
+     */
+    public function testFindByCodeNotFound()
+    {
+        $this->assertNull($this->gameRecordDAO->findByCode("game_rec_uuid10"));
+    }
+
+    /**
      * @brief Test de la méthode findByHosterUuid avec un uuid valide
      * @return void
      * @throws Exception
@@ -95,6 +105,44 @@ class GameRecordDAOTest extends TestCase
     public function testFindByGameIdOk()
     {
         $this->assertEquals("game_rec_uuid1", $this->gameRecordDAO->findByGameId(1)[0]->getCode());
+    }
+
+    /**
+     * @brief Test de la méthode d'insertion avec un objet valide
+     * @return void
+     * @throws Exception
+     */
+    public function testInsertOk(): void
+    {
+        $gameRecord = $this->gameRecordDAO->findByCode("game_rec_uuid1");
+        $gameRecord->setCode("gr_test");
+        $this->assertTrue($this->gameRecordDAO->insert($gameRecord));
+        $this->assertNotNull($this->gameRecordDAO->findByCode("gr_test"));
+    }
+
+    /**
+     * @brief Test de la méthode de mise à jour avec un objet valide
+     * @return void
+     * @throws Exception
+     */
+    public function testUpdateOk(): void
+    {
+        $gameRecord = $this->gameRecordDAO->findByCode("gr_test");
+        $gameRecord->setState(GameRecordState::FINISHED);
+        $this->assertTrue($this->gameRecordDAO->update($gameRecord));
+        $this->assertEquals(GameRecordState::FINISHED, $this->gameRecordDAO->findByCode("gr_test")->getState());
+    }
+
+    /**
+     * @brief Test de la méthode de suppression avec un paramètre valide
+     * @return void
+     * @throws Exception
+     */
+    public function testDeleteOk(): void
+    {
+        $gameRecordCode = "gr_test";
+        $this->assertTrue($this->gameRecordDAO->delete($gameRecordCode));
+        $this->assertNull($this->gameRecordDAO->findByCode($gameRecordCode));
     }
 
     /**
