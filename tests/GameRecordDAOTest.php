@@ -47,7 +47,7 @@ class GameRecordDAOTest extends TestCase
     }
 
     /**
-     * @brief Test de la méthode findByUuid avec un uuid valide
+     * @brief Test de la méthode findByCode avec un uuid valide
      * @return void
      * @throws Exception
      */

@@ -75,7 +75,7 @@ class ControllerGame extends Controller
      */
     public function initGame(string $code, ?array $settings): void
     {
-        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByUuid($code);
+        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByCode($code);
 
         if ($gameRecord == null) {
             throw new NotFoundException("La partie n'existe pas");
@@ -199,7 +199,7 @@ class ControllerGame extends Controller
      */
     public function showGame(string $code): void
     {
-        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByUuid($code);
+        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByCode($code);
         if ($gameRecord == null || $gameRecord->getGame()->getState() != GameState::AVAILABLE) {
             throw new NotFoundException("La partie n'existe pas");
         }
@@ -234,7 +234,7 @@ class ControllerGame extends Controller
 
         $template = $this->getTwig()->load('player/game-settings.twig');
         echo $template->render([
-            "code" => $gameRecord->getUuid(),
+            "code" => $gameRecord->getCode(),
             "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
             "players" => $gameRecord->getPlayers(),
             "game" => $gameRecord->getGame(),
@@ -264,7 +264,7 @@ class ControllerGame extends Controller
 
         $template = $this->getTwig()->load('player/in-game.twig');
         echo $template->render([
-            "code" => $gameRecord->getUuid(),
+            "code" => $gameRecord->getCode(),
             "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
             "players" => $gameRecord->getPlayers(),
             "game" => $gameRecord->getGame(),
@@ -284,7 +284,7 @@ class ControllerGame extends Controller
     public function quitGame(string $code, string $playerUuid): void
     {
         $gameRecordManager = new GameRecordDAO($this->getPdo());
-        $gameRecord = $gameRecordManager->findByUuid($code);
+        $gameRecord = $gameRecordManager->findByCode($code);
 
         if ($gameRecord == null) {
             throw new NotFoundException("La partie n'existe pas");
