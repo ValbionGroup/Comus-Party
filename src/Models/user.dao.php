@@ -18,7 +18,8 @@ use PDO;
  * @brief Classe UserDAO
  * @details La classe UserDAO permet de gérer les utilisateurs en base de données
  */
-class UserDAO {
+class UserDAO
+{
     /**
      * @brief La connexion à la base de données
      * @var PDO|null
@@ -56,12 +57,13 @@ class UserDAO {
      * @brief Retourne un objet User (ou null) à partir de l'ID passé en paramètre
      * @param int $id L'ID de l'utilisateur recherché
      * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      */
-    public function findById(int $id): ?User {
+    public function findById(int $id): ?User
+    {
         $stmt = $this->pdo->prepare(
             'SELECT *
-            FROM '. DB_PREFIX .'user
+            FROM ' . DB_PREFIX . 'user
             WHERE id = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -74,6 +76,26 @@ class UserDAO {
     }
 
     /**
+     * @brief Hydrate un objet User à partir des données passées en paramètre
+     * @param array $data Le tableau associatif contenant les données de l'utilisateur
+     * @return User Objet retourné par la méthode, ici un utilisateur
+     * @throws DateMalformedStringException|Exception Exceptions levée dans le cas d'une date malformée
+     */
+    public function hydrate(array $data): User
+    {
+        $user = new User();
+        $user->setId($data['id']);
+        $user->setEmail($data['email']);
+        $user->setEmailVerifiedAt($data['email_verified_at'] ? new DateTime($data['email_verified_at']) : null);
+        $user->setEmailVerifyToken($data['email_verif_token']);
+        $user->setPassword($data['password']);
+        $user->setDisabled($data['disabled']);
+        $user->setCreatedAt(new DateTime($data['created_at']));
+        $user->setUpdatedAt(new DateTime($data['updated_at']));
+        return $user;
+    }
+
+    /**
      * @brief Met à jour un utilisateur en base de données
      * @param User $user L'utilisateur à mettre à jour
      * @return bool Retourne true si la mise à jour a réussi, false sinon
@@ -81,7 +103,7 @@ class UserDAO {
     public function update(User $user): bool
     {
         $stmt = $this->pdo->prepare(
-            'UPDATE '.DB_PREFIX.'user
+            'UPDATE ' . DB_PREFIX . 'user
             SET email = :email,
                 email_verified_at = :email_verified_at,
                 email_verif_token = :email_verif_token,
@@ -114,12 +136,13 @@ class UserDAO {
      *
      * @param string|null $email Email de l'utilisateur
      * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      */
-    public function findByEmail(?string $email) : ?User {
+    public function findByEmail(?string $email): ?User
+    {
         $stmt = $this->pdo->prepare(
             'SELECT *
-            FROM '. DB_PREFIX .'user
+            FROM ' . DB_PREFIX . 'user
             WHERE email = :email');
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -129,25 +152,6 @@ class UserDAO {
             return null;
         }
         return $this->hydrate($userTab);
-    }
-
-    /**
-     * @brief Hydrate un objet User à partir des données passées en paramètre
-     * @param array $data Le tableau associatif contenant les données de l'utilisateur
-     * @return User Objet retourné par la méthode, ici un utilisateur
-     * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
-     */
-    public function hydrate(array $data): User {
-        $user = new User();
-        $user->setId($data['id']);
-        $user->setEmail($data['email']);
-        $user->setEmailVerifiedAt($data['email_verified_at'] ? new DateTime($data['email_verified_at']) : null);
-        $user->setEmailVerifyToken($data['email_verif_token']);
-        $user->setPassword($data['password']);
-        $user->setDisabled($data['disabled']);
-        $user->setCreatedAt(new DateTime($data['created_at']));
-        $user->setUpdatedAt(new DateTime($data['updated_at']));
-        return $user;
     }
 
     /**

@@ -8,13 +8,13 @@
  * @date 2024-12-17
  */
 
-namespace ComusParty\App\Exception;
+namespace ComusParty\App\Exceptions;
 
 use Exception;
 
 /**
  * @brief Classe GameSettingsException
- * @details Exception levée lorsqu'une erreur survient lors de la configuration d'une partie
+ * @details Exceptions levée lorsqu'une erreur survient lors de la configuration d'une partie
  */
 class GameSettingsException extends Exception
 {
@@ -22,7 +22,7 @@ class GameSettingsException extends Exception
      * @brief Constructeur de la classe GameSettingsException
      * @param string $message Message d'erreur
      * @param int $code Code d'erreur
-     * @param Exception|null $previous Exception précédente
+     * @param Exception|null $previous Exceptions précédente
      */
     public function __construct(string $message = "", int $code = 500, Exception $previous = null)
     {

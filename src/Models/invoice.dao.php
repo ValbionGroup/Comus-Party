@@ -57,7 +57,7 @@ class InvoiceDAO
      * @brief Retourne un objet Invoice (ou null) à partir de l'ID passé en paramètre
      * @param int|null $id L'ID de la facture recherchée
      * @return Invoice|null
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      */
     public function findById(?int $id): ?Invoice
     {
@@ -78,7 +78,7 @@ class InvoiceDAO
     /**
      * @param array $invoiceTab Tableau contenant les informations de la facture
      * @return Invoice Objet retourné par la méthode, ici une facture
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      */
     public function hydrate(array $invoiceTab): Invoice
     {

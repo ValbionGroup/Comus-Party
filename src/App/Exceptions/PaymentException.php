@@ -8,7 +8,7 @@
  */
 
 
-namespace ComusParty\App\Exception;
+namespace ComusParty\App\Exceptions;
 
 use Exception;
 use Throwable;
@@ -23,7 +23,7 @@ class PaymentException extends Exception
      * @brief Constructeur de la classe PaymentException
      * @param string $message Message d'erreur
      * @param int $code Code d'erreur
-     * @param Throwable|null $previous Exception précédente
+     * @param Throwable|null $previous Exceptions précédente
      */
     public function __construct(string $message = "", int $code = 402, ?Throwable $previous = null)
     {

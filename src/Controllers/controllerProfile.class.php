@@ -9,10 +9,10 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\App\Exception\ControllerNotFoundException;
-use ComusParty\App\Exception\MethodNotFoundException;
-use ComusParty\App\Exception\NotFoundException;
-use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exceptions\ControllerNotFoundException;
+use ComusParty\App\Exceptions\MethodNotFoundException;
+use ComusParty\App\Exceptions\NotFoundException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
@@ -43,9 +43,9 @@ class ControllerProfile extends Controller
     /**
      * @brief Affiche le profil du joueur le demandant
      * @return void
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws NotFoundException|SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
+     * @throws NotFoundException|SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
      */
     public function showByPlayer(?string $player_uuid): void
     {
@@ -86,11 +86,11 @@ class ControllerProfile extends Controller
     /**
      * @param string|null $uuid L'UUID du joueur à désactiver
      * @return void
-     * @throws NotFoundException Exception levée dans le cas où le joueur n'est pas trouvé
-     * @throws UnauthorizedAccessException Exception levée dans le cas où l'utilisateur n'est pas autorisé à effectuer cette action
-     * @throws ControllerNotFoundException Exception levée dans le cas où le contrôleur n'est pas trouvé
-     * @throws MethodNotFoundException Exception levée dans le cas où la méthode n'est pas trouvée
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws NotFoundException Exceptions levée dans le cas où le joueur n'est pas trouvé
+     * @throws UnauthorizedAccessException Exceptions levée dans le cas où l'utilisateur n'est pas autorisé à effectuer cette action
+     * @throws ControllerNotFoundException Exceptions levée dans le cas où le contrôleur n'est pas trouvé
+     * @throws MethodNotFoundException Exceptions levée dans le cas où la méthode n'est pas trouvée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      */
     public function disableAccount(?string $uuid)
     {
@@ -129,14 +129,14 @@ class ControllerProfile extends Controller
             throw new NotFoundException('Player not found');
         }
         $articleManager = new ArticleDAO($this->getPdo());
-        if($idArticle == 0){
+        if ($idArticle == 0) {
 
             $articleManager->deleteActiveArticleForPfp($player->getUuid());
             $_SESSION['pfpPath'] = "default-pfp.jpg";
             echo json_encode([
                 'articlePath' => "default-pfp.jpg",
             ]);
-        }else{
+        } else {
             $articleManager->updateActiveArticle($player->getUuid(), $idArticle);
             $article = $articleManager->findById($idArticle);
             echo json_encode([

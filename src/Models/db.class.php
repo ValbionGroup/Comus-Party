@@ -11,6 +11,7 @@ namespace ComusParty\Models;
 
 use Exception;
 use PDO;
+use PDOException;
 
 /**
  * @brief Class Db
@@ -66,7 +67,7 @@ class Db
 
     /**
      * @brief Surcharge de la méthode afin d'empêcher la désérialisation de l'instance de la classe
-     * @throws Exception Exception levée dans le cas d'une tentative de désérialisation
+     * @throws Exception Exceptions levée dans le cas d'une tentative de désérialisation
      */
     public function __wakeup()
     {

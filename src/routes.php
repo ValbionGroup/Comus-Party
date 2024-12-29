@@ -10,7 +10,7 @@
 
 global $loader, $twig;
 
-use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Router;
 use ComusParty\Controllers\ControllerFactory;

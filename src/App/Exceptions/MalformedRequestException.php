@@ -7,14 +7,14 @@
  * @date 2024-11-21
  */
 
-namespace ComusParty\App\Exception;
+namespace ComusParty\App\Exceptions;
 
 use Exception;
 use Throwable;
 
 /**
  * @brief Classe MalformedRequestException
- * @details Exception personnalisée levée lorsqu'une requête est mal formée (ex: paramètres manquants)
+ * @details Exceptions personnalisée levée lorsqu'une requête est mal formée (ex: paramètres manquants)
  */
 class MalformedRequestException extends Exception
 {

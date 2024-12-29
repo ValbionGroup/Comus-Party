@@ -7,13 +7,13 @@
  * @date 2024-11-21
  */
 
-namespace ComusParty\App\Exception;
+namespace ComusParty\App\Exceptions;
 
 use Throwable;
 
 /**
  * @brief Classe MethodNotFoundException
- * @details Exception personnalisée levée lorsqu'une méthode n'est pas trouvée
+ * @details Exceptions personnalisée levée lorsqu'une méthode n'est pas trouvée
  */
 class MethodNotFoundException extends NotFoundException
 {

@@ -8,14 +8,14 @@
  * @date 2024-12-16
  */
 
-namespace ComusParty\App\Exception;
+namespace ComusParty\App\Exceptions;
 
 use Exception;
 use Throwable;
 
 /**
  * @brief Classe GameUnavailableException
- * @details Exception personnalisée levée lorsqu'un jeu est indisponible
+ * @details Exceptions personnalisée levée lorsqu'un jeu est indisponible
  */
 class GameUnavailableException extends Exception
 {

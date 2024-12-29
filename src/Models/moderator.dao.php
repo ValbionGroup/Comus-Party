@@ -77,7 +77,7 @@ class ModeratorDAO
      * @brief Hydrate un objet Moderator avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif content les paramètres
      * @return Moderator|null L'objet retourné par la méthode, ici un joueur
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      */
     public function hydrate(array $data): ?Moderator
     {

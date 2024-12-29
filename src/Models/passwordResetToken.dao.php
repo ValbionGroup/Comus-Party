@@ -57,11 +57,11 @@ class PasswordResetTokenDAO
      * @brief Retourne un objet PasswordResetToken (ou null) à partir de l'ID passé en paramètre
      * @param int $userId L'ID de l'utilisateur recherché
      * @return PasswordResetToken|null Objet retourné par la méthode, ici un token de réinitialisation de mot de passe (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      */
     public function findByUserId(int $userId): ?PasswordResetToken
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .'pswd_reset_token WHERE user_id = :userId');
+        $stmt = $this->pdo->prepare('SELECT * FROM ' . DB_PREFIX . 'pswd_reset_token WHERE user_id = :userId');
         $stmt->execute(['userId' => $userId]);
         $row = $stmt->fetch();
         if ($row === false) {
@@ -71,14 +71,25 @@ class PasswordResetTokenDAO
     }
 
     /**
+     * @brief Hydrate un tableau de données en un objet PasswordResetToken
+     * @param array $row Le tableau de données à hydrater
+     * @return PasswordResetToken Objet PasswordResetToken retourné par la méthode
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date incorrecte
+     */
+    private function hydrate(array $row): PasswordResetToken
+    {
+        return new PasswordResetToken($row['user_id'], $row['token'], new DateTime($row['created_at']));
+    }
+
+    /**
      * @brief Retourne un objet PasswordResetToken (ou null) à partir du token passé en paramètre
      * @param string $token Le token de réinitialisation de mot de passe recherché
      * @return PasswordResetToken|null Objet PasswordResetToken (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date incorrecte
      */
     public function findByToken(string $token): ?PasswordResetToken
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM '. DB_PREFIX .'pswd_reset_token WHERE token = :token');
+        $stmt = $this->pdo->prepare('SELECT * FROM ' . DB_PREFIX . 'pswd_reset_token WHERE token = :token');
         $stmt->execute(['token' => $token]);
         $row = $stmt->fetch();
         if ($row === false) {
@@ -94,7 +105,7 @@ class PasswordResetTokenDAO
      */
     public function insert(PasswordResetToken $token): bool
     {
-        $stmt = $this->pdo->prepare('INSERT INTO '. DB_PREFIX .'pswd_reset_token (user_id, token, created_at) VALUES (:userId, :token, :createdAt)');
+        $stmt = $this->pdo->prepare('INSERT INTO ' . DB_PREFIX . 'pswd_reset_token (user_id, token, created_at) VALUES (:userId, :token, :createdAt)');
         return $stmt->execute([
             'userId' => $token->getUserId(),
             'token' => $token->getToken(),
@@ -109,19 +120,8 @@ class PasswordResetTokenDAO
      */
     public function delete(int $userId): bool
     {
-        $stmt = $this->pdo->prepare('DELETE FROM '. DB_PREFIX .'pswd_reset_token WHERE user_id = :userId');
+        $stmt = $this->pdo->prepare('DELETE FROM ' . DB_PREFIX . 'pswd_reset_token WHERE user_id = :userId');
         return $stmt->execute(['userId' => $userId]);
-    }
-
-    /**
-     * @brief Hydrate un tableau de données en un objet PasswordResetToken
-     * @param array $row Le tableau de données à hydrater
-     * @return PasswordResetToken Objet PasswordResetToken retourné par la méthode
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
-     */
-    private function hydrate(array $row): PasswordResetToken
-    {
-        return new PasswordResetToken($row['user_id'], $row['token'], new DateTime($row['created_at']));
     }
 
     /**

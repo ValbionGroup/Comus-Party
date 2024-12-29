@@ -38,9 +38,9 @@ class ControllerDashboard extends Controller
     /**
      * @brief Affiche la page d'accueil du dashboard
      * @return void
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement du template
+     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
      */
     public function showDashboard()
     {
@@ -96,7 +96,8 @@ class ControllerDashboard extends Controller
      * @return void
      * @throws DateMalformedStringException
      */
-    public function getSuggestionInfo(?int $id) {
+    public function getSuggestionInfo(?int $id)
+    {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestion = $suggestsManager->findById($id);
         echo json_encode([

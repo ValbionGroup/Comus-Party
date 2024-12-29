@@ -8,7 +8,7 @@
  */
 require_once __DIR__ . '/../include.php';
 
-use ComusParty\App\Exception\MethodNotFoundException;
+use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\Controllers\Controller;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;

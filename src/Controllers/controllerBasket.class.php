@@ -10,6 +10,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\ArticleDAO;
+use DateMalformedStringException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -35,9 +36,9 @@ class ControllerBasket extends Controller
     /**
      * @brief Affiche le panier avec la liste des articles (si article dans panier)
      * @return void
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement du template
+     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
      */
     public function show()
     {
@@ -48,8 +49,8 @@ class ControllerBasket extends Controller
 
         $articles = $managerArticle->findArticlesWithIds($_SESSION['basket']);
         $totalPriceBasket = 0;
-        if($articles){
-            foreach($articles as $article){
+        if ($articles) {
+            foreach ($articles as $article) {
                 $totalPriceBasket += $article->getPriceEuro();
             }
         }
@@ -58,7 +59,7 @@ class ControllerBasket extends Controller
             array(
                 'articles' => $articles,
                 'totalPriceBasket' => $totalPriceBasket,
-                )
+            )
 
         );
     }
@@ -68,10 +69,10 @@ class ControllerBasket extends Controller
      * @brief Permet d'ajouter un article au panier
      *
      * @return void
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
      */
     function addArticleToBasket()
     {
@@ -80,7 +81,7 @@ class ControllerBasket extends Controller
         if (isset($_POST['id_article'])) {
             $id_article = intval($_POST['id_article']);
 
-            if(!isset($_SESSION['basket'])){
+            if (!isset($_SESSION['basket'])) {
                 $_SESSION['basket'] = array();
             }
             // Ajouter l'ID de l'article au basket s'il n'y est pas déjà
@@ -110,17 +111,16 @@ class ControllerBasket extends Controller
     }
 
 
-
-
     /**
      * @brief Permet de supprimer un article du panier
      * @return void
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
      */
-    public function removeArticleBasket($id){
+    public function removeArticleBasket($id)
+    {
 
         if ($id != null) {
             $id_article = intval($id);
@@ -133,7 +133,7 @@ class ControllerBasket extends Controller
                     unset($_SESSION['basket'][$key]);
                 }
                 $managerArticle = new ArticleDAO($this->getPdo());
-                $article = $managerArticle->findById( $id_article );
+                $article = $managerArticle->findById($id_article);
                 $priceEuroArticle = $article->getPriceEuro();
                 $numberArticlesInBasket = count($_SESSION['basket']);
                 echo json_encode([

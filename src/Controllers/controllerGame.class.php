@@ -9,11 +9,11 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\App\Exception\GameSettingsException;
-use ComusParty\App\Exception\GameUnavailableException;
-use ComusParty\App\Exception\MalformedRequestException;
-use ComusParty\App\Exception\NotFoundException;
-use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exceptions\GameSettingsException;
+use ComusParty\App\Exceptions\GameUnavailableException;
+use ComusParty\App\Exceptions\MalformedRequestException;
+use ComusParty\App\Exceptions\NotFoundException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
@@ -48,9 +48,9 @@ class ControllerGame extends Controller
     /**
      * @brief Affiche la page d'accueil avec la liste des jeux
      * @return void
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement du template
+     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
      */
     public function showHomePage()
     {
@@ -67,11 +67,11 @@ class ControllerGame extends Controller
      *
      * @param string $code Code de la partie
      * @param array|null $settings Paramètres du jeu
-     * @throws GameSettingsException Exception levée si les paramètres du jeu ne sont pas valides
-     * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
-     * @throws MalformedRequestException Exception levée si la partie est déjà commencée ou terminée
-     * @throws NotFoundException Exception levée si la partie n'existe pas
-     * @throws Exception Exception levée en cas d'erreur avec la base de données
+     * @throws GameSettingsException Exceptions levée si les paramètres du jeu ne sont pas valides
+     * @throws GameUnavailableException Exceptions levée si le jeu n'est pas disponible
+     * @throws MalformedRequestException Exceptions levée si la partie est déjà commencée ou terminée
+     * @throws NotFoundException Exceptions levée si la partie n'existe pas
+     * @throws Exception Exceptions levée en cas d'erreur avec la base de données
      */
     public function initGame(string $code, ?array $settings): void
     {
@@ -191,11 +191,11 @@ class ControllerGame extends Controller
      * @brief Affiche la page de la partie dont le code est passé en paramètre
      * @param string $code Code de la partie
      * @return void
-     * @throws NotFoundException Exception levée si la partie n'existe pas
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
-     * @throws Exception Exception levée en cas d'erreur avec la base de données
+     * @throws NotFoundException Exceptions levée si la partie n'existe pas
+     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
+     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement du template
+     * @throws Exception Exceptions levée en cas d'erreur avec la base de données
      */
     public function showGame(string $code): void
     {
@@ -219,9 +219,9 @@ class ControllerGame extends Controller
      * @brief Affiche la page des paramètres de la partie
      * @param GameRecord $gameRecord Instance de GameRecord
      * @return void
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement du template
+     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
      */
     private function showGameSettings(GameRecord $gameRecord): void
     {
@@ -278,8 +278,8 @@ class ControllerGame extends Controller
      * @param string $code UUID de la partie à quitter
      * @param string $playerUuid UUID du joueur qui quitte la partie
      * @return void
-     * @throws NotFoundException Exception levée si la partie n'existe pas
-     * @throws Exception Exception levée en cas d'erreur avec la base de données
+     * @throws NotFoundException Exceptions levée si la partie n'existe pas
+     * @throws Exception Exceptions levée en cas d'erreur avec la base de données
      */
     public function quitGame(string $code, string $playerUuid): void
     {
@@ -306,9 +306,9 @@ class ControllerGame extends Controller
      * @brief Crée une partie en base de données pour un jeu donné
      * @param int $gameId Identifiant du jeu
      * @return void
-     * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
-     * @throws RandomException Exception levée en cas d'erreur lors de la génération du code
-     * @throws Exception Exception levée en cas d'erreur avec la base de données
+     * @throws GameUnavailableException Exceptions levée si le jeu n'est pas disponible
+     * @throws RandomException Exceptions levée en cas d'erreur lors de la génération du code
+     * @throws Exception Exceptions levée en cas d'erreur avec la base de données
      */
     public function createGame(int $gameId): void
     {

@@ -78,7 +78,7 @@ class PlayerDAO
      * @brief Hydrate un objet Player avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif content les paramètres
      * @return Player L'objet retourné par la méthode, ici un joueur
-     * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException|Exception Exceptions levée dans le cas d'une date malformée
      * @TODO Modifier la manière de traiter les statistiques ( représentation bancale)
      */
     public function hydrate(array $data): Player
@@ -125,7 +125,7 @@ class PlayerDAO
      * @brief Retourne un objet Player (ou null) à partir de l'UUID passé en paramètre avec les détails de l'utilisateur associé
      * @param string $uuid L'UUID du joueur recherché
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      */
     public function findWithDetailByUuid(string $uuid): ?Player
     {
@@ -176,7 +176,7 @@ class PlayerDAO
     /**
      * @brief Retourne un tableau d'objets Player recensant l'ensemble des joueurs enregistrés dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Player (ou null si aucune joueur recensé)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a de joueurs dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
      */
     public function findAll(): ?array
@@ -197,7 +197,7 @@ class PlayerDAO
      * @details Cette méthode appelle, pour chaque tableau associatif contenu dans celui passé en paramètre, la méthode hydrate() définie ci-dessus.
      * @param array $data Le tableau de tableaux associatifs
      * @return array L'objet retourné par la méthode, ici un tableau (d'objets Player)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      */
     public function hydrateMany(array $data): array
     {
@@ -211,7 +211,7 @@ class PlayerDAO
     /**
      * @brief Retourne un tableau d'objets Player recensant l'ensemble des joueurs enregistrés dans la base de données avec les détails de l'utilisateur associé
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Player (ou null si aucune joueur recensé)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a de joueurs dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
      */
     public function findAllWithDetail(): ?array
