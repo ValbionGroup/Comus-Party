@@ -82,7 +82,7 @@ class GameRecord
     private DateTime $updatedAt;
     /**
      * @brief Date de fin de la partie
-     * @var DateTime|null ate de fin de la partie
+     * @var DateTime|null Date de fin de la partie
      */
     private ?DateTime $finishedAt;
 
