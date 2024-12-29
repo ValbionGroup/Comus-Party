@@ -243,9 +243,9 @@ class GameRecordDAO
     /**
      * @brief Met à jour un enregistrement de partie en base de données
      * @param GameRecord $gameRecord Enregistrement de la partie à mettre à jour
-     * @return void
+     * @return bool Retourne true si la mise à jour a réussi, false sinon
      */
-    public function update(GameRecord $gameRecord): void
+    public function update(GameRecord $gameRecord): bool
     {
         $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, finished_at = :finishedAt WHERE code = :code");
 
@@ -261,7 +261,7 @@ class GameRecordDAO
         $stmt->bindParam(":finishedAt", $finishedAt);
         $stmt->bindParam(":code", $code);
 
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     /**
