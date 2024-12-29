@@ -13,7 +13,7 @@ use Throwable;
 
 /**
  * @brief Classe MethodNotFoundException
- * @details Exceptions personnalisée levée lorsqu'une méthode n'est pas trouvée
+ * @details Exception personnalisée levée lorsqu'une méthode n'est pas trouvée
  */
 class MethodNotFoundException extends NotFoundException
 {

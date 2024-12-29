@@ -13,7 +13,7 @@ use Throwable;
 
 /**
  * @brief Classe ControllerNotFoundException
- * @details Exceptions personnalisée levée lorsqu'un contrôleur n'est pas trouvé
+ * @details Exception personnalisée levée lorsqu'un contrôleur n'est pas trouvé
  */
 class ControllerNotFoundException extends NotFoundException
 {

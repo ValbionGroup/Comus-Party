@@ -14,7 +14,7 @@ use Exception;
 
 /**
  * @brief Classe GameSettingsException
- * @details Exceptions levée lorsqu'une erreur survient lors de la configuration d'une partie
+ * @details Exception levée lorsqu'une erreur survient lors de la configuration d'une partie
  */
 class GameSettingsException extends Exception
 {
@@ -22,7 +22,7 @@ class GameSettingsException extends Exception
      * @brief Constructeur de la classe GameSettingsException
      * @param string $message Message d'erreur
      * @param int $code Code d'erreur
-     * @param Exception|null $previous Exceptions précédente
+     * @param Exception|null $previous Exceptionprécédente
      */
     public function __construct(string $message = "", int $code = 500, Exception $previous = null)
     {

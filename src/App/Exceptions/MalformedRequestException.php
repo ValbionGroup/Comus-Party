@@ -14,7 +14,7 @@ use Throwable;
 
 /**
  * @brief Classe MalformedRequestException
- * @details Exceptions personnalisée levée lorsqu'une requête est mal formée (ex: paramètres manquants)
+ * @details Exception personnalisée levée lorsqu'une requête est mal formée (ex: paramètres manquants)
  */
 class MalformedRequestException extends Exception
 {

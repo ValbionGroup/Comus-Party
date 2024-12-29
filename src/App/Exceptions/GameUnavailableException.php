@@ -15,7 +15,7 @@ use Throwable;
 
 /**
  * @brief Classe GameUnavailableException
- * @details Exceptions personnalisée levée lorsqu'un jeu est indisponible
+ * @details Exception personnalisée levée lorsqu'un jeu est indisponible
  */
 class GameUnavailableException extends Exception
 {

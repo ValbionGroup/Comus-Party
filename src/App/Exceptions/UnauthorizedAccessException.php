@@ -14,7 +14,7 @@ use Throwable;
 
 /**
  * @brief Classe UnauthorizedAccessException
- * @details Exceptions personnalisée levée lorsqu'un utilisateur n'est pas autorisé à accéder à une ressource
+ * @details Exception personnalisée levée lorsqu'un utilisateur n'est pas autorisé à accéder à une ressource
  */
 class UnauthorizedAccessException extends Exception
 {

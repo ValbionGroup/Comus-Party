@@ -13,7 +13,7 @@ use Throwable;
 
 /**
  * @brief Classe RouteNotFoundException
- * @details Exceptions personnalisée levée lorsqu'une route n'est pas trouvée
+ * @details Exception personnalisée levée lorsqu'une route n'est pas trouvée
  */
 class RouteNotFoundException extends NotFoundException
 {
