@@ -126,6 +126,7 @@ function checkConditions(event) {
 
     // Constantes
     const MIN_USERNAME_LENGTH = 3;
+    const MAX_USERNAME_LENGTH = 120;
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const MIN_PASSWORD_LENGTH = 8;
     const MAX_PASSWORD_LENGTH = 64;
@@ -135,7 +136,7 @@ function checkConditions(event) {
     const SPECIAL_CHARACTER = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
 
     // Vérifications
-    const isUsernameValid = inputUsername.value.length >= MIN_USERNAME_LENGTH && !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(inputUsername.value);
+    const isUsernameValid = inputUsername.value.length >= MIN_USERNAME_LENGTH && !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(inputUsername.value) && inputUsername.value.length <= MAX_USERNAME_LENGTH;
     const isEmailValid = EMAIL_REGEX.test(inputEmail.value);
     const isPasswordValid = inputPassword.value.length >= MIN_PASSWORD_LENGTH &&
                             inputPassword.value.length <= MAX_PASSWORD_LENGTH &&
@@ -159,6 +160,7 @@ function checkConditions(event) {
     if (input === inputUsername) {
         updateErrorMessage(input, "usernameTooShort", input.value.length >= MIN_USERNAME_LENGTH, "Le nom d'utilisateur doit contenir au moins " + MIN_USERNAME_LENGTH + " caractères");
         updateErrorMessage(input, "usernameForbiddenCharacters", !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(input.value), "Le nom d'utilisateur ne doit pas contenir de caractères spéciaux");
+        updateErrorMessage(input, "usernameTooLong", input.value.length <= MAX_USERNAME_LENGTH, "Le nom d'utilisateur doit contenir au plus " + MAX_USERNAME_LENGTH + " caractères");
     } else if (input === inputEmail) {
         updateErrorMessage(input, "incorrectEmailFormat", EMAIL_REGEX.test(input.value), "Format d'email incorrect");
     } else if (input === inputPassword) {

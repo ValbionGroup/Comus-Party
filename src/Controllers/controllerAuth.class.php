@@ -373,7 +373,8 @@ class ControllerAuth extends Controller
             'username' => [
                 'required' => true,
                 'type' => 'string',
-                'min-length' => 3
+                'min-length' => 3,
+                'max-length' => 120
             ],
             'email' => [
                 'required' => true,
