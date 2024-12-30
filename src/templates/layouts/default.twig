@@ -49,7 +49,7 @@
                         </div>
                         <a href="/profile"
                            class="flex items-center gap-2 hover:scale-105 ease-in-out transition-all group">
-                            <img src="/assets/img/pfp/{{ auth.pfpPath }}" alt="pfp" class="rounded-full size-8">
+                            <img id="pfpPlayerInHeader" src="/assets/img/pfp/{{ auth.pfpPath }}" alt="pfp" class="rounded-full size-8">
                             <p class="font-semibold text-lavender-blush-base group-hover:border-b-2">{{ auth.loggedUsername }}</p>
                         </a>
                         <a href="/shop">
@@ -80,10 +80,9 @@
         <div class="flex flex-col sm:flex-row flex-grow h-full">
             {% if auth.role == 'player' %}
                 <div class="flex items-center sm:content-center justify-center sm:h-full w-full sm:w-16 p-2">
-                    AMIS
                 </div>
             {% endif %}
-            <main class="overflow-y-auto bg-lavender-blush-base dark:bg-night-base flex flex-grow sm:rounded-tl-2xl opacity-90">
+            <main class="overflow-y-auto bg-lavender-blush-base dark:bg-night-base flex flex-grow sm:rounded-tl-2xl opacity-90 p-4 sm:p-8">
                 {% block content %}{% endblock %}
             </main>
         </div>

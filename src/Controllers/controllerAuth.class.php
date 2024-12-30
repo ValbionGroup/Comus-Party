@@ -9,16 +9,16 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\Exception\AuthenticationException;
+use ComusParty\App\Exception\MalformedRequestException;
+use ComusParty\App\MessageHandler;
+use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
-use ComusParty\Models\Exception\AuthenticationException;
-use ComusParty\Models\Exception\MalformedRequestException;
-use ComusParty\Models\Exception\MessageHandler;
 use ComusParty\Models\ModeratorDao;
 use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
-use ComusParty\Models\Validator;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
@@ -127,14 +127,19 @@ class ControllerAuth extends Controller
             $mail->Password = MAIL_PASS;
             $mail->SMTPSecure = MAIL_SECURITY;
             $mail->setFrom(MAIL_FROM);
-            $mail->isHTML(true);
+            $mail->isHTML();
             $mail->Subject = $subject . MAIL_BASE;
             $mail->AltBody = $message;
             $mail->Body = $message;
+            $mail->CharSet = "UTF-8";
+            $mail->Encoding = 'base64';
 
             $mail->addAddress($to);
             $mail->send();
         } catch (MailException $e) {
+            MessageHandler::addExceptionParametersToSession($e);
+            header('Location: /forgot-password');
+            return;
         }
 
         MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
