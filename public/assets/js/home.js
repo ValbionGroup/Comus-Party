@@ -79,10 +79,9 @@ function showModalGame(e) {
                 response.game.tags.forEach(tag => {
                     divGameTags.innerHTML += `<p class="border-2 rounded-full border-blue-violet-base py-0.5 px-2 text-center">${tag}</p>`;
                 });
+                showBackgroundModal();
+                modal.classList.remove("hidden");
             }
         }
     };
-
-    modal.classList.remove("hidden");
-    showBackgroundModal();
 }
