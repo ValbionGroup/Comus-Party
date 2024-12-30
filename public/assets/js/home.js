@@ -9,9 +9,6 @@
 // Barre de recherche
 let searchBar = document.getElementById('searchBar');
 
-// Bouton de création de partie
-let createGameButton = document.getElementById('createGameModalButton');
-
 /**
  * @brief Filtrer les jeux et appliquer une animation de déplacement
  * @param e
@@ -63,6 +60,7 @@ function showModalGame(e) {
     let spanGameName = document.getElementById('spanGameName');
     let spanGameDescription = document.getElementById('spanGameDescription');
     let divGameTags = document.getElementById('divGameTags');
+    let createGameButton = document.getElementById('createGameModalButton');
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `/game/informations/${gameId}`, true);
@@ -86,9 +84,9 @@ function showModalGame(e) {
             }
         }
     };
+    createGameButton.addEventListener('click', createGame(gameId));
 }
 
-createGameButton.addEventListener('click', createGame(gameId));
 
 function createGame(id) {
     const xhr = new XMLHttpRequest();
