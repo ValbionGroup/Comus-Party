@@ -30,7 +30,7 @@ class PasswordResetTokenDAOTest extends TestCase
     /**
      * @brief Test de la méthode findByUserId avec un paramètre valide
      * @return void
-     * @throws DateMalformedStringException Exceptions levée si la date est mal formée
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function testFindByUserIdOk(): void
     {
@@ -47,7 +47,7 @@ class PasswordResetTokenDAOTest extends TestCase
             $this->passwordResetTokenDAO->delete(4);
             $this->assertTrue(true);
         } catch (Exception $e) {
-            $this->fail("Exceptions thrown: " . $e->getMessage());
+            $this->fail("Exception thrown: " . $e->getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ class PasswordResetTokenDAOTest extends TestCase
             $this->passwordResetTokenDAO->insert(new PasswordResetToken(4, 'tokenTest', new DateTime('2020-01-01 00:00:00')));
             $this->assertTrue(true);
         } catch (Exception $e) {
-            $this->fail("Exceptions thrown: " . $e->getMessage());
+            $this->fail("Exception thrown: " . $e->getMessage());
         }
     }
 
@@ -127,7 +127,7 @@ class PasswordResetTokenDAOTest extends TestCase
     /**
      * @brief Test de la méthode findByToken avec un paramètre valide
      * @return void
-     * @throws DateMalformedStringException Exceptions levée si la date est mal formée
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function testFindByTokenOk(): void
     {
@@ -137,7 +137,7 @@ class PasswordResetTokenDAOTest extends TestCase
     /**
      * @brief Test de la méthode findByToken avec un token null
      * @return void
-     * @throws DateMalformedStringException Exceptions levée si la date est mal formée
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function testFindByTokenThrowErrorWhenTokenIsNull(): void
     {
@@ -148,7 +148,7 @@ class PasswordResetTokenDAOTest extends TestCase
     /**
      * @brief Test de la méthode findByToken avec un token inexistant
      * @return void
-     * @throws DateMalformedStringException Exceptions levée si la date est mal formée
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function testFindByTokenThrowErrorWhenTokenDoesNotExist(): void
     {

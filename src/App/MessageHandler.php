@@ -25,7 +25,7 @@ class MessageHandler
     /**
      * @brief Lève une erreur bloquante.
      *
-     * @param Exception $exception Exceptions à afficher
+     * @param Exception $exception Exception à afficher
      * @return void
      * @throws LoaderError Erreur de chargement de template
      * @throws RuntimeError Erreur d'exécution de template
@@ -46,7 +46,7 @@ class MessageHandler
     /**
      * @brief Ajout les données d'une erreur en variable de session
      *
-     * @param Exception $exception Exceptions à afficher
+     * @param Exception $exception Exception à afficher
      * @return void
      */
     public static function addExceptionParametersToSession(Exception $exception): void

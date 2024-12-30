@@ -45,9 +45,9 @@ class ControllerShop extends Controller
      * @brief Permet d'afficher tous les articles (avatars / bannières)
      *
      * @return void
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function show()
     {
@@ -75,9 +75,9 @@ class ControllerShop extends Controller
      * @brief Permet d'afficher tous les articles
      *
      * @return void
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showAll()
     {
@@ -118,7 +118,7 @@ class ControllerShop extends Controller
      *  - Vérification de la date d'expiration de la carte (date supérieure à la date actuelle)
      * @param array|null $datas Tableau associatif contenant les données du formulaire de paiement
      * @return bool
-     * @throws PaymentException Exceptions levée dans le cas d'une erreur de paiement
+     * @throws PaymentException Exception levée dans le cas d'une erreur de paiement
      */
     public function checkPaymentRequirement(?array $datas): ?bool
     {
@@ -184,9 +184,9 @@ class ControllerShop extends Controller
      * @brief Affiche la facture générée grâce à l'ID passé en paramètre GET
      * @param int $invoiceId L'ID de la facture à afficher
      * @return void
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
      * @throws UnauthorizedAccessException Exceptions levée dans le cas d'un accès non-autorisé à la facture
      */

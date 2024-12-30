@@ -51,7 +51,7 @@ class ControllerAuth extends Controller
     /**
      * @brief La méthode showLoginPage permet d'afficher la page de connexion
      * @return void
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
      */

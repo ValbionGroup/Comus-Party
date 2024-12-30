@@ -36,9 +36,9 @@ class ControllerBasket extends Controller
     /**
      * @brief Affiche le panier avec la liste des articles (si article dans panier)
      * @return void
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement du template
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function show()
     {
@@ -69,10 +69,10 @@ class ControllerBasket extends Controller
      * @brief Permet d'ajouter un article au panier
      *
      * @return void
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     function addArticleToBasket()
     {
@@ -114,10 +114,10 @@ class ControllerBasket extends Controller
     /**
      * @brief Permet de supprimer un article du panier
      * @return void
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function removeArticleBasket($id)
     {

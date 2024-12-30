@@ -31,7 +31,7 @@ class ControllerAuthTest extends TestCase
     /**
      * @brief Test de la méthode authenticate() avec un e-mail null
      * @return void
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une erreur de format de date
+     * @throws DateMalformedStringException Exception levée dans le cas d'une erreur de format de date
      */
     public function testAuthenticateOnNullEmail(): void
     {
@@ -43,7 +43,7 @@ class ControllerAuthTest extends TestCase
     /**
      * @brief Test de la méthode authenticate() avec un mot de passe null
      * @return void
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une erreur de format de date
+     * @throws DateMalformedStringException Exception levée dans le cas d'une erreur de format de date
      */
     public function testAuthenticateOnNullPassword(): void
     {

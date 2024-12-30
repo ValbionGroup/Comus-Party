@@ -34,9 +34,9 @@ class ControllerPolicy extends Controller
     /**
      * @brief Affiche la page des Conditions Générales d'Utilisation
      * @return void
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showCgu()
     {

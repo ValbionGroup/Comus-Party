@@ -48,9 +48,9 @@ class ControllerGame extends Controller
     /**
      * @brief Affiche la page d'accueil avec la liste des jeux
      * @return void
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement du template
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showHomePage()
     {
@@ -67,11 +67,11 @@ class ControllerGame extends Controller
      *
      * @param string $code Code de la partie
      * @param array|null $settings Paramètres du jeu
-     * @throws GameSettingsException Exceptions levée si les paramètres du jeu ne sont pas valides
-     * @throws GameUnavailableException Exceptions levée si le jeu n'est pas disponible
-     * @throws MalformedRequestException Exceptions levée si la partie est déjà commencée ou terminée
-     * @throws NotFoundException Exceptions levée si la partie n'existe pas
-     * @throws Exception Exceptions levée en cas d'erreur avec la base de données
+     * @throws GameSettingsException Exception levée si les paramètres du jeu ne sont pas valides
+     * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
+     * @throws MalformedRequestException Exception levée si la partie est déjà commencée ou terminée
+     * @throws NotFoundException Exception levée si la partie n'existe pas
+     * @throws Exception Exception levée en cas d'erreur avec la base de données
      */
     public function initGame(string $code, ?array $settings): void
     {
@@ -191,7 +191,7 @@ class ControllerGame extends Controller
      * @brief Affiche la page de la partie dont le code est passé en paramètre
      * @param string $code Code de la partie
      * @return void
-     * @throws NotFoundException Exceptions levée si la partie n'existe pas
+     * @throws NotFoundException Exception levée si la partie n'existe pas
      * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
      * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
      * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement du template

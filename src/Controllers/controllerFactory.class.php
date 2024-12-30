@@ -26,7 +26,7 @@ class ControllerFactory
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      * @return Controller Objet retourné par la méthode, ici un contrôleur général
-     * @throws ControllerNotFoundException Exceptions levée dans le cas où le contrôleur n'est pas trouvé
+     * @throws ControllerNotFoundException Exception levée dans le cas où le contrôleur n'est pas trouvé
      */
     public static function getController(string $controller, FilesystemLoader $loader, Environment $twig): Controller
     {

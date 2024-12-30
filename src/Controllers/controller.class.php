@@ -80,7 +80,7 @@ class Controller
      * @param string $method La méthode à appeler
      * @param array|null $args Les arguments à passer à la méthode
      * @return mixed  Le résultat de la méthode appelée
-     * @throws MethodNotFoundException Exceptions levée dans le cas où la méhode n'existe pas
+     * @throws MethodNotFoundException Exception levée dans le cas où la méhode n'existe pas
      * @todo Vérifier le reste du traitement de l'exception (Cf PR 64 GitHub)
      */
     public function call(string $method, ?array $args = []): mixed
