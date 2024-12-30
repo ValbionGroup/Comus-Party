@@ -187,8 +187,8 @@ class ControllerShop extends Controller
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
-     * @throws UnauthorizedAccessException Exceptions levée dans le cas d'un accès non-autorisé à la facture
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws UnauthorizedAccessException Exception levée dans le cas d'un accès non-autorisé à la facture
      */
     public function showInvoice(int $invoiceId)
     {

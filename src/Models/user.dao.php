@@ -57,7 +57,7 @@ class UserDAO
      * @brief Retourne un objet User (ou null) à partir de l'ID passé en paramètre
      * @param int $id L'ID de l'utilisateur recherché
      * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findById(int $id): ?User
     {
@@ -79,7 +79,7 @@ class UserDAO
      * @brief Hydrate un objet User à partir des données passées en paramètre
      * @param array $data Le tableau associatif contenant les données de l'utilisateur
      * @return User Objet retourné par la méthode, ici un utilisateur
-     * @throws DateMalformedStringException|Exception Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data): User
     {
@@ -136,7 +136,7 @@ class UserDAO
      *
      * @param string|null $email Email de l'utilisateur
      * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findByEmail(?string $email): ?User
     {

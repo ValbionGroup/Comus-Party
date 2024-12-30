@@ -52,8 +52,8 @@ class ControllerAuth extends Controller
      * @brief La méthode showLoginPage permet d'afficher la page de connexion
      * @return void
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showLoginPage(): void
     {
@@ -64,9 +64,9 @@ class ControllerAuth extends Controller
     /**
      * @brief Affiche la page de réinitialisation de mot de passe
      * @return void
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      */
     public function showForgotPasswordPage(): void
     {
@@ -77,8 +77,8 @@ class ControllerAuth extends Controller
     /**
      * @param string $email Adresse e-mail pré-remplie dans le formulaire d'inscription
      * @return void
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
-     * @throws RandomException Exceptions levée dans le cas d'une erreur de génération de nombre aléatoire
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws RandomException Exception levée dans le cas d'une erreur de génération de nombre aléatoire
      * @todo Utiliser une template de mail quand disponible
      * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
      */
@@ -149,11 +149,11 @@ class ControllerAuth extends Controller
     /**
      * @brief Affiche la page de réinitialisation de mot de passe
      * @param string $token Token de réinitialisation de mot de passe
-     * @throws SyntaxError Exceptions levée dans le cas d'une erreur de syntaxe
-     * @throws RuntimeError Exceptions levée dans le cas d'une erreur d'exécution
-     * @throws LoaderError Exceptions levée dans le cas d'une erreur de chargement
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date incorrecte
-     * @throws MalformedRequestException Exceptions levée dans le cas d'une requête malformée
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
+     * @throws MalformedRequestException Exception levée dans le cas d'une requête malformée
      */
     public function showResetPasswordPage(string $token): void
     {
@@ -175,9 +175,9 @@ class ControllerAuth extends Controller
      * @param string $token Token de réinitialisation de mot de passe
      * @param string $password Nouveau mot de passe
      * @param string $passwordConfirm Confirmation du nouveau mot de passe
-     * @throws MalformedRequestException Exceptions levée dans le cas d'une requête malformée
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
-     * @throws Exception Exceptions levée dans le cas d'une erreur quelconque
+     * @throws MalformedRequestException Exception levée dans le cas d'une requête malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws Exception Exception levée dans le cas d'une erreur quelconque
      */
     public function resetPassword(string $token, string $password, string $passwordConfirm)
     {
@@ -244,7 +244,7 @@ class ControllerAuth extends Controller
      * @param ?string $email Adresse e-mail fournie dans le formulaire de connexion
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
      * @return void
-     * @throws AuthenticationException Exceptions levée dans le cas d'une erreur d'authentification
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      * @throws DateMalformedStringException Erreur avec la création du DateTime
      */
     public function authenticate(?string $email, ?string $password): void

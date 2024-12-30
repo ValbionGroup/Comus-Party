@@ -60,8 +60,8 @@ class ArticleDAO
      * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de la facture passé en paramètre
      * @param int|null $invoiceId L'ID de la facture
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
-     * @throws NotFoundException Exceptions levée dans le cas où la facture n'existe pas
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
      */
     public function findArticlesByInvoiceId(?int $invoiceId): ?array
     {
@@ -99,7 +99,7 @@ class ArticleDAO
      * @details Cette méthode appelle, pour chaque tableau associatif contenu dans celui passé en paramètre, la méthode hydrate() définie ci-dessus.
      * @param array $data Le tableau de tableaux associatifs
      * @return array L'objet retourné par la méthode, ici un tableau (d'objets Article)
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function hydrateMany(array $data): array
     {
@@ -114,7 +114,7 @@ class ArticleDAO
      * @brief Hydrate un objet Article avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif content les paramètres
      * @return Article L'objet retourné par la méthode, ici un article
-     * @throws DateMalformedStringException|Exception Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data): Article
     {
@@ -143,8 +143,8 @@ class ArticleDAO
     /**
      * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de l'user correspondants à l'ensemble des photos de profil possédées
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
-     * @throws NotFoundException Exceptions levée dans le cas où la facture n'existe pas
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
      */
     public function findAllPfpsByUuidPlayer(string $uuid): ?array
     {
@@ -289,7 +289,7 @@ class ArticleDAO
      * @brief Retourne la photo de profile active que le joueur possède sous forme d'objet Article
      * @param string $uuid L'UUID du joueur
      * @return Article|null La photo de profil du joueur (ou null si non-trouvée)
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findActivePfpByPlayerUuid(string $uuid): ?Article
     {
@@ -350,7 +350,7 @@ class ArticleDAO
      * @brief Retourne la bannière active que le joueur possède sous forme d'objet Article
      * @param string $uuid L'UUID du joueur
      * @return Article|null La bannière du joueur (ou null si non-trouvée)
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findActiveBannerByPlayerUuid(string $uuid): ?Article
     {

@@ -57,7 +57,7 @@ class PasswordResetTokenDAO
      * @brief Retourne un objet PasswordResetToken (ou null) à partir de l'ID passé en paramètre
      * @param int $userId L'ID de l'utilisateur recherché
      * @return PasswordResetToken|null Objet retourné par la méthode, ici un token de réinitialisation de mot de passe (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findByUserId(int $userId): ?PasswordResetToken
     {
@@ -74,7 +74,7 @@ class PasswordResetTokenDAO
      * @brief Hydrate un tableau de données en un objet PasswordResetToken
      * @param array $row Le tableau de données à hydrater
      * @return PasswordResetToken Objet PasswordResetToken retourné par la méthode
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date incorrecte
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
      */
     private function hydrate(array $row): PasswordResetToken
     {
@@ -85,7 +85,7 @@ class PasswordResetTokenDAO
      * @brief Retourne un objet PasswordResetToken (ou null) à partir du token passé en paramètre
      * @param string $token Le token de réinitialisation de mot de passe recherché
      * @return PasswordResetToken|null Objet PasswordResetToken (ou null si non-trouvé)
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date incorrecte
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
      */
     public function findByToken(string $token): ?PasswordResetToken
     {

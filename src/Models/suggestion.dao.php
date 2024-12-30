@@ -115,7 +115,7 @@ class SuggestionDAO
      * @brief Hydrate un tableau de données en une suggestion
      * @param array $data Le tableau associatif contenant les données de la suggestion
      * @return Suggestion Objet retourné par la méthode, ici une suggestion
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data): Suggestion
     {
@@ -175,7 +175,7 @@ class SuggestionDAO
      * @brief Récupère une suggestion en base de données par son identifiant
      * @param int|null $id L'identifiant de la suggestion
      * @return Suggestion|null La suggestion ou null si aucune suggestion n'est trouvée
-     * @throws DateMalformedStringException Exceptions levée dans le cas d'une date malformée
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findById(?int $id)
     {
