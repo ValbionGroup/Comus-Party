@@ -157,21 +157,35 @@ function checkConditions(event) {
 
     // Met à jour le message d'erreur et les styles des inputs uniquement pour l'input modifié
     const input = event.target;
-    if (input === inputUsername) {
-        updateErrorMessage(input, "usernameTooShort", input.value.length >= MIN_USERNAME_LENGTH, "Le nom d'utilisateur doit contenir au moins " + MIN_USERNAME_LENGTH + " caractères");
-        updateErrorMessage(input, "usernameForbiddenCharacters", !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(input.value), "Le nom d'utilisateur ne doit pas contenir de caractères spéciaux");
-        updateErrorMessage(input, "usernameTooLong", input.value.length <= MAX_USERNAME_LENGTH, "Le nom d'utilisateur doit contenir au plus " + MAX_USERNAME_LENGTH + " caractères");
-    } else if (input === inputEmail) {
-        updateErrorMessage(input, "incorrectEmailFormat", EMAIL_REGEX.test(input.value), "Format d'email incorrect");
-    } else if (input === inputPassword) {
-        updateErrorMessage(input, "passwordTooShort", input.value.length >= MIN_PASSWORD_LENGTH, "Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères");
-        updateErrorMessage(input, "passwordTooLong", input.value.length <= MAX_PASSWORD_LENGTH, "Le mot de passe doit être au maximum de " + MAX_PASSWORD_LENGTH + " caractères");
-        updateErrorMessage(input, "passwordNoUppercase", UPPERCASE_LETTER.test(input.value), "Le mot de passe doit contenir au moins une majuscule");
-        updateErrorMessage(input, "passwordNoLowercase", LOWERCASE_LETTER.test(input.value), "Le mot de passe doit contenir au moins une minuscule");
-        updateErrorMessage(input, "passwordNoNumber", NUMBERS.test(input.value), "Le mot de passe doit contenir au moins un chiffre");
-        updateErrorMessage(input, "passwordNoSpecialCharacter", SPECIAL_CHARACTER.test(input.value), "Le mot de passe doit contenir au moins un caractère spécial");
-    } else if (input === inputConfirmPassword) {
-        updateErrorMessage(input, "notMachingPasswords", inputPassword.value === input.value, "Les mots de passe ne correspondent pas");
+    if (input.value === "") {
+        updateErrorMessage(input, "usernameTooShort", true, "");
+        updateErrorMessage(input, "usernameForbiddenCharacters", true, "");
+        updateErrorMessage(input, "usernameTooLong", true, "");
+        updateErrorMessage(input, "incorrectEmailFormat", true, "");
+        updateErrorMessage(input, "passwordTooShort", true, "");
+        updateErrorMessage(input, "passwordTooLong", true, "");
+        updateErrorMessage(input, "passwordNoUppercase", true, "");
+        updateErrorMessage(input, "passwordNoLowercase", true, "");
+        updateErrorMessage(input, "passwordNoNumber", true, "");
+        updateErrorMessage(input, "passwordNoSpecialCharacter", true, "");
+        updateErrorMessage(input, "notMachingPasswords", true, "");
+    } else {
+        if (input === inputUsername) {
+            updateErrorMessage(input, "usernameTooShort", input.value.length >= MIN_USERNAME_LENGTH, "Le nom d'utilisateur doit contenir au moins " + MIN_USERNAME_LENGTH + " caractères");
+            updateErrorMessage(input, "usernameForbiddenCharacters", !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(input.value), "Le nom d'utilisateur ne doit pas contenir de caractères spéciaux");
+            updateErrorMessage(input, "usernameTooLong", input.value.length <= MAX_USERNAME_LENGTH, "Le nom d'utilisateur doit contenir au plus " + MAX_USERNAME_LENGTH + " caractères");
+        } else if (input === inputEmail) {
+            updateErrorMessage(input, "incorrectEmailFormat", EMAIL_REGEX.test(input.value), "Format d'email incorrect");
+        } else if (input === inputPassword) {
+            updateErrorMessage(input, "passwordTooShort", input.value.length >= MIN_PASSWORD_LENGTH, "Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères");
+            updateErrorMessage(input, "passwordTooLong", input.value.length <= MAX_PASSWORD_LENGTH, "Le mot de passe doit être au maximum de " + MAX_PASSWORD_LENGTH + " caractères");
+            updateErrorMessage(input, "passwordNoUppercase", UPPERCASE_LETTER.test(input.value), "Le mot de passe doit contenir au moins une majuscule");
+            updateErrorMessage(input, "passwordNoLowercase", LOWERCASE_LETTER.test(input.value), "Le mot de passe doit contenir au moins une minuscule");
+            updateErrorMessage(input, "passwordNoNumber", NUMBERS.test(input.value), "Le mot de passe doit contenir au moins un chiffre");
+            updateErrorMessage(input, "passwordNoSpecialCharacter", SPECIAL_CHARACTER.test(input.value), "Le mot de passe doit contenir au moins un caractère spécial");
+        } else if (input === inputConfirmPassword) {
+            updateErrorMessage(input, "notMachingPasswords", inputPassword.value === input.value, "Les mots de passe ne correspondent pas");
+        }
     }
 }
 
@@ -196,5 +210,6 @@ function updateErrorMessage(input, errorElementId, condition, errorMessage) {
         input.classList.remove("input-error");
         errorElement.classList.remove("block");
         errorElement.classList.add("hidden");
+        errorElement.innerHTML = "";
     }
 }
