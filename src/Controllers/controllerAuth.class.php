@@ -402,81 +402,87 @@ class ControllerAuth extends Controller
         $userDAO = new UserDAO($this->getPdo());
         $playerDAO = new PlayerDAO($this->getPdo());
 
-        // Vérifier si l'utilisateur et le joueur existent
-        $existingUser = $userDAO->findByEmail($email) !== null;
-        $existingPlayer = $playerDAO->findByUsername($username) !== null;
-
-        if ($existingUser) {
-            throw new AuthenticationException("L'adresse e-mail est déjà utilisée");
-        }
-
-        if ($existingPlayer) {
-            throw new AuthenticationException("Le nom d'utilisateur est déjà utilisé");
-        }
-
-        // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
-        $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
-        $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
-
-        if (!$resultUser) {
-            throw new Exception("Erreur lors de la création de l'utilisateur");
-        }
-
-        // Envoi du mail avec phpmailer
-        $mail = new PHPMailer(true); // Création d'un objet PHPMailer
         try {
-            // Configuration technique
-            $mail->isSMTP(); // Utilisation du protocole SMTP
-            $mail->Host = MAIL_HOST; // Hôte du serveur SMTP
-            $mail->SMTPAuth = true; // Authentification SMTP
-            $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
-            $mail->Port = MAIL_PORT; // Port SMTP
-            $mail->CharSet = 'UTF-8';
-            $mail->Encoding = 'base64';
+            // Vérifier si l'utilisateur et le joueur existent
+            $existingUser = $userDAO->findByEmail($email) !== null;
+            $existingPlayer = $playerDAO->findByUsername($username) !== null;
 
-            // Configuration de l'authentification
-            $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
-            $mail->Password = MAIL_PASS; // Mot de passe de l'expéditeur
-            $mail->setFrom(MAIL_FROM); // Adresse de l'expéditeur
-            $mail->addAddress($email); // Adresse du destinataire
+            if ($existingUser) {
+                throw new AuthenticationException("L'adresse e-mail est déjà utilisée");
+            }
 
-            // Configuration du message
-            $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
-            $mail->Subject = 'Confirmation de votre compte' . MAIL_BASE; // Sujet du message
-            $mail->Body = // Corps du message
-                '<p>Vous avez créé un compte sur Comus Party.</p>
-                <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
-                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
-            $mail->AltBody = // Corps du message sans format HTML
-                'Vous avez créé un compte sur Comus Party.
-                Pour confirmer votre compte, cliquez sur le lien ci-dessous.
-                "' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken);
+            if ($existingPlayer) {
+                throw new AuthenticationException("Le nom d'utilisateur est déjà utilisé");
+            }
 
-            $mail->send(); // Envoi du message
-        } catch (Exception $e) {
-            throw new Exception("Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}");
+            // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
+            $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
+            $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
+
+            if (!$resultUser) {
+                throw new Exception("Erreur lors de la création de l'utilisateur");
+            }
+
+            // Envoi du mail avec phpmailer
+            $mail = new PHPMailer(true); // Création d'un objet PHPMailer
+            try {
+                // Configuration technique
+                $mail->isSMTP(); // Utilisation du protocole SMTP
+                $mail->Host = MAIL_HOST; // Hôte du serveur SMTP
+                $mail->SMTPAuth = true; // Authentification SMTP
+                $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
+                $mail->Port = MAIL_PORT; // Port SMTP
+                $mail->CharSet = 'UTF-8';
+                $mail->Encoding = 'base64';
+
+                // Configuration de l'authentification
+                $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
+                $mail->Password = MAIL_PASS; // Mot de passe de l'expéditeur
+                $mail->setFrom(MAIL_FROM); // Adresse de l'expéditeur
+                $mail->addAddress($email); // Adresse du destinataire
+
+                // Configuration du message
+                $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
+                $mail->Subject = 'Confirmation de votre compte' . MAIL_BASE; // Sujet du message
+                $mail->Body = // Corps du message
+                    '<p>Vous avez créé un compte sur Comus Party.</p>
+                    <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
+                    <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
+                $mail->AltBody = // Corps du message sans format HTML
+                    'Vous avez créé un compte sur Comus Party.
+                    Pour confirmer votre compte, cliquez sur le lien ci-dessous.
+                    "' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken);
+
+                $mail->send(); // Envoi du message
+            } catch (Exception $e) {
+                throw new Exception("Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}");
+            }
+
+            // Créer le joueur si l'utilisateur est créé avec succès
+            $playerDAO->createPlayer($username, $email);
+
+            $userManager = new UserDAO($this->getPdo());
+            $user = $userManager->findByEmail($email);
+
+            if (is_null($user)) {
+                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            }
+
+            $playerManager = new PlayerDAO($this->getPdo());
+            $player = $playerManager->findWithDetailByUserId($user->getId());
+
+            if (is_null($player)) {
+                throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+            }
+
+            MessageHandler::addMessageParametersToSession("Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter.");
+            header('Location: /login');
+            exit;
+        } catch (AuthenticationException $e) {
+            MessageHandler::addExceptionParametersToSession($e);
+            header('Location: /register');
+            exit;
         }
-
-        // Créer le joueur si l'utilisateur est créé avec succès
-        $playerDAO->createPlayer($username, $email);
-
-        $userManager = new UserDAO($this->getPdo());
-        $user = $userManager->findByEmail($email);
-
-        if (is_null($user)) {
-            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
-        }
-
-        $playerManager = new PlayerDAO($this->getPdo());
-        $player = $playerManager->findWithDetailByUserId($user->getId());
-
-        if (is_null($player)) {
-            throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
-        }
-
-        MessageHandler::addMessageParametersToSession("Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter.");
-        header('Location: /login');
-        exit;
     }
 
 /**
