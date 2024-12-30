@@ -374,7 +374,8 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 3,
-                'max-length' => 120
+                'max-length' => 120,
+                'format' => '/^[a-zA-Z0-9_-]+$/'
             ],
             'email' => [
                 'required' => true,
