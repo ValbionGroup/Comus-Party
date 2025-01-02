@@ -75,6 +75,11 @@ class ArticleDAO {
         }
         return $this->hydrate($article);
     }
+    /**
+     * @brief Retourne le type de l'article (pfp ou banner) à partir de l'ID de l'article passé en paramètre
+     * @param string $idArticle L'ID de l'article
+     * @return ArticleType|null Objet retourné par la méthode, ici un ArticleType (ou null si non-trouvé)
+     */
     public function findTypeArticle(string $idArticle): ?ArticleType
     {
         $stmt = $this->pdo->prepare(
