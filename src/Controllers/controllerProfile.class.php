@@ -29,7 +29,6 @@ use Twig\Loader\FilesystemLoader;
  */
 class ControllerProfile extends Controller
 {
-    private $deleteActiveArticleForPfp;
 
     /**
      * @brief Constructeur de la classe ControllerProfile
