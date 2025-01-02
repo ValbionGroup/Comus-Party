@@ -131,10 +131,14 @@ class ControllerProfile extends Controller
         if (is_null($player)) {
             throw new NotFoundException('Player not found');
         }
+        $idArticle = intval($idArticle);
         $articleManager = new ArticleDAO($this->getPdo());
-        $typeArticle = $articleManager->findById($idArticle)->getType()->name;
+        // 0 représente la photo de profil par défaut et -1 la bannière par défaut
+        if($idArticle >= 1){
+            $typeArticle = $articleManager->findById($idArticle)->getType()->name;
+        }
 
-        if($idArticle == 0 && $typeArticle === "ProfilePicture"){
+        if($idArticle == 0){
 
             $articleManager->deleteActiveArticleForPfp($player->getUuid());
             $_SESSION['pfpPath'] = "default-pfp.jpg";
@@ -142,14 +146,14 @@ class ControllerProfile extends Controller
                 'articlePath' => "default-pfp.jpg",
             ]);
         }
-        if ($idArticle == 0 && $typeArticle === "Banner") {
+        if ($idArticle == -1){
             $articleManager->deleteActiveArticleForBanner($player->getUuid());
             $_SESSION['bannerPath'] = "default-banner.jpg";
             echo json_encode([
                 'articlePath' => "default-banner.jpg",
             ]);
         }
-        if($idArticle != 0){
+        if($idArticle != 0 && $idArticle != -1){
             $articleManager->updateActiveArticle($player->getUuid(), $idArticle, $typeArticle);
             $article = $articleManager->findById($idArticle);
 
