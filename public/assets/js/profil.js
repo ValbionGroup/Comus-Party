@@ -136,7 +136,7 @@ function equipArticle() {
     let idArticle = inputSelectedArticleId.value
     let typeArticle = inputSelectedArticleType.value
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/profile/updateStyle/${idArticle}/${typeArticle}`, true);
+    xhr.open("POST", `/profile/updateStyle/${idArticle}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     // Envoyer les données sous forme de paire clé=valeur
     xhr.send();
@@ -144,6 +144,7 @@ function equipArticle() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText)
+            console.log(response)
             if(typeArticle === "banner"){
                 playerBanner.src = "/assets/img/banner/" + response.articlePath
             }else if(typeArticle === "pfp"){

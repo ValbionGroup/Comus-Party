@@ -30,11 +30,10 @@ $router->get('/profile', function () use ($loader, $twig) {
     exit;
 }, 'player');
 
-$router->post('/profile/updateStyle/:idArticle/:typeArticle', function ($idArticle, $typeArticle) use ($loader, $twig) {
+$router->post('/profile/updateStyle/:idArticle', function ($idArticle) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
         "uuidPlayer" => $_SESSION["uuid"],
         "idArticle" => $idArticle,
-        "typeArticle" => $typeArticle
     ]);
     exit;
 }, 'player');

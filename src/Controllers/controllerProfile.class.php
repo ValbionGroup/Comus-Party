@@ -121,7 +121,7 @@ class ControllerProfile extends Controller
      * @param string $typeArticle Le type de l'article à activer
      * @return void
      */
-    public function updateStyle(?string $player_uuid, string $idArticle, string $typeArticle): void
+    public function updateStyle(?string $player_uuid, string $idArticle): void
     {
         if (is_null($player_uuid)) {
             throw new NotFoundException('Player not found');
@@ -132,34 +132,31 @@ class ControllerProfile extends Controller
             throw new NotFoundException('Player not found');
         }
         $articleManager = new ArticleDAO($this->getPdo());
-        $typeArticle = $articleManager->findTypeArticle($idArticle);
+        $typeArticle = $articleManager->findById($idArticle)->getType()->name;
+
+        if($idArticle == 0 && $typeArticle === "ProfilePicture"){
+
+            $articleManager->deleteActiveArticleForPfp($player->getUuid());
+            $_SESSION['pfpPath'] = "default-pfp.jpg";
             echo json_encode([
-                'typeArticle' => $typeArticle,
+                'articlePath' => "default-pfp.jpg",
+            ]);
+        }
+        if ($idArticle == 0 && $typeArticle === "Banner") {
+            $articleManager->deleteActiveArticleForBanner($player->getUuid());
+            $_SESSION['bannerPath'] = "default-banner.jpg";
+            echo json_encode([
+                'articlePath' => "default-banner.jpg",
+            ]);
+        }
+        if($idArticle != 0){
+            $articleManager->updateActiveArticle($player->getUuid(), $idArticle, $typeArticle);
+            $article = $articleManager->findById($idArticle);
+
+            echo json_encode([
+                'articlePath' => $article->getFilePath(),
                 'idArticle' => $idArticle
             ]);
-//        if($idArticle == 0 && $typeArticle === "pfp"){
-//
-//            $articleManager->deleteActiveArticleForPfp($player->getUuid());
-//            $_SESSION['pfpPath'] = "default-pfp.jpg";
-//            echo json_encode([
-//                'articlePath' => "default-pfp.jpg",
-//            ]);
-//        }
-//        if ($idArticle == 0 && $typeArticle === "banner") {
-//            $articleManager->deleteActiveArticleForBanner($player->getUuid());
-//            $_SESSION['bannerPath'] = "default-banner.jpg";
-//            echo json_encode([
-//                'articlePath' => "default-banner.jpg",
-//            ]);
-//        }
-//        if($idArticle != 0){
-//            $articleManager->updateActiveArticle($player->getUuid(), $idArticle, $typeArticle);
-//            $article = $articleManager->findById($idArticle);
-//
-//            echo json_encode([
-//                'articlePath' => $article->getFilePath(),
-//                'idArticle' => $idArticle
-//            ]);
-//        }
+        }
     }
 }

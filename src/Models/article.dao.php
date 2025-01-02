@@ -75,23 +75,6 @@ class ArticleDAO {
         }
         return $this->hydrate($article);
     }
-    /**
-     * @brief Retourne le type de l'article (pfp ou banner) à partir de l'ID de l'article passé en paramètre
-     * @param string $idArticle L'ID de l'article
-     * @return ArticleType|null Objet retourné par la méthode, ici un ArticleType (ou null si non-trouvé)
-     */
-    public function findTypeArticle(string $idArticle): ?ArticleType
-    {
-        $stmt = $this->pdo->prepare(
-            'SELECT type
-            FROM '. DB_PREFIX .'article
-            WHERE id = :idArticle');
-        $stmt->bindParam(':idArticle', $idArticle);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $typeArticle = $stmt->fetch();
-        return $this->hydrate($typeArticle);
-    }
 
     /**
      * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de la facture passé en paramètre
@@ -268,7 +251,7 @@ class ArticleDAO {
      */
     public function updateActiveArticle(string $uuid, string $idArticle, string $typeArticle)
     {
-        if($typeArticle == "pfp") {
+        if($typeArticle == "ProfilePicture") {
             $pfpActive = $this->findActivePfpByPlayerUuid($uuid);
             // Si pfp déjà équipé
             if($pfpActive != null){
@@ -300,7 +283,7 @@ class ArticleDAO {
             $_SESSION['pfpPath'] = $pfp->getFilePath();
         }
 
-        if($typeArticle == "banner") {
+        if($typeArticle == "Banner") {
             $bannerActive = $this->findActiveBannerByPlayerUuid($uuid);
 
             //Si banner déjà équipé
