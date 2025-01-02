@@ -136,7 +136,7 @@ function equipArticle() {
     let idArticle = inputSelectedArticleId.value
     let typeArticle = inputSelectedArticleType.value
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/profile/updateStyle/${idArticle}`, true);
+    xhr.open("PUT", `/profile/updateStyle/${idArticle}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     // Envoyer les données sous forme de paire clé=valeur
     xhr.send();
