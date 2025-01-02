@@ -9,8 +9,9 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\Models\Exception\MessageHandler;
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\SuggestionDAO;
+use DateMalformedStringException;
 use Exception;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -93,6 +94,7 @@ class ControllerDashboard extends Controller
      * @brief Récupère les informations à propos d'une sugestion et les renvoi sous format JSON
      * @param int|null $id L'identifiant de la suggestion à récupérer
      * @return void
+     * @throws DateMalformedStringException
      */
     public function getSuggestionInfo(?int $id) {
         $suggestsManager = new SuggestionDAO($this->getPdo());

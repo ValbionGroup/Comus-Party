@@ -1,17 +1,16 @@
 <?php
 /**
  * @brief Fichier de la classe Router
- *
- * @file Router.class.php
+ * @file Router.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
- * @version 1.1
+ * @version 1.2
  * @date 2024-12-18
  */
 
-namespace ComusParty\Models;
+namespace ComusParty\App;
 
-use ComusParty\Models\Exception\RouteNotFoundException;
-use ComusParty\Models\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exception\RouteNotFoundException;
+use ComusParty\App\Exception\UnauthorizedAccessException;
 use Exception;
 
 /**
@@ -22,10 +21,12 @@ use Exception;
 class Router
 {
     /**
+     * @brief Instance du Router
      * @var Router|null Instance du Router
      */
     private static ?Router $instance = null;
     /**
+     * @brief Tableau des routes
      * @var array Tableau des routes
      */
     protected array $routes = [];
@@ -40,7 +41,7 @@ class Router
 
     /**
      * @brief Permet de récupérer l'instance du Router
-     * @return Router
+     * @return Router Instance du Router
      */
     public static function getInstance(): Router
     {
@@ -164,7 +165,7 @@ class Router
             }
         }
 
-        throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ')' . ' not found');
+        throw new RouteNotFoundException('Route ' . $url . ' (' . $method . ') not found');
     }
 
     /**
@@ -205,7 +206,7 @@ class Router
     /**
      * @brief Empêche la désérialisation de l'instance
      * @return void
-     * @throws Exception
+     * @throws Exception Dans le cas où la désérialisation est tentée
      */
     public function __wakeup(): void
     {
