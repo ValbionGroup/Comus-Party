@@ -120,7 +120,7 @@ class ArticleDAO {
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
      */
-    public function findAllPfpsByUuidPlayer(string $uuid): ?array
+    public function findAllPfpsOwnedByPlayer(string $uuid): ?array
     {
         $stmt = $this->pdo->prepare(
             'SELECT a.*
@@ -141,7 +141,7 @@ class ArticleDAO {
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
      */
-    public function findAllBannersByUuidPlayer(string $uuid): ?array
+    public function findAllBannersOwnedByPlayer(string $uuid): ?array
     {
         $stmt = $this->pdo->prepare(
             'SELECT a.*

@@ -72,8 +72,8 @@ class ControllerProfile extends Controller
         } else {
             $bannerPath = $banner->getFilePath();
         }
-        $pfpsOwned = $articleManager->findAllPfpsByUuidPlayer($player->getUuid());
-        $bannersOwned = $articleManager->findAllBannersByUuidPlayer($player->getUuid());
+        $pfpsOwned = $articleManager->findAllPfpsOwnedByPlayer ($player->getUuid());
+        $bannersOwned = $articleManager->findAllBannersOwnedByPlayer($player->getUuid());
         $template = $this->getTwig()->load('player/profil.twig');
         echo $template->render(array(
             "player" => $player,
