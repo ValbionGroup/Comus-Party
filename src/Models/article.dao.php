@@ -75,6 +75,18 @@ class ArticleDAO {
         }
         return $this->hydrate($article);
     }
+    public function findTypeArticle(string $idArticle): ?ArticleType
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT type
+            FROM '. DB_PREFIX .'article
+            WHERE id = :idArticle');
+        $stmt->bindParam(':idArticle', $idArticle);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $typeArticle = $stmt->fetch();
+        return $this->hydrate($typeArticle);
+    }
 
     /**
      * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de la facture passé en paramètre
@@ -241,6 +253,8 @@ class ArticleDAO {
         return $this->hydrateMany($tabBanners);
 
     }
+
+
     /**
      * @brief Met à jour l'article en active dans la base de données
      * @param string $uuid L'UUID du joueur
