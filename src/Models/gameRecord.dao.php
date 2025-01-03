@@ -96,6 +96,7 @@ class GameRecordDAO
             $hostedBy,
             $players,
             $gameRecordState,
+            $row["private"] === "1",
             new DateTime($row["created_at"]),
             new DateTime($row["updated_at"]),
             $finishedAt
@@ -216,7 +217,7 @@ class GameRecordDAO
      */
     public function insert(GameRecord $gameRecord): bool
     {
-        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (uuid, game_id, hosted_by, state, created_at, updated_at, finished_at) VALUES (:uuid, :gameId, :hostedBy, :state, :createdAt, :updatedAt, :finishedAt)");
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (uuid, game_id, hosted_by, state, private, created_at, updated_at, finished_at) VALUES (:uuid, :gameId, :hostedBy, :state, :isPrivate, :createdAt, :updatedAt, :finishedAt)");
 
         $uuid = $gameRecord->getUuid();
         $gameId = $gameRecord->getGame()->getId();
@@ -226,6 +227,7 @@ class GameRecordDAO
             GameRecordState::STARTED => "started",
             GameRecordState::FINISHED => "finished",
         };
+        $isPrivate = $gameRecord->isPrivate();
         $createdAt = $gameRecord->getCreatedAt()->format("Y-m-d H:i:s");
         $updatedAt = $gameRecord->getUpdatedAt()?->format("Y-m-d H:i:s");
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
@@ -234,6 +236,7 @@ class GameRecordDAO
         $stmt->bindParam(":gameId", $gameId);
         $stmt->bindParam(":hostedBy", $hostUuid);
         $stmt->bindParam(":state", $state);
+        $stmt->bindParam(":isPrivate", $isPrivate, PDO::PARAM_BOOL);
         $stmt->bindParam(":createdAt", $createdAt);
         $stmt->bindParam(":updatedAt", $updatedAt);
         $stmt->bindParam(":finishedAt", $finishedAt);
