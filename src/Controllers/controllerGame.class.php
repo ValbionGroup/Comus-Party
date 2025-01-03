@@ -191,6 +191,10 @@ class ControllerGame extends Controller
      */
     private function showGameSettings(GameRecord $gameRecord): void
     {
+        if (!in_array((new PlayerDAO($this->getPdo()))->findByUuid($_SESSION['uuid']), $gameRecord->getPlayers())) {
+            $this->joinGameWithCode('GET', $gameRecord->getUuid());
+        }
+
         $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
         if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
             $settings = $this->getGameModifiableSettings($gameRecord->getGame()->getId());
@@ -210,19 +214,55 @@ class ControllerGame extends Controller
     }
 
     /**
+     * @brief Rejoint une partie avec un code (Méthode GET ou POST autorisée)
+     * @param string $method Méthode HTTP utilisée
+     * @param string $code Code de la partie
+     * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
+     * @throws NotFoundException Exception levée si la partie n'existe pas
+     */
+    public function joinGameWithCode(string $method, string $code): void
+    {
+        if ($method == 'POST') {
+            try {
+                echo $this->joinGame($code, $_SESSION['uuid']);
+            } catch (Exception $e) {
+                echo json_encode([
+                    "success" => false,
+                    "message" => $e->getMessage(),
+                ]);
+                exit;
+            }
+        } elseif ($method == 'GET') {
+            $this->joinGame($code, $_SESSION['uuid']);
+        }
+        exit;
+    }
+
+    /**
      * @brief Rejoint une partie suite à une recherche de partie
      * @param int $gameId Identifiant du jeu à rejoindre
      * @return void
+     * @throws Exception Exception levée en cas d'erreur avec la base de données
      */
     public function joinGameFromSearch(int $gameId): void
     {
-        try {
-            $gameRecordManager = new GameRecordDAO($this->getPdo());
-            $gameRecords = $gameRecordManager->findByGameId($gameId);
+        $game = (new GameDAO($this->getPdo()))->findById($gameId);
 
+        if ($game->getState() != GameState::AVAILABLE) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Le jeu n'est pas disponible",
+            ]);
+            exit;
+        }
+
+        $gameRecordManager = new GameRecordDAO($this->getPdo());
+        $gameRecords = $gameRecordManager->findByGameId($gameId);
+
+        try {
             $eloForGame = [];
             foreach ($gameRecords as $gameRecord) {
-                if ($gameRecord->getState() == GameRecordState::WAITING) {
+                if ($gameRecord->getState() == GameRecordState::WAITING && !$gameRecord->isPrivate()) {
                     $players = $gameRecord->getPlayers();
 
                     $totalElo = 0;
@@ -280,9 +320,7 @@ class ControllerGame extends Controller
 
         $player = (new PlayerDAO($this->getPdo()))->findByUuid($playerUuid);
 
-        /*if (!is_null($userUuid)) {
-            $player = (new PlayerDAO($this->getPdo()))->findByUuid($userUuid);
-        }*/
+        // Fonctionnement pour un joueur non connecté a insérer ici
 
         if ($gameRecord->getState() != GameRecordState::WAITING) {
             throw new GameUnavailableException("La partie a déjà commencé");
