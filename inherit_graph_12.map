@@ -1,0 +1,7 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,31,197,56"/>
+<area shape="rect" id="Node000001" href="$classComusParty_1_1App_1_1Socket_1_1Chat.html" title=" " alt="" coords="249,5,297,31"/>
+<area shape="poly" id="edge19_Node000000_Node000001" title=" " alt="" coords="207,25,248,19,249,24,208,30"/>
+<area shape="rect" id="Node000002" href="$classComusParty_1_1App_1_1Socket_1_1Game.html" title=" " alt="" coords="245,55,301,80"/>
+<area shape="poly" id="edge20_Node000000_Node000002" title=" " alt="" coords="213,56,245,61,244,66,212,62"/>
+</map>
