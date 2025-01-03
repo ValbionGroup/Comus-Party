@@ -4,14 +4,13 @@
  * @brief Le fichier contient la déclaration et la définition de la classe ArticleDAOTest
  * @author DESESSARD Estéban
  * @date 20/11/2024
- * @version 0.1
+ * @version 0.2
  */
 
 use ComusParty\Models\Article;
+use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\ArticleType;
 use ComusParty\Models\Db;
-use PDO;
-use ComusParty\Models\ArticleDAO;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../include.php';
@@ -27,16 +26,6 @@ class ArticleDAOTest extends TestCase
      * @var ArticleDAO
      */
     private ArticleDAO $articleDAO;
-
-    /**
-     * @brief Instanciation d'un objet ArticleDAO pour les tests
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $this->articleDAO = new ArticleDAO(Db::getInstance()->getConnection());
-    }
-
 
     /**
      * @brief Test de l'instanciation de la classe ArticleDAO génère une instance de la classe ArticleDAO
@@ -87,8 +76,9 @@ class ArticleDAOTest extends TestCase
     }
 
     /**
-     * @brief Test de la méthode hydrate avec un tableau conetant des paramètres valides
+     * @brief Test de la méthode hydrate avec un tableau contenant des paramètres valides
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testHydrateWithValidArray(): void
     {
@@ -101,6 +91,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode hydrate avec un tableau contenant des paramètres de valeur invalide
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testHydrateWithInvalidArray(): void
     {
@@ -114,6 +105,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode hydrate avec un paramètre du mauvais type
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testHydrateWithInvalidType(): void
     {
@@ -124,6 +116,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode hydrateMany avec un tableau contenant des paramètres invalides
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testHydrateManyWithValidArray(): void
     {
@@ -142,6 +135,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode hydrateMany avec un tableau contenant des paramètres invalides
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testHydrateManyWithInvalidArray(): void
     {
@@ -161,13 +155,13 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode hydrateMany avec un paramètre du mauvais type
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testHydrateManyWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
         $articles = $this->articleDAO->hydrateMany('array');
     }
-
 
     /**
      * @brief Test de la méthode findById avec un ID valide et existant dans la base de données
@@ -200,6 +194,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findAll avec des articles dans la base de données
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindAllWithArticles(): void
     {
@@ -212,6 +207,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findAllPfps avec des articles de type pfp dans la base de données
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindAllPfpsWithPfps(): void
     {
@@ -225,6 +221,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findAllBanners avec des articles de type banner dans la base de données
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindAllBannersWithBanners(): void
     {
@@ -238,6 +235,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findActivePfpByPlayerUuid avec un UUID valide et existant dans la base de données et ayant une photo de profil achetée et active
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindActivePfpByPlayerUuidWithValidUuidAndActivePfp(): void
     {
@@ -247,6 +245,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findActivePfpByPlayerUuid avec un UUID valide et existant dans la base de données mais n'ayant pas de photo de profil achetée et active
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindActivePfpByPlayerUuidWithValidUuidAndNoActivePfp(): void
     {
@@ -256,6 +255,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findActivePfpByPlayerUuid avec un UUID valide mais non-existant dans la base de données
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindActivePfpByPlayerUuidWithInvalidUuid(): void
     {
@@ -265,6 +265,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findActivePfpByPlayerUuid avec un paramètre null
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindActivePfpByPlayerUuidWithNullUuid(): void
     {
@@ -275,6 +276,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findActiveBannerByPlayerUuid avec un UUID valide et existant dans la base de données et ayant une banière achetée et active
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindActiveBannerByPlayerUuidWithValidUuidAndActiveBanner(): void
     {
@@ -284,6 +286,7 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findActiveBannerByPlayerUuid avec un UUID valide et existant dans la base de données mais n'ayant pas de bannière achetée et active
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindActiveBannerByPlayerUuidWithValidUuidAndNoActiveBanner(): void
     {
@@ -293,9 +296,19 @@ class ArticleDAOTest extends TestCase
     /**
      * @brief Test de la méthode findActiveBannerByPlayerUuid avec un UUID valide mais non-existant dans la base de données
      * @return void
+     * @throws DateMalformedStringException
      */
     public function testFindActiveBannerByPlayerUuidWithInvalidUuid(): void
     {
         $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('42uuid'));
+    }
+
+    /**
+     * @brief Instanciation d'un objet ArticleDAO pour les tests
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $this->articleDAO = new ArticleDAO(Db::getInstance()->getConnection());
     }
 }

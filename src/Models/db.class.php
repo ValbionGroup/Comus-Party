@@ -11,6 +11,7 @@ namespace ComusParty\Models;
 
 use Exception;
 use PDO;
+use PDOException;
 
 /**
  * @brief Class Db

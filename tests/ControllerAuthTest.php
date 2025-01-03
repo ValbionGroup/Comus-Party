@@ -9,7 +9,7 @@
 
 require_once __DIR__ . '/../include.php';
 
-use ComusParty\App\Exception\AuthenticationException;
+use ComusParty\App\Exceptions\AuthenticationException;
 use ComusParty\Controllers\Controller;
 use ComusParty\Controllers\ControllerAuth;
 use PHPUnit\Framework\TestCase;

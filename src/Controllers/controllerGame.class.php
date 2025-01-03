@@ -9,9 +9,11 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\App\Exception\GameSettingsException;
-use ComusParty\App\Exception\GameUnavailableException;
-use ComusParty\App\Exception\NotFoundException;
+use ComusParty\App\Exceptions\GameSettingsException;
+use ComusParty\App\Exceptions\GameUnavailableException;
+use ComusParty\App\Exceptions\MalformedRequestException;
+use ComusParty\App\Exceptions\NotFoundException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
@@ -63,14 +65,30 @@ class ControllerGame extends Controller
     /**
      * @brief Permet d'initialiser le jeu après validation des paramètres et que les joueurs soient prêts
      *
-     * @param string $uuid UUID de la partie
+     * @param string $code Code de la partie
      * @param array|null $settings Paramètres du jeu
      * @throws GameSettingsException Exception levée si les paramètres du jeu ne sont pas valides
      * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
+     * @throws MalformedRequestException Exception levée si la partie est déjà commencée ou terminée
+     * @throws NotFoundException Exception levée si la partie n'existe pas
+     * @throws Exception Exception levée en cas d'erreur avec la base de données
      */
-    public function initGame(string $uuid, ?array $settings): void
+    public function initGame(string $code, ?array $settings): void
     {
-        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByUuid($uuid);
+        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByCode($code);
+
+        if ($gameRecord == null) {
+            throw new NotFoundException("La partie n'existe pas");
+        }
+
+        if ($gameRecord->getState() != GameRecordState::WAITING) {
+            throw new MalformedRequestException("La partie a déjà commencé ou est terminée");
+        }
+
+        if ($gameRecord->getHostedBy()->getUuid() != $_SESSION['uuid']) {
+            throw new UnauthorizedAccessException("Vous n'êtes pas l'hôte de la partie");
+        }
+
         $game = $gameRecord->getGame();
 
         if ($game->getState() != GameState::AVAILABLE) {
@@ -82,6 +100,11 @@ class ControllerGame extends Controller
 
         if (sizeof($gameSettings) == 0) {
             throw new GameUnavailableException("Les paramètres du jeu ne sont pas disponibles");
+        }
+
+        $nbPlayers = sizeof($gameRecord->getPlayers());
+        if ($nbPlayers < $gameSettings["settings"]["minPlayers"] || $nbPlayers > $gameSettings["settings"]["maxPlayers"]) {
+            throw new GameSettingsException("Le nombre de joueurs est de " . $nbPlayers . " alors que le jeu nécessite entre " . $gameSettings["settings"]["minPlayers"] . " et " . $gameSettings["settings"]["maxPlayers"] . " joueurs");
         }
 
         if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
@@ -101,6 +124,18 @@ class ControllerGame extends Controller
         } else {
             $settings = [];
         }
+
+        $gameRecord->setState(GameRecordState::STARTED);
+        $gameRecord->setUpdatedAt(new DateTime());
+        (new GameRecordDAO($this->getPdo()))->update($gameRecord);
+
+        echo json_encode([
+            "success" => true,
+            "game" => [
+                "code" => $code,
+                "gameId" => $game->getId(),
+            ],
+        ]);
     }
 
     /**
@@ -164,7 +199,7 @@ class ControllerGame extends Controller
      */
     public function showGame(string $code): void
     {
-        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByUuid($code);
+        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByCode($code);
         if ($gameRecord == null || $gameRecord->getGame()->getState() != GameState::AVAILABLE) {
             throw new NotFoundException("La partie n'existe pas");
         }
@@ -172,9 +207,9 @@ class ControllerGame extends Controller
         if ($gameRecord->getState() == GameRecordState::WAITING) {
             $this->showGameSettings($gameRecord);
         } else if ($gameRecord->getState() == GameRecordState::STARTED) {
-            echo "La partie a déjà commencé";
+            $this->showInGame($gameRecord);
         } else {
-            echo "La partie est terminée";
+            throw new Exception("Cette partie est terminée", 404);
         }
 
         exit;
@@ -199,10 +234,11 @@ class ControllerGame extends Controller
 
         $template = $this->getTwig()->load('player/game-settings.twig');
         echo $template->render([
-            "code" => $gameRecord->getUuid(),
+            "code" => $gameRecord->getCode(),
             "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
             "players" => $gameRecord->getPlayers(),
             "game" => $gameRecord->getGame(),
+            "chat" => $gameSettings["settings"]["chatEnabled"],
             "gameFileInfos" => $gameSettings["game"],
             "settings" => $settings,
         ]);
@@ -219,6 +255,24 @@ class ControllerGame extends Controller
         return $allSettings["modifiableSettings"];
     }
 
+    private function showInGame(GameRecord $gameRecord): void
+    {
+        $players = $gameRecord->getPlayers();
+        if (!in_array($_SESSION['uuid'], array_map(fn($player) => $player->getUuid(), $players))) {
+            throw new UnauthorizedAccessException("Vous n'êtes pas dans la partie");
+        }
+
+        $template = $this->getTwig()->load('player/in-game.twig');
+        echo $template->render([
+            "code" => $gameRecord->getCode(),
+            "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
+            "players" => $gameRecord->getPlayers(),
+            "game" => $gameRecord->getGame(),
+            "chat" => $this->getGameSettings($gameRecord->getGame()->getId())["settings"]["chatEnabled"],
+
+        ]);
+    }
+
     /**
      * @brief Quitte une partie
      * @param string $code UUID de la partie à quitter
@@ -230,7 +284,7 @@ class ControllerGame extends Controller
     public function quitGame(string $code, string $playerUuid): void
     {
         $gameRecordManager = new GameRecordDAO($this->getPdo());
-        $gameRecord = $gameRecordManager->findByUuid($code);
+        $gameRecord = $gameRecordManager->findByCode($code);
 
         if ($gameRecord == null) {
             throw new NotFoundException("La partie n'existe pas");
@@ -253,8 +307,8 @@ class ControllerGame extends Controller
      * @param int $gameId Identifiant du jeu
      * @return void
      * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
-     * @throws RandomException Exception levée en cas d'erreur lors de la génération du code
-     * @throws Exception Exception levée en cas d'erreur avec la base de données
+     * @throws RandomException Exceptions levée en cas d'erreur lors de la génération du code
+     * @throws Exception Exceptions levée en cas d'erreur avec la base de données
      */
     public function createGame(int $gameId): void
     {

@@ -9,6 +9,34 @@ function quitGameAndBackHome(gameCode) {
     });
 }
 
+function startGame(gameCode) {
+    const settingsPanel = document.getElementById('settingsPanel');
+    const inputs = settingsPanel.querySelectorAll('input');
+    const selects = settingsPanel.querySelectorAll('select');
+    const settings = {};
+
+    inputs.forEach((input) => {
+        settings[input.name] = input.value;
+    });
+
+    selects.forEach((select) => {
+        settings[select.name] = select.value;
+    });
+
+    const data = new FormData();
+    data.append('settings', JSON.stringify(settings));
+
+    fetch(`/game/${gameCode}/start`, {
+        method: 'POST',
+        body: data,
+    }).then((response) => {
+        if (response.ok) {
+            window.location.href = `/game/${gameCode}`;
+        }
+        throw new Error('Failed to start game');
+    });
+}
+
 function sendChatMessage() {
     const messageInput = document.getElementById('chatInput');
     const messages = document.getElementById('chatContent');

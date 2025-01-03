@@ -10,8 +10,8 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\App\Exception\PaymentException;
-use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exceptions\PaymentException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\InvoiceDAO;
 use ComusParty\Models\PlayerDAO;

@@ -1,16 +1,14 @@
 <?php
-
 /**
  * @file DbTest.php
  * @brief Fichier de test de la base de données
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
  * @date 2024-11-18
- * @version 1.0
+ * @version 1.1
  */
 
 require_once __DIR__ . '/../include.php';
 
-use PDO;
 use ComusParty\Models\Db;
 use PHPUnit\Framework\TestCase;
 

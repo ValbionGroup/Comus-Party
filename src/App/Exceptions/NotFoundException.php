@@ -7,7 +7,7 @@
  * @date 2024-11-20
  */
 
-namespace ComusParty\App\Exception;
+namespace ComusParty\App\Exceptions;
 
 use Exception;
 use Throwable;

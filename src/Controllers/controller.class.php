@@ -9,8 +9,8 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\App\Exception\AuthenticationException;
-use ComusParty\App\Exception\MethodNotFoundException;
+use ComusParty\App\Exceptions\AuthenticationException;
+use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\MessageHandler;
 use ComusParty\Models\Db;
 use Error;

@@ -9,8 +9,8 @@
 
 namespace ComusParty\App;
 
-use ComusParty\App\Exception\RouteNotFoundException;
-use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exceptions\RouteNotFoundException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use Exception;
 
 /**
