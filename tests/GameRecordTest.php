@@ -40,6 +40,7 @@ class GameRecordTest extends TestCase
             new Player(),
             [new Player(), new Player()],
             GameRecordState::WAITING,
+            true,
             new DateTime('2024-01-01'),
             new DateTime('2024-11-14'),
             new DateTime('2024-12-19')
@@ -116,6 +117,35 @@ class GameRecordTest extends TestCase
     public function testGetPlayersOk(): void
     {
         $this->assertEquals([new Player(), new Player()], $this->gameRecord->getPlayers());
+    }
+
+    /**
+     * @brief Test de la méthode isPrivate
+     * @return void
+     */
+    public function testIsPrivateOk(): void
+    {
+        $this->assertTrue($this->gameRecord->isPrivate());
+    }
+
+    /**
+     * @brief Test de la méthode setPrivate avec un paramètre valide
+     * @return void
+     */
+    public function testSetPrivateOk(): void
+    {
+        $this->gameRecord->setPrivate(false);
+        $this->assertFalse($this->gameRecord->isPrivate());
+    }
+
+    /**
+     * @brief Test de la méthode setPrivate avec un paramètre invalide
+     * @return void
+     */
+    public function testSetPrivateWithInvalidPrivate(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->gameRecord->setPrivate('private');
     }
 
     /**
