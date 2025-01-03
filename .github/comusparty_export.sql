@@ -127,6 +127,7 @@ CREATE TABLE `cp_game_record`
     `game_id`    bigint(20)                            NOT NULL,
     `hosted_by`  varchar(63)                           NOT NULL,
     `state`      enum ('waiting','started','finished') NOT NULL DEFAULT 'waiting',
+    `private`    tinyint(1)                            NOT NULL DEFAULT 0,
     `created_at` timestamp                             NOT NULL DEFAULT current_timestamp(),
     `updated_at` timestamp                             NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE = InnoDB
