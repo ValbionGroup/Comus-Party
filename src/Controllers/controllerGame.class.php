@@ -210,6 +210,57 @@ class ControllerGame extends Controller
     }
 
     /**
+     * @brief Rejoint une partie suite à une recherche de partie
+     * @param int $gameId Identifiant du jeu à rejoindre
+     * @return void
+     */
+    public function joinGameFromSearch(int $gameId): void
+    {
+        try {
+            $gameRecordManager = new GameRecordDAO($this->getPdo());
+            $gameRecords = $gameRecordManager->findByGameId($gameId);
+
+            $eloForGame = [];
+            foreach ($gameRecords as $gameRecord) {
+                if ($gameRecord->getState() == GameRecordState::WAITING) {
+                    $players = $gameRecord->getPlayers();
+
+                    $totalElo = 0;
+                    $nbPlayers = 0;
+                    foreach ($players as $player) {
+                        $totalElo += $player->getElo();
+                        $nbPlayers++;
+                    }
+
+                    $eloForGame[$gameRecord->getUuid()] = $totalElo / $nbPlayers;
+                }
+            }
+
+            if (sizeof($eloForGame) == 0) {
+                throw new GameUnavailableException("Aucune partie n'est disponible");
+            }
+
+            $playerElo = (new PlayerDAO($this->getPdo()))->findByUuid($_SESSION['uuid'])->getElo();
+            $bestGame = null;
+
+            foreach ($eloForGame as $gameCode => $gameElo) {
+                if ($bestGame == null || abs($gameElo - $playerElo) < abs($eloForGame[$bestGame] - $playerElo)) {
+                    $bestGame = $gameCode;
+                }
+            }
+
+            echo $this->joinGame($bestGame, $_SESSION['uuid']);
+            exit;
+        } catch (Exception $e) {
+            echo json_encode([
+                "success" => false,
+                "message" => $e->getMessage(),
+            ]);
+            exit;
+        }
+    }
+
+    /**
      * @brief Rejoint une partie avec un code
      * @param string $code Code de la partie
      * @param string|null $playerUuid UUID de l'utilisateur, null si l'utilisateur n'est pas connecté
@@ -218,7 +269,7 @@ class ControllerGame extends Controller
      * @throws NotFoundException Exception levée si la partie n'existe pas
      * @throws Exception Exception levée en cas d'erreur avec la base de données
      */
-    public function joinGame(string $code, ?string $playerUuid = null): string
+    private function joinGame(string $code, ?string $playerUuid = null): string
     {
         $gameRecordManager = new GameRecordDAO($this->getPdo());
         $gameRecord = $gameRecordManager->findByUuid($code);
