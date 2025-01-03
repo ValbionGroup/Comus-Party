@@ -17,6 +17,7 @@ use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
 use ComusParty\Models\GameRecordState;
 use ComusParty\Models\GameState;
+use ComusParty\Models\Player;
 use ComusParty\Models\PlayerDAO;
 use DateTime;
 use Exception;
@@ -192,7 +193,7 @@ class ControllerGame extends Controller
     {
         $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
         if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
-            $settings = $this->getGameModiableSettings($gameRecord->getGame()->getId());
+            $settings = $this->getGameModifiableSettings($gameRecord->getGame()->getId());
         } else {
             $settings = [];
         }
@@ -209,11 +210,50 @@ class ControllerGame extends Controller
     }
 
     /**
+     * @brief Rejoint une partie avec un code
+     * @param string $code Code de la partie
+     * @param string|null $playerUuid UUID de l'utilisateur, null si l'utilisateur n'est pas connecté
+     * @return string Réponse au format JSON
+     * @throws GameUnavailableException Exception levée si la partie n'est pas disponible
+     * @throws NotFoundException Exception levée si la partie n'existe pas
+     * @throws Exception Exception levée en cas d'erreur avec la base de données
+     */
+    public function joinGame(string $code, ?string $playerUuid = null): string
+    {
+        $gameRecordManager = new GameRecordDAO($this->getPdo());
+        $gameRecord = $gameRecordManager->findByUuid($code);
+
+        if ($gameRecord == null) {
+            throw new NotFoundException("La partie n'existe pas");
+        }
+
+        $player = (new PlayerDAO($this->getPdo()))->findByUuid($playerUuid);
+
+        /*if (!is_null($userUuid)) {
+            $player = (new PlayerDAO($this->getPdo()))->findByUuid($userUuid);
+        }*/
+
+        if ($gameRecord->getState() != GameRecordState::WAITING) {
+            throw new GameUnavailableException("La partie a déjà commencé");
+        }
+
+        $gameRecordManager->addPlayer($gameRecord, $player);
+
+        return json_encode([
+            "success" => true,
+            "game" => [
+                "code" => $code,
+                "gameId" => $gameRecord->getGame()->getId(),
+            ],
+        ]);
+    }
+
+    /**
      * @brief Récupère les paramètres modifiables du jeu dont l'ID est passé en paramètre
      * @param int $id ID du jeu
      * @return array Tableau associatif contenant les paramètres modifiables du jeu
      */
-    private function getGameModiableSettings(int $id): array
+    private function getGameModifiableSettings(int $id): array
     {
         $allSettings = $this->getGameSettings($id);
         return $allSettings["modifiableSettings"];
