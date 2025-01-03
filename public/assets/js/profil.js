@@ -21,15 +21,21 @@ let background = document.getElementById('backgroundModal');
 let pfpTitle = document.getElementById("pfpTitle")
 let pfpDescription = document.getElementById("pfpDescription")
 
+let bannerTitle = document.getElementById("bannerTitle")
+let bannerDescription = document.getElementById("bannerDescription")
+
 let equipButton = document.getElementById("equipButton")
 let modalPfp = document.getElementById("modalPfp")
+let modalBanner = document.getElementById("modalBanner")
 
 let modals = document.querySelectorAll(".modal")
 let pfps = document.querySelectorAll(".pfp")
 let playerPfp = document.getElementById("pfpPlayer")
+let playerBanner = document.getElementById("bannerPlayer")
 let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
 let defaultPfp = document.getElementById("defaultPfp")
-let inputSelectedPfp = document.getElementById("selectedPfp")
+let inputSelectedArticleId = document.getElementById("selectedArticleId")
+let inputSelectedArticleType = document.getElementById("selectedArticleType")
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -38,12 +44,24 @@ function activeShadowOnPfp(pfp) {
 function infoArticlePfp(article) {
     pfpTitle.textContent = article.name
     pfpDescription.textContent = article.description
-    inputSelectedPfp.value = article.id
+    inputSelectedArticleId.value = article.id
+    inputSelectedArticleType.value = article.type
 
+}
+function infoArticleBanner(article) {
+    bannerTitle.textContent = article.name
+    bannerDescription.textContent = article.description
+    inputSelectedArticleId.value = article.id
+    inputSelectedArticleType.value = article.type
 }
 
 function showModalPfp() {
     modalPfp.classList.remove("hidden")
+    background.classList.remove("hidden")
+}
+
+function showModalBanner() {
+    modalBanner.classList.remove("hidden")
     background.classList.remove("hidden")
 }
 
@@ -112,11 +130,13 @@ function afficher(section) {
     }
 }
 
+// Fonction permettant d'équiper un article
 
-function equipArticlePfp() {
-    let idArticle = inputSelectedPfp.value
+function equipArticle() {
+    let idArticle = inputSelectedArticleId.value
+    let typeArticle = inputSelectedArticleType.value
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/profile/updateStyle/${idArticle}`, true);
+    xhr.open("PUT", `/profile/updateStyle/${idArticle}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     // Envoyer les données sous forme de paire clé=valeur
     xhr.send();
@@ -124,8 +144,13 @@ function equipArticlePfp() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText)
-            playerPfp.src = "/assets/img/pfp/" + response.articlePath
-            pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
+            if(typeArticle === "banner"){
+                playerBanner.src = "/assets/img/banner/" + response.articlePath
+            }else if(typeArticle === "pfp"){
+                playerPfp.src = "/assets/img/pfp/" + response.articlePath
+                pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
+            }
+
         }
     };
     closeModal()
