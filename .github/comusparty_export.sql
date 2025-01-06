@@ -263,7 +263,8 @@ VALUES (1, 'mod_uuid1', NULL, 'uuid2', 'Inappropriate behavior', 30, 'muted', NU
 CREATE TABLE `cp_played`
 (
     `game_uuid`   varchar(63) NOT NULL,
-    `player_uuid` varchar(63) NOT NULL
+    `player_uuid` varchar(63) NOT NULL,
+    `token`       varchar(16) NOT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;

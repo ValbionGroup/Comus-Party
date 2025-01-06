@@ -87,7 +87,13 @@ class GameRecordDAO
         $finishedAt = $row["finished_at"] ? new DateTime($row["finished_at"]) : null;
         $players = $this->findPlayersByGameRecordUuid($row["uuid"]);
         if (!is_null($players)) {
-            $players = array_map(fn($player) => (new PlayerDAO($this->getPdo()))->findByUuid($player["player_uuid"]), $players);
+            $players = array_map(function ($player) {
+                $playerObject = (new PlayerDAO($this->getPdo()))->findByUuid($player["player_uuid"]);
+                return [
+                    "player" => $playerObject,
+                    "token" => $player["token"]
+                ];
+            }, $players);
         }
 
         return new GameRecord(
@@ -109,7 +115,7 @@ class GameRecordDAO
      */
     private function findPlayersByGameRecordUuid(string $uuid): ?array
     {
-        $stmt = $this->pdo->prepare("SELECT player_uuid FROM " . DB_PREFIX . "played WHERE game_uuid = :uuid");
+        $stmt = $this->pdo->prepare("SELECT player_uuid, token FROM " . DB_PREFIX . "played WHERE game_uuid = :uuid");
         $stmt->bindParam(":uuid", $uuid);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
