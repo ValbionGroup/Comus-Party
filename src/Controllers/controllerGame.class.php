@@ -116,10 +116,6 @@ class ControllerGame extends Controller
                 if (!array_key_exists($key, $gameSettings["modifiableSettings"])) {
                     throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
                 }
-
-                if (!in_array($value, $gameSettings["modifiableSettings"][$key])) {
-                    throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
-                }
             }
         } else {
             $settings = [];
