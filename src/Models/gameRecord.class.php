@@ -37,6 +37,11 @@ enum GameRecordState
      * @brief L'état FINISHED indique que la partie est terminée.
      */
     case FINISHED;
+    /**
+     * @brief L'état UNKNOWN indique que l'état de la partie est inconnu.
+     * @details Cet état est utilisé par défaut lors de la création d'une partie.
+     */
+    case UNKNOWN;
 }
 
 /**

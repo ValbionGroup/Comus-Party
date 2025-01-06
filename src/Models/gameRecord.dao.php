@@ -83,6 +83,7 @@ class GameRecordDAO
             "waiting" => GameRecordState::WAITING,
             "started" => GameRecordState::STARTED,
             "finished" => GameRecordState::FINISHED,
+            default => GameRecordState::UNKNOWN,
         };
         $finishedAt = $row["finished_at"] ? new DateTime($row["finished_at"]) : null;
         $players = $this->findPlayersByGameRecordCode($row["code"]);
@@ -194,6 +195,7 @@ class GameRecordDAO
             GameRecordState::WAITING => "waiting",
             GameRecordState::STARTED => "started",
             GameRecordState::FINISHED => "finished",
+            GameRecordState::UNKNOWN => null,
         };
 
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE state = :state");
@@ -224,6 +226,7 @@ class GameRecordDAO
             GameRecordState::WAITING => "waiting",
             GameRecordState::STARTED => "started",
             GameRecordState::FINISHED => "finished",
+            GameRecordState::UNKNOWN => null,
         };
         $createdAt = $gameRecord->getCreatedAt()->format("Y-m-d H:i:s");
         $updatedAt = $gameRecord->getUpdatedAt()?->format("Y-m-d H:i:s");
@@ -253,6 +256,7 @@ class GameRecordDAO
             GameRecordState::WAITING => "waiting",
             GameRecordState::STARTED => "started",
             GameRecordState::FINISHED => "finished",
+            GameRecordState::UNKNOWN => null,
         };
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
         $code = $gameRecord->getCode();
