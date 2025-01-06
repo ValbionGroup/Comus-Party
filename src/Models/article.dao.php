@@ -270,6 +270,7 @@ class ArticleDAO
         return $this->hydrateMany($tabBanners);
 
     }
+
     /**
      * @brief Met à jour l'article en active dans la base de données
      * @param string $uuid L'UUID du joueur
@@ -278,13 +279,13 @@ class ArticleDAO
      */
     public function updateActiveArticle(string $uuid, string $idArticle, string $typeArticle)
     {
-        if($typeArticle == "ProfilePicture") {
+        if ($typeArticle == "ProfilePicture") {
             $pfpActive = $this->findActivePfpByPlayerUuid($uuid);
             // Si pfp déjà équipé
-            if($pfpActive != null){
+            if ($pfpActive != null) {
                 $idPfpActive = $pfpActive->getId();
                 $stmt = $this->pdo->prepare(
-                    'UPDATE '. DB_PREFIX . 'invoice_row ir
+                    'UPDATE ' . DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
         SET ir.active = 0
@@ -297,7 +298,7 @@ class ArticleDAO
 
 // Mettre en active la pfp choisie
             $stmt = $this->pdo->prepare(
-                'UPDATE '. DB_PREFIX . 'invoice_row ir
+                'UPDATE ' . DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
         SET ir.active = 1
@@ -310,11 +311,11 @@ class ArticleDAO
             $_SESSION['pfpPath'] = $pfp->getFilePath();
         }
 
-        if($typeArticle == "Banner") {
+        if ($typeArticle == "Banner") {
             $bannerActive = $this->findActiveBannerByPlayerUuid($uuid);
 
             //Si banner déjà équipé
-            if($bannerActive != null) {
+            if ($bannerActive != null) {
                 $idBannerActive = $bannerActive->getId();
                 $stmt = $this->pdo->prepare(
                     'UPDATE ' . DB_PREFIX . 'invoice_row ir
@@ -330,7 +331,7 @@ class ArticleDAO
 
             //Met en active la bannière choisie
             $stmt = $this->pdo->prepare(
-                'UPDATE '. DB_PREFIX . 'invoice_row ir
+                'UPDATE ' . DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
         SET ir.active = 1
@@ -342,37 +343,6 @@ class ArticleDAO
             $banner = $this->findById($idArticle);
             $_SESSION['bannerPath'] = $banner->getFilePath();
         }
-    }
-
-    /**
-     * @brief Supprime toutes les pfps pour les mettre à 0 en active
-     * @param string $uuid L'UUID du joueur
-     */
-    public function deleteActiveArticleForPfp(string $uuid)
-    {
-        $stmt = $this->pdo->prepare(
-            'UPDATE '. DB_PREFIX . 'invoice_row ir
-        JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
-        JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
-        SET ir.active = 0 
-        WHERE i.player_uuid = :uuid AND a.type = "pfp"');
-        $stmt->bindParam(':uuid', $uuid);
-        $stmt->execute();
-    }
-
-    /**
-     * @brief Supprime toutes les bannières pour les mettre à 0 en active
-     * @param string $uuid L'UUID du joueur
-     */
-    public function deleteActiveArticleForBanner(string $uuid){
-        $stmt = $this->pdo->prepare(
-            'UPDATE '. DB_PREFIX . 'invoice_row ir
-        JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
-        JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
-        SET ir.active = 0 
-        WHERE i.player_uuid = :uuid AND a.type = "banner"');
-        $stmt->bindParam(':uuid', $uuid);
-        $stmt->execute();
     }
 
     /**
@@ -421,22 +391,6 @@ class ArticleDAO
     }
 
     /**
-     * @brief Supprime toutes les pfps pour les mettre à 0 en active
-     * @param string $uuid L'UUID du joueur
-     */
-    public function deleteActiveArticleForPfp(string $uuid)
-    {
-        $stmt = $this->pdo->prepare(
-            'UPDATE ' . DB_PREFIX . 'invoice_row ir
-        JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
-        JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
-        SET ir.active = 0 
-        WHERE i.player_uuid = :uuid AND a.type = "pfp"');
-        $stmt->bindParam(':uuid', $uuid);
-        $stmt->execute();
-    }
-
-    /**
      * @brief Retourne la bannière active que le joueur possède sous forme d'objet Article
      * @param string $uuid L'UUID du joueur
      * @return Article|null La bannière du joueur (ou null si non-trouvée)
@@ -458,5 +412,37 @@ class ArticleDAO
             return null;
         }
         return $this->hydrate($banner);
+    }
+
+    /**
+     * @brief Supprime toutes les pfps pour les mettre à 0 en active
+     * @param string $uuid L'UUID du joueur
+     */
+    public function deleteActiveArticleForPfp(string $uuid)
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE ' . DB_PREFIX . 'invoice_row ir
+        JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
+        JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
+        SET ir.active = 0 
+        WHERE i.player_uuid = :uuid AND a.type = "pfp"');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+    }
+
+    /**
+     * @brief Supprime toutes les bannières pour les mettre à 0 en active
+     * @param string $uuid L'UUID du joueur
+     */
+    public function deleteActiveArticleForBanner(string $uuid)
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE ' . DB_PREFIX . 'invoice_row ir
+        JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
+        JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
+        SET ir.active = 0 
+        WHERE i.player_uuid = :uuid AND a.type = "banner"');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
     }
 }
