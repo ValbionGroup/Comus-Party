@@ -26,8 +26,8 @@ require_once __DIR__ . '/src/App/Exceptions/PaymentException.php';
 require_once __DIR__ . '/src/App/Exceptions/GameUnavailableException.php';
 require_once __DIR__ . '/src/App/Exceptions/GameSettingsException.php';
 
-require_once __DIR__ . '/src/App/Socket/Chat.php';
-require_once __DIR__ . '/src/App/Socket/Game.php';
+require_once __DIR__ . '/src/App/Sockets/Chat.php';
+require_once __DIR__ . '/src/App/Sockets/Game.php';
 
 require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/Controllers/controller.class.php';
