@@ -130,12 +130,16 @@ class PlayerDAO
     public function findWithDetailByUuid(string $uuid): ?Player
     {
         $stmt = $this->pdo->prepare(
-            'SELECT pr.*, u.email, u.created_at, u.updated_at, COUNT(pd.player_uuid) as games_played, COUNT(w.player_uuid) as games_won, COUNT(gr.hosted_by) as games_hosted
-            FROM ' . DB_PREFIX . 'player pr
-            JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
-            LEFT JOIN ' . DB_PREFIX . 'played pd ON pr.uuid = pd.player_uuid
-            LEFT JOIN ' . DB_PREFIX . 'won w ON pr.uuid = w.player_uuid
-            LEFT JOIN ' . DB_PREFIX . 'game_record gr ON pr.uuid = gr.hosted_by
+            'SELECT 
+            pr.*,
+            u.email,
+            u.created_at,
+            u.updated_at,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'played WHERE player_uuid = pr.uuid) as games_played,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'won WHERE player_uuid = pr.uuid) as games_won,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'game_record WHERE hosted_by = pr.uuid) as games_hosted
+            FROM cp_player pr
+            JOIN cp_user u ON pr.user_id = u.id
             WHERE pr.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
