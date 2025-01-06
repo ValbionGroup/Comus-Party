@@ -13,14 +13,20 @@ fichier `settings.json` :
     "name": "Nom du jeu",
     "version": "Version du jeu",
     "description": "Description du jeu",
-    "type": "Type du jeu"
+    "type": "Type du jeu",
+    "author": "John Doe"
   },
   "settings": {
-    "minPlayers": 1,
-    "maxPlayers": 4,
+    "minPlayer": 2,
+    "maxPlayer": 20,
+    "allowChat": true,
+    "allowVoice": false,
+    "allowSpectators": true,
+    "allowJoinInProgress": false,
+    "allowLeaveInProgress": true,
     "isNode": true,
-    "nodeServer": "URL du serveur Node",
-    "chatEnabled": true
+    "serverPort": null,
+    "serverAddress": null
   },
   "modifiableSettings": {
     // Liste des paramètres modifiables par l'hôte de la partie
@@ -41,11 +47,13 @@ fichier `settings.json` :
 Liste des paramètres possibles pour `neededParametersFromComus` :
 
 - `MODIFIED_SETTING_DATA` : Liste des paramètres modifiés par l'hôte de la partie
+- `PLAYER_UUID` : Les uuids des joueurs dans la partie
+- `PLAYER_NAME` : Les noms des joueurs dans la partie
 
 Liste des paramètres possibles pour `returnParametersToComus` :
 
-- `WINNER` : UUID du/des gagnants de la partie
-- `SCORE` : Score des joueurs
+- `WINNER_UUID` : UUID du/des gagnants de la partie
+- `WINNER_SCORE` : Score des joueurs
 
 ##### Paramètres modifiables
 
