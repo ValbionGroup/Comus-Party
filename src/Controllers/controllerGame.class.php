@@ -95,7 +95,6 @@ class ControllerGame extends Controller
             throw new GameUnavailableException("Le jeu n'est pas disponible");
         }
 
-        $gameFolder = $this->getGameFolder($game->getId());
         $gameSettings = $this->getGameSettings($game->getId());
 
         if (sizeof($gameSettings) == 0) {
@@ -121,9 +120,12 @@ class ControllerGame extends Controller
             $settings = [];
         }
 
+        $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
+
         $gameRecord->setState(GameRecordState::STARTED);
         $gameRecord->setUpdatedAt(new DateTime());
         (new GameRecordDAO($this->getPdo()))->update($gameRecord);
+
 
         echo json_encode([
             "success" => true,
@@ -132,17 +134,6 @@ class ControllerGame extends Controller
                 "gameId" => $game->getId(),
             ],
         ]);
-    }
-
-    /**
-     * @brief Récupère le dossier du jeu dont l'ID est passé en paramètre
-     *
-     * @param int $id
-     * @return string Chemin du dossier du jeu
-     */
-    private function getGameFolder(int $id): string
-    {
-        return realpath(__DIR__ . "/../..") . "/games/game$id";
     }
 
     /**
@@ -160,6 +151,17 @@ class ControllerGame extends Controller
         }
 
         return json_decode(file_get_contents($settingsFile), true);
+    }
+
+    /**
+     * @brief Récupère le dossier du jeu dont l'ID est passé en paramètre
+     *
+     * @param int $id
+     * @return string Chemin du dossier du jeu
+     */
+    private function getGameFolder(int $id): string
+    {
+        return realpath(__DIR__ . "/../..") . "/games/game$id";
     }
 
     /**
@@ -234,7 +236,7 @@ class ControllerGame extends Controller
             "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
             "players" => $gameRecord->getPlayers(),
             "game" => $gameRecord->getGame(),
-            "chat" => $gameSettings["settings"]["chatEnabled"],
+            "chat" => $gameSettings["settings"]["allowChat"],
             "gameFileInfos" => $gameSettings["game"],
             "settings" => $settings,
         ]);
@@ -258,14 +260,17 @@ class ControllerGame extends Controller
             throw new UnauthorizedAccessException("Vous n'êtes pas dans la partie");
         }
 
+        $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
+        $baseUrl = $gameSettings["settings"]["serverPort"] != null ? "https://" . $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : "https://" . $gameSettings["settings"]["serverAddress"];
+
         $template = $this->getTwig()->load('player/in-game.twig');
         echo $template->render([
             "code" => $gameRecord->getCode(),
             "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
             "players" => $gameRecord->getPlayers(),
             "game" => $gameRecord->getGame(),
-            "chat" => $this->getGameSettings($gameRecord->getGame()->getId())["settings"]["chatEnabled"],
-
+            "chat" => $this->getGameSettings($gameRecord->getGame()->getId())["settings"]["allowChat"],
+            "iframe" => $baseUrl . "/" . $gameRecord->getCode(),
         ]);
     }
 

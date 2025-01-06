@@ -4,13 +4,8 @@
 
 {% block content %}
     <section class="grid grid-cols-5 w-full h-full gap-6">
-        <div class="col-span-4 bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
-            <div class="h-full flex flex-col items-center justify-center w-full">
-                <h3 class="text-lg font-semibold">Oups...</h3>
-                <p class="text-center">
-                    Le jeu n'est pas encore disponible, mais vous pouvez toujours discuter avec les autres joueurs !
-                </p>
-            </div>
+        <div class="col-span-4 bg-lavender-blush-1 dark:bg-night-1 rounded-lg flex flex-col">
+            <iframe src="{{ iframe }}" class="w-full h-full rounded-lg" id="gameFrame"></iframe>
         </div>
         {% if chat %}
             <div class="h-full bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
