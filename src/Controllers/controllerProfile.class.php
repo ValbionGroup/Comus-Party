@@ -72,7 +72,8 @@ class ControllerProfile extends Controller
         } else {
             $bannerPath = $banner->getFilePath();
         }
-        $pfpsOwned = $articleManager->findAllPfpsByUuidPlayer($player->getUuid());
+        $pfpsOwned = $articleManager->findAllPfpsOwnedByPlayer ($player->getUuid());
+        $bannersOwned = $articleManager->findAllBannersOwnedByPlayer($player->getUuid());
         $template = $this->getTwig()->load('player/profil.twig');
         echo $template->render(array(
             "player" => $player,
@@ -80,6 +81,7 @@ class ControllerProfile extends Controller
             "pfp" => $pfpPath,
             "banner" => $bannerPath,
             "pfpsOwned" => $pfpsOwned,
+            "bannersOwned" => $bannersOwned
         ));
     }
 
@@ -116,9 +118,10 @@ class ControllerProfile extends Controller
      * @brief Permet de mettre à jour la photo de profil ou la bannière d'un joueur
      * @param string|null $player_uuid L'UUID du joueur à désactiver
      * @param string $idArticle L'id de l'article à activer
+     * @param string $typeArticle Le type de l'article à activer
      * @return void
      */
-    public function updateStyle(?string $player_uuid, string $idArticle)
+    public function updateStyle(?string $player_uuid, string $idArticle): void
     {
         if (is_null($player_uuid)) {
             throw new NotFoundException('Player not found');
@@ -128,19 +131,35 @@ class ControllerProfile extends Controller
         if (is_null($player)) {
             throw new NotFoundException('Player not found');
         }
+        $idArticle = intval($idArticle);
         $articleManager = new ArticleDAO($this->getPdo());
-        if ($idArticle == 0) {
+        // 0 représente la photo de profil par défaut et -1 la bannière par défaut
+        if($idArticle >= 1){
+            $typeArticle = $articleManager->findById($idArticle)->getType()->name;
+        }
+
+        if($idArticle == 0){
 
             $articleManager->deleteActiveArticleForPfp($player->getUuid());
             $_SESSION['pfpPath'] = "default-pfp.jpg";
             echo json_encode([
                 'articlePath' => "default-pfp.jpg",
             ]);
-        } else {
-            $articleManager->updateActiveArticle($player->getUuid(), $idArticle);
-            $article = $articleManager->findById($idArticle);
+        }
+        if ($idArticle == -1){
+            $articleManager->deleteActiveArticleForBanner($player->getUuid());
+            $_SESSION['bannerPath'] = "default-banner.jpg";
             echo json_encode([
-                'articlePath' => $article->getFilePath()
+                'articlePath' => "default-banner.jpg",
+            ]);
+        }
+        if($idArticle != 0 && $idArticle != -1){
+            $articleManager->updateActiveArticle($player->getUuid(), $idArticle, $typeArticle);
+            $article = $articleManager->findById($idArticle);
+
+            echo json_encode([
+                'articlePath' => $article->getFilePath(),
+                'idArticle' => $idArticle
             ]);
         }
     }
