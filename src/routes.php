@@ -239,3 +239,7 @@ $router->get('/suggest/:id', function ($id) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getSuggestionInfo", ["id" => $id]);
     exit;
 }, 'moderator');
+
+$router->get('/ranking', function () use ($loader, $twig) {
+    ControllerFactory::getController("ranking", $loader, $twig)->call("showRanking");
+});
