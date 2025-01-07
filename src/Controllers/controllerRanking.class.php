@@ -2,6 +2,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\Models\PlayerDAO;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -26,7 +27,11 @@ class ControllerRanking extends Controller
      * @return void
      */
     public function showRanking() {
+        $playerManager = new PlayerDAO($this->getPdo());
+        $players = $playerManager->findInRangeOrderByEloDescWithDetails(1, 50);
         $template = $this->getTwig()->load('ranking.twig');
-        echo $template->render();
+        echo $template->render(array(
+            'players' => $players
+        ));
     }
 }

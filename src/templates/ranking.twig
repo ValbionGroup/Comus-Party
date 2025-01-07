@@ -6,8 +6,36 @@
 
 {% block content %}
     <div class="overflow-y-auto scrollbar-thumb-night-base scrollbar-track-night-base h-full w-full">
-        <div class="flex flex-col sm:flex-row justify-between mb-10">
-            <h1 class="text-4xl ml-5 mt-5 font-serif">Classement général</h1>
+        <div class="flex flex-col justify-between mb-10">
+            <h1 class="text-4xl ml-5 mt-5 font-serif mb-10">Classement général</h1>
+            <div class="rounded-2xl">
+                <table class="w-full table-auto bg-lavender-blush-1 dark:bg-night-1 rounded-lg shadow-md">
+                    <thead>
+                    <tr class="bg-lavender-blush-2 dark:bg-night-2 p-4 text-left text-xl">
+                        <th class="p-4 text-left text-xl">Avatar</th>
+                        <th class="p-4 text-left text-xl">Nom d'utilisateur</th>
+                        <th class="p-4 text-left text-xl">ELO</th>
+                        <th class="p-4 text-left text-xl">XP</th>
+                        <th class="p-4 text-left text-xl">Parties gagnées</th>
+                        <th class="p-4 text-left text-xl">Parties jouées</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for player in players %}
+                        <tr class="odd:bg-lavender-blush-1 even:bg-lavender-blush-2 dark:odd:bg-night-1 dark:even:bg-night-2">
+                            <td class="p-4">
+                                <img src="/assets/img/pfp/{{ player.pfpPath }}" alt="pfp" class="rounded-full size-8">
+                            </td>
+                            <td class="p-4 font-semibold">{{ player.username }}</td>
+                            <td class="p-4 font-semibold">{{ player.elo }}</td>
+                            <td class="p-4 font-semibold">{{ player.xp }}</td>
+                            <td class="p-4 font-semibold">{{ player.statistics.gamesWon }}</td>
+                            <td class="p-4 font-semibold">{{ player.statistics.gamesPlayed }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}

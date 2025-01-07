@@ -222,12 +222,13 @@ class PlayerDAO
     public function findAllWithDetail(): ?array
     {
         $stmt = $this->pdo->query(
-            'SELECT pr.*, u.email, u.created_at, u.updated_at, COUNT(pd.player_uuid) as games_played, COUNT(w.player_uuid) as games_won, COUNT(gr.hosted_by) as games_hosted
-            FROM ' . DB_PREFIX . 'player pr
-            JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
-            LEFT JOIN ' . DB_PREFIX . 'played pd ON pr.uuid = pd.player_uuid
-            LEFT JOIN ' . DB_PREFIX . 'won w ON pr.uuid = w.player_uuid
-            LEFT JOIN ' . DB_PREFIX . 'game_record gr ON pr.uuid = gr.hosted_by');
+            'SELECT pr.*, u.email, u.created_at, u.updated_at,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'played WHERE player_uuid = pr.uuid) as games_played,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'won WHERE player_uuid = pr.uuid) as games_won,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'game_record WHERE hosted_by = pr.uuid) as games_hosted
+            FROM cp_player pr
+            JOIN cp_user u ON pr.user_id = u.id
+            WHERE pr.uuid = :uuid');
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $tabPlayers = $stmt->fetchAll();
         if ($tabPlayers === false) {
@@ -280,5 +281,40 @@ class PlayerDAO
             return null;
         }
         return $this->hydrate($result);
+    }
+
+    /**
+     * @brief Retourne un tableau d'objets Player recensant l'ensemble des joueurs enregistrés dans la base de données triés par ordre décroissant de leur score Elo
+     * @return array|null Objet retourné par la méthode, ici un tableau d'objets Player (ou null si aucune joueur recensé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a de joueurs dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     */
+    public function findInRangeOrderByEloDescWithDetails(int $start, int $end): ?array
+    {
+        $limit = $end - $start + 1; // Calculer le nombre d'éléments à récupérer
+        $offset = $start - 1; // Décalage basé sur la position (index commence à 0)
+
+        $stmt = $this->pdo->prepare(
+            'SELECT pr.*, u.email, u.created_at, u.updated_at,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'played WHERE player_uuid = pr.uuid) as games_played,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'won WHERE player_uuid = pr.uuid) as games_won,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'game_record WHERE hosted_by = pr.uuid) as games_hosted
+            FROM cp_player pr
+            JOIN cp_user u ON pr.user_id = u.id
+            ORDER BY elo DESC
+            LIMIT :limit OFFSET :offset'
+        );
+
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $tabPlayers = $stmt->fetchAll();
+
+        if ($tabPlayers === false) {
+            return null;
+        }
+        return $this->hydrateMany($tabPlayers);
     }
 }
