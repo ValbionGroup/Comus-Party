@@ -11,30 +11,31 @@
             <div class="rounded-2xl">
                 <table class="w-full table-auto bg-lavender-blush-1 dark:bg-night-1 rounded-lg shadow-md">
                     <thead>
-                    <tr class="bg-lavender-blush-2 dark:bg-night-2 p-4 text-left text-xl">
-                        <th class="p-4 text-left text-xl">Avatar</th>
-                        <th class="p-4 text-left text-xl">Nom d'utilisateur</th>
-                        <th class="p-4 text-left text-xl">ELO</th>
-                        <th class="p-4 text-left text-xl">XP</th>
-                        <th class="p-4 text-left text-xl">Parties gagnées</th>
-                        <th class="p-4 text-left text-xl">Parties jouées</th>
+                    <tr class="bg-lavender-blush-2 dark:bg-night-2">
+                        <th class="p-4 text-left md:text-xl hidden md:table-cell">Avatar</th>
+                        <th class="p-4 text-left md:text-xl">Nom d'utilisateur</th>
+                        <th class="p-4 text-left md:text-xl">ELO</th>
+                        <th class="p-4 text-left md:text-xl hidden md:table-cell">XP</th>
+                        <th class="p-4 text-left md:text-xl">Parties gagnées</th>
+                        <th class="p-4 text-left md:text-xl hidden md:table-cell">Parties jouées</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for player in players %}
                         <tr class="odd:bg-lavender-blush-1 even:bg-lavender-blush-2 dark:odd:bg-night-1 dark:even:bg-night-2">
-                            <td class="p-4">
+                            <td class="p-4 hidden md:table-cell">
                                 <img src="/assets/img/pfp/{{ player.pfpPath }}" alt="pfp" class="rounded-full size-8">
                             </td>
                             <td class="p-4 font-semibold">{{ player.username }}</td>
                             <td class="p-4 font-semibold">{{ player.elo }}</td>
-                            <td class="p-4 font-semibold">{{ player.xp }}</td>
+                            <td class="p-4 font-semibold hidden md:table-cell">{{ player.xp }}</td>
                             <td class="p-4 font-semibold">{{ player.statistics.gamesWon }}</td>
-                            <td class="p-4 font-semibold">{{ player.statistics.gamesPlayed }}</td>
+                            <td class="p-4 font-semibold hidden md:table-cell">{{ player.statistics.gamesPlayed }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
