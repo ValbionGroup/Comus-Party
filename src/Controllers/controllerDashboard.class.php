@@ -96,7 +96,8 @@ class ControllerDashboard extends Controller
      * @return void
      * @throws DateMalformedStringException
      */
-    public function getSuggestionInfo(?int $id) {
+    public function getSuggestionInfo(?int $id)
+    {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestion = $suggestsManager->findById($id);
         echo json_encode([

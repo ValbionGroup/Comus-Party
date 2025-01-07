@@ -2,9 +2,9 @@
 
 global $router;
 
+use ComusParty\App\Exceptions\NotFoundException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\MessageHandler;
-use ComusParty\App\Exception\NotFoundException;
-use ComusParty\App\Exception\UnauthorizedAccessException;
 
 require __DIR__ . '/../include.php';
 require __DIR__ . '/../src/routes.php';

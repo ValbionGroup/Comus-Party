@@ -9,8 +9,8 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\App\Exception\AuthenticationException;
-use ComusParty\App\Exception\MalformedRequestException;
+use ComusParty\App\Exceptions\AuthenticationException;
+use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;

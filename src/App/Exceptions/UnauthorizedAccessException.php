@@ -1,23 +1,24 @@
 <?php
 /**
  * @brief Gère les exceptions lorsqu'une méthode n'est pas trouvée/n'est pas existante
- * @file MethodNotFoundException.php
+ * @file UnauthorizedAccessException.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
  * @version 1.0
  * @date 2024-11-21
  */
 
-namespace ComusParty\App\Exception;
+namespace ComusParty\App\Exceptions;
 
+use Exception;
 use Throwable;
 
 /**
- * @brief Classe MethodNotFoundException
- * @details Exception personnalisée levée lorsqu'une méthode n'est pas trouvée
+ * @brief Classe UnauthorizedAccessException
+ * @details Exception personnalisée levée lorsqu'un utilisateur n'est pas autorisé à accéder à une ressource
  */
-class MethodNotFoundException extends NotFoundException
+class UnauthorizedAccessException extends Exception
 {
-    public function __construct(string $message = "", int $code = 500, ?Throwable $previous = null)
+    public function __construct($message, $code = 403, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

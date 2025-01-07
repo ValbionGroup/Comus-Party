@@ -8,7 +8,7 @@
  * @date 2024-12-17
  */
 
-namespace ComusParty\App\Exception;
+namespace ComusParty\App\Exceptions;
 
 use Exception;
 

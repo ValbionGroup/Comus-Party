@@ -15,19 +15,19 @@ require_once __DIR__ . '/src/App/Router.php';
 require_once __DIR__ . '/src/App/Validator.php';
 require_once __DIR__ . '/src/App/MessageHandler.php';
 
-require_once __DIR__ . '/src/App/Exception/NotFoundException.php';
-require_once __DIR__ . '/src/App/Exception/MalformedRequestException.php';
-require_once __DIR__ . '/src/App/Exception/AuthenticationException.php';
-require_once __DIR__ . '/src/App/Exception/ControllerNotFoundException.php';
-require_once __DIR__ . '/src/App/Exception/MethodNotFoundException.php';
-require_once __DIR__ . '/src/App/Exception/RouteNotFoundException.php';
-require_once __DIR__ . '/src/App/Exception/UnauthorizedAccessException.php';
-require_once __DIR__ . '/src/App/Exception/PaymentException.php';
-require_once __DIR__ . '/src/App/Exception/GameUnavailableException.php';
-require_once __DIR__ . '/src/App/Exception/GameSettingsException.php';
+require_once __DIR__ . '/src/App/Exceptions/NotFoundException.php';
+require_once __DIR__ . '/src/App/Exceptions/MalformedRequestException.php';
+require_once __DIR__ . '/src/App/Exceptions/AuthenticationException.php';
+require_once __DIR__ . '/src/App/Exceptions/ControllerNotFoundException.php';
+require_once __DIR__ . '/src/App/Exceptions/MethodNotFoundException.php';
+require_once __DIR__ . '/src/App/Exceptions/RouteNotFoundException.php';
+require_once __DIR__ . '/src/App/Exceptions/UnauthorizedAccessException.php';
+require_once __DIR__ . '/src/App/Exceptions/PaymentException.php';
+require_once __DIR__ . '/src/App/Exceptions/GameUnavailableException.php';
+require_once __DIR__ . '/src/App/Exceptions/GameSettingsException.php';
 
-require_once __DIR__ . '/src/App/Socket/Chat.php';
-require_once __DIR__ . '/src/App/Socket/Game.php';
+require_once __DIR__ . '/src/App/Sockets/Chat.php';
+require_once __DIR__ . '/src/App/Sockets/Game.php';
 
 require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/Controllers/controller.class.php';

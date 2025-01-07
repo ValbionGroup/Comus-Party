@@ -10,7 +10,7 @@
 
 global $loader, $twig;
 
-use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Router;
 use ComusParty\Controllers\ControllerFactory;
@@ -78,11 +78,23 @@ $router->delete('/game/:code/quit', function ($code) use ($loader, $twig) {
     exit;
 }, 'player');
 
+$router->post('/game/:code/start', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("initGame", [
+        "code" => $code,
+        "settings" => json_decode($_POST['settings'], true)
+    ]);
+    exit;
+}, 'player');
+
 $router->post('/game/create/:gameId', function (int $gameId) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("createGame", [
         "gameId" => $gameId,
     ]);
 }, 'player');
+
+$router->post('/game/:code/end', function ($code) {
+    // TODO: Récupérer les résultats de la partie
+});
 
 $router->get('/shop', function () use ($loader, $twig) {
     ControllerFactory::getController("shop", $loader, $twig)->call("show");

@@ -4,10 +4,11 @@
  * @brief Le fichier contient la déclaration et la définition de la classe GameDao
  * @author Conchez-Boueytou Robin
  * @date 14/11/2024
- * @version 0.1
+ * @version 0.2
  */
-require_once  __DIR__ . '/../include.php';
+require_once __DIR__ . '/../include.php';
 
+use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\Controllers\Controller;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
@@ -27,14 +28,6 @@ class ControllerTest extends TestCase
     private Controller $controller;
 
     /**
-     * @brief setUp
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $this->controller = new Controller($loader = new FilesystemLoader(), $twig = new Environment($loader));
-    }
-    /**
      * @brief Test de la méthode getPdo
      * @return void
      */
@@ -42,6 +35,7 @@ class ControllerTest extends TestCase
     {
         $this->assertInstanceOf(PDO::class, $this->controller->getPdo());
     }
+
     /**
      * @brief Test de la méthode setPdo
      * @return void
@@ -67,7 +61,7 @@ class ControllerTest extends TestCase
      */
     public function testSetLoader(): void
     {
-        $this->controller->setLoader($loader = new FilesystemLoader(__DIR__.'/../src/templates'));
+        $this->controller->setLoader($loader = new FilesystemLoader(__DIR__ . '/../src/templates'));
         $this->assertEquals($loader, $this->controller->getLoader());
     }
 
@@ -105,8 +99,8 @@ class ControllerTest extends TestCase
      */
     public function testSetGet(): void
     {
-        $this->controller->setGet(["email" => $_GET['email'],"password" => $_GET['password']]);
-        $this->assertEquals(["email" => $_GET['email'],"password" => $_GET['password']], $this->controller->getGet());
+        $this->controller->setGet(["email" => $_GET['email'], "password" => $_GET['password']]);
+        $this->assertEquals(["email" => $_GET['email'], "password" => $_GET['password']], $this->controller->getGet());
     }
 
     /**
@@ -124,16 +118,27 @@ class ControllerTest extends TestCase
      */
     public function testSetPost(): void
     {
-        $this->controller->setPost(["email" => $_POST['email'],"password" => $_POST['password']]);
-        $this->assertEquals(["email" => $_POST['email'],"password" => $_POST['password']], $this->controller->getPost());
+        $this->controller->setPost(["email" => $_POST['email'], "password" => $_POST['password']]);
+        $this->assertEquals(["email" => $_POST['email'], "password" => $_POST['password']], $this->controller->getPost());
     }
+
     /**
      * @brief Test de la méthode call
      * @return void
-     * @throws \models\MethodNotFoundException
+     * @throws MethodNotFoundException
      */
-    public function testCall():void{
+    public function testCall(): void
+    {
         $this->assertEquals(null, $this->controller->call('getGet'));
+    }
+
+    /**
+     * @brief setUp
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $this->controller = new Controller($loader = new FilesystemLoader(), $twig = new Environment($loader));
     }
 
 }
