@@ -92,6 +92,10 @@ $router->post('/game/create/:gameId', function (int $gameId) use ($loader, $twig
     ]);
 }, 'player');
 
+$router->post('/game/:code/end', function ($code) {
+    // TODO: Récupérer les résultats de la partie
+});
+
 $router->get('/shop', function () use ($loader, $twig) {
     ControllerFactory::getController("shop", $loader, $twig)->call("show");
     exit;
