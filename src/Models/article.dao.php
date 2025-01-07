@@ -188,7 +188,7 @@ class ArticleDAO {
         if (!empty($ids)) {
             $idsString = implode(',', $ids);
 
-            $stmt = $this->pdo->query('SELECT * FROM '. DB_PREFIX . 'article WHERE id IN ('.$idsString.')');
+            $stmt = $this->pdo->query('SELECT * FROM ' . DB_PREFIX . 'article WHERE id IN (' . $idsString . ')');
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
             $tabArticles = $stmt->fetchAll();

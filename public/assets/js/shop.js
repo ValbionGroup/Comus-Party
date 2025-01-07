@@ -59,8 +59,8 @@ function testArticleInBasket(){
         filledBasketLogo.classList.add("hidden")
     }
 }
-testArticleInBasket()
 
+testArticleInBasket()
 
 closeModalBtnsClass.forEach(btn => {
     btn.addEventListener('click', function (){
@@ -198,7 +198,7 @@ function showModalBanner(article) {
         // Envoyer les données sous forme de paire clé=valeur
         xhr.send("id_article=" + article.id);
         // Gérer la réponse du serveur
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
 
                 let response =  JSON.parse(xhr.responseText)
