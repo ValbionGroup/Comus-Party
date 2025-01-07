@@ -7,7 +7,7 @@
  * @date 2024-11-20
  */
 
-namespace ComusParty\Models\Exception;
+namespace ComusParty\App\Exception;
 
 use Throwable;
 
@@ -17,11 +17,13 @@ use Throwable;
  */
 class ControllerNotFoundException extends NotFoundException
 {
-    public function __construct($message, $code = 500, Throwable $previous = null) {
+    public function __construct($message, $code = 500, Throwable $previous = null)
+    {
         parent::__construct($message, $code, $previous);
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return __CLASS__ . ": [$this->code]: $this->message\n";
     }
 }

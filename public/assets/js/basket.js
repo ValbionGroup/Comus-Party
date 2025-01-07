@@ -20,9 +20,9 @@ let paymentBtn = document.getElementById("paymentBtn")
  ** @details Si le panier ne contient aucun article, affiche un message indiquant que celui-ci est vide.
  */
 
-function testArticleInBasket(){
+function testArticleInBasket() {
     let articles = document.querySelectorAll(".article")
-    if(articles.length == 0){
+    if(articles.length === 0){
         emptyBasket.classList.add("flex")
         emptyBasket.classList.remove("hidden")
         paymentBtn.disabled = true
@@ -34,6 +34,7 @@ function testArticleInBasket(){
         paymentBtn.classList.remove("opacity-50")
     }
 }
+
 testArticleInBasket()
 /**
  * @brief Permet de supprimer un article du panier
@@ -64,7 +65,7 @@ removeButtons.forEach(button => {
  * @brief Permet de supprimer un article du panier dans la base de données ainsi que de mettre à jour le prix
  *  @param id L'id de l'article qu'il faut supprimer
  */
-function removeArticle(id){
+function removeArticle(id) {
     const xhr = new XMLHttpRequest();
     xhr.open("DELETE", `/shop/basket/remove/${id}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -72,7 +73,7 @@ function removeArticle(id){
     xhr.send();
 
     // Gérer la réponse du serveur
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response =  JSON.parse(xhr.responseText)
             let actualTotalPriceBasket = totalPriceBasket.textContent

@@ -58,8 +58,7 @@ class ControllerBasket extends Controller
             array(
                 'articles' => $articles,
                 'totalPriceBasket' => $totalPriceBasket,
-                )
-
+            )
         );
     }
 
@@ -110,8 +109,6 @@ class ControllerBasket extends Controller
     }
 
 
-
-
     /**
      * @brief Permet de supprimer un article du panier
      * @return void
@@ -120,7 +117,8 @@ class ControllerBasket extends Controller
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function removeArticleBasket($id){
+    public function removeArticleBasket($id)
+    {
 
         if ($id != null) {
             $id_article = intval($id);

@@ -1,0 +1,105 @@
+{% extends "/layouts/default.twig" %}
+
+{% block title %}Création d'une partie{% endblock %}
+
+{% block content %}
+    <section class="grid grid-cols-5 w-full h-full gap-6">
+        <div class="col-span-2 bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
+            <h3 class="text-xl font-serif">Paramètre de la partie</h3>
+            {% if isHost %}
+                {% if settings is null %}
+                    <div class="h-full flex flex-col items-center justify-center">
+                        <h3 class="text-lg font-semibold">Facile !</h3>
+                        <p>Ce jeu ne comporte aucun paramètre modifiable, alors pas de prise de tête !</p>
+                    </div>
+                {% else %}
+                    <div class="mt-3 flex flex-col gap-2 h-full">
+                        {% for key, value in settings %}
+                            <div class="flex flex-row justify-between gap-2 items-center">
+                                <label class="w-fit text-nowrap" for="{{ key }}">{{ value.name }}</label>
+                                {% if value.type != 'select' %}
+                                    <input type="{{ value.type }}"
+                                           class="input w-full !bg-lavender-blush-2 dark:!bg-night-2" id="{{ key }}"
+                                           name="{{ key }}" value="{{ value.default }}"
+                                            {% if value.type == 'number' %}
+                                                min="{{ value.min }}" max="{{ value.max }}"
+                                            {% elseif value.type == 'text' %}
+                                                placeholder="{{ value.placeholder }}"
+                                                pattern="{{ value.pattern }}"
+                                                minlength="{{ value.minlength }}"
+                                                maxlength="{{ value.maxlength }}"
+                                            {% endif %}
+                                    />
+                                {% else %}
+                                    <select class="input w-full !bg-lavender-blush-2 dark:!bg-night-2" id="{{ key }}"
+                                            name="{{ key }}">
+                                        {% for option in value.options %}
+                                            <option value="{{ option.value }}">{{ option.label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="btn-primary w-full mt-3">Sauvegarder les paramètres</button>
+                {% endif %}
+            {% else %}
+                <div class="h-full flex flex-col items-center justify-center">
+                    <h3 class="text-lg font-semibold">Oups...</h3>
+                    <p class="text-center">
+                        Il semble que vous n'êtes pas l'hôte de la partie ?<br/>
+                        Vous ne pouvez donc pas modifier les paramètres de la partie.
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-span-2 bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
+            <h3 class="text-xl font-serif">Informations sur le jeu</h3>
+            <div class="mt-3 overflow-y-auto">
+
+            </div>
+        </div>
+        <div class="col-span-1 flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
+                {% if isHost %}
+                    <button class="btn-primary w-full">Lancer le jeu</button>
+                {% else %}
+                    <p class="text-center p-2 italic rounded-xl bg-lavender-blush-1 dark:bg-night-1">En attente de
+                        l'hôte</p>
+                {% endif %}
+                <button class="btn-danger w-full" onclick="quitGameAndBackHome('{{ code }}')">Quitter la partie</button>
+            </div>
+            <div class="h-full max-h-96 bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
+                <h3 class="text-xl font-serif">Joueurs</h3>
+                <div class="mt-3 overflow-y-auto">
+                    {% for player in players %}
+                        <div class="flex flex-row gap-3 items-center">
+                            <img src="/assets/img/pfp/default-pfp.jpg" class="size-8 rounded-full"/>
+                            <p class="text-lg">{{ player.username }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="h-full bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
+                <h3 class="text-xl font-serif">Chat</h3>
+                <div class="mt-3 overflow-y-auto h-full flex flex-col" id="chatContent">
+
+                </div>
+                <div class="flex flex-row w-full gap-2">
+                    <input type="text" class="input w-full !bg-lavender-blush-2 dark:!bg-night-2" id="chatInput"
+                           name="chatInput" placeholder="Écrire un message..."/>
+                    <button class="btn-primary" id="sendChat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="m3.4 20.4l17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a.993.993 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12L2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/assets/js/game.js"></script>
+{% endblock %}
