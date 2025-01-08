@@ -41,17 +41,6 @@ class ControllerRanking extends Controller
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findWithDetailByUuid($playerUuid);
         $playerArray = $player->toArray();
-        $articleManager = new ArticleDAO($this->getPdo());
-        $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
-        if (is_null($activePfp)) {
-            $activePfpPath = 'default-pfp.jpg';
-        }
-        else {
-            $activePfpPath = $activePfp->getFilePath();
-        }
-        echo json_encode([
-            'player' => $playerArray,
-            'activePfp' => $activePfpPath
-        ]);
+        echo json_encode($playerArray);
     }
 }

@@ -36,14 +36,14 @@ function showModalPlayerInfo(playerUuid) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             console.log(response);
-            spanTopUsername.innerText = response.player.username;
+            spanTopUsername.innerText = response.username;
             imgPfp.src = `/assets/img/pfp/${response.activePfp}`;
-            spanUsername.innerText = response.player.username;
-            spanElo.innerText = response.player.elo;
-            spanExp.innerText = response.player.xp;
-            spanGamesPlayed.innerText = response.player.statistics.gamesPlayed;
-            spanGamesWon.innerText = response.player.statistics.gamesWon;
-            spanCreatedAt.innerText = new Date(response.player.createdAt.date).toLocaleDateString('fr-FR', {
+            spanUsername.innerText = response.username;
+            spanElo.innerText = response.elo;
+            spanExp.innerText = response.xp;
+            spanGamesPlayed.innerText = response.statistics.gamesPlayed;
+            spanGamesWon.innerText = response.statistics.gamesWon;
+            spanCreatedAt.innerText = new Date(response.createdAt.date).toLocaleDateString('fr-FR', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric'
