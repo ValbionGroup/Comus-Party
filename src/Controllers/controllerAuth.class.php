@@ -315,15 +315,7 @@ class ControllerAuth extends Controller
             $_SESSION['elo'] = $player->getElo();
             $_SESSION['xp'] = $player->getXp();
             $_SESSION['basket'] = [];
-
-            $articleManager = new ArticleDAO($this->getPdo());
-            $pfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
-            if (is_null($pfp)) {
-                $pfpPath = 'default-pfp.jpg';
-            } else {
-                $pfpPath = $pfp->getFilePath();
-            }
-            $_SESSION['pfpPath'] = $pfpPath;
+            $_SESSION['pfpPath'] = $player->getActivePfp();
             header('Location: /');
         } else {
             $_SESSION['role'] = 'moderator';
