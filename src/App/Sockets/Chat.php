@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier de définition de la classe Chat (Socket)
+ * @brief Fichier de définition de la classe Chat (Sockets)
  *
  * @file Chat.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
@@ -8,7 +8,7 @@
  * @date 2024-12-24
  */
 
-namespace ComusParty\App\Socket;
+namespace ComusParty\App\Sockets;
 
 use Exception;
 use Ratchet\ConnectionInterface;

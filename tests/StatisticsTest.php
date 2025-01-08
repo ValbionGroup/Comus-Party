@@ -26,20 +26,6 @@ class StatisticsTest extends TestCase
      */
     private Statistics $statistics;
 
-    protected function setUp(): void
-    {
-        /**
-         * @brief Instanciation d'un objet Statistics pour les tests
-         */
-
-        $this->statistics = new Statistics(
-            playerUuid: '123e4567-e89b-12d3-a456-426614174000',
-            gamesPlayed: 10,
-            gamesWon: 5,
-            gamesHosted: 2
-        );
-    }
-
     /**
      * @brief Test de la méthode getPlayerUuid
      * @return void
@@ -95,5 +81,19 @@ class StatisticsTest extends TestCase
     {
         $this->statistics->setGamesWon(10);
         $this->assertEquals(10, $this->statistics->getGamesWon());
+    }
+
+    protected function setUp(): void
+    {
+        /**
+         * @brief Instanciation d'un objet Statistics pour les tests
+         */
+
+        $this->statistics = new Statistics(
+            playerUuid: '123e4567-e89b-12d3-a456-426614174000',
+            gamesPlayed: 10,
+            gamesWon: 5,
+            gamesHosted: 2
+        );
     }
 }

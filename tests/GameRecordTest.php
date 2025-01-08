@@ -51,9 +51,9 @@ class GameRecordTest extends TestCase
      * @brief Test de la méthode getUuid
      * @return void
      */
-    public function testGetUuidOk(): void
+    public function testGetCodeOk(): void
     {
-        $this->assertEquals('uuid1', $this->gameRecord->getUuid());
+        $this->assertEquals('uuid1', $this->gameRecord->getCode());
     }
 
     /**
@@ -275,10 +275,10 @@ class GameRecordTest extends TestCase
      * @brief Test de la méthode setUuid avec un paramètre invalide
      * @return void
      */
-    public function testSetUuidOk(): void
+    public function testSetCodeOk(): void
     {
-        $this->gameRecord->setUuid('uuid2');
-        $this->assertEquals('uuid2', $this->gameRecord->getUuid());
+        $this->gameRecord->setCode('uuid2');
+        $this->assertEquals('uuid2', $this->gameRecord->getCode());
     }
 
     /**
@@ -288,7 +288,7 @@ class GameRecordTest extends TestCase
     public function testSetUuidWithInvalidUuid(): void
     {
         $this->expectException(TypeError::class);
-        $this->gameRecord->setUuid();
+        $this->gameRecord->setCode();
     }
 
     /**

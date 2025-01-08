@@ -10,7 +10,7 @@
 
 global $loader, $twig;
 
-use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Router;
 use ComusParty\Controllers\ControllerFactory;
@@ -30,11 +30,10 @@ $router->get('/profile', function () use ($loader, $twig) {
     exit;
 }, 'player');
 
-$router->post('/profile/updateStyle/:idArticle', function ($idArticle) use ($loader, $twig) {
-
+$router->put('/profile/updateStyle/:idArticle', function ($idArticle) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
         "uuidPlayer" => $_SESSION["uuid"],
-        "idArticle" => $idArticle
+        "idArticle" => $idArticle,
     ]);
     exit;
 }, 'player');
@@ -94,11 +93,23 @@ $router->post('/game/search/:gameId', function (int $gameId) use ($loader, $twig
     exit;
 }, 'player');
 
+$router->post('/game/:code/start', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("initGame", [
+        "code" => $code,
+        "settings" => json_decode($_POST['settings'], true)
+    ]);
+    exit;
+}, 'player');
+
 $router->post('/game/create/:gameId', function (int $gameId) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("createGame", [
         "gameId" => $gameId,
     ]);
 }, 'player');
+
+$router->post('/game/:code/end', function ($code) {
+    // TODO: Récupérer les résultats de la partie
+});
 
 $router->get('/shop', function () use ($loader, $twig) {
     ControllerFactory::getController("shop", $loader, $twig)->call("show");
@@ -140,17 +151,27 @@ $router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) 
     exit;
 }, 'player');
 
-$router->get('/register', function () {
-    echo "Page d'inscription<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/register', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("showRegistrationPage");
     exit;
-});
+}, 'guest');
 
-$router->post('/register', function () {
-    echo "Traitement de l'inscription<br/>";
-    echo "A IMPLEMENTER";
+$router->post('/register', function () use ($loader, $twig) {
+    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
+        ControllerFactory::getController("auth", $loader, $twig)->call("register", [
+            "username" => $_POST['username'],
+            "email" => $_POST['email'],
+            "password" => $_POST['password']
+        ]);
+        exit;
+    }
+    throw new Exception("Données reçues incomplètes.");
+}, 'guest');
+
+$router->get('/confirm-email/:token', function (string $token) use($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
     exit;
-});
+}, 'guest');
 
 $router->get('/forgot-password', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");

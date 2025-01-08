@@ -83,15 +83,22 @@ class GameRecordDAO
             "waiting" => GameRecordState::WAITING,
             "started" => GameRecordState::STARTED,
             "finished" => GameRecordState::FINISHED,
+            default => GameRecordState::UNKNOWN,
         };
         $finishedAt = $row["finished_at"] ? new DateTime($row["finished_at"]) : null;
-        $players = $this->findPlayersByGameRecordUuid($row["uuid"]);
+        $players = $this->findPlayersByGameRecordCode($row["code"]);
         if (!is_null($players)) {
-            $players = array_map(fn($player) => (new PlayerDAO($this->getPdo()))->findByUuid($player["player_uuid"]), $players);
+            $players = array_map(function ($player) {
+                $playerObject = (new PlayerDAO($this->getPdo()))->findByUuid($player["player_uuid"]);
+                return [
+                    "player" => $playerObject,
+                    "token" => $player["token"]
+                ];
+            }, $players);
         }
 
         return new GameRecord(
-            $row["uuid"],
+            $row["code"],
             $game,
             $hostedBy,
             $players,
@@ -101,45 +108,6 @@ class GameRecordDAO
             new DateTime($row["updated_at"]),
             $finishedAt
         );
-    }
-
-    /**
-     * @brief Retourne la liste des joueurs dans une partie grâce à l'UUID de celle-ci
-     * @param string $uuid UUID de la partie
-     * @return array|null
-     */
-    private function findPlayersByGameRecordUuid(string $uuid): ?array
-    {
-        $stmt = $this->pdo->prepare("SELECT player_uuid FROM " . DB_PREFIX . "played WHERE game_uuid = :uuid");
-        $stmt->bindParam(":uuid", $uuid);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $players = $stmt->fetchAll();
-        if (!$players) {
-            return null;
-        }
-        return $players;
-    }
-
-    /**
-     * @brief Retourne un objet GameRecord (ou null) à partir de l'UUID passé en paramètre
-     *
-     * @param string $uuid L'UUID de la partie recherchée
-     * @return GameRecord|null Enregistrement de la partie (GameRecord) (ou null si non-trouvé)
-     * @throws Exception
-     */
-    public function findByUuid(string $uuid): ?GameRecord
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE uuid = :uuid");
-        $stmt->bindParam(":uuid", $uuid);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        $gameRecord = $stmt->fetch();
-        if (!$gameRecord) {
-            return null;
-        }
-        return $this->hydrate($gameRecord);
     }
 
     /**
@@ -160,6 +128,44 @@ class GameRecordDAO
         $this->pdo = $pdo;
     }
 
+    /**
+     * @brief Retourne la liste des joueurs dans une partie grâce au code de celle-ci
+     * @param string $code Code de la partie
+     * @return array|null
+     */
+    private function findPlayersByGameRecordCode(string $code): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT player_uuid, token FROM " . DB_PREFIX . "played WHERE game_code = :code");
+        $stmt->bindParam(":code", $code);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $players = $stmt->fetchAll();
+        if (!$players) {
+            return null;
+        }
+        return $players;
+    }
+
+    /**
+     * @brief Retourne un objet GameRecord (ou null) à partir du code passé en paramètre
+     *
+     * @param string $code Code de la partie recherchée
+     * @return GameRecord|null Enregistrement de la partie (GameRecord) (ou null si non-trouvé)
+     * @throws Exception
+     */
+    public function findByCode(string $code): ?GameRecord
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE code = :code");
+        $stmt->bindParam(":code", $code);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        $gameRecord = $stmt->fetch();
+        if (!$gameRecord) {
+            return null;
+        }
+        return $this->hydrate($gameRecord);
+    }
 
     /**
      * @brief Retourne un tableau d'objets GameRecord (ou null) à partir de l'UUID passé en paramètre correspondant aux parties hébergées par un joueur
@@ -168,7 +174,7 @@ class GameRecordDAO
      * @return GameRecord[]|null Tableau de GameRecord (ou null si non-trouvé)
      * @throws Exception
      */
-    public function findByHosterUuid(string $uuid): ?array
+    public function findByHostUuid(string $uuid): ?array
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE hosted_by = :uuid");
         $stmt->bindParam(":uuid", $uuid);
@@ -196,6 +202,7 @@ class GameRecordDAO
             GameRecordState::WAITING => "waiting",
             GameRecordState::STARTED => "started",
             GameRecordState::FINISHED => "finished",
+            GameRecordState::UNKNOWN => null,
         };
 
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE state = :state");
@@ -217,22 +224,23 @@ class GameRecordDAO
      */
     public function insert(GameRecord $gameRecord): bool
     {
-        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (uuid, game_id, hosted_by, state, private, created_at, updated_at, finished_at) VALUES (:uuid, :gameId, :hostedBy, :state, :isPrivate, :createdAt, :updatedAt, :finishedAt)");
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (code, game_id, hosted_by, state, private, created_at, updated_at, finished_at) VALUES (:code, :gameId, :hostedBy, :state, :isPrivate, :createdAt, :updatedAt, :finishedAt)");
 
-        $uuid = $gameRecord->getUuid();
+        $code = $gameRecord->getCode();
         $gameId = $gameRecord->getGame()->getId();
         $hostUuid = $gameRecord->getHostedBy()->getUuid();
         $state = match ($gameRecord->getState()) {
             GameRecordState::WAITING => "waiting",
             GameRecordState::STARTED => "started",
             GameRecordState::FINISHED => "finished",
+            GameRecordState::UNKNOWN => null,
         };
         $isPrivate = $gameRecord->isPrivate();
         $createdAt = $gameRecord->getCreatedAt()->format("Y-m-d H:i:s");
         $updatedAt = $gameRecord->getUpdatedAt()?->format("Y-m-d H:i:s");
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
 
-        $stmt->bindParam(":uuid", $uuid);
+        $stmt->bindParam(":code", $code);
         $stmt->bindParam(":gameId", $gameId);
         $stmt->bindParam(":hostedBy", $hostUuid);
         $stmt->bindParam(":state", $state);
@@ -245,14 +253,39 @@ class GameRecordDAO
     }
 
     /**
+     * @brief Met à jour un enregistrement de partie en base de données
+     * @param GameRecord $gameRecord Enregistrement de la partie à mettre à jour
+     * @return bool Retourne true si la mise à jour a réussi, false sinon
+     */
+    public function update(GameRecord $gameRecord): bool
+    {
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, finished_at = :finishedAt WHERE code = :code");
+
+        $state = match ($gameRecord->getState()) {
+            GameRecordState::WAITING => "waiting",
+            GameRecordState::STARTED => "started",
+            GameRecordState::FINISHED => "finished",
+            GameRecordState::UNKNOWN => null,
+        };
+        $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
+        $code = $gameRecord->getCode();
+
+        $stmt->bindParam(":state", $state);
+        $stmt->bindParam(":finishedAt", $finishedAt);
+        $stmt->bindParam(":code", $code);
+
+        return $stmt->execute();
+    }
+
+    /**
      * @brief Supprime un enregistrement de partie en base de données
-     * @param string $uuid UUID de la partie à supprimer
+     * @param string $code Code de la partie à supprimer
      * @return bool Retourne true si la suppression a réussi, false sinon
      */
-    public function delete(string $uuid): bool
+    public function delete(string $code): bool
     {
-        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "game_record WHERE uuid = :uuid");
-        $stmt->bindParam(":uuid", $uuid);
+        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "game_record WHERE code = :code");
+        $stmt->bindParam(":code", $code);
         return $stmt->execute();
     }
 
@@ -264,25 +297,25 @@ class GameRecordDAO
      */
     public function addPlayer(GameRecord $gameRecord, Player $player): bool
     {
-        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "played (game_uuid, player_uuid) VALUES (:gameUuid, :playerUuid)");
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "played (game_code, player_uuid) VALUES (:gameCode, :playerUuid)");
         $gameRecord->addPlayer($player);
         $playerUuid = $player->getUuid();
-        $gameUuid = $gameRecord->getUuid();
-        $stmt->bindParam(":gameUuid", $gameUuid);
+        $gameCode = $gameRecord->getCode();
+        $stmt->bindParam(":gameCode", $gameCode);
         $stmt->bindParam(":playerUuid", $playerUuid);
         return $stmt->execute();
     }
 
     /**
      * @brief Supprime un joueur d'une partie
-     * @param string $gameUuid UUID de la partie
+     * @param string $gameCode Code de la partie
      * @param string $playerUuid UUID du joueur à supprimer
      * @return bool Retourne true si la suppression a réussi, false sinon
      */
-    public function removePlayer(string $gameUuid, string $playerUuid): bool
+    public function removePlayer(string $gameCode, string $playerUuid): bool
     {
-        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_uuid = :gameUuid AND player_uuid = :playerUuid");
-        $stmt->bindParam(":gameUuid", $gameUuid);
+        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_code = :gameCoded AND player_uuid = :playerUuid");
+        $stmt->bindParam(":gameCode", $gameCode);
         $stmt->bindParam(":playerUuid", $playerUuid);
         return $stmt->execute();
     }

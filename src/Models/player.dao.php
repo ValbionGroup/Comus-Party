@@ -13,6 +13,7 @@ use DateMalformedStringException;
 use DateTime;
 use Exception;
 use PDO;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @brief Classe PlayerDAO
@@ -79,7 +80,7 @@ class PlayerDAO
      * @param array $data Le tableau associatif content les paramètres
      * @return Player L'objet retourné par la méthode, ici un joueur
      * @throws DateMalformedStringException|Exception Exception levée dans le cas d'une date malformée
-     * @TODO Modifier la manière de traiter les statistiques ( représentation bancale)
+     * @TODO Modifier la manière de traiter les statistiques (représentation bancale)
      */
     public function hydrate(array $data): Player
     {
@@ -130,12 +131,16 @@ class PlayerDAO
     public function findWithDetailByUuid(string $uuid): ?Player
     {
         $stmt = $this->pdo->prepare(
-            'SELECT pr.*, u.email, u.created_at, u.updated_at, COUNT(pd.player_uuid) as games_played, COUNT(w.player_uuid) as games_won, COUNT(gr.hosted_by) as games_hosted
-            FROM ' . DB_PREFIX . 'player pr
-            JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
-            LEFT JOIN ' . DB_PREFIX . 'played pd ON pr.uuid = pd.player_uuid
-            LEFT JOIN ' . DB_PREFIX . 'won w ON pr.uuid = w.player_uuid
-            LEFT JOIN ' . DB_PREFIX . 'game_record gr ON pr.uuid = gr.hosted_by
+            'SELECT 
+            pr.*,
+            u.email,
+            u.created_at,
+            u.updated_at,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'played WHERE player_uuid = pr.uuid) as games_played,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'won WHERE player_uuid = pr.uuid) as games_won,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'game_record WHERE hosted_by = pr.uuid) as games_hosted
+            FROM cp_player pr
+            JOIN cp_user u ON pr.user_id = u.id
             WHERE pr.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
@@ -229,5 +234,51 @@ class PlayerDAO
             return null;
         }
         return $this->hydrateMany($tabPlayers);
+    }
+
+    /**
+     * @brief Crée un nouveau joueur dans la base de données
+     *
+     * @details Cette méthode génère un UUID unique pour le joueur, récupère l'identifiant utilisateur à partir de l'adresse e-mail,
+     * et insère un nouvel enregistrement dans la table des joueurs avec l'UUID, le nom d'utilisateur, et l'ID utilisateur.
+     *
+     * @param string $username Le nom d'utilisateur du joueur
+     * @param string $email L'adresse e-mail liée au joueur
+     * @return bool Retourne true si le joueur a été créé avec succès, false sinon
+     */
+    public function createPlayer(string $username, string $email): bool
+    {
+        // Genération de l'uuid du joueur
+        $uuid = Uuid::uuid4()->toString();
+
+        $userDao = new UserDAO($this->pdo);
+        $user = $userDao->findByEmail($email);
+        $userId = $user->getId();
+
+        $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (:uuid, :username, :user_id)");
+
+        $stmtPlayer->bindParam(':uuid', $uuid);
+        $stmtPlayer->bindParam(':username', $username);
+        $stmtPlayer->bindParam(':user_id', $userId);
+
+        return $stmtPlayer->execute();
+    }
+
+    /**
+     * @brief Retourne un objet Player (ou null) à partir du nom d'utilisateur passé en paramètre
+     * @param string|null $username Le nom d'utilisateur du joueur à retrouver
+     * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
+     */
+    public function findByUsername(?string $username): ?Player
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "player WHERE username = :username");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
+        if ($result === false) {
+            return null;
+        }
+        return $this->hydrate($result);
     }
 }

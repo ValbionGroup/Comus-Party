@@ -123,13 +123,14 @@ VALUES (1, 'Game One', 'First game description', '/img/game1.png', 'available', 
 
 CREATE TABLE `cp_game_record`
 (
-    `uuid`       varchar(63)                           NOT NULL,
-    `game_id`    bigint(20)                            NOT NULL,
-    `hosted_by`  varchar(63)                           NOT NULL,
-    `state`      enum ('waiting','started','finished') NOT NULL DEFAULT 'waiting',
-    `private`    tinyint(1)                            NOT NULL DEFAULT 0,
-    `created_at` timestamp                             NOT NULL DEFAULT current_timestamp(),
-    `updated_at` timestamp                             NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+    `code`        varchar(32)                           NOT NULL,
+    `game_id`     bigint(20)                            NOT NULL,
+    `hosted_by`   varchar(63)                           NOT NULL,
+    `state`       enum ('waiting','started','finished') NOT NULL DEFAULT 'waiting',
+    `private`     tinyint(1)                            NOT NULL DEFAULT 0,
+    `created_at`  timestamp                             NOT NULL DEFAULT current_timestamp(),
+    `updated_at`  timestamp                             NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    `finished_at` timestamp                             NULL     DEFAULT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -138,10 +139,10 @@ CREATE TABLE `cp_game_record`
 -- Déchargement des données de la table `cp_game_record`
 --
 
-INSERT INTO `cp_game_record` (`uuid`, `game_id`, `hosted_by`, `state`, `private`, `created_at`, `updated_at`)
+INSERT INTO `cp_game_record` (`code`, `game_id`, `hosted_by`, `state`, `private`, `created_at`, `updated_at`)
 VALUES ('game_rec_uuid1', 1, 'uuid1', 'started', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('game_rec_uuid2', 2, 'uuid2', 'waiting', 1, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('game_rec_uuid3', 3, 'uuid3', '', 1, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
+       ('game_rec_uuid2', 2, 'uuid2', 'waiting', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
+       ('game_rec_uuid3', 3, 'uuid3', '', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
        ('game_rec_uuid4', 4, 'uuid4', 'waiting', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
 -- --------------------------------------------------------
@@ -263,8 +264,9 @@ VALUES (1, 'mod_uuid1', NULL, 'uuid2', 'Inappropriate behavior', 30, 'muted', NU
 
 CREATE TABLE `cp_played`
 (
-    `game_uuid`   varchar(63) NOT NULL,
-    `player_uuid` varchar(63) NOT NULL
+    `game_code`   varchar(32) NOT NULL,
+    `player_uuid` varchar(63) NOT NULL,
+    `token`       varchar(16) NULL DEFAULT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -273,7 +275,7 @@ CREATE TABLE `cp_played`
 -- Déchargement des données de la table `cp_played`
 --
 
-INSERT INTO `cp_played` (`game_uuid`, `player_uuid`)
+INSERT INTO `cp_played` (`game_code`, `player_uuid`)
 VALUES ('game_rec_uuid1', 'uuid1'),
        ('game_rec_uuid2', 'uuid2'),
        ('game_rec_uuid3', 'uuid3'),
@@ -521,7 +523,7 @@ VALUES (1, 'john.doe@example.com', '$2y$10$pWjH9MFAmeO8quFTZWSube4mx1KUiYiNXgIf0
 
 CREATE TABLE `cp_won`
 (
-    `game_uuid`   varchar(63) NOT NULL,
+    `game_code`   varchar(32) NOT NULL,
     `player_uuid` varchar(63) NOT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -531,7 +533,7 @@ CREATE TABLE `cp_won`
 -- Déchargement des données de la table `cp_won`
 --
 
-INSERT INTO `cp_won` (`game_uuid`, `player_uuid`)
+INSERT INTO `cp_won` (`game_code`, `player_uuid`)
 VALUES ('game_rec_uuid1', 'uuid1'),
        ('game_rec_uuid2', 'uuid2'),
        ('game_rec_uuid3', 'uuid3'),
@@ -565,7 +567,7 @@ ALTER TABLE `cp_game`
 -- Index pour la table `cp_game_record`
 --
 ALTER TABLE `cp_game_record`
-    ADD PRIMARY KEY (`uuid`),
+    ADD PRIMARY KEY (`code`),
     ADD KEY `fk_game_record_game_id` (`game_id`),
     ADD KEY `fk_game_record_hosted_uuid` (`hosted_by`);
 
@@ -603,7 +605,7 @@ ALTER TABLE `cp_penalty`
 -- Index pour la table `cp_played`
 --
 ALTER TABLE `cp_played`
-    ADD PRIMARY KEY (`game_uuid`, `player_uuid`),
+    ADD PRIMARY KEY (`game_code`, `player_uuid`),
     ADD KEY `fk_played_player_uuid` (`player_uuid`);
 
 --
@@ -668,7 +670,7 @@ ALTER TABLE `cp_user`
 -- Index pour la table `cp_won`
 --
 ALTER TABLE `cp_won`
-    ADD PRIMARY KEY (`game_uuid`, `player_uuid`),
+    ADD PRIMARY KEY (`game_code`, `player_uuid`),
     ADD KEY `fk_winned_player_uuid` (`player_uuid`);
 
 --
@@ -773,7 +775,7 @@ ALTER TABLE `cp_penalty`
 -- Contraintes pour la table `cp_played`
 --
 ALTER TABLE `cp_played`
-    ADD CONSTRAINT `fk_played_game_uuid` FOREIGN KEY (`game_uuid`) REFERENCES `cp_game_record` (`uuid`),
+    ADD CONSTRAINT `fk_played_game_code` FOREIGN KEY (`game_code`) REFERENCES `cp_game_record` (`code`),
     ADD CONSTRAINT `fk_played_player_uuid` FOREIGN KEY (`player_uuid`) REFERENCES `cp_player` (`uuid`);
 
 --
@@ -820,7 +822,7 @@ ALTER TABLE `cp_tagged`
 -- Contraintes pour la table `cp_won`
 --
 ALTER TABLE `cp_won`
-    ADD CONSTRAINT `fk_winned_game_uuid` FOREIGN KEY (`game_uuid`) REFERENCES `cp_game_record` (`uuid`),
+    ADD CONSTRAINT `fk_winned_game_code` FOREIGN KEY (`game_code`) REFERENCES `cp_game_record` (`code`),
     ADD CONSTRAINT `fk_winned_player_uuid` FOREIGN KEY (`player_uuid`) REFERENCES `cp_player` (`uuid`);
 COMMIT;
 
