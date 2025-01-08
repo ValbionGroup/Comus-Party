@@ -314,7 +314,7 @@ class GameRecordDAO
      */
     public function removePlayer(string $gameCode, string $playerUuid): bool
     {
-        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_code = :gameCoded AND player_uuid = :playerUuid");
+        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_code = :gameCode AND player_uuid = :playerUuid");
         $stmt->bindParam(":gameCode", $gameCode);
         $stmt->bindParam(":playerUuid", $playerUuid);
         return $stmt->execute();
