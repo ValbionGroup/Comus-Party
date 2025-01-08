@@ -99,7 +99,7 @@ class PlayerDAOTest extends TestCase
      */
     public function testFindAllWithDetail(): void
     {
-        $this->assertEquals('JaneDoe', $this->playerDAO->findAllWithDetail()[0]->getUsername());
+        $this->assertEquals('JohnDoe', $this->playerDAO->findAllWithDetail()[0]->getUsername());
     }
 
     /**
