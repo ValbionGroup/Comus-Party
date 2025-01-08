@@ -7,33 +7,35 @@
  *   @version 0.1
  */
 
+const playerInfoDiv = document.getElementById('modalPlayerInfo');
+const spanTopUsername = document.getElementById('spanTopUsername');
+const imgPfp = document.getElementById('imgPfp');
+const spanUsername = document.getElementById('spanUsername');
+const spanElo = document.getElementById('spanElo');
+const spanExp = document.getElementById('spanExp');
+const spanGamesPlayed = document.getElementById('spanGamesPlayed');
+const spanGamesWon = document.getElementById('spanGamesWon');
+const spanCreatedAt = document.getElementById('spanCreatedAt');
+const background = document.getElementById('backgroundModal');
+const modals = document.querySelectorAll(".modal");
+const headers = document.querySelectorAll('th');
+const tableBody = document.querySelector('tbody');
+const tableContainer = document.getElementById('tableContainer');
+
 function showBackgroundModal() {
-    let background = document.getElementById('backgroundModal');
     background.classList.remove("hidden");
 }
 
 function closeModal() {
-    let modals = document.querySelectorAll(".modal")
     modals.forEach(modal => {
         if (!modal.classList.contains("hidden")) {
             modal.classList.add("hidden");
         }
     });
-    let background = document.getElementById('backgroundModal');
     background.classList.add("hidden");
 }
 
 function showModalPlayerInfo(playerUuid) {
-    const playerInfoDiv = document.getElementById('modalPlayerInfo');
-    const spanTopUsername = document.getElementById('spanTopUsername');
-    const imgPfp = document.getElementById('imgPfp');
-    const spanUsername = document.getElementById('spanUsername');
-    const spanElo = document.getElementById('spanElo');
-    const spanExp = document.getElementById('spanExp');
-    const spanGamesPlayed = document.getElementById('spanGamesPlayed');
-    const spanGamesWon = document.getElementById('spanGamesWon');
-    const spanCreatedAt = document.getElementById('spanCreatedAt');
-
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `/player/informations/${playerUuid}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -62,10 +64,6 @@ function showModalPlayerInfo(playerUuid) {
 
     showBackgroundModal();
 }
-
-const headers = document.querySelectorAll('th');
-const tableBody = document.querySelector('tbody');
-const tableContainer = document.getElementById('tableContainer');
 
 // Ajoute des écouteurs d'événements aux colonnes triables
 headers.forEach((header, index) => {
