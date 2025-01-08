@@ -35,7 +35,6 @@ function showModalPlayerInfo(playerUuid) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
-            console.log(response);
             spanTopUsername.innerText = response.username;
             imgPfp.src = `/assets/img/pfp/${response.activePfp}`;
             spanUsername.innerText = response.username;
