@@ -28,7 +28,7 @@ class ControllerRanking extends Controller
      */
     public function showRanking() {
         $playerManager = new PlayerDAO($this->getPdo());
-        $players = $playerManager->findInRangeOrderByEloDescWithDetails(1, 50);
+        $players = $playerManager->findInRangeOrderByEloDescWithDetails(1, 100);
         $template = $this->getTwig()->load('ranking.twig');
         echo $template->render(array(
             'players' => $players
