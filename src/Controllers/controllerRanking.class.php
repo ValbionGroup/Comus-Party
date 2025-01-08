@@ -2,6 +2,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\PlayerDAO;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -40,6 +41,17 @@ class ControllerRanking extends Controller
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findWithDetailByUuid($playerUuid);
         $playerArray = $player->toArray();
-        echo json_encode($playerArray);
+        $articleManager = new ArticleDAO($this->getPdo());
+        $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+        if (is_null($activePfp)) {
+            $activePfpPath = 'default-pfp.jpg';
+        }
+        else {
+            $activePfpPath = $activePfp->getFilePath();
+        }
+        echo json_encode([
+            'player' => $playerArray,
+            'activePfp' => $activePfpPath
+        ]);
     }
 }

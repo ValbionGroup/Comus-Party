@@ -76,7 +76,16 @@
                                 <img src="/assets/img/pfp/{{ player.pfpPath }}" alt="pfp" class="rounded-full size-8">
                             </td>
                             <td class="p-4 font-semibold hover:scale-110 transition-all ease-in-out duration-300 text-center hover:cursor-pointer"
-                                onclick="showModalPlayerInfo('{{ player.uuid }}')">{{ player.username }}</td>
+                                onclick="showModalPlayerInfo('{{ player.uuid }}')">
+                                {% if loop.index == 1 %}
+                                    🥇・
+                                {% elseif loop.index == 2 %}
+                                    🥈・
+                                {% elseif loop.index == 3 %}
+                                    🥉・
+                                {% endif %}
+                                {{ player.username }}
+                            </td>
                             <td class="p-4 text-center font-semibold">{{ player.elo }}</td>
                             <td class="p-4 text-center font-semibold hidden lg:table-cell">{{ player.xp }}</td>
                             <td class="p-4 text-center font-semibold">{{ player.statistics.gamesWon }}</td>
@@ -111,7 +120,7 @@
             <hr>
             <div class="pt-5 text-justify">
                 <div class="flex flex-col lg:flex-row gap-5">
-                    <img id="imgPfp" src="" alt="" class="w-full lg:w-1/3">
+                    <img id="imgPfp" src="" alt="" class="w-full lg:w-1/3 rounded-full p-6">
                     <div class="flex flex-col w-full lg:w-2/3 gap-5">
                         <p class="text-lg"><span class="font-semibold underline">Nom d'utilisateur :</span> <span id="spanUsername"></span></p>
                         <div class="flex flex-col">
