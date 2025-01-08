@@ -275,4 +275,23 @@ class Player {
     {
         $this->userId = $userId;
     }
+
+    /**
+     * @brief Convertit l'objet en tableau
+     * @return array Objet retourné par la fonction, ici un tableau associatif représentant l'objet
+     */
+    public function toArray()
+    {
+        return [
+            "uuid" => $this->uuid,
+            "username" => $this->username,
+            "createdAt" => $this->createdAt,
+            "updatedAt" => $this->updatedAt,
+            "xp" => $this->xp,
+            "elo" => $this->elo,
+            "comusCoin" => $this->comusCoin,
+            "statistics" => $this->statistics->toArray(),
+            "userId" => $this->userId
+        ];
+    }
 }

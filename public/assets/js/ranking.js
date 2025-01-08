@@ -18,6 +18,20 @@ function showModalPlayerInfo(playerUuid) {
     const playerInfoDiv = document.getElementById('modalPlayerInfo');
     const spanUsername = document.getElementById('spanUsername');
 
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `/player/informations/${playerUuid}`, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // Envoyer les données sous forme de paire clé=valeur
+    xhr.send();
+
+    // Gérer la réponse du serveur
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+
+        }
+    };
+
     spanUsername.innerText = playerUuid;
     playerInfoDiv.classList.remove("hidden");
 

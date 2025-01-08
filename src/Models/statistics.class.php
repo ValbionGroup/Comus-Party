@@ -129,4 +129,17 @@ class Statistics {
     {
         $this->gamesHosted = $gamesHosted;
     }
+
+    /**
+     * @brief Retourne un tableau associatif contenant les statistiques
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            "gamesPlayed" => $this->gamesPlayed,
+            "gamesWon" => $this->gamesWon,
+            "gamesHosted" => $this->gamesHosted
+        ];
+    }
 }
