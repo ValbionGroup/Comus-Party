@@ -1,4 +1,11 @@
 <?php
+/**
+ * @file    controllerRanking.class.php
+ * @brief   Ce fichier contient la déclaration & définition de la classe ControllerRanking.
+ * @author  Estéban DESESSARD
+ * @date    08/01/2025
+ * @version 0.1
+ */
 
 namespace ComusParty\Controllers;
 

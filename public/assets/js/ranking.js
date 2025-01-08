@@ -1,3 +1,12 @@
+/**
+ *   @file ranking.js
+ *   @author Estéban DESESSARD
+ *   @brief Fichier JS permettant de gérer les interactions côté client de la page de classement
+ *   @details
+ *   @date 08/01/2025
+ *   @version 0.1
+ */
+
 function showBackgroundModal() {
     let background = document.getElementById('backgroundModal');
     background.classList.remove("hidden");
