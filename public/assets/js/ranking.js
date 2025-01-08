@@ -56,6 +56,7 @@ function showModalPlayerInfo(playerUuid) {
 
 const headers = document.querySelectorAll('th');
 const tableBody = document.querySelector('tbody');
+const tableContainer = document.getElementById('tableContainer');
 
 // Ajoute des écouteurs d'événements aux colonnes triables
 headers.forEach((header, index) => {
@@ -65,6 +66,11 @@ headers.forEach((header, index) => {
         header.addEventListener('click', () => {
             const rows = Array.from(tableBody.querySelectorAll('tr'));
             const isNumeric = true;
+
+            tableContainer.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
 
             // Trie les lignes en fonction du contenu de la colonne
             rows.sort((a, b) => {
@@ -96,8 +102,6 @@ function updateRankingEmojis() {
     usernameCells.forEach((cell, index) => {
         // Supprime les emojis existants
         cell.textContent = cell.textContent.replace(/[🥇🥈🥉]/g, '');
-        console.log(cell.textContent);
-
         // Ajoute le nouvel emoji selon la position
         if (index === 0) {
             cell.textContent = '🥇' + cell.textContent;
