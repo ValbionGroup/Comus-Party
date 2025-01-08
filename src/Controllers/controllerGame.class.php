@@ -221,8 +221,8 @@ class ControllerGame extends Controller
      */
     private function showGameSettings(GameRecord $gameRecord): void
     {
-        if (!in_array((new PlayerDAO($this->getPdo()))->findByUuid($_SESSION['uuid']), $gameRecord->getPlayers())) {
-            $this->joinGameWithCode('GET', $gameRecord->getUuid());
+        if (!in_array((new PlayerDAO($this->getPdo()))->findByUuid($_SESSION['uuid']), array_map(fn($player) => $player['player'], $gameRecord->getPlayers()))) {
+            $this->joinGameWithCode('GET', $gameRecord->getCode());
         }
 
         $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
@@ -236,9 +236,9 @@ class ControllerGame extends Controller
         echo $template->render([
             "code" => $gameRecord->getCode(),
             "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
-            "players" => $gameRecord->getPlayers(),
+            "players" => array_map(fn($player) => $player['player'], $gameRecord->getPlayers()),
             "game" => $gameRecord->getGame(),
-            "chat" => $gameSettings["settings"]["chatEnabled"],
+            "chat" => $gameSettings["settings"]["allowChat"],
             "gameFileInfos" => $gameSettings["game"],
             "settings" => $settings,
         ]);
@@ -281,7 +281,7 @@ class ControllerGame extends Controller
     private function joinGame(string $code, ?string $playerUuid = null): string
     {
         $gameRecordManager = new GameRecordDAO($this->getPdo());
-        $gameRecord = $gameRecordManager->findByUuid($code);
+        $gameRecord = $gameRecordManager->findByCode($code);
 
         if ($gameRecord == null) {
             throw new NotFoundException("La partie n'existe pas");
@@ -295,7 +295,9 @@ class ControllerGame extends Controller
             throw new GameUnavailableException("La partie a déjà commencé");
         }
 
-        $gameRecordManager->addPlayer($gameRecord, $player);
+        if (!in_array($playerUuid, array_map(fn($player) => $player['player']->getUuid(), $gameRecord->getPlayers()))) {
+            $gameRecordManager->addPlayer($gameRecord, $player);
+        }
 
         return json_encode([
             "success" => true,
@@ -320,7 +322,7 @@ class ControllerGame extends Controller
     private function showInGame(GameRecord $gameRecord): void
     {
         $players = $gameRecord->getPlayers();
-        if (!in_array($_SESSION['uuid'], array_map(fn($player) => $player->getUuid(), $players))) {
+        if (!in_array($_SESSION['uuid'], array_map(fn($player) => $player['player']->getUuid(), $players))) {
             throw new UnauthorizedAccessException("Vous n'êtes pas dans la partie");
         }
 
@@ -364,12 +366,17 @@ class ControllerGame extends Controller
 
                     $totalElo = 0;
                     $nbPlayers = 0;
+
+                    if (is_null($players)) {
+                        continue;
+                    }
+
                     foreach ($players as $player) {
-                        $totalElo += $player->getElo();
+                        $totalElo += $player['player']->getElo();
                         $nbPlayers++;
                     }
 
-                    $eloForGame[$gameRecord->getUuid()] = $totalElo / $nbPlayers;
+                    $eloForGame[$gameRecord->getCode()] = $totalElo / $nbPlayers;
                 }
             }
 

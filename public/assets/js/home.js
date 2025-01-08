@@ -61,6 +61,7 @@ function showModalGame(e) {
     let spanGameDescription = document.getElementById('spanGameDescription');
     let divGameTags = document.getElementById('divGameTags');
     let createGameButton = document.getElementById('createGameModalButton');
+    let searchGameButton = document.getElementById('findGameModalButton');
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `/game/informations/${gameId}`, true);
@@ -84,8 +85,25 @@ function showModalGame(e) {
     };
 
     createGameButton.setAttribute("onclick", `createGame(${gameId})`);
+    searchGameButton.setAttribute("onclick", `searchGame(${gameId})`);
     modal.classList.remove("hidden");
     showBackgroundModal();
+}
+
+function searchGame(id) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `/game/search/${id}`, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                window.location.href = "/game/" + response.game.code;
+            }
+        }
+    };
 }
 
 function createGame(id) {
