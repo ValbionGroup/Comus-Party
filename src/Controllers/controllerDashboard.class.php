@@ -9,8 +9,9 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\Models\Exception\MessageHandler;
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\SuggestionDAO;
+use DateMalformedStringException;
 use Exception;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -71,11 +72,32 @@ class ControllerDashboard extends Controller
     }
 
     /**
+     * @brief Accepte une suggestion et affiche le résultat de l'exécution de la requête en base de données
+     * @param int $id L'identifiant de la suggestion à refuser
+     * @return void
+     */
+    public function acceptSuggestion(int $id)
+    {
+        $suggestsManager = new SuggestionDAO($this->getPdo());
+        if ($suggestsManager->accept($id)) {
+            MessageHandler::addMessageParametersToSession("La suggestion a bien été acceptée");
+            echo json_encode(['success' => true]);
+            exit;
+        } else {
+            MessageHandler::addExceptionParametersToSession(new Exception("Une erreur est survenue lors de l'acceptation de la suggestion"));
+            echo json_encode(['success' => false]);
+            exit;
+        }
+    }
+
+    /**
      * @brief Récupère les informations à propos d'une sugestion et les renvoi sous format JSON
      * @param int|null $id L'identifiant de la suggestion à récupérer
      * @return void
+     * @throws DateMalformedStringException
      */
-    public function getSuggestionInfo(?int $id) {
+    public function getSuggestionInfo(?int $id)
+    {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestion = $suggestsManager->findById($id);
         echo json_encode([

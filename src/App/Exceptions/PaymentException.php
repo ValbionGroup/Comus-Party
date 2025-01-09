@@ -1,14 +1,14 @@
 <?php
 /**
- * @brief Gère les exceptions relarvies au paiement
+ * @brief Gère les exceptions relatives au paiement
  * @file PaymentException.php
  * @author Estéban DESESSARD
- * @version 1.0
+ * @version 1.1
  * @date 2024-11-28
  */
 
 
-namespace ComusParty\Models\Exception;
+namespace ComusParty\App\Exceptions;
 
 use Exception;
 use Throwable;

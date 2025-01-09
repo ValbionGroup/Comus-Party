@@ -2,21 +2,22 @@
 /**
  * @file game.dao.php
  * @brief Le fichier contient la déclaration et la définition de la classe GameDao
- * @author Conchez-Boueytou Robin
+ * @author Conchez-Boueytou Robin, ESPIET Lucas
  * @date 13/11/2024
- * @version 0.1
+ * @version 0.2
  */
 
 namespace ComusParty\Models;
 
 use DateTime;
+use Exception;
 use PDO;
 
 /**
  * @brief Classe GameDao
  * @details La classe GameDao permet de faire des opérations sur la table game de la base de données
  */
-class GameDao
+class GameDAO
 {
     /**
      * Classe PDO pour la connexion à la base de données
@@ -61,6 +62,7 @@ class GameDao
      *
      * @param int $id L'identifiant du jeu
      * @return Game|null L'objet Game correspondant à l'identifiant ou null
+     * @throws Exception
      */
     public function findById(int $id): ?Game
     {
@@ -82,6 +84,7 @@ class GameDao
      * @brief Hydrate un d'objet Game à partir d'un tableau de jeux de la table game passé en paramètre
      *
      * @return Game Un objet Game
+     * @throws Exception
      */
     public function hydrate(array $gameTab): Game
     {
@@ -164,5 +167,30 @@ class GameDao
             return $game;
         }, $gamesTab);
         return $this->hydrateMany($gamesTab);
+    }
+
+    /**
+     * @brief Retourne un objet Game à partir de l'identifiant passé en paramètre avec ses tags associés
+     * @param int|null $id L'identifiant du jeu
+     * @return Game|null L'objet Game correspondant à l'identifiant ou null
+     */
+    public function findWithDetailsById(?int $id)
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT g.*, GROUP_CONCAT(t.name) as tags
+            FROM ' . DB_PREFIX . 'game g
+            JOIN ' . DB_PREFIX . 'tagged tg ON g.id = tg.game_id
+            JOIN ' . DB_PREFIX . 'tag t ON tg.tag_id = t.id
+            WHERE g.id = :id
+            GROUP BY g.id;');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $gameTab = $stmt->fetch();
+        if ($gameTab === false) {
+            return null;
+        }
+        $gameTab['tags'] = explode(',', $gameTab['tags']);
+        return $this->hydrate($gameTab);
     }
 }
