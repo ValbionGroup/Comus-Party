@@ -124,6 +124,11 @@ $router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) 
     exit;
 }, 'player');
 
+$router->get('/shop/basket/checkout/successPayment', function () use ($loader, $twig) {
+    ControllerFactory::getController("shop", $loader, $twig)->call("showSuccessPayment", ["articles" => $_SESSION['basket'], "player" => $_SESSION['uuid'], "paymentType" => 'card']);
+    exit;
+}, 'player');
+
 $router->get('/register', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showRegistrationPage");
     exit;
@@ -141,7 +146,7 @@ $router->post('/register', function () use ($loader, $twig) {
     throw new Exception("Données reçues incomplètes.");
 }, 'guest');
 
-$router->get('/confirm-email/:token', function (string $token) use($loader, $twig) {
+$router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
     exit;
 }, 'guest');
