@@ -1,3 +1,11 @@
+/**
+ * @brief Contient des fonctions communes à l'ensemble du site
+ * @file common.js
+ * @version 1.0
+ * @date 09/01/2025
+ * @autor Lucas ESPIET
+ */
+
 const notificationContainer = document.getElementById('jsNotification');
 const notification = document.createElement('div');
 notification.classList.add('hidden', 'absolute', 'bottom-6', 'right-6', 'px-5', 'py-3', 'shadow-md', 'rounded-2xl');
