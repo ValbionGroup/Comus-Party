@@ -420,14 +420,18 @@ class ArticleDAO
      */
     public function deleteActiveArticleForPfp(string $uuid)
     {
-        $stmt = $this->pdo->prepare(
-            'UPDATE ' . DB_PREFIX . 'invoice_row ir
+        if($uuid == null){
+            throw new NotFoundException('Player not found');
+        }else{
+            $stmt = $this->pdo->prepare(
+                'UPDATE ' . DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
         SET ir.active = 0 
         WHERE i.player_uuid = :uuid AND a.type = "pfp"');
-        $stmt->bindParam(':uuid', $uuid);
-        $stmt->execute();
+            $stmt->bindParam(':uuid', $uuid);
+            $stmt->execute();
+        }
     }
 
     /**
