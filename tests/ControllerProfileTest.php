@@ -8,9 +8,9 @@
  */
 
 
-require_once  __DIR__ . '/../include.php';
+require_once __DIR__ . '/../include.php';
 
-use ComusParty\App\Exception\NotFoundException;
+use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\Controllers\Controller;
 use ComusParty\Controllers\ControllerProfile;
 use PHPUnit\Framework\TestCase;
@@ -28,16 +28,6 @@ class ControllerProfileTest extends TestCase
 {
 
     private Controller $controller;
-
-    protected function setUp(): void
-    {
-        $loader = new FilesystemLoader(__DIR__ . '/../src/templates');
-        $twig = new Environment($loader);
-
-
-        $this->controller = new ControllerProfile($loader, $twig);
-
-    }
 
     /**
      * @brief Test de la méthode showByPlayer
@@ -57,6 +47,16 @@ class ControllerProfileTest extends TestCase
         $this->expectExceptionMessage('Player not found');
 
         $this->controller->showByPlayer(null);
+    }
+
+    protected function setUp(): void
+    {
+        $loader = new FilesystemLoader(__DIR__ . '/../src/templates');
+        $twig = new Environment($loader);
+
+
+        $this->controller = new ControllerProfile($loader, $twig);
+
     }
 
 }

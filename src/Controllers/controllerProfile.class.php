@@ -9,10 +9,10 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\App\Exception\ControllerNotFoundException;
-use ComusParty\App\Exception\MethodNotFoundException;
-use ComusParty\App\Exception\NotFoundException;
-use ComusParty\App\Exception\UnauthorizedAccessException;
+use ComusParty\App\Exceptions\ControllerNotFoundException;
+use ComusParty\App\Exceptions\MethodNotFoundException;
+use ComusParty\App\Exceptions\NotFoundException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;

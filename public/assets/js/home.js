@@ -83,8 +83,7 @@ function showModalGame(e) {
         }
     };
 
-    createGameButton.addEventListener('click', createGame(gameId));
-
+    createGameButton.setAttribute("onclick", `createGame(${gameId})`);
     modal.classList.remove("hidden");
     showBackgroundModal();
 }
