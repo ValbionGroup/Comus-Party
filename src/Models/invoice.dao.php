@@ -36,24 +36,6 @@ class InvoiceDAO
     }
 
     /**
-     * @brief Retourne la connexion à la base de données
-     * @return PDO|null Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données
-     */
-    public function getPdo(): ?PDO
-    {
-        return $this->pdo;
-    }
-
-    /**
-     * @brief Modifie la connexion à la base de données
-     * @param PDO|null $pdo La nouvelle connexion à la base de données
-     */
-    public function setPdo(?PDO $pdo): void
-    {
-        $this->pdo = $pdo;
-    }
-
-    /**
      * @brief Retourne un objet Invoice (ou null) à partir de l'ID passé en paramètre
      * @param int|null $id L'ID de la facture recherchée
      * @return Invoice|null
@@ -101,4 +83,57 @@ class InvoiceDAO
         }
         return $invoice;
     }
+
+    public function createInvoice(string $player_uuid, string $payment_type): void
+    {
+        $stmt = $this->pdo->prepare(
+            'INSERT INTO ' . DB_PREFIX . 'invoice (player_uuid, payment_type)
+            VALUES (:player_uuid, :payment_type)');
+        $stmt->bindParam(':player_uuid', $player_uuid);
+        $stmt->bindParam(':payment_type', $payment_type);
+        $stmt->execute();
+
+        $invoice = $this->getPdo()->lastInsertId();
+    }
+
+    /**
+     * @brief Retourne la connexion à la base de données
+     * @return PDO|null Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données
+     */
+    public function getPdo(): ?PDO
+    {
+        return $this->pdo;
+    }
+
+    /**
+     * @brief Modifie la connexion à la base de données
+     * @param PDO|null $pdo La nouvelle connexion à la base de données
+     */
+    public function setPdo(?PDO $pdo): void
+    {
+        $this->pdo = $pdo;
+    }
+
+    public function createInvoiceWithArticles(string $player_uuid, string $payment_type, array $articles): void
+    {
+        $stmt = $this->pdo->prepare(
+            'INSERT INTO ' . DB_PREFIX . 'invoice (player_uuid, payment_type)
+        VALUES (:player_uuid, :payment_type)'
+        );
+        $stmt->bindParam(':player_uuid', $player_uuid);
+        $stmt->bindParam(':payment_type', $payment_type);
+        $stmt->execute();
+
+        $invoiceId = $this->pdo->lastInsertId();
+
+        $stmt = $this->pdo->prepare(
+            'INSERT INTO ' . DB_PREFIX . 'invoice_row (invoice_id, article_id) VALUES (:invoice_id, :article_id)'
+        );
+        foreach ($articles as $article) {
+            $stmt->bindParam(':invoice_id', $invoiceId);
+            $stmt->bindParam(':article_id', $article);
+            $stmt->execute();
+        }
+    }
+
 }
