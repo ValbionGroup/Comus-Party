@@ -22,7 +22,9 @@ Comus Party est une application de mini-jeux en ligne, elle est développée dan
 * **Boutique de cosmétiques**
 * **Gestion des parties**
 * **Système de suggestion in-app**
-* ...
+* **Classement**
+* **Personnalisation du profil joueur**
+* **Modularité des jeux**
 
 ### Interface
 
