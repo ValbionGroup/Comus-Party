@@ -348,7 +348,7 @@ class ArticleDAOTest extends TestCase
     public function testUpdateActiveArticleWithValidUuidAndInvalidArticleId(): void
     {
         $this->expectException(PDOException::class);
-        $this->articleDAO->updateActiveArticle('uuid1', '42');
+        $this->articleDAO->updateActiveArticle('uuid1', '42', 'ProfilePicture');
     }
 
     /**
@@ -358,7 +358,7 @@ class ArticleDAOTest extends TestCase
     public function testUpdateActiveArticleWithInvalidUuidAndInvalidArticleId(): void
     {
         $this->expectException(PDOException::class);
-        $this->articleDAO->updateActiveArticle('42uuid', '42');
+        $this->articleDAO->updateActiveArticle('42uuid', '42', 'ProfilePicture');
     }
 
     /**
@@ -368,7 +368,7 @@ class ArticleDAOTest extends TestCase
     public function testUpdateActiveArticleWithInvalidUuidAndValidArticleId(): void
     {
         $this->expectException(PDOException::class);
-        $this->articleDAO->updateActiveArticle('42uuid', '1');
+        $this->articleDAO->updateActiveArticle('42uuid', '1', 'ProfilePicture');
     }
 
 
