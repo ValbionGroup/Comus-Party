@@ -1,9 +1,9 @@
 /**
  *   @file home.js
- *   @author Conchez-Boueytou Robin
+ *   @author Conchez-Boueytou Robin & Lucas ESPIET
  *   @brief Filtrer les jeux avec une animation de déplacement des cartes
- *   @date 18/11/2024
- *   @version 0.3
+ *   @date 09/01/2025
+ *   @version 0.4
  */
 
 // Barre de recherche
@@ -91,33 +91,26 @@ function showModalGame(e) {
 }
 
 function searchGame(id) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/game/search/${id}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                window.location.href = "/game/" + response.game.code;
-            }
-        }
-    };
+    makeRequest("POST", `/game/search/${id}`, (response) => {
+        handleGameControllerResponse(response);
+    });
 }
 
 function createGame(id) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/game/create/${id}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
+    makeRequest("POST", `/game/create/${id}`, (response) => {
+        handleGameControllerResponse(response);
+    });
+}
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                window.location.href = "/game/" + response.game.code;
-            }
-        }
-    };
+/**
+ * @brief Gérer la réponse du contrôleur de jeu
+ * @param {string} response - Réponse du contrôleur de jeu
+ */
+function handleGameControllerResponse(response) {
+    let responseJson = JSON.parse(response);
+    if (responseJson.success) {
+        window.location.href = "/game/" + responseJson.game.code;
+    } else {
+        showNotification("Ouch...", responseJson.message, "red");
+    }
 }
