@@ -20,7 +20,7 @@
                 {% for pfp in pfps %}
 
                     <div class="w-20 h-20 m-1 pfp cursor-pointer" onclick="showModale({ name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', pathImg : '../../{{ pfp.pathImg }}{{ pfp.name }}.png'})">
-                        <img src="../../{{ pfp.pathImg }}{{ pfp.name }}.png" alt="Pas d'image" class="rounded-3xl">
+                        <img src="/assets/img/pfp/{{ pfp.pathImg }}" alt="Pas d'image" class="rounded-3xl overflow-hidden">
                     </div>
 
                 {% endfor %}
@@ -36,7 +36,7 @@
             <div class="flex flex-wrap">
                 {% for banner in banners%}
                 <div class="w-full h-20 m-1 cursor-pointer"  onclick="showModale({ name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', pathImg : '../../{{ banner.pathImg }}{{ banner.name }}.png'})">
-                    <img src="../../{{ banner.pathImg }}{{ banner.name }}.png" alt="" class="w-full h-full rounded-2xl" >
+                    <img src="/assets/img/banner/{{ banner.pathImg }}" alt="" class="w-full h-full rounded-2xl" >
                 </div>
 
                 {% endfor %}
