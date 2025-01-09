@@ -224,11 +224,13 @@ class ControllerGame extends Controller
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      * @throws GameUnavailableException|NotFoundException Exception levée si la partie n'existe pas ou si le jeu n'est pas disponible
+     * @throws Exception Exception levée en cas d'erreur avec la base de données
      */
     private function showGameSettings(GameRecord $gameRecord): void
     {
         if (!in_array((new PlayerDAO($this->getPdo()))->findByUuid($_SESSION['uuid']), array_map(fn($player) => $player['player'], $gameRecord->getPlayers()))) {
             $this->joinGameWithCode('GET', $gameRecord->getCode());
+            $gameRecord = (new GameRecordDAO($this->getPdo()))->findByCode($gameRecord->getCode());
         }
 
         $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
@@ -272,7 +274,6 @@ class ControllerGame extends Controller
         } elseif ($method == 'GET') {
             $this->joinGame($code, $_SESSION['uuid']);
         }
-        exit;
     }
 
     /**
