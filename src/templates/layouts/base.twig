@@ -1,36 +1,87 @@
 <!doctype html>
 <html lang="fr">
 <head>
+    <script>
+        window.axeptioSettings = {
+            clientId: "67604f33ac346b6395238316",
+            cookiesVersion: "CP-fr-EU",
+        };
+
+        (function (d, s) {
+            var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+            e.async = true;
+            e.src = "//static.axept.io/sdk.js";
+            t.parentNode.insertBefore(e, t);
+        })(document, "script");
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <link rel="stylesheet" href="/assets/css/builded.css">
+
     <title>{% block title %}-{% endblock %} | Comus Party</title>
+    <meta name="title" content="Comus Party" />
+    <meta name="description" content="Retrouvez tous vos amis et jouez avec eux à tous les jeux proposés sur Comus Party. LA plateforme de Mini-Jeux en ligne." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:site_name" content="Comus Party" />
+    <meta property="og:url" content="https://comus-party.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://comus-party.com" />
+    <meta property="twitter:title" content="Comus Party" />
+    <meta property="twitter:description" content="Retrouvez tous vos amis et jouez avec eux à tous les jeux proposés sur Comus Party. LA plateforme de Mini-Jeux en ligne." />
+    <meta property="twitter:image" content="" />
 </head>
-<body class="h-screen overflow-hidden animated-gradient animate-gradient dark:text-lavender-blush-base text-night-base">
-    {% block layout %}{% endblock %}
+<body class="h-screen animated-gradient animate-gradient dark:text-lavender-blush-base text-night-base">
+{% block layout %}{% endblock %}
 
-    {% if error.code != null %}
-        <div id="errorMessage"
-             class="absolute bottom-6 right-6 bg-red-500 text-red-200 px-5 py-3 shadow-md rounded-2xl">
-            <p class="font-semibold">Une erreur est survenue !</p>
-            <span class="font-semibold">{{ error.code }}</span> : {{ error.message }}
-        </div>
-    {% endif %}
+{% if error.code != null %}
+    <div id="errorMessage"
+         class="absolute bottom-6 right-6 bg-red-500 text-red-200 px-5 py-3 shadow-md rounded-2xl">
+        <p class="font-semibold">Une erreur est survenue !</p>
+        <span class="font-semibold">{{ error.code }}</span> : {{ error.message }}
+    </div>
+{% endif %}
 
-    <script language="JavaScript">
-        const errorMessage = document.getElementById('errorMessage');
-        if (errorMessage) {
-            setTimeout(() => {
-                errorMessage.style.transition = "transform 0.7s ease-out";
-                errorMessage.style.transform = "translateX(500px)";
-                errorMessage.addEventListener('transitionend', () => {
-                    errorMessage.remove();
-                });
-            }, 5000);
-        }
-    </script>
-    {% block scripts %}{% endblock %}
+{% if success != null %}
+    <div id="successMessage"
+         class="absolute bottom-6 right-6 bg-green-500 text-green-200 px-5 py-3 shadow-md rounded-2xl">
+        <p class="font-semibold">Génial !</p>
+        <span>{{ success }}</span>
+    </div>
+{% endif %}
+
+<script language="JavaScript">
+    const errorMessage = document.getElementById('errorMessage');
+    if (errorMessage) {
+        setTimeout(() => {
+            errorMessage.style.transition = "transform 0.7s ease-out";
+            errorMessage.style.transform = "translateX(500px)";
+            errorMessage.addEventListener('transitionend', () => {
+                errorMessage.remove();
+            });
+        }, 5000);
+    }
+
+    const successMessage = document.getElementById('successMessage');
+    if (successMessage) {
+        setTimeout(() => {
+            successMessage.style.transition = "transform 0.7s ease-out";
+            successMessage.style.transform = "translateX(500px)";
+            successMessage.addEventListener('transitionend', () => {
+                successMessage.remove();
+            });
+        }, 5000);
+    }
+</script>
+{% block scripts %}{% endblock %}
+<script lang="js" src="/assets/js/cookies.js"></script>
 </body>
 </html>

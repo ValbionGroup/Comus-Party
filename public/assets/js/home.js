@@ -31,3 +31,75 @@ searchBar.addEventListener('input', (e) => {
 
     // Réorganiser les cartes (le navigateur gère automatiquement la disposition des grilles)
 });
+
+function closeModal() {
+    let modals = document.querySelectorAll(".modal")
+    modals.forEach(modal => {
+        if (!modal.classList.contains("hidden")) {
+            modal.classList.add("hidden");
+        }
+    });
+    let background = document.getElementById('backgroundModal');
+    background.classList.add("hidden");
+}
+
+function showBackgroundModal() {
+    let background = document.getElementById('backgroundModal');
+    background.classList.remove("hidden");
+}
+
+function showModalSuggestion() {
+    let modal = document.getElementById('modalSuggestion');
+    modal.classList.remove("hidden");
+    showBackgroundModal();
+}
+
+function showModalGame(e) {
+    let gameId = e.parentNode.parentNode.id;
+    let modal = document.getElementById(`modalGame`);
+    let spanGameName = document.getElementById('spanGameName');
+    let spanGameDescription = document.getElementById('spanGameDescription');
+    let divGameTags = document.getElementById('divGameTags');
+    let createGameButton = document.getElementById('createGameModalButton');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `/game/informations/${gameId}`, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // Envoyer les données sous forme de paire clé=valeur
+    xhr.send();
+
+    // Gérer la réponse du serveur
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                spanGameName.innerText = response.game.name;
+                spanGameDescription.innerText = response.game.description;
+                divGameTags.innerHTML = "";
+                response.game.tags.forEach(tag => {
+                    divGameTags.innerHTML += `<p class="border-2 rounded-full border-blue-violet-base py-0.5 px-2 text-center">${tag}</p>`;
+                });
+            }
+        }
+    };
+
+    createGameButton.setAttribute("onclick", `createGame(${gameId})`);
+    modal.classList.remove("hidden");
+    showBackgroundModal();
+}
+
+function createGame(id) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `/game/create/${id}`, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                window.location.href = "/game/" + response.game.code;
+            }
+        }
+    };
+}

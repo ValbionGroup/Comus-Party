@@ -95,7 +95,7 @@ class Article {
     /**
      * @brief Le prix en euro de l'article
      *
-     * @var int|null
+     * @var float|null
      */
     private ?float $priceEuro;
     /**
@@ -104,7 +104,7 @@ class Article {
      * @var string|null
      *
      */
-    private ?string $pathImg;
+    private ?string $filePath;
 
     /**
      * @brief Le constructeur de la classe Article
@@ -115,10 +115,10 @@ class Article {
      * @param ArticleType|null $type Le type de l'article
      * @param string|null $description La description de l'article
      * @param int|null $pricePoint Le prix en point de l'article
-     * @param int|null $priceEuro Le prix en euro de l'article
-     * @param string|null $pathImg Le chemin de l'image de l'article
+     * @param float|null $priceEuro Le prix en euro de l'article
+     * @param string|null $filePath Le chemin de l'image de l'article
      */
-    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?ArticleType $type = null, ?string $description = null , ?int $pricePoint = null, ?int $priceEuro = null, ?string $pathImg = null)
+    public function __construct(?int $id = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?string $name = null, ?ArticleType $type = null, ?string $description = null, ?int $pricePoint = null, ?float $priceEuro = null, ?string $filePath = null)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
@@ -128,7 +128,7 @@ class Article {
         $this->description = $description;
         $this->pricePoint = $pricePoint;
         $this->priceEuro = $priceEuro;
-        $this->pathImg = $pathImg;
+        $this->filePath = $filePath;
     }
 
 
@@ -282,9 +282,9 @@ class Article {
     /**
      * @brief Retourne le prix en euro de l'article
      *
-     * @return int|null Le prix en euro de l'article qui est retourné
+     * @return float|null Le prix en euro de l'article qui est retourné
      */
-    public function getPriceEuro(): ?int
+    public function getPriceEuro(): ?float
     {
         return $this->priceEuro;
     }
@@ -305,20 +305,20 @@ class Article {
      *
      * @return string|null Le chemin de l'article qui est retourné
      */
-    public function getPathImg(): ?string
+    public function getFilePath(): ?string
     {
-        return $this->pathImg;
+        return $this->filePath;
     }
 
     /**
      * @brief Modifie le chemin de l'article
      *
-     * @param string|null $pathImg Le nouveau chemin de l'article
+     * @param string|null $filePath Le nouveau chemin de l'article
      * @return void
      */
-    public function setPathImg(?string $pathImg): void
+    public function setFilePath(?string $filePath): void
     {
-        $this->pathImg = $pathImg;
+        $this->filePath = $filePath;
     }
 
 }

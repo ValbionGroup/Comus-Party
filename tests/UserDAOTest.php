@@ -4,15 +4,15 @@
  * @brief Le fichier contient la déclaration et la définition de la classe GameDao
  * @author Conchez-Boueytou Robin
  * @date 14/11/2024
- * @version 0.1
+ * @version 0.2
  */
 
 require_once __DIR__ . '/../include.php';
 
-use PDO;
 use ComusParty\Models\Db;
 use ComusParty\Models\UserDAO;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @brief Classe UserDAOTest
  * @details La classe UserDAOTest permet de tester les méthodes de la classe UserDAO
@@ -25,13 +25,7 @@ class UserDAOTest extends TestCase
      * @var UserDAO
      */
     private UserDAO $userDAO;
-    protected function setUp(): void
-    {
-        /**
-         * @brief Instanciation d'un objet UserDAO pour les tests
-         */
-        $this->userDAO = new UserDAO(Db::getInstance()->getConnection());
-    }
+
     /**
      * @brief Test de la méthode getUserDAO
      * @return void
@@ -40,6 +34,7 @@ class UserDAOTest extends TestCase
     {
         $this->assertInstanceOf(UserDAO::class, $this->userDAO);
     }
+
     /**
      * @brief Test de la méthode setUserDAO
      * @return void
@@ -58,6 +53,7 @@ class UserDAOTest extends TestCase
     {
         $this->assertInstanceOf(PDO::class, $this->userDAO->getPdo());
     }
+
     /**
      * @brief Test de la méthode setPdo
      * @return void
@@ -105,5 +101,13 @@ class UserDAOTest extends TestCase
             'updated_at' => '2024-11-06'];
         $user = $this->userDAO->hydrate($userTab);
         $this->assertEquals(1, $user->getId());
+    }
+
+    protected function setUp(): void
+    {
+        /**
+         * @brief Instanciation d'un objet UserDAO pour les tests
+         */
+        $this->userDAO = new UserDAO(Db::getInstance()->getConnection());
     }
 }

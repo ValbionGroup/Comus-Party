@@ -9,17 +9,25 @@ $dotenv->load();
 
 require_once __DIR__ . '/config/const.php';
 require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/config/mail.php';
 
-require_once __DIR__ . '/src/Models/Router.php';
+require_once __DIR__ . '/src/App/Router.php';
+require_once __DIR__ . '/src/App/Validator.php';
+require_once __DIR__ . '/src/App/MessageHandler.php';
 
-require_once __DIR__ . '/src/Models/Exceptions/ErrorHandler.php';
-require_once __DIR__ . '/src/Models/Exceptions/NotFoundException.php';
-require_once __DIR__ . '/src/Models/Exceptions/MalformedRequestException.php';
-require_once __DIR__ . '/src/Models/Exceptions/AuthentificationException.php';
-require_once __DIR__ . '/src/Models/Exceptions/ControllerNotFoundException.php';
-require_once __DIR__ . '/src/Models/Exceptions/MethodNotFoundException.php';
-require_once __DIR__ . '/src/Models/Exceptions/RouteNotFoundException.php';
-require_once __DIR__ . '/src/Models/Exceptions/UnauthorizedAccessException.php';
+require_once __DIR__ . '/src/App/Exceptions/NotFoundException.php';
+require_once __DIR__ . '/src/App/Exceptions/MalformedRequestException.php';
+require_once __DIR__ . '/src/App/Exceptions/AuthenticationException.php';
+require_once __DIR__ . '/src/App/Exceptions/ControllerNotFoundException.php';
+require_once __DIR__ . '/src/App/Exceptions/MethodNotFoundException.php';
+require_once __DIR__ . '/src/App/Exceptions/RouteNotFoundException.php';
+require_once __DIR__ . '/src/App/Exceptions/UnauthorizedAccessException.php';
+require_once __DIR__ . '/src/App/Exceptions/PaymentException.php';
+require_once __DIR__ . '/src/App/Exceptions/GameUnavailableException.php';
+require_once __DIR__ . '/src/App/Exceptions/GameSettingsException.php';
+
+require_once __DIR__ . '/src/App/Sockets/Chat.php';
+require_once __DIR__ . '/src/App/Sockets/Game.php';
 
 require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/Controllers/controller.class.php';
@@ -27,6 +35,11 @@ require_once __DIR__ . '/src/Controllers/controllerProfile.class.php';
 require_once __DIR__ . '/src/Controllers/controllerGame.class.php';
 require_once __DIR__ . '/src/Controllers/controllerShop.class.php';
 require_once __DIR__ . '/src/Controllers/controllerAuth.class.php';
+require_once __DIR__ . '/src/Controllers/controllerBasket.class.php';
+require_once __DIR__ . '/src/Controllers/controllerSuggestion.class.php';
+require_once __DIR__ . '/src/Controllers/controllerDashboard.class.php';
+require_once __DIR__ . '/src/Controllers/controllerPolicy.class.php';
+require_once __DIR__ . '/src/Controllers/controllerRanking.class.php';
 
 require_once __DIR__ . '/src/Models/db.class.php';
 require_once __DIR__ . '/src/Models/player.class.php';
@@ -37,7 +50,18 @@ require_once __DIR__ . '/src/Models/game.class.php';
 require_once __DIR__ . '/src/Models/game.dao.php';
 require_once __DIR__ . '/src/Models/article.class.php';
 require_once __DIR__ . '/src/Models/article.dao.php';
+require_once __DIR__ . '/src/Models/invoice.class.php';
+require_once __DIR__ . '/src/Models/invoice.dao.php';
 require_once __DIR__ . '/src/Models/statistics.class.php';
+require_once __DIR__ . '/src/Models/passwordResetToken.class.php';
+require_once __DIR__ . '/src/Models/passwordResetToken.dao.php';
+require_once __DIR__ . '/src/Models/gameRecord.class.php';
+require_once __DIR__ . '/src/Models/gameRecord.dao.php';
+require_once __DIR__ . '/src/Models/suggestion.class.php';
+require_once __DIR__ . '/src/Models/suggestion.dao.php';
+require_once __DIR__ . '/src/Models/moderator.class.php';
+require_once __DIR__ . '/src/Models/moderator.dao.php';
+require_once __DIR__ . '/src/Models/mailer.class.php';
 
 session_start();
 require_once __DIR__ . '/config/twig.php';

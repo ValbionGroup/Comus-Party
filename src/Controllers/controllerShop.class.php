@@ -10,7 +10,13 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\Exceptions\PaymentException;
+use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\InvoiceDAO;
+use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\UserDAO;
+use DateMalformedStringException;
 use DateTime;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -22,13 +28,15 @@ use Twig\Loader\FilesystemLoader;
  * @brief Classe ControllerShop
  * @details La classe ControllerShop permet de gérer les actions liées à la boutique
  */
-class ControllerShop extends Controller {
+class ControllerShop extends Controller
+{
     /**
      * @brief Constructeur de la classe ControllerShop
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      */
-    public function __construct(FilesystemLoader $loader, Environment $twig) {
+    public function __construct(FilesystemLoader $loader, Environment $twig)
+    {
         parent::__construct($loader, $twig);
     }
 
@@ -41,19 +49,25 @@ class ControllerShop extends Controller {
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function show() {
+    public function show()
+    {
         $managerArticle = new ArticleDAO($this->getPdo());
 
         $articles = $managerArticle->findAll();
         $pfps = $managerArticle->findAllPfps();
         $banners = $managerArticle->findAllBanners();
 
-        $template = $this->getTwig()->load('shop.twig');
-
+        $template = $this->getTwig()->load('player/shop.twig');
+        if (isset($_SESSION['basket'])) {
+            $numberArticlesInBasket = count($_SESSION['basket']);
+        } else {
+            $numberArticlesInBasket = 0;
+        }
         echo $template->render(array(
             'articles' => $articles,
             'pfps' => $pfps,
-            'banners' => $banners
+            'banners' => $banners,
+            'numberArticlesInBasket' => $numberArticlesInBasket
         ));
     }
 
@@ -65,14 +79,74 @@ class ControllerShop extends Controller {
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function showAll(){
+    public function showAll()
+    {
         $managerArticle = new ArticleDAO($this->getPdo());
         $articles = $managerArticle->findAll();
-        $template = $this->getTwig()->load('shop.twig');
+        $template = $this->getTwig()->load('player/shop.twig');
 
         echo $template->render(array('articles' => $articles));
     }
 
+    /**
+     * @brief Permet d'afficher la page de paiement
+     *
+     * @return void
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function showCheckout()
+    {
+        $articles = [];
+        foreach ($_SESSION['basket'] as $id) {
+            $managerArticle = new ArticleDAO($this->getPdo());
+            $article = $managerArticle->findById($id);
+            $articles[] = $article;
+        }
+
+        $template = $this->getTwig()->load('player/checkout.twig');
+        echo $template->render(array('articles' => $articles));
+    }
+
+    /**
+     * @brief Vérifie si l'ensemble des données du formulaire de paiement, passées en paramètre via un tableau associatif sont valides.
+     * @details Les vérifications sont les suivantes :
+     *  - Vérification de la longueur du numéro de carte (16 chiffres)
+     *  - Vérification de la validité de l'algorithme de Luhn sur le numéro de carte
+     *  - Vérification de la longueur du cryptogramme de sécurité (3 chiffres)
+     *  - Vérification de la date d'expiration de la carte (date supérieure à la date actuelle)
+     * @param array|null $datas Tableau associatif contenant les données du formulaire de paiement
+     * @return bool
+     * @throws PaymentException Exception levée dans le cas d'une erreur de paiement
+     */
+    public function checkPaymentRequirement(?array $datas): ?bool
+    {
+        $cardNumber = preg_replace('/\s/', '', $datas['cardNumber']);
+
+        if (strlen($cardNumber) !== 16) {
+            throw new PaymentException("Le numéro de carte doit contenir 16 chiffres");
+        }
+
+        if (!$this->checkLuhnValid($cardNumber)) {
+            throw new PaymentException("Le numéro de carte n'est pas valide");
+        }
+
+        if (strlen($datas['cvv']) !== 3) {
+            throw new PaymentException("Le cryptogramme de sécurité doit contenir 3 chiffres");
+        }
+
+
+        list($month, $year) = explode("/", $datas['expirationDate']);
+        $expirationDate = new DateTime();
+        $expirationDate->setDate(2000 + (int)$year, (int)$month, 1);
+        $now = new DateTime();
+        if ($expirationDate < $now) {
+            throw new PaymentException("La carte a expiré");
+        }
+
+        return true;
+    }
 
     /**
      * @brief Exécute l'algorithme de Luhn sur le numéro de carte passé en paramètre
@@ -80,6 +154,8 @@ class ControllerShop extends Controller {
      * - Multiplie par 2 chaque chiffre en position paire (en partant de 0)
      * - Si le résultat de la multiplication est supérieur ou égal à 10, additionne les chiffres du résultat et ajoute le résultat à la somme totale
      * - Ajoute les chiffres en position impaire à la somme totale
+     * - Calcule la clé de Luhn (10 - (somme totale % 10))
+     * - Si la clé de Luhn est égale au dernier chiffre du numéro de carte, alors le numéro de carte est valide
      * @param string|null $card Numéro de carte bancaire à vérifier
      * @return bool
      */
@@ -105,40 +181,33 @@ class ControllerShop extends Controller {
     }
 
     /**
-     * @brief Vérifie si l'ensemble des données du formulaire de paiement, passées en paramètre via un tableau associatif sont valides.
-     * @details Les vérifications sont les suivantes :
-     *  - Vérification de la longueur du numéro de carte (16 chiffres)
-     *  - Vérification de la validité de l'algorithme de Luhn sur le numéro de carte
-     *  - Vérification de la longueur du cryptogramme de sécurité (3 chiffres)
-     *  - Vérification de la date d'expiration de la carte (date supérieure à la date actuelle)
-     * @param array|null $datas Tableau associatif contenant les données du formulaire de paiement
-     * @return bool
+     * @brief Affiche la facture générée grâce à l'ID passé en paramètre GET
+     * @param int $invoiceId L'ID de la facture à afficher
+     * @return void
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws UnauthorizedAccessException Exception levée dans le cas d'un accès non-autorisé à la facture
      */
-    public function checkPaymentRequirement(?array $datas): bool
+    public function showInvoice(int $invoiceId)
     {
-        $cardNumber = preg_replace('/\s/', '', $datas['cardNumber']);
+        $managerArticle = new ArticleDAO($this->getPdo());
+        $managerPlayer = new PlayerDAO($this->getPdo());
+        $managerUser = new UserDAO($this->getPdo());
+        $managerInvoice = new InvoiceDAO($this->getPdo());
 
-        if (strlen($cardNumber) !== 16) {
-            return false;
-        }
+        $articles = $managerArticle->findArticlesByInvoiceId($invoiceId);
+        $player = $managerPlayer->findWithDetailByUuid($_SESSION['uuid']);
+        $email = $managerUser->findById($player->getUserId())->getEmail();
+        $invoice = $managerInvoice->findById($invoiceId);
 
-        if (!$this->checkLuhnValid($cardNumber)) {
-            return false;
-        }
-
-        if (strlen($datas['cvv']) !== 3) {
-            return false;
-        }
-
-
-        list($month, $year) = explode("/", $datas['expirationDate']);
-        $expirationDate = new DateTime();
-        $expirationDate->setDate(2000 + (int)$year, (int)$month, 1);
-        $now = new DateTime();
-        if ($expirationDate < $now) {
-            return false;
-        }
-
-        return true;
+        $template = $this->getTwig()->load('player/invoice.twig');
+        echo $template->render(array(
+            'invoice' => $invoice,
+            'username' => $player->getUsername(),
+            'email' => $email,
+            'articles' => $articles
+        ));
     }
 }

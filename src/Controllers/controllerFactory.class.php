@@ -9,7 +9,7 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\Models\Exception\ControllerNotFoundException;
+use ComusParty\App\Exceptions\ControllerNotFoundException;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -18,7 +18,8 @@ use Twig\Loader\FilesystemLoader;
  * @details La classe ControllerFactory est un patron de conception Factory
  * @remark  C'est une version simplifié du patron de conception Factory
  */
-class ControllerFactory {
+class ControllerFactory
+{
     /**
      * @brief La méthode getController permet de récupérer un contrôleur
      * @param string $controller Le nom du contrôleur

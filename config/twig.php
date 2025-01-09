@@ -11,12 +11,13 @@
 
 use Twig\Extension\CoreExtension;
 use Twig\Extension\DebugExtension;
+use Twig\Extra\Date\DateExtension;
 use Twig\Extra\Intl\IntlExtension;
 
 /**
  * @brief Instance de FilesystemLoader
  */
-$loader = new Twig\Loader\FilesystemLoader(__DIR__.'/../src/templates');
+$loader = new Twig\Loader\FilesystemLoader(__DIR__ . '/../src/templates');
 
 /**
  * @brief Instance de Twig
@@ -28,6 +29,7 @@ $twig = new Twig\Environment($loader, [
 $twig->getExtension(CoreExtension::class)->setTimezone('Europe/Paris');
 $twig->addExtension(new DebugExtension());
 $twig->addExtension(new IntlExtension());
+$twig->addExtension(new DateExtension());
 
 $twig->addGlobal('auth', [
     'pfpPath' => $_SESSION['pfpPath'] ?? null,
@@ -37,9 +39,17 @@ $twig->addGlobal('auth', [
     'loggedComusCoin' => $_SESSION['comusCoin'] ?? null,
     'loggedElo' => $_SESSION['elo'] ?? null,
     'loggedXp' => $_SESSION['xp'] ?? null,
+    'role' => $_SESSION['role'] ?? null,
+    'firstName' => $_SESSION['firstName'] ?? null,
+    'lastName' => $_SESSION['lastName'] ?? null,
 ]);
 
-$twig->addGlobal('error', [
-    'code' => null,
-    'message' => null,
-]);
+if (isset($_SESSION['error'])) {
+    $twig->addGlobal('error', $_SESSION['error']);
+    unset($_SESSION['error']);
+}
+
+if (isset($_SESSION['success'])) {
+    $twig->addGlobal('success', $_SESSION['success']);
+    unset($_SESSION['success']);
+}

@@ -26,25 +26,6 @@ class ArticleTest extends TestCase
     private Article $article;
 
     /**
-     * @brief Instanciation d'un objet Article pour les tests
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $this->article = new Article(
-            id: 1,
-            createdAt: new DateTime('2024-01-01'),
-            updatedAt: new DateTime('2024-11-14'),
-            name: 'TestTitle',
-            type: ArticleType::ProfilePicture,
-            description: 'TestContent',
-            pricePoint: 500,
-            priceEuro: 5.0,
-            pathImg: 'test.jpg'
-        );
-    }
-
-    /**
      * @brief Test de la méthode getId
      * @return void
      */
@@ -83,7 +64,6 @@ class ArticleTest extends TestCase
         $this->assertEquals(null, $this->article->getId());
     }
 
-
     /**
      * @brief Test de la méthode getName
      * @return void
@@ -112,7 +92,6 @@ class ArticleTest extends TestCase
         $this->article->setName(null);
         $this->assertEquals(null, $this->article->getName());
     }
-
 
     /**
      * @brief Test de la méthode getType
@@ -143,7 +122,6 @@ class ArticleTest extends TestCase
         $this->article->setType('Banner');
     }
 
-
     /**
      * @brief Test de la méthode getDescription
      * @return void
@@ -172,7 +150,6 @@ class ArticleTest extends TestCase
         $this->article->setDescription(null);
         $this->assertEquals(null, $this->article->getDescription());
     }
-
 
     /**
      * @brief Test de la méthode getPricePoint
@@ -213,7 +190,6 @@ class ArticleTest extends TestCase
         $this->assertEquals(null, $this->article->getPricePoint());
     }
 
-
     /**
      * @brief Test de la méthode getPriceEuro
      * @return void
@@ -253,34 +229,33 @@ class ArticleTest extends TestCase
         $this->assertEquals(null, $this->article->getPriceEuro());
     }
 
-
     /**
-     * @brief Test de la méthode getPathImg
+     * @brief Test de la méthode getFilePath
      * @return void
      */
-    public function testGetPathImg(): void
+    public function testGetFilePath(): void
     {
-        $this->assertEquals('test.jpg', $this->article->getPathImg());
+        $this->assertEquals('test.jpg', $this->article->getFilePath());
     }
 
     /**
-     * @brief Test de la méthode setPathImg avec un paramètre valide
+     * @brief Test de la méthode setFilePath avec un paramètre valide
      * @return void
      */
-    public function testSetPathImgWithValidPathImg(): void
+    public function testSetFilePathWithValidFilePath(): void
     {
-        $this->article->setPathImg('test2.jpg');
-        $this->assertEquals('test2.jpg', $this->article->getPathImg());
+        $this->article->setFilePath('test2.jpg');
+        $this->assertEquals('test2.jpg', $this->article->getFilePath());
     }
 
     /**
-     * @brief Test de la méthode setPathImg avec un paramètre null
+     * @brief Test de la méthode setFilePath avec un paramètre null
      * @return void
      */
-    public function testSetPathImgWithNullPathImg(): void
+    public function testSetFilePathWithNullFilePath(): void
     {
-        $this->article->setPathImg(null);
-        $this->assertEquals(null, $this->article->getPathImg());
+        $this->article->setFilePath(null);
+        $this->assertEquals(null, $this->article->getFilePath());
     }
 
     /**
@@ -322,7 +297,6 @@ class ArticleTest extends TestCase
         $this->assertEquals(null, $this->article->getCreatedAt());
     }
 
-
     /**
      * @brief Test de la méthode getUpdatedAt
      * @return void
@@ -360,5 +334,24 @@ class ArticleTest extends TestCase
     {
         $this->article->setUpdatedAt(null);
         $this->assertEquals(null, $this->article->getUpdatedAt());
+    }
+
+    /**
+     * @brief Instanciation d'un objet Article pour les tests
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $this->article = new Article(
+            id: 1,
+            createdAt: new DateTime('2024-01-01'),
+            updatedAt: new DateTime('2024-11-14'),
+            name: 'TestTitle',
+            type: ArticleType::ProfilePicture,
+            description: 'TestContent',
+            pricePoint: 500,
+            priceEuro: 5.0,
+            filePath: 'test.jpg'
+        );
     }
 }
