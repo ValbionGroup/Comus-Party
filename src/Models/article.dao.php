@@ -344,7 +344,10 @@ class ArticleDAO
             $stmt->bindParam(':idArticle', $idArticle);
             $stmt->execute();
             $banner = $this->findById($idArticle);
-            $_SESSION['bannerPath'] = $banner->getFilePath();
+            if($banner != null){
+                $_SESSION['bannerPath'] = $banner->getFilePath();
+            }
+
         }
     }
 
