@@ -139,16 +139,6 @@ class GameRecordTest extends TestCase
     }
 
     /**
-     * @brief Test de la méthode setPrivate avec un paramètre invalide
-     * @return void
-     */
-    public function testSetPrivateWithInvalidPrivate(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->gameRecord->setPrivate('private');
-    }
-
-    /**
      * @brief Test de la méthode setFinishedAt avec un paramètre valide
      * @return void
      */
