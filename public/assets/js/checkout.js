@@ -222,30 +222,20 @@ function sendForm() {
     // Gérer la réponse du serveur
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText)
-            if (response.success) {
-                console.log("Paiement accepté");
-            } else {
+            let response = JSON.parse(xhr.responseText);
+            if (!response.success) {
                 notificationMessage.textContent = response.message;
                 notification.className = "z-50 fixed bottom-5 right-5 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
                 // Afficher la notification
                 notification.classList.remove('opacity-0', 'scale-90');
                 notification.classList.add('opacity-100', 'scale-100');
-
-                overlay.classList.remove('opacity-100'); // Disparition de l'overlay
-                modalWindowForBanner.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
-                // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
-                setTimeout(() => {
-                    overlay.classList.add('hidden', 'opacity-0');
-                    modalWindowForBanner.classList.add('hidden', 'opacity-0', 'translate-y-4');
-                }, 300); // Durée de la transition
+                
                 // Masquer la notification après 5 secondes
                 setTimeout(() => {
                     notification.classList.remove('opacity-100', 'scale-100');
                     notification.classList.add('opacity-0', 'scale-90');
                 }, 5000);
             }
-
         }
     };
 }
