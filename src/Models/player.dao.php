@@ -304,7 +304,7 @@ class PlayerDAO
         $offset = $start - 1; // Décalage basé sur la position (index commence à 0)
 
         $stmt = $this->pdo->prepare(
-            'SELECT pr.*, u.email, u.created_at, u.updated_at, a.file_path as active_pfp,
+            'SELECT DISTINCT pr.*, u.email, u.created_at, u.updated_at, a.file_path as active_pfp,
            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'played WHERE player_uuid = pr.uuid) as games_played,
            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'won WHERE player_uuid = pr.uuid) as games_won,
            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'game_record WHERE hosted_by = pr.uuid) as games_hosted
