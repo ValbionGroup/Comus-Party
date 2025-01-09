@@ -230,4 +230,12 @@ class ControllerShop extends Controller
             'articles' => $articles
         ));
     }
+
+    public function showSuccessPayment($articles, $playerUuid, $paymentType)
+    {
+        $managerInvoice = new InvoiceDAO($this->getPdo());
+        $managerInvoice->createInvoiceWithArticles($playerUuid, $paymentType, $articles);
+        $template = $this->getTwig()->load('player/successPayment.twig');
+        echo $template->render();
+    }
 }
