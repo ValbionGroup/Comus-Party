@@ -420,8 +420,15 @@ class ArticleDAO
      */
     public function deleteActiveArticleForPfp(string $uuid)
     {
-        if($uuid == null){
-            throw new NotFoundException('Player not found');
+        $stmt = $this->pdo->prepare(
+            'SELECT p.*
+            FROM ' . DB_PREFIX . 'player p
+            WHERE i.player_uuid = :uuid');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+        if ($stmt->rowCount() === 0) {
+            // Gérer le cas où aucune ligne n'est affectée
+            throw new NotFoundException('No player found for the given UUID');
         }else{
             $stmt = $this->pdo->prepare(
                 'UPDATE ' . DB_PREFIX . 'invoice_row ir
@@ -432,6 +439,11 @@ class ArticleDAO
             $stmt->bindParam(':uuid', $uuid);
             $stmt->execute();
         }
+
+
+
+
+
     }
 
     /**
