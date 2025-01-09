@@ -306,12 +306,12 @@ class ArticleDAO
             );
             $stmt->bindParam(':uuid', $uuid);
             $stmt->bindParam(':idArticle', $idArticle);
-            $stmt->execute();
+            $ok = $stmt->execute();
             $pfp = $this->findById($idArticle);
             if($pfp != null){
                 $_SESSION['pfpPath'] = $pfp->getFilePath();
             }
-
+            return $ok;
         }
 
         if ($typeArticle == "Banner") {
@@ -328,7 +328,7 @@ class ArticleDAO
         WHERE i.player_uuid = :uuid AND ir.article_id = :idArticleActif');
                 $stmt->bindParam(':uuid', $uuid);
                 $stmt->bindParam(':idArticleActif', $idBannerActive);
-                $stmt->execute();
+                $ok = $stmt->execute();
 
             }
 
@@ -342,11 +342,12 @@ class ArticleDAO
             );
             $stmt->bindParam(':uuid', $uuid);
             $stmt->bindParam(':idArticle', $idArticle);
-            $stmt->execute();
+            $ok = $stmt->execute();
             $banner = $this->findById($idArticle);
             if($banner != null){
                 $_SESSION['bannerPath'] = $banner->getFilePath();
             }
+            return $ok;
 
         }
     }
