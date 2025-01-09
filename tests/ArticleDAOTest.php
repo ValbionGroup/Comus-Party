@@ -298,4 +298,49 @@ class ArticleDAOTest extends TestCase
     {
         $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('42uuid'));
     }
+
+    /**
+     * @brief Test de la méthode findAllPfpsOwnedByPlayer avec un UUID valide et existant dans la base de données
+     * @return void
+     */
+    public function testFindAllPfpsOwnedByPlayerWithValidUuid(): void
+    {
+        $pfps = $this->articleDAO->findAllPfpsOwnedByPlayer('uuid2');
+        $this->assertIsArray($pfps);
+        $this->assertNotEmpty($pfps);
+        $this->assertInstanceOf(Article::class, $pfps[0]);
+        $this->assertEquals(ArticleType::ProfilePicture, $pfps[0]->getType());
+    }
+
+    /**
+     * @brief Test de la méthode findAllPfpsOwnedByPlayer avec un UUID valide mais non-existant dans la base de données
+     * @return void
+     */
+    public function testFindAllPfpsOwnedByPlayerWithInvalidUuid(): void
+    {
+        $this->assertEmpty($this->articleDAO->findAllPfpsOwnedByPlayer('42uuid'));
+    }
+
+    /**
+     * @brief Test de la méthode findAllBannersOwnedByPlayer avec un UUID valide et existant dans la base de données
+     * @return void
+     */
+    public function testFindAllBannersOwnedByPlayerWithValidUuid(): void
+    {
+        $banners = $this->articleDAO->findAllBannersOwnedByPlayer('uuid1');
+        $this->assertIsArray($banners);
+        $this->assertNotEmpty($banners);
+        $this->assertInstanceOf(Article::class, $banners[0]);
+        $this->assertEquals(ArticleType::Banner, $banners[0]->getType());
+    }
+
+    /**
+     * @brief Test de la méthode findAllBannersOwnedByPlayer avec un UUID valide mais non-existant dans la base de données
+     * @return void
+     */
+
+    public function testFindAllBannersOwnedByPlayerWithInvalidUuid(): void
+    {
+        $this->assertEmpty($this->articleDAO->findAllBannersOwnedByPlayer('42uuid'));
+    }
 }
