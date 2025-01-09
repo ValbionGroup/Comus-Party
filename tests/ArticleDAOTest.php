@@ -347,4 +347,18 @@ class ArticleDAOTest extends TestCase
         $this->expectException(PDOException::class);
         $this->articleDAO->updateActiveArticle('42uuid', '42');
     }
+
+    /**
+     * @brief Test de la méthode updateActiveArticle avec un UUID invalide et un ID d'article valide
+     * @return void
+     */
+    public function testUpdateActiveArticleWithInvalidUuidAndValidArticleId(): void
+    {
+        $this->expectException(PDOException::class);
+        $this->articleDAO->updateActiveArticle('42uuid', '1');
+    }
+
 }
+
+
+?>
