@@ -200,6 +200,11 @@ class ControllerGame extends Controller
             throw new NotFoundException("La partie n'existe pas");
         }
 
+        if (is_null($gameRecord->getPlayers())) {
+            (new GameRecordDAO($this->getPdo()))->delete($gameRecord->getCode());
+            throw new NotFoundException("La partie n'existe pas");
+        }
+
         if ($gameRecord->getState() == GameRecordState::WAITING) {
             $this->showGameSettings($gameRecord);
         } else if ($gameRecord->getState() == GameRecordState::STARTED) {
@@ -218,6 +223,7 @@ class ControllerGame extends Controller
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws GameUnavailableException|NotFoundException Exception levée si la partie n'existe pas ou si le jeu n'est pas disponible
      */
     private function showGameSettings(GameRecord $gameRecord): void
     {
