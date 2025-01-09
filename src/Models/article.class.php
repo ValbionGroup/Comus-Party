@@ -91,13 +91,13 @@ class Article {
      *
      * @var int|null
      */
-    private ?int $pricePoint;
+    private ?float $pricePoint;
     /**
      * @brief Le prix en euro de l'article
      *
      * @var int|null
      */
-    private ?int $priceEuro;
+    private ?float $priceEuro;
     /**
      * @brief Le chemin d'accès de l'image
      *
@@ -261,9 +261,9 @@ class Article {
     /**
      * @brief Retourne le prix en point de l'article
      *
-     * @return int|null Le prix en point de l'article qui est retourné
+     * @return float|null Le prix en point de l'article qui est retourné
      */
-    public function getPricePoint(): ?int
+    public function getPricePoint(): ?float
     {
         return $this->pricePoint;
     }
@@ -271,10 +271,10 @@ class Article {
     /**
      * @brief Modifie le prix en point de l'article
      *
-     * @param int|null $pricePoint Le nouveau prix en point de l'article
+     * @param float|null $pricePoint Le nouveau prix en point de l'article
      * @return void
      */
-    public function setPricePoint(?int $pricePoint): void
+    public function setPricePoint(?float $pricePoint): void
     {
         $this->pricePoint = $pricePoint;
     }
@@ -292,10 +292,10 @@ class Article {
     /**
      * @brief Modifie le prix en euro de l'article
      *
-     * @param int|null $priceEuro Le nouveau prix de l'article
+     * @param float|null $priceEuro Le nouveau prix de l'article
      * @return void
      */
-    public function setPriceEuro(?int $priceEuro): void
+    public function setPriceEuro(?float $priceEuro): void
     {
         $this->priceEuro = $priceEuro;
     }
