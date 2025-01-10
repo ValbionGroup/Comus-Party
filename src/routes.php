@@ -229,7 +229,7 @@ $router->get('/suggest/:id', function ($id) use ($loader, $twig) {
 $router->post('/game/:code/end', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("endGame", [
         "code" => $code,
-        "winner" => $_POST['winner'],
+        "winner" => json_decode($_POST['winner'], true),
         "scores" => json_decode($_POST['scores'], true)
     ]);
     exit;
