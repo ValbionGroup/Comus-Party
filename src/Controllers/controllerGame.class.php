@@ -96,7 +96,6 @@ class ControllerGame extends Controller
         }
 
         $gameSettings = $this->getGameSettings($game->getId());
-
         if (sizeof($gameSettings) == 0) {
             throw new GameUnavailableException("Les paramètres du jeu ne sont pas disponibles");
         }
@@ -126,6 +125,38 @@ class ControllerGame extends Controller
         $gameRecord->setUpdatedAt(new DateTime());
         (new GameRecordDAO($this->getPdo()))->update($gameRecord);
 
+        foreach ($gameRecord->getPlayers() as $player) {
+            $player["token"] = "test";
+        }
+        var_dump($gameRecord->getPlayers());
+        (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
+
+//        $data = [$settings,
+//            $gameRecord->getPlayers()];
+//        $jsonData = json_encode($data);
+//
+//        $ch = curl_init($baseUrl . "/" . $gameRecord->getCode() . "/init");
+//        curl_setopt($ch, CURLOPT_POST, true);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData); // Envoyer le JSON
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Obtenir la réponse
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+//            "Content-Type: application/json", // Indiquer que les données sont au format JSON
+//            "Content-Length: " . strlen($jsonData)
+//        ]);
+//
+//        // Exécuter la requête
+//        $response = curl_exec($ch);
+//
+//        // Vérifier les erreurs
+//        if (curl_errno($ch)) {
+//            echo "Erreur cURL : " . curl_error($ch);
+//        } else {
+//            // Afficher la réponse
+//            echo "Réponse : " . $response;
+//        }
+//
+//        // Fermer la connexion cURL
+//        curl_close($ch);
 
         echo json_encode([
             "success" => true,
@@ -262,7 +293,6 @@ class ControllerGame extends Controller
 
         $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
         $baseUrl = $gameSettings["settings"]["serverPort"] != null ? "https://" . $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : "https://" . $gameSettings["settings"]["serverAddress"];
-
         $template = $this->getTwig()->load('player/in-game.twig');
         echo $template->render([
             "code" => $gameRecord->getCode(),
@@ -270,7 +300,7 @@ class ControllerGame extends Controller
             "players" => $gameRecord->getPlayers(),
             "game" => $gameRecord->getGame(),
             "chat" => $this->getGameSettings($gameRecord->getGame()->getId())["settings"]["allowChat"],
-            "iframe" => $baseUrl . "/" . $gameRecord->getCode(),
+            "iframe" => $baseUrl . "/" . $gameRecord->getCode() . "/init",
         ]);
     }
 
