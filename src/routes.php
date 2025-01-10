@@ -225,3 +225,12 @@ $router->get('/suggest/:id', function ($id) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getSuggestionInfo", ["id" => $id]);
     exit;
 }, 'moderator');
+
+$router->post('/game/:code/end', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("endGame", [
+        "code" => $code,
+        "winner" => $_POST['winner'],
+        "scores" => json_decode($_POST['scores'], true)
+    ]);
+    exit;
+});
