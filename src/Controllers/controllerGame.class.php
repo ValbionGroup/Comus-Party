@@ -362,32 +362,36 @@ class ControllerGame extends Controller
         $gameRecord->setFinishedAt(new DateTime());
         $gameRecordManager->update($gameRecord);
 
-        if (!is_null($winner)) {
-            foreach ($winner as $playerUuid) {
-                $gameRecordManager->addWinner($code, $playerUuid);
+        $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
+
+        if (in_array("WINNER_UUID", $gameSettings["returnParametersToComus"])) {
+            if (!is_null($winner)) {
+                foreach ($winner as $playerUuid) {
+                    $gameRecordManager->addWinner($code, $playerUuid);
+                }
             }
-        }
 
-        $players = $gameRecord->getPlayers();
+            $players = $gameRecord->getPlayers();
 
-        $averageElo = 0;
-        foreach ($players as $player) {
-            $averageElo += $player->getElo();
-        }
-        $averageElo /= sizeof($players);
-
-        foreach ($players as $player) {
-            $elo = $player->getElo();
-            if (is_null($winner)) {
-                $result = 0.5;
-            } else if (in_array($player->getUuid(), $winner)) {
-                $result = 1;
-            } else {
-                $result = 0;
+            $averageElo = 0;
+            foreach ($players as $player) {
+                $averageElo += $player["player"]->getElo();
             }
-            $newElo = EloCalculator::calculateNewElo($elo, $averageElo, $result);
-            $player->setElo($newElo);
-            (new PlayerDAO($this->getPdo()))->update($player);
+            $averageElo /= sizeof($players);
+
+            foreach ($players as $player) {
+                $elo = $player["player"]->getElo();
+                if (is_null($winner)) {
+                    $result = 0.5;
+                } else if (in_array($player["player"]->getUuid(), $winner)) {
+                    $result = 1;
+                } else {
+                    $result = 0;
+                }
+                $newElo = EloCalculator::calculateNewElo($elo, $averageElo, $result);
+                $player->setElo($newElo);
+                (new PlayerDAO($this->getPdo()))->update($player);
+            }
         }
 
         echo json_encode([
