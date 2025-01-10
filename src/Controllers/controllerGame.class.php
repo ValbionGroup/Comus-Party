@@ -369,7 +369,6 @@ class ControllerGame extends Controller
         }
 
         $players = $gameRecord->getPlayers();
-        $elos = [];
 
         $averageElo = 0;
         foreach ($players as $player) {
@@ -387,12 +386,9 @@ class ControllerGame extends Controller
                 $result = 0;
             }
             $newElo = EloCalculator::calculateNewElo($elo, $averageElo, $result);
-            $elos[$player->getUuid()] = $newElo;
             $player->setElo($newElo);
             (new PlayerDAO($this->getPdo()))->update($player);
         }
-
-        var_dump($elos);
 
         echo json_encode([
             "success" => true,
