@@ -14,6 +14,7 @@ use ComusParty\App\Exception\PaymentException;
 use ComusParty\App\Exception\UnauthorizedAccessException;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\InvoiceDAO;
+use ComusParty\Models\Mailer;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
@@ -234,7 +235,16 @@ class ControllerShop extends Controller
     public function showSuccessPayment($articles, $playerUuid, $paymentType)
     {
         $managerInvoice = new InvoiceDAO($this->getPdo());
-        $managerInvoice->createInvoiceWithArticles($playerUuid, $paymentType, $articles);
+        //$managerInvoice->createInvoiceWithArticles($playerUuid, $paymentType, $articles);
+
+        $managerPlayer = new PlayerDAO($this->getPdo());
+        $player = $managerPlayer->findByUuid($playerUuid);
+        $managerUser = new UserDAO($this->getPdo());
+        $user = $managerUser->findById($player->getUserId());
+
+        $mail = new Mailer(array($user->getEmail()), "ComusParty - Paiement effectué", "Votre paiement a bien été effectué. Vous pouvez consulter votre facture sur votre profil.");
+        $mail->send();
+
         $template = $this->getTwig()->load('player/successPayment.twig');
         echo $template->render();
     }
