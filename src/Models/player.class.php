@@ -74,6 +74,13 @@ class Player {
     private ?int $userId;
 
     /**
+     * @brief L'avatar actif du joueur
+     * @var string|null
+     */
+    private ?string $activePfp;
+
+
+    /**
      * @brief Le constructeur de la classe Player
      * @param string|null $uuid L'UUID du joueur
      * @param string|null $username Le nom d'utilisateur du joueur
@@ -84,6 +91,7 @@ class Player {
      * @param int|null $comusCoins Le nombre de Comus Coins possédés par le joueur
      * @param Statistics|null $statistics Les statistiques du joueur
      * @param int|null $userId L'identifiant utilisateur lié au profil de joueur
+     * @param string|null $activePfp L'avatar actif du joueur
      */
     public function __construct(
         ?string $uuid = null,
@@ -94,7 +102,8 @@ class Player {
         ?int $elo = null,
         ?int $comusCoins = null,
         ?Statistics $statistics = null,
-        ?int $userId = null
+        ?int $userId = null,
+        ?string $activePfp = null
     ) {
         $this->uuid = $uuid;
         $this->username = $username;
@@ -105,6 +114,7 @@ class Player {
         $this->comusCoin = $comusCoins;
         $this->statistics = $statistics;
         $this->userId = $userId;
+        $this->activePfp = $activePfp;
     }
 
     /**
@@ -274,5 +284,45 @@ class Player {
     public function setUserId(?int $userId): void
     {
         $this->userId = $userId;
+    }
+
+    /**
+     * @brief Retourne le chemin d'accès vers l'avatar actif du joueur
+     * @return string|null Chemin d'accès
+     */
+    public function getActivePfp(): ?string
+    {
+        return $this->activePfp;
+    }
+
+    /**
+     * @brief Modifie le chemin d'accès vers l'avatar actif du joueur
+     * @param string|null $activePfp Nouveau chemin d'accès
+     * @return void
+     */
+    public function setActivePfp(?string $activePfp): void
+    {
+        $this->activePfp = $activePfp;
+    }
+
+
+    /**
+     * @brief Convertit l'objet en tableau
+     * @return array Objet retourné par la fonction, ici un tableau associatif représentant l'objet
+     */
+    public function toArray()
+    {
+        return [
+            "uuid" => $this->uuid,
+            "username" => $this->username,
+            "createdAt" => $this->createdAt,
+            "updatedAt" => $this->updatedAt,
+            "xp" => $this->xp,
+            "elo" => $this->elo,
+            "comusCoin" => $this->comusCoin,
+            "statistics" => $this->statistics->toArray(),
+            "userId" => $this->userId,
+            "activePfp" => $this->activePfp
+        ];
     }
 }

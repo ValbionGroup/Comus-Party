@@ -132,17 +132,32 @@ $router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) 
     exit;
 }, 'player');
 
-$router->get('/register', function () {
-    echo "Page d'inscription<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/shop/basket/checkout/successPayment', function () use ($loader, $twig) {
+    ControllerFactory::getController("shop", $loader, $twig)->call("showSuccessPayment", ["articles" => $_SESSION['basket'], "player" => $_SESSION['uuid'], "paymentType" => 'card']);
     exit;
-});
+}, 'player');
 
-$router->post('/register', function () {
-    echo "Traitement de l'inscription<br/>";
-    echo "A IMPLEMENTER";
+$router->get('/register', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("showRegistrationPage");
     exit;
-});
+}, 'guest');
+
+$router->post('/register', function () use ($loader, $twig) {
+    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
+        ControllerFactory::getController("auth", $loader, $twig)->call("register", [
+            "username" => $_POST['username'],
+            "email" => $_POST['email'],
+            "password" => $_POST['password']
+        ]);
+        exit;
+    }
+    throw new Exception("Données reçues incomplètes.");
+}, 'guest');
+
+$router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
+    exit;
+}, 'guest');
 
 $router->get('/forgot-password', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
@@ -225,6 +240,15 @@ $router->get('/suggest/:id', function ($id) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getSuggestionInfo", ["id" => $id]);
     exit;
 }, 'moderator');
+
+$router->get('/ranking', function () use ($loader, $twig) {
+    ControllerFactory::getController("ranking", $loader, $twig)->call("showRanking");
+});
+
+$router->get('/player/informations/:playerUuid', function ($playerUuid) use ($loader, $twig) {
+    ControllerFactory::getController("ranking", $loader, $twig)->call("getPlayerInformations", ["playerUuid" => $playerUuid]);
+    exit;
+});
 
 $router->post('/game/:code/end', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("endGame", [

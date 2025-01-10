@@ -60,7 +60,6 @@ class ControllerBasket extends Controller
                 'articles' => $articles,
                 'totalPriceBasket' => $totalPriceBasket,
             )
-
         );
     }
 
@@ -109,7 +108,6 @@ class ControllerBasket extends Controller
             echo "Erreur : ID de l'article non spécifié.";
         }
     }
-
 
     /**
      * @brief Permet de supprimer un article du panier

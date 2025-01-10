@@ -2,12 +2,12 @@
 
 {% block layout %}
     <div class="m-4 sm:m-6 bg-lavender-blush-base dark:bg-night-base flex flex-col-reverse sm:flex-row flex-grow items-center rounded-2xl">
-        <div class="h-1/2 sm:h-full w-full sm:w-1/2 p-16 bg-auth-background">
+        <div class="h-1/2 w-full sm:h-full sm:w-1/2 p-16 bg-auth-background">
             <div class="flex flex-col items-center justify-center h-full">
-                Bienvenue sur Comus Party
+                <img src="/assets/img/cp-logo-v2-without-bg.png" alt="Logo" class="w-72"/>
             </div>
         </div>
-        <div class="h-1/2 sm:h-full w-full sm:w-1/2 p-16 flex items-center">
+        <div class="h-1/2 w-full sm:w-1/2 p-16 flex items-center overflow-y-auto">
             {% block content %}{% endblock %}
         </div>
     </div>
