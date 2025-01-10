@@ -232,7 +232,18 @@ class ControllerShop extends Controller
         ));
     }
 
-    public function showSuccessPayment($articles, $playerUuid, $paymentType)
+    /**
+     * @brief Affiche la page de succès de paiement
+     * @param $articles
+     * @param $playerUuid
+     * @param $paymentType
+     * @return void
+     * @throws DateMalformedStringException
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function showSuccessPayment($articles, $playerUuid, $paymentType): void
     {
         $managerInvoice = new InvoiceDAO($this->getPdo());
         //$managerInvoice->createInvoiceWithArticles($playerUuid, $paymentType, $articles);
