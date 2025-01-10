@@ -36,30 +36,6 @@ window.onload = function() {
     INPUT_PRIVACY_POLICY.addEventListener("change", checkConditions);
 
     addPasswordVisibilityListeners();
-
-    const form = document.getElementById("registrationForm");
-    form.addEventListener("reset", resetForm);
-}
-
-/**
- * @brief Réinitialise les messages d'erreur et les styles des inputs lors de la réinitialisation du formulaire.
- *
- * @return void
- */
-function resetForm() {
-    const inputs = document.querySelectorAll("#registrationForm input");
-    const submitButton = document.getElementById("submitButton");
-    const errorMessages = document.querySelectorAll(".input-error-text");
-
-    inputs.forEach(input => { input.classList.remove("input-error"); });
-
-    errorMessages.forEach(errorMessage => {
-        errorMessage.classList.remove("block");
-        errorMessage.classList.add("hidden");
-        errorMessage.innerHTML = "";
-    });
-
-    submitButton.disabled = true;
 }
 
 /**
