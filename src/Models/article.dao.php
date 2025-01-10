@@ -306,9 +306,12 @@ class ArticleDAO
             );
             $stmt->bindParam(':uuid', $uuid);
             $stmt->bindParam(':idArticle', $idArticle);
-            $stmt->execute();
+            $ok = $stmt->execute();
             $pfp = $this->findById($idArticle);
-            $_SESSION['pfpPath'] = $pfp->getFilePath();
+            if($pfp != null){
+                $_SESSION['pfpPath'] = $pfp->getFilePath();
+            }
+            return $ok;
         }
 
         if ($typeArticle == "Banner") {
@@ -325,7 +328,7 @@ class ArticleDAO
         WHERE i.player_uuid = :uuid AND ir.article_id = :idArticleActif');
                 $stmt->bindParam(':uuid', $uuid);
                 $stmt->bindParam(':idArticleActif', $idBannerActive);
-                $stmt->execute();
+                $ok = $stmt->execute();
 
             }
 
@@ -339,9 +342,13 @@ class ArticleDAO
             );
             $stmt->bindParam(':uuid', $uuid);
             $stmt->bindParam(':idArticle', $idArticle);
-            $stmt->execute();
+            $ok = $stmt->execute();
             $banner = $this->findById($idArticle);
-            $_SESSION['bannerPath'] = $banner->getFilePath();
+            if($banner != null){
+                $_SESSION['bannerPath'] = $banner->getFilePath();
+            }
+            return $ok;
+
         }
     }
 
@@ -421,13 +428,29 @@ class ArticleDAO
     public function deleteActiveArticleForPfp(string $uuid)
     {
         $stmt = $this->pdo->prepare(
-            'UPDATE ' . DB_PREFIX . 'invoice_row ir
+            'SELECT p.*
+            FROM ' . DB_PREFIX . 'player p
+            WHERE i.player_uuid = :uuid');
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+        if ($stmt->rowCount() === 0) {
+            // Gérer le cas où aucune ligne n'est affectée
+            throw new NotFoundException('No player found for the given UUID');
+        }else{
+            $stmt = $this->pdo->prepare(
+                'UPDATE ' . DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
         JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id
         SET ir.active = 0 
         WHERE i.player_uuid = :uuid AND a.type = "pfp"');
-        $stmt->bindParam(':uuid', $uuid);
-        $stmt->execute();
+            $stmt->bindParam(':uuid', $uuid);
+            $stmt->execute();
+        }
+
+
+
+
+
     }
 
     /**
