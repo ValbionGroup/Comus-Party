@@ -374,7 +374,7 @@ class ControllerGame extends Controller
             $players = $gameRecord->getPlayers();
 
             $averageElo = 0;
-            foreach ($players as $player) {
+            foreach ($winner as $player) {
                 $averageElo += $player["player"]->getElo();
             }
             $averageElo /= sizeof($players);
