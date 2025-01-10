@@ -14,6 +14,7 @@ use ComusParty\App\Exceptions\GameUnavailableException;
 use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\Models\EloCalculator;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
@@ -344,6 +345,57 @@ class ControllerGame extends Controller
                 "code" => $generatedCode,
                 "gameId" => $gameId,
             ],
+        ]);
+        exit;
+    }
+
+    public function endGame(string $code, ?array $winner, array $scores): void
+    {
+        $gameRecordManager = new GameRecordDAO($this->getPdo());
+        $gameRecord = $gameRecordManager->findByCode($code);
+
+        if ($gameRecord == null) {
+            throw new NotFoundException("La partie n'existe pas");
+        }
+
+        $gameRecord->setState(GameRecordState::FINISHED);
+        $gameRecord->setFinishedAt(new DateTime());
+        $gameRecordManager->update($gameRecord);
+
+        if (!is_null($winner)) {
+            foreach ($winner as $playerUuid) {
+                $gameRecordManager->addWinner($code, $playerUuid);
+            }
+        }
+
+        $players = $gameRecord->getPlayers();
+        $elos = [];
+
+        $averageElo = 0;
+        foreach ($players as $player) {
+            $averageElo += $player->getElo();
+        }
+        $averageElo /= sizeof($players);
+
+        foreach ($players as $player) {
+            $elo = $player->getElo();
+            if (is_null($winner)) {
+                $result = 0.5;
+            } else if (in_array($player->getUuid(), $winner)) {
+                $result = 1;
+            } else {
+                $result = 0;
+            }
+            $newElo = EloCalculator::calculateNewElo($elo, $averageElo, $result);
+            $elos[$player->getUuid()] = $newElo;
+            $player->setElo($newElo);
+            (new PlayerDAO($this->getPdo()))->update($player);
+        }
+
+        var_dump($elos);
+
+        echo json_encode([
+            "success" => true,
         ]);
         exit;
     }
