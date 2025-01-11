@@ -362,6 +362,12 @@ class ControllerGame extends Controller
             throw new MalformedRequestException("La partie n'a pas commencé");
         }
 
+        foreach ($scores as $player) {
+            if (!in_array($player["uuid"], array_map(fn($player) => $player["player"]->getUuid(), $gameRecord->getPlayers()))) {
+                throw new MalformedRequestException("Le joueur " . $player["uuid"] . " n'est pas dans la partie");
+            }
+        }
+
         $gameRecord->setState(GameRecordState::FINISHED);
         $gameRecord->setFinishedAt(new DateTime());
         $gameRecordManager->update($gameRecord);
