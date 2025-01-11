@@ -389,6 +389,11 @@ class ControllerGame extends Controller
                 }
             }
 
+            /**
+             * @todo Ajouter la vérification de la confidentialité de la partie (privée ou publique)
+             * Si la partie est privée, le calcul d'Elo n'est pas effectué
+             */
+
             $averageElo = 0;
             foreach ($winners as $player) {
                 $averageElo += $player->getElo();
