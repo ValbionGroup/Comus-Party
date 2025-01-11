@@ -143,7 +143,7 @@ class ControllerGame extends Controller
             }, $gameRecord->getPlayers()),
         ];
 
-        $ch = curl_init($baseUrl . "/game/" . $gameRecord->getCode() . "/init");
+        $ch = curl_init($baseUrl . "/" . $gameRecord->getCode() . "/init");
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Envoyer le JSON
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Obtenir la réponse
@@ -294,12 +294,19 @@ class ControllerGame extends Controller
     private function showInGame(GameRecord $gameRecord): void
     {
         $players = $gameRecord->getPlayers();
-        if (!in_array($_SESSION['uuid'], array_map(fn($player) => $player->getUuid(), $players))) {
+        if (!in_array($_SESSION['uuid'], array_map(fn($player) => $player["player"]->getUuid(), $players))) {
             throw new UnauthorizedAccessException("Vous n'êtes pas dans la partie");
         }
 
         $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
-        $baseUrl = $gameSettings["settings"]["serverPort"] != null ? "https://" . $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : "https://" . $gameSettings["settings"]["serverAddress"];
+        $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
+        $token = null;
+        foreach ($players as $player) {
+            if ($player["player"]->getUuid() == $_SESSION['uuid']) {
+                $token = $player["token"];
+                break;
+            }
+        }
         $template = $this->getTwig()->load('player/in-game.twig');
         echo $template->render([
             "code" => $gameRecord->getCode(),
@@ -307,7 +314,7 @@ class ControllerGame extends Controller
             "players" => $gameRecord->getPlayers(),
             "game" => $gameRecord->getGame(),
             "chat" => $this->getGameSettings($gameRecord->getGame()->getId())["settings"]["allowChat"],
-            "iframe" => $baseUrl . "/" . $gameRecord->getCode() . "/init",
+            "iframe" => $baseUrl . "/" . $gameRecord->getCode() . "/" . $token
         ]);
     }
 
