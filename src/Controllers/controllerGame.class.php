@@ -132,32 +132,38 @@ class ControllerGame extends Controller
         $gameRecord->setPlayers($players);
         (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
 
-//        $data = [$settings,
-//            $gameRecord->getPlayers()];
-//        $jsonData = json_encode($data);
-//
-//        $ch = curl_init($baseUrl . "/" . $gameRecord->getCode() . "/init");
-//        curl_setopt($ch, CURLOPT_POST, true);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData); // Envoyer le JSON
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Obtenir la réponse
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-//            "Content-Type: application/json", // Indiquer que les données sont au format JSON
-//            "Content-Length: " . strlen($jsonData)
-//        ]);
-//
-//        // Exécuter la requête
-//        $response = curl_exec($ch);
-//
-//        // Vérifier les erreurs
-//        if (curl_errno($ch)) {
-//            echo "Erreur cURL : " . curl_error($ch);
-//        } else {
-//            // Afficher la réponse
-//            echo "Réponse : " . $response;
-//        }
-//
-//        // Fermer la connexion cURL
-//        curl_close($ch);
+        $data = [
+            "settings" => $settings,
+            "players" => array_map(function ($player) {
+                return [
+                    'uuid' => $player["player"]->getUuid(),
+                    'username' => $player["player"]->getUsername(),
+                    'token' => $player["token"]
+                ];
+            }, $gameRecord->getPlayers()),
+        ];
+
+        $ch = curl_init($baseUrl . "/game/" . $gameRecord->getCode() . "/init");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Envoyer le JSON
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Obtenir la réponse
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json", // Indiquer que les données sont au format JSON
+        ]);
+
+        // Exécuter la requête
+        $response = curl_exec($ch);
+
+        // Vérifier les erreurs
+        if (curl_errno($ch)) {
+            echo "Erreur cURL : " . curl_error($ch);
+        } else {
+            // Afficher la réponse
+            echo "Réponse : " . $response;
+        }
+
+        // Fermer la connexion cURL
+        curl_close($ch);
 
         echo json_encode([
             "success" => true,
