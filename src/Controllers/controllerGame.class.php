@@ -152,7 +152,11 @@ class ControllerGame extends Controller
 
         // Vérifier les erreurs
         if (curl_errno($ch)) {
-            echo "Erreur cURL : " . curl_error($ch);
+            echo json_encode([
+                    "success"=>false,
+                    "message"=>curl_error($ch)]
+            );
+            exit;
         } else {
             // Afficher la réponse
             echo "Réponse : " . $response;
