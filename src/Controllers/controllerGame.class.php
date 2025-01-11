@@ -121,6 +121,13 @@ class ControllerGame extends Controller
 
         $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
 
+        $players = $gameRecord->getPlayers();
+        foreach ($players as &$player) {
+            $player["token"] = bin2hex(random_bytes(8));
+        }
+        $gameRecord->setPlayers($players);
+        (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
+
         $data = [
             "settings" => $settings,
             "players" => array_map(function ($player) {
@@ -157,13 +164,6 @@ class ControllerGame extends Controller
         $gameRecord->setState(GameRecordState::STARTED);
         $gameRecord->setUpdatedAt(new DateTime());
         (new GameRecordDAO($this->getPdo()))->update($gameRecord);
-
-        $players = $gameRecord->getPlayers();
-        foreach ($players as &$player) {
-            $player["token"] = bin2hex(random_bytes(8));
-        }
-        $gameRecord->setPlayers($players);
-        (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
 
         echo json_encode([
             "success" => true,
