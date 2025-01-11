@@ -9,11 +9,11 @@
  */
 
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/src/App/Socket/Chat.php';
-require __DIR__ . '/src/App/Socket/Game.php';
+require __DIR__ . '/src/App/Sockets/Chat.php';
+require __DIR__ . '/src/App/Sockets/Game.php';
 
-use ComusParty\App\Socket\Chat;
-use ComusParty\App\Socket\Game;
+use ComusParty\App\Sockets\Chat;
+use ComusParty\App\Sockets\Game;
 use Ratchet\WebSocket\WsServer;
 
 $server = new Ratchet\App('localhost', 8315);
