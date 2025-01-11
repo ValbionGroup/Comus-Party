@@ -79,6 +79,12 @@ class Player {
      */
     private ?string $activePfp;
 
+    /**
+     * @brief La bannière active du joueur
+     * @var string|null
+     */
+    private ?string $activeBanner;
+
 
     /**
      * @brief Le constructeur de la classe Player
@@ -92,6 +98,7 @@ class Player {
      * @param Statistics|null $statistics Les statistiques du joueur
      * @param int|null $userId L'identifiant utilisateur lié au profil de joueur
      * @param string|null $activePfp L'avatar actif du joueur
+     * @param string|null $activeBanner La bannière active du joueur
      */
     public function __construct(
         ?string $uuid = null,
@@ -103,7 +110,8 @@ class Player {
         ?int $comusCoins = null,
         ?Statistics $statistics = null,
         ?int $userId = null,
-        ?string $activePfp = null
+        ?string $activePfp = null,
+        ?string $activeBanner = null
     ) {
         $this->uuid = $uuid;
         $this->username = $username;
@@ -115,6 +123,7 @@ class Player {
         $this->statistics = $statistics;
         $this->userId = $userId;
         $this->activePfp = $activePfp;
+        $this->activeBanner = $activeBanner;
     }
 
     /**
@@ -303,6 +312,25 @@ class Player {
     public function setActivePfp(?string $activePfp): void
     {
         $this->activePfp = $activePfp;
+    }
+
+    /**
+     * @brief Retourne le chemin d'accès vers la bannière active du joueur
+     * @return string|null Chemin d'accès
+     */
+    public function getActiveBanner(): ?string
+    {
+        return $this->activeBanner;
+    }
+
+    /**
+     * @brief Modifie le chemin d'accès vers la bannière active du joueur
+     * @param string|null $activeBanner Nouveau chemin d'accès
+     * @return void
+     */
+    public function setActiveBanner(?string $activeBanner): void
+    {
+        $this->activeBanner = $activeBanner;
     }
 
 
