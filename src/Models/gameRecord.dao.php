@@ -88,7 +88,13 @@ class GameRecordDAO
         $finishedAt = $row["finished_at"] ? new DateTime($row["finished_at"]) : null;
         $players = $this->findPlayersByGameRecordCode($row["code"]);
         if (!is_null($players)) {
-            $players = array_map(fn($player) => (new PlayerDAO($this->getPdo()))->findByUuid($player["player_uuid"]), $players);
+            $players = array_map(function ($player) {
+                $playerObject = (new PlayerDAO($this->getPdo()))->findByUuid($player["player_uuid"]);
+                return [
+                    "player" => $playerObject,
+                    "token" => $player["token"]
+                ];
+            }, $players);
         }
 
         return new GameRecord(
