@@ -274,6 +274,18 @@ class GameRecordDAO
         return $stmt->execute();
     }
 
+    public function updatePlayers(string $gameCode, array $players): void
+    {
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "played SET token = :token WHERE game_code = :gameCode AND player_uuid = :playerUuid");
+        foreach ($players as $player) {
+            $stmt->bindParam(":token", $player["token"]);
+            $stmt->bindParam(":gameCode", $gameCode);
+            $uuid = $player["player"]->getUuid();
+            $stmt->bindParam(":playerUuid", $uuid);
+            $stmt->execute();
+        }
+    }
+
     /**
      * @brief Supprime un enregistrement de partie en base de données
      * @param string $code Code de la partie à supprimer
