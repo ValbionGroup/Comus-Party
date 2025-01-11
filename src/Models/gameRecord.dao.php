@@ -274,7 +274,7 @@ class GameRecordDAO
         return $stmt->execute();
     }
 
-    public function updatePlayers(string $gameCode, array $players): void
+    public function updatePlayers(string $gameCode, array $players): bool
     {
         $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "played SET token = :token WHERE game_code = :gameCode AND player_uuid = :playerUuid");
         foreach ($players as $player) {
@@ -282,8 +282,11 @@ class GameRecordDAO
             $stmt->bindParam(":gameCode", $gameCode);
             $uuid = $player["player"]->getUuid();
             $stmt->bindParam(":playerUuid", $uuid);
-            $stmt->execute();
+            if (!$stmt->execute()) {
+                return false;
+            }
         }
+        return true;
     }
 
     /**
