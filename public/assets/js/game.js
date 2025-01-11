@@ -29,7 +29,7 @@ function startGame(gameCode) {
         body: data,
     }).then((response) => {
         if (response.ok) {
-            //window.location.href = `/game/${gameCode}`;
+            window.location.href = `/game/${gameCode}`;
         }
         throw new Error('Failed to start game');
     });
