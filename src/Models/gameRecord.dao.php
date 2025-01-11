@@ -128,7 +128,7 @@ class GameRecordDAO
      */
     private function findPlayersByGameRecordCode(string $code): ?array
     {
-        $stmt = $this->pdo->prepare("SELECT player_uuid FROM " . DB_PREFIX . "played WHERE game_code = :code");
+        $stmt = $this->pdo->prepare("SELECT player_uuid, token FROM " . DB_PREFIX . "played WHERE game_code = :code");
         $stmt->bindParam(":code", $code);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -274,7 +274,8 @@ class GameRecordDAO
         foreach ($players as $player) {
             $stmt->bindParam(":token", $player["token"]);
             $stmt->bindParam(":gameCode", $gameCode);
-            $stmt->bindParam(":playerUuid", $player["player"]->getUuid());
+            $uuid = $player["player"]->getUuid();
+            $stmt->bindParam(":playerUuid", $uuid);
             $stmt->execute();
         }
     }

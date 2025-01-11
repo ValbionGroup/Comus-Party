@@ -125,10 +125,11 @@ class ControllerGame extends Controller
         $gameRecord->setUpdatedAt(new DateTime());
         (new GameRecordDAO($this->getPdo()))->update($gameRecord);
 
-        foreach ($gameRecord->getPlayers() as $player) {
-            $player["token"] = "test";
+        $players = $gameRecord->getPlayers();
+        foreach ($players as &$player) {
+            $player["token"] = bin2hex(random_bytes(8));
         }
-        var_dump($gameRecord->getPlayers());
+        $gameRecord->setPlayers($players);
         (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
 
 //        $data = [$settings,
