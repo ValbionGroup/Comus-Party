@@ -358,6 +358,10 @@ class ControllerGame extends Controller
             throw new NotFoundException("La partie n'existe pas");
         }
 
+        if ($gameRecord->getState() != GameRecordState::STARTED) {
+            throw new MalformedRequestException("La partie n'a pas commencé");
+        }
+
         $gameRecord->setState(GameRecordState::FINISHED);
         $gameRecord->setFinishedAt(new DateTime());
         $gameRecordManager->update($gameRecord);
