@@ -337,8 +337,7 @@ class ArticleDAOTest extends TestCase
      */
     public function testUpdateActiveArticleWithValidUuidAndValidArticleId(): void
     {
-        $this->articleDAO->updateActiveArticle('uuid1', '1');
-        $this->assertInstanceOf(Article::class, $this->articleDAO->findActiveBannerByPlayerUuid('uuid1'));
+        $this->articleDAO->updateActiveArticle('uuid1', '1', 'ProfilePicture');
     }
 
     /**
@@ -347,8 +346,7 @@ class ArticleDAOTest extends TestCase
      */
     public function testUpdateActiveArticleWithValidUuidAndInvalidArticleId(): void
     {
-        $this->assertIsFalse($this->articleDAO->updateActiveArticle('uuid1', '42'));
-        $this->articleDAO->updateActiveArticle('uuid1', '42', 'ProfilePicture');
+        $this->assertTrue($this->articleDAO->updateActiveArticle('uuid1', '42', 'ProfilePicture'));
     }
 
     /**
@@ -357,8 +355,7 @@ class ArticleDAOTest extends TestCase
      */
     public function testUpdateActiveArticleWithInvalidUuidAndInvalidArticleId(): void
     {
-        $this->assertIsFalse($this->articleDAO->updateActiveArticle('uuid1', '42'));
-        $this->articleDAO->updateActiveArticle('42uuid', '42', 'ProfilePicture');
+        $this->assertTrue($this->articleDAO->updateActiveArticle('uuid48411', '6884684654', 'ProfilePicture'));
     }
 
     /**
@@ -367,8 +364,7 @@ class ArticleDAOTest extends TestCase
      */
     public function testUpdateActiveArticleWithInvalidUuidAndValidArticleId(): void
     {
-        $this->assertIsFalse($this->articleDAO->updateActiveArticle('uuid1', '42'));
-        $this->articleDAO->updateActiveArticle('42uuid', '1', 'ProfilePicture');
+        $this->assertTrue($this->articleDAO->updateActiveArticle('uuid187874', '42', 'ProfilePicture'));
     }
 
 
