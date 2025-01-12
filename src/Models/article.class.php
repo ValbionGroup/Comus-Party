@@ -91,7 +91,7 @@ class Article {
      *
      * @var int|null
      */
-    private ?float $pricePoint;
+    private ?int $pricePoint;
     /**
      * @brief Le prix en euro de l'article
      *
