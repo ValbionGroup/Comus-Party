@@ -261,9 +261,9 @@ class Article {
     /**
      * @brief Retourne le prix en point de l'article
      *
-     * @return float|null Le prix en point de l'article qui est retourné
+     * @return int|null Le prix en point de l'article qui est retourné
      */
-    public function getPricePoint(): ?float
+    public function getPricePoint(): ?int
     {
         return $this->pricePoint;
     }
@@ -271,10 +271,10 @@ class Article {
     /**
      * @brief Modifie le prix en point de l'article
      *
-     * @param float|null $pricePoint Le nouveau prix en point de l'article
+     * @param int|null $pricePoint Le nouveau prix en point de l'article
      * @return void
      */
-    public function setPricePoint(?float $pricePoint): void
+    public function setPricePoint(?int $pricePoint): void
     {
         $this->pricePoint = $pricePoint;
     }
