@@ -68,12 +68,27 @@ $router->get('/logout', function () use ($loader, $twig) {
 
 $router->get('/game/:code', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("showGame", ["code" => $code]);
+}, '*');
+
+$router->post('/game/:code/join', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("joinGameWithCode", [
+        "method" => 'POST',
+        "code" => $code,
+    ]);
+    exit;
 }, 'player');
 
 $router->delete('/game/:code/quit', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("quitGame", [
         "code" => $code,
         "playerUuid" => $_SESSION['uuid']
+    ]);
+    exit;
+}, 'player');
+
+$router->post('/game/search/:gameId', function (int $gameId) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("joinGameFromSearch", [
+        "gameId" => $gameId,
     ]);
     exit;
 }, 'player');
@@ -91,10 +106,6 @@ $router->post('/game/create/:gameId', function (int $gameId) use ($loader, $twig
         "gameId" => $gameId,
     ]);
 }, 'player');
-
-$router->post('/game/:code/end', function ($code) {
-    // TODO: Récupérer les résultats de la partie
-});
 
 $router->get('/shop', function () use ($loader, $twig) {
     ControllerFactory::getController("shop", $loader, $twig)->call("show");
@@ -136,6 +147,11 @@ $router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) 
     exit;
 }, 'player');
 
+$router->get('/shop/basket/checkout/successPayment', function () use ($loader, $twig) {
+    ControllerFactory::getController("shop", $loader, $twig)->call("showSuccessPayment", ["articles" => $_SESSION['basket'], "player" => $_SESSION['uuid'], "paymentType" => 'card']);
+    exit;
+}, 'player');
+
 $router->get('/register', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showRegistrationPage");
     exit;
@@ -153,7 +169,7 @@ $router->post('/register', function () use ($loader, $twig) {
     throw new Exception("Données reçues incomplètes.");
 }, 'guest');
 
-$router->get('/confirm-email/:token', function (string $token) use($loader, $twig) {
+$router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
     exit;
 }, 'guest');
@@ -246,5 +262,14 @@ $router->get('/ranking', function () use ($loader, $twig) {
 
 $router->get('/player/informations/:playerUuid', function ($playerUuid) use ($loader, $twig) {
     ControllerFactory::getController("ranking", $loader, $twig)->call("getPlayerInformations", ["playerUuid" => $playerUuid]);
+    exit;
+});
+
+$router->post('/game/:code/end', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("endGame", [
+        "code" => $code,
+        "winner" => json_decode($_POST['winner'], true),
+        "scores" => json_decode($_POST['scores'], true)
+    ]);
     exit;
 });
