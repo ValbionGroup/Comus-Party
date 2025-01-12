@@ -305,13 +305,12 @@ class ControllerAuth extends Controller
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findByUserId($user->getId());
 
-        $articleManager = new ArticleDAO($this->getPdo());
-        $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
-        $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
-
         if (is_null($player) && is_null($moderator)) {
             throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
         } elseif (!is_null($player)) {
+            $articleManager = new ArticleDAO($this->getPdo());
+            $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+            $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
             $_SESSION['role'] = 'player';
             $_SESSION['uuid'] = $player->getUuid();
             $_SESSION['username'] = $player->getUsername();
