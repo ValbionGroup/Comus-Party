@@ -154,8 +154,8 @@ class ControllerGame extends Controller
         // Vérifier les erreurs
         if (curl_errno($ch)) {
             echo json_encode([
-                    "success"=>false,
-                    "message"=>curl_error($ch)]
+                "success" => false,
+                "message" => curl_error($ch)]
             );
             exit;
         } else {
@@ -221,6 +221,7 @@ class ControllerGame extends Controller
             "game" => [
                 "id" => $game->getId(),
                 "name" => $game->getName(),
+                "img" => $game->getPathImg(),
                 "description" => $game->getDescription(),
                 "tags" => $game->getTags(),
             ],
