@@ -103,7 +103,7 @@ class GameRecordDAO
             $hostedBy,
             $players,
             $gameRecordState,
-            $row["private"] === "1",
+            $row["private"] === 1,
             new DateTime($row["created_at"]),
             new DateTime($row["updated_at"]),
             $finishedAt
