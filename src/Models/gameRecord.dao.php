@@ -278,6 +278,27 @@ class GameRecordDAO
     }
 
     /**
+     * @brief Met à jour les joueurs d'une partie en base de données
+     * @param string $gameCode Code de la partie à modifier
+     * @param array $players Tableau de joueurs à mettre à jour
+     * @return bool Retourne true si la mise à jour a réussi, false sinon
+     */
+    public function updatePlayers(string $gameCode, array $players): bool
+    {
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "played SET token = :token WHERE game_code = :gameCode AND player_uuid = :playerUuid");
+        foreach ($players as $player) {
+            $stmt->bindParam(":token", $player["token"]);
+            $stmt->bindParam(":gameCode", $gameCode);
+            $uuid = $player["player"]->getUuid();
+            $stmt->bindParam(":playerUuid", $uuid);
+            if (!$stmt->execute()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * @brief Supprime un enregistrement de partie en base de données
      * @param string $code Code de la partie à supprimer
      * @return bool Retourne true si la suppression a réussi, false sinon

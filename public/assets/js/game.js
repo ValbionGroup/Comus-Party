@@ -22,10 +22,8 @@ function startGame(gameCode) {
     selects.forEach((select) => {
         settings[select.name] = select.value;
     });
-
     const data = new FormData();
     data.append('settings', JSON.stringify(settings));
-
     fetch(`/game/${gameCode}/start`, {
         method: 'POST',
         body: data,
