@@ -73,13 +73,13 @@ CREATE TABLE `cp_article`
 
 INSERT INTO `cp_article` (`id`, `name`, `description`, `type`, `file_path`, `price_point`, `price_euro`, `created_at`,
                           `updated_at`)
-VALUES (1, 'Banner One', 'Description for banner one', 'banner', '/img/banner1.png', 100, 2.99, '2024-11-13 15:18:39',
+VALUES (1, 'Banner One', 'Description for banner one', 'banner', 'banner1.png', 100, 2.99, '2024-11-13 15:18:39',
         '2024-11-13 15:18:39'),
-       (2, 'Profile Pic One', 'Description for profile picture one', 'pfp', '/img/pfp1.png', 200, 4.99,
+       (2, 'Profile Pic One', 'Description for profile picture one', 'pfp', 'pfp1.png', 200, 4.99,
         '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       (3, 'Banner Two', 'Description for banner two', 'banner', '/img/banner2.png', 150, 3.99, '2024-11-14 08:15:01',
+       (3, 'Banner Two', 'Description for banner two', 'banner', 'banner2.png', 150, 3.99, '2024-11-14 08:15:01',
         '2024-11-14 08:15:01'),
-       (4, 'Profile Pic Two', 'Description for profile picture two', 'pfp', '/img/pfp2.png', 250, 5.99,
+       (4, 'Profile Pic Two', 'Description for profile picture two', 'pfp', 'pfp2.png', 250, 5.99,
         '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
 -- --------------------------------------------------------
@@ -106,13 +106,13 @@ CREATE TABLE `cp_game`
 --
 
 INSERT INTO `cp_game` (`id`, `name`, `description`, `img_path`, `state`, `created_at`, `updated_at`)
-VALUES (1, 'Game One', 'First game description', '/img/game1.png', 'available', '2024-11-13 15:18:39',
+VALUES (1, 'Game One', 'First game description', 'game1.png', 'available', '2024-11-13 15:18:39',
         '2024-11-13 15:18:39'),
-       (2, 'Game Two', 'Second game description', '/img/game2.png', 'maintenance', '2024-11-13 15:18:39',
+       (2, 'Game Two', 'Second game description', 'game2.png', 'maintenance', '2024-11-13 15:18:39',
         '2024-11-13 15:18:39'),
-       (3, 'Game Three', 'Third game description', '/img/game3.png', 'available', '2024-11-14 08:15:01',
+       (3, 'Game Three', 'Third game description', 'game3.png', 'available', '2024-11-14 08:15:01',
         '2024-11-14 08:15:01'),
-       (4, 'Game Four', 'Fourth game description', '/img/game4.png', 'maintenance', '2024-11-14 08:15:01',
+       (4, 'Game Four', 'Fourth game description', 'game4.png', 'maintenance', '2024-11-14 08:15:01',
         '2024-11-14 08:15:01');
 
 -- --------------------------------------------------------
