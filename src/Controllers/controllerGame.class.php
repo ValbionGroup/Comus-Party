@@ -588,7 +588,7 @@ class ControllerGame extends Controller
 
             $averageElo = 0;
             foreach ($winners as $player) {
-                $averageElo += $player->getElo();
+                $averageElo += $player["player"]->getElo();
             }
             $averageElo /= sizeof($players);
 
@@ -602,8 +602,8 @@ class ControllerGame extends Controller
                     $result = 0;
                 }
                 $newElo = EloCalculator::calculateNewElo($elo, $averageElo, $result);
-                $player->setElo($newElo);
-                (new PlayerDAO($this->getPdo()))->update($player);
+                $player["player"]->setElo($newElo);
+                (new PlayerDAO($this->getPdo()))->update($player["player"]);
             }
         }
 
