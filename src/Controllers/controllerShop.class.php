@@ -246,7 +246,7 @@ class ControllerShop extends Controller
     public function showSuccessPayment($articles, $playerUuid, $paymentType): void
     {
         $managerInvoice = new InvoiceDAO($this->getPdo());
-        //$managerInvoice->createInvoiceWithArticles($playerUuid, $paymentType, $articles);
+        $managerInvoice->createInvoiceWithArticles($playerUuid, $paymentType, $articles);
 
         $managerPlayer = new PlayerDAO($this->getPdo());
         $player = $managerPlayer->findByUuid($playerUuid);
@@ -258,5 +258,9 @@ class ControllerShop extends Controller
 
         $template = $this->getTwig()->load('player/successPayment.twig');
         echo $template->render();
+
+        unset($_SESSION['basket']);
+        header("Refresh: 5; url=/");
+        exit();
     }
 }
