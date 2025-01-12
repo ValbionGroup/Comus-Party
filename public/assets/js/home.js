@@ -62,6 +62,7 @@ function showModalGame(e) {
     let divGameTags = document.getElementById('divGameTags');
     let createGameButton = document.getElementById('createGameModalButton');
     let searchGameButton = document.getElementById('findGameModalButton');
+    let imgGame = document.getElementById('imgGame');
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `/game/informations/${gameId}`, true);
@@ -76,6 +77,7 @@ function showModalGame(e) {
             if (response.success) {
                 spanGameName.innerText = response.game.name;
                 spanGameDescription.innerText = response.game.description;
+                imgGame.src = `/assets/img/${response.game.img}`;
                 divGameTags.innerHTML = "";
                 response.game.tags.forEach(tag => {
                     divGameTags.innerHTML += `<p class="border-2 rounded-full border-blue-violet-base py-0.5 px-2 text-center">${tag}</p>`;
