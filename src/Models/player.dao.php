@@ -329,4 +329,28 @@ class PlayerDAO
         }
         return $this->hydrateMany($tabPlayers);
     }
+
+    /**
+     * @brief Met à jour les valeurs d'un enregistrement d'un joueur en base de données
+     * @param Player $player Les nouvelles données du joueur
+     * @return void
+     */
+    public function update(Player $player)
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE ' . DB_PREFIX . 'player
+            SET username = :username, xp = :xp, elo = :elo, comus_coin = :comusCoin
+            WHERE uuid = :uuid');
+        $username = $player->getUsername();
+        $stmt->bindParam(':username', $username);
+        $xp = $player->getXp();
+        $stmt->bindParam(':xp', $xp);
+        $elo = $player->getElo();
+        $stmt->bindParam(':elo', $elo);
+        $comusCoin = $player->getComusCoin();
+        $stmt->bindParam(':comusCoin', $comusCoin);
+        $uuid = $player->getUuid();
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
+    }
 }

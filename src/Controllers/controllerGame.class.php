@@ -14,6 +14,7 @@ use ComusParty\App\Exceptions\GameUnavailableException;
 use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\Models\EloCalculator;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
@@ -535,6 +536,78 @@ class ControllerGame extends Controller
                 "code" => $generatedCode,
                 "gameId" => $gameId,
             ],
+        ]);
+        exit;
+    }
+
+    public function endGame(string $code, ?array $winner, array $scores): void
+    {
+        $gameRecordManager = new GameRecordDAO($this->getPdo());
+        $gameRecord = $gameRecordManager->findByCode($code);
+
+        if ($gameRecord == null) {
+            throw new NotFoundException("La partie n'existe pas");
+        }
+
+        if ($gameRecord->getState() != GameRecordState::STARTED) {
+            throw new MalformedRequestException("La partie n'a pas commencé");
+        }
+
+        foreach ($scores as $player) {
+            if (!in_array($player["uuid"], array_map(fn($player) => $player["player"]->getUuid(), $gameRecord->getPlayers()))) {
+                throw new MalformedRequestException("Le joueur " . $player["uuid"] . " n'est pas dans la partie");
+            }
+        }
+
+        $gameRecord->setState(GameRecordState::FINISHED);
+        $gameRecord->setFinishedAt(new DateTime());
+        $gameRecordManager->update($gameRecord);
+
+        $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
+
+        if (in_array("WINNER_UUID", $gameSettings["returnParametersToComus"])) {
+            if (!is_null($winner)) {
+                foreach ($winner as $playerUuid) {
+                    $gameRecordManager->addWinner($code, $playerUuid);
+                }
+            }
+
+            $players = $gameRecord->getPlayers();
+            $winners = [];
+            foreach ($players as $player) {
+                if (in_array($player["player"]->getUuid(), $winner)) {
+                    $winners[] = $player;
+                }
+            }
+
+            /**
+             * @todo Ajouter la vérification de la confidentialité de la partie (privée ou publique)
+             * Si la partie est privée, le calcul d'Elo n'est pas effectué
+             */
+
+            $averageElo = 0;
+            foreach ($winners as $player) {
+                $averageElo += $player->getElo();
+            }
+            $averageElo /= sizeof($players);
+
+            foreach ($players as $player) {
+                $elo = $player["player"]->getElo();
+                if (is_null($winner)) {
+                    $result = 0.5;
+                } else if (in_array($player["player"]->getUuid(), $winner)) {
+                    $result = 1;
+                } else {
+                    $result = 0;
+                }
+                $newElo = EloCalculator::calculateNewElo($elo, $averageElo, $result);
+                $player->setElo($newElo);
+                (new PlayerDAO($this->getPdo()))->update($player);
+            }
+        }
+
+        echo json_encode([
+            "success" => true,
         ]);
         exit;
     }

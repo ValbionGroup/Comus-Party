@@ -107,10 +107,6 @@ $router->post('/game/create/:gameId', function (int $gameId) use ($loader, $twig
     ]);
 }, 'player');
 
-$router->post('/game/:code/end', function ($code) {
-    // TODO: Récupérer les résultats de la partie
-});
-
 $router->get('/shop', function () use ($loader, $twig) {
     ControllerFactory::getController("shop", $loader, $twig)->call("show");
     exit;
@@ -266,5 +262,14 @@ $router->get('/ranking', function () use ($loader, $twig) {
 
 $router->get('/player/informations/:playerUuid', function ($playerUuid) use ($loader, $twig) {
     ControllerFactory::getController("ranking", $loader, $twig)->call("getPlayerInformations", ["playerUuid" => $playerUuid]);
+    exit;
+});
+
+$router->post('/game/:code/end', function ($code) use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("endGame", [
+        "code" => $code,
+        "winner" => json_decode($_POST['winner'], true),
+        "scores" => json_decode($_POST['scores'], true)
+    ]);
     exit;
 });

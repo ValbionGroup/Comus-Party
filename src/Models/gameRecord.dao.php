@@ -340,4 +340,18 @@ class GameRecordDAO
         $stmt->bindParam(":playerUuid", $playerUuid);
         return $stmt->execute();
     }
+
+    /**
+     * @brief Enregistre un gagnant d'une partie dans la table cp_won
+     * @param string $code Code de la partie
+     * @param mixed $uuid UUID du joueur gagnant
+     * @return bool Retourne true si l'ajout a réussi, false sinon
+     */
+    public function addWinner(string $code, mixed $uuid): bool
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "won (game_code, player_uuid) VALUES (:gameCode, :playerUuid)");
+        $stmt->bindParam(":gameCode", $code);
+        $stmt->bindParam(":playerUuid", $uuid);
+        return $stmt->execute();
+    }
 }

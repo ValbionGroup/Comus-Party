@@ -67,3 +67,9 @@ document.getElementById('chatInput').addEventListener("keydown", function (e) {
         sendChatMessage();
     }
 });
+
+window.addEventListener('message', function(event) {
+    if (event.data === 'redirectHome') {
+        window.location.href = '/';
+    }
+});
