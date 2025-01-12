@@ -103,6 +103,7 @@ class GameRecordDAO
             $hostedBy,
             $players,
             $gameRecordState,
+            $row["private"] === "1",
             new DateTime($row["created_at"]),
             new DateTime($row["updated_at"]),
             $finishedAt
@@ -223,7 +224,7 @@ class GameRecordDAO
      */
     public function insert(GameRecord $gameRecord): bool
     {
-        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (code, game_id, hosted_by, state, created_at, updated_at, finished_at) VALUES (:code, :gameId, :hostedBy, :state, :createdAt, :updatedAt, :finishedAt)");
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (code, game_id, hosted_by, state, private, created_at, updated_at, finished_at) VALUES (:code, :gameId, :hostedBy, :state, :isPrivate, :createdAt, :updatedAt, :finishedAt)");
 
         $code = $gameRecord->getCode();
         $gameId = $gameRecord->getGame()->getId();
@@ -234,6 +235,7 @@ class GameRecordDAO
             GameRecordState::FINISHED => "finished",
             GameRecordState::UNKNOWN => null,
         };
+        $isPrivate = $gameRecord->isPrivate();
         $createdAt = $gameRecord->getCreatedAt()->format("Y-m-d H:i:s");
         $updatedAt = $gameRecord->getUpdatedAt()?->format("Y-m-d H:i:s");
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
@@ -242,6 +244,7 @@ class GameRecordDAO
         $stmt->bindParam(":gameId", $gameId);
         $stmt->bindParam(":hostedBy", $hostUuid);
         $stmt->bindParam(":state", $state);
+        $stmt->bindParam(":isPrivate", $isPrivate, PDO::PARAM_BOOL);
         $stmt->bindParam(":createdAt", $createdAt);
         $stmt->bindParam(":updatedAt", $updatedAt);
         $stmt->bindParam(":finishedAt", $finishedAt);
@@ -332,7 +335,7 @@ class GameRecordDAO
      */
     public function removePlayer(string $gameCode, string $playerUuid): bool
     {
-        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_code = :gameCoded AND player_uuid = :playerUuid");
+        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_code = :gameCode AND player_uuid = :playerUuid");
         $stmt->bindParam(":gameCode", $gameCode);
         $stmt->bindParam(":playerUuid", $playerUuid);
         return $stmt->execute();

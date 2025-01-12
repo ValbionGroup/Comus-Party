@@ -127,6 +127,7 @@ CREATE TABLE `cp_game_record`
     `game_id`     bigint(20)                            NOT NULL,
     `hosted_by`   varchar(63)                           NOT NULL,
     `state`       enum ('waiting','started','finished') NOT NULL DEFAULT 'waiting',
+    `private`     tinyint(1)                            NOT NULL DEFAULT 0,
     `created_at`  timestamp                             NOT NULL DEFAULT current_timestamp(),
     `updated_at`  timestamp                             NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
     `finished_at` timestamp                             NULL     DEFAULT NULL
@@ -138,11 +139,11 @@ CREATE TABLE `cp_game_record`
 -- Déchargement des données de la table `cp_game_record`
 --
 
-INSERT INTO `cp_game_record` (`code`, `game_id`, `hosted_by`, `state`, `created_at`, `updated_at`)
-VALUES ('game_rec_uuid1', 1, 'uuid1', 'started', '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('game_rec_uuid2', 2, 'uuid2', 'waiting', '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('game_rec_uuid3', 3, 'uuid3', '', '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
-       ('game_rec_uuid4', 4, 'uuid4', 'waiting', '2024-11-14 08:15:01', '2024-11-14 08:15:01');
+INSERT INTO `cp_game_record` (`code`, `game_id`, `hosted_by`, `state`, `private`, `created_at`, `updated_at`)
+VALUES ('game_rec_uuid1', 1, 'uuid1', 'started', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
+       ('game_rec_uuid2', 2, 'uuid2', 'waiting', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
+       ('game_rec_uuid3', 3, 'uuid3', '', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
+       ('game_rec_uuid4', 4, 'uuid4', 'waiting', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
 -- --------------------------------------------------------
 

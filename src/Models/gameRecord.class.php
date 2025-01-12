@@ -76,6 +76,11 @@ class GameRecord
      */
     private GameRecordState $state;
     /**
+     * @brief Indique si la partie est privée
+     * @var bool Indique si la partie est privée
+     */
+    private bool $private;
+    /**
      * @brief Date de création de la partie
      * @var DateTime Date de création de la partie
      */
@@ -103,13 +108,14 @@ class GameRecord
      * @param DateTime $updatedAt Date de dernière mise à jour de la partie
      * @param DateTime|null $finishedAt Date de fin de la partie
      */
-    public function __construct(string $code, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, DateTime $createdAt, DateTime $updatedAt, ?DateTime $finishedAt = null)
+    public function __construct(string $code, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, bool $isPrivate, DateTime $createdAt, DateTime $updatedAt, ?DateTime $finishedAt = null)
     {
         $this->code = $code;
         $this->game = $game;
         $this->hostedBy = $hostedBy;
         $this->players = $players;
         $this->state = $state;
+        $this->private = $isPrivate;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
         $this->finishedAt = $finishedAt;
@@ -218,6 +224,27 @@ class GameRecord
     public function setState(GameRecordState $state): void
     {
         $this->state = $state;
+    }
+
+    /**
+     * @brief Getter de l'attribut isPrivate
+     *
+     * @return bool Indique si la partie est privée
+     */
+    public function isPrivate(): bool
+    {
+        return $this->private;
+    }
+
+    /**
+     * @brief Setter de l'attribut isPrivate
+     *
+     * @param bool $isPrivate Indique si la partie est privée
+     * @return void
+     */
+    public function setPrivate(bool $isPrivate): void
+    {
+        $this->private = $isPrivate;
     }
 
     /**
