@@ -594,11 +594,6 @@ class ControllerGame extends Controller
                     );
                     $allPlayers = array_map(fn($player) => $player["player"], $players);
 
-                    $debug = fopen("elo.txt", "w");
-                    fwrite($debug, json_encode($allWinner) . "\n");
-                    fwrite($debug, json_encode($allLooser) . "\n");
-                    fwrite($debug, json_encode($allPlayers) . "\n");
-
                     $this->calculateAndUpdateElo($allPlayers, $allWinner, $allLooser);
                 }
             }
