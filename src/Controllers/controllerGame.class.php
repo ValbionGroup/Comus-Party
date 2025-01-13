@@ -22,6 +22,7 @@ use ComusParty\Models\GameRecordState;
 use ComusParty\Models\GameState;
 use ComusParty\Models\PlayerDAO;
 use DateTime;
+use Error;
 use Exception;
 use Random\RandomException;
 use Twig\Environment;
@@ -572,30 +573,33 @@ class ControllerGame extends Controller
                     foreach ($winner as $playerUuid) {
                         $gameRecordManager->addWinner($code, $playerUuid);
                     }
+                } else {
+                    $winner = [];
                 }
 
                 $players = $gameRecord->getPlayers();
                 if (!$gameRecord->isPrivate()) {
-                    $averageElo = 0;
 
-                    foreach ($players as $player) {
-                        $averageElo += $player['player']->getElo();
-                    }
-                    $averageElo /= sizeof($players);
+                    $allWinner = array_map(
+                        fn($player) => $player["player"],
+                        array_filter($players,
+                            fn($player) => in_array($player["player"]->getUuid(), $winner)
+                        )
+                    );
+                    $allLooser = array_map(
+                        fn($player) => $player["player"],
+                        array_filter($players,
+                            fn($player) => !in_array($player["player"]->getUuid(), $winner)
+                        )
+                    );
+                    $allPlayers = array_map(fn($player) => $player["player"], $players);
 
-                    foreach ($players as $player) {
-                        $elo = $player["player"]->getElo();
-                        if (is_null($winner)) {
-                            $result = 0.5;
-                        } else if (in_array($player["player"]->getUuid(), $winner)) {
-                            $result = 1;
-                        } else {
-                            $result = 0;
-                        }
-                        $newElo = EloCalculator::calculateNewElo($elo, $averageElo, $result);
-                        $player["player"]->setElo($newElo);
-                        (new PlayerDAO($this->getPdo()))->update($player["player"]);
-                    }
+                    $debug = fopen("elo.txt", "w");
+                    fwrite($debug, json_encode($allWinner) . "\n");
+                    fwrite($debug, json_encode($allLooser) . "\n");
+                    fwrite($debug, json_encode($allPlayers) . "\n");
+
+                    $this->calculateAndUpdateElo($allPlayers, $allWinner, $allLooser);
                 }
             }
 
@@ -603,12 +607,41 @@ class ControllerGame extends Controller
                 "success" => true,
             ]);
             exit;
-        } catch (Exception $e) {
+        } catch (Exception|Error $e) {
             echo json_encode([
                 "success" => false,
                 "message" => $e->getMessage(),
             ]);
             exit;
         }
+    }
+
+    private function calculateAndUpdateElo(array $allPlayers, array $winners, array $looser): void
+    {
+        $averageEloLooser = $this->averageElo($looser);
+        $averageEloWinner = $this->averageElo($winners);
+
+        $playerManager = new PlayerDAO($this->getPdo());
+        foreach ($allPlayers as $player) {
+            $elo = $player->getElo();
+            if (sizeof($winners) == 0) {
+                $newElo = EloCalculator::calculateNewElo($elo, $averageEloLooser, 0.5);
+            } else if (in_array($player->getUuid(), $winners)) {
+                $newElo = EloCalculator::calculateNewElo($elo, $averageEloLooser, 1);
+            } else {
+                $newElo = EloCalculator::calculateNewElo($elo, $averageEloWinner, 0);
+            }
+            $player->setElo($newElo);
+            $playerManager->update($player);
+        }
+    }
+
+    private function averageElo(array $players): float
+    {
+        $averageElo = 0;
+        foreach ($players as $player) {
+            $averageElo += $player->getElo();
+        }
+        return $averageElo / sizeof($players);
     }
 }
