@@ -64,6 +64,7 @@ class ControllerShop extends Controller
         } else {
             $numberArticlesInBasket = 0;
         }
+        var_dump('pfps', $pfps);
         echo $template->render(array(
             'articles' => $articles,
             'pfps' => $pfps,
