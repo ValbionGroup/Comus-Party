@@ -186,6 +186,18 @@ module.exports = {
                         backgroundColor: theme('colors.green.700'),
                     },
                 },
+                '.btn-warning': {
+                    backgroundColor: theme('colors.yellow.500'),
+                    transition: 'all 0.3s ease-in-out',
+                    padding: theme('padding.2'),
+                    borderRadius: theme('borderRadius.xl'),
+                    '&:hover': {
+                        backgroundColor: theme('colors.yellow.600'),
+                    },
+                    '&:active': {
+                        backgroundColor: theme('colors.yellow.700'),
+                    },
+                },
                 '.btn-danger': {
                     backgroundColor: theme('colors.red.500'),
                     transition: 'all 0.3s ease-in-out',
