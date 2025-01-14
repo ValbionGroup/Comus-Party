@@ -35,7 +35,7 @@ function startGame(gameCode) {
         if (response.success) {
             window.location.href = `/game/${gameCode}`;
         } else {
-            showNotification('Oups...', `Une erreur est survenue lors du démarrage de la partie\n${response.message}`, 'red')
+            showNotification('Oups...', response.message, 'red')
         }
     });
 }
