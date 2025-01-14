@@ -353,7 +353,7 @@ class ControllerGame extends Controller
 
         $player = (new PlayerDAO($this->getPdo()))->findByUuid($playerUuid);
 
-        // Fonctionnement pour un joueur non connecté a insérer ici
+        // TODO: Fonctionnement pour un joueur non connecté a insérer ici
 
         if ($gameRecord->getState() != GameRecordState::WAITING) {
             throw new GameUnavailableException("La partie a déjà commencé");
