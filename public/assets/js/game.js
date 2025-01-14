@@ -1,12 +1,15 @@
 function quitGameAndBackHome(gameCode) {
     fetch(`/game/${gameCode}/quit`, {
         method: 'DELETE',
-    }).then((response) => {
-        if (response.ok) {
-            window.location.href = '/';
-        }
-        throw new Error('Failed to quit game');
-    });
+    })
+        .then((response) => response.json())
+        .then((response) => {
+            if (response.success) {
+                window.location.href = '/';
+            } else {
+                showNotification('Oups...', `Une erreur est survenue lors de la suppression de la partie\n${response.message}`, 'red');
+            }
+        });
 }
 
 function startGame(gameCode) {
@@ -27,11 +30,13 @@ function startGame(gameCode) {
     fetch(`/game/${gameCode}/start`, {
         method: 'POST',
         body: data,
-    }).then((response) => {
-        if (response.ok) {
+    }).then((response) => response.json()
+    ).then((response) => {
+        if (response.success) {
             window.location.href = `/game/${gameCode}`;
+        } else {
+            showNotification('Oups...', `Une erreur est survenue lors du démarrage de la partie\n${response.message}`, 'red')
         }
-        throw new Error('Failed to start game');
     });
 }
 
