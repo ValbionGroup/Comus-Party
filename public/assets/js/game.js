@@ -1,5 +1,27 @@
 const gameCode = document.getElementById('gameCode').value;
 
+function setVisibilityPublic(gameCode, isPublic) {
+    const visibilityButton = document.getElementById('visibilityBtn');
+
+    makeRequest(
+        'POST',
+        `/game/${gameCode}/visibility`,
+        (response) => {
+            response = JSON.parse(response);
+            if (response.success) {
+                visibilityButton.textContent = isPublic ? 'Rendre privée' : 'Rendre publique';
+                visibilityButton.onclick = () => setVisibilityPublic(gameCode, !isPublic);
+                visibilityButton.classList.replace(isPublic ? 'btn-success' : 'btn-warning', isPublic ? 'btn-warning' : 'btn-success');
+
+                showNotification('Parfait !', 'La partie à changé d\'état', 'green');
+            } else {
+                showNotification('Oups...', response.message, 'red');
+            }
+        },
+        `isPrivate=${!isPublic}`
+    );
+}
+
 function quitGameAndBackHome(gameCode) {
     fetch(`/game/${gameCode}/quit`, {
         method: 'DELETE',
@@ -60,7 +82,7 @@ function receiveChatMessage(message) {
 }
 
 // WebSocket
-const conn = new WebSocket('ws://sockets.comus-party.com/chat/' + gameCode);
+const conn = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };
