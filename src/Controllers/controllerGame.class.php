@@ -351,6 +351,10 @@ class ControllerGame extends Controller
             throw new NotFoundException("La partie n'existe pas");
         }
 
+        if ($this->getGameSettings($gameRecord->getGame()->getId())['settings']['maxPlayers'] <= sizeof($gameRecord->getPlayers())) {
+            throw new GameUnavailableException("La partie est pleine");
+        }
+
         $player = (new PlayerDAO($this->getPdo()))->findByUuid($playerUuid);
 
         // TODO: Fonctionnement pour un joueur non connecté a insérer ici
