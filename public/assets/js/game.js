@@ -1,3 +1,5 @@
+const gameCode = document.getElementById('gameCode').value;
+
 function quitGameAndBackHome(gameCode) {
     fetch(`/game/${gameCode}/quit`, {
         method: 'DELETE',
@@ -58,8 +60,7 @@ function receiveChatMessage(message) {
 }
 
 // WebSocket
-// TODO: Modifier le lien du socket
-const conn = new WebSocket('ws://sockets.comus-party.com:port/chat/token');
+const conn = new WebSocket('ws://sockets.comus-party.com/chat/' + gameCode);
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };
