@@ -53,8 +53,8 @@ function receiveChatMessage(message) {
 }
 
 // WebSocket
-
-const conn = new WebSocket('ws://localhost:8315/chat/945290a1a2e2d723da48640e73c5d76d');
+// TODO: Modifier le lien du socket
+const conn = new WebSocket('ws://sockets.comus-party.com:port/chat/token');
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };
@@ -68,7 +68,7 @@ document.getElementById('chatInput').addEventListener("keydown", function (e) {
     }
 });
 
-window.addEventListener('message', function(event) {
+window.addEventListener('message', function (event) {
     if (event.data === 'redirectHome') {
         window.location.href = '/';
     }
