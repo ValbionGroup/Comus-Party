@@ -58,6 +58,7 @@ class ControllerGame extends Controller
     {
         $gameManager = new GameDAO($this->getPdo());
         $games = $gameManager->findAllWithTags();
+        $games = array_filter($games, fn($game) => $game->getState() == GameState::AVAILABLE);
         $template = $this->getTwig()->load('player/home.twig');
         echo $template->render(array(
             "games" => $games
@@ -155,8 +156,8 @@ class ControllerGame extends Controller
         // Vérifier les erreurs
         if (curl_errno($ch)) {
             echo json_encode([
-                "success" => false,
-                "message" => curl_error($ch)]
+                    "success" => false,
+                    "message" => curl_error($ch)]
             );
             exit;
         } else {
