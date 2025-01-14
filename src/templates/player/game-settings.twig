@@ -3,7 +3,7 @@
 {% block title %}Création d'une partie pour {{ game.name }}{% endblock %}
 
 {% block content %}
-    <section class="grid grid-cols-5 w-full h-full gap-6">
+    <section class="grid grid-cols-1 md:grid-cols-5 w-full h-full gap-y-6 md:gap-6">
         <div class="col-span-2 bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
             <h3 class="text-xl font-serif">Paramètre de la partie</h3>
             {% if isHost %}
