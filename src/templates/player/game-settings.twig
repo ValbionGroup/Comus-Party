@@ -73,7 +73,7 @@
                 <div class="mt-3 overflow-y-auto flex flex-col gap-2">
                     {% for player in players %}
                         <div class="flex flex-row gap-3 items-center">
-                            <img src="/assets/img/pfp/default-pfp.jpg" class="size-8 rounded-full"/>
+                            <img src="/assets/img/pfp/{{ player.activePfp }}" class="size-8 rounded-full"/>
                             <p class="text-lg">{{ player.username }}</p>
                         </div>
                     {% endfor %}
