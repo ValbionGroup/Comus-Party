@@ -419,13 +419,13 @@ class ControllerAuth extends Controller
                 throw new Exception("Erreur lors de la création de l'utilisateur");
             }
 
-            $subject = '🎉 Bienvenue sur Comus Party !';
+            $subject = 'Bienvenue sur Comus Party !';
             $message =
-                '<p>Merci d\'avoir créé un compte sur notre plateforme de mini-jeux en ligne. 🎮</p>
+                '<p>Merci d\'avoir créé un compte sur notre plateforme de mini-jeux en ligne.</p>
                 <p>Pour commencer à jouer et rejoindre nos parties endiablées, il ne vous reste plus qu\'une étape :</p>
-                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre compte ici</a>
-                <p>À très bientôt dans l’arène ! 🎲,<br>
-                L\'équipe Comus Party 🚀</p>';
+                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">Confirmer votre compte ici</a>
+                <p>À très bientôt dans l’arène !<br>
+                L\'équipe Comus Party</p>';
 
             $confirmMail = new Mailer(array($email), $subject, $message);
             $confirmMail->generateHTMLMessage();
