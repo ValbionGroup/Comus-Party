@@ -104,7 +104,7 @@ $router->post('/game/:code/start', function ($code) use ($loader, $twig) {
 $router->post('/game/:code/visibility', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("changeVisibility", [
         "code" => $code,
-        "isPrivate" => $_POST['isPrivate'] == 'true'
+        "isPrivate" => $_POST['isPrivate'] === 'true'
     ]);
     exit;
 }, 'player');

@@ -306,6 +306,7 @@ class ControllerGame extends Controller
             "chat" => $gameSettings["settings"]["allowChat"],
             "gameFileInfos" => $gameSettings["game"],
             "settings" => $settings,
+            "isPrivate" => $gameRecord->isPrivate(),
         ]);
     }
 
@@ -412,6 +413,43 @@ class ControllerGame extends Controller
             "chat" => $this->getGameSettings($gameRecord->getGame()->getId())["settings"]["allowChat"],
             "iframe" => $baseUrl . "/" . $gameRecord->getCode() . "/" . $token
         ]);
+    }
+
+    /**
+     * @brief Permet de changer la visibilité d'une partie
+     * @param string $code Code de la partie
+     * @param bool $isPrivate Vrai si la partie doit être privée, faux sinon
+     * @return void
+     */
+    public function changeVisibility(string $code, bool $isPrivate): void
+    {
+        try {
+            $gameRecordManager = new GameRecordDAO($this->getPdo());
+            $gameRecord = $gameRecordManager->findByCode($code);
+
+            if ($gameRecord == null) {
+                throw new NotFoundException("La partie n'existe pas");
+            }
+
+            if ($gameRecord->getHostedBy()->getUuid() != $_SESSION['uuid']) {
+                throw new UnauthorizedAccessException("Vous n'êtes pas l'hôte de la partie");
+            }
+
+            $gameRecord->setPrivate($isPrivate);
+            $gameRecordManager->update($gameRecord);
+
+            echo json_encode([
+                "success" => true,
+            ]);
+            exit;
+        } catch (Exception|Error $e) {
+            echo json_encode([
+                "success" => false,
+                "message" => $e->getMessage(),
+                "code" => $e->getCode(),
+            ]);
+            exit;
+        }
     }
 
     /**
