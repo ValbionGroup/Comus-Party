@@ -40,6 +40,8 @@ couche Modèle (`Models`) gérant les données, une couche Vue (`templates`) pou
 Contrôleur (`Controllers`) assurant la coordination entre les deux. Cette organisation facilite la maintenance et
 l'évolution du code tout en respectant les bonnes pratiques de développement.
 
+Vous pouvez consulter la [documentation technique sur notre site](https://docs.comus-party.com).
+
 #### Développer
 
 Afin de développer sur Comus Party, il vous faudra suivre les étapes ci-dessous :
