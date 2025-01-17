@@ -17,8 +17,8 @@ fichier `settings.json` :
     "author": "John Doe"
   },
   "settings": {
-    "minPlayer": 2,
-    "maxPlayer": 20,
+    "minPlayers": 2,
+    "maxPlayers": 20,
     "allowChat": true,
     "allowVoice": false,
     "allowSpectators": true,

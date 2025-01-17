@@ -58,6 +58,7 @@ class ControllerGame extends Controller
     {
         $gameManager = new GameDAO($this->getPdo());
         $games = $gameManager->findAllWithTags();
+        $games = array_filter($games, fn($game) => $game->getState() == GameState::AVAILABLE);
         $template = $this->getTwig()->load('player/home.twig');
         echo $template->render(array(
             "games" => $games
@@ -77,107 +78,116 @@ class ControllerGame extends Controller
      */
     public function initGame(string $code, ?array $settings): void
     {
-        $gameRecord = (new GameRecordDAO($this->getPdo()))->findByCode($code);
+        try {
+            $gameRecord = (new GameRecordDAO($this->getPdo()))->findByCode($code);
 
-        if ($gameRecord == null) {
-            throw new NotFoundException("La partie n'existe pas");
-        }
-
-        if ($gameRecord->getState() != GameRecordState::WAITING) {
-            throw new MalformedRequestException("La partie a déjà commencé ou est terminée");
-        }
-
-        if ($gameRecord->getHostedBy()->getUuid() != $_SESSION['uuid']) {
-            throw new UnauthorizedAccessException("Vous n'êtes pas l'hôte de la partie");
-        }
-
-        $game = $gameRecord->getGame();
-
-        if ($game->getState() != GameState::AVAILABLE) {
-            throw new GameUnavailableException("Le jeu n'est pas disponible");
-        }
-
-        $gameSettings = $this->getGameSettings($game->getId());
-        if (sizeof($gameSettings) == 0) {
-            throw new GameUnavailableException("Les paramètres du jeu ne sont pas disponibles");
-        }
-
-        $nbPlayers = sizeof($gameRecord->getPlayers());
-        if ($nbPlayers < $gameSettings["settings"]["minPlayers"] || $nbPlayers > $gameSettings["settings"]["maxPlayers"]) {
-            throw new GameSettingsException("Le nombre de joueurs est de " . $nbPlayers . " alors que le jeu nécessite entre " . $gameSettings["settings"]["minPlayers"] . " et " . $gameSettings["settings"]["maxPlayers"] . " joueurs");
-        }
-
-        if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
-            if (sizeof($settings) != sizeof($gameSettings["modifiableSettings"])) {
-                throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
+            if ($gameRecord == null) {
+                throw new NotFoundException("La partie n'existe pas");
             }
 
-            foreach ($settings as $key => $value) {
-                if (!array_key_exists($key, $gameSettings["modifiableSettings"])) {
+            if ($gameRecord->getState() != GameRecordState::WAITING) {
+                throw new MalformedRequestException("La partie a déjà commencé ou est terminée");
+            }
+
+            if ($gameRecord->getHostedBy()->getUuid() != $_SESSION['uuid']) {
+                throw new UnauthorizedAccessException("Vous n'êtes pas l'hôte de la partie");
+            }
+
+            $game = $gameRecord->getGame();
+
+            if ($game->getState() != GameState::AVAILABLE) {
+                throw new GameUnavailableException("Le jeu n'est pas disponible");
+            }
+
+            $gameSettings = $this->getGameSettings($game->getId());
+            if (sizeof($gameSettings) == 0) {
+                throw new GameUnavailableException("Les paramètres du jeu ne sont pas disponibles");
+            }
+
+            $nbPlayers = sizeof($gameRecord->getPlayers());
+            if ($nbPlayers < $gameSettings["settings"]["minPlayers"] || $nbPlayers > $gameSettings["settings"]["maxPlayers"]) {
+                throw new GameSettingsException("Le nombre de joueurs est de " . $nbPlayers . " alors que le jeu nécessite entre " . $gameSettings["settings"]["minPlayers"] . " et " . $gameSettings["settings"]["maxPlayers"] . " joueurs");
+            }
+
+            if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
+                if (sizeof($settings) != sizeof($gameSettings["modifiableSettings"])) {
                     throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
                 }
+
+                foreach ($settings as $key => $value) {
+                    if (!array_key_exists($key, $gameSettings["modifiableSettings"])) {
+                        throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
+                    }
+                }
+            } else {
+                $settings = [];
             }
-        } else {
-            $settings = [];
-        }
 
-        $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
+            $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
 
-        $players = $gameRecord->getPlayers();
-        foreach ($players as &$player) {
-            $player["token"] = bin2hex(random_bytes(8));
-        }
-        $gameRecord->setPlayers($players);
-        (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
+            $players = $gameRecord->getPlayers();
+            foreach ($players as &$player) {
+                $player["token"] = bin2hex(random_bytes(8));
+            }
+            $gameRecord->setPlayers($players);
+            (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
 
-        $data = [
-            "settings" => $settings,
-            "players" => array_map(function ($player) {
-                return [
-                    'uuid' => $player["player"]->getUuid(),
-                    'username' => $player["player"]->getUsername(),
-                    'token' => $player["token"]
-                ];
-            }, $gameRecord->getPlayers()),
-        ];
+            $data = [
+                "settings" => $settings,
+                "players" => array_map(function ($player) {
+                    return [
+                        'uuid' => $player["player"]->getUuid(),
+                        'username' => $player["player"]->getUsername(),
+                        'token' => $player["token"]
+                    ];
+                }, $gameRecord->getPlayers()),
+            ];
 
-        $ch = curl_init($baseUrl . "/" . $gameRecord->getCode() . "/init");
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Envoyer le JSON
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Obtenir la réponse
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json", // Indiquer que les données sont au format JSON
-        ]);
+            $ch = curl_init($baseUrl . "/" . $gameRecord->getCode() . "/init");
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Envoyer le JSON
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Obtenir la réponse
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                "Content-Type: application/json", // Indiquer que les données sont au format JSON
+            ]);
 
-        // Exécuter la requête
-        $response = curl_exec($ch);
+            // Exécuter la requête
+            $response = curl_exec($ch);
 
-        // Vérifier les erreurs
-        if (curl_errno($ch)) {
+            // Vérifier les erreurs
+            if (curl_errno($ch)) {
+                echo json_encode([
+                    "success" => false,
+                    "message" => curl_error($ch),
+                    "code" => null
+                ]);
+                exit;
+            } else {
+                // Afficher la réponse
+                echo "Réponse : " . $response;
+            }
+
+            // Fermer la connexion cURL
+            curl_close($ch);
+
+            $gameRecord->setState(GameRecordState::STARTED);
+            $gameRecord->setUpdatedAt(new DateTime());
+            (new GameRecordDAO($this->getPdo()))->update($gameRecord);
+
+            echo json_encode([
+                "success" => true,
+                "game" => [
+                    "code" => $code,
+                    "gameId" => $game->getId(),
+                ],
+            ]);
+        } catch (Exception|Error $e) {
             echo json_encode([
                 "success" => false,
-                "message" => curl_error($ch)]
-            );
-            exit;
-        } else {
-            // Afficher la réponse
-            echo "Réponse : " . $response;
+                "message" => $e->getMessage(),
+                "code" => $e->getCode(),
+            ]);
         }
-
-        // Fermer la connexion cURL
-        curl_close($ch);
-
-        $gameRecord->setState(GameRecordState::STARTED);
-        $gameRecord->setUpdatedAt(new DateTime());
-        (new GameRecordDAO($this->getPdo()))->update($gameRecord);
-
-        echo json_encode([
-            "success" => true,
-            "game" => [
-                "code" => $code,
-                "gameId" => $game->getId(),
-            ],
-        ]);
     }
 
     /**
@@ -296,6 +306,7 @@ class ControllerGame extends Controller
             "chat" => $gameSettings["settings"]["allowChat"],
             "gameFileInfos" => $gameSettings["game"],
             "settings" => $settings,
+            "isPrivate" => $gameRecord->isPrivate(),
         ]);
     }
 
@@ -341,9 +352,13 @@ class ControllerGame extends Controller
             throw new NotFoundException("La partie n'existe pas");
         }
 
+        if ($this->getGameSettings($gameRecord->getGame()->getId())['settings']['maxPlayers'] <= sizeof($gameRecord->getPlayers())) {
+            throw new GameUnavailableException("La partie est pleine");
+        }
+
         $player = (new PlayerDAO($this->getPdo()))->findByUuid($playerUuid);
 
-        // Fonctionnement pour un joueur non connecté a insérer ici
+        // TODO: Fonctionnement pour un joueur non connecté a insérer ici
 
         if ($gameRecord->getState() != GameRecordState::WAITING) {
             throw new GameUnavailableException("La partie a déjà commencé");
@@ -398,6 +413,43 @@ class ControllerGame extends Controller
             "chat" => $this->getGameSettings($gameRecord->getGame()->getId())["settings"]["allowChat"],
             "iframe" => $baseUrl . "/" . $gameRecord->getCode() . "/" . $token
         ]);
+    }
+
+    /**
+     * @brief Permet de changer la visibilité d'une partie
+     * @param string $code Code de la partie
+     * @param bool $isPrivate Vrai si la partie doit être privée, faux sinon
+     * @return void
+     */
+    public function changeVisibility(string $code, bool $isPrivate): void
+    {
+        try {
+            $gameRecordManager = new GameRecordDAO($this->getPdo());
+            $gameRecord = $gameRecordManager->findByCode($code);
+
+            if ($gameRecord == null) {
+                throw new NotFoundException("La partie n'existe pas");
+            }
+
+            if ($gameRecord->getHostedBy()->getUuid() != $_SESSION['uuid']) {
+                throw new UnauthorizedAccessException("Vous n'êtes pas l'hôte de la partie");
+            }
+
+            $gameRecord->setPrivate($isPrivate);
+            $gameRecordManager->update($gameRecord);
+
+            echo json_encode([
+                "success" => true,
+            ]);
+            exit;
+        } catch (Exception|Error $e) {
+            echo json_encode([
+                "success" => false,
+                "message" => $e->getMessage(),
+                "code" => $e->getCode(),
+            ]);
+            exit;
+        }
     }
 
     /**

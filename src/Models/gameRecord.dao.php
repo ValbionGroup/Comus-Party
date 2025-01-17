@@ -259,7 +259,7 @@ class GameRecordDAO
      */
     public function update(GameRecord $gameRecord): bool
     {
-        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, finished_at = :finishedAt WHERE code = :code");
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, private = :private, finished_at = :finishedAt WHERE code = :code");
 
         $state = match ($gameRecord->getState()) {
             GameRecordState::WAITING => "waiting",
@@ -267,10 +267,12 @@ class GameRecordDAO
             GameRecordState::FINISHED => "finished",
             GameRecordState::UNKNOWN => null,
         };
+        $private = $gameRecord->isPrivate();
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
         $code = $gameRecord->getCode();
 
         $stmt->bindParam(":state", $state);
+        $stmt->bindParam(":private", $private, PDO::PARAM_BOOL);
         $stmt->bindParam(":finishedAt", $finishedAt);
         $stmt->bindParam(":code", $code);
 

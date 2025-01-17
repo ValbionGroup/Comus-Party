@@ -1,12 +1,39 @@
+const gameCode = document.getElementById('gameCode').value;
+
+function setVisibilityPublic(gameCode, isPublic) {
+    const visibilityButton = document.getElementById('visibilityBtn');
+
+    makeRequest(
+        'POST',
+        `/game/${gameCode}/visibility`,
+        (response) => {
+            response = JSON.parse(response);
+            if (response.success) {
+                visibilityButton.textContent = isPublic ? 'Rendre privée' : 'Rendre publique';
+                visibilityButton.onclick = () => setVisibilityPublic(gameCode, !isPublic);
+                visibilityButton.classList.replace(isPublic ? 'btn-success' : 'btn-warning', isPublic ? 'btn-warning' : 'btn-success');
+
+                showNotification('Parfait !', 'La partie à changé d\'état', 'green');
+            } else {
+                showNotification('Oups...', response.message, 'red');
+            }
+        },
+        `isPrivate=${!isPublic}`
+    );
+}
+
 function quitGameAndBackHome(gameCode) {
     fetch(`/game/${gameCode}/quit`, {
         method: 'DELETE',
-    }).then((response) => {
-        if (response.ok) {
-            window.location.href = '/';
-        }
-        throw new Error('Failed to quit game');
-    });
+    })
+        .then((response) => response.json())
+        .then((response) => {
+            if (response.success) {
+                window.location.href = '/';
+            } else {
+                showNotification('Oups...', `Une erreur est survenue lors de la suppression de la partie\n${response.message}`, 'red');
+            }
+        });
 }
 
 function startGame(gameCode) {
@@ -27,11 +54,13 @@ function startGame(gameCode) {
     fetch(`/game/${gameCode}/start`, {
         method: 'POST',
         body: data,
-    }).then((response) => {
-        if (response.ok) {
+    }).then((response) => response.json()
+    ).then((response) => {
+        if (response.success) {
             window.location.href = `/game/${gameCode}`;
+        } else {
+            showNotification('Oups...', response.message, 'red')
         }
-        throw new Error('Failed to start game');
     });
 }
 
@@ -53,8 +82,7 @@ function receiveChatMessage(message) {
 }
 
 // WebSocket
-
-const conn = new WebSocket('ws://localhost:8315/chat/945290a1a2e2d723da48640e73c5d76d');
+const conn = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };
@@ -68,7 +96,7 @@ document.getElementById('chatInput').addEventListener("keydown", function (e) {
     }
 });
 
-window.addEventListener('message', function(event) {
+window.addEventListener('message', function (event) {
     if (event.data === 'redirectHome') {
         window.location.href = '/';
     }
