@@ -3,7 +3,7 @@
 {% block title %}{{ game.name }} - En jeu{% endblock %}
 
 {% block content %}
-    <section class="grid grid-cols-5 w-full h-full gap-6">
+    <section class="grid grid-cols-1 md:grid-cols-5 w-full h-full gap-6">
         <div class="{% if chat %}col-span-4{% else %}col-span-5{% endif %} bg-lavender-blush-1 dark:bg-night-1 rounded-lg flex flex-col">
             <iframe src="{{ iframe }}" class="w-full h-full rounded-lg" id="gameFrame"></iframe>
         </div>
