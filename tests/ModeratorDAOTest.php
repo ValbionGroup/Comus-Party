@@ -8,7 +8,7 @@
  * @version 0.1
  */
 
-use ComusParty\Models\Db;
+use ComusParty\App\Db;
 use ComusParty\Models\Moderator;
 use ComusParty\Models\ModeratorDAO;
 use PHPUnit\Framework\TestCase;
