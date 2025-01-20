@@ -141,14 +141,23 @@ class PlayerDAO
             (SELECT COUNT(*) FROM ' . DB_PREFIX . 'played WHERE player_uuid = pr.uuid) as games_played,
             (SELECT COUNT(*) FROM ' . DB_PREFIX . 'won WHERE player_uuid = pr.uuid) as games_won,
             (SELECT COUNT(*) FROM ' . DB_PREFIX . 'game_record WHERE hosted_by = pr.uuid) as games_hosted,
-            p.file_path AS active_pfp,
-            b.file_path AS active_banner
+            (SELECT a.file_path 
+             FROM ' . DB_PREFIX . 'invoice  i 
+             JOIN ' . DB_PREFIX . 'invoice_row ir ON ir.invoice_id = i.id AND ir.active = 1
+             JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id AND a.type = "pfp"
+             WHERE i.player_uuid = pr.uuid
+             ORDER BY i.created_at DESC
+             LIMIT 1) as active_pfp,
+             (SELECT a.file_path 
+             FROM ' . DB_PREFIX . 'invoice  i 
+             JOIN ' . DB_PREFIX . 'invoice_row ir ON ir.invoice_id = i.id AND ir.active = 1
+             JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id AND a.type = "banner"
+             WHERE i.player_uuid = pr.uuid
+             ORDER BY i.created_at DESC
+             LIMIT 1) as active_banner
             FROM cp_player pr
             JOIN cp_user u ON pr.user_id = u.id
             LEFT JOIN ' . DB_PREFIX . 'invoice i ON i.player_uuid = pr.uuid
-            LEFT JOIN ' . DB_PREFIX . 'invoice_row ir ON ir.invoice_id = i.id AND ir.active = 1
-            LEFT JOIN ' . DB_PREFIX . 'article p ON ir.article_id = p.id AND p.type = "pfp"
-            LEFT JOIN ' . DB_PREFIX . 'article b ON ir.article_id = b.id AND b.type = "banner"
             WHERE pr.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
