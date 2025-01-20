@@ -118,7 +118,8 @@ function showModalPfp(article) {
 
     // Le joueur ne possédant pas l'article, il peut donc l'ajouter au panier
     if(article.owned == false) {
-
+        addBasketBtnPfp.textContent = "Ajouter au panier"
+        addBasketBtnPfp.disabled = false
         addBasketBtnPfp.onclick = function () {
 
             const xhr = new XMLHttpRequest();
@@ -200,6 +201,8 @@ function showModalBanner(article) {
     priceEuroArticleBanner.innerText = article.priceEuro + " €"
 
     if(article.owned == false){
+        addBasketBtnBanner.textContent = "Ajouter au panier"
+        addBasketBtnBanner.disabled = false
         addBasketBtnBanner.onclick = function (){
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "/shop/basket/add", true);
