@@ -14,6 +14,7 @@ use ComusParty\App\Exceptions\PaymentException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\InvoiceDAO;
+use ComusParty\Models\Mailer;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
@@ -125,15 +126,27 @@ class ControllerShop extends Controller
         $cardNumber = preg_replace('/\s/', '', $datas['cardNumber']);
 
         if (strlen($cardNumber) !== 16) {
-            throw new PaymentException("Le numéro de carte doit contenir 16 chiffres");
+            echo json_encode([
+                'success' => false,
+                'message' => 'Le numéro de la carte doit contenir 16 chiffres.'
+            ]);
+            return false;
         }
 
         if (!$this->checkLuhnValid($cardNumber)) {
-            throw new PaymentException("Le numéro de carte n'est pas valide");
+            echo json_encode([
+                'success' => false,
+                'message' => "Le numéro de carte n'est pas valide."
+            ]);
+            return false;
         }
 
         if (strlen($datas['cvv']) !== 3) {
-            throw new PaymentException("Le cryptogramme de sécurité doit contenir 3 chiffres");
+            echo json_encode([
+                'success' => false,
+                'message' => "Le cryptogramme de sécurité doit contenir 3 chiffres"
+            ]);
+            return false;
         }
 
 
@@ -142,8 +155,16 @@ class ControllerShop extends Controller
         $expirationDate->setDate(2000 + (int)$year, (int)$month, 1);
         $now = new DateTime();
         if ($expirationDate < $now) {
-            throw new PaymentException("La carte a expiré");
+            echo json_encode([
+                'success' => false,
+                'message' => "La carte a expiré."
+            ]);
+            return false;
         }
+
+        echo json_encode([
+            'success' => true
+        ]);
 
         return true;
     }
@@ -209,5 +230,37 @@ class ControllerShop extends Controller
             'email' => $email,
             'articles' => $articles
         ));
+    }
+
+    /**
+     * @brief Affiche la page de succès de paiement
+     * @param $articles
+     * @param $playerUuid
+     * @param $paymentType
+     * @return void
+     * @throws DateMalformedStringException
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function showSuccessPayment($articles, $playerUuid, $paymentType): void
+    {
+        $managerInvoice = new InvoiceDAO($this->getPdo());
+        $managerInvoice->createInvoiceWithArticles($playerUuid, $paymentType, $articles);
+
+        $managerPlayer = new PlayerDAO($this->getPdo());
+        $player = $managerPlayer->findByUuid($playerUuid);
+        $managerUser = new UserDAO($this->getPdo());
+        $user = $managerUser->findById($player->getUserId());
+
+        $mail = new Mailer(array($user->getEmail()), "ComusParty - Paiement effectué", "Votre paiement a bien été effectué. Vous pouvez consulter votre facture sur votre profil.");
+        $mail->send();
+
+        $template = $this->getTwig()->load('player/successPayment.twig');
+        echo $template->render();
+
+        unset($_SESSION['basket']);
+        header("Refresh: 5; url=/");
+        exit();
     }
 }

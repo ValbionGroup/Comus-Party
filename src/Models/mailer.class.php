@@ -11,6 +11,7 @@
 namespace ComusParty\Models;
 
 use PHPMailer\PHPMailer\Exception as MailException;
+use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * @brief Classe Mailer
@@ -67,42 +68,6 @@ class Mailer
     }
 
     /**
-     * @brief Getter de l'attribut subject
-     * @return string Sujet du mail
-     */
-    public function getSubject(): string
-    {
-        return $this->subject;
-    }
-
-    /**
-     * @brief Setter de l'attribut subject
-     * @param string $subject Sujet du mail
-     */
-    public function setSubject(string $subject): void
-    {
-        $this->subject = htmlentities($subject);
-    }
-
-    /**
-     * @brief Getter de l'attribut message
-     * @return string Contenu du mail
-     */
-    public function getMessage(): string
-    {
-        return $this->message;
-    }
-
-    /**
-     * @brief Setter de l'attribut message
-     * @param string $message Contenu du mail
-     */
-    public function setMessage(string $message): void
-    {
-        $this->message = htmlentities($message);
-    }
-
-    /**
      * @brief Fonction permettant d'envoyer un mail
      * @return bool Retourne true si le mail a été envoyé, false sinon
      */
@@ -152,5 +117,41 @@ class Mailer
         $content = str_replace('{{ subject }}', $this->getSubject(), $content);
         $content = str_replace('{{ message }}', $this->getMessage(), $content);
         return $content;
+    }
+
+    /**
+     * @brief Getter de l'attribut subject
+     * @return string Sujet du mail
+     */
+    public function getSubject(): string
+    {
+        return $this->subject;
+    }
+
+    /**
+     * @brief Setter de l'attribut subject
+     * @param string $subject Sujet du mail
+     */
+    public function setSubject(string $subject): void
+    {
+        $this->subject = htmlentities($subject);
+    }
+
+    /**
+     * @brief Getter de l'attribut message
+     * @return string Contenu du mail
+     */
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    /**
+     * @brief Setter de l'attribut message
+     * @param string $message Contenu du mail
+     */
+    public function setMessage(string $message): void
+    {
+        $this->message = htmlentities($message);
     }
 }

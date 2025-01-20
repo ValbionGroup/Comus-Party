@@ -22,7 +22,9 @@ Comus Party est une application de mini-jeux en ligne, elle est développée dan
 * **Boutique de cosmétiques**
 * **Gestion des parties**
 * **Système de suggestion in-app**
-* ...
+* **Classement**
+* **Personnalisation du profil joueur**
+* **Modularité des jeux**
 
 ### Interface
 
@@ -37,6 +39,8 @@ Le projet suit le modèle MVC (Modèle-Vue-Contrôleur) qui garantit une sépara
 couche Modèle (`Models`) gérant les données, une couche Vue (`templates`) pour l'interface utilisateur, et une couche
 Contrôleur (`Controllers`) assurant la coordination entre les deux. Cette organisation facilite la maintenance et
 l'évolution du code tout en respectant les bonnes pratiques de développement.
+
+Vous pouvez consulter la [documentation technique sur notre site](https://docs.comus-party.com).
 
 #### Développer
 

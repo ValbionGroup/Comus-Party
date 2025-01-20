@@ -6,7 +6,9 @@
 
     <header class="w-full sm:h-16 h-24">
         <nav class="sm:grid sm:grid-cols-6 flex flex-col justify-center items-center h-full gap-y-4 m-2">
-            <a href="/" class="sm:col-span-2 text-lavender-blush-1">Comus-Party</a>
+            <a href="/" class="sm:col-span-2">
+                <img src="/assets/img/cp-icon-v1.png" alt="Logo" class="h-12">
+            </a>
             <div class="col-span-2">
                 <ul class="flex gap-2 justify-center items-center">
                     <li class="flex items-center w-full after:border-b after:border-1 after:mx-2 after:my-0 after:hidden after:border-white after:w-full sm:after:inline-block after:content-['']">
@@ -248,7 +250,7 @@
                                         bg-lavender-blush-2 dark:bg-night-2 rounded-b-lg">
                                 <div class="p-4">
                                     <p>Connectez-vous à votre compte Paypal</p>
-                                    <button class="btn-primary w-full mt-4">
+                                    <button class="btn-primary w-full mt-4" type="button">
                                         Se connecter
                                     </button>
                                 </div>
@@ -291,14 +293,22 @@
                         </div>
                     </div>
                     <div class="flex flex-col m-2">
-                        <input type="submit" id="submit"
-                               class="w-full btn-primary group-invalid:pointer-events-none group-invalid:opacity-30"
-                               value="Payer">
+                        <button id="submit" type="button"
+                                class="w-full btn-primary group-invalid:pointer-events-none group-invalid:opacity-30">
+                            Payer
+                        </button>
                     </div>
                 </div>
             </div>
         </form>
     </main>
+
+    <div id="notification"
+         class="fixed bottom-5 right-5 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out">
+        <div>
+            <p id="notificationMessage"></p>
+        </div>
+    </div>
 
 {% endblock %}
 

@@ -58,6 +58,7 @@ class PlayerDAO
      * @brief Retourne un objet Player (ou null) à partir de l'UUID passé en paramètre
      * @param string $uuid L'UUID du joueur recherché
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findByUuid(string $uuid): ?Player
     {
@@ -107,6 +108,7 @@ class PlayerDAO
      * @brief Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre
      * @param int $userId L'identifiant utilisateur recherché
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findByUserId(int $userId): ?Player
     {
@@ -268,6 +270,7 @@ class PlayerDAO
      * @param string $username Le nom d'utilisateur du joueur
      * @param string $email L'adresse e-mail liée au joueur
      * @return bool Retourne true si le joueur a été créé avec succès, false sinon
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function createPlayer(string $username, string $email): bool
     {
@@ -291,6 +294,7 @@ class PlayerDAO
      * @brief Retourne un objet Player (ou null) à partir du nom d'utilisateur passé en paramètre
      * @param string|null $username Le nom d'utilisateur du joueur à retrouver
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findByUsername(?string $username): ?Player
     {
@@ -345,5 +349,29 @@ class PlayerDAO
             return null;
         }
         return $this->hydrateMany($tabPlayers);
+    }
+
+    /**
+     * @brief Met à jour les valeurs d'un enregistrement d'un joueur en base de données
+     * @param Player $player Les nouvelles données du joueur
+     * @return void
+     */
+    public function update(Player $player)
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE ' . DB_PREFIX . 'player
+            SET username = :username, xp = :xp, elo = :elo, comus_coin = :comusCoin
+            WHERE uuid = :uuid');
+        $username = $player->getUsername();
+        $stmt->bindParam(':username', $username);
+        $xp = $player->getXp();
+        $stmt->bindParam(':xp', $xp);
+        $elo = $player->getElo();
+        $stmt->bindParam(':elo', $elo);
+        $comusCoin = $player->getComusCoin();
+        $stmt->bindParam(':comusCoin', $comusCoin);
+        $uuid = $player->getUuid();
+        $stmt->bindParam(':uuid', $uuid);
+        $stmt->execute();
     }
 }

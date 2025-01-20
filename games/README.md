@@ -17,8 +17,8 @@ fichier `settings.json` :
     "author": "John Doe"
   },
   "settings": {
-    "minPlayer": 2,
-    "maxPlayer": 20,
+    "minPlayers": 2,
+    "maxPlayers": 20,
     "allowChat": true,
     "allowVoice": false,
     "allowSpectators": true,
@@ -41,6 +41,19 @@ fichier `settings.json` :
 ```
 
 #### Paramètres
+
+##### Liste de `settings`
+
+- `minPlayer` : Nombre minimum de joueurs pour lancer une partie
+- `maxPlayer` : Nombre maximum de joueurs pour lancer une partie
+- `allowChat` : Autoriser le chat dans l'interface de Comus
+- `allowVoice` : Autoriser la voix dans l'interface de Comus
+- `allowSpectators` : Autoriser les spectateurs à voir la partie
+- `allowJoinInProgress` : Autoriser les joueurs à rejoindre une partie en cours
+- `allowLeaveInProgress` : Autoriser les joueurs à quitter une partie en cours
+- `isNode` : Le jeu est-il un jeu NodeJS
+- `serverPort` : Port du serveur de jeu
+- `serverAddress` : Adresse du serveur de jeu
 
 ##### `neededParametersFromComus` et `returnParametersToComus`
 

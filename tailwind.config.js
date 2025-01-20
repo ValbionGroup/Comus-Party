@@ -6,7 +6,7 @@ module.exports = {
     theme: {
         fontFamily: {
             'serif': ["'Londrina Solid'", "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],
-            'sans': ["'Barlow Condensed'", "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"],
+            'sans': ["'Barlow'", "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"],
             'mono': ["'Fira Code'", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"]
         },
         extend: {
@@ -184,6 +184,18 @@ module.exports = {
                     },
                     '&:active': {
                         backgroundColor: theme('colors.green.700'),
+                    },
+                },
+                '.btn-warning': {
+                    backgroundColor: theme('colors.yellow.500'),
+                    transition: 'all 0.3s ease-in-out',
+                    padding: theme('padding.2'),
+                    borderRadius: theme('borderRadius.xl'),
+                    '&:hover': {
+                        backgroundColor: theme('colors.yellow.600'),
+                    },
+                    '&:active': {
+                        backgroundColor: theme('colors.yellow.700'),
                     },
                 },
                 '.btn-danger': {
