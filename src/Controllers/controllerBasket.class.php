@@ -75,35 +75,65 @@ class ControllerBasket extends Controller
      */
     function addArticleToBasket()
     {
+
+        $managerArticle = new ArticleDAO($this->getPdo());
+        $pfpsOwned = $managerArticle->findAllPfpsOwnedByPlayer($_SESSION['uuid']);
+        // Tableau pour stocker les IDs
+        $idsPfpsOwned = [];
+
+        // Parcourir les objets et récupérer les IDs
+        foreach ($pfpsOwned as $pfpOwned) {
+            // Si la propriété "id" est privée, utilisez une méthode getter (par exemple getId())
+            if (method_exists($pfpOwned, 'getId')) {
+                $idsPfpsOwned[] = $pfpOwned->getId();
+            }
+        }
+
+        $bannersOwned = $managerArticle->findAllBannersOwnedByPlayer($_SESSION['uuid']);
+        $idsBannersOwned = [];
+        foreach ($bannersOwned as $bannerOwned) {
+            // Si la propriété "id" est privée, utilisez une méthode getter (par exemple getId())
+            if (method_exists($bannerOwned, 'getId')) {
+                $idsBannersOwned[] = $bannerOwned->getId();
+            }
+        }
+
+
+
 // Vérifier si l'ID de l'article a été envoyé
 
         if (isset($_POST['id_article'])) {
             $id_article = intval($_POST['id_article']);
+            if(!in_array($id_article, $idsPfpsOwned) && !in_array($id_article, $idsBannersOwned)){
+                if (!isset($_SESSION['basket'])) {
+                    $_SESSION['basket'] = array();
+                }
+                // Ajouter l'ID de l'article au basket s'il n'y est pas déjà
+                if (!in_array($id_article, $_SESSION['basket'])) {
+                    $_SESSION['basket'][] = $id_article;
+                    $numberArticlesInBasket = count($_SESSION['basket']);
 
-            if (!isset($_SESSION['basket'])) {
-                $_SESSION['basket'] = array();
+
+                    echo json_encode([
+                        'success' => true,
+                        'message' => "Article ajouté au panier !",
+                        'numberArticlesInBasket' => $numberArticlesInBasket
+                    ]);
+
+                } else {
+                    $numberArticlesInBasket = count($_SESSION['basket']);
+                    echo json_encode([
+                        'success' => false,
+                        'message' => "L'article est déjà dans le panier.",
+                        'numberArticlesInBasket' => $numberArticlesInBasket
+                    ]);
+
+                }
+
             }
-            // Ajouter l'ID de l'article au basket s'il n'y est pas déjà
-            if (!in_array($id_article, $_SESSION['basket'])) {
-                $_SESSION['basket'][] = $id_article;
-                $numberArticlesInBasket = count($_SESSION['basket']);
 
 
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Article ajouté au panier !",
-                    'numberArticlesInBasket' => $numberArticlesInBasket
-                ]);
 
-            } else {
-                $numberArticlesInBasket = count($_SESSION['basket']);
-                echo json_encode([
-                    'success' => false,
-                    'message' => "L'article est déjà dans le panier.",
-                    'numberArticlesInBasket' => $numberArticlesInBasket
-                ]);
-
-            }
         } else {
             echo "Erreur : ID de l'article non spécifié.";
         }

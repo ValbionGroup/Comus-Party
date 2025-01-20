@@ -56,6 +56,27 @@ class ControllerShop extends Controller
         $articles = $managerArticle->findAll();
         $pfps = $managerArticle->findAllPfps();
         $banners = $managerArticle->findAllBanners();
+        $pfpsOwned = $managerArticle->findAllPfpsOwnedByPlayer($_SESSION['uuid']);
+        // Tableau pour stocker les IDs
+        $idsPfpsOwned = [];
+
+        // Parcourir les objets et récupérer les IDs
+        foreach ($pfpsOwned as $pfpOwned) {
+            // Si la propriété "id" est privée, utilisez une méthode getter (par exemple getId())
+            if (method_exists($pfpOwned, 'getId')) {
+                $idsPfpsOwned[] = $pfpOwned->getId();
+            }
+        }
+        $bannersOwned = $managerArticle->findAllBannersOwnedByPlayer($_SESSION['uuid']);
+        $idsBannersOwned = [];
+        foreach ($bannersOwned as $bannerOwned) {
+            // Si la propriété "id" est privée, utilisez une méthode getter (par exemple getId())
+            if (method_exists($bannerOwned, 'getId')) {
+                $idsBannersOwned[] = $bannerOwned->getId();
+            }
+        }
+
+
 
         $template = $this->getTwig()->load('player/shop.twig');
         if (isset($_SESSION['basket'])) {
@@ -67,6 +88,8 @@ class ControllerShop extends Controller
             'articles' => $articles,
             'pfps' => $pfps,
             'banners' => $banners,
+            'idsPfpsOwned' => $idsPfpsOwned,
+            'idsBannersOwned' => $idsBannersOwned,
             'numberArticlesInBasket' => $numberArticlesInBasket
         ));
     }
