@@ -46,7 +46,6 @@
                     <h2 class="text-2xl text-night mb-4 font-serif">Avatars</h2>
 
                     <div class="flex flex-wrap">
-                        <h2>{{ dump(idsPfpsOwned) }}</h2>
                         {% for pfp in pfps %}
                             <div class="w-20 h-20 m-1 pfp cursor-pointer"
                                  onclick="showModalPfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}', {% if pfp.id in idsPfpsOwned %}  owned : true {% else %} owned:false {% endif %} })">
