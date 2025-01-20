@@ -1,13 +1,13 @@
 <?php
 /**
- * @file    db.class.php
+ * @file    Db.php
  * @author  Estéban DESESSARD
  * @brief   Le fichier contient la déclaration & définition de la classe Db.
  * @date    12/11/2024
  * @version 0.1
  */
 
-namespace ComusParty\Models;
+namespace ComusParty\App;
 
 use Exception;
 use PDO;
