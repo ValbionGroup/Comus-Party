@@ -75,14 +75,16 @@ function sendChatMessage() {
 }
 
 function receiveChatMessage(message) {
+    message = JSON.parse(message);
     const messages = document.getElementById('chatContent');
     const messageItem = document.createElement('p');
-    messageItem.textContent = message;
+    messageItem.appendChild(document.createElement('strong')).textContent = message.author;
+    messageItem.innerText += ': ' + message.content;
     messages.appendChild(messageItem);
 }
 
 // WebSocket
-const conn = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
+const conn = new WebSocket('wss://socket.comus-party.com/chat/' + gameCode);
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };
