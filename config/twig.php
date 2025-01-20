@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @brief Fichier de configuration de Twig
  *
@@ -8,6 +7,8 @@
  * @version 1.0
  * @date 2024-11-05
  */
+
+namespace ComusParty;
 
 use Twig\Extension\CoreExtension;
 use Twig\Extension\DebugExtension;
