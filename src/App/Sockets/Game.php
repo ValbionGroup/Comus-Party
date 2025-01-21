@@ -12,6 +12,7 @@ namespace ComusParty\App\Sockets;
 
 use ComusParty\App\Db;
 use ComusParty\Models\GameRecordDAO;
+use ComusParty\Models\GameRecordState;
 use Exception;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
@@ -60,10 +61,9 @@ class Game implements MessageComponentInterface
                 $this->updatePlayer($game);
                 break;
             case 'startGame':
-                $this->sendToGame($game, $uuid, 'started the game');
+                $this->redirectUserToGame($game, $uuid);
                 break;
             default:
-                $this->sendToGame($game, $uuid, $command);
                 break;
         }
     }
@@ -86,6 +86,16 @@ class Game implements MessageComponentInterface
     {
         foreach ($this->games[$game] as $client) {
             $client->send(json_encode(['command' => $command, 'content' => $content]));
+        }
+    }
+
+    private function redirectUserToGame(string $game, string $uuid): void
+    {
+        $gameRecord = (new GameRecordDAO(Db::getInstance()->getConnection()))->findByCode($game);
+
+        if ($gameRecord->getState() == GameRecordState::STARTED &&
+            $gameRecord->getHostedBy()->getUuid() == $uuid) {
+            $this->sendToGame($game, "gameStarted", json_encode(["message" => "Game started!"]));
         }
     }
 
