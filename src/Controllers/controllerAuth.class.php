@@ -458,6 +458,15 @@ class ControllerAuth extends Controller
         }
     }
 
+    public function modifPassword(string $newPassword)
+    {
+        $userDAO = new UserDAO($this->getPdo());
+//        $userDAO->modifPassword($newPassword);
+        $userDAO->findEmailByUuid($_SESSION['uuid']);
+        var_dump($userDAO);
+
+    }
+
 /**
  * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
  *
