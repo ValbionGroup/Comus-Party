@@ -9,12 +9,12 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\EloCalculator;
 use ComusParty\App\Exceptions\GameSettingsException;
 use ComusParty\App\Exceptions\GameUnavailableException;
 use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
-use ComusParty\Models\EloCalculator;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
