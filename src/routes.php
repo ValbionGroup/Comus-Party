@@ -282,7 +282,7 @@ $router->post('/game/:code/end', function ($code) use ($loader, $twig) {
     exit;
 });
 
-$router->put('/profile/updateUsername/:username', function ($username) use ($loader, $twig) {
+$router->put('/profile/update-username/:username', function ($username) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateUsername", ["username" => $username]);
     exit;
 }, 'player');

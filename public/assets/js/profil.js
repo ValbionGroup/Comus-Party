@@ -183,7 +183,7 @@ function editUsername() {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/profile/updateUsername/${username}`, true);
+    xhr.open("PUT", `/profile/update-username/${username}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     // Envoyer les données sous forme de paire clé=valeur
     xhr.send();
