@@ -171,7 +171,7 @@ function showModalUsernameEdit() {
 }
 
 function editUsername() {
-    let username = newUsername.value
+    let username = newUsername.value;
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", `/profile/updateUsername/${username}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -180,10 +180,13 @@ function editUsername() {
     // Gérer la réponse du serveur
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText)
+            let response = JSON.parse(xhr.responseText);
             if (response.success) {
-                console.log(response);
-                // window.location.reload();
+                showNotification("Tout est bon !", "Votre nom d'utilisateur a été modifié", "green");
+                modalEditUsername.classList.add("hidden");
+                background.classList.add("hidden");
+            } else {
+                showNotification("Oups...", `${response.error}`, "red");
             }
         }
     };
