@@ -82,8 +82,11 @@ function receiveChatMessage(message) {
     message = JSON.parse(message);
     const messages = document.getElementById('chatContent');
     const messageItem = document.createElement('p');
-    messageItem.appendChild(document.createElement('strong')).textContent = message.author;
-    messageItem.innerText += ': ' + message.content;
+    const usernameItem = document.createElement('p');
+    usernameItem.textContent = `${message.author} : `;
+    usernameItem.classList.add('font-semibold');
+    messageItem.appendChild(usernameItem);
+    messageItem.innerHTML += message.content;
     messages.appendChild(messageItem);
 }
 
