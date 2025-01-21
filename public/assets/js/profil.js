@@ -18,24 +18,28 @@ let statisticsBlock = document.getElementById('statistics');
 let modal = document.getElementById('modalConfirmationSuppression');
 let background = document.getElementById('backgroundModal');
 
-let pfpTitle = document.getElementById("pfpTitle")
-let pfpDescription = document.getElementById("pfpDescription")
+let pfpTitle = document.getElementById("pfpTitle");
+let pfpDescription = document.getElementById("pfpDescription");
 
-let bannerTitle = document.getElementById("bannerTitle")
-let bannerDescription = document.getElementById("bannerDescription")
+let bannerTitle = document.getElementById("bannerTitle");
+let bannerDescription = document.getElementById("bannerDescription");
 
-let equipButton = document.getElementById("equipButton")
-let modalPfp = document.getElementById("modalPfp")
-let modalBanner = document.getElementById("modalBanner")
+let equipButton = document.getElementById("equipButton");
+let modalPfp = document.getElementById("modalPfp");
+let modalBanner = document.getElementById("modalBanner");
 
-let modals = document.querySelectorAll(".modal")
-let pfps = document.querySelectorAll(".pfp")
-let playerPfp = document.getElementById("pfpPlayer")
-let playerBanner = document.getElementById("bannerPlayer")
-let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
-let defaultPfp = document.getElementById("defaultPfp")
-let inputSelectedArticleId = document.getElementById("selectedArticleId")
-let inputSelectedArticleType = document.getElementById("selectedArticleType")
+let modals = document.querySelectorAll(".modal");
+let pfps = document.querySelectorAll(".pfp");
+let playerPfp = document.getElementById("pfpPlayer");
+let playerBanner = document.getElementById("bannerPlayer");
+let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader");
+let defaultPfp = document.getElementById("defaultPfp");
+let inputSelectedArticleId = document.getElementById("selectedArticleId");
+let inputSelectedArticleType = document.getElementById("selectedArticleType");
+
+let modalEditUsername = document.getElementById("modalEditUsername");
+let newUsername = document.getElementById("newUsername");
+
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -77,7 +81,7 @@ function closeModal() {
         }
     });
 
-    background.classList.add("hidden")
+    background.classList.add("hidden");
 }
 
 
@@ -159,4 +163,12 @@ function equipArticle() {
 function showModalSuppression() {
     modal.classList.remove("hidden");
     background.classList.remove("hidden");
+}
+
+function showModalUsernameEdit() {
+    modalEditUsername.classList.remove("hidden");
+    background.classList.remove("hidden");
+}
+
+function editUsername() {
 }
