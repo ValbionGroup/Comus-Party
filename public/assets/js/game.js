@@ -66,12 +66,20 @@ function startGame(gameCode) {
 
 function sendChatMessage() {
     const messageInput = document.getElementById('chatInput');
+    const content = messageInput.value;
+
     const messages = document.getElementById('chatContent');
     const messageItem = document.createElement('p');
-    messageItem.textContent = messageInput.value;
+    messageItem.textContent = content;
     messages.appendChild(messageItem);
+
+    conn.send(JSON.stringify({
+        author: 'XXX',
+        content: content,
+        game: gameCode,
+    }));
+
     messageInput.value = '';
-    conn.send(messageItem.textContent);
 }
 
 function receiveChatMessage(message) {
@@ -84,7 +92,7 @@ function receiveChatMessage(message) {
 }
 
 // WebSocket
-const conn = new WebSocket('wss://socket.comus-party.com/chat/' + gameCode);
+const conn = new WebSocket('ws://localhost:8315/chat/' + gameCode);
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };
