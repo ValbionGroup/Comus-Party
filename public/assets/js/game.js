@@ -68,11 +68,6 @@ function sendChatMessage() {
     const messageInput = document.getElementById('chatInput');
     const content = messageInput.value;
 
-    const messages = document.getElementById('chatContent');
-    const messageItem = document.createElement('p');
-    messageItem.textContent = content;
-    messages.appendChild(messageItem);
-
     conn.send(JSON.stringify({
         author: 'XXX',
         content: content,
