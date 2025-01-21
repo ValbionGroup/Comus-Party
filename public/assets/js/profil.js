@@ -36,6 +36,9 @@ let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
 let defaultPfp = document.getElementById("defaultPfp")
 let inputSelectedArticleId = document.getElementById("selectedArticleId")
 let inputSelectedArticleType = document.getElementById("selectedArticleType")
+
+let inputNewPassword = document.getElementById("newPassword");
+let inputNewPasswordConfirm = document.getElementById("newPasswordConfirm");
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -159,4 +162,40 @@ function equipArticle() {
 function showModalSuppression() {
     modal.classList.remove("hidden");
     background.classList.remove("hidden");
+}
+
+// MODIFICATION MOT DE PASSE
+
+const isPasswordValid = inputPassword.value.length >= MIN_PASSWORD_LENGTH &&
+    inputPassword.value.length <= MAX_PASSWORD_LENGTH &&
+    UPPERCASE_LETTER.test(inputPassword.value) &&
+    LOWERCASE_LETTER.test(inputPassword.value) &&
+    NUMBERS.test(inputPassword.value) &&
+    SPECIAL_CHARACTER.test(inputPassword.value);
+
+
+
+/**
+ * @brief Met à jour les messages d'erreur et les styles des inputs.
+ *
+ * @param {HTMLElement} input L'élément input à vérifier.
+ * @param {string} errorElementId L'ID de l'élément de message d'erreur.
+ * @param {boolean} condition La condition à vérifier.
+ * @param {string} errorMessage Le message d'erreur à afficher si la condition n'est pas remplie.
+ *
+ * @return void
+ */
+function updateErrorMessage(input, errorElementId, condition, errorMessage) {
+    let errorElement = document.getElementById(errorElementId);
+    if (!condition) {
+        input.classList.add("input-error");
+        errorElement.classList.add("block");
+        errorElement.classList.remove("hidden");
+        errorElement.innerHTML = errorMessage;
+    } else {
+        input.classList.remove("input-error");
+        errorElement.classList.remove("block");
+        errorElement.classList.add("hidden");
+        errorElement.innerHTML = "";
+    }
 }
