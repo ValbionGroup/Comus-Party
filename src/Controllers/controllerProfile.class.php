@@ -13,9 +13,9 @@ use ComusParty\App\Exceptions\ControllerNotFoundException;
 use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\App\Mailer;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
-use ComusParty\Models\Mailer;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
@@ -219,25 +219,42 @@ class ControllerProfile extends Controller
         ]);
 
         if (!$validator->validate(['email' => $email])) {
-            throw new NotFoundException('Adresse e-mail invalide');
+            echo json_encode([
+                'success' => false,
+                'error' => $validator->getErrors()['email']
+            ]);
+            exit;
         }
 
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
 
         if (!is_null($user)) {
-            throw new NotFoundException('Adresse e-mail déjà utilisée');
+            echo json_encode([
+                'success' => false,
+                'error' => 'Cet e-mail est déjà utilisé'
+            ]);
+            exit;
         }
 
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findByUuid($_SESSION['uuid']);
-        if (is_null($player)) {
-            throw new NotFoundException('Player not found');
-        }
         $user = $userManager->findById($player->getUserId());
         if (is_null($user)) {
-            throw new NotFoundException('User not found');
+            echo json_encode([
+                'success' => false,
+                'error' => 'Utilisateur non trouvé'
+            ]);
+            exit;
         }
+
+        if (!is_null($user->getEmailVerifyToken())) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Vous avez déjà une demande de changement d\'adresse e-mail en attente de confirmation'
+            ]);
+        }
+
         $emailVerifToken = bin2hex(random_bytes(30));
         $userManager->updateEmail($user->getId(), $email, $emailVerifToken);
 
@@ -252,5 +269,10 @@ class ControllerProfile extends Controller
         $confirmMail = new Mailer(array($email), $subject, $message);
         $confirmMail->generateHTMLMessage();
         $confirmMail->send();
+
+        echo json_encode([
+            'success' => true
+        ]);
+        exit;
     }
 }
