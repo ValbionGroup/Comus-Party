@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @brief Fichier de constantes pour les mails
  *
@@ -9,6 +8,7 @@
  * @date 2024-12-09
  */
 
+namespace ComusParty;
 
 /**
  * @brief Hôte du serveur mail

@@ -8,7 +8,7 @@
  */
 require_once __DIR__ . '/../include.php';
 
-use ComusParty\Models\Db;
+use ComusParty\App\Db;
 use ComusParty\Models\PlayerDAO;
 use PHPUnit\Framework\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace ComusParty\Models;
+namespace ComusParty\App;
 
 class EloCalculator
 {

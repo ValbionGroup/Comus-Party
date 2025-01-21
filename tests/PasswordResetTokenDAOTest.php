@@ -10,7 +10,7 @@
 
 require_once __DIR__ . '/../include.php';
 
-use ComusParty\Models\Db;
+use ComusParty\App\Db;
 use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
 use PHPUnit\Framework\TestCase;
