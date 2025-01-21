@@ -220,4 +220,17 @@ class UserDAO
         return $stmtUser->execute();
     }
 
+    /**
+     * @brief Modifie le mot de passe d'un utilisateur
+     * @param string $newPassword
+     */
+
+    public function updatePassword(string $newPassword){
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user SET password = :password WHERE email = :email");
+        $stmtUser->bindParam(':password', $hashedPassword);
+        $stmtUser->bindParam(':email', $_SESSION['email']);
+        return $stmtUser->execute();
+    }
+
 }
