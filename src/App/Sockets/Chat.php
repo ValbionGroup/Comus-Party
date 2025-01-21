@@ -18,6 +18,7 @@ use SplObjectStorage;
 class Chat implements MessageComponentInterface
 {
     protected SplObjectStorage $clients;
+    protected array $games = [];
 
     public function __construct()
     {
@@ -26,23 +27,34 @@ class Chat implements MessageComponentInterface
 
     public function onOpen(ConnectionInterface $conn)
     {
-        // Store the new connection to send messages to later
         $this->clients->attach($conn);
-
-        echo "New connection! ({$conn->resourceId})\n";
-        echo "Number of clients: " . count($this->clients) . "\n";
-        echo "Parameters: " . explode("=", $conn->httpRequest->getUri()->getQuery())[1] . "\n";
     }
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        $msg = $this->escape($msg);
+        $data = json_decode($msg, true);
 
-        foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                // The sender is not the receiver, send to each client connected
-                $client->send($msg);
-            }
+        if (!isset($data["content"]) || !isset($data["author"]) || !isset($data["game"])) {
+            return;
+        };
+
+        $content = $this->escape($data["content"]);
+        $author = $this->escape($data["author"]);
+        $game = $data["game"];
+
+        if (!isset($this->games[$game])) {
+            $this->games[$game] = [];
+        }
+
+        if (!in_array($from, $this->games[$game])) {
+            $this->games[$game][] = $from;
+        }
+
+        foreach ($this->games[$game] as $player) {
+            $player->send(json_encode([
+                "author" => $author,
+                "content" => $content,
+            ]));
         }
     }
 
