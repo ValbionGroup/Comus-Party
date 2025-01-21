@@ -594,6 +594,13 @@ class ControllerGame extends Controller
         exit;
     }
 
+    /**
+     * @brief Termine une partie et met à jour les scores et les gagnants
+     * @param string $code Code de la partie
+     * @param array|null $winner Tableau associatif contenant les UUID des joueurs gagnants
+     * @param array|null $scores Tableau associatif contenant les scores des joueurs
+     * @return void
+     */
     public function endGame(string $code, ?array $winner = null, ?array $scores = null): void
     {
         try {
@@ -663,6 +670,13 @@ class ControllerGame extends Controller
         }
     }
 
+    /**
+     * @brief Calcule et met à jour les scores Elo des joueurs
+     * @param array $allPlayers Tableau des joueurs
+     * @param array $winners Tableau des joueurs gagnants
+     * @param array $looser Tableau des joueurs perdants
+     * @return void
+     */
     private function calculateAndUpdateElo(array $allPlayers, array $winners, array $looser): void
     {
         $averageEloLooser = $this->averageElo($looser);
@@ -683,6 +697,10 @@ class ControllerGame extends Controller
         }
     }
 
+    /**
+     * @param array $players Tableau des joueurs
+     * @return float Moyenne des scores Elo des joueurs
+     */
     private function averageElo(array $players): float
     {
         $averageElo = 0;
