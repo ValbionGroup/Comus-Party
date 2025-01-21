@@ -195,6 +195,7 @@ class ControllerProfile extends Controller
         if (is_null($user)) {
             throw new NotFoundException('User not found');
         }
-
+        $emailVerifToken = bin2hex(random_bytes(30));
+        $userManager->updateEmail($user->getId(), $email, $emailVerifToken);
     }
 }
