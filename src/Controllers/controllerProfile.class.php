@@ -178,13 +178,18 @@ class ControllerProfile extends Controller
         ]);
         if (!$validator->validate(['username' => $username])) {
             echo json_encode([
-                'error' => $validator->getErrors()
+                'success' => false,
+                'error' => $validator->getErrors()['username']
             ]);
-            return;
+            exit;
         }
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findByUuid($_SESSION['uuid']);
         $player->setUsername($username);
         $playerManager->update($player);
+        echo json_encode([
+            'success' => true
+        ]);
+        exit;
     }
 }
