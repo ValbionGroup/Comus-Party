@@ -638,7 +638,6 @@ class ControllerGame extends Controller
 
                 $players = $gameRecord->getPlayers();
                 if (!$gameRecord->isPrivate()) {
-
                     $allWinner = array_map(
                         fn($player) => $player["player"],
                         array_filter($players,
@@ -687,7 +686,7 @@ class ControllerGame extends Controller
             $elo = $player->getElo();
             if (sizeof($winners) == 0) {
                 $newElo = EloCalculator::calculateNewElo($elo, $averageEloLooser, 0.5);
-            } else if (in_array($player->getUuid(), $winners)) {
+            } else if (in_array($player, $winners)) {
                 $newElo = EloCalculator::calculateNewElo($elo, $averageEloLooser, 1);
             } else {
                 $newElo = EloCalculator::calculateNewElo($elo, $averageEloWinner, 0);
