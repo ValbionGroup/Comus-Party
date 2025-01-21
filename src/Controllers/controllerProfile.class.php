@@ -253,6 +253,7 @@ class ControllerProfile extends Controller
                 'success' => false,
                 'error' => 'Vous avez déjà une demande de changement d\'adresse e-mail en attente de confirmation'
             ]);
+            exit;
         }
 
         $emailVerifToken = bin2hex(random_bytes(30));
@@ -260,9 +261,9 @@ class ControllerProfile extends Controller
 
         $subject = 'Modification de votre adresse e-mail';
         $message =
-            '<p>Confirmer votre nouvelle affirmation.</p>
+            '<p>Confirmer votre nouvelle adresse email.</p>
                 <p>Pour pouvoir continuer à jouer et rejoindre nos parties endiablées, il ne vous reste plus qu\'une étape :</p>
-                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre nouvelle adresse e-mail</a>
+                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre nouvelle adresse email</a>
                 <p>À très bientôt dans l’arène ! 🎲,<br>
                 L\'équipe Comus Party 🚀</p>';
 
