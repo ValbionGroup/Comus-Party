@@ -184,6 +184,13 @@ class ControllerProfile extends Controller
             exit;
         }
         $playerManager = new PlayerDAO($this->getPdo());
+        if (!is_null($playerManager->findByUsername($username))) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Ce nom d\'utilisateur est déjà pris'
+            ]);
+            exit;
+        }
         $player = $playerManager->findByUuid($_SESSION['uuid']);
         $player->setUsername($username);
         $playerManager->update($player);
