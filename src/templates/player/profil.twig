@@ -147,7 +147,7 @@
                 <div>
                     <p class="text-xl font-semibold">Pseudonyme :</p>
                     <div class="flex justify-between items-center gap-1">
-                        <p class="text-xl">{{ player.username }}</p>
+                        <p id="pUsername" class="text-xl">{{ player.username }}</p>
                         <!-- Bouton de modification -->
                         <button onclick="showModalUsernameEdit()"
                                 class="flex gap-3 btn-primary items-center justify-center">
@@ -321,14 +321,14 @@
             </div>
             <hr>
             <div class="pt-5 text-justify">
-                <form class="w-auto flex flex-col">
+                <div class="w-auto flex flex-col">
                     <label for="newUsername" class="text-lg font-semibold">Nouveau pseudonyme :</label>
                     <input type="text" id="newUsername" name="newUsername" class="input w-full" required>
                     <div class="flex gap-2 justify-end mt-3">
                         <button class="btn-secondary" onclick="closeModal()">Annuler</button>
                         <button class="btn-success" onclick="editUsername()">Confirmer</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
