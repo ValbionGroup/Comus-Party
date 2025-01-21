@@ -72,7 +72,7 @@ class ControllerProfile extends Controller
         } else {
             $bannerPath = $banner->getFilePath();
         }
-        $pfpsOwned = $articleManager->findAllPfpsOwnedByPlayer ($player->getUuid());
+        $pfpsOwned = $articleManager->findAllPfpsOwnedByPlayer($player->getUuid());
         $bannersOwned = $articleManager->findAllBannersOwnedByPlayer($player->getUuid());
         $template = $this->getTwig()->load('player/profil.twig');
         echo $template->render(array(
@@ -134,11 +134,11 @@ class ControllerProfile extends Controller
         $idArticle = intval($idArticle);
         $articleManager = new ArticleDAO($this->getPdo());
         // 0 représente la photo de profil par défaut et -1 la bannière par défaut
-        if($idArticle >= 1){
+        if ($idArticle >= 1) {
             $typeArticle = $articleManager->findById($idArticle)->getType()->name;
         }
 
-        if($idArticle == 0){
+        if ($idArticle == 0) {
 
             $articleManager->deleteActiveArticleForPfp($player->getUuid());
             $_SESSION['pfpPath'] = "default-pfp.jpg";
@@ -146,14 +146,14 @@ class ControllerProfile extends Controller
                 'articlePath' => "default-pfp.jpg",
             ]);
         }
-        if ($idArticle == -1){
+        if ($idArticle == -1) {
             $articleManager->deleteActiveArticleForBanner($player->getUuid());
             $_SESSION['bannerPath'] = "default-banner.jpg";
             echo json_encode([
                 'articlePath' => "default-banner.jpg",
             ]);
         }
-        if($idArticle != 0 && $idArticle != -1){
+        if ($idArticle != 0 && $idArticle != -1) {
             $articleManager->updateActiveArticle($player->getUuid(), $idArticle, $typeArticle);
             $article = $articleManager->findById($idArticle);
 
@@ -162,5 +162,10 @@ class ControllerProfile extends Controller
                 'idArticle' => $idArticle
             ]);
         }
+    }
+
+    public function updateEmail(string $email): void
+    {
+
     }
 }
