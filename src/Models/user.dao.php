@@ -178,10 +178,11 @@ class UserDAO
      * @param string $emailVerifToken Le token de vérification d'email de l'utilisateur
      * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
      */
-    public function findByEmailVerifyToken(string $emailVerifToken): ?User {
+    public function findByEmailVerifyToken(string $emailVerifToken): ?User
+    {
         $stmt = $this->pdo->prepare(
             'SELECT *
-            FROM '. DB_PREFIX .'user
+            FROM ' . DB_PREFIX . 'user
             WHERE email_verif_token = :email_verif_token');
         $stmt->bindParam(':email_verif_token', $emailVerifToken);
         $stmt->execute();
@@ -201,12 +202,13 @@ class UserDAO
      * @param string $emailVerifToken Le token de verification de l'utilisateur
      * @return bool Retourne true si l'utilisateur a pu être créé, false sinon
      */
-    public function createUser(string $email, string $password, string $emailVerifToken): bool  {
-            $stmtUser = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verif_token, disabled) VALUES (:email, :password, null, :email_verif_token, 0)");
-            $stmtUser->bindParam(':email', $email);
-            $stmtUser->bindParam(':password', $password);
-            $stmtUser->bindParam(':email_verif_token', $emailVerifToken);
-            return $stmtUser->execute();
+    public function createUser(string $email, string $password, string $emailVerifToken): bool
+    {
+        $stmtUser = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "user (email, password, email_verified_at, email_verif_token, disabled) VALUES (:email, :password, null, :email_verif_token, 0)");
+        $stmtUser->bindParam(':email', $email);
+        $stmtUser->bindParam(':password', $password);
+        $stmtUser->bindParam(':email_verif_token', $emailVerifToken);
+        return $stmtUser->execute();
     }
 
     /**
@@ -214,10 +216,26 @@ class UserDAO
      * @param string $emailVerifToken Le token de vérification d'email de l'utilisateur
      * @return bool Retourne true si l'utilisateur a pu être confirmé, false sinon
      */
-    public function confirmUser(string $emailVerifToken): bool  {
+    public function confirmUser(string $emailVerifToken): bool
+    {
         $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user SET email_verified_at = now(), email_verif_token = null WHERE email_verif_token = :email_verif_token");
         $stmtUser->bindParam(':email_verif_token', $emailVerifToken);
         return $stmtUser->execute();
+    }
+
+    public function updateEmail(int $userId, string $email, string $emailVerifToken): bool
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE ' . DB_PREFIX . 'user
+            SET email = :email,
+                email_verif_token = :email_verif_token
+            WHERE id = :user_id'
+        );
+
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':email_verif_token', $emailVerifToken);
+        return $stmt->execute();
     }
 
 }
