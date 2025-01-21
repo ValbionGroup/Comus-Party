@@ -42,6 +42,8 @@ let newUsername = document.getElementById("newUsername");
 let pUsername = document.getElementById("pUsername");
 let headerUsername = document.getElementById("headerUsername");
 
+let modalEditEmail = document.getElementById("modalEditEmail");
+
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -54,6 +56,7 @@ function infoArticlePfp(article) {
     inputSelectedArticleType.value = article.type
 
 }
+
 function infoArticleBanner(article) {
     bannerTitle.textContent = article.name
     bannerDescription.textContent = article.description
@@ -72,8 +75,8 @@ function showModalBanner() {
 }
 
 function closeModal() {
-    pfps.forEach(pfp =>{
-        if(pfp.classList.contains("shadow-lg")){
+    pfps.forEach(pfp => {
+        if (pfp.classList.contains("shadow-lg")) {
             pfp.classList.remove("shadow-lg")
         }
     })
@@ -150,9 +153,9 @@ function equipArticle() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText)
-            if(typeArticle === "banner"){
+            if (typeArticle === "banner") {
                 playerBanner.src = "/assets/img/banner/" + response.articlePath
-            }else if(typeArticle === "pfp"){
+            } else if (typeArticle === "pfp") {
                 playerPfp.src = "/assets/img/pfp/" + response.articlePath
                 pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
             }
@@ -169,6 +172,11 @@ function showModalSuppression() {
 
 function showModalUsernameEdit() {
     modalEditUsername.classList.remove("hidden");
+    background.classList.remove("hidden");
+}
+
+function showModalEditEmail() {
+    modalEditEmail.classList.remove("hidden");
     background.classList.remove("hidden");
 }
 
