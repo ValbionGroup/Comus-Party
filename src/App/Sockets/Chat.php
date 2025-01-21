@@ -62,4 +62,13 @@ class Chat implements MessageComponentInterface
 
         $conn->close();
     }
+
+    /**
+     * @param string $string The string to escape
+     * @return string The escaped string
+     */
+    protected function escape(string $string): string
+    {
+        return htmlspecialchars($string);
+    }
 }
