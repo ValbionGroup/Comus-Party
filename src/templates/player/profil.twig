@@ -185,7 +185,7 @@
                     <p class="text-xl text-nowrap mt-7 font-semibold">Adresse e-mail :</p>
                     <div>
                         <div class="flex justify-between items-center gap-1">
-                            <p class="text-xl">{{ user.email }}</p>
+                            <p id="pEmail" class="text-xl">{{ user.email }}</p>
                             <button onclick="showModalEditEmail()"
                                     class="flex gap-3 btn-primary items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
@@ -343,12 +343,14 @@
             <hr>
             <div class="pt-5 text-justify">
                 <div class="w-auto flex flex-col">
-                    <label for="newUsername" class="text-lg font-semibold">Nouveau pseudonyme :</label>
-                    <input type="text" id="newUsername" name="newUsername" class="input w-full" required>
-                    <div class="flex gap-2 justify-end mt-3">
-                        <button class="btn-secondary" onclick="closeModal()">Annuler</button>
-                        <button class="btn-success" onclick="editUsername()">Confirmer</button>
-                    </div>
+                    <form method="POST" id="formEditEmail">
+                        <label for="newUsername" class="text-lg font-semibold">Nouveau pseudonyme :</label>
+                        <input type="text" id="newUsername" name="newUsername" class="input w-full" required>
+                        <div class="flex gap-2 justify-end mt-3">
+                            <button class="btn-secondary" onclick="closeModal()">Annuler</button>
+                            <button class="btn-success" onclick="editUsername()">Confirmer</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -367,7 +369,7 @@
                     <input type="text" id="newEmail" name="newEmail" class="input w-full" required>
                     <div class="flex gap-2 justify-end mt-3">
                         <button class="btn-secondary" onclick="closeModal()">Annuler</button>
-                        <button class="btn-success" onclick="">Confirmer</button>
+                        <button class="btn-success" onclick="editMail()">Confirmer</button>
                     </div>
                 </div>
             </div>
