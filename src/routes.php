@@ -286,3 +286,8 @@ $router->put('/profile/update-username/:username', function ($username) use ($lo
     ControllerFactory::getController("profile", $loader, $twig)->call("updateUsername", ["username" => $username]);
     exit;
 }, 'player');
+
+$router->post('/profile/update-email', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("updateEmail", ["email" => $_POST['newEmail']]);
+    exit;
+}, 'player');
