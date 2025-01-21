@@ -18,15 +18,25 @@ use SplObjectStorage;
 class Chat implements MessageComponentInterface
 {
     protected SplObjectStorage $clients;
-    protected array $games = [];
+    protected array $games;
 
     public function __construct()
     {
         $this->clients = new SplObjectStorage;
+        $this->games = [];
     }
 
     public function onOpen(ConnectionInterface $conn)
     {
+        // Récupérer le lien auquel il est connecté
+        $path = $conn->httpRequest->getUri()->getPath();
+        $gameCode = explode(basename($path), $path)[1];
+
+        if (!isset($this->games[$gameCode])) {
+            $this->games[$gameCode] = [];
+        }
+        $this->games[$gameCode][] = $conn;
+
         $this->clients->attach($conn);
     }
 
@@ -60,10 +70,19 @@ class Chat implements MessageComponentInterface
 
     public function onClose(ConnectionInterface $conn)
     {
-        // The connection is closed, remove it, as we can no longer send it messages
-        $this->clients->detach($conn);
+        // Retirer le joueur
+        foreach ($this->games as $gameId => &$players) {
+            $players = array_filter($players, function($player) use ($conn) {
+                return $player !== $conn;
+            });
 
-        echo "Connection {$conn->resourceId} has disconnected\n";
+            // Supprimer la game si vide
+            if (empty($players)) {
+                unset($this->games[$gameId]);
+            }
+        }
+
+        $this->clients->detach($conn);
     }
 
     public function onError(ConnectionInterface $conn, Exception $e)
