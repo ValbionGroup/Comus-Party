@@ -67,9 +67,10 @@ function startGame(gameCode) {
 function sendChatMessage() {
     const messageInput = document.getElementById('chatInput');
     const content = messageInput.value;
+    const username = document.getElementById('headerUsername').textContent;
 
     conn.send(JSON.stringify({
-        author: 'XXX',
+        author: username,
         content: content,
         game: gameCode,
     }));
