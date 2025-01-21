@@ -71,7 +71,7 @@ function sendChatMessage() {
     messageItem.textContent = messageInput.value;
     messages.appendChild(messageItem);
     messageInput.value = '';
-    conn.send(messageItem.textContent);
+    chatConnection.send(messageItem.textContent);
 }
 
 function receiveChatMessage(message) {
@@ -82,13 +82,27 @@ function receiveChatMessage(message) {
 }
 
 // WebSocket
-const conn = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
-conn.onopen = function (e) {
-    console.log("Connexion établie !");
+const chatConnection = new WebSocket('ws://sockets.comus-party.com/chat/' + gameCode);
+chatConnection.onopen = function (e) {
+    console.log("Connexion établie avec CHAT_SOCKET !");
 };
-conn.onmessage = function (e) {
+chatConnection.onmessage = function (e) {
     receiveChatMessage(e.data);
 };
+
+const gameConnection = new WebSocket('ws://localhost:8315/game/' + gameCode);
+gameConnection.onopen = function (e) {
+    console.log("Connexion établie avec GAME_SOCKET !");
+
+    gameConnection.send(JSON.stringify({uuid: 'uuid1', command: 'joinGame', game: gameCode}));
+};
+gameConnection.onmessage = function (e) {
+    const data = JSON.parse(e.data);
+
+
+}
+
+
 document.getElementById('sendChat').onclick = sendChatMessage;
 document.getElementById('chatInput').addEventListener("keydown", function (e) {
     if (e.code === "Enter") {
