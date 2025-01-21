@@ -223,6 +223,13 @@ class UserDAO
         return $stmtUser->execute();
     }
 
+    /**
+     * @brief Met à jour l'email d'un utilisateur dans la base de données
+     * @param int $userId L'ID de l'utilisateur
+     * @param string $email Le nouvel email de l'utilisateur
+     * @param string $emailVerifToken Le token de vérification de l'email
+     * @return bool Retourne true si l'email a pu être mis à jour, false sinon
+     */
     public function updateEmail(int $userId, string $email, string $emailVerifToken): bool
     {
         $stmt = $this->pdo->prepare(

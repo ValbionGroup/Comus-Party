@@ -19,6 +19,7 @@ use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
+use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -208,6 +209,13 @@ class ControllerProfile extends Controller
         exit;
     }
 
+    /**
+     * @brief Permet de mettre à jour l'email d'un joueur
+     * @param string $email Le nouvel email
+     * @return void
+     * @throws DateMalformedStringException
+     * @throws RandomException
+     */
     public function updateEmail(string $email): void
     {
         $validator = new Validator([
