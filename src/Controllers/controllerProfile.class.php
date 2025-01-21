@@ -15,6 +15,7 @@ use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\Mailer;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
@@ -197,5 +198,17 @@ class ControllerProfile extends Controller
         }
         $emailVerifToken = bin2hex(random_bytes(30));
         $userManager->updateEmail($user->getId(), $email, $emailVerifToken);
+
+        $subject = 'Modification de votre adresse e-mail';
+        $message =
+            '<p>Confirmer votre nouvelle affirmation.</p>
+                <p>Pour pouvoir continuer à jouer et rejoindre nos parties endiablées, il ne vous reste plus qu\'une étape :</p>
+                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre nouvelle adresse e-mail</a>
+                <p>À très bientôt dans l’arène ! 🎲,<br>
+                L\'équipe Comus Party 🚀</p>';
+
+        $confirmMail = new Mailer(array($email), $subject, $message);
+        $confirmMail->generateHTMLMessage();
+        $confirmMail->send();
     }
 }
