@@ -187,6 +187,7 @@ class ControllerProfile extends Controller
         $player = $playerManager->findByUuid($_SESSION['uuid']);
         $player->setUsername($username);
         $playerManager->update($player);
+        $_SESSION['username'] = $username;
         echo json_encode([
             'success' => true
         ]);
