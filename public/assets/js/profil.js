@@ -40,6 +40,7 @@ let inputSelectedArticleType = document.getElementById("selectedArticleType");
 let modalEditUsername = document.getElementById("modalEditUsername");
 let newUsername = document.getElementById("newUsername");
 let pUsername = document.getElementById("pUsername");
+let headerUsername = document.getElementById("headerUsername");
 
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
@@ -184,6 +185,7 @@ function editUsername() {
             let response = JSON.parse(xhr.responseText);
             if (response.success) {
                 pUsername.textContent = username;
+                headerUsername.textContent = username;
                 showNotification("Tout est bon !", "Votre nom d'utilisateur a été modifié", "green");
                 modalEditUsername.classList.add("hidden");
                 background.classList.add("hidden");
