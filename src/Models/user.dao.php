@@ -134,7 +134,7 @@ class UserDAO
 
     public function findEmailByUuid(string $uuid){
 //        SELECT U.email FROM cp_user U JOIN cp_player P ON U.id = P.user_id WHERE P.uuid = "uuid2"
-        $stmt = $this->pdo->prepare("SELECT U.email FROM " . DB_PREFIX . "user U JOIN " . DB_PREFIX . " player P ON U.id = P.user_id WHERE P.uuid = :uuid");
+        $stmt = $this->pdo->prepare("SELECT U.email FROM " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id WHERE P.uuid = :uuid");
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -236,11 +236,11 @@ class UserDAO
      * @param string $newPassword
      */
 
-    public function updatePassword(string $newPassword) {
+    public function updatePassword(string $newPassword): bool {
 
         $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
-        $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user U JOIN" . DB_PREFIX . "player P ON U.id = P.user_id SET U.password = :password WHERE P.uuid = :uuid");
+        $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id SET U.password = :password WHERE P.uuid = :uuid");
         $stmtUser->bindParam(':password', $newHashedPassword);
         $stmtUser->bindParam(':uuid', $_SESSION['uuid']);
         return $stmtUser->execute();

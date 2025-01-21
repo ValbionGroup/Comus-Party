@@ -179,11 +179,10 @@
                 </div>
             </div>
             <div class="col-span-7 ml-10 mt-10 lg:mt-0">
-                <form method="POST">
                     <div class="g-1 flex flex-col justify-between">
                         <label>
                             <input class="mb-2 w-full text-black input" type="password" minlength="8" maxlength="64" id="newPassword" onkeyup="verifPassword()"
-                                   placeholder="Insérez votre nouveau mot de passe" name="newPswd">
+                                   placeholder="Insérez votre nouveau mot de passe" name="newPassword">
                         </label>
 
                         <p class="input-error-text text-red-600 hidden" id="passwordTooShort"></p>
@@ -199,8 +198,8 @@
                         </label>
 
                         <!-- Bouton de confirmation -->
-                        <div class="flex items-center justify-center gap-1 btn-success cursor-pointer">
-                            <input type="submit" value="Confirmer" id="confirmPasswordBtn">
+                        <div class="flex items-center justify-center gap-1 btn-success cursor-pointer opacity-50" id="divConfirmPasswordBtn">
+                            <input type="submit" value="Confirmer" id="confirmPasswordBtn" onclick="updatePassword()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em" viewBox="0 0 1600 1280">
                                 <path fill="currentColor"
                                       d="M1575 310q0 40-28 68l-724 724l-136 136q-28 28-68 28t-68-28l-136-136L53 740q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295l656-657q28-28 68-28t68 28l136 136q28 28 28 68"/>
@@ -208,7 +207,6 @@
                         </div>
 
                     </div>
-                </form>
             </div>
             <div onclick="showModalSuppression()"
                  class="cursor-pointer col-span-4 mt-10 btn-danger flex items-center justify-center gap-1 ml-10 sm:grid-cols-7">

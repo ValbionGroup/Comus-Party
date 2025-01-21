@@ -40,6 +40,7 @@ let inputSelectedArticleType = document.getElementById("selectedArticleType")
 let inputNewPassword = document.getElementById("newPassword");
 let inputNewPasswordConfirm = document.getElementById("newPasswordConfirm");
 let confirmPasswordBtn = document.getElementById("confirmPasswordBtn")
+let divConfirmPasswordBtn = document.getElementById("divConfirmPasswordBtn")
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -175,12 +176,7 @@ const NUMBERS = /\d/;
 const SPECIAL_CHARACTER = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
 
 
-const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
-    inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
-    UPPERCASE_LETTER.test(inputNewPassword.value) &&
-    LOWERCASE_LETTER.test(inputNewPassword.value) &&
-    NUMBERS.test(inputNewPassword.value) &&
-    SPECIAL_CHARACTER.test(inputNewPassword.value);
+
 
 
 
@@ -210,13 +206,9 @@ function updateErrorMessage(input, errorElementId, condition, errorMessage) {
 }
 
 function verifPassword(){
-    // const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
-    //     inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
-    //     UPPERCASE_LETTER.test(inputNewPassword.value) &&
-    //     LOWERCASE_LETTER.test(inputNewPassword.value) &&
-    //     NUMBERS.test(inputNewPassword.value) &&
-    //     SPECIAL_CHARACTER.test(inputNewPassword.value);
+
     confirmPasswordBtn.disabled = true
+    divConfirmPasswordBtn.classList.add("opacity-50")
     if(inputNewPassword.value === ""){
 
         updateErrorMessage(inputNewPassword, "passwordTooShort", true, "");
@@ -237,10 +229,28 @@ function verifPassword(){
 }
 
 function matchPassword(){
-    if(inputNewPasswordConfirm == inputNewPassword){
+    if(inputNewPasswordConfirm.value === inputNewPassword.value){
         confirmPasswordBtn.disabled = false
+        divConfirmPasswordBtn.classList.remove("opacity-50")
     }else{
-        confirmPasswordBtn = true
+        confirmPasswordBtn.disabled = true
+    }
+}
+function updatePassword(){
+    console.log("COnfirm btn clickeddddddd")
+    const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
+        inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
+        UPPERCASE_LETTER.test(inputNewPassword.value) &&
+        LOWERCASE_LETTER.test(inputNewPassword.value) &&
+        NUMBERS.test(inputNewPassword.value) &&
+        SPECIAL_CHARACTER.test(inputNewPassword.value);
+    if(isPasswordValid){
+        makeRequest("POST", `/profile/update-password`, (response) => {
+            response = JSON.parse(response)
+            console.log(response)
+        }, `newPassword=${inputNewPassword.value}`);
+
+
     }
 }
 

@@ -460,11 +460,16 @@ class ControllerAuth extends Controller
 
     public function modifPassword(string $newPassword)
     {
-        $userDAO = new UserDAO($this->getPdo());
-//        $userDAO->modifPassword($newPassword);
-        $userDAO->findEmailByUuid($_SESSION['uuid']);
-        var_dump($userDAO);
 
+        $userDAO = new UserDAO($this->getPdo());
+        $res = $userDAO->updatePassword($newPassword);
+        $email = $userDAO->findEmailByUuid($_SESSION['uuid']);
+
+        $subject = 'Modification de mot-de-passe';
+        $message = '<p>Vous venez de modifier votre mot-de-passe sur Comus Party !</p>';
+        $confirmMail = new Mailer(array($email), $subject, $message);
+        $confirmMail->generateHTMLMessage();
+        $confirmMail->send();
     }
 
 /**
