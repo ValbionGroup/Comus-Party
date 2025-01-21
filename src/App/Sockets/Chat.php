@@ -36,9 +36,7 @@ class Chat implements MessageComponentInterface
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        $numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
-            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
+        $msg = $this->escape($msg);
 
         foreach ($this->clients as $client) {
             if ($from !== $client) {
@@ -61,5 +59,10 @@ class Chat implements MessageComponentInterface
         echo "An error has occurred: {$e->getMessage()}\n";
 
         $conn->close();
+    }
+
+    protected function escape(string $string): string
+    {
+        return htmlspecialchars($string);
     }
 }
