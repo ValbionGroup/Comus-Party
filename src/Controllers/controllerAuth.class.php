@@ -220,7 +220,7 @@ class ControllerAuth extends Controller
         $userManager = new UserDAO($this->getPdo());
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $user = $userManager->findById($token->getUserId());
+        $user = $userManager->findById($token->getUserId());)
         $user->setPassword($hashedPassword);
 
         if (!$userManager->update($user)) {

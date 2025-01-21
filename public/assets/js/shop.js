@@ -100,7 +100,6 @@ modalsContent.forEach(modal => {
  */
 
 function showModalPfp(article) {
-    console.log(article)
     overlay.classList.remove('hidden');
     modalWindowForPfp.classList.remove('hidden');
     // Forcer le reflow pour s'assurer que les transitions s'appliquent
