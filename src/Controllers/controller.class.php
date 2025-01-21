@@ -9,10 +9,10 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\Db;
 use ComusParty\App\Exceptions\AuthenticationException;
 use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\MessageHandler;
-use ComusParty\Models\Db;
 use Error;
 use Exception;
 use PDO;

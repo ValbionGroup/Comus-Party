@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @brief Fichier de configuration de Twig
  *
@@ -9,20 +8,24 @@
  * @date 2024-11-05
  */
 
+namespace ComusParty;
+
+use Twig\Environment;
 use Twig\Extension\CoreExtension;
 use Twig\Extension\DebugExtension;
 use Twig\Extra\Date\DateExtension;
 use Twig\Extra\Intl\IntlExtension;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * @brief Instance de FilesystemLoader
  */
-$loader = new Twig\Loader\FilesystemLoader(__DIR__ . '/../src/templates');
+$loader = new FilesystemLoader(__DIR__ . '/../src/templates');
 
 /**
  * @brief Instance de Twig
  */
-$twig = new Twig\Environment($loader, [
+$twig = new Environment($loader, [
     'debug' => true,
 ]);
 

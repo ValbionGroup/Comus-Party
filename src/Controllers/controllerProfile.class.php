@@ -166,6 +166,48 @@ class ControllerProfile extends Controller
         }
     }
 
+    /**
+     * @brief Permet de mettre à jour le nom d'utilisateur d'un joueur
+     * @param string $username Le nouveau nom d'utilisateur
+     * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function updateUsername(string $username)
+    {
+        $validator = new Validator([
+            'username' => [
+                'required' => true,
+                'min-length' => 3,
+                'max-length' => 120,
+                'type' => 'string',
+                'format' => '/^[a-zA-Z0-9_-]+$/'
+            ]
+        ]);
+        if (!$validator->validate(['username' => $username])) {
+            echo json_encode([
+                'success' => false,
+                'error' => $validator->getErrors()['username']
+            ]);
+            exit;
+        }
+        $playerManager = new PlayerDAO($this->getPdo());
+        if (!is_null($playerManager->findByUsername($username))) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Ce nom d\'utilisateur est déjà pris'
+            ]);
+            exit;
+        }
+        $player = $playerManager->findByUuid($_SESSION['uuid']);
+        $player->setUsername($username);
+        $playerManager->update($player);
+        $_SESSION['username'] = $username;
+        echo json_encode([
+            'success' => true
+        ]);
+        exit;
+    }
+
     public function updateEmail(string $email): void
     {
         $validator = new Validator([
