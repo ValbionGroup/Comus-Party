@@ -13,6 +13,7 @@ use ComusParty\App\Exceptions\ControllerNotFoundException;
 use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
@@ -162,5 +163,28 @@ class ControllerProfile extends Controller
                 'idArticle' => $idArticle
             ]);
         }
+    }
+
+    public function updateUsername(string $username)
+    {
+        $validator = new Validator([
+            'username' => [
+                'required' => true,
+                'min-length' => 3,
+                'max-length' => 120,
+                'type' => 'string',
+                'format' => '/^[a-zA-Z0-9_-]+$/'
+            ]
+        ]);
+        if (!$validator->validate(['username' => $username])) {
+            echo json_encode([
+                'error' => $validator->getErrors()
+            ]);
+            return;
+        }
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findByUuid($_SESSION['uuid']);
+        $player->setUsername($username);
+        $playerManager->update($player);
     }
 }
