@@ -13,6 +13,7 @@ use ComusParty\App\Exceptions\ControllerNotFoundException;
 use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
@@ -166,6 +167,34 @@ class ControllerProfile extends Controller
 
     public function updateEmail(string $email): void
     {
+        $validator = new Validator([
+            'email' => [
+                'required' => true,
+                'type' => 'string',
+                'format' => FILTER_VALIDATE_EMAIL
+            ]
+        ]);
+
+        if (!$validator->validate(['email' => $email])) {
+            throw new NotFoundException('Adresse e-mail invalide');
+        }
+
+        $userManager = new UserDAO($this->getPdo());
+        $user = $userManager->findByEmail($email);
+
+        if (!is_null($user)) {
+            throw new NotFoundException('Adresse e-mail déjà utilisée');
+        }
+
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findByUuid($_SESSION['uuid']);
+        if (is_null($player)) {
+            throw new NotFoundException('Player not found');
+        }
+        $user = $userManager->findById($player->getUserId());
+        if (is_null($user)) {
+            throw new NotFoundException('User not found');
+        }
 
     }
 }
