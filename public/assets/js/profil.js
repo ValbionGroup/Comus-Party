@@ -174,6 +174,14 @@ function showModalUsernameEdit() {
 
 function editUsername() {
     let username = newUsername.value;
+    if (username.length < 3 || username.length > 120) {
+        showNotification("Oups...", "Votre nom d'utilisateur doit contenir entre 3 et 120 caractères", "red");
+        return;
+    } else if (!/^[a-zA-Z0-9_]*$/.test(username)) {
+        showNotification("Oups...", "Votre nom d'utilisateur ne doit contenir que des lettres, des chiffres ou des underscores", "red");
+        return
+    }
+
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", `/profile/updateUsername/${username}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -190,7 +198,7 @@ function editUsername() {
                 modalEditUsername.classList.add("hidden");
                 background.classList.add("hidden");
             } else {
-                showNotification("Oups...", `${response.error}`, "red");
+                showNotification("Oups...", response.error, "red");
             }
         }
     };
