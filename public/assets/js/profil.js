@@ -39,6 +39,7 @@ let inputSelectedArticleType = document.getElementById("selectedArticleType")
 
 let inputNewPassword = document.getElementById("newPassword");
 let inputNewPasswordConfirm = document.getElementById("newPasswordConfirm");
+let confirmPasswordBtn = document.getElementById("confirmPasswordBtn")
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -166,12 +167,20 @@ function showModalSuppression() {
 
 // MODIFICATION MOT DE PASSE
 
-const isPasswordValid = inputPassword.value.length >= MIN_PASSWORD_LENGTH &&
-    inputPassword.value.length <= MAX_PASSWORD_LENGTH &&
-    UPPERCASE_LETTER.test(inputPassword.value) &&
-    LOWERCASE_LETTER.test(inputPassword.value) &&
-    NUMBERS.test(inputPassword.value) &&
-    SPECIAL_CHARACTER.test(inputPassword.value);
+const MIN_PASSWORD_LENGTH = 8;
+const MAX_PASSWORD_LENGTH = 64;
+const UPPERCASE_LETTER = /[A-Z]/;
+const LOWERCASE_LETTER = /[a-z]/;
+const NUMBERS = /\d/;
+const SPECIAL_CHARACTER = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
+
+
+const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
+    inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
+    UPPERCASE_LETTER.test(inputNewPassword.value) &&
+    LOWERCASE_LETTER.test(inputNewPassword.value) &&
+    NUMBERS.test(inputNewPassword.value) &&
+    SPECIAL_CHARACTER.test(inputNewPassword.value);
 
 
 
@@ -199,3 +208,40 @@ function updateErrorMessage(input, errorElementId, condition, errorMessage) {
         errorElement.innerHTML = "";
     }
 }
+
+function verifPassword(){
+    // const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
+    //     inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
+    //     UPPERCASE_LETTER.test(inputNewPassword.value) &&
+    //     LOWERCASE_LETTER.test(inputNewPassword.value) &&
+    //     NUMBERS.test(inputNewPassword.value) &&
+    //     SPECIAL_CHARACTER.test(inputNewPassword.value);
+    confirmPasswordBtn.disabled = true
+    if(inputNewPassword.value === ""){
+
+        updateErrorMessage(inputNewPassword, "passwordTooShort", true, "");
+        updateErrorMessage(inputNewPassword, "passwordTooLong", true, "");
+        updateErrorMessage(inputNewPassword, "passwordNoUppercase",true, "");
+        updateErrorMessage(inputNewPassword, "passwordNoLowercase", true, "");
+        updateErrorMessage(inputNewPassword, "passwordNoNumber", true, "");
+        updateErrorMessage(inputNewPassword, "passwordNoSpecialCharacter", true, "");
+    }else{
+        updateErrorMessage(inputNewPassword, "passwordTooShort", inputNewPassword.value.length >= MIN_PASSWORD_LENGTH, "Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères");
+        updateErrorMessage(inputNewPassword, "passwordTooLong", inputNewPassword.value.length <= MAX_PASSWORD_LENGTH, "Le mot de passe doit être au maximum de " + MAX_PASSWORD_LENGTH + " caractères");
+        updateErrorMessage(inputNewPassword, "passwordNoUppercase", UPPERCASE_LETTER.test(inputNewPassword.value), "Le mot de passe doit contenir au moins une majuscule");
+        updateErrorMessage(inputNewPassword, "passwordNoLowercase", LOWERCASE_LETTER.test(inputNewPassword.value), "Le mot de passe doit contenir au moins une minuscule");
+        updateErrorMessage(inputNewPassword, "passwordNoNumber", NUMBERS.test(inputNewPassword.value), "Le mot de passe doit contenir au moins un chiffre");
+        updateErrorMessage(inputNewPassword, "passwordNoSpecialCharacter", SPECIAL_CHARACTER.test(inputNewPassword.value), "Le mot de passe doit contenir au moins un caractère spécial");
+    }
+
+}
+
+function matchPassword(){
+    if(inputNewPasswordConfirm == inputNewPassword){
+        confirmPasswordBtn.disabled = false
+    }else{
+        confirmPasswordBtn = true
+    }
+}
+
+
