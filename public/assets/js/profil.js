@@ -54,6 +54,7 @@ function infoArticlePfp(article) {
     inputSelectedArticleType.value = article.type
 
 }
+
 function infoArticleBanner(article) {
     bannerTitle.textContent = article.name
     bannerDescription.textContent = article.description
@@ -72,8 +73,8 @@ function showModalBanner() {
 }
 
 function closeModal() {
-    pfps.forEach(pfp =>{
-        if(pfp.classList.contains("shadow-lg")){
+    pfps.forEach(pfp => {
+        if (pfp.classList.contains("shadow-lg")) {
             pfp.classList.remove("shadow-lg")
         }
     })
@@ -142,7 +143,7 @@ function equipArticle() {
     let idArticle = inputSelectedArticleId.value
     let typeArticle = inputSelectedArticleType.value
     const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/profile/updateStyle/${idArticle}`, true);
+    xhr.open("PUT", `/profile/update-style/${idArticle}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     // Envoyer les données sous forme de paire clé=valeur
     xhr.send();
@@ -150,9 +151,9 @@ function equipArticle() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText)
-            if(typeArticle === "banner"){
+            if (typeArticle === "banner") {
                 playerBanner.src = "/assets/img/banner/" + response.articlePath
-            }else if(typeArticle === "pfp"){
+            } else if (typeArticle === "pfp") {
                 playerPfp.src = "/assets/img/pfp/" + response.articlePath
                 pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
             }
