@@ -458,13 +458,17 @@ class ControllerAuth extends Controller
         }
     }
 
+
+    /**
+     * @brief Permet de modifier le mot de passe d'un utilisateur et lui envoie un mail pour lui confirmer
+     * @param string $newPassword
+     * @return void
+     */
     public function modifPassword(string $newPassword)
     {
-
         $userDAO = new UserDAO($this->getPdo());
         $res = $userDAO->updatePassword($newPassword);
         $email = $userDAO->findEmailByUuid($_SESSION['uuid']);
-
         $subject = 'Modification de mot-de-passe';
         $message = '<p>Vous venez de modifier votre mot-de-passe sur Comus Party !</p>';
         $confirmMail = new Mailer(array($email), $subject, $message);

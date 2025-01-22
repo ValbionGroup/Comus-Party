@@ -205,6 +205,10 @@ function updateErrorMessage(input, errorElementId, condition, errorMessage) {
     }
 }
 
+/**
+ * @brief Vérifie si le mot de passe est valide.
+ */
+
 function verifPassword(){
 
     confirmPasswordBtn.disabled = true
@@ -228,6 +232,9 @@ function verifPassword(){
 
 }
 
+/**
+ * @brief Vérifie si le mot de passe de confirmation est valide.
+ */
 function matchPassword(){
     if(inputNewPasswordConfirm.value === inputNewPassword.value){
         confirmPasswordBtn.disabled = false
@@ -236,8 +243,11 @@ function matchPassword(){
         confirmPasswordBtn.disabled = true
     }
 }
+
+/**
+ * @brief Met à jour le mot de passe.
+ */
 function updatePassword(){
-    console.log("COnfirm btn clickeddddddd")
     const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
         inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
         UPPERCASE_LETTER.test(inputNewPassword.value) &&
@@ -247,7 +257,6 @@ function updatePassword(){
     if(isPasswordValid){
         makeRequest("POST", `/profile/update-password`, (response) => {
             response = JSON.parse(response)
-            console.log(response)
         }, `newPassword=${inputNewPassword.value}`);
 
 
