@@ -98,19 +98,22 @@ gameConnection.onopen = function (e) {
 };
 gameConnection.onmessage = function (e) {
     const data = JSON.parse(e.data);
-    console.log(data.content);
     const players = JSON.parse(data.content);
     let div = document.getElementById('players');
-    div.remove
+    Array.from(div.childNodes).forEach((child) => {
+        child.remove();
+    });
     players.forEach((player) => {
-        console.log(player.pfp);
         let newDiv = document.createElement('div');
         let pfp = document.createElement('img');
         let pseudo = document.createElement('p');
 
-        newDiv.className = "flex items-center gap-x-2";
+        newDiv.className = "flex flex-row gap-3 items-center";
+
         pfp.className = "size-8 rounded-full";
         pfp.src = "/assets/img/pfp/" + player.pfp;
+
+        pseudo.className = "text-lg";
         pseudo.textContent = player.username;
 
         newDiv.appendChild(pfp);
