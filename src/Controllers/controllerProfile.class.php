@@ -274,10 +274,18 @@ class ControllerProfile extends Controller
                 <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre nouvelle adresse email</a>
                 <p>À très bientôt dans l’arène ! 🎲,<br>
                 L\'équipe Comus Party 🚀</p>';
+        try {
+            $confirmMail = new Mailer(array($email), $subject, $message);
+            $confirmMail->generateHTMLMessage();
+            $confirmMail->send();
+        } catch (\Exception $e) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Une erreur est survenue lors de l\'envoi du mail de confirmation'
+            ]);
+            exit;
+        }
 
-        $confirmMail = new Mailer(array($email), $subject, $message);
-        $confirmMail->generateHTMLMessage();
-        $confirmMail->send();
 
         echo json_encode([
             'success' => true
