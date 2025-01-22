@@ -57,3 +57,48 @@ function makeRequest(method, url, callback, body = null) {
         }
     };
 }
+
+function showProfile(searchBy, data) {
+    const playerInfoDiv = document.getElementById('modalPlayerInfo');
+    const spanTopUsername = document.getElementById('spanTopUsername');
+    const imgPfp = document.getElementById('imgPfp');
+    const spanUsername = document.getElementById('spanUsername');
+    const spanElo = document.getElementById('spanElo');
+    const spanExp = document.getElementById('spanExp');
+    const spanGamesPlayed = document.getElementById('spanGamesPlayed');
+    const spanGamesWon = document.getElementById('spanGamesWon');
+    const spanCreatedAt = document.getElementById('spanCreatedAt');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `/player/informations`, true);
+
+    // Create a FormData object and append the data
+    const formData = new FormData();
+    formData.append("searchBy", searchBy);
+    formData.append("data", data);
+
+    // Send the FormData
+    xhr.send(formData);
+
+    // Gérer la réponse du serveur
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            spanTopUsername.innerText = response.username;
+            imgPfp.src = `/assets/img/pfp/${response.activePfp}`;
+            spanUsername.innerText = response.username;
+            spanElo.innerText = response.elo;
+            spanExp.innerText = response.xp;
+            spanGamesPlayed.innerText = response.statistics.gamesPlayed;
+            spanGamesWon.innerText = response.statistics.gamesWon;
+            spanCreatedAt.innerText = new Date(response.createdAt.date).toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+    };
+    playerInfoDiv.classList.remove("hidden");
+
+    showBackgroundModal();
+}

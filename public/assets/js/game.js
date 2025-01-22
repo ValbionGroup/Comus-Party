@@ -88,7 +88,7 @@ function receiveChatMessage(message) {
     usernameItem.textContent = `${message.author}: `;
     usernameItem.classList.add('font-semibold');
     usernameItem.classList.add('hover:cursor-pointer');
-    usernameItem.onclick = () => showProfile(message.author);
+    usernameItem.onclick = () => showProfile("username", message.author);
 
     const contentItem = document.createElement('span');
     contentItem.textContent = message.content;
@@ -100,53 +100,6 @@ function receiveChatMessage(message) {
 
 const background = document.getElementById('backgroundModal');
 const modals = document.querySelectorAll(".modal");
-
-function showProfile(username) {
-
-    const playerInfoDiv = document.getElementById('modalPlayerInfo');
-    const spanTopUsername = document.getElementById('spanTopUsername');
-    const imgPfp = document.getElementById('imgPfp');
-    const spanUsername = document.getElementById('spanUsername');
-    const spanElo = document.getElementById('spanElo');
-    const spanExp = document.getElementById('spanExp');
-    const spanGamesPlayed = document.getElementById('spanGamesPlayed');
-    const spanGamesWon = document.getElementById('spanGamesWon');
-    const spanCreatedAt = document.getElementById('spanCreatedAt');
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/player/informations`, true);
-
-    // Create a FormData object and append the data
-    const formData = new FormData();
-    formData.append("searchBy", "username");
-    formData.append("data", username);
-
-    // Send the FormData
-    xhr.send(formData);
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            console.log(response);
-            spanTopUsername.innerText = response.username;
-            imgPfp.src = `/assets/img/pfp/${response.activePfp}`;
-            spanUsername.innerText = response.username;
-            spanElo.innerText = response.elo;
-            spanExp.innerText = response.xp;
-            spanGamesPlayed.innerText = response.statistics.gamesPlayed;
-            spanGamesWon.innerText = response.statistics.gamesWon;
-            spanCreatedAt.innerText = new Date(response.createdAt.date).toLocaleDateString('fr-FR', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            });
-        }
-    };
-    playerInfoDiv.classList.remove("hidden");
-
-    showBackgroundModal();
-}
 
 function showBackgroundModal() {
     background.classList.remove("hidden");
@@ -162,7 +115,7 @@ function closeModal() {
 }
 
 // WebSocket
-const conn = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
+const conn = new WebSocket('ws://localhost:8315/chat/' + gameCode);
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };
