@@ -105,6 +105,7 @@ class ControllerAuth extends Controller
         if (is_null($user)) {
             MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
             header('Location: /login');
+            exit;
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
