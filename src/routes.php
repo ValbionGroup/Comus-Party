@@ -180,7 +180,7 @@ $router->post('/register', function () use ($loader, $twig) {
 $router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
     exit;
-}, 'guest');
+}, '*');
 
 $router->get('/forgot-password', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
