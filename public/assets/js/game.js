@@ -82,12 +82,19 @@ function receiveChatMessage(message) {
     message = JSON.parse(message);
     const messages = document.getElementById('chatContent');
     const messageItem = document.createElement('p');
+    messageItem.classList.add("flex");
     const usernameItem = document.createElement('p');
-    usernameItem.textContent = `${message.author} : `;
+    usernameItem.textContent = `${message.author}: `;
     usernameItem.classList.add('font-semibold');
+    usernameItem.classList.add('hover:cursor-pointer');
+    usernameItem.onclick = showProfile(message.author);
     messageItem.appendChild(usernameItem);
     messageItem.innerHTML += message.content;
     messages.appendChild(messageItem);
+}
+
+function showProfile(username) {
+
 }
 
 // WebSocket
