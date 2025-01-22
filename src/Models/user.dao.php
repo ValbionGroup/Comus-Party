@@ -236,7 +236,7 @@ class UserDAO
             'UPDATE ' . DB_PREFIX . 'user
             SET email = :email,
                 email_verif_token = :email_verif_token,
-                email_verif_at = null
+                email_verified_at = null
             WHERE id = :user_id'
         );
 
