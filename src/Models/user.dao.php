@@ -235,7 +235,8 @@ class UserDAO
         $stmt = $this->pdo->prepare(
             'UPDATE ' . DB_PREFIX . 'user
             SET email = :email,
-                email_verif_token = :email_verif_token
+                email_verif_token = :email_verif_token,
+                email_verif_at = null
             WHERE id = :user_id'
         );
 
