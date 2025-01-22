@@ -269,7 +269,10 @@ $router->get('/ranking', function () use ($loader, $twig) {
 });
 
 $router->post('/player/informations', function () use ($loader, $twig) {
-    ControllerFactory::getController("profile", $loader, $twig)->call("getPlayerInformations", ["playerUuid" => $_POST["data"]]);
+    ControllerFactory::getController("profile", $loader, $twig)->call("getPlayerInformations", [
+        "searchBy" => $_POST["searchBy"],
+        "playerUuid" => $_POST["data"]
+    ]);
     exit;
 });
 
