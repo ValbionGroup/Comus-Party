@@ -12,9 +12,9 @@ namespace ComusParty\Controllers;
 
 use ComusParty\App\Exceptions\PaymentException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\App\Mailer;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\InvoiceDAO;
-use ComusParty\Models\Mailer;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;

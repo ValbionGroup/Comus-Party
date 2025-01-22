@@ -7,10 +7,10 @@
  * @version 0.2
  */
 
+use ComusParty\App\Db;
 use ComusParty\Models\Article;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\ArticleType;
-use ComusParty\Models\Db;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../include.php';
@@ -304,15 +304,6 @@ class ArticleDAOTest extends TestCase
     }
 
     /**
-     * @brief Instanciation d'un objet ArticleDAO pour les tests
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        $this->articleDAO = new ArticleDAO(Db::getInstance()->getConnection());
-    }
-
-    /**
      * @brief Test de la méthode deleteActiveArticleForPfp avec un UUID valide mais non-existant dans la base de données
      * @return void
      */
@@ -331,6 +322,7 @@ class ArticleDAOTest extends TestCase
         $this->articleDAO->deleteActiveArticleForBanner('uuid1');
         $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('uuid1'));
     }
+
     /**
      * @brief Test de la méthode updateActiveArticle avec un UUID valide et un ID d'article valide
      * @return void
@@ -366,7 +358,6 @@ class ArticleDAOTest extends TestCase
     {
         $this->assertTrue($this->articleDAO->updateActiveArticle('uuid187874', '42', 'ProfilePicture'));
     }
-
 
     /**
      * @brief Test de la méthode findAllPfpsOwnedByPlayer avec un UUID valide et existant dans la base de données
@@ -411,6 +402,15 @@ class ArticleDAOTest extends TestCase
     public function testFindAllBannersOwnedByPlayerWithInvalidUuid(): void
     {
         $this->assertEmpty($this->articleDAO->findAllBannersOwnedByPlayer('42uuid'));
+    }
+
+    /**
+     * @brief Instanciation d'un objet ArticleDAO pour les tests
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $this->articleDAO = new ArticleDAO(Db::getInstance()->getConnection());
     }
 }
 

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @brief Fichier de constantes de la base de données
  *
@@ -9,6 +8,7 @@
  * @date 2024-11-05
  */
 
+namespace ComusParty;
 
 /**
  * @brief Type de base de données

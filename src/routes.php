@@ -30,7 +30,7 @@ $router->get('/profile', function () use ($loader, $twig) {
     exit;
 }, 'player');
 
-$router->put('/profile/updateStyle/:idArticle', function ($idArticle) use ($loader, $twig) {
+$router->put('/profile/update-style/:idArticle', function ($idArticle) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
         "uuidPlayer" => $_SESSION["uuid"],
         "idArticle" => $idArticle,
@@ -162,7 +162,7 @@ $router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) 
     exit;
 }, 'player');
 
-$router->get('/shop/basket/checkout/successPayment', function () use ($loader, $twig) {
+$router->get('/shop/basket/checkout/success-payment', function () use ($loader, $twig) {
     ControllerFactory::getController("shop", $loader, $twig)->call("showSuccessPayment", ["articles" => $_SESSION['basket'], "player" => $_SESSION['uuid'], "paymentType" => 'card']);
     exit;
 }, 'player');
@@ -288,3 +288,8 @@ $router->post('/game/:code/end', function ($code) use ($loader, $twig) {
     ]);
     exit;
 });
+
+$router->put('/profile/update-username/:username', function ($username) use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("updateUsername", ["username" => $username]);
+    exit;
+}, 'player');

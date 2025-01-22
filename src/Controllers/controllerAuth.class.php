@@ -11,10 +11,10 @@ namespace ComusParty\Controllers;
 
 use ComusParty\App\Exceptions\AuthenticationException;
 use ComusParty\App\Exceptions\MalformedRequestException;
+use ComusParty\App\Mailer;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
-use ComusParty\Models\Mailer;
 use ComusParty\Models\ModeratorDao;
 use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
@@ -344,8 +344,6 @@ class ControllerAuth extends Controller
     }
 
 
-
-
     /**
      * @brief La méthode register permet d'inscrire un utilisateur
      * @details Vérifie si un utilisateur portant l'adresse e-mail fournie en paramètre existe.
@@ -363,7 +361,8 @@ class ControllerAuth extends Controller
      * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      * @todo Modifier le corps du mail (version HTMl) pour correspondre à la charte graphique (quand terminée)
      */
-    public function register(?string $username, ?string $email, ?string $password): void {
+    public function register(?string $username, ?string $email, ?string $password): void
+    {
 
         $rules = [
             'username' => [
@@ -388,7 +387,7 @@ class ControllerAuth extends Controller
 
         $validator = new Validator($rules);
 
-        if(!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
+        if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
             throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
         }
 
@@ -487,6 +486,18 @@ class ControllerAuth extends Controller
  * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
  */
     public function confirmEmail($emailVerifToken) {
+    /**
+     * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
+     *
+     * @details Cette méthode utilise le token de vérification d'e-mail pour rechercher
+     * l'utilisateur dans la base de données. Si l'utilisateur est trouvé, son compte est
+     * confirmé et un message de confirmation est affiché. Sinon, un message d'erreur
+     * est affiché. Le résultat de la confirmation est ensuite rendu à l'aide de Twig.
+     *
+     * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
+     */
+    public function confirmEmail($emailVerifToken)
+    {
         $userDAO = new UserDAO($this->getPdo());
         $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
         if ($user) {

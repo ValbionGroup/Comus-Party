@@ -18,15 +18,24 @@ let statisticsBlock = document.getElementById('statistics');
 let modal = document.getElementById('modalConfirmationSuppression');
 let background = document.getElementById('backgroundModal');
 
-let pfpTitle = document.getElementById("pfpTitle")
-let pfpDescription = document.getElementById("pfpDescription")
+let pfpTitle = document.getElementById("pfpTitle");
+let pfpDescription = document.getElementById("pfpDescription");
 
-let bannerTitle = document.getElementById("bannerTitle")
-let bannerDescription = document.getElementById("bannerDescription")
+let bannerTitle = document.getElementById("bannerTitle");
+let bannerDescription = document.getElementById("bannerDescription");
 
-let equipButton = document.getElementById("equipButton")
-let modalPfp = document.getElementById("modalPfp")
-let modalBanner = document.getElementById("modalBanner")
+let equipButton = document.getElementById("equipButton");
+let modalPfp = document.getElementById("modalPfp");
+let modalBanner = document.getElementById("modalBanner");
+
+let modals = document.querySelectorAll(".modal");
+let pfps = document.querySelectorAll(".pfp");
+let playerPfp = document.getElementById("pfpPlayer");
+let playerBanner = document.getElementById("bannerPlayer");
+let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader");
+let defaultPfp = document.getElementById("defaultPfp");
+let inputSelectedArticleId = document.getElementById("selectedArticleId");
+let inputSelectedArticleType = document.getElementById("selectedArticleType");
 
 let modals = document.querySelectorAll(".modal")
 let pfps = document.querySelectorAll(".pfp")
@@ -41,6 +50,11 @@ let inputNewPassword = document.getElementById("newPassword");
 let inputNewPasswordConfirm = document.getElementById("newPasswordConfirm");
 let confirmPasswordBtn = document.getElementById("confirmPasswordBtn")
 let divConfirmPasswordBtn = document.getElementById("divConfirmPasswordBtn")
+let modalEditUsername = document.getElementById("modalEditUsername");
+let newUsername = document.getElementById("newUsername");
+let pUsername = document.getElementById("pUsername");
+let headerUsername = document.getElementById("headerUsername");
+
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -53,6 +67,7 @@ function infoArticlePfp(article) {
     inputSelectedArticleType.value = article.type
 
 }
+
 function infoArticleBanner(article) {
     bannerTitle.textContent = article.name
     bannerDescription.textContent = article.description
@@ -71,8 +86,8 @@ function showModalBanner() {
 }
 
 function closeModal() {
-    pfps.forEach(pfp =>{
-        if(pfp.classList.contains("shadow-lg")){
+    pfps.forEach(pfp => {
+        if (pfp.classList.contains("shadow-lg")) {
             pfp.classList.remove("shadow-lg")
         }
     })
@@ -82,7 +97,7 @@ function closeModal() {
         }
     });
 
-    background.classList.add("hidden")
+    background.classList.add("hidden");
 }
 
 
@@ -141,7 +156,7 @@ function equipArticle() {
     let idArticle = inputSelectedArticleId.value
     let typeArticle = inputSelectedArticleType.value
     const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/profile/updateStyle/${idArticle}`, true);
+    xhr.open("PUT", `/profile/update-style/${idArticle}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     // Envoyer les données sous forme de paire clé=valeur
     xhr.send();
@@ -149,9 +164,9 @@ function equipArticle() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText)
-            if(typeArticle === "banner"){
+            if (typeArticle === "banner") {
                 playerBanner.src = "/assets/img/banner/" + response.articlePath
-            }else if(typeArticle === "pfp"){
+            } else if (typeArticle === "pfp") {
                 playerPfp.src = "/assets/img/pfp/" + response.articlePath
                 pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
             }
@@ -264,3 +279,41 @@ function updatePassword(){
 }
 
 
+
+
+function showModalUsernameEdit() {
+    modalEditUsername.classList.remove("hidden");
+    background.classList.remove("hidden");
+}
+
+function editUsername() {
+    let username = newUsername.value;
+    if (username.length < 3 || username.length > 120) {
+        showNotification("Oups...", "Votre nom d'utilisateur doit contenir entre 3 et 120 caractères", "red");
+        return;
+    } else if (!/^[a-zA-Z0-9_]*$/.test(username)) {
+        showNotification("Oups...", "Votre nom d'utilisateur ne doit contenir que des lettres, des chiffres ou des underscores", "red");
+        return
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", `/profile/update-username/${username}`, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // Envoyer les données sous forme de paire clé=valeur
+    xhr.send();
+    // Gérer la réponse du serveur
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                pUsername.textContent = username;
+                headerUsername.textContent = username;
+                showNotification("Tout est bon !", "Votre nom d'utilisateur a été modifié", "green");
+                modalEditUsername.classList.add("hidden");
+                background.classList.add("hidden");
+            } else {
+                showNotification("Oups...", response.error, "red");
+            }
+        }
+    };
+}

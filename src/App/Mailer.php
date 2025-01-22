@@ -2,13 +2,13 @@
 /**
  * @brief Classe Mailer
  *
- * @file mailer.class.php
+ * @file Mailer.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
  * @version 1.0
  * @date 2024-12-20
  */
 
-namespace ComusParty\Models;
+namespace ComusParty\App;
 
 use PHPMailer\PHPMailer\Exception as MailException;
 use PHPMailer\PHPMailer\PHPMailer;
