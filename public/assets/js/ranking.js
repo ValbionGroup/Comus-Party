@@ -37,10 +37,15 @@ function closeModal() {
 
 function showModalPlayerInfo(playerUuid) {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/player/informations/${playerUuid}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
+    xhr.open("POST", `/player/informations`, true);
+
+// Create a FormData object and append the data
+    const formData = new FormData();
+    formData.append("searchBy", "uuid");
+    formData.append("data", playerUuid);
+
+// Send the FormData
+    xhr.send(formData);
 
     // Gérer la réponse du serveur
     xhr.onreadystatechange = function () {
