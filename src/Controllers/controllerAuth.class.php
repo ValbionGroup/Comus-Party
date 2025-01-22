@@ -475,17 +475,7 @@ class ControllerAuth extends Controller
         $confirmMail->send();
     }
 
-/**
- * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
- *
- * @details Cette méthode utilise le token de vérification d'e-mail pour rechercher
- * l'utilisateur dans la base de données. Si l'utilisateur est trouvé, son compte est
- * confirmé et un message de confirmation est affiché. Sinon, un message d'erreur
- * est affiché. Le résultat de la confirmation est ensuite rendu à l'aide de Twig.
- *
- * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
- */
-    public function confirmEmail($emailVerifToken) {
+
     /**
      * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
      *
@@ -510,4 +500,5 @@ class ControllerAuth extends Controller
             throw new AuthenticationException("La confirmation a echoué");
         }
     }
+
 }
