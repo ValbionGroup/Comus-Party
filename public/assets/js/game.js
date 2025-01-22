@@ -162,7 +162,7 @@ function closeModal() {
 }
 
 // WebSocket
-const conn = new WebSocket('ws://localhost:8315/chat/' + gameCode);
+const conn = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };
