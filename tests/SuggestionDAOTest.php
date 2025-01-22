@@ -7,7 +7,7 @@
  * @version 0.1
  */
 
-use ComusParty\Models\Db;
+use ComusParty\App\Db;
 use ComusParty\Models\Suggestion;
 use ComusParty\Models\SuggestionDAO;
 use ComusParty\Models\SuggestObject;

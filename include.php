@@ -11,8 +11,11 @@ require_once __DIR__ . '/config/const.php';
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/config/mail.php';
 
+require_once __DIR__ . '/src/App/Db.php';
 require_once __DIR__ . '/src/App/Router.php';
+require_once __DIR__ . '/src/App/Mailer.php';
 require_once __DIR__ . '/src/App/Validator.php';
+require_once __DIR__ . '/src/App/EloCalculator.php';
 require_once __DIR__ . '/src/App/MessageHandler.php';
 
 require_once __DIR__ . '/src/App/Exceptions/NotFoundException.php';
@@ -41,7 +44,6 @@ require_once __DIR__ . '/src/Controllers/controllerDashboard.class.php';
 require_once __DIR__ . '/src/Controllers/controllerPolicy.class.php';
 require_once __DIR__ . '/src/Controllers/controllerRanking.class.php';
 
-require_once __DIR__ . '/src/Models/db.class.php';
 require_once __DIR__ . '/src/Models/player.class.php';
 require_once __DIR__ . '/src/Models/player.dao.php';
 require_once __DIR__ . '/src/Models/user.class.php';
@@ -61,7 +63,6 @@ require_once __DIR__ . '/src/Models/suggestion.class.php';
 require_once __DIR__ . '/src/Models/suggestion.dao.php';
 require_once __DIR__ . '/src/Models/moderator.class.php';
 require_once __DIR__ . '/src/Models/moderator.dao.php';
-require_once __DIR__ . '/src/Models/mailer.class.php';
 
 session_start();
 require_once __DIR__ . '/config/twig.php';

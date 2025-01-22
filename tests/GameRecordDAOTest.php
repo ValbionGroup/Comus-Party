@@ -10,7 +10,7 @@
 
 require_once __DIR__ . '/../include.php';
 
-use ComusParty\Models\Db;
+use ComusParty\App\Db;
 use ComusParty\Models\GameRecordDAO;
 use ComusParty\Models\GameRecordState;
 use PHPUnit\Framework\TestCase;

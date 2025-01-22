@@ -103,6 +103,7 @@ class GameRecordDAO
             $hostedBy,
             $players,
             $gameRecordState,
+            $row["private"] === 1,
             new DateTime($row["created_at"]),
             new DateTime($row["updated_at"]),
             $finishedAt
@@ -223,7 +224,7 @@ class GameRecordDAO
      */
     public function insert(GameRecord $gameRecord): bool
     {
-        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (code, game_id, hosted_by, state, created_at, updated_at, finished_at) VALUES (:code, :gameId, :hostedBy, :state, :createdAt, :updatedAt, :finishedAt)");
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (code, game_id, hosted_by, state, private, created_at, updated_at, finished_at) VALUES (:code, :gameId, :hostedBy, :state, :isPrivate, :createdAt, :updatedAt, :finishedAt)");
 
         $code = $gameRecord->getCode();
         $gameId = $gameRecord->getGame()->getId();
@@ -234,6 +235,7 @@ class GameRecordDAO
             GameRecordState::FINISHED => "finished",
             GameRecordState::UNKNOWN => null,
         };
+        $isPrivate = $gameRecord->isPrivate();
         $createdAt = $gameRecord->getCreatedAt()->format("Y-m-d H:i:s");
         $updatedAt = $gameRecord->getUpdatedAt()?->format("Y-m-d H:i:s");
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
@@ -242,6 +244,7 @@ class GameRecordDAO
         $stmt->bindParam(":gameId", $gameId);
         $stmt->bindParam(":hostedBy", $hostUuid);
         $stmt->bindParam(":state", $state);
+        $stmt->bindParam(":isPrivate", $isPrivate, PDO::PARAM_BOOL);
         $stmt->bindParam(":createdAt", $createdAt);
         $stmt->bindParam(":updatedAt", $updatedAt);
         $stmt->bindParam(":finishedAt", $finishedAt);
@@ -256,7 +259,7 @@ class GameRecordDAO
      */
     public function update(GameRecord $gameRecord): bool
     {
-        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, finished_at = :finishedAt WHERE code = :code");
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, private = :private, finished_at = :finishedAt WHERE code = :code");
 
         $state = match ($gameRecord->getState()) {
             GameRecordState::WAITING => "waiting",
@@ -264,14 +267,37 @@ class GameRecordDAO
             GameRecordState::FINISHED => "finished",
             GameRecordState::UNKNOWN => null,
         };
+        $private = $gameRecord->isPrivate();
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
         $code = $gameRecord->getCode();
 
         $stmt->bindParam(":state", $state);
+        $stmt->bindParam(":private", $private, PDO::PARAM_BOOL);
         $stmt->bindParam(":finishedAt", $finishedAt);
         $stmt->bindParam(":code", $code);
 
         return $stmt->execute();
+    }
+
+    /**
+     * @brief Met à jour les joueurs d'une partie en base de données
+     * @param string $gameCode Code de la partie à modifier
+     * @param array $players Tableau de joueurs à mettre à jour
+     * @return bool Retourne true si la mise à jour a réussi, false sinon
+     */
+    public function updatePlayers(string $gameCode, array $players): bool
+    {
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "played SET token = :token WHERE game_code = :gameCode AND player_uuid = :playerUuid");
+        foreach ($players as $player) {
+            $stmt->bindParam(":token", $player["token"]);
+            $stmt->bindParam(":gameCode", $gameCode);
+            $uuid = $player["player"]->getUuid();
+            $stmt->bindParam(":playerUuid", $uuid);
+            if (!$stmt->execute()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -311,9 +337,23 @@ class GameRecordDAO
      */
     public function removePlayer(string $gameCode, string $playerUuid): bool
     {
-        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_code = :gameCoded AND player_uuid = :playerUuid");
+        $stmt = $this->pdo->prepare("DELETE FROM " . DB_PREFIX . "played WHERE game_code = :gameCode AND player_uuid = :playerUuid");
         $stmt->bindParam(":gameCode", $gameCode);
         $stmt->bindParam(":playerUuid", $playerUuid);
+        return $stmt->execute();
+    }
+
+    /**
+     * @brief Enregistre un gagnant d'une partie dans la table cp_won
+     * @param string $code Code de la partie
+     * @param mixed $uuid UUID du joueur gagnant
+     * @return bool Retourne true si l'ajout a réussi, false sinon
+     */
+    public function addWinner(string $code, mixed $uuid): bool
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "won (game_code, player_uuid) VALUES (:gameCode, :playerUuid)");
+        $stmt->bindParam(":gameCode", $code);
+        $stmt->bindParam(":playerUuid", $uuid);
         return $stmt->execute();
     }
 }

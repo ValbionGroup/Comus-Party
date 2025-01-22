@@ -4,7 +4,9 @@
     <div class="h-full flex flex-col">
         <header class="flex w-full items-center">
             <nav class="flex items-center justify-between w-full h-16 px-8">
-                <a href="/">Comus Party</a>
+                <a href="/">
+                    <img src="/assets/img/cp-icon-v1.png" alt="Logo" class="h-12">
+                </a>
                 <div class="flex items-center gap-5">
                     {% if auth.role == 'player' %}
                         <div class="hidden sm:flex items-center gap-2 border-r-2 border-lavender-blush-base">
@@ -49,12 +51,15 @@
                         </div>
                         <a href="/profile"
                            class="flex items-center gap-2 hover:scale-105 ease-in-out transition-all group">
-                            <img id="pfpPlayerInHeader" src="/assets/img/pfp/{{ auth.pfpPath }}" alt="pfp" class="rounded-full size-8">
-                            <p class="font-semibold text-lavender-blush-base group-hover:border-b-2 hidden md:flex">{{ auth.loggedUsername }}</p>
+                            <img id="pfpPlayerInHeader" src="/assets/img/pfp/{{ auth.pfpPath }}" alt="pfp"
+                                 class="rounded-full size-8">
+                            <p id="headerUsername"
+                               class="font-semibold text-lavender-blush-base group-hover:border-b-2 hidden md:flex">{{ auth.loggedUsername }}</p>
                         </a>
 
                         <a href="/ranking">
-                            <svg class="hover:scale-110 ease-in-out transition-all hover:text-lavender-blush-base text-lavender-blush-base opacity-70 hover:opacity-100" xmlns="http://www.w3.org/2000/svg"
+                            <svg class="hover:scale-110 ease-in-out transition-all hover:text-lavender-blush-base text-lavender-blush-base opacity-70 hover:opacity-100"
+                                 xmlns="http://www.w3.org/2000/svg"
                                  width="1.5em" height="1.5em"
                                  viewBox="0 0 24 24">
                                 <path fill="currentColor"

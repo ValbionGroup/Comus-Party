@@ -11,6 +11,7 @@ namespace ComusParty\Controllers;
 
 use ComusParty\App\Exceptions\AuthenticationException;
 use ComusParty\App\Exceptions\MalformedRequestException;
+use ComusParty\App\Mailer;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
@@ -308,6 +309,9 @@ class ControllerAuth extends Controller
         if (is_null($player) && is_null($moderator)) {
             throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
         } elseif (!is_null($player)) {
+            $articleManager = new ArticleDAO($this->getPdo());
+            $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+            $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
             $_SESSION['role'] = 'player';
             $_SESSION['uuid'] = $player->getUuid();
             $_SESSION['username'] = $player->getUsername();
@@ -340,8 +344,6 @@ class ControllerAuth extends Controller
     }
 
 
-
-
     /**
      * @brief La méthode register permet d'inscrire un utilisateur
      * @details Vérifie si un utilisateur portant l'adresse e-mail fournie en paramètre existe.
@@ -359,7 +361,8 @@ class ControllerAuth extends Controller
      * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      * @todo Modifier le corps du mail (version HTMl) pour correspondre à la charte graphique (quand terminée)
      */
-    public function register(?string $username, ?string $email, ?string $password): void {
+    public function register(?string $username, ?string $email, ?string $password): void
+    {
 
         $rules = [
             'username' => [
@@ -384,7 +387,7 @@ class ControllerAuth extends Controller
 
         $validator = new Validator($rules);
 
-        if(!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
+        if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
             throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
         }
 
@@ -415,40 +418,17 @@ class ControllerAuth extends Controller
                 throw new Exception("Erreur lors de la création de l'utilisateur");
             }
 
-            // Envoi du mail avec phpmailer
-            $mail = new PHPMailer(true); // Création d'un objet PHPMailer
-            try {
-                // Configuration technique
-                $mail->isSMTP(); // Utilisation du protocole SMTP
-                $mail->Host = MAIL_HOST; // Hôte du serveur SMTP
-                $mail->SMTPAuth = true; // Authentification SMTP
-                $mail->SMTPSecure = MAIL_SECURITY; // Cryptage SMTP
-                $mail->Port = MAIL_PORT; // Port SMTP
-                $mail->CharSet = 'UTF-8';
-                $mail->Encoding = 'base64';
+            $subject = '🎉 Bienvenue sur Comus Party !';
+            $message =
+                '<p>Merci d\'avoir créé un compte sur notre plateforme de mini-jeux en ligne. 🎮</p>
+                <p>Pour commencer à jouer et rejoindre nos parties endiablées, il ne vous reste plus qu\'une étape :</p>
+                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre compte ici</a>
+                <p>À très bientôt dans l’arène ! 🎲,<br>
+                L\'équipe Comus Party 🚀</p>';
 
-                // Configuration de l'authentification
-                $mail->Username = MAIL_USER; // Nom d'utilisateur de l'expéditeur
-                $mail->Password = MAIL_PASS; // Mot de passe de l'expéditeur
-                $mail->setFrom(MAIL_FROM); // Adresse de l'expéditeur
-                $mail->addAddress($email); // Adresse du destinataire
-
-                // Configuration du message
-                $mail->isHTML(true); // Utilisation du format HTML pour le corps du message
-                $mail->Subject = 'Confirmation de votre compte' . MAIL_BASE; // Sujet du message
-                $mail->Body = // Corps du message
-                    '<p>Vous avez créé un compte sur Comus Party.</p>
-                    <p>Pour confirmer votre compte, cliquez sur le lien ci-dessous.</p>
-                    <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '"><button>Confirmer mon compte</button></a>';
-                $mail->AltBody = // Corps du message sans format HTML
-                    'Vous avez créé un compte sur Comus Party.
-                    Pour confirmer votre compte, cliquez sur le lien ci-dessous.
-                    "' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken);
-
-                $mail->send(); // Envoi du message
-            } catch (Exception $e) {
-                throw new Exception("Le mail n'a pas pu être envoyé. Erreur Mailer: {$mail->ErrorInfo}");
-            }
+            $confirmMail = new Mailer(array($email), $subject, $message);
+            $confirmMail->generateHTMLMessage();
+            $confirmMail->send();
 
             // Créer le joueur si l'utilisateur est créé avec succès
             $playerDAO->createPlayer($username, $email);
@@ -477,17 +457,18 @@ class ControllerAuth extends Controller
         }
     }
 
-/**
- * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
- *
- * @details Cette méthode utilise le token de vérification d'e-mail pour rechercher
- * l'utilisateur dans la base de données. Si l'utilisateur est trouvé, son compte est
- * confirmé et un message de confirmation est affiché. Sinon, un message d'erreur
- * est affiché. Le résultat de la confirmation est ensuite rendu à l'aide de Twig.
- *
- * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
- */
-    public function confirmEmail($emailVerifToken) {
+    /**
+     * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
+     *
+     * @details Cette méthode utilise le token de vérification d'e-mail pour rechercher
+     * l'utilisateur dans la base de données. Si l'utilisateur est trouvé, son compte est
+     * confirmé et un message de confirmation est affiché. Sinon, un message d'erreur
+     * est affiché. Le résultat de la confirmation est ensuite rendu à l'aide de Twig.
+     *
+     * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
+     */
+    public function confirmEmail($emailVerifToken)
+    {
         $userDAO = new UserDAO($this->getPdo());
         $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
         if ($user) {
