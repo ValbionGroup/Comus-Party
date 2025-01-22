@@ -206,4 +206,19 @@ class ControllerProfile extends Controller
         ]);
         exit;
     }
+
+
+    /**
+     * @brief Renvoi les informations de profil d'un joueur en JSON
+     * @param string $playerUuid L'UUID du joueur
+     * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function getPlayerInformations(string $playerUuid)
+    {
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findWithDetailByUuid($playerUuid);
+        $playerArray = $player->toArray();
+        echo json_encode($playerArray);
+    }
 }
