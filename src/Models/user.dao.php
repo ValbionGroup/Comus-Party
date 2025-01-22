@@ -236,12 +236,21 @@ class UserDAO
      * @param string $newPassword
      */
 
-    public function updatePassword(string $newPassword): bool {
+    public function updatePassword(string $newPassword): string {
         $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id SET U.password = :password WHERE P.uuid = :uuid");
-        $stmtUser->bindParam(':password', $newHashedPassword);
-        $stmtUser->bindParam(':uuid', $_SESSION['uuid']);
-        return $stmtUser->execute();
+        $stmt = $this->pdo->prepare("SELECT U.password FROM " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id WHERE P.uuid = :uuid");
+        $stmt->bindParam(':uuid', $_SESSION['uuid']);
+        $stmt->execute();
+        $actualPasswordUser = $stmt->fetch();
+        if($actualPasswordUser == $newHashedPassword){
+            return "Le nouveau mot de passe ne peut pas être identique à l'ancien";
+        }else{
+            $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id SET U.password = :password WHERE P.uuid = :uuid");
+            $stmtUser->bindParam(':password', $newHashedPassword);
+            $stmtUser->bindParam(':uuid', $_SESSION['uuid']);
+            return "Mot de passe modifié";
+        }
+
     }
 
 }

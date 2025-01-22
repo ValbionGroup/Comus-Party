@@ -37,14 +37,6 @@ let defaultPfp = document.getElementById("defaultPfp");
 let inputSelectedArticleId = document.getElementById("selectedArticleId");
 let inputSelectedArticleType = document.getElementById("selectedArticleType");
 
-let modals = document.querySelectorAll(".modal")
-let pfps = document.querySelectorAll(".pfp")
-let playerPfp = document.getElementById("pfpPlayer")
-let playerBanner = document.getElementById("bannerPlayer")
-let pfpPlayerInHeader = document.getElementById("pfpPlayerInHeader")
-let defaultPfp = document.getElementById("defaultPfp")
-let inputSelectedArticleId = document.getElementById("selectedArticleId")
-let inputSelectedArticleType = document.getElementById("selectedArticleType")
 
 let inputNewPassword = document.getElementById("newPassword");
 let inputNewPasswordConfirm = document.getElementById("newPasswordConfirm");
@@ -190,11 +182,6 @@ const LOWERCASE_LETTER = /[a-z]/;
 const NUMBERS = /\d/;
 const SPECIAL_CHARACTER = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
 
-
-
-
-
-
 /**
  * @brief Met à jour les messages d'erreur et les styles des inputs.
  *
@@ -272,6 +259,8 @@ function updatePassword(){
     if(isPasswordValid){
         makeRequest("POST", `/profile/update-password`, (response) => {
             response = JSON.parse(response)
+            console.log(response)
+            showNotification("Mot de passe modifier", "Votre mot de passe a bien été modifié", "green");
         }, `newPassword=${inputNewPassword.value}`);
 
 

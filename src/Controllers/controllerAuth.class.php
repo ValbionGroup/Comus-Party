@@ -473,6 +473,10 @@ class ControllerAuth extends Controller
         $confirmMail = new Mailer(array($email), $subject, $message);
         $confirmMail->generateHTMLMessage();
         $confirmMail->send();
+        echo json_encode([
+            'success' => true,
+            'res' => $res
+        ]);
     }
 
 
