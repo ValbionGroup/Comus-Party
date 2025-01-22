@@ -47,7 +47,7 @@ class Game implements MessageComponentInterface
         $game = $data['game'];
         $command = $data['command'];
 
-        if (!isset($this->rooms[$game])) {
+        if (!isset($this->games[$game])) {
             $this->games[$game] = [];
         }
 
@@ -57,9 +57,9 @@ class Game implements MessageComponentInterface
 
         switch ($command) {
             case 'joinGame':
-            case 'leaveGame':
                 $this->updatePlayer($game);
                 break;
+            case 'leaveGame':
             case 'startGame':
                 $this->redirectUserToGame($game, $uuid);
                 break;
