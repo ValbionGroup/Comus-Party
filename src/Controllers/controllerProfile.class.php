@@ -19,6 +19,7 @@ use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
+use Exception;
 use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -278,7 +279,7 @@ class ControllerProfile extends Controller
             $confirmMail = new Mailer(array($email), $subject, $message);
             $confirmMail->generateHTMLMessage();
             $confirmMail->send();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo json_encode([
                 'success' => false,
                 'error' => 'Une erreur est survenue lors de l\'envoi du mail de confirmation'
