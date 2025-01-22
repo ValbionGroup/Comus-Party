@@ -178,7 +178,7 @@ $router->post('/register', function () use ($loader, $twig) {
 }, 'guest');
 
 $router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
+    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token, "isLoggedIn" => isset($_SESSION['uuid'])]);
     exit;
 }, '*');
 
