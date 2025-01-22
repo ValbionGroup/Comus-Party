@@ -109,7 +109,7 @@ class ControllerAuth extends Controller
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
-        $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(32)), new DateTime());
+        $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(30)), new DateTime());
         $tokenManager->insert($token);
 
         $url = BASE_URL . "/reset-password/" . $token->getToken();
