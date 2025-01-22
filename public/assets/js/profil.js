@@ -217,10 +217,10 @@ function editUsername() {
 function editMail() {
     let email = newEmail.value;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showNotification("Oups...", "Votre adresse email n'est pas valide", "red");
+        showNotification("Oups...", "Votre adresse email n'est pas valide", 'red');
         return;
     }
-
+    showNotification('Attendez !', 'Verification de votre adresse email', 'yellow');
     makeRequest(
         'POST',
         `/profile/update-email`,
