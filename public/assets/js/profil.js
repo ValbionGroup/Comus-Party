@@ -175,6 +175,7 @@ function showModalUsernameEdit() {
 
 function editUsername() {
     let username = newUsername.value;
+    newUsername.value = '';
     if (username.length < 3 || username.length > 120) {
         showNotification("Oups...", "Votre nom d'utilisateur doit contenir entre 3 et 120 caractères", "red");
         return;
