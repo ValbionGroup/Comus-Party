@@ -131,9 +131,12 @@ class UserDAO
         return $stmt->execute();
     }
 
-
+    /**
+     * @brief Retourne l'email de l'user en fonction de l'uuid passé en paramètre
+     * @param string $uuid
+     * @return string
+     */
     public function findEmailByUuid(string $uuid){
-//        SELECT U.email FROM cp_user U JOIN cp_player P ON U.id = P.user_id WHERE P.uuid = "uuid2"
         $stmt = $this->pdo->prepare("SELECT U.email FROM " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id WHERE P.uuid = :uuid");
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
@@ -234,6 +237,7 @@ class UserDAO
     /**
      * @brief Modifie le mot de passe d'un utilisateur
      * @param string $newPassword
+     * @return bool Retourne true si le mot de passe a bien été modifié, false sinon
      */
 
     public function updatePassword(string $newPassword): string {
