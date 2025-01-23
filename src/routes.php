@@ -178,9 +178,9 @@ $router->post('/register', function () use ($loader, $twig) {
 }, 'guest');
 
 $router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
+    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token, "isLoggedIn" => isset($_SESSION['uuid'])]);
     exit;
-}, 'guest');
+}, '*');
 
 $router->get('/forgot-password', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
@@ -284,5 +284,10 @@ $router->post('/game/:code/end', function ($code) use ($loader, $twig) {
 
 $router->put('/profile/update-username/:username', function ($username) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateUsername", ["username" => $username]);
+    exit;
+}, 'player');
+
+$router->post('/profile/update-email', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("updateEmail", ["email" => $_POST['newEmail']]);
     exit;
 }, 'player');

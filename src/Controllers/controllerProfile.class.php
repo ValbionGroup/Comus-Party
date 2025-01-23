@@ -13,11 +13,14 @@ use ComusParty\App\Exceptions\ControllerNotFoundException;
 use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\App\Mailer;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
+use Exception;
+use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -73,7 +76,7 @@ class ControllerProfile extends Controller
         } else {
             $bannerPath = $banner->getFilePath();
         }
-        $pfpsOwned = $articleManager->findAllPfpsOwnedByPlayer ($player->getUuid());
+        $pfpsOwned = $articleManager->findAllPfpsOwnedByPlayer($player->getUuid());
         $bannersOwned = $articleManager->findAllBannersOwnedByPlayer($player->getUuid());
         $template = $this->getTwig()->load('player/profil.twig');
         echo $template->render(array(
@@ -135,11 +138,11 @@ class ControllerProfile extends Controller
         $idArticle = intval($idArticle);
         $articleManager = new ArticleDAO($this->getPdo());
         // 0 représente la photo de profil par défaut et -1 la bannière par défaut
-        if($idArticle >= 1){
+        if ($idArticle >= 1) {
             $typeArticle = $articleManager->findById($idArticle)->getType()->name;
         }
 
-        if($idArticle == 0){
+        if ($idArticle == 0) {
 
             $articleManager->deleteActiveArticleForPfp($player->getUuid());
             $_SESSION['pfpPath'] = "default-pfp.jpg";
@@ -147,14 +150,14 @@ class ControllerProfile extends Controller
                 'articlePath' => "default-pfp.jpg",
             ]);
         }
-        if ($idArticle == -1){
+        if ($idArticle == -1) {
             $articleManager->deleteActiveArticleForBanner($player->getUuid());
             $_SESSION['bannerPath'] = "default-banner.jpg";
             echo json_encode([
                 'articlePath' => "default-banner.jpg",
             ]);
         }
-        if($idArticle != 0 && $idArticle != -1){
+        if ($idArticle != 0 && $idArticle != -1) {
             $articleManager->updateActiveArticle($player->getUuid(), $idArticle, $typeArticle);
             $article = $articleManager->findById($idArticle);
 
@@ -201,6 +204,83 @@ class ControllerProfile extends Controller
         $player->setUsername($username);
         $playerManager->update($player);
         $_SESSION['username'] = $username;
+        echo json_encode([
+            'success' => true
+        ]);
+        exit;
+    }
+
+    /**
+     * @brief Permet de mettre à jour l'email d'un joueur
+     * @param string $email Le nouvel email
+     * @return void
+     * @throws DateMalformedStringException
+     * @throws RandomException
+     */
+    public function updateEmail(string $email): void
+    {
+        $validator = new Validator([
+            'email' => [
+                'required' => true,
+                'type' => 'string',
+                'format' => FILTER_VALIDATE_EMAIL
+            ]
+        ]);
+
+        if (!$validator->validate(['email' => $email])) {
+            echo json_encode([
+                'success' => false,
+                'error' => $validator->getErrors()['email']
+            ]);
+            exit;
+        }
+
+        $userManager = new UserDAO($this->getPdo());
+        $user = $userManager->findByEmail($email);
+
+        if (!is_null($user)) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Cet e-mail est déjà utilisé'
+            ]);
+            exit;
+        }
+
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findByUuid($_SESSION['uuid']);
+        $user = $userManager->findById($player->getUserId());
+        if (is_null($user)) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Utilisateur non trouvé'
+            ]);
+            exit;
+        }
+
+        
+        $emailVerifToken = bin2hex(random_bytes(30));
+        $userManager->updateEmail($user->getId(), $email, $emailVerifToken);
+
+        $subject = 'Modification de votre adresse e-mail';
+        $message =
+            '<p>Confirmer votre nouvelle adresse email.</p>
+                <p>Pour pouvoir continuer à jouer et rejoindre nos parties endiablées, il ne vous reste plus qu\'une étape :</p>
+                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre nouvelle adresse email</a>
+                <p>À très bientôt dans l’arène ! 🎲,<br>
+                L\'équipe Comus Party 🚀</p>';
+        try {
+            $confirmMail = new Mailer(array($email), $subject, $message);
+            $confirmMail->generateHTMLMessage();
+            $confirmMail->send();
+        } catch (Exception $e) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Une erreur est survenue lors de l\'envoi du mail de confirmation'
+            ]);
+            exit;
+        }
+
+
         echo json_encode([
             'success' => true
         ]);
