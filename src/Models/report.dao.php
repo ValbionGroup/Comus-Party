@@ -86,4 +86,25 @@ class ReportDAO
         }
         return $reports;
     }
+
+    /**
+     * @brief Récupère tous les signalements en base de données qui ne sont pas traités
+     * @return array|null Un tableau de signalements ou null si aucun signalement en attente
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function findAllWaiting(): ?array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT *
+            FROM ' . DB_PREFIX . 'report
+            WHERE treated_by IS NULL'
+        );
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $reportsTab = $stmt->fetchAll();
+        if (!$reportsTab) {
+            return null;
+        }
+        return $this->hydrateMany($reportsTab);
+    }
 }
