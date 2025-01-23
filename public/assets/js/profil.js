@@ -241,8 +241,11 @@ function matchPassword(){
     if(inputNewPasswordConfirm.value === inputNewPassword.value){
         confirmPasswordBtn.disabled = false
         divConfirmPasswordBtn.classList.remove("opacity-50")
+        updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", true, "");
+
     }else{
         confirmPasswordBtn.disabled = true
+        updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", inputNewPassword.value === inputNewPasswordConfirm.value, "Les mots de passe ne correspondent pas");
     }
 }
 

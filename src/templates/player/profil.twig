@@ -197,7 +197,7 @@
                             <input class="mb-4 p-2 w-full text-black input" type="password" minlength="8" maxlength="64" id="newPasswordConfirm" onkeyup="matchPassword()"
                                    placeholder="Confirmez votre nouveau mot de passe" name="newPswdConf">
                         </label>
-
+                        <p class="input-error-text text-red-600 hidden" id="notMachingPasswords"></p>
                         <!-- Bouton de confirmation -->
                         <div class="flex items-center justify-center gap-1 btn-success cursor-pointer opacity-50" id="divConfirmPasswordBtn">
                             <input type="submit" value="Confirmer" id="confirmPasswordBtn" onclick="updatePassword()">
