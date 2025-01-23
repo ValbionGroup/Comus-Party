@@ -12,6 +12,39 @@ namespace ComusParty\Models;
 use DateTime;
 
 /**
+ * @brief Les 4 thèmes pour les signalements
+ * @enum ReportObject
+ */
+enum ReportObject
+{
+    /**
+     * @brief Langage / propos incorrect
+     */
+    case LANGUAGE;
+
+    /**
+     * @brief Spam dans le chat
+     */
+    case SPAM;
+
+    /**
+     * @brief Publicité ou lien de partage
+     */
+    case LINKS;
+
+    /**
+     * @brief Anti-jeu ou manque de fairplay
+     */
+    case FAIRPLAY;
+
+    /**
+     * @biref Autres
+     */
+    case OTHER;
+}
+
+
+/**
  * @brief Classe Report
  * @description La classe report permet de représenter les signalements effectués par les joueurs sur la plateforme
  */
@@ -25,10 +58,9 @@ class Report
 
     /**
      * @brief Objet du signalement
-     * @details L'objet est une courte phrase permettant aux modérateurs de connaître le thème du signalement.
-     * @var string|null
+     * @var ReportObject|null
      */
-    private ?string $object;
+    private ?ReportObject $object;
 
     /**
      * @brief Description du signalement
@@ -68,7 +100,7 @@ class Report
 
     /**
      * @param int|null $id Identifiant du signalement
-     * @param string|null $object Objet du signalement
+     * @param ReportObject|null $object Objet du signalement
      * @param string|null $description Description du signalement
      * @param string|null $treatedBy UUID du modérateur ayant traité le signalement
      * @param string|null $reportedUuid UUID du joueur signalé
@@ -78,7 +110,7 @@ class Report
      */
     public function __construct(
         ?int $id = null,
-        ?string $object = null,
+        ?ReportObject $object = null,
         ?string $description = null,
         ?string $treatedBy = null,
         ?string $reportedUuid = null,
@@ -117,19 +149,19 @@ class Report
 
     /**
      * @brief Retourne l'objet du signalement
-     * @return string|null L'objet du signalement
+     * @return ReportObject|null L'objet du signalement
      */
-    public function getObject(): ?string
+    public function getObject(): ?ReportObject
     {
         return $this->object;
     }
 
     /**
      * @brief Définit l'objet du signalement
-     * @param string|null $object Le nouvel objet du signalement
+     * @param ReportObject|null $object Le nouvel objet du signalement
      * @return void
      */
-    public function setObject(?string $object): void
+    public function setObject(?ReportObject $object): void
     {
         $this->object = $object;
     }
