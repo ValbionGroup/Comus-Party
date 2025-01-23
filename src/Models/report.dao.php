@@ -64,7 +64,7 @@ class ReportDAO
         $report->setId($data['id']);
         $report->setObject(
             match ($data['object']) {
-                'bug' => ReportObject::LANGUAGE,
+                'language' => ReportObject::LANGUAGE,
                 'spam' => ReportObject::SPAM,
                 'links' => ReportObject::LINKS,
                 'fairplay' => ReportObject::FAIRPLAY,

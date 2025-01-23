@@ -131,11 +131,11 @@
                                     <div class="flex">
                                         <p class="underline mr-1">Thème : </p>
                                         <p>
-                                            {% if suggestion.object == enum('ComusParty\\Models\\ReportObject').LANGUAGE %}🗣️ Langage{% endif %}
-                                            {% if suggestion.object == enum('ComusParty\\Models\\ReportObject').SPAM %}💬 Spam{% endif %}
-                                            {% if suggestion.object == enum('ComusParty\\Models\\ReportObject').LINKS %}📢 Publicité{% endif %}
-                                            {% if suggestion.object == enum('ComusParty\\Models\\ReportObject').FAIRPLAY %}👥 Fairplay{% endif %}
-                                            {% if suggestion.object == enum('ComusParty\\Models\\ReportObject').default %} Autres{% endif %}
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').LANGUAGE %}🗣️ Langage{% endif %}
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').SPAM %}💬 Spam{% endif %}
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').LINKS %}📢 Publicité{% endif %}
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').FAIRPLAY %}👥 Fairplay{% endif %}
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').default %} Autres{% endif %}
                                         </p>
                                     </div>
                                     <div>
