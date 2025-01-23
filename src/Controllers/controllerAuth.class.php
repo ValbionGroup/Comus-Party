@@ -475,7 +475,7 @@ class ControllerAuth extends Controller
         }else{
             $email = $userDAO->findEmailByUuid($_SESSION['uuid']);
             $subject = 'Modification de mot-de-passe';
-            $message = '<p>Vous venez de modifier votre mot-de-passe sur Comus Party !</p>';
+            $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
             $confirmMail = new Mailer(array($email), $subject, $message);
             $confirmMail->generateHTMLMessage();
             $confirmMail->send();
