@@ -96,9 +96,8 @@ function showProfile(searchBy, data) {
                 month: 'long',
                 year: 'numeric'
             });
+            playerInfoDiv.classList.remove("hidden");
+            showBackgroundModal();
         }
     };
-    playerInfoDiv.classList.remove("hidden");
-
-    showBackgroundModal();
 }
