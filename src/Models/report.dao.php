@@ -62,7 +62,15 @@ class ReportDAO
     public function hydrate(array $data): Report {
         $report = new Report();
         $report->setId($data['id']);
-        $report->setObject($data['object']);
+        $report->setObject(
+            match ($data['object']) {
+                'bug' => ReportObject::LANGUAGE,
+                'spam' => ReportObject::SPAM,
+                'links' => ReportObject::LINKS,
+                'fairplay' => ReportObject::FAIRPLAY,
+                'other' => ReportObject::OTHER
+            }
+        );
         $report->setDescription($data['description']);
         $report->setTreatedBy($data['treated_by']);
         $report->setReportedUuid($data['reported_uuid']);
