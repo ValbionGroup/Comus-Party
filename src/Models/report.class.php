@@ -37,15 +37,6 @@ class Report
     private ?string $description;
 
     /**
-     * @brief Statut du signalement
-     * @details Le booléen représente l'état "traité" du signalement :
-     *  - TRUE si celui-ci est traité
-     *  - FALSE sinon
-     * @var bool|null
-     */
-    private ?bool $treated;
-
-    /**
      * @brief UUID du modérateur ayant traité le signalement (null si pas encore traité)
      * @var string|null
      */
@@ -163,25 +154,6 @@ class Report
     public function setDescription(?string $description): void
     {
         $this->description = $description;
-    }
-
-    /**
-     * @brief Retourne l'état de traitement du signalement
-     * @return bool|null L'état de traitement du signalement
-     */
-    public function getTreated(): ?bool
-    {
-        return $this->treated;
-    }
-
-    /**
-     * @brief Définit l'état de traitement du signalement
-     * @param bool|null $treated Le nouvel état de traitement du signalement
-     * @return void
-     */
-    public function setTreated(?bool $treated): void
-    {
-        $this->treated = $treated;
     }
 
     /**

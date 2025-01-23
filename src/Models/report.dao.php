@@ -64,7 +64,6 @@ class ReportDAO
         $report->setId($data['id']);
         $report->setObject($data['object']);
         $report->setDescription($data['description']);
-        $report->setTreated($data['treated']);
         $report->setTreatedBy($data['treated_by']);
         $report->setReportedUuid($data['reported_uuid']);
         $report->setSenderUuid($data['sender_uuid']);

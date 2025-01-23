@@ -347,7 +347,6 @@ CREATE TABLE `cp_report`
     `id`            bigint(20)                   NOT NULL,
     `object`        enum ('language','fairplay') NOT NULL,
     `description`   text                         NOT NULL,
-    `treated`       tinyint(1)                   NOT NULL DEFAULT 0,
     `treated_by`    varchar(63)                           DEFAULT NULL,
     `reported_uuid` varchar(63)                  NOT NULL,
     `sender_uuid`   varchar(63)                  NOT NULL,
