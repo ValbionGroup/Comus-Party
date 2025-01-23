@@ -227,6 +227,7 @@ function editMail() {
         (response) => {
             response = JSON.parse(response);
             if (response.success) {
+                newEmail.value = "";
                 pEmail.textContent = email;
                 showNotification('Parfait !', 'Votre adresse email a bien été modifié', 'green');
                 modalEditEmail.classList.add("hidden");
