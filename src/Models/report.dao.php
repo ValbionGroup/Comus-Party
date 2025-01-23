@@ -68,7 +68,7 @@ class ReportDAO
                 'spam' => ReportObject::SPAM,
                 'links' => ReportObject::LINKS,
                 'fairplay' => ReportObject::FAIRPLAY,
-                'other' => ReportObject::OTHER
+                default => ReportObject::OTHER
             }
         );
         $report->setDescription($data['description']);
