@@ -70,7 +70,6 @@ class Report
      * @param int|null $id Identifiant du signalement
      * @param string|null $object Objet du signalement
      * @param string|null $description Description du signalement
-     * @param bool|null $treated État de traitement du signalement
      * @param string|null $treatedBy UUID du modérateur ayant traité le signalement
      * @param string|null $reportedUuid UUID du joueur signalé
      * @param string|null $senderUuid UUID du joueur ayant rédigé le signalement
@@ -81,7 +80,6 @@ class Report
         ?int $id = null,
         ?string $object = null,
         ?string $description = null,
-        ?bool $treated = null,
         ?string $treatedBy = null,
         ?string $reportedUuid = null,
         ?string $senderUuid = null,
@@ -91,7 +89,6 @@ class Report
         $this->id = $id;
         $this->object = $object;
         $this->description = $description;
-        $this->treated = $treated;
         $this->treatedBy = $treatedBy;
         $this->reportedUuid = $reportedUuid;
         $this->senderUuid = $senderUuid;
