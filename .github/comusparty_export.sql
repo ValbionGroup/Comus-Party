@@ -360,11 +360,11 @@ CREATE TABLE `cp_report`
 -- Déchargement des données de la table `cp_report`
 --
 
-INSERT INTO `cp_report` (`id`, `object`, `description`, `treated`, `treated_by`, `reported_uuid`, `sender_uuid`,
+INSERT INTO `cp_report` (`id`, `object`, `description`, `treated_by`, `reported_uuid`, `sender_uuid`,
                          `created_at`, `updated_at`)
-VALUES (1, 'language', 'Inappropriate language used', 1, 'mod_uuid1', 'uuid1', 'uuid2', '2024-11-13 15:18:39',
+VALUES (1, 'language', 'Inappropriate language used', 'mod_uuid1', 'uuid1', 'uuid2', '2024-11-13 15:18:39',
         '2024-11-13 15:18:39'),
-       (2, '', 'Cheating behavior observed', 0, NULL, 'uuid4', 'uuid3', '2024-11-14 08:15:02', '2024-11-14 08:15:02');
+       (2, '', 'Cheating behavior observed', NULL, 'uuid4', 'uuid3', '2024-11-14 08:15:02', '2024-11-14 08:15:02');
 
 -- --------------------------------------------------------
 
