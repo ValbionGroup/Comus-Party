@@ -259,6 +259,7 @@ function updatePassword(){
         LOWERCASE_LETTER.test(inputNewPassword.value) &&
         NUMBERS.test(inputNewPassword.value) &&
         SPECIAL_CHARACTER.test(inputNewPassword.value);
+    showNotification("En attente...", "Veuillez patienter", "yellow");
     if(isPasswordValid){
         makeRequest("POST", `/profile/update-password`, (response) => {
             response = JSON.parse(response)
