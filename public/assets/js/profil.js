@@ -259,8 +259,19 @@ function updatePassword(){
     if(isPasswordValid){
         makeRequest("POST", `/profile/update-password`, (response) => {
             response = JSON.parse(response)
-            console.log(response)
-            showNotification("Mot de passe modifier", "Votre mot de passe a bien été modifié", "green");
+            if(response.success){
+                inputNewPassword.value = ""
+                inputNewPasswordConfirm.value = ""
+                confirmPasswordBtn.disabled = true
+                divConfirmPasswordBtn.classList.add("opacity-50")
+                showNotification("Mot de passe modifier", "Votre mot de passe a bien été modifié", "green");
+            }else{
+                inputNewPassword.value = ""
+                inputNewPasswordConfirm.value = ""
+                confirmPasswordBtn.disabled = true
+                divConfirmPasswordBtn.classList.add("opacity-50")
+                showNotification("Mot de passe similaire", "Vous ne pouvez pas mettre un mot de passe similaire", "red");
+            }
         }, `newPassword=${inputNewPassword.value}`);
 
 
