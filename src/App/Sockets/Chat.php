@@ -29,8 +29,7 @@ class Chat implements MessageComponentInterface
     public function onOpen(ConnectionInterface $conn)
     {
         // Récupérer le lien auquel il est connecté
-        $path = $conn->httpRequest->getUri()->getPath();
-        $gameCode = explode(basename($path), $path)[1];
+        $gameCode = explode("=", $conn->httpRequest->getUri()->getQuery())[1];
 
         if (!isset($this->games[$gameCode])) {
             $this->games[$gameCode] = [];
@@ -46,7 +45,7 @@ class Chat implements MessageComponentInterface
 
         if (!isset($data["content"]) || !isset($data["author"]) || !isset($data["game"])) {
             return;
-        };
+        }
 
         $content = $this->escape($data["content"]);
         $author = $this->escape($data["author"]);
@@ -68,11 +67,16 @@ class Chat implements MessageComponentInterface
         }
     }
 
+    protected function escape(string $string): string
+    {
+        return htmlspecialchars($string);
+    }
+
     public function onClose(ConnectionInterface $conn)
     {
         // Retirer le joueur
         foreach ($this->games as $gameId => &$players) {
-            $players = array_filter($players, function($player) use ($conn) {
+            $players = array_filter($players, function ($player) use ($conn) {
                 return $player !== $conn;
             });
 
@@ -90,10 +94,5 @@ class Chat implements MessageComponentInterface
         echo "An error has occurred: {$e->getMessage()}\n";
 
         $conn->close();
-    }
-
-    protected function escape(string $string): string
-    {
-        return htmlspecialchars($string);
     }
 }
