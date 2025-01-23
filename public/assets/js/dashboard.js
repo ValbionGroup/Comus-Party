@@ -108,3 +108,7 @@ function acceptSuggest(e) {
         }
     };
 }
+
+function showModalReport(e) {
+
+}
