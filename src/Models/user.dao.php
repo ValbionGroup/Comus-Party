@@ -252,8 +252,7 @@ class UserDAO
             $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id SET U.password = :password WHERE P.uuid = :uuid");
             $stmtUser->bindParam(':password', $newHashedPassword);
             $stmtUser->bindParam(':uuid', $_SESSION['uuid']);
-            $stmtUser->execute();
-            return true;
+            return $stmtUser->execute();
         }
 
     }
