@@ -56,10 +56,10 @@ class Game implements MessageComponentInterface
         }
 
         switch ($command) {
+            case 'quitGame':
             case 'joinGame':
                 $this->updatePlayer($game);
                 break;
-            case 'leaveGame':
             case 'startGame':
                 $this->redirectUserToGame($game, $uuid);
                 break;
@@ -104,6 +104,7 @@ class Game implements MessageComponentInterface
         foreach ($this->games as $game => $clients) {
             $key = array_search($conn, $clients);
             if ($key !== false) {
+                $this->updatePlayer($game);
                 unset($this->games[$game][$key]);
             }
         }
