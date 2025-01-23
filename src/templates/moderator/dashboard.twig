@@ -21,27 +21,32 @@
             <div class="flex flex-col gap-4 h-full w-[calc(100%-2rem)] lg:w-[calc(33%-2rem)]">
                 <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Suggestions en attente</p>
-                    <div class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto">
-                        {% for suggestion in suggestions %}
-                            <div id="{{ suggestion.id }}"
-                                 class="flex p-2 bg-night-base rounded-md hover:cursor-pointer hover:scale-105 transition-all ease-in-out justify-between"
-                                 onclick="showModalSuggest(this)">
-                                <div class="flex">
-                                    <p class="underline mr-1">Thème : </p>
-                                    <p>
-                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').BUG %}🐛 Bug{% endif %}
-                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').GAME %}🎮 Jeu{% endif %}
-                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').UI %}📲 Interface Utilisateur{% endif %}
-                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').OTHER %}🔧 Autres{% endif %}
-                                    </p>
+                    <div class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto {% if suggestions == null %}justify-center{% endif %}">
+                        {% if suggestions == null %}
+                        <p class="flex flex-col items-center text-center">
+                            <span class="text-xl font-semibold">Félicitations !</span>
+                            Aucune suggestion en attente de traitement</p>
+                        {% else %}
+                            {% for suggestion in suggestions %}
+                                <div id="{{ suggestion.id }}"
+                                     class="flex p-2 bg-night-base rounded-md hover:cursor-pointer hover:scale-105 transition-all ease-in-out justify-between"
+                                     onclick="showModalSuggest(this)">
+                                    <div class="flex">
+                                        <p class="underline mr-1">Thème : </p>
+                                        <p>
+                                            {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').BUG %}🐛 Bug{% endif %}
+                                            {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').GAME %}🎮 Jeu{% endif %}
+                                            {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').UI %}📲 Interface Utilisateur{% endif %}
+                                            {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').OTHER %}🔧 Autres{% endif %}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        {{ suggestion.createdAt|time_diff }}
+                                    </div>
                                 </div>
-                                <div>
-                                    {{ suggestion.createdAt|time_diff }}
-                                </div>
-                            </div>
 
-                        {% endfor %}
-                        <div id="modalSuggestion"
+                            {% endfor %}
+                            <div id="modalSuggestion"
                              class="modal hidden w-full sm:w-1/2 bg-lavender-blush-2 dark:bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl z-50">
                             <div class="modal-content m-2">
                                 <div class="flex items-center justify-between">
@@ -106,6 +111,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
