@@ -13,7 +13,7 @@ use DateTime;
 
 /**
  * @brief Classe Report
- * @description La classe report est permet de représenter les signalements effectués par les joueurs sur la plateforme
+ * @description La classe report permet de représenter les signalements effectués par les joueurs sur la plateforme
  */
 class Report
 {
