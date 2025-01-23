@@ -257,14 +257,7 @@ class ControllerProfile extends Controller
             exit;
         }
 
-        if (!is_null($user->getEmailVerifyToken())) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'Vous avez déjà une demande de changement d\'adresse e-mail en attente de confirmation'
-            ]);
-            exit;
-        }
-
+        
         $emailVerifToken = bin2hex(random_bytes(30));
         $userManager->updateEmail($user->getId(), $email, $emailVerifToken);
 
