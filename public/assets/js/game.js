@@ -1,4 +1,5 @@
 const gameCode = document.getElementById('gameCode').value;
+const playerUuid = document.getElementById('localPlayerUuid').value;
 
 function setVisibilityPublic(gameCode, isPublic) {
     const visibilityButton = document.getElementById('visibilityBtn');
@@ -29,6 +30,7 @@ function quitGameAndBackHome(gameCode) {
         .then((response) => response.json())
         .then((response) => {
             if (response.success) {
+                gameConnection.send(JSON.stringify({uuid: playerUuid, command: 'quitGame', game: gameCode}));
                 window.location.href = '/';
             } else {
                 showNotification('Oups...', `Une erreur est survenue lors de la suppression de la partie\n${response.message}`, 'red');
@@ -94,7 +96,7 @@ const gameConnection = new WebSocket('ws://localhost:8315/game/' + gameCode);
 gameConnection.onopen = function (e) {
     console.log("Connexion établie avec GAME_SOCKET !");
 
-    gameConnection.send(JSON.stringify({uuid: 'uuid1', command: 'joinGame', game: gameCode}));
+    gameConnection.send(JSON.stringify({uuid: playerUuid, command: 'joinGame', game: gameCode}));
 };
 gameConnection.onmessage = function (e) {
     const data = JSON.parse(e.data);
