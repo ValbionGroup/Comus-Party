@@ -21,27 +21,32 @@
             <div class="flex flex-col gap-4 h-full w-[calc(100%-2rem)] lg:w-[calc(33%-2rem)]">
                 <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Suggestions en attente</p>
-                    <div class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto">
-                        {% for suggestion in suggestions %}
-                            <div id="{{ suggestion.id }}"
-                                 class="flex p-2 bg-night-base rounded-md hover:cursor-pointer hover:scale-105 transition-all ease-in-out justify-between"
-                                 onclick="showModalSuggest(this)">
-                                <div class="flex">
-                                    <p class="underline mr-1">Thème : </p>
-                                    <p>
-                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').BUG %}🐛 Bug{% endif %}
-                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').GAME %}🎮 Jeu{% endif %}
-                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').UI %}📲 Interface Utilisateur{% endif %}
-                                        {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').OTHER %}🔧 Autres{% endif %}
-                                    </p>
+                    <div class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto {% if suggestions == null %}justify-center{% endif %}">
+                        {% if suggestions == null %}
+                        <p class="flex flex-col items-center text-center">
+                            <span class="text-xl font-semibold">Félicitations !</span>
+                            Aucune suggestion en attente de traitement</p>
+                        {% else %}
+                            {% for suggestion in suggestions %}
+                                <div id="{{ suggestion.id }}"
+                                     class="flex p-2 bg-night-base rounded-md hover:cursor-pointer hover:scale-105 transition-all ease-in-out justify-between"
+                                     onclick="showModalSuggest(this)">
+                                    <div class="flex">
+                                        <p class="underline mr-1">Thème : </p>
+                                        <p>
+                                            {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').BUG %}🐛 Bug{% endif %}
+                                            {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').GAME %}🎮 Jeu{% endif %}
+                                            {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').UI %}📲 Interface Utilisateur{% endif %}
+                                            {% if suggestion.object == enum('ComusParty\\Models\\SuggestObject').OTHER %}🔧 Autres{% endif %}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        {{ suggestion.createdAt|time_diff }}
+                                    </div>
                                 </div>
-                                <div>
-                                    {{ suggestion.createdAt|time_diff }}
-                                </div>
-                            </div>
 
-                        {% endfor %}
-                        <div id="modalSuggestion"
+                            {% endfor %}
+                            <div id="modalSuggestion"
                              class="modal hidden w-full sm:w-1/2 bg-lavender-blush-2 dark:bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl z-50">
                             <div class="modal-content m-2">
                                 <div class="flex items-center justify-between">
@@ -106,17 +111,111 @@
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="flex flex-col gap-4 h-full w-[calc(100%-3rem)] lg:w-[calc(33%-2rem)]">
                 <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Signalements en attente</p>
-                    <div class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto">
-                        <p>Signalement 1</p>
-                        <p>Signalement 2</p>
-                        <p>Signalement 3</p>
+                    <div class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto {% if reports == null %}justify-center{% endif %}">
+                        {% if reports == null %}
+                            <p class="flex flex-col items-center text-center">
+                                <span class="text-xl font-semibold">Félicitations !</span>
+                                    Aucun signalement en attente de traitement</p>
+                        {% else %}
+                            {% for report in reports %}
+                                <div id="{{ report.id }}"
+                                     class="flex p-2 bg-night-base rounded-md hover:cursor-pointer hover:scale-105 transition-all ease-in-out justify-between"
+                                     onclick="showModalReport(this)">
+                                    <div class="flex">
+                                        <p class="underline mr-1">Thème : </p>
+                                        <p>
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').LANGUAGE %}🗣️ Langage{% endif %}
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').SPAM %}💬 Spam{% endif %}
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').LINKS %}📢 Publicité{% endif %}
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').FAIRPLAY %}👥 Fairplay{% endif %}
+                                            {% if report.object == enum('ComusParty\\Models\\ReportObject').default %} Autres{% endif %}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        {{ report.createdAt|time_diff }}
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                            <div id="modalReport"
+                             class="modal hidden w-full sm:w-1/2 bg-lavender-blush-2 dark:bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl z-50">
+                            <div class="modal-content m-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="pb-2">
+                                        <p class="text-2xl font-bold">Traitement du signalement
+                                            n°<span id="spanIdSuggest"></span></p>
+                                    </div>
+                                    <div class="end-1">
+                                        <button onclick="closeModal()">
+                                            <svg class="hover:scale-125 hover:text-red-500 transition-all ease-in-out"
+                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24">
+                                                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                    <path stroke-linecap="round" d="M6 18l12-12M6 6l12 12"/>
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="pt-5 text-justify flex flex-col gap-5 w-full">
+                                    <div class="flex flex-col gap-5">
+                                        <p class="text-xl"><span class="font-semibold underline">Thème :</span>
+                                            <span id="spanObjectReport"></span>
+                                        </p>
+                                        <p class="text-xl"><span
+                                                    class="font-semibold underline">Auteur :</span> <span
+                                                    id="spanAuthorReport"></span>
+                                        </p>
+                                        <p class="text-xl"><span
+                                                    class="font-semibold underline">Joueur signalé :</span> <span
+                                                    id="spanReportedUuid"></span>
+                                        </p>
+                                        <p class="text-xl"><span
+                                                    class="font-semibold underline">Description du signalement :</span> <span
+                                                    id="spanDescriptionReport"></span>
+                                        </p>
+                                    </div>
+                                    <div class="h-12 text-white justify-around flex mt-8">
+                                        <input type="hidden" id="idSuggestion" value="">
+                                        <button class="w-40 h-10 bg-yellow-800 hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110"
+                                                onclick="acceptReport(this)">
+                                                <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-200 ease-out">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                            <path d="m15 12l-8.373 8.373a1 1 0 1 1-3-3L12 9m6 6l4-4" />
+                                                            <path d="m21.5 11.5l-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" />
+                                                        </g>
+                                                    </svg>
+                                                </span>
+                                            <span class="absolute opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-out">Sanctionner le joueur</span>
+                                        </button>
+                                        <button class="w-40 h-10 bg-red-500 hover:bg-night-1 dark:hover:bg-lavender-blush-base dark:hover:text-night-1 text-lavender-blush-base rounded-lg flex items-center justify-center relative transition-all duration-300 group hover:scale-110"
+                                                onclick="denyReport(this)">
+                                            <span class="absolute opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75 transition-all duration-300 ease-out">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                         viewBox="0 0 24 24">
+                                                        <path fill="currentColor" fill-rule="evenodd"
+                                                              d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10M8.97 8.97a.75.75 0 0 1 1.06 0L12 10.94l1.97-1.97a.75.75 0 0 1 1.06 1.06L13.06 12l1.97 1.97a.75.75 0 0 1-1.06 1.06L12 13.06l-1.97 1.97a.75.75 0 0 1-1.06-1.06L10.94 12l-1.97-1.97a.75.75 0 0 1 0-1.06"
+                                                              clip-rule="evenodd"/>
+                                                    </svg>
+                                                </span>
+                                            <span class="absolute opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out">Ignorer</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
+
                 </div>
             </div>
         </div>

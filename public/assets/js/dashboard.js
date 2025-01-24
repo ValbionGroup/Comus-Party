@@ -108,3 +108,15 @@ function acceptSuggest(e) {
         }
     };
 }
+
+function showModalReport(e) {
+
+}
+
+function denyReport(e) {
+
+}
+
+function acceptReport(e) {
+
+}
