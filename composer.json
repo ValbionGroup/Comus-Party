@@ -34,7 +34,8 @@
     "siniliote-twig/date-extra": "^3.4",
     "symfony/translation-contracts": "^3.5",
     "cboden/ratchet": "^0.4.4",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "ext-curl": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^11.4"

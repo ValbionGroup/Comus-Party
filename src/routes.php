@@ -30,7 +30,7 @@ $router->get('/profile', function () use ($loader, $twig) {
     exit;
 }, 'player');
 
-$router->put('/profile/updateStyle/:idArticle', function ($idArticle) use ($loader, $twig) {
+$router->put('/profile/update-style/:idArticle', function ($idArticle) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateStyle", [
         "uuidPlayer" => $_SESSION["uuid"],
         "idArticle" => $idArticle,
@@ -155,7 +155,7 @@ $router->post('/shop/basket/checkout/confirm', function () use ($loader, $twig) 
     exit;
 }, 'player');
 
-$router->get('/shop/basket/checkout/successPayment', function () use ($loader, $twig) {
+$router->get('/shop/basket/checkout/success-payment', function () use ($loader, $twig) {
     ControllerFactory::getController("shop", $loader, $twig)->call("showSuccessPayment", ["articles" => $_SESSION['basket'], "player" => $_SESSION['uuid'], "paymentType" => 'card']);
     exit;
 }, 'player');
@@ -178,9 +178,9 @@ $router->post('/register', function () use ($loader, $twig) {
 }, 'guest');
 
 $router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
+    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token, "isLoggedIn" => isset($_SESSION['uuid'])]);
     exit;
-}, 'guest');
+}, '*');
 
 $router->get('/forgot-password', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
@@ -287,5 +287,10 @@ $router->post('/game/:code/end', function ($code) use ($loader, $twig) {
 
 $router->put('/profile/update-username/:username', function ($username) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateUsername", ["username" => $username]);
+    exit;
+}, 'player');
+
+$router->post('/profile/update-email', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("updateEmail", ["email" => $_POST['newEmail']]);
     exit;
 }, 'player');
