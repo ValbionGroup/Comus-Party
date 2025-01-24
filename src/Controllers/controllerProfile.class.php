@@ -233,6 +233,7 @@ class ControllerProfile extends Controller
                 echo json_encode($playerArray);
                 break;
         }
+    }
 
     /**
      * @brief Permet de mettre à jour l'email d'un joueur
