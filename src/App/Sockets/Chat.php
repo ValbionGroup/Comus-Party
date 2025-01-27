@@ -67,11 +67,6 @@ class Chat implements MessageComponentInterface
         }
     }
 
-    protected function escape(string $string): string
-    {
-        return htmlspecialchars($string);
-    }
-
     public function onClose(ConnectionInterface $conn)
     {
         // Retirer le joueur
