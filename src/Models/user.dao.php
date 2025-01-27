@@ -237,26 +237,8 @@ class UserDAO
         return $stmtUser->execute();
     }
 
-    /**
-     * @brief Modifie le mot de passe d'un utilisateur
-     * @param string $newPassword
-     * @return bool Retourne true si le mot de passe a bien été modifié, false sinon
-     */
 
-    public function updatePassword(string $newPassword): string {
-        $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        $stmt = $this->pdo->prepare("SELECT U.password FROM " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id WHERE P.uuid = :uuid");
-        $stmt->bindParam(':uuid', $_SESSION['uuid']);
-        $stmt->execute();
-        $actualPasswordUser = $stmt->fetch();
-        if(password_verify($newPassword, $actualPasswordUser['password'])){
-            return false;
-        }else{
-            $stmtUser = $this->pdo->prepare("UPDATE " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id SET U.password = :password WHERE P.uuid = :uuid");
-            $stmtUser->bindParam(':password', $newHashedPassword);
-            $stmtUser->bindParam(':uuid', $_SESSION['uuid']);
-            return $stmtUser->execute();
-        }
+
 
     /**
      * @brief Met à jour l'email d'un utilisateur dans la base de données

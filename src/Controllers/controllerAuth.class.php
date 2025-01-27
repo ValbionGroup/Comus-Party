@@ -459,29 +459,27 @@ class ControllerAuth extends Controller
      */
     public function modifPassword(string $newPassword): void
     {
-        $userDAO = new UserDAO($this->getPdo());
-        $res = $userDAO->updatePassword($newPassword);
-        if(!$res){
-            echo json_encode([
-                'success' => false,
-                'res' => $res
-            ]);
+        $userManager = new UserDAO($this->getPdo());
+        $playerManager = new PlayerDAO($this->getPdo());
+        $user = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId());
+        $user->setPassword($newPassword);
+
+        if (!$userManager->update($user)) {
+            throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
         }else{
             try{
-                $email = $userDAO->findEmailByUuid($_SESSION['uuid']);
+                $to = $userManager->findEmailByUuid($_SESSION['uuid']);
                 $subject = 'Modification de mot-de-passe';
                 $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
-                $confirmMail = new Mailer(array($email), $subject, $message);
-                $confirmMail->generateHTMLMessage();
-                $confirmMail->send();
+                $mailer = new Mailer([$to], $subject, $message);
+                $mailer->generateHTMLMessage();
+                $mailer->send();
                 echo json_encode([
                     'success' => true,
-                    'res' => $res
                 ]);
             }catch (Exception $e){
                 echo json_encode([
                     'success' => false,
-                    'res' => $res,
                     'error' => $e->getMessage()
                 ]);
             }
