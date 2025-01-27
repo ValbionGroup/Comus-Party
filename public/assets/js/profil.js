@@ -272,7 +272,7 @@ function updatePassword(){
                 inputNewPasswordConfirm.value = ""
                 confirmPasswordBtn.disabled = true
                 divConfirmPasswordBtn.classList.add("opacity-50")
-                showNotification("Mot de passe modifier", "Votre mot de passe a bien été modifié", "green");
+                showNotification("Mot de passe modifié", "Votre mot de passe a bien été modifié", "green");
             }else{
                 inputNewPassword.value = ""
                 inputNewPasswordConfirm.value = ""
