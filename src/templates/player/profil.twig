@@ -29,7 +29,8 @@
             <!-- Avatar de profil -->
             <div class="col-span-2">
                 <div class="flex justify-center">
-                    <img id="pfpPlayer" class="rounded-full mb-4" width="150em" src="/assets/img/pfp/{{ pfp }}" alt="profile_picture">
+                    <img id="pfpPlayer" class="rounded-full mb-4" width="150em" src="/assets/img/pfp/{{ pfp }}"
+                         alt="profile_picture">
                 </div>
                 <div>
                     <button class="flex gap-3 btn-primary items-center w-full justify-center" onclick="showModalPfp()">
@@ -47,10 +48,12 @@
 
             <div class="col-span-5 sm:ml-10 mt-5 sm:mt-0 flex flex-col justify-between">
                 <div class="flex justify-center items-center w-full h-full">
-                    <img id="bannerPlayer" class="rounded-2xl mb-4 w-full h-min" src="/assets/img/banner/{{ banner }}" alt="banner">
+                    <img id="bannerPlayer" class="rounded-2xl mb-4 w-full h-min" src="/assets/img/banner/{{ banner }}"
+                         alt="banner">
                 </div>
                 <div>
-                    <button class="flex gap-3 btn-primary items-center w-full justify-center" onclick="showModalBanner()" >
+                    <button class="flex gap-3 btn-primary items-center w-full justify-center"
+                            onclick="showModalBanner()">
                         Modifier
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                             <g fill="none" fill-rule="evenodd">
@@ -62,60 +65,25 @@
                     </button>
                 </div>
             </div>
-                {#PFP#}
-                <div id="modalPfp"  class="modal z-50 flex md:flex-row flex-col absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-3xl  shadow-lg md:w-2/3 md:h-2/3 sm:h-1/2 w-11/12  overflow-hidden hidden ">
-                    <!-- Section gauche : Liste des photos de profil -->
-                    <div class="md:w-2/3 md:h-full h-1/2 w-full dark:bg-night-2 p-4 md:overflow-y-auto ">
-                        <!-- Liste des photos -->
-                        <div class="flex">
-                            <div   class=" w-20 h-20 m-1 pfp cursor-pointer" onclick="infoArticlePfp({ id : '0', name : 'Photo de profil par défaut', description : 'La photo par défaut', filePath : 'default-pfp.jpg', type : 'pfp'})">
-                                <img id="defaultPfp" src="assets/img/pfp/default-pfp.jpg" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
-                            </div>
-                            {% if pfpsOwned %}
-                                <!-- Exemple de photo -->
-                                {% for pfp in pfpsOwned %}
-                                    <div  class=" w-20 h-20 m-1 cursor-pointer" onclick="infoArticlePfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', filePath : '{{ pfp.filePath }}', type : 'pfp'})">
-                                        <img id="{{ pfp.id }}" src="assets/img/pfp/{{ pfp.filePath }}" alt="Pas d'image" class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    </div>
-                    <!-- Section droite : Description -->
-                    <div class="md:w-1/3 md:h-full  w-full  h-1/2 p-6 flex flex-col justify-center items-center relative dark:bg-night-3">
-                        <button class="absolute right-1 top-1 text-lavender-blush-base  transition duration-200"
-                                onclick="closeModal()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M16.066 8.995a.75.75 0 1 0-1.06-1.061L12 10.939L8.995 7.934a.75.75 0 1 0-1.06 1.06L10.938 12l-3.005 3.005a.75.75 0 0 0 1.06 1.06L12 13.06l3.005 3.006a.75.75 0 0 0 1.06-1.06L13.062 12z"/></svg>
-                        </button>
-                        <h2 id="pfpTitle" class="text-2xl font-semibold mb-4">Titre de la photo</h2>
-                        <p id="pfpDescription" class="text-gray-600 text-lg text-lavender-blush-base text-center mb-4">
-                            Passez la souris sur une photo pour voir la description.
-                        </p>
-
-                        <button
-                                id="equipButton"
-                                class="px-4 py-2 dark:bg-night-2 text-lavender-blush-base rounded shadow hover:bg-night-1 transition duration-200"
-                                onclick="equipArticle()">
-                            Équiper
-                        </button>
-                    </div>
-                </div>
-            <input type="hidden" value="" id="selectedArticleId">
-            <input type="hidden" value="" id="selectedArticleType">
-{#            BANNER#}
-            <div id="modalBanner"  class="modal z-50 flex md:flex-row flex-col absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-3xl  shadow-lg md:w-2/3 md:h-2/3 sm:h-1/2 w-11/12  overflow-hidden hidden ">
-                <!-- Section gauche : Liste des bannieres -->
+            {# PFP #}
+            <div id="modalPfp"
+                 class="modal z-50 flex md:flex-row flex-col absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-3xl  shadow-lg md:w-2/3 md:h-2/3 sm:h-1/2 w-11/12  overflow-hidden hidden ">
+                <!-- Section gauche : Liste des photos de profil -->
                 <div class="md:w-2/3 md:h-full h-1/2 w-full dark:bg-night-2 p-4 md:overflow-y-auto ">
-                    <!-- Liste des bannières -->
-                    <div class="flex flex-col">
-                        <div   class=" w-full h-32 m-1 banner cursor-pointer" onclick="infoArticleBanner({ id : '-1', name : 'Banner par défaut', description : 'Banner par défaut', filePath : 'default-banner.jpg', type : 'banner'})">
-                            <img id="defaultPfp" src="assets/img/banner/default-banner.jpg" alt="Pas d'image" class="pfp rounded-3xl w-full h-32" onclick="activeShadowOnPfp(this)">
+                    <!-- Liste des photos -->
+                    <div class="flex">
+                        <div class=" w-20 h-20 m-1 pfp cursor-pointer"
+                             onclick="infoArticlePfp({ id : '0', name : 'Photo de profil par défaut', description : 'La photo par défaut', filePath : 'default-pfp.jpg', type : 'pfp'})">
+                            <img id="defaultPfp" src="assets/img/pfp/default-pfp.jpg" alt="Pas d'image"
+                                 class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
                         </div>
-                        {% if bannersOwned %}
+                        {% if pfpsOwned %}
                             <!-- Exemple de photo -->
-                            {% for banner in bannersOwned %}
-                                <div  class=" w-full h-32 m-1 cursor-pointer" onclick="infoArticleBanner({ id : '{{ banner.id }}', name : '{{ banner.name }}', description : '{{ banner.description }}', filePath : '{{ banner.filePath }}', type : 'banner'})">
-                                    <img id="{{ banner.id }}" src="assets/img/banner/{{ banner.filePath }}" alt="Pas d'image" class="banner rounded-3xl w-full h-32" onclick="activeShadowOnPfp(this)">
+                            {% for pfp in pfpsOwned %}
+                                <div class=" w-20 h-20 m-1 cursor-pointer"
+                                     onclick="infoArticlePfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', filePath : '{{ pfp.filePath }}', type : 'pfp'})">
+                                    <img id="{{ pfp.id }}" src="assets/img/pfp/{{ pfp.filePath }}" alt="Pas d'image"
+                                         class="pfp rounded-3xl w-20 h-20" onclick="activeShadowOnPfp(this)">
                                 </div>
                             {% endfor %}
                         {% endif %}
@@ -125,7 +93,59 @@
                 <div class="md:w-1/3 md:h-full  w-full  h-1/2 p-6 flex flex-col justify-center items-center relative dark:bg-night-3">
                     <button class="absolute right-1 top-1 text-lavender-blush-base  transition duration-200"
                             onclick="closeModal()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M16.066 8.995a.75.75 0 1 0-1.06-1.061L12 10.939L8.995 7.934a.75.75 0 1 0-1.06 1.06L10.938 12l-3.005 3.005a.75.75 0 0 0 1.06 1.06L12 13.06l3.005 3.006a.75.75 0 0 0 1.06-1.06L13.062 12z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="M16.066 8.995a.75.75 0 1 0-1.06-1.061L12 10.939L8.995 7.934a.75.75 0 1 0-1.06 1.06L10.938 12l-3.005 3.005a.75.75 0 0 0 1.06 1.06L12 13.06l3.005 3.006a.75.75 0 0 0 1.06-1.06L13.062 12z"/>
+                        </svg>
+                    </button>
+                    <h2 id="pfpTitle" class="text-2xl font-semibold mb-4">Titre de la photo</h2>
+                    <p id="pfpDescription" class="text-gray-600 text-lg text-lavender-blush-base text-center mb-4">
+                        Passez la souris sur une photo pour voir la description.
+                    </p>
+
+                    <button
+                            id="equipButton"
+                            class="px-4 py-2 dark:bg-night-2 text-lavender-blush-base rounded shadow hover:bg-night-1 transition duration-200"
+                            onclick="equipArticle()">
+                        Équiper
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" value="" id="selectedArticleId">
+            <input type="hidden" value="" id="selectedArticleType">
+            {#            BANNER #}
+            <div id="modalBanner"
+                 class="modal z-50 flex md:flex-row flex-col absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-3xl  shadow-lg md:w-2/3 md:h-2/3 sm:h-1/2 w-11/12  overflow-hidden hidden ">
+                <!-- Section gauche : Liste des bannieres -->
+                <div class="md:w-2/3 md:h-full h-1/2 w-full dark:bg-night-2 p-4 md:overflow-y-auto ">
+                    <!-- Liste des bannières -->
+                    <div class="flex flex-col">
+                        <div class=" w-full h-32 m-1 banner cursor-pointer"
+                             onclick="infoArticleBanner({ id : '-1', name : 'Banner par défaut', description : 'Banner par défaut', filePath : 'default-banner.jpg', type : 'banner'})">
+                            <img id="defaultPfp" src="assets/img/banner/default-banner.jpg" alt="Pas d'image"
+                                 class="pfp rounded-3xl w-full h-32" onclick="activeShadowOnPfp(this)">
+                        </div>
+                        {% if bannersOwned %}
+                            <!-- Exemple de photo -->
+                            {% for banner in bannersOwned %}
+                                <div class=" w-full h-32 m-1 cursor-pointer"
+                                     onclick="infoArticleBanner({ id : '{{ banner.id }}', name : '{{ banner.name }}', description : '{{ banner.description }}', filePath : '{{ banner.filePath }}', type : 'banner'})">
+                                    <img id="{{ banner.id }}" src="assets/img/banner/{{ banner.filePath }}"
+                                         alt="Pas d'image" class="banner rounded-3xl w-full h-32"
+                                         onclick="activeShadowOnPfp(this)">
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Section droite : Description -->
+                <div class="md:w-1/3 md:h-full  w-full  h-1/2 p-6 flex flex-col justify-center items-center relative dark:bg-night-3">
+                    <button class="absolute right-1 top-1 text-lavender-blush-base  transition duration-200"
+                            onclick="closeModal()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="M16.066 8.995a.75.75 0 1 0-1.06-1.061L12 10.939L8.995 7.934a.75.75 0 1 0-1.06 1.06L10.938 12l-3.005 3.005a.75.75 0 0 0 1.06 1.06L12 13.06l3.005 3.006a.75.75 0 0 0 1.06-1.06L13.062 12z"/>
+                        </svg>
                     </button>
                     <h2 id="bannerTitle" class="text-2xl font-semibold mb-4">Titre de la photo</h2>
                     <p id="bannerDescription" class="text-gray-600 text-lg text-lavender-blush-base text-center mb-4">
@@ -147,9 +167,10 @@
                 <div>
                     <p class="text-xl font-semibold">Pseudonyme :</p>
                     <div class="flex justify-between items-center gap-1">
-                        <p class="text-xl">{{ player.username }}</p>
+                        <p id="pUsername" class="text-xl">{{ player.username }}</p>
                         <!-- Bouton de modification -->
-                        <button class="flex gap-3 btn-primary items-center justify-center">
+                        <button onclick="showModalUsernameEdit()"
+                                class="flex gap-3 btn-primary items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                                 <g fill="none" fill-rule="evenodd">
                                     <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/>
@@ -164,8 +185,9 @@
                     <p class="text-xl text-nowrap mt-7 font-semibold">Adresse e-mail :</p>
                     <div>
                         <div class="flex justify-between items-center gap-1">
-                            <p class="text-xl">{{ user.email }}</p>
-                            <button class="flex gap-3 btn-primary items-center justify-center">
+                            <p id="pEmail" class="text-xl">{{ user.email }}</p>
+                            <button onclick="showModalEditEmail()"
+                                    class="flex gap-3 btn-primary items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                                     <g fill="none" fill-rule="evenodd">
                                         <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/>
@@ -282,7 +304,7 @@
 
     <div onclick="closeModal()" id="backgroundModal" class="hidden fixed inset-0 bg-night-1 opacity-85 z-10"></div>
     <div id="modalConfirmationSuppression"
-         class="hidden w-full sm:w-1/2 bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl">
+         class="hidden w-full sm:w-1/2 bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl modal z-20">
         <div class="modal-content m-2">
             <div class="pb-2">
                 <p class="text-2xl font-bold">Demande de suppression de compte</p>
@@ -311,8 +333,49 @@
             </div>
         </div>
     </div>
+
+    <div id="modalEditUsername"
+         class="hidden w-full sm:w-1/2 bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl modal z-20">
+        <div class="modal-content m-2">
+            <div class="pb-2">
+                <p class="text-2xl font-bold">Modification de votre nom d'utilisateur</p>
+            </div>
+            <hr>
+            <div class="pt-5 text-justify">
+                <div class="w-auto flex flex-col">
+                    <label for="newUsername" class="text-lg font-semibold">Nouveau pseudonyme :</label>
+                    <input type="text" id="newUsername" name="newUsername" class="input w-full" required>
+                    <div class="flex gap-2 justify-end mt-3">
+                        <button class="btn-secondary" onclick="closeModal()">Annuler</button>
+                        <button class="btn-success" onclick="editUsername()">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalEditEmail"
+         class="hidden w-full sm:w-1/2 bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl modal z-20">
+        <div class="modal-content m-2">
+            <div class="pb-2">
+                <p class="text-2xl font-bold">Modification de votre adresse e-mail</p>
+            </div>
+            <hr>
+            <div class="pt-5 text-justify">
+                <div class="w-auto flex flex-col">
+                    <label for="newEmail" class="text-lg font-semibold">Nouvelle adresse e-mail :</label>
+                    <input type="text" id="newEmail" name="newEmail" class="input w-full" required>
+                    <div class="flex gap-2 justify-end mt-3">
+                        <button class="btn-secondary" onclick="closeModal()">Annuler</button>
+                        <button class="btn-success" onclick="editMail()">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block scripts %}
-<script src="/assets/js/profil.js"></script>
+    <script src="/assets/js/profil.js"></script>
 {% endblock %}

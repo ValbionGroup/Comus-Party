@@ -23,6 +23,10 @@ notification.innerHTML = `
 function showNotification(title, message, color) {
     const notificationClone = notification.cloneNode(true);
     notificationClone.classList.remove('hidden');
+    // Couleurs possibles :
+    // green : bg-green-500 et text-green-200
+    // red : bg-red-500 et text-red-200
+    // yellow : bg-yellow-500 et text-yellow-200
     notificationClone.classList.add(`bg-${color}-500`, `text-${color}-200`);
     notificationClone.querySelector('p').textContent = title;
     notificationClone.querySelector('span').textContent = message;

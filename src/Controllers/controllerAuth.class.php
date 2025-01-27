@@ -461,14 +461,19 @@ class ControllerAuth extends Controller
      *
      * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
      */
-    public function confirmEmail($emailVerifToken)
+    public function confirmEmail(string $emailVerifToken, bool $isLoggedIn): void
     {
         $userDAO = new UserDAO($this->getPdo());
         $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
         if ($user) {
             $userDAO->confirmUser($emailVerifToken);
             MessageHandler::addMessageParametersToSession("Votre compte a bien été confirmé. Vous pouvez maintenant vous connecter.");
-            header('Location: /login');
+
+            if ($isLoggedIn) {
+                header('Location: /');
+            } else {
+                header('Location: /login');
+            }
             exit;
         } else {
             header('Location: /register');
