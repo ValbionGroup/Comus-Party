@@ -473,16 +473,25 @@ class ControllerAuth extends Controller
                 'res' => $res
             ]);
         }else{
-            $email = $userDAO->findEmailByUuid($_SESSION['uuid']);
-            $subject = 'Modification de mot-de-passe';
-            $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
-            $confirmMail = new Mailer(array($email), $subject, $message);
-            $confirmMail->generateHTMLMessage();
-            $confirmMail->send();
-            echo json_encode([
-                'success' => true,
-                'res' => $res
-            ]);
+            try{
+                $email = $userDAO->findEmailByUuid($_SESSION['uuid']);
+                $subject = 'Modification de mot-de-passe';
+                $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
+                $confirmMail = new Mailer(array($email), $subject, $message);
+                $confirmMail->generateHTMLMessage();
+                $confirmMail->send();
+                echo json_encode([
+                    'success' => true,
+                    'res' => $res
+                ]);
+            }catch (Exception $e){
+                echo json_encode([
+                    'success' => false,
+                    'res' => $res,
+                    'error' => $e->getMessage()
+                ]);
+            }
+
         }
     }
 
