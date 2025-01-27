@@ -257,9 +257,12 @@ class ControllerProfile extends Controller
             exit;
         }
 
-        
+
         $emailVerifToken = bin2hex(random_bytes(30));
-        $userManager->updateEmail($user->getId(), $email, $emailVerifToken);
+        $user->setEmail($email);
+        $user->setEmailVerifyToken($emailVerifToken);
+        $user->setEmailVerifiedAt(null);
+        $userManager->update($user);
 
         $subject = 'Modification de votre adresse e-mail';
         $message =
