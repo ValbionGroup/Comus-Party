@@ -157,8 +157,8 @@ class PlayerDAO
              WHERE i.player_uuid = pr.uuid
              ORDER BY i.created_at DESC
              LIMIT 1) as active_banner
-            FROM cp_player pr
-            JOIN cp_user u ON pr.user_id = u.id
+            FROM ' . DB_PREFIX . 'player pr
+            JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
             LEFT JOIN ' . DB_PREFIX . 'invoice i ON i.player_uuid = pr.uuid
             WHERE pr.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
@@ -373,5 +373,44 @@ class PlayerDAO
         $uuid = $player->getUuid();
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
+    }
+
+    public function findWithDetailByUsername(string $username)
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT 
+            pr.*,
+            u.email,
+            u.created_at,
+            u.updated_at,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'played WHERE player_uuid = pr.uuid) as games_played,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'won WHERE player_uuid = pr.uuid) as games_won,
+            (SELECT COUNT(*) FROM ' . DB_PREFIX . 'game_record WHERE hosted_by = pr.uuid) as games_hosted,
+            (SELECT a.file_path 
+             FROM ' . DB_PREFIX . 'invoice  i 
+             JOIN ' . DB_PREFIX . 'invoice_row ir ON ir.invoice_id = i.id AND ir.active = 1
+             JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id AND a.type = "pfp"
+             WHERE i.player_uuid = pr.uuid
+             ORDER BY i.created_at DESC
+             LIMIT 1) as active_pfp,
+             (SELECT a.file_path 
+             FROM ' . DB_PREFIX . 'invoice  i 
+             JOIN ' . DB_PREFIX . 'invoice_row ir ON ir.invoice_id = i.id AND ir.active = 1
+             JOIN ' . DB_PREFIX . 'article a ON ir.article_id = a.id AND a.type = "banner"
+             WHERE i.player_uuid = pr.uuid
+             ORDER BY i.created_at DESC
+             LIMIT 1) as active_banner
+            FROM cp_player pr
+            JOIN cp_user u ON pr.user_id = u.id
+            LEFT JOIN ' . DB_PREFIX . 'invoice i ON i.player_uuid = pr.uuid
+            WHERE pr.username = :username');
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $tabPlayer = $stmt->fetch();
+        if ($tabPlayer === false || $tabPlayer['uuid'] === null) {
+            return null;
+        }
+        return $this->hydrate($tabPlayer);
     }
 }

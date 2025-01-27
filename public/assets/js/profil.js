@@ -47,6 +47,10 @@ let newUsername = document.getElementById("newUsername");
 let pUsername = document.getElementById("pUsername");
 let headerUsername = document.getElementById("headerUsername");
 
+let modalEditEmail = document.getElementById("modalEditEmail");
+let newEmail = document.getElementById("newEmail");
+let pEmail = document.getElementById("pEmail");
+
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
     pfp.classList.add("shadow-lg")
@@ -290,8 +294,14 @@ function showModalUsernameEdit() {
     background.classList.remove("hidden");
 }
 
+function showModalEditEmail() {
+    modalEditEmail.classList.remove("hidden");
+    background.classList.remove("hidden");
+}
+
 function editUsername() {
     let username = newUsername.value;
+    newUsername.value = '';
     if (username.length < 3 || username.length > 120) {
         showNotification("Oups...", "Votre nom d'utilisateur doit contenir entre 3 et 120 caractères", "red");
         return;
@@ -320,4 +330,30 @@ function editUsername() {
             }
         }
     };
+}
+
+function editMail() {
+    let email = newEmail.value;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showNotification("Oups...", "Votre adresse email n'est pas valide", 'red');
+        return;
+    }
+    showNotification('Attendez !', 'Verification de votre adresse email', 'yellow');
+    makeRequest(
+        'POST',
+        `/profile/update-email`,
+        (response) => {
+            response = JSON.parse(response);
+            if (response.success) {
+                newEmail.value = "";
+                pEmail.textContent = email;
+                showNotification('Parfait !', 'Votre adresse email a bien été modifié', 'green');
+                modalEditEmail.classList.add("hidden");
+                background.classList.add("hidden");
+            } else {
+                showNotification('Oups...', response.error, 'red');
+            }
+        },
+        `newEmail=${email}`
+    );
 }

@@ -10,6 +10,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\App\MessageHandler;
+use ComusParty\Models\ReportDAO;
 use ComusParty\Models\SuggestionDAO;
 use DateMalformedStringException;
 use Exception;
@@ -41,14 +42,20 @@ class ControllerDashboard extends Controller
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function showDashboard()
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestions = $suggestsManager->findAllWaiting();
+
+        $reportsManager = new ReportDAO($this->getPdo());
+        $reports = $reportsManager->findAllWaiting();
+
         $template = $this->getTwig()->load('moderator/dashboard.twig');
         echo $template->render(array(
-            "suggestions" => $suggestions
+            "suggestions" => $suggestions,
+            "reports" => $reports
         ));
     }
 
