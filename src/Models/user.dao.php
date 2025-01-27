@@ -114,7 +114,7 @@ class UserDAO
         );
 
         $email = $user->getEmail();
-        $verifiedAt = $user->getEmailVerifiedAt()->getTimestamp();
+        $verifiedAt = $user->getEmailVerifiedAt()?->getTimestamp();
         $emailVerifyToken = $user->getEmailVerifyToken();
         $password = $user->getPassword();
         $disabled = $user->getDisabled();
@@ -222,28 +222,4 @@ class UserDAO
         $stmtUser->bindParam(':email_verif_token', $emailVerifToken);
         return $stmtUser->execute();
     }
-
-    /**
-     * @brief Met à jour l'email d'un utilisateur dans la base de données
-     * @param int $userId L'ID de l'utilisateur
-     * @param string $email Le nouvel email de l'utilisateur
-     * @param string $emailVerifToken Le token de vérification de l'email
-     * @return bool Retourne true si l'email a pu être mis à jour, false sinon
-     */
-    public function updateEmail(int $userId, string $email, string $emailVerifToken): bool
-    {
-        $stmt = $this->pdo->prepare(
-            'UPDATE ' . DB_PREFIX . 'user
-            SET email = :email,
-                email_verif_token = :email_verif_token,
-                email_verified_at = null
-            WHERE id = :user_id'
-        );
-
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':email_verif_token', $emailVerifToken);
-        return $stmt->execute();
-    }
-
 }
