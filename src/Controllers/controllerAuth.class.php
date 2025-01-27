@@ -457,7 +457,7 @@ class ControllerAuth extends Controller
      * @param string $newPassword
      * @return void
      */
-    public function modifPassword(string $newPassword)
+    public function modifPassword(string $newPassword): void
     {
         $userDAO = new UserDAO($this->getPdo());
         $res = $userDAO->updatePassword($newPassword);
