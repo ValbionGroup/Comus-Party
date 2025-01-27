@@ -263,6 +263,4 @@ class UserDAO
         return $stmt->execute();
     }
 
-    }
-
 }
