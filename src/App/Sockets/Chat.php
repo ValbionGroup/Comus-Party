@@ -18,42 +18,75 @@ use SplObjectStorage;
 class Chat implements MessageComponentInterface
 {
     protected SplObjectStorage $clients;
+    protected array $games;
 
     public function __construct()
     {
         $this->clients = new SplObjectStorage;
+        $this->games = [];
     }
 
     public function onOpen(ConnectionInterface $conn)
     {
-        // Store the new connection to send messages to later
-        $this->clients->attach($conn);
+        // Récupérer le lien auquel il est connecté
+        $gameCode = explode("=", $conn->httpRequest->getUri()->getQuery())[1];
 
-        echo "New connection! ({$conn->resourceId})\n";
-        echo "Number of clients: " . count($this->clients) . "\n";
-        echo "Parameters: " . explode("=", $conn->httpRequest->getUri()->getQuery())[1] . "\n";
+        if (!isset($this->games[$gameCode])) {
+            $this->games[$gameCode] = [];
+        }
+        $this->games[$gameCode][] = $conn;
+
+        $this->clients->attach($conn);
     }
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        $numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
-            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
+        $data = json_decode($msg, true);
 
-        foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                // The sender is not the receiver, send to each client connected
-                $client->send($msg);
-            }
+        if (!isset($data["content"]) || !isset($data["author"]) || !isset($data["game"])) {
+            return;
         }
+
+        $content = $this->escape($data["content"]);
+        $author = $this->escape($data["author"]);
+        $game = $data["game"];
+
+        if (!isset($this->games[$game])) {
+            $this->games[$game] = [];
+        }
+
+        if (!in_array($from, $this->games[$game])) {
+            $this->games[$game][] = $from;
+        }
+
+        foreach ($this->games[$game] as $player) {
+            $player->send(json_encode([
+                "author" => $author,
+                "content" => $content,
+            ]));
+        }
+    }
+
+    protected function escape(string $string): string
+    {
+        return htmlspecialchars($string);
     }
 
     public function onClose(ConnectionInterface $conn)
     {
-        // The connection is closed, remove it, as we can no longer send it messages
-        $this->clients->detach($conn);
+        // Retirer le joueur
+        foreach ($this->games as $gameId => &$players) {
+            $players = array_filter($players, function ($player) use ($conn) {
+                return $player !== $conn;
+            });
 
-        echo "Connection {$conn->resourceId} has disconnected\n";
+            // Supprimer la game si vide
+            if (empty($players)) {
+                unset($this->games[$gameId]);
+            }
+        }
+
+        $this->clients->detach($conn);
     }
 
     public function onError(ConnectionInterface $conn, Exception $e)
