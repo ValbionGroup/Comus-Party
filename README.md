@@ -1,6 +1,5 @@
 <p align="center">
-  <img width="200" src="" alt="Logo">
-  <h1 align="center">Comus Party</h1>
+  <img width="200" src="public/assets/img/cp-logo-v2-without-bg.png" alt="Logo">
   <h3 align="center">Application de mini-jeux en ligne</h3>
 </p>
 <p align="center">
