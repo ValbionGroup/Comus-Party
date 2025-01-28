@@ -46,10 +46,9 @@
                     <h2 class="text-2xl text-night mb-4 font-serif">Avatars</h2>
 
                     <div class="flex flex-wrap">
-
                         {% for pfp in pfps %}
                             <div class="w-20 h-20 m-1 pfp cursor-pointer"
-                                 onclick="showModalPfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
+                                 onclick="showModalPfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}', {% if pfp.id in idsPfpsOwned %}  owned : true {% else %} owned:false {% endif %} })">
                                 <img src="assets/img/pfp/{{ pfp.filePath }}" alt="{{ pfp.name }}" class="rounded-3xl w-20 h-20 overflow-hidden">
                             </div>
                         {% endfor %}
@@ -63,7 +62,7 @@
                     <div class="flex flex-wrap">
                         {% for banner in banners %}
                             <div class="w-full h-full m-1 cursor-pointer"
-                                 onclick="showModalBanner({ id : '{{ banner.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}'})">
+                                 onclick="showModalBanner({ id : '{{ banner.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}', {% if banner.id in idsBannersOwned %}  owned : true {% else %} owned:false {% endif %}})">
                                 <img src="assets/img/banner/{{ banner.filePath }}" alt="{{ banner.name }}"
                                      class="w-80 rounded-2xl overflow-hidden">
                             </div>
