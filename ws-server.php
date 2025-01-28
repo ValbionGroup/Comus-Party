@@ -12,6 +12,8 @@ require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/src/App/Sockets/Chat.php';
 require __DIR__ . '/src/App/Sockets/Game.php';
 
+require_once __DIR__ . '/include.php';
+
 use ComusParty\App\Sockets\Chat;
 use ComusParty\App\Sockets\Game;
 use Ratchet\WebSocket\WsServer;
