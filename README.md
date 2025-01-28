@@ -41,6 +41,10 @@ l'évolution du code tout en respectant les bonnes pratiques de développement.
 
 Vous pouvez consulter la [documentation technique sur notre site](https://docs.comus-party.com).
 
+#### Langages et technologies utilisés
+
+![LangsAndTechs](https://skillicons.dev/icons?i=php,js,html,css,tailwind,git,mysql,phpstorm&theme=light)
+
 #### Développer
 
 Afin de développer sur Comus Party, il vous faudra suivre les étapes ci-dessous :
