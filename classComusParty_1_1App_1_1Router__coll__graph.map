@@ -1,0 +1,6 @@
+<map id="Router" name="Router">
+<area shape="rect" id="Node000001" title="Classe Router permettant de gérer les routes." alt="" coords="5,94,65,120"/>
+<area shape="rect" id="Node000002" href="$classComusParty_1_1App_1_1Router.html" title="Classe Router permettant de gérer les routes." alt="" coords="5,5,65,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="38,47,38,94,32,94,32,47"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="81,9,88,12,91,19,83,27,65,29,65,24,80,22,86,18,84,16,79,13"/>
+</map>
