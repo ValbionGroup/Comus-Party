@@ -37,6 +37,11 @@ let defaultPfp = document.getElementById("defaultPfp");
 let inputSelectedArticleId = document.getElementById("selectedArticleId");
 let inputSelectedArticleType = document.getElementById("selectedArticleType");
 
+
+let inputNewPassword = document.getElementById("newPassword");
+let inputNewPasswordConfirm = document.getElementById("newPasswordConfirm");
+let confirmPasswordBtn = document.getElementById("confirmPasswordBtn")
+let divConfirmPasswordBtn = document.getElementById("divConfirmPasswordBtn")
 let modalEditUsername = document.getElementById("modalEditUsername");
 let newUsername = document.getElementById("newUsername");
 let pUsername = document.getElementById("pUsername");
@@ -171,6 +176,118 @@ function showModalSuppression() {
     modal.classList.remove("hidden");
     background.classList.remove("hidden");
 }
+
+// MODIFICATION MOT DE PASSE
+
+const MIN_PASSWORD_LENGTH = 8;
+const MAX_PASSWORD_LENGTH = 64;
+const UPPERCASE_LETTER = /[A-Z]/;
+const LOWERCASE_LETTER = /[a-z]/;
+const NUMBERS = /\d/;
+const SPECIAL_CHARACTER = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
+
+/**
+ * @brief Met à jour les messages d'erreur et les styles des inputs.
+ *
+ * @param {HTMLElement} input L'élément input à vérifier.
+ * @param {string} errorElementId L'ID de l'élément de message d'erreur.
+ * @param {boolean} condition La condition à vérifier.
+ * @param {string} errorMessage Le message d'erreur à afficher si la condition n'est pas remplie.
+ *
+ * @return void
+ */
+function updateErrorMessage(input, errorElementId, condition, errorMessage) {
+    let errorElement = document.getElementById(errorElementId);
+    if (!condition) {
+        input.classList.add("input-error");
+        errorElement.classList.add("block");
+        errorElement.classList.remove("hidden");
+        errorElement.innerHTML = errorMessage;
+    } else {
+        input.classList.remove("input-error");
+        errorElement.classList.remove("block");
+        errorElement.classList.add("hidden");
+        errorElement.innerHTML = "";
+    }
+}
+
+/**
+ * @brief Vérifie si le mot de passe est valide.
+ */
+
+function verifPassword(){
+
+    confirmPasswordBtn.disabled = true
+    divConfirmPasswordBtn.classList.add("opacity-50")
+    if(inputNewPassword.value === ""){
+
+        updateErrorMessage(inputNewPassword, "passwordTooShort", true, "");
+        updateErrorMessage(inputNewPassword, "passwordTooLong", true, "");
+        updateErrorMessage(inputNewPassword, "passwordNoUppercase",true, "");
+        updateErrorMessage(inputNewPassword, "passwordNoLowercase", true, "");
+        updateErrorMessage(inputNewPassword, "passwordNoNumber", true, "");
+        updateErrorMessage(inputNewPassword, "passwordNoSpecialCharacter", true, "");
+    }else{
+        updateErrorMessage(inputNewPassword, "passwordTooShort", inputNewPassword.value.length >= MIN_PASSWORD_LENGTH, "Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères");
+        updateErrorMessage(inputNewPassword, "passwordTooLong", inputNewPassword.value.length <= MAX_PASSWORD_LENGTH, "Le mot de passe doit être au maximum de " + MAX_PASSWORD_LENGTH + " caractères");
+        updateErrorMessage(inputNewPassword, "passwordNoUppercase", UPPERCASE_LETTER.test(inputNewPassword.value), "Le mot de passe doit contenir au moins une majuscule");
+        updateErrorMessage(inputNewPassword, "passwordNoLowercase", LOWERCASE_LETTER.test(inputNewPassword.value), "Le mot de passe doit contenir au moins une minuscule");
+        updateErrorMessage(inputNewPassword, "passwordNoNumber", NUMBERS.test(inputNewPassword.value), "Le mot de passe doit contenir au moins un chiffre");
+        updateErrorMessage(inputNewPassword, "passwordNoSpecialCharacter", SPECIAL_CHARACTER.test(inputNewPassword.value), "Le mot de passe doit contenir au moins un caractère spécial");
+    }
+
+}
+
+/**
+ * @brief Vérifie si le mot de passe de confirmation est valide.
+ */
+function matchPassword(){
+    if(inputNewPasswordConfirm.value === inputNewPassword.value){
+        confirmPasswordBtn.disabled = false
+        divConfirmPasswordBtn.classList.remove("opacity-50")
+        updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", true, "");
+
+    }else{
+        confirmPasswordBtn.disabled = true
+        updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", inputNewPassword.value === inputNewPasswordConfirm.value, "Les mots de passe ne correspondent pas");
+    }
+}
+
+/**
+ * @brief Met à jour le mot de passe.
+ */
+function updatePassword(){
+    const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
+        inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
+        UPPERCASE_LETTER.test(inputNewPassword.value) &&
+        LOWERCASE_LETTER.test(inputNewPassword.value) &&
+        NUMBERS.test(inputNewPassword.value) &&
+        SPECIAL_CHARACTER.test(inputNewPassword.value);
+    showNotification("En attente...", "Veuillez patienter", "yellow");
+    if(isPasswordValid){
+        makeRequest("POST", `/profile/update-password`, (response) => {
+            response = JSON.parse(response)
+            if(response.success){
+                inputNewPassword.value = ""
+                inputNewPasswordConfirm.value = ""
+                confirmPasswordBtn.disabled = true
+                divConfirmPasswordBtn.classList.add("opacity-50")
+                showNotification("Mot de passe modifié", "Votre mot de passe a bien été modifié", "green");
+            }else{
+                inputNewPassword.value = ""
+                inputNewPasswordConfirm.value = ""
+                confirmPasswordBtn.disabled = true
+                divConfirmPasswordBtn.classList.add("opacity-50")
+                showNotification("Mot de passe similaire", "Vous ne pouvez pas mettre un mot de passe similaire", "red");
+            }
+        }, `newPassword=${inputNewPassword.value}`);
+
+
+    }
+}
+
+
+
 
 function showModalUsernameEdit() {
     modalEditUsername.classList.remove("hidden");
