@@ -465,69 +465,70 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
-                'max-length' => 64
+                'max-length' => 64,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
             ]
         ];
         $validator = new Validator($rules);
         if (!$validator->validate(['password' => $newPassword])) {
             throw new AuthenticationException("Mot de passe invalide");
-        }
-        $userManager = new UserDAO($this->getPdo());
-        $playerManager = new PlayerDAO($this->getPdo());
-        $user = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId());
-        $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT);
-        $user->setPassword($newPasswordHashed);
-        if (!$userManager->update($user)) {
-            throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
-        }else{
-            try{
-                $to = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId())->getEmail();
-                $subject = 'Modification de mot-de-passe';
-                $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
-                $mailer = new Mailer([$to], $subject, $message);
-                $mailer->generateHTMLMessage();
-                $mailer->send();
-                echo json_encode([
-                    'success' => true,
-                ]);
-            }catch (Exception $e){
-                echo json_encode([
-                    'success' => false,
-                    'error' => $e->getMessage()
-                ]);
-            }
-        }
-    }
-
-
-    /**
-     * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
-     *
-     * @details Cette méthode utilise le token de vérification d'e-mail pour rechercher
-     * l'utilisateur dans la base de données. Si l'utilisateur est trouvé, son compte est
-     * confirmé et un message de confirmation est affiché. Sinon, un message d'erreur
-     * est affiché. Le résultat de la confirmation est ensuite rendu à l'aide de Twig.
-     *
-     * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
-     */
-    public function confirmEmail(string $emailVerifToken, bool $isLoggedIn): void
-    {
-        $userDAO = new UserDAO($this->getPdo());
-        $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
-        if ($user) {
-            $userDAO->confirmUser($emailVerifToken);
-            MessageHandler::addMessageParametersToSession("Votre compte a bien été confirmé. Vous pouvez maintenant vous connecter.");
-
-            if ($isLoggedIn) {
-                header('Location: /');
+            $userManager = new UserDAO($this->getPdo());
+            $playerManager = new PlayerDAO($this->getPdo());
+            $user = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId());
+            $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT);
+            $user->setPassword($newPasswordHashed);
+            if (!$userManager->update($user)) {
+                throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
             } else {
-                header('Location: /login');
+                try {
+                    $to = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId())->getEmail();
+                    $subject = 'Modification de mot-de-passe';
+                    $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
+                    $mailer = new Mailer([$to], $subject, $message);
+                    $mailer->generateHTMLMessage();
+                    $mailer->send();
+                    echo json_encode([
+                        'success' => true,
+                    ]);
+                } catch (Exception $e) {
+                    echo json_encode([
+                        'success' => false,
+                        'error' => $e->getMessage()
+                    ]);
+                }
             }
-            exit;
-        } else {
-            header('Location: /register');
-            throw new AuthenticationException("La confirmation a echoué");
         }
     }
 
+
+        /**
+         * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
+         *
+         * @details Cette méthode utilise le token de vérification d'e-mail pour rechercher
+         * l'utilisateur dans la base de données. Si l'utilisateur est trouvé, son compte est
+         * confirmé et un message de confirmation est affiché. Sinon, un message d'erreur
+         * est affiché. Le résultat de la confirmation est ensuite rendu à l'aide de Twig.
+         *
+         * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
+         */
+        public
+        function confirmEmail(string $emailVerifToken, bool $isLoggedIn): void
+        {
+            $userDAO = new UserDAO($this->getPdo());
+            $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
+            if ($user) {
+                $userDAO->confirmUser($emailVerifToken);
+                MessageHandler::addMessageParametersToSession("Votre compte a bien été confirmé. Vous pouvez maintenant vous connecter.");
+
+                if ($isLoggedIn) {
+                    header('Location: /');
+                } else {
+                    header('Location: /login');
+                }
+                exit;
+            } else {
+                header('Location: /register');
+                throw new AuthenticationException("La confirmation a echoué");
+            }
+        }
 }
