@@ -131,19 +131,6 @@ class UserDAO
         return $stmt->execute();
     }
 
-    /**
-     * @brief Retourne l'email de l'user en fonction de l'uuid passé en paramètre
-     * @param string $uuid
-     * @return string
-     */
-    public function findEmailByUuid(string $uuid){
-        $stmt = $this->pdo->prepare("SELECT U.email FROM " . DB_PREFIX . "user U JOIN " . DB_PREFIX . "player P ON U.id = P.user_id WHERE P.uuid = :uuid");
-        $stmt->bindParam(':uuid', $uuid);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $email = $stmt->fetch();
-        return $email['email'];
-    }
 
     /**
      * Retourne un utilisateur en fonction de son email
