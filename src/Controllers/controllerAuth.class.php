@@ -459,12 +459,27 @@ class ControllerAuth extends Controller
      */
     public function editPassword(string $newPassword): void
     {
-
-
-
         $userManager = new UserDAO($this->getPdo());
         $playerManager = new PlayerDAO($this->getPdo());
         $user = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId());
+        $rules = [
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 8,
+                'max-length' => 120,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+            ]
+        ];
+
+        $validator = new Validator($rules);
+
+        if (!$validator->validate(['password' => $newPassword])) {
+            throw new AuthenticationException("Mot de passe invalide");
+            return;
+        }
+
+
 
         if(password_verify($newPassword, $user->getPassword())){
             echo json_encode([
