@@ -83,10 +83,7 @@ class ControllerBasket extends Controller
 
         // Parcourir les objets et récupérer les IDs
         foreach ($pfpsOwned as $pfpOwned) {
-            // Si la propriété "id" est privée, utilisez une méthode getter (par exemple getId())
-
             $idsPfpsOwned[] = $pfpOwned->getId();
-
         }
 
         $bannersOwned = $managerArticle->findAllBannersOwnedByPlayer($_SESSION['uuid']);
