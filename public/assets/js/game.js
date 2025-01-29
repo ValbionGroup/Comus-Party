@@ -66,23 +66,56 @@ function startGame(gameCode) {
 
 function sendChatMessage() {
     const messageInput = document.getElementById('chatInput');
-    const messages = document.getElementById('chatContent');
-    const messageItem = document.createElement('p');
-    messageItem.textContent = messageInput.value;
-    messages.appendChild(messageItem);
+    const content = messageInput.value;
+    const username = document.getElementById('headerUsername').textContent;
+
+    conn.send(JSON.stringify({
+        author: username,
+        content: content,
+        game: gameCode,
+    }));
+
     messageInput.value = '';
-    conn.send(messageItem.textContent);
 }
 
 function receiveChatMessage(message) {
+    message = JSON.parse(message);
     const messages = document.getElementById('chatContent');
     const messageItem = document.createElement('p');
-    messageItem.textContent = message;
+    messageItem.classList.add("flex");
+
+    const usernameItem = document.createElement('p');
+    usernameItem.textContent = `${message.author}: `;
+    usernameItem.classList.add('font-semibold');
+    usernameItem.classList.add('hover:cursor-pointer');
+    usernameItem.onclick = () => showProfile("username", message.author);
+
+    const contentItem = document.createElement('span');
+    contentItem.textContent = message.content;
+
+    messageItem.appendChild(usernameItem);
+    messageItem.appendChild(contentItem);
     messages.appendChild(messageItem);
 }
 
+const background = document.getElementById('backgroundModal');
+const modals = document.querySelectorAll(".modal");
+
+function showBackgroundModal() {
+    background.classList.remove("hidden");
+}
+
+function closeModal() {
+    modals.forEach(modal => {
+        if (!modal.classList.contains("hidden")) {
+            modal.classList.add("hidden");
+        }
+    });
+    background.classList.add("hidden");
+}
+
 // WebSocket
-const conn = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
+const conn = new WebSocket('ws://localhost:8315/chat/' + gameCode);
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };

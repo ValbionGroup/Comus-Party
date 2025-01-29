@@ -1,6 +1,5 @@
 <p align="center">
-  <img width="200" src="" alt="Logo">
-  <h1 align="center">Comus Party</h1>
+  <img width="200" src="public/assets/img/cp-logo-v2-without-bg.png" alt="Logo">
   <h3 align="center">Application de mini-jeux en ligne</h3>
 </p>
 <p align="center">
@@ -41,6 +40,10 @@ Contrôleur (`Controllers`) assurant la coordination entre les deux. Cette organ
 l'évolution du code tout en respectant les bonnes pratiques de développement.
 
 Vous pouvez consulter la [documentation technique sur notre site](https://docs.comus-party.com).
+
+#### Langages et technologies utilisés
+
+![LangsAndTechs](https://skillicons.dev/icons?i=php,js,html,css,tailwind,git,mysql,phpstorm&theme=light)
 
 #### Développer
 
