@@ -1,4 +1,5 @@
 const gameCode = document.getElementById('gameCode').value;
+const playerUuid = document.getElementById('localPlayerUuid').value;
 
 function setVisibilityPublic(gameCode, isPublic) {
     const visibilityButton = document.getElementById('visibilityBtn');
@@ -29,6 +30,7 @@ function quitGameAndBackHome(gameCode) {
         .then((response) => response.json())
         .then((response) => {
             if (response.success) {
+                gameConnection.send(JSON.stringify({uuid: playerUuid, command: 'quitGame', game: gameCode}));
                 window.location.href = '/';
             } else {
                 showNotification('Oups...', `Une erreur est survenue lors de la suppression de la partie\n${response.message}`, 'red');
@@ -76,6 +78,7 @@ function sendChatMessage() {
     }));
 
     messageInput.value = '';
+    chatConnection.send(messageItem.textContent);
 }
 
 function receiveChatMessage(message) {
@@ -115,14 +118,47 @@ function closeModal() {
 }
 
 // WebSocket
-const conn = new WebSocket('ws://localhost:8315/chat/' + gameCode);
-const connGame = new WebSocket('ws://localhost:8080/game/' + gameCode);
-conn.onopen = function (e) {
-    console.log("Connexion établie !");
+const chatConnection = new WebSocket('ws://sockets.comus-party.com/chat/' + gameCode);
+chatConnection.onopen = function (e) {
+    console.log("Connexion établie avec CHAT_SOCKET !");
 };
-conn.onmessage = function (e) {
+chatConnection.onmessage = function (e) {
     receiveChatMessage(e.data);
 };
+
+const gameConnection = new WebSocket('ws://localhost:8315/game/' + gameCode);
+gameConnection.onopen = function (e) {
+    console.log("Connexion établie avec GAME_SOCKET !");
+
+    gameConnection.send(JSON.stringify({uuid: playerUuid, command: 'joinGame', game: gameCode}));
+};
+gameConnection.onmessage = function (e) {
+    const data = JSON.parse(e.data);
+    const players = JSON.parse(data.content);
+    let div = document.getElementById('players');
+    Array.from(div.childNodes).forEach((child) => {
+        child.remove();
+    });
+    players.forEach((player) => {
+        let newDiv = document.createElement('div');
+        let pfp = document.createElement('img');
+        let pseudo = document.createElement('p');
+
+        newDiv.className = "flex flex-row gap-3 items-center";
+
+        pfp.className = "size-8 rounded-full";
+        pfp.src = "/assets/img/pfp/" + player.pfp;
+
+        pseudo.className = "text-lg";
+        pseudo.textContent = player.username;
+
+        newDiv.appendChild(pfp);
+        newDiv.appendChild(pseudo);
+        div.appendChild(newDiv);
+    });
+}
+
+
 document.getElementById('sendChat').onclick = sendChatMessage;
 document.getElementById('chatInput').addEventListener("keydown", function (e) {
     if (e.code === "Enter") {

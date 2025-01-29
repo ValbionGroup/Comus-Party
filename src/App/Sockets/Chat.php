@@ -67,11 +67,6 @@ class Chat implements MessageComponentInterface
         }
     }
 
-    protected function escape(string $string): string
-    {
-        return htmlspecialchars($string);
-    }
-
     public function onClose(ConnectionInterface $conn)
     {
         // Retirer le joueur
@@ -94,5 +89,14 @@ class Chat implements MessageComponentInterface
         echo "An error has occurred: {$e->getMessage()}\n";
 
         $conn->close();
+    }
+
+    /**
+     * @param string $string The string to escape
+     * @return string The escaped string
+     */
+    protected function escape(string $string): string
+    {
+        return htmlspecialchars($string);
     }
 }

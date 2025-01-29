@@ -10,57 +10,120 @@
 
 namespace ComusParty\App\Sockets;
 
+use ComusParty\App\Db;
+use ComusParty\Models\GameRecordDAO;
+use ComusParty\Models\GameRecordState;
 use Exception;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
+use SplObjectStorage;
 
 class Game implements MessageComponentInterface
 {
-    protected $clients;
+    protected SplObjectStorage $clients;
+    protected array $games;
 
     public function __construct()
     {
-        $this->clients = new \SplObjectStorage;
+        $this->clients = new SplObjectStorage;
+        $this->games = [];
     }
 
-    /**
-     * @inheritDoc
-     */
-    function onOpen(ConnectionInterface $conn)
+    function onOpen(ConnectionInterface $conn): void
     {
-        $this->clients->attach($conn);
-        echo "new connection: ({$conn->resourceId})\n";
+        $conn->send(json_encode(['message' => 'Connection established']));
     }
 
-    /**
-     * @inheritDoc
-     */
-    function onClose(ConnectionInterface $conn)
+    function onMessage(ConnectionInterface $from, $msg): void
     {
+        $data = json_decode($msg, true);
+
+        if (!isset($data['uuid']) || !isset($data['command']) || !isset($data['game'])) {
+            $from->send(json_encode(['error' => 'Message invalide']));
+            return;
+        }
+
+        $uuid = $data['uuid'];
+        $game = $data['game'];
+        $command = $data['command'];
+
+        if (!isset($this->games[$game])) {
+            $this->games[$game] = [];
+        }
+
+        if (!in_array($from, $this->games[$game])) {
+            $this->games[$game][] = $from;
+        }
+
+        switch ($command) {
+            case 'quitGame':
+            case 'joinGame':
+                $this->updatePlayer($game);
+                break;
+            case 'startGame':
+                $this->redirectUserToGame($game, $uuid);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private function updatePlayer(string $game): void
+    {
+        $gameRecord = (new GameRecordDAO(Db::getInstance()->getConnection()))->findByCode($game);
+
+        $players = $gameRecord->getPlayers();
+        $jsonPlayer = array_map(fn($player) => [
+            "uuid" => $player['player']->getUuid(),
+            "username" => $player['player']->getUsername(),
+            "pfp" => $player['player']->getActivePfp()
+        ], $players);
+
+        $this->sendToGame($game, "updatePlayer", json_encode($jsonPlayer));
+    }
+
+    private function sendToGame(string $game, string $command, string $content): void
+    {
+        foreach ($this->games[$game] as $client) {
+            $client->send(json_encode(['command' => $command, 'content' => $content]));
+        }
+    }
+
+    private function redirectUserToGame(string $game, string $uuid): void
+    {
+        $gameRecord = (new GameRecordDAO(Db::getInstance()->getConnection()))->findByCode($game);
+
+        if ($gameRecord->getState() == GameRecordState::STARTED &&
+            $gameRecord->getHostedBy()->getUuid() == $uuid) {
+            $this->sendToGame($game, "gameStarted", json_encode(["message" => "Game started!"]));
+        }
+    }
+
+    public function onClose(ConnectionInterface $conn): void
+    {
+        foreach ($this->games as $game => $clients) {
+            $key = array_search($conn, $clients);
+            if ($key !== false) {
+                $this->updatePlayer($game);
+                unset($this->games[$game][$key]);
+            }
+        }
+
         $this->clients->detach($conn);
-        echo "connection {$conn->resourceId} has disconnected\n";
     }
 
-    /**
-     * @inheritDoc
-     */
-    function onError(ConnectionInterface $conn, Exception $e)
+    public function onError(ConnectionInterface $conn, Exception $e): void
     {
-        echo "error occured: {$e->getMessage()}\n";
+        echo "Erreur: {$e->getMessage()}\n";
         $conn->close();
     }
 
     /**
-     * @inheritDoc
+     * @param string $string The string to escape
+     * @return string The escaped string
      */
-    function onMessage(ConnectionInterface $from, $msg)
+    protected function escape(string $string): string
     {
-        $data = json_decode($msg, true);
-        // handle incomming messages and brodcast to all clients
-        foreach ($this->clients as $client) {
-            if($from !== $client) {
-                $client->send(json_encode($data));
-            }
-        }
+        return htmlspecialchars($string);
     }
 }
