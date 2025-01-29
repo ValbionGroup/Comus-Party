@@ -462,7 +462,8 @@ class ControllerAuth extends Controller
         $userManager = new UserDAO($this->getPdo());
         $playerManager = new PlayerDAO($this->getPdo());
         $user = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId());
-        $user->setPassword($newPassword);
+        $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT);
+        $user->setPassword($newPasswordHashed);
 
         if (!$userManager->update($user)) {
             throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
