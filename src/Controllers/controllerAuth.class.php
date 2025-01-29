@@ -468,7 +468,7 @@ class ControllerAuth extends Controller
                 'type' => 'string',
                 'min-length' => 8,
                 'max-length' => 120,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
             ]
         ];
 
@@ -476,7 +476,6 @@ class ControllerAuth extends Controller
 
         if (!$validator->validate(['password' => $newPassword])) {
             throw new AuthenticationException("Mot de passe invalide");
-            return;
         }
 
 
