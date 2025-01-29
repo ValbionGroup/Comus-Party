@@ -89,10 +89,7 @@ class ControllerBasket extends Controller
         $bannersOwned = $managerArticle->findAllBannersOwnedByPlayer($_SESSION['uuid']);
         $idsBannersOwned = [];
         foreach ($bannersOwned as $bannerOwned) {
-            // Si la propriété "id" est privée, utilisez une méthode getter (par exemple getId())
-
             $idsBannersOwned[] = $bannerOwned->getId();
-
         }
 
 
