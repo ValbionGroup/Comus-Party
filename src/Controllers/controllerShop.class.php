@@ -53,32 +53,19 @@ class ControllerShop extends Controller
     public function show()
     {
         $managerArticle = new ArticleDAO($this->getPdo());
-
         $articles = $managerArticle->findAll();
         $pfps = $managerArticle->findAllPfps();
         $banners = $managerArticle->findAllBanners();
         $pfpsOwned = $managerArticle->findAllPfpsOwnedByPlayer($_SESSION['uuid']);
-        // Tableau pour stocker les IDs
         $idsPfpsOwned = [];
-
-        // Parcourir les objets et récupérer les IDs
         foreach ($pfpsOwned as $pfpOwned) {
-            // Si la propriété "id" est privée, utilisez une méthode getter (par exemple getId())
-
             $idsPfpsOwned[] = $pfpOwned->getId();
-
         }
         $bannersOwned = $managerArticle->findAllBannersOwnedByPlayer($_SESSION['uuid']);
         $idsBannersOwned = [];
         foreach ($bannersOwned as $bannerOwned) {
-            // Si la propriété "id" est privée, utilisez une méthode getter (par exemple getId())
-
             $idsBannersOwned[] = $bannerOwned->getId();
-
         }
-
-
-
         $template = $this->getTwig()->load('player/shop.twig');
         if (isset($_SESSION['basket'])) {
             $numberArticlesInBasket = count($_SESSION['basket']);
