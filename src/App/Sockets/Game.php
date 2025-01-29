@@ -16,13 +16,20 @@ use Ratchet\MessageComponentInterface;
 
 class Game implements MessageComponentInterface
 {
+    protected $clients;
+
+    public function __construct()
+    {
+        $this->clients = new \SplObjectStorage;
+    }
 
     /**
      * @inheritDoc
      */
     function onOpen(ConnectionInterface $conn)
     {
-        // TODO: Implement onOpen() method.
+        $this->clients->attach($conn);
+        echo "new connection: ({$conn->resourceId})\n";
     }
 
     /**
@@ -30,7 +37,8 @@ class Game implements MessageComponentInterface
      */
     function onClose(ConnectionInterface $conn)
     {
-        // TODO: Implement onClose() method.
+        $this->clients->detach($conn);
+        echo "connection {$conn->resourceId} has disconnected\n";
     }
 
     /**
@@ -38,7 +46,8 @@ class Game implements MessageComponentInterface
      */
     function onError(ConnectionInterface $conn, Exception $e)
     {
-        // TODO: Implement onError() method.
+        echo "error occured: {$e->getMessage()}\n";
+        $conn->close();
     }
 
     /**
@@ -46,6 +55,12 @@ class Game implements MessageComponentInterface
      */
     function onMessage(ConnectionInterface $from, $msg)
     {
-        // TODO: Implement onMessage() method.
+        $data = json_decode($msg, true);
+        // handle incomming messages and brodcast to all clients
+        foreach ($this->clients as $client) {
+            if($from !== $client) {
+                $client->send(json_encode($data));
+            }
+        }
     }
 }

@@ -116,6 +116,7 @@ function closeModal() {
 
 // WebSocket
 const conn = new WebSocket('ws://localhost:8315/chat/' + gameCode);
+const connGame = new WebSocket('ws://localhost:8080/game/' + gameCode);
 conn.onopen = function (e) {
     console.log("Connexion établie !");
 };
