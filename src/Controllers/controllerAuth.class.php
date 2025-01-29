@@ -472,6 +472,7 @@ class ControllerAuth extends Controller
         $validator = new Validator($rules);
         if (!$validator->validate(['password' => $newPassword])) {
             throw new AuthenticationException("Mot de passe invalide");
+        }else{
             $userManager = new UserDAO($this->getPdo());
             $playerManager = new PlayerDAO($this->getPdo());
             $user = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId());
