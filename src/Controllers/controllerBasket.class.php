@@ -75,35 +75,48 @@ class ControllerBasket extends Controller
      */
     function addArticleToBasket()
     {
-// Vérifier si l'ID de l'article a été envoyé
+        $managerArticle = new ArticleDAO($this->getPdo());
+        $pfpsOwned = $managerArticle->findAllPfpsOwnedByPlayer($_SESSION['uuid']);
+        $idsPfpsOwned = [];
+        foreach ($pfpsOwned as $pfpOwned) {
+            $idsPfpsOwned[] = $pfpOwned->getId();
+        }
+
+        $bannersOwned = $managerArticle->findAllBannersOwnedByPlayer($_SESSION['uuid']);
+        $idsBannersOwned = [];
+        foreach ($bannersOwned as $bannerOwned) {
+            $idsBannersOwned[] = $bannerOwned->getId();
+        }
 
         if (isset($_POST['id_article'])) {
             $id_article = intval($_POST['id_article']);
+            if(!in_array($id_article, $idsPfpsOwned) && !in_array($id_article, $idsBannersOwned)){
+                if (!isset($_SESSION['basket'])) {
+                    $_SESSION['basket'] = array();
+                }
+                if (!in_array($id_article, $_SESSION['basket'])) {
+                    $_SESSION['basket'][] = $id_article;
+                    $numberArticlesInBasket = count($_SESSION['basket']);
+                    echo json_encode([
+                        'success' => true,
+                        'message' => "Article ajouté au panier !",
+                        'numberArticlesInBasket' => $numberArticlesInBasket
+                    ]);
 
-            if (!isset($_SESSION['basket'])) {
-                $_SESSION['basket'] = array();
+                } else {
+                    $numberArticlesInBasket = count($_SESSION['basket']);
+                    echo json_encode([
+                        'success' => false,
+                        'message' => "L'article est déjà dans le panier.",
+                        'numberArticlesInBasket' => $numberArticlesInBasket
+                    ]);
+
+                }
+
             }
-            // Ajouter l'ID de l'article au basket s'il n'y est pas déjà
-            if (!in_array($id_article, $_SESSION['basket'])) {
-                $_SESSION['basket'][] = $id_article;
-                $numberArticlesInBasket = count($_SESSION['basket']);
 
 
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Article ajouté au panier !",
-                    'numberArticlesInBasket' => $numberArticlesInBasket
-                ]);
 
-            } else {
-                $numberArticlesInBasket = count($_SESSION['basket']);
-                echo json_encode([
-                    'success' => false,
-                    'message' => "L'article est déjà dans le panier.",
-                    'numberArticlesInBasket' => $numberArticlesInBasket
-                ]);
-
-            }
         } else {
             echo "Erreur : ID de l'article non spécifié.";
         }
