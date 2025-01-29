@@ -291,6 +291,37 @@ class PlayerDAO
     }
 
     /**
+     * @brief Crée un nouveau joueur invité dans la base de données
+     *
+     * @details Cette méthode génère un UUID unique pour le joueur, et insère un nouvel enregistrement dans la table des joueurs avec l'UUID et le nom d'utilisateur.
+     *
+     * @param string $username Le nom d'utilisateur du joueur
+     * @return bool Retourne true si le joueur a été créé avec succès, false sinon
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function createGuestPlayer(string $username): bool
+    {
+        // Récupère l'ID du dernier joueur enregistré
+        $stmt = $this->pdo->query('SELECT MAX(id) as max_id FROM ' . DB_PREFIX . 'user');
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
+
+        $userId = $result['max_id'] + 1;
+
+
+        // Genération de l'uuid du joueur guest
+        $uuid = "guest" . Uuid::uuid4()->toString();
+
+        $stmtPlayer = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "player (uuid, username, user_id) VALUES (:uuid, :username, :user_id)");
+
+        $stmtPlayer->bindParam(':uuid', $uuid);
+        $stmtPlayer->bindParam(':username', $username);
+        $stmtPlayer->bindParam(':user_id', $userId);
+
+        return $stmtPlayer->execute();
+    }
+
+    /**
      * @brief Retourne un objet Player (ou null) à partir du nom d'utilisateur passé en paramètre
      * @param string|null $username Le nom d'utilisateur du joueur à retrouver
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
