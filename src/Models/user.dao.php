@@ -108,17 +108,15 @@ class UserDAO
                 email_verified_at = :email_verified_at,
                 email_verif_token = :email_verif_token,
                 password = :password,
-                disabled = :disabled,
-                created_at = :created_at
+                disabled = :disabled
             WHERE id = :id'
         );
 
         $email = $user->getEmail();
-        $verifiedAt = $user->getEmailVerifiedAt()?->getTimestamp();
+        $verifiedAt = $user->getEmailVerifiedAt()?->format('Y-m-d H:i:s');
         $emailVerifyToken = $user->getEmailVerifyToken();
         $password = $user->getPassword();
         $disabled = $user->getDisabled();
-        $createdAt = $user->getCreatedAt()->getTimestamp();
         $id = $user->getId();
 
         $stmt->bindParam(':email', $email);
@@ -126,7 +124,6 @@ class UserDAO
         $stmt->bindParam(':email_verif_token', $emailVerifyToken);
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':disabled', $disabled);
-        $stmt->bindParam(':created_at', $createdAt);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
