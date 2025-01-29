@@ -457,7 +457,7 @@ class ControllerAuth extends Controller
      * @param string $newPassword
      * @return void
      */
-    public function modifPassword(string $newPassword): void
+    public function editPassword(string $newPassword): void
     {
         $userManager = new UserDAO($this->getPdo());
         $playerManager = new PlayerDAO($this->getPdo());
@@ -468,7 +468,7 @@ class ControllerAuth extends Controller
             throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
         }else{
             try{
-                $to = $playerManager->findByUuid($_SESSION['uuid'])->getUuid();
+                $to = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId())->getEmail();
                 $subject = 'Modification de mot-de-passe';
                 $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
                 $mailer = new Mailer([$to], $subject, $message);

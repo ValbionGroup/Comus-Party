@@ -39,7 +39,7 @@ $router->put('/profile/update-style/:idArticle', function ($idArticle) use ($loa
 }, 'player');
 
 $router->post('/profile/update-password', function () use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("modifPassword", [
+    ControllerFactory::getController("auth", $loader, $twig)->call("editPassword", [
         "newPassword" => $_POST["newPassword"],
     ]);
     exit;
