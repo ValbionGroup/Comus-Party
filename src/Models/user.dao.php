@@ -131,6 +131,7 @@ class UserDAO
         return $stmt->execute();
     }
 
+
     /**
      * Retourne un utilisateur en fonction de son email
      *

@@ -38,6 +38,13 @@ $router->put('/profile/update-style/:idArticle', function ($idArticle) use ($loa
     exit;
 }, 'player');
 
+$router->post('/profile/update-password', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("editPassword", [
+        "newPassword" => $_POST["newPassword"],
+    ]);
+    exit;
+}, 'player');
+
 // Route pour afficher le formulaire de connexion
 $router->get('/login', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");

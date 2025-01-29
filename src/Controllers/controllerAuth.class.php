@@ -451,6 +451,43 @@ class ControllerAuth extends Controller
         }
     }
 
+
+    /**
+     * @brief Permet de modifier le mot de passe d'un utilisateur et lui envoie un mail pour lui confirmer
+     * @param string $newPassword
+     * @return void
+     */
+    public function editPassword(string $newPassword): void
+    {
+        $userManager = new UserDAO($this->getPdo());
+        $playerManager = new PlayerDAO($this->getPdo());
+        $user = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId());
+        $user->setPassword($newPassword);
+
+        if (!$userManager->update($user)) {
+            throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
+        }else{
+            try{
+                $to = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId())->getEmail();
+                $subject = 'Modification de mot-de-passe';
+                $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
+                $mailer = new Mailer([$to], $subject, $message);
+                $mailer->generateHTMLMessage();
+                $mailer->send();
+                echo json_encode([
+                    'success' => true,
+                ]);
+            }catch (Exception $e){
+                echo json_encode([
+                    'success' => false,
+                    'error' => $e->getMessage()
+                ]);
+            }
+
+        }
+    }
+
+
     /**
      * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
      *
@@ -480,4 +517,5 @@ class ControllerAuth extends Controller
             throw new AuthenticationException("La confirmation a echoué");
         }
     }
+
 }
