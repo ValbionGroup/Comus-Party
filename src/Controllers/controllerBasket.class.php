@@ -75,13 +75,9 @@ class ControllerBasket extends Controller
      */
     function addArticleToBasket()
     {
-
         $managerArticle = new ArticleDAO($this->getPdo());
         $pfpsOwned = $managerArticle->findAllPfpsOwnedByPlayer($_SESSION['uuid']);
-        // Tableau pour stocker les IDs
         $idsPfpsOwned = [];
-
-        // Parcourir les objets et récupérer les IDs
         foreach ($pfpsOwned as $pfpOwned) {
             $idsPfpsOwned[] = $pfpOwned->getId();
         }
@@ -92,22 +88,15 @@ class ControllerBasket extends Controller
             $idsBannersOwned[] = $bannerOwned->getId();
         }
 
-
-
-// Vérifier si l'ID de l'article a été envoyé
-
         if (isset($_POST['id_article'])) {
             $id_article = intval($_POST['id_article']);
             if(!in_array($id_article, $idsPfpsOwned) && !in_array($id_article, $idsBannersOwned)){
                 if (!isset($_SESSION['basket'])) {
                     $_SESSION['basket'] = array();
                 }
-                // Ajouter l'ID de l'article au basket s'il n'y est pas déjà
                 if (!in_array($id_article, $_SESSION['basket'])) {
                     $_SESSION['basket'][] = $id_article;
                     $numberArticlesInBasket = count($_SESSION['basket']);
-
-
                     echo json_encode([
                         'success' => true,
                         'message' => "Article ajouté au panier !",
