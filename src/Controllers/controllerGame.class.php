@@ -343,8 +343,18 @@ class ControllerGame extends Controller
             "settings" => $settings,
             "isPrivate" => $gameRecord->isPrivate(),
         ];
+        
+        // broadcast le gameState à tous les joueurs avec un websocket
+        $this->broadcastGameState($gameState);
 
         echo $template->render($gameState);
+    }
+
+    private function broadcastGameState(array $gameState): void
+    {
+        $wsClient = new WebSocket\Client("ws://localhost:8080/game"); // TODO change class or remove?
+        $wsClient->send(json_encode($gameState));
+        $wsClient->close();
     }
 
     /**
