@@ -468,7 +468,7 @@ class ControllerAuth extends Controller
                 'type' => 'string',
                 'min-length' => 8,
                 'max-length' => 120,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?&^_#]{8,}$/'
             ]
         ];
 
