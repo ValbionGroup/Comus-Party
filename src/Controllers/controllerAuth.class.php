@@ -468,7 +468,7 @@ class ControllerAuth extends Controller
             throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
         }else{
             try{
-                $to = $userManager->findEmailByUuid($_SESSION['uuid']);
+                $to = $playerManager->findByUuid($_SESSION['uuid'])->getUuid();
                 $subject = 'Modification de mot-de-passe';
                 $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
                 $mailer = new Mailer([$to], $subject, $message);
