@@ -24,3 +24,22 @@ define('BASE_URL', $_ENV['BASE_URL']);
  * @brief URI de base de l'application
  */
 define('BASE_URI', $_ENV['BASE_URI']);
+
+
+/**
+ * @brief Système de sauvegarde actif ou non
+ */
+define('BACKUP_ENABLE', $_ENV['BACKUP_ENABLE']);
+
+/**
+ * @brief Mode de sauvegarde
+ * @details Mode de sauvegarde actif :
+ *  - cron : Sauvegarde automatique via tâche cron
+ *  - manual : Sauvegarde lors du chargement du contrôleur principal
+ */
+define('BACKUP_MODE', $_ENV['BACKUP_TYPE']);
+
+/**
+ * @brief Nombre de sauvegardes à conserver
+ */
+define('BACKUP_RETENTION', $_ENV['BACKUP_RETENTION']);
