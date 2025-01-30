@@ -75,6 +75,158 @@ class Controller
         }
     }
 
+    private function makeDatabaseBackup(): void
+    {
+        $minutesBetweenBackups = BACKUP_INTERVAL;
+        $isBackupNeeded = false;
+
+        if (file_exists(__DIR__ . '/../../backup')) {
+            $files = glob(__DIR__ . '/../../backup/db-backup_*.sql');
+            usort($files, function ($a, $b) {
+                return filemtime($a) < filemtime($b);
+            });
+
+            if (count($files) > 0) {
+                $lastBackup = $files[0];
+                $lastBackupTime = filemtime($lastBackup);
+                $currentTime = time();
+                $diff = $currentTime - $lastBackupTime;
+                $minutes = $diff / 60;
+
+                if ($minutes >= $minutesBetweenBackups) {
+                    $isBackupNeeded = true;
+                }
+
+                # Suppression des anciennes sauvegardes
+                if (count($files) > BACKUP_RETENTION) {
+                    for ($i = BACKUP_RETENTION; $i < count($files); $i++) {
+                        unlink($files[$i]);
+                    }
+                }
+            } else {
+                $isBackupNeeded = true;
+            }
+        } else {
+            $isBackupNeeded = true;
+        }
+
+        if (!$isBackupNeeded) {
+            return;
+        }
+
+        try {
+            $date = date('Y-m-d_H-i-s');
+            $backupFile = 'db-backup_' . $date . '.sql';
+
+            $stmt = $this->getPdo()->prepare('SHOW TABLES');
+            $stmt->execute();
+            $tables = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+
+            $sql = 'CREATE DATABASE IF NOT EXISTS `' . DB_NAME . '`' . ";\n\n"; // Création de la base de données
+            $sql .= 'USE `' . DB_NAME . "`;\n\n"; // Utilisation de la base de données pour la suite des opérations
+            $sql .= "SET foreign_key_checks = 0;\n\n"; // Désactivation des contraintes de clés étrangères
+
+            foreach ($tables as $table) {
+                $sql .= 'DROP TABLE IF EXISTS `' . $table . '`;';
+
+                $stmt = $this->getPdo()->prepare('SHOW CREATE TABLE `' . $table . '`');
+                $stmt->execute();
+                $sql .= "\n\n" . $stmt->fetchColumn(1) . ";\n\n";
+
+                $stmt = $this->getPdo()->prepare('SELECT COUNT(*) FROM `' . $table . '`');
+                $stmt->execute();
+                $count = $stmt->fetchColumn();
+                $numBatches = intval($count / BACKUP_FETCH_LIMIT) + 1;
+
+                for ($b = 1; $b <= $numBatches; $b++) {
+                    $request = 'SELECT * FROM `' . $table . '` LIMIT ' . ($b * BACKUP_FETCH_LIMIT - BACKUP_FETCH_LIMIT) . ',' . BACKUP_FETCH_LIMIT;
+                    $stmt = $this->getPdo()->prepare($request);
+                    $stmt->execute();
+
+                    $realBatchSize = $stmt->rowCount();
+                    $numFields = $stmt->columnCount();
+
+                    if ($realBatchSize !== 0) {
+                        $sql .= 'INSERT INTO `' . $table . '` VALUES ';
+
+                        for ($i = 0; $i < $numFields; $i++) {
+                            $rowCount = 1;
+                            while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+                                $sql .= '(';
+                                for ($j = 0; $j < $numFields; $j++) {
+                                    if (isset($row[$j])) {
+                                        $row[$j] = addslashes($row[$j]);
+                                        $row[$j] = str_replace("\n", "\\n", $row[$j]);
+                                        $row[$j] = str_replace("\r", "\\r", $row[$j]);
+                                        $row[$j] = str_replace("\f", "\\f", $row[$j]);
+                                        $row[$j] = str_replace("\t", "\\t", $row[$j]);
+                                        $row[$j] = str_replace("\v", "\\v", $row[$j]);
+                                        $row[$j] = str_replace("\a", "\\a", $row[$j]);
+                                        $row[$j] = str_replace("\b", "\\b", $row[$j]);
+                                        if ($row[$j] == 'true' or $row[$j] == 'false' or preg_match('/^-?[1-9][0-9]*$/', $row[$j]) or $row[$j] == 'NULL' or $row[$j] == 'null') {
+                                            $sql .= $row[$j];
+                                        } else {
+                                            $sql .= '\'' . $row[$j] . '\'';
+                                        }
+                                    } else {
+                                        $sql .= 'NULL';
+                                    }
+
+                                    if ($j < ($numFields - 1)) {
+                                        $sql .= ',';
+                                    }
+                                }
+
+                                if ($rowCount == $realBatchSize) {
+                                    $rowCount = 0;
+                                    $sql .= ");\n"; // Fermeture de l'instruction d'insertion
+                                } else {
+                                    $sql .= "),\n"; // Fermeture de la ligne d'insertion
+                                }
+
+                                $rowCount++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            $sql .= "SET foreign_key_checks = 1;\n";
+
+            if (!is_dir(__DIR__ . '/../../backup')) {
+                mkdir(__DIR__ . '/../../backup');
+            }
+
+            file_put_contents(__DIR__ . '/../../backup/' . $backupFile, $sql);
+        } catch (Exception $e) {
+            if (!is_dir(__DIR__ . '/../../backup')) {
+                mkdir(__DIR__ . '/../../backup');
+            }
+
+            file_put_contents(__DIR__ . '/../../backup/error.txt', $e->getMessage());
+        }
+    }
+
+    /**
+     * @brief Retourne l'attribut PDO, correspondant à la connexion à la base de données
+     * @return PDO Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données
+     */
+    public function getPdo(): PDO
+    {
+        return $this->pdo;
+    }
+
+    /**
+     * @brief Modifie l'attribut PDO, correspondant à la connexion à la base de données
+     * @param PDO $pdo La nouvelle connexion à la base de données
+     * @return void
+     */
+    public function setPdo(PDO $pdo): void
+    {
+        $this->pdo = $pdo;
+    }
+
     /**
      * @brief Appelle la méthode du Controller passée en paramètre
      * @param string $method La méthode à appeler
