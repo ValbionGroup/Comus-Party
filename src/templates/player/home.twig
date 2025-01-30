@@ -25,6 +25,7 @@
             </div>
         </div>
 
+        <div class="square w-20 h-20 bg-red-500 "></div>
 
         <div class="container mx-auto grid auto-cols-auto gap-y-10 place-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-20 transition-all duration-500 ease-in-out">
             {% for game in games %}
@@ -199,5 +200,9 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="/assets/js/home.js"></script>
+    <script  src="/libs/anime.js"></script>
+    <script  src="/assets/js/home.js"></script>
+    <script type="module" src="/assets/js/animation.js"></script>
+
+
 {% endblock %}

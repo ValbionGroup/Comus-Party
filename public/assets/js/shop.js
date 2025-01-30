@@ -176,6 +176,8 @@ function showModalPfp(article) {
     }
 }
 
+
+
 /**
  * @brief Permet d'afficher la fenêtre modale de l'article Banner correspondant
  * @param article L'article qui doit être affiché dans la fenêtre modale

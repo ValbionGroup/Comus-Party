@@ -7,7 +7,7 @@
     <div class="w-full overflow-y-auto">
         <div class="flex justify-between w-full">
             <h1 class="text-3xl text-night mt-10 ml-3 mb-4 font-serif">Boutique</h1>
-            <a class="mr-5 mt-8 cursor-pointer" href="/shop/basket">
+            <a class="mr-5 mt-8 cursor-pointer logo-basket" href="/shop/basket"  >
                 {# Logo basket vide  #}
                 <span id="emptyBasketLogo" class="z-40"><svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@
                 </span>
                 {#  Logo basket rempli #}
                 <span id="filledBasketLogo"
-                      class="hidden relative flex justify-center flex-col text-center items-center  ">
+                      class="hidden relative flex justify-center flex-col text-center items-center logo-basket"  >
                         <span class="absolute left-8 bottom-6 w-5 h-5  z-40  bg-lavender-blush-3 text-center  justify-center items-center rounded-full border border-lavender-blush-3 ">
                             <p class="relative bottom-1" id="numberArticlesInBasket">{{ numberArticlesInBasket }}</p>
                         </span>
@@ -47,7 +47,7 @@
 
                     <div class="flex flex-wrap">
                         {% for pfp in pfps %}
-                            <div class="w-20 h-20 m-1 pfp cursor-pointer"
+                            <div class="pfp w-20 h-20 m-1 pfp cursor-pointer relative top-10 opacity-0"
                                  onclick="showModalPfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}', {% if pfp.id in idsPfpsOwned %}  owned : true {% else %} owned:false {% endif %} })">
                                 <img src="assets/img/pfp/{{ pfp.filePath }}" alt="{{ pfp.name }}" class="rounded-3xl w-20 h-20 overflow-hidden">
                             </div>
@@ -57,11 +57,11 @@
 
                 {# Boutique des bannières #}
 
-                <div class="lg:col-span-2 bg-lavender-blush   rounded-3xl  p-6 overflow-y-auto ">
+                <div class="lg:col-span-2 bg-lavender-blush   rounded-3xl  p-6 overflow-y-auto overflow-x-hidden ">
                     <h2 class="text-2xl text-night mb-4 font-serif">Bannières</h2>
                     <div class="flex flex-wrap">
                         {% for banner in banners %}
-                            <div class="w-full h-full m-1 cursor-pointer"
+                            <div class="banner relative left-24 w-full h-full m-1 cursor-pointer opacity-0"
                                  onclick="showModalBanner({ id : '{{ banner.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}', {% if banner.id in idsBannersOwned %}  owned : true {% else %} owned:false {% endif %}})">
                                 <img src="assets/img/banner/{{ banner.filePath }}" alt="{{ banner.name }}"
                                      class="w-80 rounded-2xl overflow-hidden">
@@ -202,7 +202,19 @@
             <p id="notificationMessage"></p>
         </div>
     </div>
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script  src="/libs/anime.js"></script>
     <script src="/assets/js/shop.js"></script>
+    <script type="module" src="/assets/js/animation.js"></script>
 
 
 {% endblock %}

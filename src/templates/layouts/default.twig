@@ -5,7 +5,7 @@
         <header class="flex w-full items-center">
             <nav class="flex items-center justify-between w-full h-16 px-8">
                 <a href="/">
-                    <img src="/assets/img/cp-icon-v1.png" alt="Logo" class="h-12">
+                    <img src="/assets/img/cp-icon-v1.png" alt="Logo" class="relative opacity-0 right-6 h-12 logo">
                 </a>
                 <div class="flex items-center gap-5">
                     {% if auth.role == 'player' %}
@@ -103,4 +103,11 @@
         </div>
     </div>
     <input type="hidden" id="localPlayerUuid" value="{{ auth.loggedUuid }}">
+{% endblock %}
+
+{% block scripts %}
+    <script  src="/libs/anime.js"></script>
+    <script type="module" src="/assets/js/test.js"></script>
+
+
 {% endblock %}
