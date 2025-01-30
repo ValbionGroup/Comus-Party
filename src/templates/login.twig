@@ -23,7 +23,7 @@
             </div>
 
             <div>
-                <button id="submitButton" type="submit" class="w-full btn-disabled">Se connecter</button>
+                <button id="submitButton" type="submit" class="w-full btn-disabled" disabled>Se connecter</button>
             </div>
         </form>
         <div class="flex flex-col mt-7 gap-2">
@@ -70,12 +70,14 @@
 
             // Vérifications
             if (!EMAIL_REGEX.test(EMAIL)) {
+                submitButton.disabled = true;
                 submitButton.classList.add("btn-disabled");
                 submitButton.classList.remove("btn-primary");
                 inputEmail.classList.add("input-error");
                 incorrectEmailFormat.classList.add("block");
                 incorrectEmailFormat.classList.remove("hidden");
             } else {
+                submitButton.disabled = false;
                 inputEmail.classList.remove("input-error");
                 submitButton.classList.add("btn-primary");
                 submitButton.classList.remove("btn-disabled");
