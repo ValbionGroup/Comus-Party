@@ -14,6 +14,7 @@ notification.innerHTML = `
     <span></span>
 `;
 const background = document.getElementById('backgroundModal');
+const reportForm = document.getElementById('modalReportForm');
 
 /**
  * @brief Affiche une notification
@@ -113,4 +114,9 @@ function showProfile(searchBy, data) {
             showBackgroundModal();
         }
     };
+}
+
+function showReportForm() {
+    reportForm.classList.remove("hidden");
+    showBackgroundModal();
 }
