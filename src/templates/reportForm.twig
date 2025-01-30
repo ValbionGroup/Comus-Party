@@ -1,18 +1,20 @@
 {% block reportForm %}
-    <div id="modalReport">
+    <div id="modalReportForm"
+         class="hidden w-full sm:w-1/2 bg-lavender-blush-2 dark:bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl z-50">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Report</h2>
-            <form action="/report" method="post">
+            <h2>Signalement</h2>
+            <form action="#" method="post">
                 <input type="hidden" name="id" value="{{ id }}">
                 <label for="reason">Reason:</label>
-                <select name="reason" id="reason">
+                <select name="reason" id="reason" class="input">
+                    <option disabled selected>Sélectionnez une option</option>
                     <option value="1">Spam</option>
                     <option value="2">Inappropriate</option>
                     <option value="3">Other</option>
                 </select>
                 <label for="description">Description:</label>
-                <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                <textarea name="description" id="description" cols="30" rows="10" class="w-full h-32 input"></textarea>
                 <input type="submit" value="Report">
             </form>
         </div>
