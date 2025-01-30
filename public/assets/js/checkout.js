@@ -51,8 +51,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Si le formulaire est valide, active le bouton submit
         if (form.checkValidity()) {
             submitButton.disabled = false;
+            submitButton.classList.add('btn-primary');
+            submitButton.classList.remove('btn-disabled');
         } else {
             submitButton.disabled = true;
+            submitButton.classList.add('btn-disabled');
+            submitButton.classList.remove('btn-primary');
         }
     }
 
