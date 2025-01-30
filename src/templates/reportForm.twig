@@ -1,0 +1,20 @@
+{% block reportForm %}
+    <div id="modalReport">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Report</h2>
+            <form action="/report" method="post">
+                <input type="hidden" name="id" value="{{ id }}">
+                <label for="reason">Reason:</label>
+                <select name="reason" id="reason">
+                    <option value="1">Spam</option>
+                    <option value="2">Inappropriate</option>
+                    <option value="3">Other</option>
+                </select>
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                <input type="submit" value="Report">
+            </form>
+        </div>
+    </div>
+{% endblock %}
