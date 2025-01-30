@@ -67,6 +67,10 @@ function showBackgroundModal() {
     background.classList.remove("hidden");
 }
 
+function closeBackgroundModal() {
+    background.classList.add("hidden");
+}
+
 function showProfile(searchBy, data) {
     const playerInfoDiv = document.getElementById('modalPlayerInfo');
     const spanTopUsername = document.getElementById('spanTopUsername');

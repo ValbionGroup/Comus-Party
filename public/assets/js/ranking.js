@@ -7,7 +7,6 @@
  *   @version 0.1
  */
 
-const background = document.getElementById('backgroundModal');
 const modals = document.querySelectorAll(".modal");
 const headers = document.querySelectorAll('th');
 const tableBody = document.querySelector('tbody');
@@ -20,7 +19,7 @@ function closeModal() {
             modal.classList.add("hidden");
         }
     });
-    background.classList.add("hidden");
+    closeBackgroundModal()
 }
 
 // Ajoute des écouteurs d'événements aux colonnes triables

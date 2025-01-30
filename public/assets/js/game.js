@@ -109,7 +109,7 @@ function closeModal() {
             modal.classList.add("hidden");
         }
     });
-    background.classList.add("hidden");
+    closeBackgroundModal();
 }
 
 // WebSocket

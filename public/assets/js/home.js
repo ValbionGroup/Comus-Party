@@ -39,8 +39,7 @@ function closeModal() {
             modal.classList.add("hidden");
         }
     });
-    let background = document.getElementById('backgroundModal');
-    background.classList.add("hidden");
+    closeBackgroundModal();
 }
 
 function showModalSuggestion() {
