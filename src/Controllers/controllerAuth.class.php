@@ -357,7 +357,6 @@ class ControllerAuth extends Controller
      */
     public function register(?string $username, ?string $email, ?string $password): void
     {
-
         $rules = [
             'username' => [
                 'required' => true,
@@ -382,7 +381,11 @@ class ControllerAuth extends Controller
         $validator = new Validator($rules);
 
         if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
-            throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
+            echo json_encode([
+                'success' => false,
+                'message' => "Nom d'utilisateur, adresse e-mail ou mot de passe invalide"
+            ]);
+            exit;
         }
 
         // Hash le mot de passe
@@ -391,17 +394,24 @@ class ControllerAuth extends Controller
         $userDAO = new UserDAO($this->getPdo());
         $playerDAO = new PlayerDAO($this->getPdo());
 
-        try {
             // Vérifier si l'utilisateur et le joueur existent
             $existingUser = $userDAO->findByEmail($email) !== null;
             $existingPlayer = $playerDAO->findByUsername($username) !== null;
 
             if ($existingUser) {
-                throw new AuthenticationException("L'adresse e-mail est déjà utilisée");
+                echo json_encode([
+                    'success' => false,
+                    'message' => "L'adresse e-mail est déjà utilisée"
+                ]);
+                exit;
             }
 
             if ($existingPlayer) {
-                throw new AuthenticationException("Le nom d'utilisateur est déjà utilisé");
+                echo json_encode([
+                    'success' => false,
+                    'message' => "Le nom d'utilisateur est déjà utilisé"
+                ]);
+                exit;
             }
 
             // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
@@ -409,7 +419,11 @@ class ControllerAuth extends Controller
             $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
 
             if (!$resultUser) {
-                throw new Exception("Erreur lors de la création de l'utilisateur");
+                echo json_encode([
+                    'success' => false,
+                    'message' => "Erreur lors de la création de l'utilisateur"
+                ]);
+                exit;
             }
 
             $subject = '🎉 Bienvenue sur Comus Party !';
@@ -431,24 +445,29 @@ class ControllerAuth extends Controller
             $user = $userManager->findByEmail($email);
 
             if (is_null($user)) {
-                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+                echo json_encode([
+                    'success' => false,
+                    'message' => "Erreur lors de la création de l'utilisateur"
+                ]);
+                exit;
             }
 
             $playerManager = new PlayerDAO($this->getPdo());
             $player = $playerManager->findWithDetailByUserId($user->getId());
 
             if (is_null($player)) {
-                throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+                echo json_encode([
+                    'success' => false,
+                    'message' => "Erreur lors de la création du joueur"
+                ]);
+                exit;
             }
 
-            MessageHandler::addMessageParametersToSession("Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter.");
-            header('Location: /login');
+            echo json_encode([
+                'success' => true,
+                'message' => "Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter."
+            ]);
             exit;
-        } catch (AuthenticationException $e) {
-            MessageHandler::addExceptionParametersToSession($e);
-            header('Location: /register');
-            exit;
-        }
     }
 
 

@@ -145,7 +145,7 @@ function checkConditions(event) {
             updateErrorMessage(input, "passwordNoNumber", NUMBERS.test(input.value), "Le mot de passe doit contenir au moins un chiffre");
             updateErrorMessage(input, "passwordNoSpecialCharacter", SPECIAL_CHARACTER.test(input.value), "Le mot de passe doit contenir au moins un caractère spécial");
         } else if (input === INPUT_CONFIRM_PASSWORD) {
-            updateErrorMessage(input, "notMachingPasswords", inputPassword.value === input.value, "Les mots de passe ne correspondent pas");
+            updateErrorMessage(input, "notMachingPasswords", INPUT_PASSWORD.value === input.value, "Les mots de passe ne correspondent pas");
         }
     }
 }
@@ -173,4 +173,25 @@ function updateErrorMessage(input, errorElementId, condition, errorMessage) {
         errorElement.classList.add("hidden");
         errorElement.innerHTML = "";
     }
+}
+
+function signUp(e) {
+    loading(e);
+    makeRequest('POST', '/register', (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            showNotification("Inscription réussie", response.message, "green");
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 3000);
+        }
+        else {
+            e.innerHTML = "Valider";
+            showNotification("Erreur", response.message, "red");
+        }
+    }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}`);
+}
+
+function loading(e) {
+    e.innerHTML = '<div class="loader"></div>'
 }
