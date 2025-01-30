@@ -220,7 +220,7 @@ function editMail() {
         showNotification("Oups...", "Votre adresse email n'est pas valide", 'red');
         return;
     }
-    showNotification('Attendez !', 'Verification de votre adresse email', 'yellow');
+    showNotification('Attendez !', 'Vérification de votre adresse email', 'yellow');
     makeRequest(
         'POST',
         `/profile/update-email`,
@@ -229,7 +229,7 @@ function editMail() {
             if (response.success) {
                 newEmail.value = "";
                 pEmail.textContent = email;
-                showNotification('Parfait !', 'Votre adresse email a bien été modifié', 'green');
+                showNotification('Parfait !', 'Votre adresse email a bien été modifiée', 'green');
                 modalEditEmail.classList.add("hidden");
                 background.classList.add("hidden");
             } else {
