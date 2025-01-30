@@ -250,6 +250,8 @@ function matchPassword(){
 
     }else{
         confirmPasswordBtn.disabled = true
+        confirmPasswordBtn.classList.add("btn-disabled");
+        confirmPasswordBtn.classList.remove("btn-success");
         updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", inputNewPassword.value === inputNewPasswordConfirm.value, "Les mots de passe ne correspondent pas");
     }
 }
