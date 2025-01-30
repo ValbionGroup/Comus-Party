@@ -66,6 +66,10 @@ class Controller
         $this->loader = $loader;
         $this->twig = $twig;
 
+        if (BACKUP_ENABLE && BACKUP_MODE === 'manual') {
+            $this->makeDatabaseBackup();
+        }
+
         if (!empty($_GET)) {
             $this->get = $_GET;
         }
