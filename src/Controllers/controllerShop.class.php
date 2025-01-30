@@ -53,11 +53,19 @@ class ControllerShop extends Controller
     public function show()
     {
         $managerArticle = new ArticleDAO($this->getPdo());
-
         $articles = $managerArticle->findAll();
         $pfps = $managerArticle->findAllPfps();
         $banners = $managerArticle->findAllBanners();
-
+        $pfpsOwned = $managerArticle->findAllPfpsOwnedByPlayer($_SESSION['uuid']);
+        $idsPfpsOwned = [];
+        foreach ($pfpsOwned as $pfpOwned) {
+            $idsPfpsOwned[] = $pfpOwned->getId();
+        }
+        $bannersOwned = $managerArticle->findAllBannersOwnedByPlayer($_SESSION['uuid']);
+        $idsBannersOwned = [];
+        foreach ($bannersOwned as $bannerOwned) {
+            $idsBannersOwned[] = $bannerOwned->getId();
+        }
         $template = $this->getTwig()->load('player/shop.twig');
         if (isset($_SESSION['basket'])) {
             $numberArticlesInBasket = count($_SESSION['basket']);
@@ -68,6 +76,8 @@ class ControllerShop extends Controller
             'articles' => $articles,
             'pfps' => $pfps,
             'banners' => $banners,
+            'idsPfpsOwned' => $idsPfpsOwned,
+            'idsBannersOwned' => $idsBannersOwned,
             'numberArticlesInBasket' => $numberArticlesInBasket
         ));
     }

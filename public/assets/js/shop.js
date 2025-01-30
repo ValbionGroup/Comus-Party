@@ -115,55 +115,64 @@ function showModalPfp(article) {
     priceComusArticlePfp.innerText = article.pricePoint
     priceEuroArticlePfp.innerText = article.priceEuro + " €"
 
-    addBasketBtnPfp.onclick = function (){
+    // Le joueur ne possédant pas l'article, il peut donc l'ajouter au panier
+    if(article.owned == false) {
+        addBasketBtnPfp.textContent = "Ajouter au panier"
+        addBasketBtnPfp.disabled = false
+        addBasketBtnPfp.onclick = function () {
 
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "/shop/basket/add", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/shop/basket/add", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        // Envoyer les données sous forme de paire clé=valeur
-        xhr.send("id_article=" + article.id);
+            // Envoyer les données sous forme de paire clé=valeur
+            xhr.send("id_article=" + article.id);
 
-        // Gérer la réponse du serveur
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                let response =  JSON.parse(xhr.responseText)
-                if(response.numberArticlesInBasket > 0){
-                    filledBasketLogo.classList.remove("hidden")
-                    emptyBasketLogo.classList.add("hidden")
-                    numberArticlesInBasket.textContent = response.numberArticlesInBasket
-                }else{
-                    emptyBasketLogo.classList.remove("hidden")
-                    filledBasketLogo.classList.add("hidden")
-                }
-                // Préparer la notification si l'article a été supprimé du basket
-                if (response.success) {
-                    notificationMessage.textContent = "Article ajouté au panier"
-                    notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";   if(response.numberArticlesInBasket > 0){
+            // Gérer la réponse du serveur
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let response = JSON.parse(xhr.responseText)
+                    if (response.numberArticlesInBasket > 0) {
+                        filledBasketLogo.classList.remove("hidden")
+                        emptyBasketLogo.classList.add("hidden")
+                        numberArticlesInBasket.textContent = response.numberArticlesInBasket
+                    } else {
+                        emptyBasketLogo.classList.remove("hidden")
+                        filledBasketLogo.classList.add("hidden")
                     }
-                } else {
-                    notificationMessage.textContent = "Article déjà présent dans le panier"
-                    notification.className = "z-50 fixed bottom-5 right-5 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                    // Préparer la notification si l'article a été supprimé du basket
+                    if (response.success) {
+                        notificationMessage.textContent = "Article ajouté au panier"
+                        notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                        if (response.numberArticlesInBasket > 0) {
+                        }
+                    } else {
+                        notificationMessage.textContent = "Article déjà présent dans le panier"
+                        notification.className = "z-50 fixed bottom-5 right-5 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                    }
+                    // Afficher la notification
+                    notification.classList.remove('opacity-0', 'scale-90');
+                    notification.classList.add('opacity-100', 'scale-100');
+
+                    overlay.classList.remove('opacity-100'); // Disparition de l'overlay
+                    modalWindowForPfp.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
+                    // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
+                    setTimeout(() => {
+                        overlay.classList.add('hidden', 'opacity-0');
+                        modalWindowForPfp.classList.add('hidden', 'opacity-0', 'translate-y-4');
+                    }, 300); // Durée de la transition
+
+                    // Masquer la notification après 5 secondes
+                    setTimeout(() => {
+                        notification.classList.remove('opacity-100', 'scale-100');
+                        notification.classList.add('opacity-0', 'scale-90');
+                    }, 5000);
                 }
-                // Afficher la notification
-                notification.classList.remove('opacity-0', 'scale-90');
-                notification.classList.add('opacity-100', 'scale-100');
-
-                overlay.classList.remove('opacity-100'); // Disparition de l'overlay
-                modalWindowForPfp.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
-                // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
-                setTimeout(() => {
-                    overlay.classList.add('hidden', 'opacity-0');
-                    modalWindowForPfp.classList.add('hidden', 'opacity-0', 'translate-y-4');
-                }, 300); // Durée de la transition
-
-                // Masquer la notification après 5 secondes
-                setTimeout(() => {
-                    notification.classList.remove('opacity-100', 'scale-100');
-                    notification.classList.add('opacity-0', 'scale-90');
-                }, 5000);
-            }
-        };
+            };
+        }
+    }else{
+        addBasketBtnPfp.textContent = "Déjà possédé"
+        addBasketBtnPfp.disabled = true
     }
 }
 
@@ -190,55 +199,59 @@ function showModalBanner(article) {
     priceComusArticleBanner.innerText = article.pricePoint
     priceEuroArticleBanner.innerText = article.priceEuro + " €"
 
-    addBasketBtnBanner.onclick = function (){
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "/shop/basket/add", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    if(article.owned == false){
+        addBasketBtnBanner.textContent = "Ajouter au panier"
+        addBasketBtnBanner.disabled = false
+        addBasketBtnBanner.onclick = function (){
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/shop/basket/add", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        // Envoyer les données sous forme de paire clé=valeur
-        xhr.send("id_article=" + article.id);
-        // Gérer la réponse du serveur
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
+            // Envoyer les données sous forme de paire clé=valeur
+            xhr.send("id_article=" + article.id);
+            // Gérer la réponse du serveur
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
 
-                let response =  JSON.parse(xhr.responseText)
-                if(response.numberArticlesInBasket > 0){
-                    filledBasketLogo.classList.remove("hidden")
-                    emptyBasketLogo.classList.add("hidden")
-                    numberArticlesInBasket.textContent = response.numberArticlesInBasket
-                }else{
-                    emptyBasketLogo.classList.remove("hidden")
-                    filledBasketLogo.classList.add("hidden")
-                }
-                // Préparer la notification si l'article a été supprimé du basket
-                if (response.success) {
-                    notificationMessage.textContent = "Article ajouté au panier"
-                    notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";   if(response.numberArticlesInBasket > 0){
+                    let response =  JSON.parse(xhr.responseText)
+                    if(response.numberArticlesInBasket > 0){
+                        filledBasketLogo.classList.remove("hidden")
+                        emptyBasketLogo.classList.add("hidden")
+                        numberArticlesInBasket.textContent = response.numberArticlesInBasket
+                    }else{
+                        emptyBasketLogo.classList.remove("hidden")
+                        filledBasketLogo.classList.add("hidden")
                     }
-                } else {
-                    notificationMessage.textContent = "Article déjà présent dans le panier"
-                    notification.className = "z-50 fixed bottom-5 right-5 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                    // Préparer la notification si l'article a été supprimé du basket
+                    if (response.success) {
+                        notificationMessage.textContent = "Article ajouté au panier"
+                        notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";   if(response.numberArticlesInBasket > 0){
+                        }
+                    } else {
+                        notificationMessage.textContent = "Article déjà présent dans le panier"
+                        notification.className = "z-50 fixed bottom-5 right-5 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
+                    }
+                    // Afficher la notification
+                    notification.classList.remove('opacity-0', 'scale-90');
+                    notification.classList.add('opacity-100', 'scale-100');
+
+                    overlay.classList.remove('opacity-100'); // Disparition de l'overlay
+                    modalWindowForBanner.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
+                    // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
+                    setTimeout(() => {
+                        overlay.classList.add('hidden', 'opacity-0');
+                        modalWindowForBanner.classList.add('hidden', 'opacity-0', 'translate-y-4');
+                    }, 300); // Durée de la transition
+                    // Masquer la notification après 5 secondes
+                    setTimeout(() => {
+                        notification.classList.remove('opacity-100', 'scale-100');
+                        notification.classList.add('opacity-0', 'scale-90');
+                    }, 5000);
                 }
-                // Afficher la notification
-                notification.classList.remove('opacity-0', 'scale-90');
-                notification.classList.add('opacity-100', 'scale-100');
-
-                overlay.classList.remove('opacity-100'); // Disparition de l'overlay
-                modalWindowForBanner.classList.remove('opacity-100', 'translate-y-0'); // Disparition et glissement de la modale
-                // Ajouter les classes de départ après un léger délai pour permettre la transition de fermeture
-                setTimeout(() => {
-                    overlay.classList.add('hidden', 'opacity-0');
-                    modalWindowForBanner.classList.add('hidden', 'opacity-0', 'translate-y-4');
-                }, 300); // Durée de la transition
-                // Masquer la notification après 5 secondes
-                setTimeout(() => {
-                    notification.classList.remove('opacity-100', 'scale-100');
-                    notification.classList.add('opacity-0', 'scale-90');
-                }, 5000);
-            }
-        };
+            };
+        }
+    }else{
+        addBasketBtnBanner.textContent = "Déjà possédé"
+        addBasketBtnBanner.disabled = true
     }
-
-
-
 }
