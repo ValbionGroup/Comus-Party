@@ -189,6 +189,7 @@ CREATE TABLE `cp_invoice_row`
 
 INSERT INTO `cp_invoice_row` (`article_id`, `invoice_id`, `active`)
 VALUES (1, 1, 1),
+       (2, 1, 1),
        (1, 3, 0),
        (2, 4, 0);
 
