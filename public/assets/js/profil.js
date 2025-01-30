@@ -286,9 +286,6 @@ function updatePassword(){
     }
 }
 
-
-
-
 function showModalUsernameEdit() {
     modalEditUsername.classList.remove("hidden");
     background.classList.remove("hidden");
@@ -299,9 +296,50 @@ function showModalEditEmail() {
     background.classList.remove("hidden");
 }
 
-function editUsername() {
+function checkUsername() {
+    let username = newUsername.value;
+    let usernameError = document.getElementById("usernameError");
+    let submitButton = document.getElementById("submitButtonUsername");
+
+    if (username.length === 0 ) {
+        usernameError.classList.add("hidden");
+        usernameError.innerHTML = "";
+        submitButton.disabled = true;
+        submitButton.classList.add("btn-disabled");
+        submitButton.classList.remove("btn-success");
+        return;
+    }
+    if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+        usernameError.classList.remove("hidden");
+        usernameError.innerHTML = "Votre nom d'utilisateur ne doit contenir que des lettres, des chiffres ou des underscores";
+        submitButton.disabled = true;
+        submitButton.classList.add("btn-disabled");
+        submitButton.classList.remove("btn-success");
+        return;
+    }
+    if (username.length < 3 || username.length > 120) {
+        usernameError.classList.remove("hidden");
+        usernameError.innerHTML = "Votre nouveau nom d'utilisateur doit contenir entre 3 et 120 caractères";
+        submitButton.disabled = true;
+        submitButton.classList.add("btn-disabled");
+        submitButton.classList.remove("btn-success");
+        return;
+    }
+    else {
+        usernameError.classList.add("hidden");
+        usernameError.innerHTML = "";
+        submitButton.disabled = false;
+        submitButton.classList.remove("btn-disabled");
+        submitButton.classList.add("btn-success");
+    }
+}
+
+function editUsername(e) {
     let username = newUsername.value;
     newUsername.value = '';
+
+    loading(e)
+
     if (username.length < 3 || username.length > 120) {
         showNotification("Oups...", "Votre nom d'utilisateur doit contenir entre 3 et 120 caractères", "red");
         return;
@@ -310,26 +348,27 @@ function editUsername() {
         return
     }
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/profile/update-username/${username}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                pUsername.textContent = username;
-                headerUsername.textContent = username;
-                showNotification("Tout est bon !", "Votre nom d'utilisateur a été modifié", "green");
-                modalEditUsername.classList.add("hidden");
-                background.classList.add("hidden");
-            } else {
-                showNotification("Oups...", response.error, "red");
-            }
+    makeRequest('PUT', `/profile/update-username/${username}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            pUsername.textContent = username;
+            headerUsername.textContent = username;
+            showNotification("Tout est bon !", "Votre nom d'utilisateur a été modifié", "green");
+            modalEditUsername.classList.add("hidden");
+            background.classList.add("hidden");
+            e.innerHTML = "Confirmer";
+            e.classList.add("btn-disabled");
+            e.classList.remove("btn-primary");
+            e.disabled = true;
         }
-    };
+        else {
+            e.innerHTML = "Confirmer";
+            e.classList.remove("btn-disabled");
+            e.classList.add("btn-primary");
+            e.disabled = false;
+            showNotification("Oups...", response.message, "red");
+        }
+    });
 }
 
 function editMail() {

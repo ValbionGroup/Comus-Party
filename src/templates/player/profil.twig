@@ -349,10 +349,11 @@
             <div class="pt-5 text-justify">
                 <div class="w-auto flex flex-col">
                     <label for="newUsername" class="text-lg font-semibold">Nouveau pseudonyme :</label>
-                    <input type="text" id="newUsername" name="newUsername" class="input w-full" required>
+                    <input type="text" id="newUsername" name="newUsername" class="input w-full" onkeyup="checkUsername()" required>
+                    <p class="input-error-text text-red-600 hidden pt-1" id="usernameError"></p>
                     <div class="flex gap-2 justify-end mt-3">
                         <button class="btn-secondary" onclick="closeModal()">Annuler</button>
-                        <button class="btn-success" onclick="editUsername()">Confirmer</button>
+                        <button id="submitButtonUsername" type="submit" class="btn-disabled" onclick="editUsername(this)" disabled>Confirmer</button>
                     </div>
                 </div>
             </div>
