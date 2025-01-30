@@ -79,6 +79,16 @@ class Controller
         }
     }
 
+    /**
+     * @brief Crée une sauvegarde de la base de données
+     * @details Cette méthode permet de créer une sauvegarde de la base de données.
+     *  Pour ce faire, le paramètre de sauvegarde doit être configuré sur manuel et les backups doivent être activés.
+     *  La méthode vérifie si une sauvegarde est nécessaire en fonction de l'intervalle de temps défini.
+     *  Si une sauvegarde est nécessaire, la méthode récupère les tables de la base de données, puis les données de ces tables.
+     *  Elle crée ensuite un fichier de sauvegarde contenant les données des tables qui sera stocké dans le dossier backup.
+     *
+     * @return void
+     */
     private function makeDatabaseBackup(): void
     {
         $minutesBetweenBackups = BACKUP_INTERVAL;
@@ -237,7 +247,7 @@ class Controller
      * @param array|null $args Les arguments à passer à la méthode
      * @return mixed  Le résultat de la méthode appelée
      * @throws MethodNotFoundException Exception levée dans le cas où la méhode n'existe pas
-     * @todo Vérifier le reste du traitement de l'exception (Cf PR 64 GitHub)
+     * @todo Vérifier le reste du traitement de l'exception (Cf PR #64 GitHub)
      */
     public function call(string $method, ?array $args = []): mixed
     {
@@ -262,25 +272,6 @@ class Controller
         }
 
         return null;
-    }
-
-    /**
-     * @brief Retourne l'attribut PDO, correspondant à la connexion à la base de données
-     * @return PDO Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données
-     */
-    public function getPdo(): PDO
-    {
-        return $this->pdo;
-    }
-
-    /**
-     * @brief Modifie l'attribut PDO, correspondant à la connexion à la base de données
-     * @param PDO $pdo La nouvelle connexion à la base de données
-     * @return void
-     */
-    public function setPdo(PDO $pdo): void
-    {
-        $this->pdo = $pdo;
     }
 
     /**
