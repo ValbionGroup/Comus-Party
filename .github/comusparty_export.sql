@@ -142,7 +142,7 @@ CREATE TABLE `cp_game_record`
 INSERT INTO `cp_game_record` (`code`, `game_id`, `hosted_by`, `state`, `private`, `created_at`, `updated_at`)
 VALUES ('game_rec_uuid1', 1, 'uuid1', 'started', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
        ('game_rec_uuid2', 2, 'uuid2', 'waiting', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('game_rec_uuid3', 3, 'uuid3', '', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
+       ('game_rec_uuid3', 3, 'uuid3', 'finished', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
        ('game_rec_uuid4', 4, 'uuid4', 'waiting', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
 -- --------------------------------------------------------
@@ -364,7 +364,8 @@ INSERT INTO `cp_report` (`id`, `object`, `description`, `treated_by`, `reported_
                          `created_at`, `updated_at`)
 VALUES (1, 'language', 'Inappropriate language used', 'mod_uuid1', 'uuid1', 'uuid2', '2024-11-13 15:18:39',
         '2024-11-13 15:18:39'),
-       (2, '', 'Cheating behavior observed', NULL, 'uuid4', 'uuid3', '2024-11-14 08:15:02', '2024-11-14 08:15:02');
+       (2, 'fairplay', 'Cheating behavior observed', NULL, 'uuid4', 'uuid3', '2024-11-14 08:15:02',
+        '2024-11-14 08:15:02');
 
 -- --------------------------------------------------------
 
