@@ -1,5 +1,6 @@
 vendor/
 node_modules/
+backup/
 .idea/
 
 public/assets/css/builded.css
