@@ -376,9 +376,10 @@
                     <input type="text" id="newEmail" name="newEmail" class="input w-full" required>
                     <p class="input-error-text text-red-600 hidden" id="incorrectEmailAt"></p>
                     <p class="input-error-text text-red-600 hidden" id="incorrectEmailDot"></p>
+                    <p class="input-error-text text-red-600 hidden" id="incorrectEmailRegex"></p>
                     <div class="flex gap-2 justify-end mt-3">
                         <button class="btn-secondary" onclick="closeModal()">Annuler</button>
-                        <button class="btn-success btn-disabled" id="confirmEmailBtn" onclick="editMail()">Confirmer
+                        <button class="btn-disabled" id="confirmEmailBtn" onclick="editMail()" disabled>Confirmer
                         </button>
                     </div>
                 </div>

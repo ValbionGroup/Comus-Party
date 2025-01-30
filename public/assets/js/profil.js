@@ -335,22 +335,27 @@ function editUsername() {
 
 const EMAIL_AT = /@/;
 const EMAIL_DOT = /\./;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 newEmail.addEventListener("input", () => {  // Vérifie si l'email est valide
     let email = newEmail.value;
     if (email === "") {
         updateErrorMessage(newEmail, "incorrectEmailAt", true, "");
         updateErrorMessage(newEmail, "incorrectEmailDot", true, "");
+        updateErrorMessage(newEmail, "incorrectEmailRegex", true, "");
     } else {
         updateErrorMessage(newEmail, "incorrectEmailAt", EMAIL_AT.test(email), "L'adresse email doit contenir un @");
         updateErrorMessage(newEmail, "incorrectEmailDot", EMAIL_DOT.test(email), "L'adresse email doit contenir un .");
+        updateErrorMessage(newEmail, "incorrectEmailRegex", EMAIL_REGEX.test(email), "Format d'email incorrect : a@b.c");
     }
-    if (EMAIL_AT.test(email) && EMAIL_DOT.test(email)) {
+    if (EMAIL_AT.test(email) && EMAIL_DOT.test(email) && EMAIL_REGEX.test(email)) {
         confirmEmailBtn.disabled = false;
         confirmEmailBtn.classList.remove("btn-disabled");
+        confirmEmailBtn.classList.add("btn-primary");
     } else {
         confirmEmailBtn.disabled = true;
         confirmEmailBtn.classList.add("btn-disabled");
+        confirmEmailBtn.classList.remove("btn-primary");
     }
 });
 
