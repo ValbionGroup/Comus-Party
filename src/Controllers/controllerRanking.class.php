@@ -42,12 +42,4 @@ class ControllerRanking extends Controller
             'players' => $players
         ));
     }
-
-    public function getPlayerInformations(string $playerUuid)
-    {
-        $playerManager = new PlayerDAO($this->getPdo());
-        $player = $playerManager->findWithDetailByUuid($playerUuid);
-        $playerArray = $player->toArray();
-        echo json_encode($playerArray);
-    }
 }

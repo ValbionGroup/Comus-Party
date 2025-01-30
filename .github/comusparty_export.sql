@@ -344,15 +344,14 @@ VALUES (1, 'reset_token_1', '2024-11-13 15:18:39'),
 
 CREATE TABLE `cp_report`
 (
-    `id`            bigint(20)                   NOT NULL,
-    `object`        enum ('language','fairplay') NOT NULL,
-    `description`   text                         NOT NULL,
-    `treated`       tinyint(1)                   NOT NULL DEFAULT 0,
-    `treated_by`    varchar(63)                           DEFAULT NULL,
-    `reported_uuid` varchar(63)                  NOT NULL,
-    `sender_uuid`   varchar(63)                  NOT NULL,
-    `created_at`    timestamp                    NOT NULL DEFAULT current_timestamp(),
-    `updated_at`    timestamp                    NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+    `id`            bigint(20)                                          NOT NULL,
+    `object`        enum ('language','fairplay','spam','links','other') NOT NULL,
+    `description`   text                                                NOT NULL,
+    `treated_by`    varchar(63)                                                  DEFAULT NULL,
+    `reported_uuid` varchar(63)                                         NOT NULL,
+    `sender_uuid`   varchar(63)                                         NOT NULL,
+    `created_at`    timestamp                                           NOT NULL DEFAULT current_timestamp(),
+    `updated_at`    timestamp                                           NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -361,11 +360,11 @@ CREATE TABLE `cp_report`
 -- Déchargement des données de la table `cp_report`
 --
 
-INSERT INTO `cp_report` (`id`, `object`, `description`, `treated`, `treated_by`, `reported_uuid`, `sender_uuid`,
+INSERT INTO `cp_report` (`id`, `object`, `description`, `treated_by`, `reported_uuid`, `sender_uuid`,
                          `created_at`, `updated_at`)
-VALUES (1, 'language', 'Inappropriate language used', 1, 'mod_uuid1', 'uuid1', 'uuid2', '2024-11-13 15:18:39',
+VALUES (1, 'language', 'Inappropriate language used', 'mod_uuid1', 'uuid1', 'uuid2', '2024-11-13 15:18:39',
         '2024-11-13 15:18:39'),
-       (2, '', 'Cheating behavior observed', 0, NULL, 'uuid4', 'uuid3', '2024-11-14 08:15:02', '2024-11-14 08:15:02');
+       (2, '', 'Cheating behavior observed', NULL, 'uuid4', 'uuid3', '2024-11-14 08:15:02', '2024-11-14 08:15:02');
 
 -- --------------------------------------------------------
 

@@ -224,7 +224,7 @@ function sendForm() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.success) {
-                window.location.href = "/shop/basket/checkout/successPayment";
+                window.location.href = "/shop/basket/checkout/success-payment";
             } else {
                 showNotification("Oups...", response.message, "red");
             }

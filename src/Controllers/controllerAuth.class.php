@@ -23,7 +23,6 @@ use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
-use PHPMailer\PHPMailer\Exception as MailException;
 use PHPMailer\PHPMailer\PHPMailer;
 use Random\RandomException;
 use Twig\Environment;
@@ -106,39 +105,33 @@ class ControllerAuth extends Controller
         if (is_null($user)) {
             MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
             header('Location: /login');
+            exit;
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
-        $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(32)), new DateTime());
+        $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(30)), new DateTime());
         $tokenManager->insert($token);
 
         $url = BASE_URL . "/reset-password/" . $token->getToken();
         $to = $user->getEmail();
-        $subject = "Réinitialisation de votre mot de passe";
-        // TODO: Utiliser une template mail pour les mails dès que possible
-        $message = "Bonjour, veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe : $url";
 
-        $mail = new PHPMailer(true);
+        $subject = '🔑 Réinitialiser votre mot de passe';
+        $message =
+            '<p>Bonjour,</p>
+                <p>Il semblerait que vous ayez fait une demande de réinitialisation de mot de passe.</p>
+                <p>Pour ce faire, cliquez sur le lien ci-dessous et renseignez votre nouveau mot de passe :</p>
+                <a href="' . $url . '">✅ Changer le mot de passe</a>
+                <p>À très bientôt dans l’arène ! 🎲,<br>
+                L\'équipe Comus Party 🚀</p>
+                <br/><br/>
+                <p style="font-size: 9px;">Si vous n\'êtes pas à l\'origine de cette demande, vous pouvez ignorer le présent mail.</p>';
 
         try {
-            $mail->isSMTP();
-            $mail->Host = MAIL_HOST;
-            $mail->SMTPAuth = true;
-            $mail->Port = MAIL_PORT;
-            $mail->Username = MAIL_USER;
-            $mail->Password = MAIL_PASS;
-            $mail->SMTPSecure = MAIL_SECURITY;
-            $mail->setFrom(MAIL_FROM);
-            $mail->isHTML();
-            $mail->Subject = $subject . MAIL_BASE;
-            $mail->AltBody = $message;
-            $mail->Body = $message;
-            $mail->CharSet = "UTF-8";
-            $mail->Encoding = 'base64';
+            $mailer = new Mailer([$to], $subject, $message);
+            $mailer->generateHTMLMessage();
 
-            $mail->addAddress($to);
-            $mail->send();
-        } catch (MailException $e) {
+            $mailer->send();
+        } catch (Exception $e) {
             MessageHandler::addExceptionParametersToSession($e);
             header('Location: /forgot-password');
             return;
@@ -146,6 +139,7 @@ class ControllerAuth extends Controller
 
         MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
         header('Location: /login');
+        exit;
     }
 
     /**
@@ -457,6 +451,68 @@ class ControllerAuth extends Controller
         }
     }
 
+
+    /**
+     * @brief Permet de modifier le mot de passe d'un utilisateur et lui envoie un mail pour lui confirmer
+     * @param string $newPassword
+     * @return void
+     */
+    public function editPassword(string $newPassword): void
+    {
+        $userManager = new UserDAO($this->getPdo());
+        $playerManager = new PlayerDAO($this->getPdo());
+        $user = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId());
+        $rules = [
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 8,
+                'max-length' => 120,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?&^_#]{8,}$/'
+            ]
+        ];
+
+        $validator = new Validator($rules);
+
+        if (!$validator->validate(['password' => $newPassword])) {
+            throw new AuthenticationException("Mot de passe invalide");
+        }
+
+
+
+        if(password_verify($newPassword, $user->getPassword())){
+            echo json_encode([
+                'success' => false,
+                'error' => "Le nouveau mot de passe ne peut pas être identique à l'ancien"
+            ]);
+            return;
+        }
+        $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT);
+        $user->setPassword($newPasswordHashed);
+        if (!$userManager->update($user)) {
+            throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
+        }else{
+            try{
+                $to = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId())->getEmail();
+                $subject = 'Modification de mot-de-passe';
+                $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
+                $mailer = new Mailer([$to], $subject, $message);
+                $mailer->generateHTMLMessage();
+                $mailer->send();
+                echo json_encode([
+                    'success' => true,
+                ]);
+            }catch (Exception $e){
+                echo json_encode([
+                    'success' => false,
+                    'error' => $e->getMessage()
+                ]);
+            }
+
+        }
+    }
+
+
     /**
      * @brief Confirme l'adresse e-mail d'un utilisateur à l'aide du token de vérification.
      *
@@ -486,4 +542,5 @@ class ControllerAuth extends Controller
             throw new AuthenticationException("La confirmation a echoué");
         }
     }
+
 }

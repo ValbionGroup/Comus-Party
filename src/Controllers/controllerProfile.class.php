@@ -211,6 +211,31 @@ class ControllerProfile extends Controller
     }
 
     /**
+     * @brief Renvoi les informations de profil d'un joueur en JSON
+     * @param string $searchBy Le moyen de recherche
+     * @param string $data La valeur permettant la recherche
+     * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function getPlayerInformations(string $searchBy, string $data)
+    {
+        switch ($searchBy) {
+            case "uuid":
+                $playerManager = new PlayerDAO($this->getPdo());
+                $player = $playerManager->findWithDetailByUuid($data);
+                $playerArray = $player->toArray();
+                echo json_encode($playerArray);
+                break;
+            case "username":
+                $playerManager = new PlayerDAO($this->getPdo());
+                $player = $playerManager->findWithDetailByUsername($data);
+                $playerArray = $player->toArray();
+                echo json_encode($playerArray);
+                break;
+        }
+    }
+
+    /**
      * @brief Permet de mettre à jour l'email d'un joueur
      * @param string $email Le nouvel email
      * @return void
