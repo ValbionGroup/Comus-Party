@@ -117,6 +117,14 @@ function closeModal() {
     background.classList.add("hidden");
 }
 
+function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 // WebSocket
 const chatConnection = new WebSocket('ws://sockets.comus-party.com/chat/' + gameCode);
 chatConnection.onopen = function (e) {
@@ -130,7 +138,28 @@ const gameConnection = new WebSocket('ws://localhost:8315/game/' + gameCode);
 gameConnection.onopen = function (e) {
     console.log("Connexion établie avec GAME_SOCKET !");
 
-    gameConnection.send(JSON.stringify({uuid: playerUuid, command: 'joinGame', game: gameCode}));
+    // génère un uuid et un username
+    const guestUuid = generateUUID();
+    const guestUsername = "Guest_" + Math.floor(Math.random() * 9000 + 1000);
+
+    // stock les informations du guest en session
+    sessionStorage.setItem('uuid', guestUuid);
+    sessionStorage.setItem('username', guestUsername);
+    sessionStorage.setItem('elo', '0');
+    sessionStorage.setItem('xp', '0');
+    sessionStorage.setItem('pfpPath', 'default-pfp.jpg');
+    sessionStorage.setItem('is_guest', 'true');
+
+    const sessionData = {
+        uuid: sessionStorage.getItem('uuid'),
+        username: sessionStorage.getItem('username'),
+        elo: sessionStorage.getItem('elo'),
+        xp: sessionStorage.getItem('xp'),
+        pfpPath: sessionStorage.getItem('pfpPath'),
+        is_guest: sessionStorage.getItem('is_guest')
+    };
+
+    gameConnection.send(JSON.stringify({uuid: playerUuid, command: 'joinGame', game: gameCode, sessionData: sessionData}));
 };
 gameConnection.onmessage = function (e) {
     const data = JSON.parse(e.data);
