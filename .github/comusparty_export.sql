@@ -42,7 +42,6 @@ CREATE TABLE `cp_achieve`
 
 INSERT INTO `cp_achieve` (`success_id`, `player_uuid`, `date`)
 VALUES (1, 'uuid1', '2024-11-13 16:18:39'),
-       (2, 'uuid2', '2024-11-13 16:18:39'),
        (3, 'uuid3', '2024-11-14 09:15:01'),
        (4, 'uuid4', '2024-11-14 09:15:01');
 
@@ -141,7 +140,6 @@ CREATE TABLE `cp_game_record`
 
 INSERT INTO `cp_game_record` (`code`, `game_id`, `hosted_by`, `state`, `private`, `created_at`, `updated_at`)
 VALUES ('game_rec_uuid1', 1, 'uuid1', 'started', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('game_rec_uuid2', 2, 'uuid2', 'waiting', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
        ('game_rec_uuid3', 3, 'uuid3', 'finished', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
        ('game_rec_uuid4', 4, 'uuid4', 'waiting', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
@@ -167,7 +165,6 @@ CREATE TABLE `cp_invoice`
 
 INSERT INTO `cp_invoice` (`id`, `player_uuid`, `payment_type`, `created_at`)
 VALUES (1, 'uuid1', 'card', '2024-11-13 15:18:39'),
-       (2, 'uuid2', 'paypal', '2024-11-13 15:18:39'),
        (3, 'uuid3', 'card', '2024-11-14 08:15:01'),
        (4, 'uuid4', 'paypal', '2024-11-14 08:15:01');
 
@@ -219,10 +216,7 @@ CREATE TABLE `cp_moderator`
 --
 
 INSERT INTO `cp_moderator` (`uuid`, `user_id`, `first_name`, `last_name`, `created_at`, `updated_at`)
-VALUES ('mod_uuid1', 1, 'John', 'Doe', '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('mod_uuid2', 2, 'Jane', 'Doe', '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('mod_uuid3', 3, 'Alex', 'Smith', '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
-       ('mod_uuid4', 4, 'Lisa', 'Wong', '2024-11-14 08:15:01', '2024-11-14 08:15:01');
+VALUES ('mod_uuid1', 2, 'Jane', 'DOE', '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
 -- --------------------------------------------------------
 
@@ -252,9 +246,7 @@ CREATE TABLE `cp_penalty`
 
 INSERT INTO `cp_penalty` (`id`, `created_by`, `cancelled_by`, `penalized_uuid`, `reason`, `duration`, `type`,
                           `cancelled_at`, `created_at`, `updated_at`)
-VALUES (1, 'mod_uuid1', NULL, 'uuid2', 'Inappropriate behavior', 30, 'muted', NULL, '2024-11-13 15:18:39',
-        '2024-11-13 15:18:39'),
-       (2, 'mod_uuid2', NULL, 'uuid3', 'Spamming', 15, 'banned', NULL, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
+VALUES (1, 'mod_uuid1', NULL, 'uuid3', 'Spamming', 15, 'banned', NULL, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
 -- --------------------------------------------------------
 
@@ -277,7 +269,6 @@ CREATE TABLE `cp_played`
 
 INSERT INTO `cp_played` (`game_code`, `player_uuid`)
 VALUES ('game_rec_uuid1', 'uuid1'),
-       ('game_rec_uuid2', 'uuid2'),
        ('game_rec_uuid3', 'uuid3'),
        ('game_rec_uuid4', 'uuid4');
 
@@ -307,7 +298,6 @@ CREATE TABLE `cp_player`
 
 INSERT INTO `cp_player` (`uuid`, `user_id`, `username`, `xp`, `elo`, `comus_coin`, `created_at`, `updated_at`)
 VALUES ('uuid1', 1, 'JohnDoe', 500, 1200, 100, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('uuid2', 2, 'JaneDoe', 300, 1150, 50, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
        ('uuid3', 3, 'AlexSmith', 450, 1180, 75, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
        ('uuid4', 4, 'LisaWong', 600, 1250, 150, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
@@ -362,10 +352,8 @@ CREATE TABLE `cp_report`
 
 INSERT INTO `cp_report` (`id`, `object`, `description`, `treated_by`, `reported_uuid`, `sender_uuid`,
                          `created_at`, `updated_at`)
-VALUES (1, 'language', 'Inappropriate language used', 'mod_uuid1', 'uuid1', 'uuid2', '2024-11-13 15:18:39',
-        '2024-11-13 15:18:39'),
-       (2, 'fairplay', 'Cheating behavior observed', NULL, 'uuid4', 'uuid3', '2024-11-14 08:15:02',
-        '2024-11-14 08:15:02');
+VALUES (1, 'language', 'Inappropriate language used', 'mod_uuid1', 'uuid1', 'uuid3', '2024-11-13 15:18:39',
+        '2024-11-13 15:18:39');
 
 -- --------------------------------------------------------
 
@@ -425,8 +413,6 @@ INSERT INTO `cp_suggestion` (`id`, `object`, `content`, `author_uuid`, `treated_
                              `treated_at`)
 VALUES (1, 'bug', 'Améliorer la performance des pages en optimisant les requêtes SQL.', 'uuid1', 'mod_uuid1', 0,
         '2024-12-17 07:30:00', '2024-12-18 08:30:00'),
-       (2, 'ui', 'Ajouter un système de notifications pour les nouvelles suggestions traitées.', 'uuid2', 'mod_uuid2',
-        1, '2024-12-17 08:00:00', '2024-12-17 09:00:00'),
        (3, 'other', 'Permettre l\'exportation des suggestions au format CSV.', 'uuid3', NULL, 0, '2024-12-17 10:15:00',
         NULL),
        (4, 'ui', 'Intégrer un module de filtrage pour trier les suggestions par statut.', 'uuid4', 'mod_uuid1', 1,
@@ -535,7 +521,6 @@ CREATE TABLE `cp_won`
 
 INSERT INTO `cp_won` (`game_code`, `player_uuid`)
 VALUES ('game_rec_uuid1', 'uuid1'),
-       ('game_rec_uuid2', 'uuid2'),
        ('game_rec_uuid3', 'uuid3'),
        ('game_rec_uuid4', 'uuid4');
 
