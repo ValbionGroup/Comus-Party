@@ -101,7 +101,6 @@ function receiveChatMessage(message) {
     messages.appendChild(messageItem);
 }
 
-const background = document.getElementById('backgroundModal');
 const modals = document.querySelectorAll(".modal");
 
 function closeModal() {
