@@ -197,10 +197,3 @@ function signUp(e) {
         }
     }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}`);
 }
-
-function loading(e) {
-    e.disabled = true;
-    e.classList.add("btn-disabled");
-    e.classList.remove("btn-primary");
-    e.innerHTML = '<div class="loader"></div>'
-}
