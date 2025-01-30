@@ -43,3 +43,13 @@ define('BACKUP_MODE', $_ENV['BACKUP_TYPE']);
  * @brief Nombre de sauvegardes à conserver
  */
 define('BACKUP_RETENTION', $_ENV['BACKUP_RETENTION']);
+
+/**
+ * @brief Nombre de lignes à récupérer en une seule requête
+ */
+define('BACKUP_FETCH_LIMIT', $_ENV['BACKUP_FETCH_LIMIT']);
+
+/**
+ * @brief Interval de sauvegarde automatique (en minutes)
+ */
+define('BACKUP_INTERVAL', $_ENV['BACKUP_INTERVAL']);
