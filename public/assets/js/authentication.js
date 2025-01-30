@@ -180,10 +180,13 @@ function signUp(e) {
     makeRequest('POST', '/register', (response) => {
         response = JSON.parse(response);
         if (response.success) {
+            e.innerHTML = "Valider";
+            e.classList.add("btn-disabled");
+            e.classList.remove("btn-primary");
             showNotification("Inscription réussie", response.message, "green");
             setTimeout(() => {
                 window.location.href = "/login";
-            }, 3000);
+            }, 6500);
         }
         else {
             e.innerHTML = "Valider";
@@ -193,5 +196,8 @@ function signUp(e) {
 }
 
 function loading(e) {
+    e.disabled = true;
+    e.classList.add("btn-disabled");
+    e.classList.remove("btn-primary");
     e.innerHTML = '<div class="loader"></div>'
 }
