@@ -1,5 +1,5 @@
 /**
- * @file    authentication.js
+ * @file    sign-up.js
  * @brief   Le fichier contient les fonctions de vérification des champs de formulaire
  *          de l'authentification.
  * @date    14/11/2024
