@@ -104,10 +104,6 @@ function receiveChatMessage(message) {
 const background = document.getElementById('backgroundModal');
 const modals = document.querySelectorAll(".modal");
 
-function showBackgroundModal() {
-    background.classList.remove("hidden");
-}
-
 function closeModal() {
     modals.forEach(modal => {
         if (!modal.classList.contains("hidden")) {

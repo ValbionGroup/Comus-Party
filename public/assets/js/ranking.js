@@ -13,9 +13,6 @@ const headers = document.querySelectorAll('th');
 const tableBody = document.querySelector('tbody');
 const tableContainer = document.getElementById('tableContainer');
 
-function showBackgroundModal() {
-    background.classList.remove("hidden");
-}
 
 function closeModal() {
     modals.forEach(modal => {

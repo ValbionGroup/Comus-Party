@@ -43,11 +43,6 @@ function closeModal() {
     background.classList.add("hidden");
 }
 
-function showBackgroundModal() {
-    let background = document.getElementById('backgroundModal');
-    background.classList.remove("hidden");
-}
-
 function showModalSuggestion() {
     let modal = document.getElementById('modalSuggestion');
     modal.classList.remove("hidden");

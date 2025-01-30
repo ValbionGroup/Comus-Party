@@ -18,10 +18,6 @@ function closeModal() {
     background.classList.add("hidden");
 }
 
-function showBackgroundModal() {
-    let background = document.getElementById('backgroundModal');
-    background.classList.remove("hidden");
-}
 
 function showModalSuggest(e) {
     let suggestId = e.id;

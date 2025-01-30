@@ -13,6 +13,7 @@ notification.innerHTML = `
     <p class="font-semibold"></p>
     <span></span>
 `;
+const background = document.getElementById('backgroundModal');
 
 /**
  * @brief Affiche une notification
@@ -60,6 +61,11 @@ function makeRequest(method, url, callback, body = null) {
             callback(xhr.responseText);
         }
     };
+}
+
+function showBackgroundModal() {
+    let background = document.getElementById('backgroundModal');
+    background.classList.remove("hidden");
 }
 
 function showProfile(searchBy, data) {
