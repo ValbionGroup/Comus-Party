@@ -218,7 +218,6 @@ function updateErrorMessage(input, errorElementId, condition, errorMessage) {
 function verifPassword(){
 
     confirmPasswordBtn.disabled = true
-    confirmPasswordBtn.classList.add("opacity-50")
     if(inputNewPassword.value === ""){
 
         updateErrorMessage(inputNewPassword, "passwordTooShort", true, "");
@@ -244,7 +243,9 @@ function verifPassword(){
 function matchPassword(){
     if(inputNewPasswordConfirm.value === inputNewPassword.value){
         confirmPasswordBtn.disabled = false
-        confirmPasswordBtn.classList.remove("opacity-50")
+
+        confirmPasswordBtn.classList.remove("btn-disabled")
+        confirmPasswordBtn.classList.add("btn-success")
         updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", true, "");
 
     }else{
@@ -271,13 +272,15 @@ function updatePassword(){
                 inputNewPassword.value = ""
                 inputNewPasswordConfirm.value = ""
                 confirmPasswordBtn.disabled = true
-                confirmPasswordBtn.classList.add("opacity-50")
+                confirmPasswordBtn.classList.add("btn-disabled")
+                confirmPasswordBtn.classList.remove("btn-success")
                 showNotification("Mot de passe modifié", "Votre mot de passe a bien été modifié", "green");
             }else{
                 inputNewPassword.value = ""
                 inputNewPasswordConfirm.value = ""
                 confirmPasswordBtn.disabled = true
-                confirmPasswordBtn.classList.add("opacity-50")
+                confirmPasswordBtn.classList.add("btn-disabled")
+                confirmPasswordBtn.classList.remove("btn-success")
                 showNotification("Mot de passe similaire", "Vous ne pouvez pas mettre un mot de passe similaire", "red");
             }
         }, `newPassword=${inputNewPassword.value}`);
