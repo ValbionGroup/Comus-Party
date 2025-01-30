@@ -64,7 +64,6 @@ function makeRequest(method, url, callback, body = null) {
 }
 
 function showBackgroundModal() {
-    let background = document.getElementById('backgroundModal');
     background.classList.remove("hidden");
 }
 
