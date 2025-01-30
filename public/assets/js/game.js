@@ -74,15 +74,16 @@ function sendChatMessage() {
     chatConnection.send(JSON.stringify({
         author: username,
         content: content,
-        game: gameCode,
+        game: gameCode
     }));
 
-    messageInput.value = '';
-    chatConnection.send(content);
+    messageInput.value = ''
+    receiveChatMessage(JSON.stringify({author: username, content: content}));
 }
 
 function receiveChatMessage(message) {
     message = JSON.parse(message);
+    console.log(message);
     const messages = document.getElementById('chatContent');
     const messageItem = document.createElement('p');
     messageItem.classList.add("flex");
