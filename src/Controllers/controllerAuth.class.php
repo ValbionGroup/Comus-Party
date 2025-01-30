@@ -274,25 +274,45 @@ class ControllerAuth extends Controller
 
         $validator = new Validator($regles);
         if (!$validator->validate(['email' => $email, 'password' => $password])) {
-            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            echo json_encode([
+                'success' => false,
+                'message' => "Adresse e-mail ou mot de passe invalide"
+            ]);
+            exit;
         }
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
 
         if (is_null($user)) {
-            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            echo json_encode([
+                'success' => false,
+                'message' => "Adresse e-mail ou mot de passe invalide"
+            ]);
+            exit;
         }
 
         if (is_null($user->getEmailVerifiedAt())) {
-            throw new AuthenticationException("Merci de vérifier votre adresse e-mail");
+            echo json_encode([
+                'success' => false,
+                'message' => "Merci de vérifier votre adresse e-mail"
+            ]);
+            exit;
         }
 
         if ($user->getDisabled()) {
-            throw new AuthenticationException("Votre compte a été désactivé");
+            echo json_encode([
+                'success' => false,
+                'message' => "Votre compte est désactivé"
+            ]);
+            exit;
         }
 
         if (!password_verify($password, $user->getPassword())) {
-            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            echo json_encode([
+                'success' => false,
+                'message' => "Adresse e-mail ou mot de passe invalide"
+            ]);
+            exit;
         }
         $moderatorManager = new ModeratorDAO($this->getPdo());
         $moderator = $moderatorManager->findByUserId($user->getId());
@@ -301,7 +321,10 @@ class ControllerAuth extends Controller
         $player = $playerManager->findByUserId($user->getId());
 
         if (is_null($player) && is_null($moderator)) {
-            throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+            echo json_encode([
+                'success' => false,
+                'message' => "Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur."
+            ]);
         } elseif (!is_null($player)) {
             $articleManager = new ArticleDAO($this->getPdo());
             $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
@@ -314,13 +337,19 @@ class ControllerAuth extends Controller
             $_SESSION['xp'] = $player->getXp();
             $_SESSION['basket'] = [];
             $_SESSION['pfpPath'] = $player->getActivePfp();
-            header('Location: /');
+            echo json_encode([
+                'success' => true,
+                'message' => "Vous êtes connecté en tant que joueur"
+            ]);
         } else {
             $_SESSION['role'] = 'moderator';
             $_SESSION['uuid'] = $moderator->getUuid();
             $_SESSION['firstName'] = $moderator->getFirstName();
             $_SESSION['lastName'] = $moderator->getLastName();
-            header('Location: /');
+            echo json_encode([
+                'success' => true,
+                'message' => "Vous êtes connecté en tant que modérateur"
+            ]);
         }
 
     }

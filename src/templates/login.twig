@@ -23,7 +23,7 @@
             </div>
 
             <div>
-                <button id="submitButton" type="submit" class="w-full btn-primary">Se connecter</button>
+                <button id="submitButton" type="button" class="w-full btn-primary flex justify-center" onclick="signIn(this)">Se connecter</button>
             </div>
         </form>
         <div class="flex flex-col mt-7 gap-2">
@@ -80,6 +80,24 @@
                 incorrectEmailFormat.classList.remove("block");
                 incorrectEmailFormat.classList.add("hidden");
             }
+        }
+
+        function signIn(e) {
+            loading(e);
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            makeRequest('POST', '/login', (response) => {
+                response = JSON.parse(response);
+                if (response.success) {
+                    window.location.href = '/';
+                } else {
+                    e.innerHTML = "Se connecter";
+                    e.classList.remove("btn-disabled");
+                    e.classList.add("btn-primary");
+                    e.disabled = false;
+                    showNotification("Oups...", response.message, "red");
+                }
+            }, `email=${email}&password=${password}`);
         }
     </script>
 {% endblock %}

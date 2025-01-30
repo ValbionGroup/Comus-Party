@@ -193,7 +193,7 @@ function signUp(e) {
             e.classList.remove("btn-disabled");
             e.classList.add("btn-primary");
             e.disabled = false;
-            showNotification("Erreur", response.message, "red");
+            showNotification("Oups...", response.message, "red");
         }
     }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}`);
 }
