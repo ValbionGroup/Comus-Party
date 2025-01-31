@@ -261,34 +261,32 @@ function matchPassword() {
  * @brief Met à jour le mot de passe.
  */
 function updatePassword() {
+    loading(confirmPasswordBtn);
     const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
         inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
         UPPERCASE_LETTER.test(inputNewPassword.value) &&
         LOWERCASE_LETTER.test(inputNewPassword.value) &&
         NUMBERS.test(inputNewPassword.value) &&
         SPECIAL_CHARACTER.test(inputNewPassword.value);
-    showNotification("En attente...", "Veuillez patienter", "yellow");
     if (isPasswordValid) {
         makeRequest("POST", `/profile/update-password`, (response) => {
             response = JSON.parse(response)
             if (response.success) {
-                inputNewPassword.value = ""
-                inputNewPasswordConfirm.value = ""
-                confirmPasswordBtn.disabled = true
-                confirmPasswordBtn.classList.add("btn-disabled")
-                confirmPasswordBtn.classList.remove("btn-success")
-                showNotification("Mot de passe modifié", "Votre mot de passe a bien été modifié", "green");
+                inputNewPassword.value = "";
+                inputNewPasswordConfirm.value = "";
+                confirmPasswordBtn.disabled = true;
+                confirmPasswordBtn.classList.add("btn-disabled");
+                confirmPasswordBtn.classList.remove("btn-success");
+                confirmPasswordBtn.innerHTML = "Confirmer";
+                showNotification("Tout est bon !", "Votre mot de passe a bien été modifié", "green");
             } else {
-                inputNewPassword.value = ""
-                inputNewPasswordConfirm.value = ""
-                confirmPasswordBtn.disabled = true
-                confirmPasswordBtn.classList.add("btn-disabled")
-                confirmPasswordBtn.classList.remove("btn-success")
-                showNotification("Mot de passe similaire", "Vous ne pouvez pas mettre un mot de passe similaire", "red");
+                confirmPasswordBtn.disabled = true;
+                confirmPasswordBtn.classList.add("btn-disabled");
+                confirmPasswordBtn.classList.remove("btn-success");
+                confirmPasswordBtn.innerHTML = "Confirmer";
+                showNotification("Oups...", "Vous ne pouvez pas mettre un mot de passe identique", "red");
             }
         }, `newPassword=${inputNewPassword.value}`);
-
-
     }
 }
 
