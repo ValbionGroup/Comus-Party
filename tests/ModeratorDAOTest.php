@@ -249,7 +249,7 @@ class ModeratorDAOTest extends TestCase
      */
     public function testFindByUserIdWithValidUserId(): void
     {
-        $this->assertInstanceOf(Moderator::class, $this->moderatorDAO->findByUserId(1));
+        $this->assertInstanceOf(Moderator::class, $this->moderatorDAO->findByUserId(2));
     }
 
     /**

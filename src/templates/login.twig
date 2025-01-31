@@ -13,17 +13,17 @@
         <form action="" method="post" class="mt-8 space-y-6">
             <div>
                 <label for="email" class="block">Adresse email</label>
-                <input type="email" name="email" id="email" class="w-full input" required>
+                <input type="email" name="email" id="email" class="w-full input" placeholder="john.doe@example.com" required>
                 <p class="input-error-text text-red-600 hidden" id="incorrectEmailFormat">Format d'e-mail invalide,
                     veuillez entrer un e-mail valide.</p>
             </div>
             <div>
                 <label for="password" class="block">Mot de passe</label>
-                <input type="password" name="password" id="password" class="w-full input" required>
+                <input type="password" name="password" id="password" class="w-full input" placeholder="●●●●●●●●●●●●" required>
             </div>
 
             <div>
-                <button id="submitButton" type="submit" class="w-full btn-primary flex justify-center" onclick="signIn(this)">Se connecter</button>
+                <button id="submitButton" type="submit" class="w-full btn-disabled flex justify-center" disabled>Se connecter</button>
             </div>
         </form>
         <div class="flex flex-col mt-7 gap-2">

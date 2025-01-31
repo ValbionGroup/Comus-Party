@@ -112,8 +112,12 @@ function checkConditions(event) {
     // Activer le bouton de soumission si toutes les conditions sont remplies
     if (isUsernameValid && isEmailValid && isPasswordValid && isPasswordMatch && isTermsAccepted && isPrivacyPolicyAccepted) {
         SUBMIT_BUTTON.disabled = false;
+        SUBMIT_BUTTON.classList.remove('btn-disabled');
+        SUBMIT_BUTTON.classList.add('btn-primary');
     } else {
         SUBMIT_BUTTON.disabled = true;
+        SUBMIT_BUTTON.classList.add('btn-disabled');
+        SUBMIT_BUTTON.classList.remove('btn-primary');
     }
 
     // Met à jour le message d'erreur et les styles des inputs uniquement pour l'input modifié

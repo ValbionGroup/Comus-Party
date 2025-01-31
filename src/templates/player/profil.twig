@@ -201,35 +201,37 @@
                 </div>
             </div>
             <div class="col-span-7 ml-10 mt-10 lg:mt-0">
-                    <div class="g-1 flex flex-col justify-between">
-                        <label>
-                            <input class="mb-2 w-full  input" type="password" minlength="8" maxlength="64" id="newPassword" onkeyup="verifPassword()"
-                                   placeholder="Insérez votre nouveau mot de passe" name="newPassword">
-                        </label>
+                <div class="g-1 flex flex-col justify-between">
+                    <label>
+                        <input class="mb-2 w-full  input" type="password" minlength="8" maxlength="64" id="newPassword"
+                               onkeyup="verifPassword()"
+                               placeholder="Insérez votre nouveau mot de passe" name="newPassword">
+                    </label>
 
-                        <p class="input-error-text text-red-600 hidden" id="passwordTooShort"></p>
-                        <p class="input-error-text text-red-600 hidden" id="passwordTooLong"></p>
-                        <p class="input-error-text text-red-600 hidden" id="passwordNoUppercase"></p>
-                        <p class="input-error-text text-red-600 hidden" id="passwordNoLowercase"></p>
-                        <p class="input-error-text text-red-600 hidden" id="passwordNoNumber"></p>
-                        <p class="input-error-text text-red-600 hidden mb-2" id="passwordNoSpecialCharacter"></p>
-                        <!-- Confirmation de modification -->
-                        <label>
-                            <input class="mb-2 p-2 w-full  input" type="password" minlength="8" maxlength="64" id="newPasswordConfirm" onkeyup="matchPassword()"
-                                   placeholder="Confirmez votre nouveau mot de passe" name="newPswdConf">
+                    <p class="input-error-text text-red-600 hidden" id="passwordTooShort"></p>
+                    <p class="input-error-text text-red-600 hidden" id="passwordTooLong"></p>
+                    <p class="input-error-text text-red-600 hidden" id="passwordNoUppercase"></p>
+                    <p class="input-error-text text-red-600 hidden" id="passwordNoLowercase"></p>
+                    <p class="input-error-text text-red-600 hidden" id="passwordNoNumber"></p>
+                    <p class="input-error-text text-red-600 hidden mb-2" id="passwordNoSpecialCharacter"></p>
+                    <!-- Confirmation de modification -->
+                    <label>
+                        <input class="mb-2 p-2 w-full  input" type="password" minlength="8" maxlength="64"
+                               id="newPasswordConfirm" onkeyup="matchPassword()"
+                               placeholder="Confirmez votre nouveau mot de passe" name="newPswdConf">
 
                         </label>
                         <p class="input-error-text text-red-600 hidden" id="notMachingPasswords"></p>
                         <!-- Bouton de confirmation -->
-                        <div class="flex items-center justify-center gap-1 btn-success cursor-pointer opacity-50 mt-4" id="divConfirmPasswordBtn" onclick="updatePassword()">
-                            <input type="submit" value="Confirmer" id="confirmPasswordBtn" class="cursor-pointer">
+
+                        <button id="confirmPasswordBtn"  class="flex items-center justify-center gap-1 btn-disabled cursor-pointer mt-4" disabled onclick="updatePassword()">
+                            Confirmer
                             <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em" viewBox="0 0 1600 1280">
                                 <path fill="currentColor"
                                       d="M1575 310q0 40-28 68l-724 724l-136 136q-28 28-68 28t-68-28l-136-136L53 740q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295l656-657q28-28 68-28t68 28l136 136q28 28 28 68"/>
                             </svg>
-                        </div>
-
-                    </div>
+                        </button>
+                </div>
             </div>
             <div onclick="showModalSuppression()"
                  class="cursor-pointer col-span-4 mt-10 btn-danger flex items-center justify-center gap-1 ml-10 sm:grid-cols-7">
@@ -349,7 +351,7 @@
             <div class="pt-5 text-justify">
                 <div class="w-auto flex flex-col">
                     <label for="newUsername" class="text-lg font-semibold">Nouveau pseudonyme :</label>
-                    <input type="text" id="newUsername" name="newUsername" class="input w-full" onkeyup="checkUsername()" required>
+                    <input type="text" id="newUsername" name="newUsername" class="input w-full" placeholder="JohnDoe" onkeyup="checkUsername()" required>
                     <p class="input-error-text text-red-600 hidden pt-1" id="usernameError"></p>
                     <div class="flex gap-2 justify-end mt-3">
                         <button class="btn-secondary" onclick="closeModal()">Annuler</button>
@@ -370,10 +372,13 @@
             <div class="pt-5 text-justify">
                 <div class="w-auto flex flex-col">
                     <label for="newEmail" class="text-lg font-semibold">Nouvelle adresse e-mail :</label>
-                    <input type="text" id="newEmail" name="newEmail" class="input w-full" required>
+                    <input type="text" id="newEmail" name="newEmail" class="input w-full" placeholder="john.doe@example.com" required>
+                    <p class="input-error-text text-red-600 hidden" id="incorrectEmailAt"></p>
+                    <p class="input-error-text text-red-600 hidden" id="incorrectEmailDot"></p>
+                    <p class="input-error-text text-red-600 hidden" id="incorrectEmailRegex"></p>
                     <div class="flex gap-2 justify-end mt-3">
                         <button class="btn-secondary" onclick="closeModal()">Annuler</button>
-                        <button class="btn-success" onclick="editMail()">Confirmer</button>
+                        <button class="btn-disabled" id="confirmEmailBtn" onclick="editMail()" disabled>Confirmer</button>
                     </div>
                 </div>
             </div>

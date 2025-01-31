@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\Exceptions\AuthenticationException;
 use ComusParty\App\Exceptions\ControllerNotFoundException;
 use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\Exceptions\NotFoundException;
@@ -314,4 +315,70 @@ class ControllerProfile extends Controller
         ]);
         exit;
     }
+
+
+
+    /**
+     * @brief Permet de modifier le mot de passe d'un utilisateur et lui envoie un mail pour lui confirmer
+     * @param string $newPassword
+     * @return void
+     */
+    public function editPassword(string $newPassword): void
+    {
+        $userManager = new UserDAO($this->getPdo());
+        $playerManager = new PlayerDAO($this->getPdo());
+        $user = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId());
+        $rules = [
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 8,
+                'max-length' => 120,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?&^_#]{8,}$/'
+            ]
+        ];
+
+        $validator = new Validator($rules);
+
+        if (!$validator->validate(['password' => $newPassword])) {
+            throw new AuthenticationException("Mot de passe invalide");
+        }
+
+
+
+        if(password_verify($newPassword, $user->getPassword())){
+            echo json_encode([
+                'success' => false,
+                'error' => "Le nouveau mot de passe ne peut pas être identique à l'ancien"
+            ]);
+            return;
+        }
+        $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT);
+        $user->setPassword($newPasswordHashed);
+        if (!$userManager->update($user)) {
+            throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
+        }else{
+            try{
+                $to = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId())->getEmail();
+                $subject = 'Modification de mot-de-passe';
+                $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
+                $mailer = new Mailer([$to], $subject, $message);
+                $mailer->generateHTMLMessage();
+                $mailer->send();
+                echo json_encode([
+                    'success' => true,
+                ]);
+            }catch (Exception $e){
+                echo json_encode([
+                    'success' => false,
+                    'error' => $e->getMessage()
+                ]);
+            }
+
+        }
+    }
+
+
+
+
 }
