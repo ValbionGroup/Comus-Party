@@ -273,85 +273,70 @@ class ControllerAuth extends Controller
         ];
 
         $validator = new Validator($regles);
-        if (!$validator->validate(['email' => $email, 'password' => $password])) {
+
+        try {
+
+            if (!$validator->validate(['email' => $email, 'password' => $password])) {
+                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            }
+            $userManager = new UserDAO($this->getPdo());
+            $user = $userManager->findByEmail($email);
+
+            if (is_null($user)) {
+                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            }
+
+            if (is_null($user->getEmailVerifiedAt())) {
+                throw new AuthenticationException("Merci de vérifier votre adresse e-mail");
+            }
+
+            if ($user->getDisabled()) {
+                throw new AuthenticationException("Votre compte est désactivé");
+            }
+
+            if (!password_verify($password, $user->getPassword())) {
+                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            }
+            $moderatorManager = new ModeratorDAO($this->getPdo());
+            $moderator = $moderatorManager->findByUserId($user->getId());
+
+            $playerManager = new PlayerDAO($this->getPdo());
+            $player = $playerManager->findByUserId($user->getId());
+
+            if (is_null($player) && is_null($moderator)) {
+                throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+            } elseif (!is_null($player)) {
+                $articleManager = new ArticleDAO($this->getPdo());
+                $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+                $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
+                $_SESSION['role'] = 'player';
+                $_SESSION['uuid'] = $player->getUuid();
+                $_SESSION['username'] = $player->getUsername();
+                $_SESSION['comusCoin'] = $player->getComusCoin();
+                $_SESSION['elo'] = $player->getElo();
+                $_SESSION['xp'] = $player->getXp();
+                $_SESSION['basket'] = [];
+                $_SESSION['pfpPath'] = $player->getActivePfp();
+                echo json_encode([
+                    'success' => true,
+                    'message' => "Vous êtes connecté en tant que joueur"
+                ]);
+            } else {
+                $_SESSION['role'] = 'moderator';
+                $_SESSION['uuid'] = $moderator->getUuid();
+                $_SESSION['firstName'] = $moderator->getFirstName();
+                $_SESSION['lastName'] = $moderator->getLastName();
+                echo json_encode([
+                    'success' => true,
+                    'message' => "Vous êtes connecté en tant que modérateur"
+                ]);
+            }
+        } catch (Exception $e) {
             echo json_encode([
                 'success' => false,
-                'message' => "Adresse e-mail ou mot de passe invalide"
-            ]);
-            exit;
-        }
-        $userManager = new UserDAO($this->getPdo());
-        $user = $userManager->findByEmail($email);
-
-        if (is_null($user)) {
-            echo json_encode([
-                'success' => false,
-                'message' => "Adresse e-mail ou mot de passe invalide"
-            ]);
-            exit;
-        }
-
-        if (is_null($user->getEmailVerifiedAt())) {
-            echo json_encode([
-                'success' => false,
-                'message' => "Merci de vérifier votre adresse e-mail"
-            ]);
-            exit;
-        }
-
-        if ($user->getDisabled()) {
-            echo json_encode([
-                'success' => false,
-                'message' => "Votre compte est désactivé"
-            ]);
-            exit;
-        }
-
-        if (!password_verify($password, $user->getPassword())) {
-            echo json_encode([
-                'success' => false,
-                'message' => "Adresse e-mail ou mot de passe invalide"
-            ]);
-            exit;
-        }
-        $moderatorManager = new ModeratorDAO($this->getPdo());
-        $moderator = $moderatorManager->findByUserId($user->getId());
-
-        $playerManager = new PlayerDAO($this->getPdo());
-        $player = $playerManager->findByUserId($user->getId());
-
-        if (is_null($player) && is_null($moderator)) {
-            echo json_encode([
-                'success' => false,
-                'message' => "Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur."
-            ]);
-        } elseif (!is_null($player)) {
-            $articleManager = new ArticleDAO($this->getPdo());
-            $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
-            $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
-            $_SESSION['role'] = 'player';
-            $_SESSION['uuid'] = $player->getUuid();
-            $_SESSION['username'] = $player->getUsername();
-            $_SESSION['comusCoin'] = $player->getComusCoin();
-            $_SESSION['elo'] = $player->getElo();
-            $_SESSION['xp'] = $player->getXp();
-            $_SESSION['basket'] = [];
-            $_SESSION['pfpPath'] = $player->getActivePfp();
-            echo json_encode([
-                'success' => true,
-                'message' => "Vous êtes connecté en tant que joueur"
-            ]);
-        } else {
-            $_SESSION['role'] = 'moderator';
-            $_SESSION['uuid'] = $moderator->getUuid();
-            $_SESSION['firstName'] = $moderator->getFirstName();
-            $_SESSION['lastName'] = $moderator->getLastName();
-            echo json_encode([
-                'success' => true,
-                'message' => "Vous êtes connecté en tant que modérateur"
+                'message' => $e->getMessage()
             ]);
         }
-
     }
 
     /**
