@@ -46,6 +46,7 @@ class Game implements MessageComponentInterface
         $uuid = $data['uuid'];
         $game = $data['game'];
         $command = $data['command'];
+        $sessionData = $data['sessionData'];
 
         if (!isset($this->games[$game])) {
             $this->games[$game] = [];
@@ -58,7 +59,7 @@ class Game implements MessageComponentInterface
         switch ($command) {
             case 'quitGame':
             case 'joinGame':
-                $this->updatePlayer($game);
+                $this->updatePlayer($game, $sessionData);
                 break;
             case 'startGame':
                 $this->redirectUserToGame($game, $uuid);
@@ -68,7 +69,7 @@ class Game implements MessageComponentInterface
         }
     }
 
-    private function updatePlayer(string $game): void
+    private function updatePlayer(string $game, array | null $sessionData): void
     {
         $gameRecord = (new GameRecordDAO(Db::getInstance()->getConnection()))->findByCode($game);
 
@@ -78,6 +79,17 @@ class Game implements MessageComponentInterface
             "username" => $player['player']->getUsername(),
             "pfp" => $player['player']->getActivePfp()
         ], $players);
+
+        if (isset($sessionData['is_guest']) && $sessionData['is_guest'] === 'true') {
+            $guestPlayer = [
+                "uuid" => $sessionData['uuid'],
+                "username" => $sessionData['username'],
+                "elo" => $sessionData['elo'],
+                "xp" => $sessionData['xp'],
+                "pfp" => $sessionData['pfpPath']
+            ];
+            $jsonPlayer[] = $guestPlayer;
+        }
 
         $this->sendToGame($game, "updatePlayer", json_encode($jsonPlayer));
     }
@@ -104,7 +116,7 @@ class Game implements MessageComponentInterface
         foreach ($this->games as $game => $clients) {
             $key = array_search($conn, $clients);
             if ($key !== false) {
-                $this->updatePlayer($game);
+                $this->updatePlayer($game, null);
                 unset($this->games[$game][$key]);
             }
         }

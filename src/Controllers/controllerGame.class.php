@@ -30,6 +30,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @brief Classe ControllerGame
@@ -296,19 +297,39 @@ class ControllerGame extends Controller
         } else {
             $settings = [];
         }
-
         $template = $this->getTwig()->load('player/game-settings.twig');
-        echo $template->render([
-            "code" => $gameRecord->getCode(),
-            "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
-            "players" => array_map(fn($player) => $player['player'], $gameRecord->getPlayers()),
-            "game" => $gameRecord->getGame(),
-            "chat" => $gameSettings["settings"]["allowChat"],
-            "gameFileInfos" => $gameSettings["game"],
-            "settings" => $settings,
-            "isPrivate" => $gameRecord->isPrivate(),
-        ]);
+
+            // récupération des joueurs de la base de données
+            $players = array_map(fn($player) => $player['player'], $gameRecord->getPlayers());
+
+            // si le joueur est un guest, créer un player guest avec les informations en session et l'ajouter au tableau des joueurs
+            if (isset($_SESSION['is_guest']) && $_SESSION['is_guest'] === true) {
+                $guestPlayer = [
+                    'uuid' => $_SESSION['uuid'],
+                    'username' => $_SESSION['username'],
+                    'comusCoin' => $_SESSION['comusCoin'],
+                    'elo' => $_SESSION['elo'],
+                    'xp' => $_SESSION['xp'],
+                    'pfpPath' => $_SESSION['pfpPath']
+                ];
+                $players[] = (object) $guestPlayer;
+            }
+        
+            // créer le gameState avec toutes les informations
+            $gameState = [
+                "code" => $gameRecord->getCode(),
+                "isHost" => $gameRecord->getHostedBy()->getUuid() == $_SESSION['uuid'],
+                "players" => $players,
+                "game" => $gameRecord->getGame(),
+                "chat" => $gameSettings["settings"]["allowChat"],
+                "gameFileInfos" => $gameSettings["game"],
+                "settings" => $settings,
+                "isPrivate" => $gameRecord->isPrivate(),
+            ];
+        
+            echo $template->render($gameState);
     }
+
 
     /**
      * @brief Rejoint une partie avec un code (Méthode GET ou POST autorisée)
@@ -358,14 +379,13 @@ class ControllerGame extends Controller
 
         $player = (new PlayerDAO($this->getPdo()))->findByUuid($playerUuid);
 
-        // TODO: Fonctionnement pour un joueur non connecté a insérer ici
-
         if ($gameRecord->getState() != GameRecordState::WAITING) {
             throw new GameUnavailableException("La partie a déjà commencé");
         }
 
         if (!in_array($playerUuid, array_map(fn($player) => $player['player']->getUuid(), $gameRecord->getPlayers()))) {
-            $gameRecordManager->addPlayer($gameRecord, $player);
+            if(!isset($_SESSION['is_guest']) || $_SESSION['is_guest'] === false) {
+                $gameRecordManager->addPlayer($gameRecord, $player);}
         }
 
         return json_encode([
