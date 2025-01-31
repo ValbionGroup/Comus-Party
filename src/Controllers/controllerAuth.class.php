@@ -254,8 +254,6 @@ class ControllerAuth extends Controller
      * @param ?string $email Adresse e-mail fournie dans le formulaire de connexion
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
      * @return void
-     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
-     * @throws DateMalformedStringException Erreur avec la création du DateTime
      */
     public function authenticate(?string $email, ?string $password): void
     {
@@ -366,8 +364,6 @@ class ControllerAuth extends Controller
      * @param ?string $email Adresse e-mail fournie dans le formulaire d'inscription
      * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
      * @return void
-     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
-     * @todo Modifier le corps du mail (version HTMl) pour correspondre à la charte graphique (quand terminée)
      */
     public function register(?string $username, ?string $email, ?string $password): void
     {
