@@ -397,11 +397,11 @@ newEmail.addEventListener("input", () => {  // Vérifie si l'email est valide
     if (EMAIL_AT.test(email) && EMAIL_DOT.test(email) && EMAIL_REGEX.test(email)) {
         confirmEmailBtn.disabled = false;
         confirmEmailBtn.classList.remove("btn-disabled");
-        confirmEmailBtn.classList.add("btn-primary");
+        confirmEmailBtn.classList.add("btn-success");
     } else {
         confirmEmailBtn.disabled = true;
         confirmEmailBtn.classList.add("btn-disabled");
-        confirmEmailBtn.classList.remove("btn-primary");
+        confirmEmailBtn.classList.remove("btn-success");
     }
 });
 
@@ -425,13 +425,13 @@ function editMail() {
                 background.classList.add("hidden");
                 confirmEmailBtn.innerHTML = "Confirmer";
                 confirmEmailBtn.classList.add("btn-disabled");
-                confirmEmailBtn.classList.remove("btn-primary");
+                confirmEmailBtn.classList.remove("btn-success");
                 confirmEmailBtn.disabled = true;
             } else {
                 showNotification('Oups...', response.error, 'red');
                 confirmEmailBtn.innerHTML = "Confirmer";
                 confirmEmailBtn.classList.remove("btn-disabled");
-                confirmEmailBtn.classList.add("btn-primary");
+                confirmEmailBtn.classList.add("btn-success");
                 confirmEmailBtn.disabled = false;
             }
         },
