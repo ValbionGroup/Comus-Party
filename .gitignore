@@ -1,9 +1,9 @@
 vendor/
 node_modules/
+backup/
 .idea/
 
 .env
 
 games.sh
 start.sh
-backup.sh
