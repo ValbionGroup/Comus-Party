@@ -77,8 +77,7 @@ function sendChatMessage() {
         game: gameCode
     }));
 
-    messageInput.value = ''
-    receiveChatMessage(JSON.stringify({author: username, content: content}));
+    messageInput.value = '';
 }
 
 function receiveChatMessage(message) {
