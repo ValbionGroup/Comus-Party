@@ -82,7 +82,6 @@ function sendChatMessage() {
 
 function receiveChatMessage(message) {
     message = JSON.parse(message);
-    console.log(message);
     const messages = document.getElementById('chatContent');
     const messageItem = document.createElement('p');
     messageItem.classList.add("flex");
