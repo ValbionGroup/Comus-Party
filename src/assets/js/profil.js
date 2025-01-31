@@ -353,7 +353,7 @@ newEmail.addEventListener("input", () => {  // Vérifie si l'email est valide
     } else {
         updateErrorMessage(newEmail, "incorrectEmailAt", EMAIL_AT.test(email), "L'adresse email doit contenir un @");
         updateErrorMessage(newEmail, "incorrectEmailDot", EMAIL_DOT.test(email), "L'adresse email doit contenir un .");
-        updateErrorMessage(newEmail, "incorrectEmailRegex", EMAIL_REGEX.test(email), "Format d'email incorrect : a@b.c");
+        updateErrorMessage(newEmail, "incorrectEmailRegex", EMAIL_REGEX.test(email), "Format d'email attendu : john.doe@example.com");
     }
     if (EMAIL_AT.test(email) && EMAIL_DOT.test(email) && EMAIL_REGEX.test(email)) {
         confirmEmailBtn.disabled = false;

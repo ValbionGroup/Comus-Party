@@ -241,7 +241,7 @@ class ControllerAuth extends Controller
     public function showRegistrationPage(): void
     {
         global $twig;
-        echo $twig->render('signUp.twig');
+        echo $twig->render('sign-up.twig');
     }
 
     /**
