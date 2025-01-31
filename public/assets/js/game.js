@@ -71,14 +71,13 @@ function sendChatMessage() {
     const content = messageInput.value;
     const username = document.getElementById('headerUsername').textContent;
 
-    conn.send(JSON.stringify({
+    chatConnection.send(JSON.stringify({
         author: username,
         content: content,
-        game: gameCode,
+        game: gameCode
     }));
 
     messageInput.value = '';
-    chatConnection.send(messageItem.textContent);
 }
 
 function receiveChatMessage(message) {
@@ -103,7 +102,7 @@ function receiveChatMessage(message) {
 
 
 // WebSocket
-const chatConnection = new WebSocket('ws://sockets.comus-party.com/chat/' + gameCode);
+const chatConnection = new WebSocket('ws://localhost:8315/chat/' + gameCode);
 chatConnection.onopen = function (e) {
     console.log("Connexion établie avec CHAT_SOCKET !");
 };

@@ -15,7 +15,7 @@
         <form id="registrationForm" action="" method="post" class="mt-8 space-y-6">
             <div>
                 <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" autofocus class="w-full input" required>
+                <input type="text" id="username" name="username" placeholder="JohnDoe" autofocus class="w-full input" required>
 
                 <p class="input-error-text text-red-600 hidden" id="usernameTooShort"></p>
                 <p class="input-error-text text-red-600 hidden" id="usernameForbiddenCharacters"></p>
@@ -24,7 +24,7 @@
 
             <div>
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Email" class="w-full input" required>
+                <input type="email" id="email" name="email" placeholder="john.doe@example.com" class="w-full input" required>
 
                 <p class="input-error-text text-red-600 hidden" id="incorrectEmailFormat"></p>
             </div>
@@ -32,7 +32,7 @@
             <div>
                 <label for="password">Mot de passe</label>
                 <div class="flex w-full">
-                    <input type="password" id="password" name="password" placeholder="Mot de passe" class="w-full input" required>
+                    <input type="password" id="password" name="password" placeholder="●●●●●●●●●●●●" class="w-full input" required>
                     <!-- Bouton icone oeil -->
                     <button type="button" id="togglePassword" class="m-2">
                         <!-- Icone oeil -->
@@ -58,7 +58,7 @@
             <div>
                 <label for="passwordConfirm">Confirmation du mot de passe</label>
                 <div class="flex w-full">
-                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmation du mot de passe" class="w-full input" required>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="●●●●●●●●●●●●" class="w-full input" required>
                     <!-- Bouton icone oeil -->
                     <button type="button" id="togglePasswordConfirm" class="m-2">
                         <!-- Icone oeil -->
@@ -81,17 +81,17 @@
                     <input id="termsOfService" name="termsOfService" type="checkbox" class="flex-shrink-0 mr-2 ml-2 w-4 h-4 appearance-none border border-night-2 dark:border-night-2 rounded bg-lavender-blush-1 dark:bg-lavender-blush-1 checked:bg-blue-violet-base dark:checked:bg-blue-violet-base checked:border-celestial-blue-600 focus:outline-none focus:ring-2 focus:ring-celestial-blue-base transition-all duration-200
                     checked:before:content-['✓'] checked:before:text-white checked:before:relative checked:before:left-[2px] checked:before:bottom-[6px]" required>
 
-                    <label for="termsOfService">En cochant cette case, vous reconnaissez avoir lu et accepté les <a href="/terms-of-service" class="text-night-2 dark:text-lavender-blush-2 font-semibold hover:underline transition-all ease-in-out">conditions d'utilisation</a></label>
+                    <label for="termsOfService">En cochant cette case, vous reconnaissez avoir lu et accepté les <a href="/cgu" class="text-night-2 dark:text-lavender-blush-2 font-semibold hover:underline transition-all ease-in-out">conditions d'utilisation</a></label>
                 </div>
 
                 <div class="flex align-left items-center mt-2">
                     <input id="privacyPolicy" name="privacyPolicy" type="checkbox" class="flex-shrink-0 mr-2 ml-2 w-4 h-4 appearance-none border border-night-2 dark:border-night-2 rounded bg-lavender-blush-1 dark:bg-lavender-blush-1 checked:bg-blue-violet-base dark:checked:blue-violet-base checked:border-celestial-blue-600 focus:outline-none focus:ring-2 focus:ring-celestial-blue-base transition-all duration-200
                     checked:before:content-['✓'] checked:before:text-white checked:before:relative checked:before:left-[2px] checked:before:bottom-[6px]" required>
-                    <label for="privacyPolicy">En cochant cette case, vous reconnaissez avoir pris connaissance de la <a href="/privacy-policy" class="text-night-2 dark:text-lavender-blush-2 font-semibold hover:underline transition-all ease-in-out">politique de confidentialité</a> et l'acceptez.</label>
+                    <label for="privacyPolicy">En cochant cette case, vous reconnaissez avoir pris connaissance de la <a href="/privacy-policy" class="text-night-2 dark:text-lavender-blush-2 font-semibold hover:underline transition-all ease-in-out">politique de confidentialité</a></label>
                 </div>
             </div>
 
-            <button type="submit" id="submitButton" class="w-full btn-primary">Valider</button>
+            <button type="submit" id="submitButton" class="w-full btn-disabled" disabled>Valider</button>
         </form>
 
         <div class="flex justify-center mt-7">

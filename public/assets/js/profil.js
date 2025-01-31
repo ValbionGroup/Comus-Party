@@ -16,6 +16,8 @@ let settingsBlock = document.getElementById('settings');
 let statisticsBlock = document.getElementById('statistics');
 
 let modal = document.getElementById('modalConfirmationSuppression');
+let background = document.getElementById('backgroundModal');
+
 let pfpTitle = document.getElementById("pfpTitle");
 let pfpDescription = document.getElementById("pfpDescription");
 
@@ -48,6 +50,7 @@ let headerUsername = document.getElementById("headerUsername");
 let modalEditEmail = document.getElementById("modalEditEmail");
 let newEmail = document.getElementById("newEmail");
 let pEmail = document.getElementById("pEmail");
+let confirmEmailBtn = document.getElementById("confirmEmailBtn");
 
 function activeShadowOnPfp(pfp) {
     pfps.forEach(pfp => pfp.classList.remove("shadow-lg"))
@@ -216,8 +219,7 @@ function updateErrorMessage(input, errorElementId, condition, errorMessage) {
 function verifPassword() {
 
     confirmPasswordBtn.disabled = true
-    divConfirmPasswordBtn.classList.add("opacity-50")
-    if (inputNewPassword.value === "") {
+    if(inputNewPassword.value === ""){
 
         updateErrorMessage(inputNewPassword, "passwordTooShort", true, "");
         updateErrorMessage(inputNewPassword, "passwordTooLong", true, "");
@@ -242,11 +244,15 @@ function verifPassword() {
 function matchPassword() {
     if (inputNewPasswordConfirm.value === inputNewPassword.value) {
         confirmPasswordBtn.disabled = false
-        divConfirmPasswordBtn.classList.remove("opacity-50")
+
+        confirmPasswordBtn.classList.remove("btn-disabled")
+        confirmPasswordBtn.classList.add("btn-success")
         updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", true, "");
 
     } else {
         confirmPasswordBtn.disabled = true
+        confirmPasswordBtn.classList.add("btn-disabled");
+        confirmPasswordBtn.classList.remove("btn-success");
         updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", inputNewPassword.value === inputNewPasswordConfirm.value, "Les mots de passe ne correspondent pas");
     }
 }
@@ -254,7 +260,7 @@ function matchPassword() {
 /**
  * @brief Met à jour le mot de passe.
  */
-function updatePassword() {
+function updatePassword(){
     const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
         inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
         UPPERCASE_LETTER.test(inputNewPassword.value) &&
@@ -269,13 +275,15 @@ function updatePassword() {
                 inputNewPassword.value = ""
                 inputNewPasswordConfirm.value = ""
                 confirmPasswordBtn.disabled = true
-                divConfirmPasswordBtn.classList.add("opacity-50")
+                confirmPasswordBtn.classList.add("btn-disabled")
+                confirmPasswordBtn.classList.remove("btn-success")
                 showNotification("Mot de passe modifié", "Votre mot de passe a bien été modifié", "green");
             } else {
                 inputNewPassword.value = ""
                 inputNewPasswordConfirm.value = ""
                 confirmPasswordBtn.disabled = true
-                divConfirmPasswordBtn.classList.add("opacity-50")
+                confirmPasswordBtn.classList.add("btn-disabled")
+                confirmPasswordBtn.classList.remove("btn-success")
                 showNotification("Mot de passe similaire", "Vous ne pouvez pas mettre un mot de passe similaire", "red");
             }
         }, `newPassword=${inputNewPassword.value}`);
@@ -328,13 +336,41 @@ function editUsername() {
     };
 }
 
+//MODIFICATION EMAIL
+
+const EMAIL_AT = /@/;
+const EMAIL_DOT = /\./;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+newEmail.addEventListener("input", () => {  // Vérifie si l'email est valide
+    let email = newEmail.value;
+    if (email === "") {
+        updateErrorMessage(newEmail, "incorrectEmailAt", true, "");
+        updateErrorMessage(newEmail, "incorrectEmailDot", true, "");
+        updateErrorMessage(newEmail, "incorrectEmailRegex", true, "");
+    } else {
+        updateErrorMessage(newEmail, "incorrectEmailAt", EMAIL_AT.test(email), "L'adresse email doit contenir un @");
+        updateErrorMessage(newEmail, "incorrectEmailDot", EMAIL_DOT.test(email), "L'adresse email doit contenir un .");
+        updateErrorMessage(newEmail, "incorrectEmailRegex", EMAIL_REGEX.test(email), "Format d'email attendu : john.doe@example.com");
+    }
+    if (EMAIL_AT.test(email) && EMAIL_DOT.test(email) && EMAIL_REGEX.test(email)) {
+        confirmEmailBtn.disabled = false;
+        confirmEmailBtn.classList.remove("btn-disabled");
+        confirmEmailBtn.classList.add("btn-primary");
+    } else {
+        confirmEmailBtn.disabled = true;
+        confirmEmailBtn.classList.add("btn-disabled");
+        confirmEmailBtn.classList.remove("btn-primary");
+    }
+});
+
 function editMail() {
     let email = newEmail.value;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showNotification("Oups...", "Votre adresse email n'est pas valide", 'red');
         return;
     }
-    showNotification('Attendez !', 'Verification de votre adresse email', 'yellow');
+    showNotification('Attendez !', 'Vérification de votre adresse email', 'yellow');
     makeRequest(
         'POST',
         `/profile/update-email`,
@@ -343,7 +379,7 @@ function editMail() {
             if (response.success) {
                 newEmail.value = "";
                 pEmail.textContent = email;
-                showNotification('Parfait !', 'Votre adresse email a bien été modifié', 'green');
+                showNotification('Parfait !', 'Votre adresse email a bien été modifiée', 'green');
                 modalEditEmail.classList.add("hidden");
                 closeBackgroundModal();
             } else {
