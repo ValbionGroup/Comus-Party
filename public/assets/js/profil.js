@@ -220,13 +220,14 @@ function verifPassword() {
 
     confirmPasswordBtn.disabled = true
     if(inputNewPassword.value === ""){
-
         updateErrorMessage(inputNewPassword, "passwordTooShort", true, "");
         updateErrorMessage(inputNewPassword, "passwordTooLong", true, "");
         updateErrorMessage(inputNewPassword, "passwordNoUppercase", true, "");
         updateErrorMessage(inputNewPassword, "passwordNoLowercase", true, "");
         updateErrorMessage(inputNewPassword, "passwordNoNumber", true, "");
         updateErrorMessage(inputNewPassword, "passwordNoSpecialCharacter", true, "");
+        updateErrorMessage(inputNewPassword, "notMatchingPasswords", true, "");
+        inputNewPasswordConfirm.classList.remove("input-error");
     } else {
         updateErrorMessage(inputNewPassword, "passwordTooShort", inputNewPassword.value.length >= MIN_PASSWORD_LENGTH, "Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères");
         updateErrorMessage(inputNewPassword, "passwordTooLong", inputNewPassword.value.length <= MAX_PASSWORD_LENGTH, "Le mot de passe doit être au maximum de " + MAX_PASSWORD_LENGTH + " caractères");
@@ -236,6 +237,9 @@ function verifPassword() {
         updateErrorMessage(inputNewPassword, "passwordNoSpecialCharacter", SPECIAL_CHARACTER.test(inputNewPassword.value), "Le mot de passe doit contenir au moins un caractère spécial");
     }
 
+    if (inputNewPasswordConfirm.value.length > 0) {
+        matchPassword();
+    }
 }
 
 /**
@@ -247,13 +251,13 @@ function matchPassword() {
 
         confirmPasswordBtn.classList.remove("btn-disabled")
         confirmPasswordBtn.classList.add("btn-success")
-        updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", true, "");
+        updateErrorMessage(inputNewPasswordConfirm, "notMatchingPasswords", true, "");
 
     } else {
         confirmPasswordBtn.disabled = true
         confirmPasswordBtn.classList.add("btn-disabled");
         confirmPasswordBtn.classList.remove("btn-success");
-        updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", inputNewPassword.value === inputNewPasswordConfirm.value, "Les mots de passe ne correspondent pas");
+        updateErrorMessage(inputNewPasswordConfirm, "notMatchingPasswords", inputNewPassword.value === inputNewPasswordConfirm.value, "Les mots de passe ne correspondent pas");
     }
 }
 

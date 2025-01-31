@@ -133,7 +133,7 @@ function checkConditions(event) {
         updateErrorMessage(input, "passwordNoLowercase", true, "");
         updateErrorMessage(input, "passwordNoNumber", true, "");
         updateErrorMessage(input, "passwordNoSpecialCharacter", true, "");
-        updateErrorMessage(input, "notMachingPasswords", true, "");
+        updateErrorMessage(input, "notMatchingPasswords", true, "");
     } else {
         if (input === INPUT_USERNAME) {
             updateErrorMessage(input, "usernameTooShort", input.value.length >= MIN_USERNAME_LENGTH, "Le nom d'utilisateur doit contenir au moins " + MIN_USERNAME_LENGTH + " caractères");
@@ -149,7 +149,7 @@ function checkConditions(event) {
             updateErrorMessage(input, "passwordNoNumber", NUMBERS.test(input.value), "Le mot de passe doit contenir au moins un chiffre");
             updateErrorMessage(input, "passwordNoSpecialCharacter", SPECIAL_CHARACTER.test(input.value), "Le mot de passe doit contenir au moins un caractère spécial");
         } else if (input === INPUT_CONFIRM_PASSWORD) {
-            updateErrorMessage(input, "notMachingPasswords", INPUT_PASSWORD.value === input.value, "Les mots de passe ne correspondent pas");
+            updateErrorMessage(input, "notMatchingPasswords", INPUT_PASSWORD.value === input.value, "Les mots de passe ne correspondent pas");
         }
     }
 }
