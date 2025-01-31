@@ -144,7 +144,7 @@ gameConnection.onmessage = function (e) {
         pfp.src = "/assets/img/pfp/" + player.pfp;
         pfp.onclick = () => showProfile("uuid", player.uuid);
 
-        pseudo.className = "text-lg group-hover:border-b-2";
+        pseudo.className = "text-lg hover:border-b-2";
         pseudo.textContent = player.username;
         pseudo.onclick = () => showProfile("uuid", player.uuid);
 
