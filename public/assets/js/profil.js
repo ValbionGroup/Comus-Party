@@ -281,14 +281,8 @@ function updatePassword(){
                 showNotification("Mot de passe similaire", "Vous ne pouvez pas mettre un mot de passe similaire", "red");
             }
         }, `newPassword=${inputNewPassword.value}`);
-
-
     }
 }
-
-
-
-
 function showModalUsernameEdit() {
     modalEditUsername.classList.remove("hidden");
     background.classList.remove("hidden");
@@ -309,7 +303,6 @@ function editUsername() {
         showNotification("Oups...", "Votre nom d'utilisateur ne doit contenir que des lettres, des chiffres ou des underscores", "red");
         return
     }
-
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", `/profile/update-username/${username}`, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

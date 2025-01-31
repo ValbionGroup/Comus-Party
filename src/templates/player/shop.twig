@@ -7,7 +7,7 @@
     <div class="w-full overflow-y-auto">
         <div class="flex justify-between w-full">
             <h1 class="text-3xl text-night mt-10 ml-3 mb-4 font-serif">Boutique</h1>
-            <a class="mr-5 mt-8 cursor-pointer logo-basket" href="/shop/basket"  >
+            <a class="mr-5 mt-8 cursor-pointer logo-basket relative left-36" href="/shop/basket">
                 {# Logo basket vide  #}
                 <span id="emptyBasketLogo" class="z-40"><svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -212,9 +212,5 @@
 
 
 {% block scripts %}
-    <script  src="/libs/anime.js"></script>
     <script src="/assets/js/shop.js"></script>
-    <script type="module" src="/assets/js/animation.js"></script>
-
-
 {% endblock %}

@@ -314,6 +314,7 @@ class ControllerAuth extends Controller
             $_SESSION['xp'] = $player->getXp();
             $_SESSION['basket'] = [];
             $_SESSION['pfpPath'] = $player->getActivePfp();
+            $_SESSION['alreadyVisited'] = false;
             header('Location: /');
         } else {
             $_SESSION['role'] = 'moderator';

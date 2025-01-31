@@ -224,6 +224,11 @@ $router->put('/profile', function () {
     exit;
 });
 
+$router->get('/reset-password/:token', function ($token) use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("showResetPasswordPage", ["token" => $token]);
+    exit;
+}, 'guest');
+
 $router->get('/invoice/:id', function ($id) use ($loader, $twig) {
     ControllerFactory::getController("shop", $loader, $twig)->call("showInvoice", ["invoiceId" => $id]);
 }, 'player');
@@ -299,5 +304,10 @@ $router->put('/profile/update-username/:username', function ($username) use ($lo
 
 $router->post('/profile/update-email', function () use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateEmail", ["email" => $_POST['newEmail']]);
+    exit;
+}, 'player');
+
+$router->get('/player/alreadyVisited', function () use ($loader, $twig) {
+    ControllerFactory::getController("auth", $loader, $twig)->call("alreadyVisited");
     exit;
 }, 'player');
