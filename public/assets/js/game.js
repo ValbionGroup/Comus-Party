@@ -138,7 +138,7 @@ gameConnection.onmessage = function (e) {
             '                </g>\n' +
             '            </svg>'
 
-        newDiv.className = "flex flex-row gap-3 items-center overflow-hidden group hover:cursor-pointer";
+        newDiv.className = "flex flex-row gap-2 items-center overflow-hidden group hover:cursor-pointer";
 
         pfp.className = "size-8 rounded-full";
         pfp.src = "/assets/img/pfp/" + player.pfp;
