@@ -24,14 +24,16 @@ function checkEmailRequirements() {
 
     // Vérifications
     if (!EMAIL_REGEX.test(EMAIL)) {
-        submitButton.classList.add("disabled");
+        submitButton.disabled = true;
+        submitButton.classList.add("btn-disabled");
+        submitButton.classList.remove("btn-primary");
         inputEmail.classList.add("input-error");
-        incorrectEmailFormat.classList.add("block");
         incorrectEmailFormat.classList.remove("hidden");
     } else {
+        submitButton.disabled = false;
         inputEmail.classList.remove("input-error");
-        submitButton.classList.remove("disabled");
-        incorrectEmailFormat.classList.remove("block");
+        submitButton.classList.remove("btn-disabled");
+        submitButton.classList.add("btn-primary");
         incorrectEmailFormat.classList.add("hidden");
     }
 }
