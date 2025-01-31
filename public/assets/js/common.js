@@ -72,6 +72,16 @@ function closeBackgroundModal() {
     background.classList.add("hidden");
 }
 
+function closeModal() {
+    let modals = document.querySelectorAll(".modal")
+    modals.forEach(modal => {
+        if (!modal.classList.contains("hidden")) {
+            modal.classList.add("hidden");
+        }
+    });
+    closeBackgroundModal();
+}
+
 function showProfile(searchBy, data) {
     const playerInfoDiv = document.getElementById('modalPlayerInfo');
     const spanTopUsername = document.getElementById('spanTopUsername');

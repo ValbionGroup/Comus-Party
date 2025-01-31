@@ -101,16 +101,6 @@ function receiveChatMessage(message) {
     messages.appendChild(messageItem);
 }
 
-const modals = document.querySelectorAll(".modal");
-
-function closeModal() {
-    modals.forEach(modal => {
-        if (!modal.classList.contains("hidden")) {
-            modal.classList.add("hidden");
-        }
-    });
-    closeBackgroundModal();
-}
 
 // WebSocket
 const chatConnection = new WebSocket('ws://sockets.comus-party.com/chat/' + gameCode);

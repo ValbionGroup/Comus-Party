@@ -7,16 +7,6 @@
  *   @version 0.1
  */
 
-function closeModal() {
-    let modals = document.querySelectorAll(".modal")
-    modals.forEach(modal => {
-        if (!modal.classList.contains("hidden")) {
-            modal.classList.add("hidden");
-        }
-    });
-    closeBackgroundModal();
-}
-
 
 function showModalSuggest(e) {
     let suggestId = e.id;

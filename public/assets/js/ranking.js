@@ -13,15 +13,6 @@ const tableBody = document.querySelector('tbody');
 const tableContainer = document.getElementById('tableContainer');
 
 
-function closeModal() {
-    modals.forEach(modal => {
-        if (!modal.classList.contains("hidden")) {
-            modal.classList.add("hidden");
-        }
-    });
-    closeBackgroundModal()
-}
-
 // Ajoute des écouteurs d'événements aux colonnes triables
 headers.forEach((header, index) => {
     // Ajoute le tri uniquement pour les colonnes Elo, XP, Parties gagnées et Parties jouées

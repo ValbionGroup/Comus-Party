@@ -32,15 +32,6 @@ searchBar.addEventListener('input', (e) => {
     // Réorganiser les cartes (le navigateur gère automatiquement la disposition des grilles)
 });
 
-function closeModal() {
-    let modals = document.querySelectorAll(".modal")
-    modals.forEach(modal => {
-        if (!modal.classList.contains("hidden")) {
-            modal.classList.add("hidden");
-        }
-    });
-    closeBackgroundModal();
-}
 
 function showModalSuggestion() {
     let modal = document.getElementById('modalSuggestion');
