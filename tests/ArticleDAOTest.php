@@ -239,7 +239,7 @@ class ArticleDAOTest extends TestCase
      */
     public function testFindActivePfpByPlayerUuidWithValidUuidAndActivePfp(): void
     {
-        $this->assertInstanceOf(Article::class, $this->articleDAO->findActivePfpByPlayerUuid('uuid2'));
+        $this->assertInstanceOf(Article::class, $this->articleDAO->findActivePfpByPlayerUuid('uuid1'));
     }
 
     /**
@@ -290,7 +290,7 @@ class ArticleDAOTest extends TestCase
      */
     public function testFindActiveBannerByPlayerUuidWithValidUuidAndNoActiveBanner(): void
     {
-        $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('uuid2'));
+        $this->assertNull($this->articleDAO->findActiveBannerByPlayerUuid('uuid3'));
     }
 
     /**
@@ -365,7 +365,7 @@ class ArticleDAOTest extends TestCase
      */
     public function testFindAllPfpsOwnedByPlayerWithValidUuid(): void
     {
-        $pfps = $this->articleDAO->findAllPfpsOwnedByPlayer('uuid2');
+        $pfps = $this->articleDAO->findAllPfpsOwnedByPlayer('uuid1');
         $this->assertIsArray($pfps);
         $this->assertNotEmpty($pfps);
         $this->assertInstanceOf(Article::class, $pfps[0]);
