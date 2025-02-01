@@ -15,7 +15,7 @@ class EloCalculator
      */
     public static function calculateNewElo(int $eloPlayer, int $averageElo, float $result)
     {
-        return $eloPlayer + self::K_FACTOR * ($result - self::getExpectedScore($eloPlayer, $averageElo));
+        return round($eloPlayer + self::K_FACTOR * ($result - self::getExpectedScore($eloPlayer, $averageElo)));
     }
 
     /**
