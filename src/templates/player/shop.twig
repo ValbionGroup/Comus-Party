@@ -46,11 +46,11 @@
                     <h2 class="text-2xl text-night mb-4 font-serif">Avatars</h2>
 
                     <div class="flex flex-wrap">
-
                         {% for pfp in pfps %}
                             <div class="w-20 h-20 m-1 pfp cursor-pointer"
-                                 onclick="showModalPfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}'})">
-                                <img src="assets/img/pfp/{{ pfp.filePath }}" alt="{{ pfp.name }}" class="rounded-3xl w-20 h-20 overflow-hidden">
+                                 onclick="showModalPfp({ id : '{{ pfp.id }}', name : '{{ pfp.name }}', description : '{{ pfp.description }}', pricePoint : '{{ pfp.pricePoint }}', priceEuro : '{{ pfp.priceEuro }}', filePath : '{{ pfp.filePath }}', {% if pfp.id in idsPfpsOwned %}  owned : true {% else %} owned:false {% endif %} })">
+                                <img src="assets/img/pfp/{{ pfp.filePath }}" alt="{{ pfp.name }}"
+                                     class="rounded-3xl w-20 h-20 overflow-hidden">
                             </div>
                         {% endfor %}
                     </div>
@@ -63,7 +63,7 @@
                     <div class="flex flex-wrap">
                         {% for banner in banners %}
                             <div class="w-full h-full m-1 cursor-pointer"
-                                 onclick="showModalBanner({ id : '{{ banner.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}'})">
+                                 onclick="showModalBanner({ id : '{{ banner.id }}',  name : '{{ banner.name }}', description : '{{ banner.description }}', pricePoint : '{{ banner.pricePoint }}', priceEuro : '{{ banner.priceEuro }}', filePath : '{{ banner.filePath }}', {% if banner.id in idsBannersOwned %}  owned : true {% else %} owned:false {% endif %}})">
                                 <img src="assets/img/banner/{{ banner.filePath }}" alt="{{ banner.name }}"
                                      class="w-80 rounded-2xl overflow-hidden">
                             </div>
@@ -93,7 +93,8 @@
                 <!-- Title and Description -->
                 <div class="text-center">
                     <h2 id="nameArticlePfp"
-                        class="text-2xl sm:text-3xl font-semibold text-gray-800 dark:text-gray-100">Titre de la photo</h2>
+                        class="text-2xl sm:text-3xl font-semibold text-gray-800 dark:text-gray-100">Titre de la
+                        photo</h2>
                     <p id="descriptionArticlePfp"
                        class="mt-2 text-gray-600 dark:text-gray-300 text-sm sm:text-base">
                         Description courte et captivante de cette superbe photo de profil.
@@ -104,7 +105,8 @@
                 <div class="flex justify-around items-center text-center">
                     <div>
                         <p class="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200">Prix en CC</p>
-                        <p id="priceComusArticlePfp" class="flex items-center justify-center text-xl sm:text-2xl text-yellow-600">
+                        <p id="priceComusArticlePfp"
+                           class="flex items-center justify-center text-xl sm:text-2xl text-yellow-600">
                             <svg class="mr-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="9"></circle>
@@ -164,7 +166,8 @@
                 <div class="flex justify-center gap-10 items-center text-center px-6">
                     <div>
                         <p class="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200">Prix en CC</p>
-                        <p id="priceComusArticleBanner" class="flex items-center justify-center text-xl sm:text-2xl text-yellow-600">
+                        <p id="priceComusArticleBanner"
+                           class="flex items-center justify-center text-xl sm:text-2xl text-yellow-600">
                             <svg class="mr-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="9"></circle>
@@ -203,7 +206,7 @@
             <p id="notificationMessage"></p>
         </div>
     </div>
-    <script src="/assets/js/shop.js"></script>
+    <script src="/assets/js/shop.min.js"></script>
 
 
 {% endblock %}

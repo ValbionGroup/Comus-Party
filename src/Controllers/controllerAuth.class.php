@@ -23,7 +23,6 @@ use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
-use PHPMailer\PHPMailer\Exception as MailException;
 use PHPMailer\PHPMailer\PHPMailer;
 use Random\RandomException;
 use Twig\Environment;
@@ -106,39 +105,33 @@ class ControllerAuth extends Controller
         if (is_null($user)) {
             MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
             header('Location: /login');
+            exit;
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
-        $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(32)), new DateTime());
+        $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(30)), new DateTime());
         $tokenManager->insert($token);
 
         $url = BASE_URL . "/reset-password/" . $token->getToken();
         $to = $user->getEmail();
-        $subject = "Réinitialisation de votre mot de passe";
-        // TODO: Utiliser une template mail pour les mails dès que possible
-        $message = "Bonjour, veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe : $url";
 
-        $mail = new PHPMailer(true);
+        $subject = '🔑 Réinitialiser votre mot de passe';
+        $message =
+            '<p>Bonjour,</p>
+                <p>Il semblerait que vous ayez fait une demande de réinitialisation de mot de passe.</p>
+                <p>Pour ce faire, cliquez sur le lien ci-dessous et renseignez votre nouveau mot de passe :</p>
+                <a href="' . $url . '">✅ Changer le mot de passe</a>
+                <p>À très bientôt dans l’arène ! 🎲,<br>
+                L\'équipe Comus Party 🚀</p>
+                <br/><br/>
+                <p style="font-size: 9px;">Si vous n\'êtes pas à l\'origine de cette demande, vous pouvez ignorer le présent mail.</p>';
 
         try {
-            $mail->isSMTP();
-            $mail->Host = MAIL_HOST;
-            $mail->SMTPAuth = true;
-            $mail->Port = MAIL_PORT;
-            $mail->Username = MAIL_USER;
-            $mail->Password = MAIL_PASS;
-            $mail->SMTPSecure = MAIL_SECURITY;
-            $mail->setFrom(MAIL_FROM);
-            $mail->isHTML();
-            $mail->Subject = $subject . MAIL_BASE;
-            $mail->AltBody = $message;
-            $mail->Body = $message;
-            $mail->CharSet = "UTF-8";
-            $mail->Encoding = 'base64';
+            $mailer = new Mailer([$to], $subject, $message);
+            $mailer->generateHTMLMessage();
 
-            $mail->addAddress($to);
-            $mail->send();
-        } catch (MailException $e) {
+            $mailer->send();
+        } catch (Exception $e) {
             MessageHandler::addExceptionParametersToSession($e);
             header('Location: /forgot-password');
             return;
@@ -146,6 +139,7 @@ class ControllerAuth extends Controller
 
         MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
         header('Location: /login');
+        exit;
     }
 
     /**
@@ -247,7 +241,7 @@ class ControllerAuth extends Controller
     public function showRegistrationPage(): void
     {
         global $twig;
-        echo $twig->render('signUp.twig');
+        echo $twig->render('sign-up.twig');
     }
 
     /**
@@ -467,18 +461,24 @@ class ControllerAuth extends Controller
      *
      * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
      */
-    public function confirmEmail($emailVerifToken)
+    public function confirmEmail(string $emailVerifToken, bool $isLoggedIn): void
     {
         $userDAO = new UserDAO($this->getPdo());
         $user = $userDAO->findByEmailVerifyToken($emailVerifToken);
         if ($user) {
             $userDAO->confirmUser($emailVerifToken);
             MessageHandler::addMessageParametersToSession("Votre compte a bien été confirmé. Vous pouvez maintenant vous connecter.");
-            header('Location: /login');
+
+            if ($isLoggedIn) {
+                header('Location: /');
+            } else {
+                header('Location: /login');
+            }
             exit;
         } else {
             header('Location: /register');
             throw new AuthenticationException("La confirmation a echoué");
         }
     }
+
 }

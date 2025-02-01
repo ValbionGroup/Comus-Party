@@ -7,15 +7,6 @@
  *   @version 0.1
  */
 
-const playerInfoDiv = document.getElementById('modalPlayerInfo');
-const spanTopUsername = document.getElementById('spanTopUsername');
-const imgPfp = document.getElementById('imgPfp');
-const spanUsername = document.getElementById('spanUsername');
-const spanElo = document.getElementById('spanElo');
-const spanExp = document.getElementById('spanExp');
-const spanGamesPlayed = document.getElementById('spanGamesPlayed');
-const spanGamesWon = document.getElementById('spanGamesWon');
-const spanCreatedAt = document.getElementById('spanCreatedAt');
 const background = document.getElementById('backgroundModal');
 const modals = document.querySelectorAll(".modal");
 const headers = document.querySelectorAll('th');
@@ -33,36 +24,6 @@ function closeModal() {
         }
     });
     background.classList.add("hidden");
-}
-
-function showModalPlayerInfo(playerUuid) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/player/informations/${playerUuid}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            spanTopUsername.innerText = response.username;
-            imgPfp.src = `/assets/img/pfp/${response.activePfp}`;
-            spanUsername.innerText = response.username;
-            spanElo.innerText = response.elo;
-            spanExp.innerText = response.xp;
-            spanGamesPlayed.innerText = response.statistics.gamesPlayed;
-            spanGamesWon.innerText = response.statistics.gamesWon;
-            spanCreatedAt.innerText = new Date(response.createdAt.date).toLocaleDateString('fr-FR', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            });
-        }
-    };
-    playerInfoDiv.classList.remove("hidden");
-
-    showBackgroundModal();
 }
 
 // Ajoute des écouteurs d'événements aux colonnes triables

@@ -1,11 +1,9 @@
 vendor/
 node_modules/
+backup/
 .idea/
-
-public/assets/css/builded.css
 
 .env
 
 games.sh
 start.sh
-backup.sh

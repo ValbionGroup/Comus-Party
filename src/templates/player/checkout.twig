@@ -80,24 +80,24 @@
                             </label>
                             <label for="adress" class="w-full flex flex-col relative">
                                 <span>Adresse</span>
-                                <input type="text" id="adresse" value="" placeholder="Adresse"
+                                <input type="text" id="adresse" value="" placeholder="12 Main Street Avenue"
                                        class="input h-10 w-full mt-2">
                             </label>
                         </div>
                         <label for="complement">
                             <span>Complément d'adresse</span>
-                            <input type="text" id="complement" value="" placeholder="Complément"
+                            <input type="text" id="complement" value="" placeholder="Résidence Les Jardins, Bâtiment B, Appartement 12"
                                    class="input h-10 w-full mt-2">
                         </label>
                         <div class="flex justify-between gap-4">
                             <label for="city" class="w-full">
                                 <span>Ville</span>
-                                <input type="text" id="city" value="" placeholder="Ville"
+                                <input type="text" id="city" value="" placeholder="Woippy"
                                        class="input h-10 w-full mt-2">
                             </label>
                             <label for="zipCode" class="w-full">
                                 <span>Code Postal</span>
-                                <input type="text" id="zipCode" value="" placeholder="Code Postal"
+                                <input type="text" id="zipCode" value="" placeholder="57000"
                                        class="input h-10 w-full mt-2 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
                                        oninput="formatZipCode(this)" pattern=".{5}" maxlength="5" required>
                                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
@@ -106,7 +106,7 @@
                             </label>
                             <label for="country" class="w-full">
                                 <span>Pays</span>
-                                <input type="text" id="country" value="" placeholder="Pays"
+                                <input type="text" id="country" value="" placeholder="Listembourg"
                                        class="input h-10 w-full mt-2">
                             </label>
                         </div>
@@ -313,5 +313,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="/assets/js/checkout.js"></script>
+    <script src="/assets/js/checkout.min.js"></script>
 {% endblock %}

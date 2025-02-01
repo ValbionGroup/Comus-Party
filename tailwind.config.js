@@ -2,7 +2,7 @@
 const plugin = require('tailwindcss/plugin');
 const theme = require("tailwindcss/defaultTheme");
 module.exports = {
-    content: ["./src/**/*.{js,html,php,twig}", "./public/**/*.js"],
+    content: ["./src/**/*.{js,html,php,twig}"],
     theme: {
         fontFamily: {
             'serif': ["'Londrina Solid'", "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],

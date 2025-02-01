@@ -38,6 +38,13 @@ $router->put('/profile/update-style/:idArticle', function ($idArticle) use ($loa
     exit;
 }, 'player');
 
+$router->post('/profile/update-password', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("editPassword", [
+        "newPassword" => $_POST["newPassword"],
+    ]);
+    exit;
+}, 'player');
+
 // Route pour afficher le formulaire de connexion
 $router->get('/login', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showLoginPage");
@@ -178,9 +185,9 @@ $router->post('/register', function () use ($loader, $twig) {
 }, 'guest');
 
 $router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token]);
+    ControllerFactory::getController("auth", $loader, $twig)->call("confirmEmail", ["token" => $token, "isLoggedIn" => isset($_SESSION['uuid'])]);
     exit;
-}, 'guest');
+}, '*');
 
 $router->get('/forgot-password', function () use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("showForgotPasswordPage");
@@ -268,8 +275,11 @@ $router->get('/ranking', function () use ($loader, $twig) {
     ControllerFactory::getController("ranking", $loader, $twig)->call("showRanking");
 });
 
-$router->get('/player/informations/:playerUuid', function ($playerUuid) use ($loader, $twig) {
-    ControllerFactory::getController("ranking", $loader, $twig)->call("getPlayerInformations", ["playerUuid" => $playerUuid]);
+$router->post('/player/informations', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("getPlayerInformations", [
+        "searchBy" => $_POST["searchBy"],
+        "playerUuid" => $_POST["data"]
+    ]);
     exit;
 });
 
@@ -284,5 +294,10 @@ $router->post('/game/:code/end', function ($code) use ($loader, $twig) {
 
 $router->put('/profile/update-username/:username', function ($username) use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateUsername", ["username" => $username]);
+    exit;
+}, 'player');
+
+$router->post('/profile/update-email', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("updateEmail", ["email" => $_POST['newEmail']]);
     exit;
 }, 'player');
