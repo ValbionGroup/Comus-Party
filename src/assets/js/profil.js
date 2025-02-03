@@ -1,6 +1,6 @@
 /**
  * @file    profil.js
- * @author  Mathis RIVRAIS--NOWAKOWSKI
+ * @author  Mathis RIVRAIS--NOWAKOWSKI et Estéban DESESSARD
  * @brief   Le fichier js de la page profil
  * @date    18/12/2024
  * @version 0.1

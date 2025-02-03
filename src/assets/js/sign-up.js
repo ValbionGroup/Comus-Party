@@ -1,5 +1,6 @@
 /**
  * @file    sign-up.js
+ * @author  Enzo HAMID et Estéban DESESSARD
  * @brief   Le fichier contient les fonctions de vérification des champs de formulaire
  *          de l'authentification.
  * @date    14/11/2024

@@ -1,3 +1,11 @@
+/**
+ * @file    login.js
+ * @author  Lucas ESPIET et Estéban DESESSARD
+ * @brief   Le fichier contient les différentes fonctions relatvies à la page de connexion
+ * @date    03/02/2025
+ * @version 1.0
+ */
+
 window.onload = function () {
     const INPUT_EMAIL = document.getElementById('email');
     INPUT_EMAIL.addEventListener("input", checkEmailRequirements);
