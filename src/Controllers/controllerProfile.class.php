@@ -79,7 +79,7 @@ class ControllerProfile extends Controller
         }
         $pfpsOwned = $articleManager->findAllPfpsOwnedByPlayer($player->getUuid());
         $bannersOwned = $articleManager->findAllBannersOwnedByPlayer($player->getUuid());
-        $template = $this->getTwig()->load('player/profil.twig');
+        $template = $this->getTwig()->load('player/profile.twig');
         echo $template->render(array(
             "player" => $player,
             "user" => $user,
@@ -317,7 +317,6 @@ class ControllerProfile extends Controller
     }
 
 
-
     /**
      * @brief Permet de modifier le mot de passe d'un utilisateur et lui envoie un mail pour lui confirmer
      * @param string $newPassword
@@ -345,8 +344,7 @@ class ControllerProfile extends Controller
         }
 
 
-
-        if(password_verify($newPassword, $user->getPassword())){
+        if (password_verify($newPassword, $user->getPassword())) {
             echo json_encode([
                 'success' => false,
                 'error' => "Le nouveau mot de passe ne peut pas être identique à l'ancien"
@@ -357,8 +355,8 @@ class ControllerProfile extends Controller
         $user->setPassword($newPasswordHashed);
         if (!$userManager->update($user)) {
             throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
-        }else{
-            try{
+        } else {
+            try {
                 $to = $userManager->findById($playerManager->findByUuid($_SESSION['uuid'])->getUserId())->getEmail();
                 $subject = 'Modification de mot-de-passe';
                 $message = '<p>Vous venez de modifier votre mot de passe sur Comus Party !</p>';
@@ -368,7 +366,7 @@ class ControllerProfile extends Controller
                 echo json_encode([
                     'success' => true,
                 ]);
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 echo json_encode([
                     'success' => false,
                     'error' => $e->getMessage()
@@ -377,8 +375,6 @@ class ControllerProfile extends Controller
 
         }
     }
-
-
 
 
 }

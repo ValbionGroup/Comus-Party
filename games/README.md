@@ -66,7 +66,7 @@ Liste des paramètres possibles pour `neededParametersFromComus` :
 Liste des paramètres possibles pour `returnParametersToComus` :
 
 - `WINNER_UUID` : UUID du/des gagnants de la partie
-- `WINNER_SCORE` : Score des joueurs
+- `SCORES` : Score des joueurs
 
 ##### Paramètres modifiables
 
@@ -107,3 +107,18 @@ Chaque type a des propriétés spécifiques :
         - `value` : Valeur de l'option
         - `label` : Label affiché de l'option
     - `default` : Option par défaut
+
+
+ ## Format des données envoyés par Comus Party
+
+ ## Format des données attendus par Comus Party
+
+ ### Scores
+
+Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format *JSON* :
+```json
+{
+  "uuid1": 15,
+  "uuid2": 7
+}
+```
