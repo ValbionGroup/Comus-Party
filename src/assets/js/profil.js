@@ -247,14 +247,14 @@ function verifPassword() {
  */
 function matchPassword() {
     if (inputNewPasswordConfirm.value === inputNewPassword.value) {
-        confirmPasswordBtn.disabled = false
+        confirmPasswordBtn.disabled = false;
 
-        confirmPasswordBtn.classList.remove("btn-disabled")
-        confirmPasswordBtn.classList.add("btn-success")
+        confirmPasswordBtn.classList.remove("btn-disabled");
+        confirmPasswordBtn.classList.add("btn-success");
         updateErrorMessage(inputNewPasswordConfirm, "notMatchingPasswords", true, "");
 
     } else {
-        confirmPasswordBtn.disabled = true
+        confirmPasswordBtn.disabled = true;
         confirmPasswordBtn.classList.add("btn-disabled");
         confirmPasswordBtn.classList.remove("btn-success");
         updateErrorMessage(inputNewPasswordConfirm, "notMatchingPasswords", inputNewPassword.value === inputNewPasswordConfirm.value, "Les mots de passe ne correspondent pas");
