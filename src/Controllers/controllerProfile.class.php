@@ -189,7 +189,7 @@ class ControllerProfile extends Controller
         if (!$validator->validate(['username' => $username])) {
             echo json_encode([
                 'success' => false,
-                'error' => $validator->getErrors()['username']
+                'message' => $validator->getErrors()['username']
             ]);
             exit;
         }
@@ -197,7 +197,7 @@ class ControllerProfile extends Controller
         if (!is_null($playerManager->findByUsername($username))) {
             echo json_encode([
                 'success' => false,
-                'error' => 'Ce nom d\'utilisateur est déjà pris'
+                'message' => 'Ce nom d\'utilisateur est déjà pris'
             ]);
             exit;
         }
