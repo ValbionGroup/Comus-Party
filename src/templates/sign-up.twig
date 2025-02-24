@@ -10,7 +10,7 @@
             <h1 class="text-3xl font-bold">Inscription</h1>
             <p>Pour continuer veuillez vous inscrire et confirmer votre compte</p>
         </div>
-        
+
         <!-- Formulaire pour l'inscription de l'utilisateur -->
         <form id="registrationForm" action="" method="post" class="mt-8 space-y-6">
             <div>
@@ -73,7 +73,7 @@
                     </button>
                 </div>
 
-                <p class="input-error-text text-red-600 hidden" id="notMachingPasswords"></p>
+                <p class="input-error-text text-red-600 hidden" id="notMatchingPasswords"></p>
             </div>
 
             <div>
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <button type="submit" id="submitButton" class="w-full btn-disabled" disabled>Valider</button>
+            <button type="submit" id="submitButton" class="w-full btn-disabled flex justify-center" onclick="signUp(this)" disabled>Valider</button>
         </form>
 
         <div class="flex justify-center mt-7">
@@ -101,5 +101,5 @@
     </div>
 {% endblock %}
 {% block scripts %}
-    <script src="/assets/js/authentication.js"></script>
+    <script src="/assets/js/sign-up.min.js"></script>
 {% endblock %}

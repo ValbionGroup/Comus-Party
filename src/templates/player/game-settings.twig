@@ -141,7 +141,8 @@
                 <div class="flex flex-col lg:flex-row gap-5 items-center">
                     <img id="imgPfp" src="" alt="" class=" lg:w-1/3 rounded-full p-6 h-auto w-auto max-w-64">
                     <div class="flex flex-col w-full lg:w-2/3 gap-5">
-                        <p class="text-lg md:text-xl"><span class="font-semibold underline">Nom d'utilisateur :</span> <span id="spanUsername"></span></p>
+                        <p class="text-lg md:text-xl"><span class="font-semibold underline">Nom d'utilisateur :</span>
+                            <span id="spanUsername"></span></p>
                         <div class="flex flex-col">
                             <p class="text-lg font-semibold underline">Statistiques :</p>
                             <div class="flex-col md:flex-row flex w-full flex-wrap gap-y-1 mt-2">
@@ -155,7 +156,8 @@
                                     <p>Elo : <span id="spanElo"></span></p>
                                 </div>
                                 <div class="w-full md:w-1/2 flex items-center gap-1">
-                                    <svg class="text-purple-400" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                    <svg class="text-purple-400" xmlns="http://www.w3.org/2000/svg" width="1em"
+                                         height="1em"
                                          viewBox="0 0 48 48">
                                         <defs>
                                             <mask id="ipSLevel0">
@@ -172,7 +174,8 @@
                                     <p>Points d'exp. : <span id="spanExp"></span></p>
                                 </div>
                                 <div class="w-full md:w-1/2 flex items-center gap-1">
-                                    <svg class="text-white" xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em"
+                                    <svg class="text-white" xmlns="http://www.w3.org/2000/svg" width="1.25em"
+                                         height="1em"
                                          viewBox="0 0 640 512">
                                         <path fill="currentColor"
                                               d="M274.9 34.3c-28.1-28.1-73.7-28.1-101.8 0L34.3 173.1c-28.1 28.1-28.1 73.7 0 101.8l138.8 138.8c28.1 28.1 73.7 28.1 101.8 0l138.8-138.8c28.1-28.1 28.1-73.7 0-101.8zM200 224a24 24 0 1 1 48 0a24 24 0 1 1-48 0M96 200a24 24 0 1 1 0 48a24 24 0 1 1 0-48m128 176a24 24 0 1 1 0-48a24 24 0 1 1 0 48m128-176a24 24 0 1 1 0 48a24 24 0 1 1 0-48m-128-80a24 24 0 1 1 0-48a24 24 0 1 1 0 48m96 328c0 35.3 28.7 64 64 64h192c35.3 0 64-28.7 64-64V256c0-35.3-28.7-64-64-64H461.7c11.6 36 3.1 77-25.4 105.5L320 413.8zm160-120a24 24 0 1 1 0 48a24 24 0 1 1 0-48"/>
@@ -190,7 +193,8 @@
                                 </div>
                             </div>
                         </div>
-                        <p><span class="font-semibold underline">A rejoint Comus Party le :</span> <span id="spanCreatedAt"></span></p>
+                        <p><span class="font-semibold underline">A rejoint Comus Party le :</span> <span
+                                    id="spanCreatedAt"></span></p>
                     </div>
                 </div>
             </div>
@@ -200,5 +204,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="/assets/js/game.js"></script>
+    <script src="/assets/js/game.min.js"></script>
 {% endblock %}
