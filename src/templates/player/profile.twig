@@ -201,7 +201,7 @@
                 </div>
             </div>
             <div class="col-span-7 ml-10 mt-10 lg:mt-0">
-                <div class="g-1 flex flex-col justify-between">
+                <form class="g-1 flex flex-col justify-between">
                     <label>
                         <input class="mb-2 w-full  input" type="password" minlength="8" maxlength="64" id="newPassword"
                                onkeyup="verifPassword()"
@@ -220,19 +220,12 @@
                                id="newPasswordConfirm" onkeyup="matchPassword()"
                                placeholder="Confirmez votre nouveau mot de passe" name="newPswdConf">
 
-                    </label>
-                    <p class="input-error-text text-red-600 hidden" id="notMachingPasswords"></p>
-                    <!-- Bouton de confirmation -->
-                    <button id="confirmPasswordBtn"  class="flex items-center justify-center gap-1 btn-disabled cursor-pointer  mt-4"
-                         disabled onclick="updatePassword()">
-                        Confirmer
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1em" viewBox="0 0 1600 1280">
-                            <path fill="currentColor"
-                                  d="M1575 310q0 40-28 68l-724 724l-136 136q-28 28-68 28t-68-28l-136-136L53 740q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295l656-657q28-28 68-28t68 28l136 136q28 28 28 68"/>
-                        </svg>
-                    </button>
-
-                </div>
+                        </label>
+                        <p class="input-error-text text-red-600 hidden" id="notMatchingPasswords"></p>
+                        <!-- Bouton de confirmation -->
+{# TODO : Gérer la touche Enter pour le submit de façon à ce qu'elle n'exécute pas la fonction matchPassword() #}
+                        <button id="confirmPasswordBtn" type="submit" class="btn-disabled flex justify-center" onclick="updatePassword()" disabled>Confirmer</button>
+                </form>
             </div>
             <div onclick="showModalSuppression()"
                  class="cursor-pointer col-span-4 mt-10 btn-danger flex items-center justify-center gap-1 ml-10 sm:grid-cols-7">
@@ -336,8 +329,7 @@
             </div>
             <div class="flex gap-2 justify-end mt-3">
                 <button class="btn-secondary" onclick="closeModal()">Tout compte fait, j'abandonne</button>
-                <a class="btn-danger font-semibold text-center" href="/disable-account/{{ player.uuid }}">Oui, je veux
-                    désactiver
+                <a class="btn-danger font-semibold text-center" href="/disable-account/{{ player.uuid }}">Oui, je veux désactiver
                     mon compte</a>
             </div>
         </div>
@@ -353,10 +345,11 @@
             <div class="pt-5 text-justify">
                 <div class="w-auto flex flex-col">
                     <label for="newUsername" class="text-lg font-semibold">Nouveau pseudonyme :</label>
-                    <input type="text" id="newUsername" name="newUsername" class="input w-full" placeholder="JohnDoe" required>
+                    <input type="text" id="newUsername" name="newUsername" class="input w-full" placeholder="JohnDoe" onkeyup="checkUsername()" required>
+                    <p class="input-error-text text-red-600 hidden pt-1" id="usernameError"></p>
                     <div class="flex gap-2 justify-end mt-3">
                         <button class="btn-secondary" onclick="closeModal()">Annuler</button>
-                        <button class="btn-success" onclick="editUsername()">Confirmer</button>
+                        <button id="submitButtonUsername" type="submit" class="btn-disabled" onclick="editUsername(this)" disabled>Confirmer</button>
                     </div>
                 </div>
             </div>
@@ -379,9 +372,7 @@
                     <p class="input-error-text text-red-600 hidden" id="incorrectEmailRegex"></p>
                     <div class="flex gap-2 justify-end mt-3">
                         <button class="btn-secondary" onclick="closeModal()">Annuler</button>
-                        <button class="btn-disabled" id="confirmEmailBtn" onclick="editMail()" disabled>
-                            Confirmer
-                        </button>
+                        <button class="btn-disabled flex justify-center" id="confirmEmailBtn" onclick="editMail()" disabled>Confirmer</button>
                     </div>
                 </div>
             </div>

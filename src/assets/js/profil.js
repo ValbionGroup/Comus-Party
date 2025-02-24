@@ -1,6 +1,6 @@
 /**
  * @file    profil.js
- * @author  Mathis RIVRAIS--NOWAKOWSKI
+ * @author  Mathis RIVRAIS--NOWAKOWSKI et Estéban DESESSARD
  * @brief   Le fichier js de la page profil
  * @date    18/12/2024
  * @version 0.1
@@ -220,13 +220,14 @@ function verifPassword() {
 
     confirmPasswordBtn.disabled = true
     if(inputNewPassword.value === ""){
-
         updateErrorMessage(inputNewPassword, "passwordTooShort", true, "");
         updateErrorMessage(inputNewPassword, "passwordTooLong", true, "");
         updateErrorMessage(inputNewPassword, "passwordNoUppercase", true, "");
         updateErrorMessage(inputNewPassword, "passwordNoLowercase", true, "");
         updateErrorMessage(inputNewPassword, "passwordNoNumber", true, "");
         updateErrorMessage(inputNewPassword, "passwordNoSpecialCharacter", true, "");
+        updateErrorMessage(inputNewPassword, "notMatchingPasswords", true, "");
+        inputNewPasswordConfirm.classList.remove("input-error");
     } else {
         updateErrorMessage(inputNewPassword, "passwordTooShort", inputNewPassword.value.length >= MIN_PASSWORD_LENGTH, "Le mot de passe doit être au moins de " + MIN_PASSWORD_LENGTH + " caractères");
         updateErrorMessage(inputNewPassword, "passwordTooLong", inputNewPassword.value.length <= MAX_PASSWORD_LENGTH, "Le mot de passe doit être au maximum de " + MAX_PASSWORD_LENGTH + " caractères");
@@ -236,6 +237,9 @@ function verifPassword() {
         updateErrorMessage(inputNewPassword, "passwordNoSpecialCharacter", SPECIAL_CHARACTER.test(inputNewPassword.value), "Le mot de passe doit contenir au moins un caractère spécial");
     }
 
+    if (inputNewPasswordConfirm.value.length > 0) {
+        matchPassword();
+    }
 }
 
 /**
@@ -243,17 +247,17 @@ function verifPassword() {
  */
 function matchPassword() {
     if (inputNewPasswordConfirm.value === inputNewPassword.value) {
-        confirmPasswordBtn.disabled = false
+        confirmPasswordBtn.disabled = false;
 
-        confirmPasswordBtn.classList.remove("btn-disabled")
-        confirmPasswordBtn.classList.add("btn-success")
-        updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", true, "");
+        confirmPasswordBtn.classList.remove("btn-disabled");
+        confirmPasswordBtn.classList.add("btn-success");
+        updateErrorMessage(inputNewPasswordConfirm, "notMatchingPasswords", true, "");
 
     } else {
-        confirmPasswordBtn.disabled = true
+        confirmPasswordBtn.disabled = true;
         confirmPasswordBtn.classList.add("btn-disabled");
         confirmPasswordBtn.classList.remove("btn-success");
-        updateErrorMessage(inputNewPasswordConfirm, "notMachingPasswords", inputNewPassword.value === inputNewPasswordConfirm.value, "Les mots de passe ne correspondent pas");
+        updateErrorMessage(inputNewPasswordConfirm, "notMatchingPasswords", inputNewPassword.value === inputNewPasswordConfirm.value, "Les mots de passe ne correspondent pas");
     }
 }
 
@@ -261,39 +265,34 @@ function matchPassword() {
  * @brief Met à jour le mot de passe.
  */
 function updatePassword() {
+    loading(confirmPasswordBtn);
     const isPasswordValid = inputNewPassword.value.length >= MIN_PASSWORD_LENGTH &&
         inputNewPassword.value.length <= MAX_PASSWORD_LENGTH &&
         UPPERCASE_LETTER.test(inputNewPassword.value) &&
         LOWERCASE_LETTER.test(inputNewPassword.value) &&
         NUMBERS.test(inputNewPassword.value) &&
         SPECIAL_CHARACTER.test(inputNewPassword.value);
-    showNotification("En attente...", "Veuillez patienter", "yellow");
     if (isPasswordValid) {
         makeRequest("POST", `/profile/update-password`, (response) => {
             response = JSON.parse(response)
             if (response.success) {
-                inputNewPassword.value = ""
-                inputNewPasswordConfirm.value = ""
-                confirmPasswordBtn.disabled = true
-                confirmPasswordBtn.classList.add("btn-disabled")
-                confirmPasswordBtn.classList.remove("btn-success")
-                showNotification("Mot de passe modifié", "Votre mot de passe a bien été modifié", "green");
+                inputNewPassword.value = "";
+                inputNewPasswordConfirm.value = "";
+                confirmPasswordBtn.disabled = true;
+                confirmPasswordBtn.classList.add("btn-disabled");
+                confirmPasswordBtn.classList.remove("btn-success");
+                confirmPasswordBtn.innerHTML = "Confirmer";
+                showNotification("Tout est bon !", "Votre mot de passe a bien été modifié", "green");
             } else {
-                inputNewPassword.value = ""
-                inputNewPasswordConfirm.value = ""
-                confirmPasswordBtn.disabled = true
-                confirmPasswordBtn.classList.add("btn-disabled")
-                confirmPasswordBtn.classList.remove("btn-success")
-                showNotification("Mot de passe similaire", "Vous ne pouvez pas mettre un mot de passe similaire", "red");
+                confirmPasswordBtn.disabled = true;
+                confirmPasswordBtn.classList.add("btn-disabled");
+                confirmPasswordBtn.classList.remove("btn-success");
+                confirmPasswordBtn.innerHTML = "Confirmer";
+                showNotification("Oups...", "Vous ne pouvez pas mettre un mot de passe identique", "red");
             }
         }, `newPassword=${inputNewPassword.value}`);
-
-
     }
 }
-
-
-
 
 function showModalUsernameEdit() {
     modalEditUsername.classList.remove("hidden");
@@ -305,9 +304,59 @@ function showModalEditEmail() {
     background.classList.remove("hidden");
 }
 
-function editUsername() {
+function checkUsername() {
+    let username = newUsername.value;
+    let usernameError = document.getElementById("usernameError");
+    let submitButton = document.getElementById("submitButtonUsername");
+
+    if (username.length === 0 ) {
+        usernameError.classList.add("hidden");
+        usernameError.innerHTML = "";
+        submitButton.disabled = true;
+        submitButton.classList.add("btn-disabled");
+        submitButton.classList.remove("btn-success");
+        return;
+    }
+    if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+        usernameError.classList.remove("hidden");
+        usernameError.innerHTML = "Votre nom d'utilisateur ne doit contenir que des lettres, des chiffres ou des underscores";
+        submitButton.disabled = true;
+        submitButton.classList.add("btn-disabled");
+        submitButton.classList.remove("btn-success");
+        return;
+    }
+    if (username.length < 3 || username.length > 120) {
+        usernameError.classList.remove("hidden");
+        usernameError.innerHTML = "Votre nouveau nom d'utilisateur doit contenir entre 3 et 120 caractères";
+        submitButton.disabled = true;
+        submitButton.classList.add("btn-disabled");
+        submitButton.classList.remove("btn-success");
+        return;
+    }
+    else {
+        usernameError.classList.add("hidden");
+        usernameError.innerHTML = "";
+        submitButton.disabled = false;
+        submitButton.classList.remove("btn-disabled");
+        submitButton.classList.add("btn-success");
+    }
+}
+
+function editUsername(e) {
     let username = newUsername.value;
     newUsername.value = '';
+
+    loading(e);
+
+    if (username === pUsername.textContent) {
+        showNotification("Oups...", "Votre nom d'utilisateur est déjà celui-ci", "red");
+        e.innerHTML = "Confirmer";
+        e.classList.add("btn-disabled");
+        e.classList.remove("btn-primary");
+        e.disabled = true;
+        return;
+    }
+
     if (username.length < 3 || username.length > 120) {
         showNotification("Oups...", "Votre nom d'utilisateur doit contenir entre 3 et 120 caractères", "red");
         return;
@@ -316,26 +365,27 @@ function editUsername() {
         return
     }
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/profile/update-username/${username}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                pUsername.textContent = username;
-                headerUsername.textContent = username;
-                showNotification("Tout est bon !", "Votre nom d'utilisateur a été modifié", "green");
-                modalEditUsername.classList.add("hidden");
-                background.classList.add("hidden");
-            } else {
-                showNotification("Oups...", response.error, "red");
-            }
+    makeRequest('PUT', `/profile/update-username/${username}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            pUsername.textContent = username;
+            headerUsername.textContent = username;
+            showNotification("Tout est bon !", "Votre nom d'utilisateur a été modifié", "green");
+            modalEditUsername.classList.add("hidden");
+            background.classList.add("hidden");
+            e.innerHTML = "Confirmer";
+            e.classList.add("btn-disabled");
+            e.classList.remove("btn-primary");
+            e.disabled = true;
         }
-    };
+        else {
+            e.innerHTML = "Confirmer";
+            e.classList.remove("btn-disabled");
+            e.classList.add("btn-primary");
+            e.disabled = false;
+            showNotification("Oups...", response.message, "red");
+        }
+    });
 }
 
 //MODIFICATION EMAIL
@@ -358,21 +408,21 @@ newEmail.addEventListener("input", () => {  // Vérifie si l'email est valide
     if (EMAIL_AT.test(email) && EMAIL_DOT.test(email) && EMAIL_REGEX.test(email)) {
         confirmEmailBtn.disabled = false;
         confirmEmailBtn.classList.remove("btn-disabled");
-        confirmEmailBtn.classList.add("btn-primary");
+        confirmEmailBtn.classList.add("btn-success");
     } else {
         confirmEmailBtn.disabled = true;
         confirmEmailBtn.classList.add("btn-disabled");
-        confirmEmailBtn.classList.remove("btn-primary");
+        confirmEmailBtn.classList.remove("btn-success");
     }
 });
 
 function editMail() {
+    loading(confirmEmailBtn);
     let email = newEmail.value;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showNotification("Oups...", "Votre adresse email n'est pas valide", 'red');
         return;
     }
-    showNotification('Attendez !', 'Vérification de votre adresse email', 'yellow');
     makeRequest(
         'POST',
         `/profile/update-email`,
@@ -384,8 +434,16 @@ function editMail() {
                 showNotification('Parfait !', 'Votre adresse email a bien été modifiée', 'green');
                 modalEditEmail.classList.add("hidden");
                 background.classList.add("hidden");
+                confirmEmailBtn.innerHTML = "Confirmer";
+                confirmEmailBtn.classList.add("btn-disabled");
+                confirmEmailBtn.classList.remove("btn-success");
+                confirmEmailBtn.disabled = true;
             } else {
                 showNotification('Oups...', response.error, 'red');
+                confirmEmailBtn.innerHTML = "Confirmer";
+                confirmEmailBtn.classList.remove("btn-disabled");
+                confirmEmailBtn.classList.add("btn-success");
+                confirmEmailBtn.disabled = false;
             }
         },
         `newEmail=${email}`

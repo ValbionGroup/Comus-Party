@@ -253,11 +253,9 @@ class ControllerAuth extends Controller
      * Si toutes les vérifications passent, ouvre la session et renseigne les éléments importants en variables de session.
      * @param ?string $email Adresse e-mail fournie dans le formulaire de connexion
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
-     * @return void
-     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
-     * @throws DateMalformedStringException Erreur avec la création du DateTime
+     * @return bool
      */
-    public function authenticate(?string $email, ?string $password): void
+    public function authenticate(?string $email, ?string $password): bool
     {
         $regles = [
             'email' => [
@@ -273,56 +271,73 @@ class ControllerAuth extends Controller
         ];
 
         $validator = new Validator($regles);
-        if (!$validator->validate(['email' => $email, 'password' => $password])) {
-            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+
+        try {
+
+            if (!$validator->validate(['email' => $email, 'password' => $password])) {
+                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            }
+            $userManager = new UserDAO($this->getPdo());
+            $user = $userManager->findByEmail($email);
+
+            if (is_null($user)) {
+                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            }
+
+            if (is_null($user->getEmailVerifiedAt())) {
+                throw new AuthenticationException("Merci de vérifier votre adresse e-mail");
+            }
+
+            if ($user->getDisabled()) {
+                throw new AuthenticationException("Votre compte est désactivé");
+            }
+
+            if (!password_verify($password, $user->getPassword())) {
+                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
+            }
+            $moderatorManager = new ModeratorDAO($this->getPdo());
+            $moderator = $moderatorManager->findByUserId($user->getId());
+
+            $playerManager = new PlayerDAO($this->getPdo());
+            $player = $playerManager->findByUserId($user->getId());
+
+            if (is_null($player) && is_null($moderator)) {
+                throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+            } elseif (!is_null($player)) {
+                $articleManager = new ArticleDAO($this->getPdo());
+                $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+                $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
+                $_SESSION['role'] = 'player';
+                $_SESSION['uuid'] = $player->getUuid();
+                $_SESSION['username'] = $player->getUsername();
+                $_SESSION['comusCoin'] = $player->getComusCoin();
+                $_SESSION['elo'] = $player->getElo();
+                $_SESSION['xp'] = $player->getXp();
+                $_SESSION['basket'] = [];
+                $_SESSION['pfpPath'] = $player->getActivePfp();
+                echo json_encode([
+                    'success' => true,
+                    'message' => "Vous êtes connecté en tant que joueur"
+                ]);
+                return true;
+            } else {
+                $_SESSION['role'] = 'moderator';
+                $_SESSION['uuid'] = $moderator->getUuid();
+                $_SESSION['firstName'] = $moderator->getFirstName();
+                $_SESSION['lastName'] = $moderator->getLastName();
+                echo json_encode([
+                    'success' => true,
+                    'message' => "Vous êtes connecté en tant que modérateur"
+                ]);
+                return true;
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+            return false;
         }
-        $userManager = new UserDAO($this->getPdo());
-        $user = $userManager->findByEmail($email);
-
-        if (is_null($user)) {
-            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
-        }
-
-        if (is_null($user->getEmailVerifiedAt())) {
-            throw new AuthenticationException("Merci de vérifier votre adresse e-mail");
-        }
-
-        if ($user->getDisabled()) {
-            throw new AuthenticationException("Votre compte a été désactivé");
-        }
-
-        if (!password_verify($password, $user->getPassword())) {
-            throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
-        }
-        $moderatorManager = new ModeratorDAO($this->getPdo());
-        $moderator = $moderatorManager->findByUserId($user->getId());
-
-        $playerManager = new PlayerDAO($this->getPdo());
-        $player = $playerManager->findByUserId($user->getId());
-
-        if (is_null($player) && is_null($moderator)) {
-            throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
-        } elseif (!is_null($player)) {
-            $articleManager = new ArticleDAO($this->getPdo());
-            $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
-            $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
-            $_SESSION['role'] = 'player';
-            $_SESSION['uuid'] = $player->getUuid();
-            $_SESSION['username'] = $player->getUsername();
-            $_SESSION['comusCoin'] = $player->getComusCoin();
-            $_SESSION['elo'] = $player->getElo();
-            $_SESSION['xp'] = $player->getXp();
-            $_SESSION['basket'] = [];
-            $_SESSION['pfpPath'] = $player->getActivePfp();
-            header('Location: /');
-        } else {
-            $_SESSION['role'] = 'moderator';
-            $_SESSION['uuid'] = $moderator->getUuid();
-            $_SESSION['firstName'] = $moderator->getFirstName();
-            $_SESSION['lastName'] = $moderator->getLastName();
-            header('Location: /');
-        }
-
     }
 
     /**
@@ -352,12 +367,9 @@ class ControllerAuth extends Controller
      * @param ?string $email Adresse e-mail fournie dans le formulaire d'inscription
      * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
      * @return void
-     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
-     * @todo Modifier le corps du mail (version HTMl) pour correspondre à la charte graphique (quand terminée)
      */
     public function register(?string $username, ?string $email, ?string $password): void
     {
-
         $rules = [
             'username' => [
                 'required' => true,
@@ -381,72 +393,78 @@ class ControllerAuth extends Controller
 
         $validator = new Validator($rules);
 
-        if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
-            throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
-        }
-
-        // Hash le mot de passe
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $userDAO = new UserDAO($this->getPdo());
-        $playerDAO = new PlayerDAO($this->getPdo());
-
         try {
-            // Vérifier si l'utilisateur et le joueur existent
-            $existingUser = $userDAO->findByEmail($email) !== null;
-            $existingPlayer = $playerDAO->findByUsername($username) !== null;
 
-            if ($existingUser) {
-                throw new AuthenticationException("L'adresse e-mail est déjà utilisée");
+            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
+                throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
             }
 
-            if ($existingPlayer) {
-                throw new AuthenticationException("Le nom d'utilisateur est déjà utilisé");
-            }
+            // Hash le mot de passe
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
-            $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
-            $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
+            $userDAO = new UserDAO($this->getPdo());
+            $playerDAO = new PlayerDAO($this->getPdo());
 
-            if (!$resultUser) {
-                throw new Exception("Erreur lors de la création de l'utilisateur");
-            }
+                // Vérifier si l'utilisateur et le joueur existent
+                $existingUser = $userDAO->findByEmail($email) !== null;
+                $existingPlayer = $playerDAO->findByUsername($username) !== null;
 
-            $subject = '🎉 Bienvenue sur Comus Party !';
-            $message =
-                '<p>Merci d\'avoir créé un compte sur notre plateforme de mini-jeux en ligne. 🎮</p>
-                <p>Pour commencer à jouer et rejoindre nos parties endiablées, il ne vous reste plus qu\'une étape :</p>
-                <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre compte ici</a>
-                <p>À très bientôt dans l’arène ! 🎲,<br>
-                L\'équipe Comus Party 🚀</p>';
+                if ($existingUser) {
+                    throw new AuthenticationException("L'adresse e-mail est déjà utilisée");
+                }
 
-            $confirmMail = new Mailer(array($email), $subject, $message);
-            $confirmMail->generateHTMLMessage();
-            $confirmMail->send();
+                if ($existingPlayer) {
+                    throw new AuthenticationException("Le nom d'utilisateur est déjà utilisé");
+                }
 
-            // Créer le joueur si l'utilisateur est créé avec succès
-            $playerDAO->createPlayer($username, $email);
+                // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
+                $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
+                $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
 
-            $userManager = new UserDAO($this->getPdo());
-            $user = $userManager->findByEmail($email);
+                if (!$resultUser) {
+                    throw new AuthenticationException("Erreur lors de la création de l'utilisateur");
+                }
 
-            if (is_null($user)) {
-                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
-            }
+                $subject = '🎉 Bienvenue sur Comus Party !';
+                $message =
+                    '<p>Merci d\'avoir créé un compte sur notre plateforme de mini-jeux en ligne. 🎮</p>
+                    <p>Pour commencer à jouer et rejoindre nos parties endiablées, il ne vous reste plus qu\'une étape :</p>
+                    <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre compte ici</a>
+                    <p>À très bientôt dans l’arène ! 🎲,<br>
+                    L\'équipe Comus Party 🚀</p>';
 
-            $playerManager = new PlayerDAO($this->getPdo());
-            $player = $playerManager->findWithDetailByUserId($user->getId());
+                $confirmMail = new Mailer(array($email), $subject, $message);
+                $confirmMail->generateHTMLMessage();
+                $confirmMail->send();
 
-            if (is_null($player)) {
-                throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
-            }
+                // Créer le joueur si l'utilisateur est créé avec succès
+                $playerDAO->createPlayer($username, $email);
 
-            MessageHandler::addMessageParametersToSession("Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter.");
-            header('Location: /login');
-            exit;
-        } catch (AuthenticationException $e) {
-            MessageHandler::addExceptionParametersToSession($e);
-            header('Location: /register');
+                $userManager = new UserDAO($this->getPdo());
+                $user = $userManager->findByEmail($email);
+
+                if (is_null($user)) {
+                    throw new AuthenticationException("Erreur lors de la création de l'utilisateur");
+                }
+
+                $playerManager = new PlayerDAO($this->getPdo());
+                $player = $playerManager->findWithDetailByUserId($user->getId());
+
+                if (is_null($player)) {
+                    throw new AuthenticationException("Erreur lors de la création du joueur");
+                }
+
+                echo json_encode([
+                    'success' => true,
+                    'message' => "Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter."
+                ]);
+                exit;
+
+        } catch (Exception $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
             exit;
         }
     }
