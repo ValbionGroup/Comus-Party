@@ -83,7 +83,11 @@ function denySuggest(e) {
             let response = JSON.parse(xhr.responseText);
             if (response.success) {
                 closeModal();
+                showNotification("Génial !", "La suggestion a bien été refusée", "green");
                 updateSuggests();
+            }
+            else {
+                showNotification("Oups...", "La suggestion n'a pas pu être refusée", "red");
             }
         }
     };
@@ -103,7 +107,11 @@ function acceptSuggest(e) {
             let response = JSON.parse(xhr.responseText);
             if (response.success) {
                 closeModal();
+                showNotification("Génial !", "La suggestion a bien été acceptée", "green");
                 updateSuggests();
+            }
+            else {
+                showNotification("Oups...", "La suggestion n'a pas pu être acceptée", "red");
             }
         }
     };
