@@ -160,6 +160,7 @@ function updateSuggests() {
                 suggestList.appendChild(noSuggest);
             }
             else {
+                suggestList.classList.remove("justify-center");
                 suggests.forEach(suggest => {
                     let suggestItem = document.createElement('div');
                     suggestItem.id = suggest.id;
