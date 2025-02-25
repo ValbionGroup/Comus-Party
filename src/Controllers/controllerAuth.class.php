@@ -354,7 +354,7 @@ class ControllerAuth extends Controller
      * @return bool Renvoie true si le captcha est valide, false sinon
      * @throws Exception Exception levée en cas d'erreur lors de la vérification du captcha
      */
-    public function verifyCaptcha(string $cloudflareCaptchaToken): bool
+    private function verifyCaptcha(string $cloudflareCaptchaToken): bool
     {
         $url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
         $data = [
@@ -369,8 +369,6 @@ class ControllerAuth extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 
         $result = curl_exec($curl);
 
