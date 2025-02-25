@@ -26,6 +26,7 @@ class Dashboard implements MessageComponentInterface
     function onOpen(ConnectionInterface $conn): void
     {
         $conn->send(json_encode(['message' => 'Connection established']));
+        $this->clients->attach($conn);
     }
 
     function onClose(ConnectionInterface $conn): void
@@ -41,6 +42,9 @@ class Dashboard implements MessageComponentInterface
 
     function onMessage(ConnectionInterface $from, $msg): void
     {
-        // TODO: Implement onMessage() method.
+        $command = json_decode($msg, true)['command'];
+        foreach ($this->clients as $client) {
+            $client->send(json_encode(['message' => $command]));
+        }
     }
 }
