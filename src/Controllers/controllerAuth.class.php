@@ -271,17 +271,13 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8
-            ],
-            'cloudflareCaptchaToken' => [
-                'required' => true,
-                'type' => 'string'
             ]
         ];
 
         $validator = new Validator($regles);
 
         try {
-            if (!$validator->validate(['email' => $email, 'password' => $password, 'cloudflareCaptchaToken' => $cloudflareCaptchaToken])) {
+            if (!$validator->validate(['email' => $email, 'password' => $password])) {
                 throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
             }
 
@@ -366,7 +362,6 @@ class ControllerAuth extends Controller
             'response' => $cloudflareCaptchaToken,
             'remoteip' => $_SERVER['REMOTE_ADDR']
         ];
-        $res = false;
 
         $curl = curl_init();
 
