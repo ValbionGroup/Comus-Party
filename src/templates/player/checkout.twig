@@ -294,7 +294,7 @@
                     </div>
                     <div class="flex flex-col m-2">
                         <button id="submit" type="button"
-                                class="w-full btn-primary group-invalid:pointer-events-none group-invalid:opacity-30">
+                                class="w-full btn-disabled flex justify-center" disabled>
                             Payer
                         </button>
                     </div>
@@ -313,5 +313,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="/assets/js/checkout.js"></script>
+    <script src="/assets/js/checkout.min.js"></script>
 {% endblock %}

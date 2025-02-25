@@ -130,3 +130,18 @@ function showReportForm() {
     reportForm.classList.remove("hidden");
     showBackgroundModal();
 }
+/**
+ * @brief Passe un bouton en état de chargement
+ * @details Cette méthode permet à l'utilisateur d'avoir un meilleur feedback sur les actions qu'il effectue.
+ *  Lorsqu'il clique sur un bouton, cette méthode est obligatoirement appelé, ce qui passe le bouton dans un état de chargement
+ * @param e L'élément HTML (le bouton) sur lequel l'utilisateur a cliqué et qui doit passer en état de chargement
+ */
+function loading(e) {
+    e.disabled = true;
+    e.classList.add("btn-disabled");
+    e.classList.remove("btn-primary");
+    e.classList.remove("btn-secondary");
+    e.classList.remove("btn-danger");
+    e.classList.remove("btn-success");
+    e.innerHTML = '<div class="loader"></div>'
+}
