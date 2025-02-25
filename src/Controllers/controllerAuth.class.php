@@ -411,7 +411,7 @@ class ControllerAuth extends Controller
      * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
      * @return void
      */
-    public function register(?string $username, ?string $email, ?string $password): void
+    public function register(?string $username, ?string $email, ?string $password, ?string $cloudflareCaptchaToken): void
     {
         $rules = [
             'username' => [
@@ -440,6 +440,10 @@ class ControllerAuth extends Controller
 
             if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
                 throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
+            }
+
+            if (!$this->verifyCaptcha($cloudflareCaptchaToken)) {
+                throw new AuthenticationException("Impossible de vérifier le captcha");
             }
 
             // Hash le mot de passe
