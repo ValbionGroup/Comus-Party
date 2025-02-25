@@ -51,8 +51,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Si le formulaire est valide, active le bouton submit
         if (form.checkValidity()) {
             submitButton.disabled = false;
+            submitButton.classList.add('btn-primary');
+            submitButton.classList.remove('btn-disabled');
         } else {
             submitButton.disabled = true;
+            submitButton.classList.add('btn-disabled');
+            submitButton.classList.remove('btn-primary');
         }
     }
 
@@ -80,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!form.checkValidity()) {
             event.preventDefault();  // Si le formulaire n'est pas valide, on empêche l'envoi
         } else {
-            sendForm();
+            sendForm(this);
         }
     });
 
@@ -212,22 +216,19 @@ adressInput.addEventListener("input", async function () {
     autocomplete(document.getElementById("adresse"), await getData(adressInput.value));
 });
 
-function sendForm() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/shop/basket/checkout/confirm", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+function sendForm(e) {
+    loading(e);
 
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send(new URLSearchParams(new FormData(document.getElementById("checkoutForm"))));
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                window.location.href = "/shop/basket/checkout/success-payment";
-            } else {
-                showNotification("Oups...", response.message, "red");
-            }
+    makeRequest('POST', '/shop/basket/checkout/confirm', (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            window.location.href = "/shop/basket/checkout/success-payment";
+        } else {
+            e.innerHTML = "Payer";
+            e.classList.remove("btn-disabled");
+            e.classList.add("btn-primary");
+            e.disabled = false;
+            showNotification("Oups...", response.message, "red");
         }
-    };
+    }, new URLSearchParams(new FormData(document.getElementById("checkoutForm"))).toString());
 }

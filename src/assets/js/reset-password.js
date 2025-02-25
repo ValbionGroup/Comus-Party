@@ -99,3 +99,20 @@ function checkPassword() {
         submitButton.setAttribute("disabled", "true");
     }
 }
+
+function resetPassword(e) {
+    loading(e);
+
+    const token = document.getElementById('token').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+    makeRequest('POST', '/reset-password', (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            window.location.href = '/login';
+        } else {
+            showNotification("Oups...", response.message, "red");
+        }
+    }, `token=${token}&password=${password}&passwordConfirm=${passwordConfirm}`);
+}
