@@ -132,7 +132,8 @@ class ControllerDashboard extends Controller
                 "id" => $suggestion->getId(),
                 "object" => $suggestion->getObject()->name,
                 "content" => $suggestion->getContent(),
-                "author_username" => $suggestion->getAuthorUsername()
+                "author_username" => $suggestion->getAuthorUsername(),
+                "created_at" => $suggestion->getCreatedAt()->getTimestamp() * 1000,
             ], $suggestions),
         ]);
         exit;
