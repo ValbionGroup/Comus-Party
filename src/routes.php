@@ -301,3 +301,8 @@ $router->post('/profile/update-email', function () use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateEmail", ["email" => $_POST['newEmail']]);
     exit;
 }, 'player');
+
+$router->get('/suggests', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllSuggestionsWaiting");
+    exit;
+}, 'moderator');
