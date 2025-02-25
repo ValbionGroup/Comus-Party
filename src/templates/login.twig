@@ -13,17 +13,29 @@
         <form action="" method="post" class="mt-8 space-y-6">
             <div>
                 <label for="email" class="block">Adresse email</label>
-                <input type="email" name="email" id="email" class="w-full input" placeholder="john.doe@example.com" required>
+                <input type="email" name="email" id="email" class="w-full input" placeholder="john.doe@example.com"
+                       required>
                 <p class="input-error-text text-red-600 hidden" id="incorrectEmailFormat">Format d'e-mail invalide,
                     veuillez entrer un e-mail valide.</p>
             </div>
             <div>
                 <label for="password" class="block">Mot de passe</label>
-                <input type="password" name="password" id="password" class="w-full input" placeholder="●●●●●●●●●●●●" required>
+                <input type="password" name="password" id="password" class="w-full input" placeholder="●●●●●●●●●●●●"
+                       required>
             </div>
 
+            <div
+                    class="cf-turnstile"
+                    data-size="flexible"
+                    data-sitekey="{{ turnstile_siteKey }}"
+                    data-callback="turnstileSuccessCallback"
+                    data-error-callback="turnstileErrorCallback"
+            ></div>
+
             <div>
-                <button type="submit" id="submitButton" class="w-full btn-disabled flex justify-center" onclick="signIn(this)" disabled>Se connecter</button>
+                <button type="submit" id="submitButton" class="w-full btn-disabled flex justify-center"
+                        onclick="signIn(this)" disabled>Se connecter
+                </button>
             </div>
         </form>
         <div class="flex flex-col mt-7 gap-2">
@@ -43,5 +55,6 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="/assets/js/login.min.js"></script>
 {% endblock %}
