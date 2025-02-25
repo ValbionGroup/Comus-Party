@@ -118,4 +118,23 @@ class ControllerDashboard extends Controller
         ]);
         exit;
     }
+
+    /**
+     * @brief Récupère toutes les suggestions en attente et les renvoi sous format JSON
+     * @return void
+     */
+    public function getAllSuggestionsWaiting(): void {
+        $suggestsManager = new SuggestionDAO($this->getPdo());
+        $suggestions = $suggestsManager->findAllWaiting();
+        echo json_encode([
+            "success" => true,
+            "suggestions" => array_map(fn($suggestion) => [
+                "id" => $suggestion->getId(),
+                "object" => $suggestion->getObject()->name,
+                "content" => $suggestion->getContent(),
+                "author_username" => $suggestion->getAuthorUsername()
+            ], $suggestions),
+        ]);
+        exit;
+    }
 }
