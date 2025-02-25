@@ -83,6 +83,7 @@ function denySuggest(e) {
             let response = JSON.parse(xhr.responseText);
             if (response.success) {
                 closeModal();
+                dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
                 showNotification("Génial !", "La suggestion a bien été refusée", "green");
             }
             else {
