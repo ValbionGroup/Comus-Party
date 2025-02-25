@@ -84,7 +84,6 @@ function denySuggest(e) {
             if (response.success) {
                 closeModal();
                 showNotification("Génial !", "La suggestion a bien été refusée", "green");
-                updateSuggests();
             }
             else {
                 showNotification("Oups...", "La suggestion n'a pas pu être refusée", "red");
@@ -107,8 +106,8 @@ function acceptSuggest(e) {
             let response = JSON.parse(xhr.responseText);
             if (response.success) {
                 closeModal();
+                dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
                 showNotification("Génial !", "La suggestion a bien été acceptée", "green");
-                updateSuggests();
             }
             else {
                 showNotification("Oups...", "La suggestion n'a pas pu être acceptée", "red");
@@ -137,10 +136,11 @@ dashboardConnection.onopen = function (e) {
     updateReports();
 };
 dashboardConnection.onmessage = function (e) {
-    if (e.data === "updateSuggests") {
+    let data = JSON.parse(e.data);
+    if (data.message === "updateSuggests") {
         updateSuggests();
     }
-    else if (e.data === "updateReports") {
+    else if (data.message === "updateReports") {
         updateReports();
     }
     else {
@@ -154,7 +154,6 @@ function updateSuggests() {
         if (response.success) {
             let suggests = response.suggestions;
             let suggestList = document.getElementById('suggestList');
-            console.log(suggestList);
             suggestList.innerText = "";
             if (suggests === null) {
                 suggestList.classList.add("justify-center");
