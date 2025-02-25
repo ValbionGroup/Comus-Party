@@ -35,7 +35,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnNullEmail(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->assertFalse($this->controller->authenticate(null, 'hashed_password1', null));
+        $this->assertFalse($this->controller->authenticate(null, 'hashed_password1', ''));
     }
 
     /**
@@ -46,7 +46,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnNullPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->assertFalse($this->controller->authenticate('john.doe@example.com', null, null));
+        $this->assertFalse($this->controller->authenticate('john.doe@example.com', null, ''));
     }
 
     /**
@@ -56,7 +56,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnValidEmailAndPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->controller->authenticate('john.doe@example.com', 'hashed_password1', null);
+        $this->controller->authenticate('john.doe@example.com', 'hashed_password1', '');
     }
 
     /**
@@ -66,7 +66,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnInvalidEmailAndValidPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->assertFalse($this->controller->authenticate('john.doeexample.com', 'hashed_password1', null));
+        $this->assertFalse($this->controller->authenticate('john.doeexample.com', 'hashed_password1', ''));
     }
 
     /**
@@ -76,7 +76,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnInexistantEmailAndValidPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->assertFalse($this->controller->authenticate('john.danny@example.com', 'hashed_password1', null));
+        $this->assertFalse($this->controller->authenticate('john.danny@example.com', 'hashed_password1', ''));
     }
 
     /**
