@@ -306,3 +306,8 @@ $router->get('/suggests', function () use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllSuggestionsWaiting");
     exit;
 }, 'moderator');
+
+$router->get('/reports', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllReports");
+    exit;
+}, 'moderator');
