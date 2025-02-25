@@ -50,7 +50,7 @@ function signIn(e) {
     loading(e);
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const cfToken = window.turnstile.getRequest();
+    const cfToken = window.turnstile.getResponse();
     makeRequest('POST', '/login', (response) => {
         response = JSON.parse(response);
         if (response.success) {
