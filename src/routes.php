@@ -177,7 +177,8 @@ $router->post('/register', function () use ($loader, $twig) {
         ControllerFactory::getController("auth", $loader, $twig)->call("register", [
             "username" => $_POST['username'],
             "email" => $_POST['email'],
-            "password" => $_POST['password']
+            "password" => $_POST['password'],
+            "passwordConfirm" => $_POST['passwordConfirm']
         ]);
         exit;
     }

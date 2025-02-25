@@ -366,9 +366,10 @@ class ControllerAuth extends Controller
      * @param ?string $username Nom d'utilisateur fourni dans le formulaire d'inscription
      * @param ?string $email Adresse e-mail fournie dans le formulaire d'inscription
      * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
+     * @param ?string $passwordConfirm Confirmation du mot de passe fourni dans le formulaire d'inscription
      * @return void
      */
-    public function register(?string $username, ?string $email, ?string $password): void
+    public function register(?string $username, ?string $email, ?string $password, ?string $passwordConfirm): void
     {
         $rules = [
             'username' => [
@@ -388,6 +389,12 @@ class ControllerAuth extends Controller
                 'type' => 'string',
                 'min-length' => 8,
                 'max-length' => 64
+            ],
+            'passwordConfirm' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 8,
+                'max-length' => 64
             ]
         ];
 
@@ -395,7 +402,8 @@ class ControllerAuth extends Controller
 
         try {
 
-            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
+            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password, 'password', 'passwordConfirm' => $passwordConfirm]) ||
+                $password !== $passwordConfirm) {
                 throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
             }
 
