@@ -126,6 +126,13 @@ class ControllerDashboard extends Controller
     public function getAllSuggestionsWaiting(): void {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestions = $suggestsManager->findAllWaiting();
+        if (empty($suggestions)) {
+            echo json_encode([
+                "success" => true,
+                "suggestions" => null,
+            ]);
+            exit;
+        }
         echo json_encode([
             "success" => true,
             "suggestions" => array_map(fn($suggestion) => [

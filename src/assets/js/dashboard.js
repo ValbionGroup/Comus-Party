@@ -143,50 +143,62 @@ chatConnection.onmessage = function (e) {
 function updateSuggests() {
     makeRequest('GET', '/suggests', (response) => {
         response = JSON.parse(response);
-        console.log(response);
         if (response.success) {
-            console.log("test");
             let suggests = response.suggestions;
             let suggestList = document.getElementById('suggestList');
-            // suggestList.innerHTML = "";
-            suggests.forEach(suggest => {
-                let suggestItem = document.createElement('div');
-                suggestItem.id = suggest.id;
-                suggestItem.classList.add("flex", "p-2", "bg-night-base", "rounded-md", "hover:cursor-pointer", "hover:scale-105", "transition-all", "ease-in-out", "justify-between");
-                suggestItem.onclick = () => showModalSuggest(suggestItem);
+            if (suggests === null) {
+                suggestList.classList.add("justify-center");
+                let noSuggest = document.createElement('p');
+                noSuggest.classList.add("flex","flex-col", "items-center", "text-center");
+                let spanCongratulations = document.createElement('span');
+                spanCongratulations.classList.add("text-xl", "font-bold");
+                spanCongratulations.innerText = "Félicitations !";
+                let spanNoSuggest = document.createElement('span');
+                spanNoSuggest.innerText = "Aucune suggestion en attente de traitement";
+                noSuggest.appendChild(spanCongratulations);
+                noSuggest.appendChild(spanNoSuggest);
+                suggestList.appendChild(noSuggest);
+            }
+            else {
+                suggests.forEach(suggest => {
+                    let suggestItem = document.createElement('div');
+                    suggestItem.id = suggest.id;
+                    suggestItem.classList.add("flex", "p-2", "bg-night-base", "rounded-md", "hover:cursor-pointer", "hover:scale-105", "transition-all", "ease-in-out", "justify-between");
+                    suggestItem.onclick = () => showModalSuggest(suggestItem);
 
-                let suggestInfo = document.createElement('div');
-                suggestInfo.classList.add("flex");
+                    let suggestInfo = document.createElement('div');
+                    suggestInfo.classList.add("flex");
 
-                let suggestObjectTitle = document.createElement('p');
-                suggestObjectTitle.classList.add("underline", "mr-1");
-                suggestObjectTitle.innerText = "Thème :";
+                    let suggestObjectTitle = document.createElement('p');
+                    suggestObjectTitle.classList.add("underline", "mr-1");
+                    suggestObjectTitle.innerText = "Thème :";
 
-                let suggestObject = document.createElement('p');
-                switch (suggest.object) {
-                    case "BUG":
-                        suggestObject.innerText = "🐛 Bug";
-                        break;
-                    case "GAME":
-                        suggestObject.innerText = "🎮 Jeu";
-                        break;
-                    case "UI":
-                        suggestObject.innerText = "🎨 Interface";
-                        break;
-                    case "OTHER":
-                        suggestObject.innerText = "🔧 Autres";
-                        break;
-                }
+                    let suggestObject = document.createElement('p');
+                    switch (suggest.object) {
+                        case "BUG":
+                            suggestObject.innerText = "🐛 Bug";
+                            break;
+                        case "GAME":
+                            suggestObject.innerText = "🎮 Jeu";
+                            break;
+                        case "UI":
+                            suggestObject.innerText = "🎨 Interface";
+                            break;
+                        case "OTHER":
+                            suggestObject.innerText = "🔧 Autres";
+                            break;
+                    }
 
-                let suggestTime = document.createElement('p');
-                suggestTime.innerText = timeAgo(suggest.created_at);
+                    let suggestTime = document.createElement('p');
+                    suggestTime.innerText = timeAgo(suggest.created_at);
 
-                suggestInfo.appendChild(suggestObjectTitle);
-                suggestInfo.appendChild(suggestObject);
-                suggestItem.appendChild(suggestInfo);
-                suggestItem.appendChild(suggestTime);
-                suggestList.appendChild(suggestItem);
-            });
+                    suggestInfo.appendChild(suggestObjectTitle);
+                    suggestInfo.appendChild(suggestObject);
+                    suggestItem.appendChild(suggestInfo);
+                    suggestItem.appendChild(suggestTime);
+                    suggestList.appendChild(suggestItem);
+                });
+            }
         } else {
             console.error("Erreur lors de la récupération des suggestions");
         }
