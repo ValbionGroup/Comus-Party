@@ -367,9 +367,11 @@ class ControllerAuth extends Controller
      * @param ?string $email Adresse e-mail fournie dans le formulaire d'inscription
      * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
      * @param ?string $passwordConfirm Confirmation du mot de passe fourni dans le formulaire d'inscription
+     * @param ?bool $termsOfServiceIsChecked Condition d'acceptation des conditions d'utilisation
+     * @param ?bool $privacyPolicyIsChecked Condition d'acceptation de la politique de confidentialité
      * @return void
      */
-    public function register(?string $username, ?string $email, ?string $password, ?string $passwordConfirm): void
+    public function register(?string $username, ?string $email, ?string $password, ?string $passwordConfirm, ?bool $termsOfServiceIsChecked, ?bool $privacyPolicyIsChecked): void
     {
         $rules = [
             'username' => [
@@ -402,9 +404,16 @@ class ControllerAuth extends Controller
 
         try {
 
-            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password, 'password', 'passwordConfirm' => $passwordConfirm]) ||
-                $password !== $passwordConfirm) {
+            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password, 'password', 'passwordConfirm' => $passwordConfirm])) {
                 throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
+            }
+
+            if ($password !== $passwordConfirm) {
+                throw new AuthenticationException("Les mots de passe ne correspondent pas");
+            }
+
+            if (!$termsOfServiceIsChecked || !$privacyPolicyIsChecked) {
+                throw new AuthenticationException("Vous devez accepter les conditions d'utilisation et la politique de confidentialité pour vous inscrire");
             }
 
             // Hash le mot de passe

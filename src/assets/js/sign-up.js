@@ -200,5 +200,5 @@ function signUp(e) {
             e.disabled = false;
             showNotification("Oups...", response.message, "red");
         }
-    }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}&passwordConfirm=${INPUT_CONFIRM_PASSWORD.value}`);
+    }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}&passwordConfirm=${INPUT_CONFIRM_PASSWORD.value}&termsOfService=${INPUT_TERMS_OF_SERVICE.checked}&privacyPolicy=${INPUT_PRIVACY_POLICY.checked}`);
 }

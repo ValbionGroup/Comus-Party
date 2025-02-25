@@ -173,12 +173,14 @@ $router->get('/register', function () use ($loader, $twig) {
 }, 'guest');
 
 $router->post('/register', function () use ($loader, $twig) {
-    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
+    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwordConfirm']) && isset($_POST['termsOfService']) && isset($_POST['privacyPolicy'])) {
         ControllerFactory::getController("auth", $loader, $twig)->call("register", [
             "username" => $_POST['username'],
             "email" => $_POST['email'],
             "password" => $_POST['password'],
-            "passwordConfirm" => $_POST['passwordConfirm']
+            "passwordConfirm" => $_POST['passwordConfirm'],
+            "termsOfServiceIsChecked" => $_POST['termsOfService'] === 'true',
+            "privacyPolicyIsChecked" => $_POST['privacyPolicy'] === 'true'
         ]);
         exit;
     }
