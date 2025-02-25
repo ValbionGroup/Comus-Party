@@ -21,7 +21,7 @@
             <div class="flex flex-col gap-4 h-full w-[calc(100%-2rem)] lg:w-[calc(33%-2rem)]">
                 <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Suggestions en attente</p>
-                    <div class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto {% if suggestions == null %}justify-center{% endif %}">
+                    <div id="suggestList" class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto {% if suggestions == null %}justify-center{% endif %}">
                         {% if suggestions == null %}
                             <p class="flex flex-col items-center text-center">
                                 <span class="text-xl font-semibold">Félicitations !</span>
