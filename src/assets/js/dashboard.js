@@ -83,7 +83,7 @@ function denySuggest(e) {
             let response = JSON.parse(xhr.responseText);
             if (response.success) {
                 closeModal();
-                location.reload();
+                updateSuggests();
             }
         }
     };
@@ -103,7 +103,7 @@ function acceptSuggest(e) {
             let response = JSON.parse(xhr.responseText);
             if (response.success) {
                 closeModal();
-                location.reload();
+                updateSuggests();
             }
         }
     };
@@ -146,6 +146,8 @@ function updateSuggests() {
         if (response.success) {
             let suggests = response.suggestions;
             let suggestList = document.getElementById('suggestList');
+            console.log(suggestList);
+            suggestList.innerText = "";
             if (suggests === null) {
                 suggestList.classList.add("justify-center");
                 let noSuggest = document.createElement('p');
