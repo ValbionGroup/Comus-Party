@@ -28,12 +28,12 @@ define('BASE_URI', $_ENV['BASE_URI']);
 /**
  * @brief Clef du site pour CloudFlare Turnstile
  */
-define('CF_TURNSTILE_SITEKEY', $_ENV['CF_TURNSTILE_SITEKEY']);
+define('CF_TURNSTILE_SITEKEY', $_ENV['CF_TURNSTILE_SITEKEY'] ?? '1x00000000000000000000BB');
 
 /**
  * @brief Clef secrète d'authentification pour CloudFlare Turnstile
  */
-define('CF_TURNSTILE_SECRETKEY', $_ENV['CF_TURNSTILE_SECRETKEY']);
+define('CF_TURNSTILE_SECRETKEY', $_ENV['CF_TURNSTILE_SECRETKEY'] ?? '1x0000000000000000000000000000000AA');
 
 /**
  * @brief Système de sauvegarde actif ou non
