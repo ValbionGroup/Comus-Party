@@ -377,7 +377,7 @@ class ControllerAuth extends Controller
             throw new Exception("Erreur lors de la vérification du captcha");
         } else {
             $response = json_decode($result);
-            $res = !($response['error-codes'] > 0);
+            $res = !(count($response['error-codes']) > 0);
         }
 
         curl_close($curl);
