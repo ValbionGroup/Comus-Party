@@ -130,13 +130,13 @@ function acceptReport(e) {
 }
 
 // WebSocket
-const chatConnection = new WebSocket('ws://localhost:8315/dashboard');
-chatConnection.onopen = function (e) {
+const dashboardConnection = new WebSocket('ws://localhost:8315/dashboard');
+dashboardConnection.onopen = function (e) {
     console.log("Connexion établie avec DASHBOARD_SOCKET !");
     updateSuggests();
     updateReports();
 };
-chatConnection.onmessage = function (e) {
+dashboardConnection.onmessage = function (e) {
     if (e.data === "updateSuggests") {
         updateSuggests();
     }
