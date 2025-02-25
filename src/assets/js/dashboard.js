@@ -120,3 +120,28 @@ function denyReport(e) {
 function acceptReport(e) {
 
 }
+
+// WebSocket
+const chatConnection = new WebSocket('ws://localhost:8315/dashboard');
+chatConnection.onopen = function (e) {
+    console.log("Connexion établie avec DASHBOARD_SOCKET !");
+};
+chatConnection.onmessage = function (e) {
+    if (e.data === "updateSuggests") {
+        updateSuggests();
+    }
+    else if (e.data === "updateReports") {
+        updateReports();
+    }
+    else {
+        console.log("Message reçu : " + e.data);
+    }
+};
+
+function updateSuggests() {
+
+}
+
+function updateReports() {
+
+}
