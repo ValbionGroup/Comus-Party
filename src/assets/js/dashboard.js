@@ -122,11 +122,11 @@ function showModalReport(e) {
 }
 
 function denyReport(e) {
-
+    dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
 }
 
 function acceptReport(e) {
-
+    dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
 }
 
 // WebSocket
@@ -242,7 +242,7 @@ function updateReports() {
                     let reportItem = document.createElement('div');
                     reportItem.id = report.id;
                     reportItem.classList.add("flex", "p-2", "bg-night-base", "rounded-md", "hover:cursor-pointer", "hover:scale-105", "transition-all", "ease-in-out", "justify-between");
-                    reportItem.onclick = () => showModalReport(reportItem);
+                    reportItem.addEventListener('click', () => showModalReport(reportItem));
 
                     let reportInfo = document.createElement('div');
                     reportInfo.classList.add("flex");
