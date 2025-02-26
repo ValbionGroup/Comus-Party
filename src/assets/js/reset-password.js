@@ -105,7 +105,7 @@ function resetPassword(e) {
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
 
-    makeRequest('POST', '/reset-password', (response) => {
+    makeRequest('POST', window.location.pathname, (response) => {
         response = JSON.parse(response);
         if (response.success) {
             showNotification("Génial !", response.message, "green");

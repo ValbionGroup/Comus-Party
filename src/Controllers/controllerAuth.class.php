@@ -228,7 +228,7 @@ class ControllerAuth extends Controller
             throw new Exception("Erreur lors de la suppression du token", 500);
         }
 
-        return json_encode([
+        echo json_encode([
             'success' => true,
             'message' => "Votre mot de passe a bien été réinitialisé"
         ]);
