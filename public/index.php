@@ -11,7 +11,7 @@ require __DIR__ . '/../src/routes.php';
 
 try {
     $router->matchRoute();
-} catch (NotFoundException|UnauthorizedAccessException $e) {
+} catch (NotFoundException|UnauthorizedAccessException|Exception $e) {
     MessageHandler::displayFullScreenException($e);
     exit;
 }

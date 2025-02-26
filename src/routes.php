@@ -10,6 +10,7 @@
 
 global $loader, $twig;
 
+use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Router;
@@ -58,7 +59,7 @@ $router->post('/login', function () use ($loader, $twig) {
             ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
                 "email" => $_POST['email'],
                 "password" => $_POST['password'],
-                "cloudflareCaptchaToken" => $_POST['cfToken']
+                "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
             ]);
             exit;
         }
@@ -179,11 +180,11 @@ $router->post('/register', function () use ($loader, $twig) {
             "username" => $_POST['username'],
             "email" => $_POST['email'],
             "password" => $_POST['password'],
-            "cloudflareCaptchaToken" => $_POST['cfToken']
+            "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
         ]);
         exit;
     }
-    throw new Exception("Données reçues incomplètes.");
+    throw new MalformedRequestException("Données reçues incomplètes.");
 }, 'guest');
 
 $router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {

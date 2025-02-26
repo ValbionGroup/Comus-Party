@@ -18,7 +18,7 @@ use ComusParty\App\Sockets\Chat;
 use ComusParty\App\Sockets\Game;
 use Ratchet\WebSocket\WsServer;
 
-$server = new Ratchet\App('localhost', 8315);
+$server = new Ratchet\App('localhost', 20999);
 $server->route('/chat/{token}', new WsServer(new Chat()));
 $server->route('/game/{token}', new WsServer(new Game()));
 $server->run();
