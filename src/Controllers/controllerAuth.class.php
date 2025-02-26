@@ -370,12 +370,13 @@ class ControllerAuth extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
 
         $result = curl_exec($curl);
 
         if (curl_errno($curl)) {
             curl_close($curl);
-            throw new Exception("Erreur lors de la vérification du captcha");
+            throw new Exception("Erreur lors de la vérification du captcha : " . curl_error($curl));
         } else {
             $response = json_decode($result);
             curl_close($curl);
