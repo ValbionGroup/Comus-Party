@@ -108,7 +108,10 @@ function resetPassword(e) {
     makeRequest('POST', '/reset-password', (response) => {
         response = JSON.parse(response);
         if (response.success) {
-            window.location.href = '/login';
+            showNotification("Génial !", response.message, "green");
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 2000);
         } else {
             showNotification("Oups...", response.message, "red");
         }
