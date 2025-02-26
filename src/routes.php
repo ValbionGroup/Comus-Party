@@ -198,7 +198,7 @@ $router->get('/forgot-password', function () use ($loader, $twig) {
 }, 'guest');
 
 $router->post('/forgot-password', function () use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("sendResetPasswordLink", ["email" => $_POST['email']]);
+    ControllerFactory::getController("auth", $loader, $twig)->call("sendResetPasswordLink", ["email" => $_POST['email'] ?? null]);
     exit;
 }, 'guest');
 
