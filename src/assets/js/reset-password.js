@@ -83,8 +83,7 @@ function checkPassword() {
 
     if (!passwordsMatch && passwordConfirm.value.length > 0) {
         passwordMatchError.classList.remove("hidden");
-    }
-    else {
+    } else {
         passwordMatchError.classList.add("hidden");
     }
 
@@ -103,7 +102,6 @@ function checkPassword() {
 function resetPassword(e) {
     loading(e);
 
-    const token = document.getElementById('token').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
 
@@ -114,5 +112,5 @@ function resetPassword(e) {
         } else {
             showNotification("Oups...", response.message, "red");
         }
-    }, `token=${token}&password=${password}&passwordConfirm=${passwordConfirm}`);
+    }, `password=${password}&passwordConfirm=${passwordConfirm}`);
 }
