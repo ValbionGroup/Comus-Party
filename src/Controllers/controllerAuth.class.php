@@ -59,7 +59,9 @@ class ControllerAuth extends Controller
     public function showLoginPage(): void
     {
         global $twig;
-        echo $twig->render('login.twig');
+        echo $twig->render('login.twig', [
+            'turnstile_siteKey' => CF_TURNSTILE_SITEKEY
+        ]);
     }
 
     /**
@@ -241,7 +243,9 @@ class ControllerAuth extends Controller
     public function showRegistrationPage(): void
     {
         global $twig;
-        echo $twig->render('sign-up.twig');
+        echo $twig->render('sign-up.twig', [
+            "turnstile_siteKey" => CF_TURNSTILE_SITEKEY
+        ]);
     }
 
     /**
@@ -255,7 +259,7 @@ class ControllerAuth extends Controller
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
      * @return bool
      */
-    public function authenticate(?string $email, ?string $password): bool
+    public function authenticate(?string $email, ?string $password, ?string $cloudflareCaptchaToken): bool
     {
         $regles = [
             'email' => [
@@ -273,10 +277,14 @@ class ControllerAuth extends Controller
         $validator = new Validator($regles);
 
         try {
-
             if (!$validator->validate(['email' => $email, 'password' => $password])) {
                 throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
             }
+
+            if (!$this->verifyCaptcha($cloudflareCaptchaToken)) {
+                throw new AuthenticationException("Impossible de vérifier le captcha");
+            }
+
             $userManager = new UserDAO($this->getPdo());
             $user = $userManager->findByEmail($email);
 
@@ -341,6 +349,40 @@ class ControllerAuth extends Controller
     }
 
     /**
+     * @brief Permet de vérifier le token de captcha auprès de Cloudflare
+     * @param string $cloudflareCaptchaToken Token de captcha fourni par Cloudflare
+     * @return bool Renvoie true si le captcha est valide, false sinon
+     * @throws Exception Exception levée en cas d'erreur lors de la vérification du captcha
+     */
+    private function verifyCaptcha(string $cloudflareCaptchaToken): bool
+    {
+        $url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+        $data = [
+            'secret' => CF_TURNSTILE_SECRETKEY,
+            'response' => $cloudflareCaptchaToken,
+            'remoteip' => $_SERVER['REMOTE_ADDR']
+        ];
+
+        $curl = curl_init();
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $result = curl_exec($curl);
+
+        if (curl_errno($curl)) {
+            curl_close($curl);
+            throw new Exception("Erreur lors de la vérification du captcha");
+        } else {
+            $response = json_decode($result);
+            curl_close($curl);
+            return $response->success;
+        }
+    }
+
+    /**
      * @brief Déconnecte l'utilisateur
      * @details Commence par démarrer la session afin de pouvoir y supprimer toutes les variables stockées dessus, puis détruit celle-ci.
      * @return void
@@ -351,7 +393,6 @@ class ControllerAuth extends Controller
         session_destroy();
         header('Location: /login');
     }
-
 
     /**
      * @brief La méthode register permet d'inscrire un utilisateur
@@ -368,7 +409,7 @@ class ControllerAuth extends Controller
      * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
      * @return void
      */
-    public function register(?string $username, ?string $email, ?string $password): void
+    public function register(?string $username, ?string $email, ?string $password, ?string $cloudflareCaptchaToken): void
     {
         $rules = [
             'username' => [
@@ -399,66 +440,70 @@ class ControllerAuth extends Controller
                 throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
             }
 
+            if (!$this->verifyCaptcha($cloudflareCaptchaToken)) {
+                throw new AuthenticationException("Impossible de vérifier le captcha");
+            }
+
             // Hash le mot de passe
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
             $userDAO = new UserDAO($this->getPdo());
             $playerDAO = new PlayerDAO($this->getPdo());
 
-                // Vérifier si l'utilisateur et le joueur existent
-                $existingUser = $userDAO->findByEmail($email) !== null;
-                $existingPlayer = $playerDAO->findByUsername($username) !== null;
+            // Vérifier si l'utilisateur et le joueur existent
+            $existingUser = $userDAO->findByEmail($email) !== null;
+            $existingPlayer = $playerDAO->findByUsername($username) !== null;
 
-                if ($existingUser) {
-                    throw new AuthenticationException("L'adresse e-mail est déjà utilisée");
-                }
+            if ($existingUser) {
+                throw new AuthenticationException("L'adresse e-mail est déjà utilisée");
+            }
 
-                if ($existingPlayer) {
-                    throw new AuthenticationException("Le nom d'utilisateur est déjà utilisé");
-                }
+            if ($existingPlayer) {
+                throw new AuthenticationException("Le nom d'utilisateur est déjà utilisé");
+            }
 
-                // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
-                $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
-                $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
+            // Si l'utilisateur et le joueur n'existent pas, créer l'utilisateur
+            $emailVerifToken = bin2hex(random_bytes(30)); // Générer un token de vérification de l'email
+            $resultUser = $userDAO->createUser($email, $hashedPassword, $emailVerifToken);
 
-                if (!$resultUser) {
-                    throw new AuthenticationException("Erreur lors de la création de l'utilisateur");
-                }
+            if (!$resultUser) {
+                throw new AuthenticationException("Erreur lors de la création de l'utilisateur");
+            }
 
-                $subject = '🎉 Bienvenue sur Comus Party !';
-                $message =
-                    '<p>Merci d\'avoir créé un compte sur notre plateforme de mini-jeux en ligne. 🎮</p>
+            $subject = '🎉 Bienvenue sur Comus Party !';
+            $message =
+                '<p>Merci d\'avoir créé un compte sur notre plateforme de mini-jeux en ligne. 🎮</p>
                     <p>Pour commencer à jouer et rejoindre nos parties endiablées, il ne vous reste plus qu\'une étape :</p>
                     <a href="' . BASE_URL . '/confirm-email/' . urlencode($emailVerifToken) . '">✅ Confirmer votre compte ici</a>
                     <p>À très bientôt dans l’arène ! 🎲,<br>
                     L\'équipe Comus Party 🚀</p>';
 
-                $confirmMail = new Mailer(array($email), $subject, $message);
-                $confirmMail->generateHTMLMessage();
-                $confirmMail->send();
+            $confirmMail = new Mailer(array($email), $subject, $message);
+            $confirmMail->generateHTMLMessage();
+            $confirmMail->send();
 
-                // Créer le joueur si l'utilisateur est créé avec succès
-                $playerDAO->createPlayer($username, $email);
+            // Créer le joueur si l'utilisateur est créé avec succès
+            $playerDAO->createPlayer($username, $email);
 
-                $userManager = new UserDAO($this->getPdo());
-                $user = $userManager->findByEmail($email);
+            $userManager = new UserDAO($this->getPdo());
+            $user = $userManager->findByEmail($email);
 
-                if (is_null($user)) {
-                    throw new AuthenticationException("Erreur lors de la création de l'utilisateur");
-                }
+            if (is_null($user)) {
+                throw new AuthenticationException("Erreur lors de la création de l'utilisateur");
+            }
 
-                $playerManager = new PlayerDAO($this->getPdo());
-                $player = $playerManager->findWithDetailByUserId($user->getId());
+            $playerManager = new PlayerDAO($this->getPdo());
+            $player = $playerManager->findWithDetailByUserId($user->getId());
 
-                if (is_null($player)) {
-                    throw new AuthenticationException("Erreur lors de la création du joueur");
-                }
+            if (is_null($player)) {
+                throw new AuthenticationException("Erreur lors de la création du joueur");
+            }
 
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter."
-                ]);
-                exit;
+            echo json_encode([
+                'success' => true,
+                'message' => "Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter."
+            ]);
+            exit;
 
         } catch (Exception $e) {
             echo json_encode([

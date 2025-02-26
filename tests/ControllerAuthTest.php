@@ -9,7 +9,6 @@
 
 require_once __DIR__ . '/../include.php';
 
-use ComusParty\App\Exceptions\AuthenticationException;
 use ComusParty\Controllers\Controller;
 use ComusParty\Controllers\ControllerAuth;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +35,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnNullEmail(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->assertFalse($this->controller->authenticate(null, 'hashed_password1'));
+        $this->assertFalse($this->controller->authenticate(null, 'hashed_password1', 'XXXX.DUMMY.TOKEN.XXXX'));
     }
 
     /**
@@ -47,7 +46,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnNullPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->assertFalse($this->controller->authenticate('john.doe@example.com', null));
+        $this->assertFalse($this->controller->authenticate('john.doe@example.com', null, 'XXXX.DUMMY.TOKEN.XXXX'));
     }
 
     /**
@@ -57,7 +56,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnValidEmailAndPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->controller->authenticate('john.doe@example.com', 'hashed_password1');
+        $this->controller->authenticate('john.doe@example.com', 'hashed_password1', 'XXXX.DUMMY.TOKEN.XXXX');
     }
 
     /**
@@ -67,7 +66,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnInvalidEmailAndValidPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->assertFalse($this->controller->authenticate('john.doeexample.com', 'hashed_password1'));
+        $this->assertFalse($this->controller->authenticate('john.doeexample.com', 'hashed_password1', 'XXXX.DUMMY.TOKEN.XXXX'));
     }
 
     /**
@@ -77,7 +76,7 @@ class ControllerAuthTest extends TestCase
     public function testAuthenticateOnInexistantEmailAndValidPassword(): void
     {
         $this->assertNotNull($this->controller, 'Controller is null.');
-        $this->assertFalse($this->controller->authenticate('john.danny@example.com', 'hashed_password1'));
+        $this->assertFalse($this->controller->authenticate('john.danny@example.com', 'hashed_password1', ''));
     }
 
     /**

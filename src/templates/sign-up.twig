@@ -15,7 +15,8 @@
         <div id="registrationForm" class="mt-8 space-y-6">
             <div>
                 <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" placeholder="JohnDoe" autofocus class="w-full input" required>
+                <input type="text" id="username" name="username" placeholder="JohnDoe" autofocus class="w-full input"
+                       required>
 
                 <p class="input-error-text text-red-600 hidden" id="usernameTooShort"></p>
                 <p class="input-error-text text-red-600 hidden" id="usernameForbiddenCharacters"></p>
@@ -24,7 +25,8 @@
 
             <div>
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="john.doe@example.com" class="w-full input" required>
+                <input type="email" id="email" name="email" placeholder="john.doe@example.com" class="w-full input"
+                       required>
 
                 <p class="input-error-text text-red-600 hidden" id="incorrectEmailFormat"></p>
             </div>
@@ -32,7 +34,8 @@
             <div>
                 <label for="password">Mot de passe</label>
                 <div class="flex w-full">
-                    <input type="password" id="password" name="password" placeholder="●●●●●●●●●●●●" class="w-full input" required>
+                    <input type="password" id="password" name="password" placeholder="●●●●●●●●●●●●" class="w-full input"
+                           required>
                     <!-- Bouton icone oeil -->
                     <button type="button" id="togglePassword" class="m-2">
                         <!-- Icone oeil -->
@@ -58,7 +61,8 @@
             <div>
                 <label for="passwordConfirm">Confirmation du mot de passe</label>
                 <div class="flex w-full">
-                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="●●●●●●●●●●●●" class="w-full input" required>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="●●●●●●●●●●●●"
+                           class="w-full input" required>
                     <!-- Bouton icone oeil -->
                     <button type="button" id="togglePasswordConfirm" class="m-2">
                         <!-- Icone oeil -->
@@ -76,10 +80,19 @@
                 <p class="input-error-text text-red-600 hidden" id="notMatchingPasswords"></p>
             </div>
 
+            <div
+                    class="cf-turnstile"
+                    data-size="flexible"
+                    data-sitekey="{{ turnstile_siteKey }}"
+                    data-callback="turnstileSuccessCallback"
+                    data-error-callback="turnstileErrorCallback"
+            ></div>
+
             <div>
                 <div class="flex align-left items-center mb-2">
                     <input id="termsOfService" name="termsOfService" type="checkbox" class="flex-shrink-0 mr-2 ml-2 w-4 h-4 appearance-none border border-night-2 dark:border-night-2 rounded bg-lavender-blush-1 dark:bg-lavender-blush-1 checked:bg-blue-violet-base dark:checked:bg-blue-violet-base checked:border-celestial-blue-600 focus:outline-none focus:ring-2 focus:ring-celestial-blue-base transition-all duration-200
-                    checked:before:content-['✓'] checked:before:text-white checked:before:relative checked:before:left-[2px] checked:before:bottom-[6px]" required>
+                    checked:before:content-['✓'] checked:before:text-white checked:before:relative checked:before:left-[2px] checked:before:bottom-[6px]"
+                           required>
 
                     <label for="termsOfService">En cochant cette case, vous reconnaissez avoir lu et accepté les <a href="/cgu" class="text-night-2 dark:text-lavender-blush-2 font-semibold hover:underline transition-all ease-in-out">conditions d'utilisation</a></label>
                 </div>
@@ -91,7 +104,16 @@
                 </div>
             </div>
 
-            <button type="button" id="submitButton" class="w-full btn-disabled flex justify-center" onclick="signUp(this)" disabled>Valider</button>
+            <div id="captcha-status" class="flex mb-2 gap-2 text-gray-500">
+                <span id="captcha-status-icon" style="width: 24px; height: 24px;">
+                    <i class="loader" style="width: 22px; height: 22px;"></i>
+                </span>
+                <span id="captcha-status-text">Vérification Captcha en cours...</span>
+            </div>
+
+            <button type="button" id="submitButton" class="w-full btn-disabled flex justify-center"
+                    onclick="signUp(this)" disabled>Valider
+            </button>
         </div>
 
         <div class="flex justify-center mt-7">
@@ -101,5 +123,6 @@
     </div>
 {% endblock %}
 {% block scripts %}
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="/assets/js/sign-up.min.js"></script>
 {% endblock %}

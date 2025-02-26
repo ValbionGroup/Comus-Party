@@ -7,24 +7,11 @@
  *   @version 0.1
  */
 
-const background = document.getElementById('backgroundModal');
 const modals = document.querySelectorAll(".modal");
 const headers = document.querySelectorAll('th');
 const tableBody = document.querySelector('tbody');
 const tableContainer = document.getElementById('tableContainer');
 
-function showBackgroundModal() {
-    background.classList.remove("hidden");
-}
-
-function closeModal() {
-    modals.forEach(modal => {
-        if (!modal.classList.contains("hidden")) {
-            modal.classList.add("hidden");
-        }
-    });
-    background.classList.add("hidden");
-}
 
 // Ajoute des écouteurs d'événements aux colonnes triables
 headers.forEach((header, index) => {
