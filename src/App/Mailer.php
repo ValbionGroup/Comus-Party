@@ -87,7 +87,7 @@ class Mailer
             $mail->Username = MAIL_USER;
             $mail->Password = MAIL_PASS;
             $mail->SMTPSecure = MAIL_SECURITY;
-            $mail->setFrom(MAIL_FROM);
+            $mail->setFrom(MAIL_FROM, 'Comus Party');
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
             $mail->Encoding = 'base64';
