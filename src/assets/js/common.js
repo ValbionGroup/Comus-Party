@@ -125,7 +125,7 @@ function loading(e) {
 const captchaStatus = document.getElementById('captcha-status');
 const captchaStatusIcon = document.getElementById('captcha-status-icon');
 const captchaStatusText = document.getElementById('captcha-status-text');
-const defaultClass = "flex mb-2 gap-2";
+const defaultClass = "flex mb-2 gap-2 transition-all duration-200";
 
 /**
  * @brief Fonction appelée lors de la réussite du test de Captcha
