@@ -23,7 +23,6 @@ use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
-use PHPMailer\PHPMailer\PHPMailer;
 use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -111,6 +110,13 @@ class ControllerAuth extends Controller
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+
+        if ($tokenManager->findByUserId($user->getId())) {
+            MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
+            header('Location: /login');
+            exit;
+        }
+
         $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(30)), new DateTime());
         $tokenManager->insert($token);
 
