@@ -3,6 +3,10 @@
         Options -MultiViews -Indexes +FollowSymLinks
     </IfModule>
 
+    <IfModule mod_headers.c>
+        Header set Content-Security-Policy "default-src 'self' https://challenges.cloudflare.com;"
+    </IfModule>
+
     RewriteEngine On
 
     # Handle Authorization Header
