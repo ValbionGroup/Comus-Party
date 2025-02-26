@@ -55,13 +55,25 @@ class ControllerAuth extends Controller
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws RandomException Exception levée dans le cas d'une erreur de génération du token nonce
      */
     public function showLoginPage(): void
     {
         global $twig;
         echo $twig->render('login.twig', [
-            'turnstile_siteKey' => CF_TURNSTILE_SITEKEY
+            'turnstile_siteKey' => CF_TURNSTILE_SITEKEY,
+            'nonceToken' => $this->generateNonceToken()
         ]);
+    }
+
+    /**
+     * @brief Permet de générer un token de validation nonce
+     * @return string Token de validation nonce
+     * @throws RandomException Exception levée en cas d'erreur lors de la génération du token
+     */
+    private function generateNonceToken(): string
+    {
+        return bin2hex(random_bytes(30));
     }
 
     /**
@@ -232,19 +244,20 @@ class ControllerAuth extends Controller
         header('Location: /login');
     }
 
-
     /**
      * @brief La méthode showRegistrationPage permet d'afficher la page d'inscription
      * @return void
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws RandomException Exception levée dans le cas d'une erreur de génération du token nonce
      */
     public function showRegistrationPage(): void
     {
         global $twig;
         echo $twig->render('sign-up.twig', [
-            "turnstile_siteKey" => CF_TURNSTILE_SITEKEY
+            "turnstile_siteKey" => CF_TURNSTILE_SITEKEY,
+            "nonceToken" => $this->generateNonceToken()
         ]);
     }
 

@@ -4,7 +4,7 @@
     </IfModule>
 
     <IfModule mod_headers.c>
-        Header set Content-Security-Policy "default-src 'self' https://challenges.cloudflare.com;"
+        Header set Content-Security-Policy "default-src 'self' 'nonce-{nonce}' https://challenges.cloudflare.com;"
     </IfModule>
 
     RewriteEngine On
