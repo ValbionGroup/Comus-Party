@@ -257,6 +257,7 @@ class ControllerAuth extends Controller
      * Si toutes les vérifications passent, ouvre la session et renseigne les éléments importants en variables de session.
      * @param ?string $email Adresse e-mail fournie dans le formulaire de connexion
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
+     * @param ?string $cloudflareCaptchaToken Token de captcha fourni par Cloudflare
      * @return bool
      */
     public function authenticate(?string $email, ?string $password, ?string $cloudflareCaptchaToken): bool
@@ -407,6 +408,7 @@ class ControllerAuth extends Controller
      * @param ?string $username Nom d'utilisateur fourni dans le formulaire d'inscription
      * @param ?string $email Adresse e-mail fournie dans le formulaire d'inscription
      * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
+     * @param ?string $cloudflareCaptchaToken Token de captcha fourni par Cloudflare
      * @return void
      */
     public function register(?string $username, ?string $email, ?string $password, ?string $cloudflareCaptchaToken): void
