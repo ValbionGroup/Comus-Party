@@ -19,8 +19,15 @@ use ComusParty\App\Sockets\Dashboard;
 use ComusParty\App\Sockets\Game;
 use Ratchet\WebSocket\WsServer;
 
-$server = new Ratchet\App('localhost', 8315);
-$server->route('/chat/{token}', new WsServer(new Chat()));
-$server->route('/game/{token}', new WsServer(new Game()));
-$server->route('/dashboard', new WsServer(new Dashboard()));
+$allowedOrigins = [
+    'game.comus-party.com',
+    'comus-party.com',
+    'www.comus-party.com',
+    'localhost',
+];
+
+$server = new Ratchet\App('sockets.comus-party.com', 21000);
+$server->route('/chat/{token}', new WsServer(new Chat()), $allowedOrigins);
+$server->route('/game/{token}', new WsServer(new Game()), $allowedOrigins);
+$server->route('/dashboard', new WsServer(new Dashboard()), $allowedOrigins);
 $server->run();

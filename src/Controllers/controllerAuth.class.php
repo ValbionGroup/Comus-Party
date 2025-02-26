@@ -23,7 +23,6 @@ use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
-use PHPMailer\PHPMailer\PHPMailer;
 use Random\RandomException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -111,6 +110,13 @@ class ControllerAuth extends Controller
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+
+        if ($tokenManager->findByUserId($user->getId())) {
+            MessageHandler::addMessageParametersToSession("Un lien de réinitialisation de mot de passe vous a été envoyé par e-mail");
+            header('Location: /login');
+            exit;
+        }
+
         $token = new PasswordResetToken($user->getId(), bin2hex(random_bytes(30)), new DateTime());
         $tokenManager->insert($token);
 
@@ -228,8 +234,10 @@ class ControllerAuth extends Controller
             throw new Exception("Erreur lors de la suppression du token", 500);
         }
 
-        MessageHandler::addMessageParametersToSession("Votre mot de passe a bien été réinitialisé");
-        header('Location: /login');
+        echo json_encode([
+            'success' => true,
+            'message' => "Votre mot de passe a bien été réinitialisé"
+        ]);
     }
 
 
@@ -257,6 +265,7 @@ class ControllerAuth extends Controller
      * Si toutes les vérifications passent, ouvre la session et renseigne les éléments importants en variables de session.
      * @param ?string $email Adresse e-mail fournie dans le formulaire de connexion
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
+     * @param ?string $cloudflareCaptchaToken Token de captcha fourni par Cloudflare
      * @return bool
      */
     public function authenticate(?string $email, ?string $password, ?string $cloudflareCaptchaToken): bool
@@ -277,12 +286,12 @@ class ControllerAuth extends Controller
         $validator = new Validator($regles);
 
         try {
-            if (!$validator->validate(['email' => $email, 'password' => $password])) {
-                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
-            }
-
             if (!$this->verifyCaptcha($cloudflareCaptchaToken)) {
                 throw new AuthenticationException("Impossible de vérifier le captcha");
+            }
+
+            if (!$validator->validate(['email' => $email, 'password' => $password])) {
+                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
             }
 
             $userManager = new UserDAO($this->getPdo());
@@ -369,12 +378,13 @@ class ControllerAuth extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
 
         $result = curl_exec($curl);
 
         if (curl_errno($curl)) {
             curl_close($curl);
-            throw new Exception("Erreur lors de la vérification du captcha");
+            throw new Exception("Erreur lors de la vérification du captcha : " . curl_error($curl));
         } else {
             $response = json_decode($result);
             curl_close($curl);
@@ -407,6 +417,7 @@ class ControllerAuth extends Controller
      * @param ?string $username Nom d'utilisateur fourni dans le formulaire d'inscription
      * @param ?string $email Adresse e-mail fournie dans le formulaire d'inscription
      * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
+     * @param ?string $cloudflareCaptchaToken Token de captcha fourni par Cloudflare
      * @return void
      */
     public function register(?string $username, ?string $email, ?string $password, ?string $cloudflareCaptchaToken): void
