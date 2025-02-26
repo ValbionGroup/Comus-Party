@@ -8,7 +8,8 @@
  */
 
 const modalPenalty = document.getElementById('modalPenaltyForm');
-console.log(modalPenalty);
+const selectPenalty = modalPenalty.querySelector('select[name="typeDuration"]');
+const inputDuration = document.getElementById('duration');
 
 function showModalSuggest(e) {
     let suggestId = e.id;
@@ -152,8 +153,24 @@ function denyReport(e) {
 }
 
 function acceptReport(e) {
-    console.log(modalPenalty);
     closeModal();
     modalPenalty.classList.remove("hidden");
     showBackgroundModal();
 }
+
+selectPenalty.addEventListener('change', function () {
+    let penalty = selectPenalty.value;
+
+    if (penalty === "permanent") {
+        inputDuration.disabled = true;
+        inputDuration.classList.add("input-disabled");
+    } else {
+        inputDuration.disabled = false;
+        inputDuration.classList.remove("input-disabled");
+    }
+});
+
+inputDuration.addEventListener('input', function () {
+    let duration = inputDuration.value;
+    inputDuration.value = inputDuration.value.replace(/[a-zA-Z]/, '');
+});
