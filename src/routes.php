@@ -208,12 +208,20 @@ $router->get('/reset-password/:token', function (string $token) use ($loader, $t
 }, 'guest');
 
 $router->post('/reset-password/:token', function (string $token) use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
-        "token" => $token,
-        "password" => $_POST['password'],
-        "passwordConfirm" => $_POST['passwordConfirm']
-    ]);
-    exit;
+    try {
+        ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
+            "token" => $token,
+            "password" => $_POST['password'],
+            "passwordConfirm" => $_POST['passwordConfirm']
+        ]);
+        exit;
+    } catch (Exception $e) {
+        return json_encode([
+            "success" => false,
+            "code" => $e->getCode(),
+            "message" => $e->getMessage()
+        ]);
+    }
 }, 'guest');
 
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {

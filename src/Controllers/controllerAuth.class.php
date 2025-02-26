@@ -228,8 +228,10 @@ class ControllerAuth extends Controller
             throw new Exception("Erreur lors de la suppression du token", 500);
         }
 
-        MessageHandler::addMessageParametersToSession("Votre mot de passe a bien été réinitialisé");
-        header('Location: /login');
+        return json_encode([
+            'success' => true,
+            'message' => "Votre mot de passe a bien été réinitialisé"
+        ]);
     }
 
 
