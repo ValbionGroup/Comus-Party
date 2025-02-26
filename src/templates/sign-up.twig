@@ -96,6 +96,8 @@
                     data-sitekey="{{ turnstile_siteKey }}"
                     data-callback="turnstileSuccessCallback"
                     data-error-callback="turnstileErrorCallback"
+                    data-unsupported-callback="turnstileErrorCallback"
+                    data-before-interactive-callback="turnstileManualCallback"
             ></div>
 
             <div>

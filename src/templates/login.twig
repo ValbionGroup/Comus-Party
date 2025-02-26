@@ -30,7 +30,10 @@
                     data-sitekey="{{ turnstile_siteKey }}"
                     data-callback="turnstileSuccessCallback"
                     data-error-callback="turnstileErrorCallback"
-            ></div>
+                    data-unsupported-callback="turnstileErrorCallback"
+                    data-before-interactive-callback="turnstileManualCallback"
+            >
+            </div>
 
             <div>
                 <div id="captcha-status" class="flex mb-2 gap-2 text-gray-500 transition-all duration-200">
