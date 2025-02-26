@@ -57,7 +57,8 @@ $router->post('/login', function () use ($loader, $twig) {
         if (isset($_POST['email']) && isset($_POST['password'])) {
             ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
                 "email" => $_POST['email'],
-                "password" => $_POST['password']
+                "password" => $_POST['password'],
+                "cloudflareCaptchaToken" => $_POST['cfToken']
             ]);
             exit;
         }
@@ -177,7 +178,8 @@ $router->post('/register', function () use ($loader, $twig) {
         ControllerFactory::getController("auth", $loader, $twig)->call("register", [
             "username" => $_POST['username'],
             "email" => $_POST['email'],
-            "password" => $_POST['password']
+            "password" => $_POST['password'],
+            "cloudflareCaptchaToken" => $_POST['cfToken']
         ]);
         exit;
     }

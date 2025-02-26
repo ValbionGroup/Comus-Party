@@ -2,7 +2,8 @@
   "scripts": {
     "start": "php -S localhost:8000 -t public",
     "build": "tailwindcss build -i src/assets/css/base.css -o public/assets/css/builded.css --minify && node terser.config.js --mode=production",
-    "watch": "node terser.config.js --mode=development && tailwindcss build -i src/assets/css/base.css -o public/assets/css/builded.css --watch",
+    "watch-css": "tailwindcss build -i src/assets/css/base.css -o public/assets/css/builded.css --watch",
+    "watch-js": "node --watch terser.config.js --mode=development",
     "start-ws": "php ws-server.php"
   },
   "devDependencies": {
