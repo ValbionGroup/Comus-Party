@@ -11,6 +11,7 @@
 namespace ComusParty\Models;
 
 use DateTime;
+use Random\RandomException;
 
 /**
  * @brief Classe rememberToken
@@ -47,15 +48,15 @@ class RememberToken
      * @brief Constructeur de la classe rememberToken
      * @param int $userId Identifiant de l'utilisateur associé au jeton de connexion
      * @param string $token Jeton de connexion
-     * @param DateTime $createdAt Date de création du jeton de connexion
-     * @param DateTime $expiresAt Date d'expiration du jeton de connexion
+     * @param DateTime|null $createdAt Date de création du jeton de connexion
+     * @param DateTime|null $expiresAt Date d'expiration du jeton de connexion
      */
-    public function __construct(int $userId, string $token, DateTime $createdAt, DateTime $expiresAt)
+    public function __construct(int $userId, string $token, ?DateTime $createdAt = null, ?DateTime $expiresAt = null)
     {
         $this->userId = $userId;
         $this->token = $token;
-        $this->createdAt = $createdAt;
-        $this->expiresAt = $expiresAt;
+        $this->createdAt = $createdAt ?? new DateTime();
+        $this->expiresAt = $expiresAt ?? new DateTime('+1 month');
     }
 
     /**
@@ -155,5 +156,16 @@ class RememberToken
     public function isValid(): bool
     {
         return $this->expiresAt > new DateTime();
+    }
+
+    /**
+     * @brief Génère un jeton de connexion
+     * @return string Jeton de connexion généré
+     * @throws RandomException Exception levée si la génération du jeton de connexion a échoué
+     */
+    public function generateToken(): string
+    {
+        $this->token = bin2hex(random_bytes(32));
+        return $this->token;
     }
 }
