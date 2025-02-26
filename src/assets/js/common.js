@@ -127,9 +127,11 @@ function showProfile(searchBy, data) {
 }
 
 function showReportForm() {
+    closeModal();
     reportForm.classList.remove("hidden");
     showBackgroundModal();
 }
+
 /**
  * @brief Passe un bouton en état de chargement
  * @details Cette méthode permet à l'utilisateur d'avoir un meilleur feedback sur les actions qu'il effectue.

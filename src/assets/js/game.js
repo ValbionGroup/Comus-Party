@@ -86,7 +86,7 @@ function receiveChatMessage(message) {
     const messageItem = document.createElement('p');
     messageItem.classList.add("flex");
     messageItem.classList.add("group");
-
+    
 
     const usernameItem = document.createElement('p');
     usernameItem.textContent = `${message.author}: `;
