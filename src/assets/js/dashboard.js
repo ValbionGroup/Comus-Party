@@ -138,7 +138,6 @@ function showModalReport(e) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.success) {
-                console.log(response);
                 spanIdReport.innerText = response.report.id;
                 switch (response.report.object) {
                     case "LANGUAGE":
@@ -267,7 +266,6 @@ function updateSuggests() {
 function updateReports() {
     makeRequest('GET', '/reports', (response) => {
         response = JSON.parse(response);
-        console.log(response);
         if (response.success) {
             let reports = response.reports;
             let reportList = document.getElementById('reportList');
