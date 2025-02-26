@@ -60,9 +60,13 @@ class ControllerAuth extends Controller
     public function showLoginPage(): void
     {
         global $twig;
+
+        $nonce = $this->generateNonceToken();
+        header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-$nonce' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'");
+
         echo $twig->render('login.twig', [
             'turnstile_siteKey' => CF_TURNSTILE_SITEKEY,
-            'nonceToken' => $this->generateNonceToken()
+            'nonceToken' => $nonce
         ]);
     }
 
@@ -73,7 +77,7 @@ class ControllerAuth extends Controller
      */
     private function generateNonceToken(): string
     {
-        return bin2hex(random_bytes(30));
+        return bin2hex(random_bytes(16));
     }
 
     /**
@@ -255,9 +259,13 @@ class ControllerAuth extends Controller
     public function showRegistrationPage(): void
     {
         global $twig;
+
+        $nonce = $this->generateNonceToken();
+        header("Content-Security-Policy: default-src 'self' 'nonce-$nonce' https://challenges.cloudflare.com;");
+
         echo $twig->render('sign-up.twig', [
             "turnstile_siteKey" => CF_TURNSTILE_SITEKEY,
-            "nonceToken" => $this->generateNonceToken()
+            "nonceToken" => $nonce
         ]);
     }
 
