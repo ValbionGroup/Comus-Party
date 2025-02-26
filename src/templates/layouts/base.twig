@@ -1,19 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <script>
-        window.axeptioSettings = {
-            clientId: "67604f33ac346b6395238316",
-            cookiesVersion: "CP-fr-EU",
-        };
-
-        (function (d, s) {
-            var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
-            e.async = true;
-            e.src = "https://static.axept.io/sdk.js";
-            t.parentNode.insertBefore(e, t);
-        })(document, "script");
-    </script>
+    <script src="/assets/js/axeptio.min.js"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -70,29 +58,6 @@
 <div id="jsNotification">
 </div>
 
-<script language="JavaScript">
-    const errorMessage = document.getElementById('errorMessage');
-    if (errorMessage) {
-        setTimeout(() => {
-            errorMessage.style.transition = "transform 0.7s ease-out";
-            errorMessage.style.transform = "translateX(500px)";
-            errorMessage.addEventListener('transitionend', () => {
-                errorMessage.remove();
-            });
-        }, 5000);
-    }
-
-    const successMessage = document.getElementById('successMessage');
-    if (successMessage) {
-        setTimeout(() => {
-            successMessage.style.transition = "transform 0.7s ease-out";
-            successMessage.style.transform = "translateX(500px)";
-            successMessage.addEventListener('transitionend', () => {
-                successMessage.remove();
-            });
-        }, 5000);
-    }
-</script>
 {% block scripts %}{% endblock %}
 <script lang="js" src="/assets/js/cookies.min.js"></script>
 <script lang="js" src="/assets/js/common.min.js"></script>

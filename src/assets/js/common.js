@@ -6,6 +6,28 @@
  * @autor Lucas ESPIET
  */
 
+const errorMessage = document.getElementById('errorMessage');
+if (errorMessage) {
+    setTimeout(() => {
+        errorMessage.style.transition = "transform 0.7s ease-out";
+        errorMessage.style.transform = "translateX(500px)";
+        errorMessage.addEventListener('transitionend', () => {
+            errorMessage.remove();
+        });
+    }, 5000);
+}
+
+const successMessage = document.getElementById('successMessage');
+if (successMessage) {
+    setTimeout(() => {
+        successMessage.style.transition = "transform 0.7s ease-out";
+        successMessage.style.transform = "translateX(500px)";
+        successMessage.addEventListener('transitionend', () => {
+            successMessage.remove();
+        });
+    }, 5000);
+}
+
 const notificationContainer = document.getElementById('jsNotification');
 const notification = document.createElement('div');
 notification.classList.add('hidden', 'absolute', 'bottom-6', 'right-6', 'px-5', 'py-3', 'shadow-md', 'rounded-2xl');

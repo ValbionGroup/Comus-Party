@@ -62,7 +62,7 @@ class ControllerAuth extends Controller
         global $twig;
 
         $nonce = $this->generateNonceToken();
-        header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-$nonce' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'");
+        header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-$nonce' https://challenges.cloudflare.com https://static.axept.io; frame-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://client.axept.io https://api.axept.io; style-src 'self' 'unsafe-inline'; img-src 'self' https://axeptio.imgix.net");
 
         echo $twig->render('login.twig', [
             'turnstile_siteKey' => CF_TURNSTILE_SITEKEY,
@@ -261,7 +261,7 @@ class ControllerAuth extends Controller
         global $twig;
 
         $nonce = $this->generateNonceToken();
-        header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-$nonce' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'");
+        header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-$nonce' https://challenges.cloudflare.com https://static.axept.io; frame-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://client.axept.io https://api.axept.io; style-src 'self' 'unsafe-inline'; img-src 'self' https://axeptio.imgix.net");
 
         echo $twig->render('sign-up.twig', [
             "turnstile_siteKey" => CF_TURNSTILE_SITEKEY,
