@@ -65,6 +65,6 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="{{ nonceToken }}"></script>
     <script src="/assets/js/login.min.js"></script>
 {% endblock %}
