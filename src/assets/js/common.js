@@ -13,6 +13,9 @@ notification.innerHTML = `
     <p class="font-semibold"></p>
     <span></span>
 `;
+const background = document.getElementById('backgroundModal');
+const reportForm = document.getElementById('modalReportForm');
+const modalPlayerInfo = document.getElementById('modalPlayerInfo');
 
 /**
  * @brief Affiche une notification
@@ -62,6 +65,24 @@ function makeRequest(method, url, callback, body = null) {
     };
 }
 
+function showBackgroundModal() {
+    background.classList.remove("hidden");
+}
+
+function closeBackgroundModal() {
+    background.classList.add("hidden");
+}
+
+function closeModal() {
+    let modals = document.querySelectorAll(".modal")
+    modals.forEach(modal => {
+        if (!modal.classList.contains("hidden")) {
+            modal.classList.add("hidden");
+        }
+    });
+    closeBackgroundModal();
+}
+
 function showProfile(searchBy, data) {
     const playerInfoDiv = document.getElementById('modalPlayerInfo');
     const spanTopUsername = document.getElementById('spanTopUsername');
@@ -100,10 +121,21 @@ function showProfile(searchBy, data) {
                 month: 'long',
                 year: 'numeric'
             });
+            if (response.username === document.getElementById('headerUsername').innerText) {
+                document.getElementById('flag').classList.add("hidden");
+            } else {
+                document.getElementById('flag').classList.remove("hidden");
+            }
             playerInfoDiv.classList.remove("hidden");
             showBackgroundModal();
         }
     };
+}
+
+function showReportForm() {
+    closeModal();
+    reportForm.classList.remove("hidden");
+    showBackgroundModal();
 }
 
 /**
