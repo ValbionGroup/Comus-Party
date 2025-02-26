@@ -142,7 +142,19 @@ function turnstileSuccessCallback() {
  * @return void
  */
 function turnstileManualCallback() {
+    captchaStatusIcon.innerHTML = '<i class="loader" style="width: 22px; height: 22px;"></i>';
     captchaStatusText.innerText = "Vérification manuelle en attente...";
+    captchaStatus.classList = defaultClass + " text-gray-600 dark:text-gray-400";
+}
+
+/**
+ * @brief Fonction appelée lors d'une demande manuelle de validation du Captcha
+ * @return void
+ */
+function turnstileLoadingCallback() {
+    captchaStatusIcon.innerHTML = '<i class="loader" style="width: 22px; height: 22px;"></i>';
+    captchaStatusText.innerText = "Vérification Captcha en cours...";
+    captchaStatus.classList = defaultClass + " text-gray-600 dark:text-gray-400";
 }
 
 /**
@@ -153,4 +165,16 @@ function turnstileErrorCallback() {
     captchaStatusIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17q.425 0 .713-.288T13 16t-.288-.712T12 15t-.712.288T11 16t.288.713T12 17m0-4q.425 0 .713-.288T13 12V8q0-.425-.288-.712T12 7t-.712.288T11 8v4q0 .425.288.713T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>';
     captchaStatus.classList = defaultClass + " text-red-500";
     captchaStatusText.innerText = "Erreur lors de la validation du Captcha";
+}
+
+function turnstileExpiredCallback() {
+    captchaStatusIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17q.425 0 .713-.288T13 16t-.288-.712T12 15t-.712.288T11 16t.288.713T12 17m0-4q.425 0 .713-.288T13 12V8q0-.425-.288-.712T12 7t-.712.288T11 8v4q0 .425.288.713T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>';
+    captchaStatus.classList = defaultClass + " text-red-500";
+    captchaStatusText.innerText = "Le Captcha a expiré";
+
+    // Relancer le Captcha
+    setTimeout(() => {
+        turnstileLoadingCallback();
+        turnstile.reset();
+    }, 2000);
 }

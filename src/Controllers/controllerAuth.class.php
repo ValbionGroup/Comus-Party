@@ -278,12 +278,12 @@ class ControllerAuth extends Controller
         $validator = new Validator($regles);
 
         try {
-            if (!$validator->validate(['email' => $email, 'password' => $password])) {
-                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
-            }
-
             if (!$this->verifyCaptcha($cloudflareCaptchaToken)) {
                 throw new AuthenticationException("Impossible de vérifier le captcha");
+            }
+
+            if (!$validator->validate(['email' => $email, 'password' => $password])) {
+                throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
             }
 
             $userManager = new UserDAO($this->getPdo());
