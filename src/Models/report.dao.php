@@ -115,4 +115,27 @@ class ReportDAO
         }
         return $this->hydrateMany($reportsTab);
     }
+
+    /**
+     * @brief Renvoi un signalement à partir de son ID
+     * @param int $id L'identifiant du signalement
+     * @return Report|null L'objet Report correspondant à l'identifiant passé en paramètre ou null si aucun signalement ne correspond
+     * @throws DateMalformedStringException
+     */
+    public function findById(int $id): ?Report
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT *
+            FROM ' . DB_PREFIX . 'report
+            WHERE id = :id'
+        );
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $report = $stmt->fetch();
+        if (!$report) {
+            return null;
+        }
+        return $this->hydrate($report);
+    }
 }

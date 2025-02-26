@@ -57,7 +57,8 @@ $router->post('/login', function () use ($loader, $twig) {
         if (isset($_POST['email']) && isset($_POST['password'])) {
             ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
                 "email" => $_POST['email'],
-                "password" => $_POST['password']
+                "password" => $_POST['password'],
+                "cloudflareCaptchaToken" => $_POST['cfToken']
             ]);
             exit;
         }
@@ -180,7 +181,8 @@ $router->post('/register', function () use ($loader, $twig) {
             "password" => $_POST['password'],
             "passwordConfirm" => $_POST['passwordConfirm'],
             "termsOfServiceIsChecked" => $_POST['termsOfService'] === 'true',
-            "privacyPolicyIsChecked" => $_POST['privacyPolicy'] === 'true'
+            "privacyPolicyIsChecked" => $_POST['privacyPolicy'] === 'true',
+            "cloudflareCaptchaToken" => $_POST['cfToken'],
         ]);
         exit;
     }
@@ -304,3 +306,8 @@ $router->post('/profile/update-email', function () use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateEmail", ["email" => $_POST['newEmail']]);
     exit;
 }, 'player');
+
+$router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getReportInformations", ["reportId" => $reportId]);
+    exit;
+}, 'moderator');

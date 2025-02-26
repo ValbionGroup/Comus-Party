@@ -50,6 +50,7 @@ function signIn(e) {
     loading(e);
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const cfToken = turnstile.getResponse();
     makeRequest('POST', '/login', (response) => {
         response = JSON.parse(response);
         if (response.success) {
@@ -61,5 +62,5 @@ function signIn(e) {
             e.disabled = false;
             showNotification("Oups...", response.message, "red");
         }
-    }, `email=${email}&password=${password}`);
+    }, `email=${email}&password=${password}&cfToken=${cfToken}`);
 }
