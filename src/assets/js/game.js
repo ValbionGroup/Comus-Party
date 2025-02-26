@@ -86,7 +86,7 @@ function receiveChatMessage(message) {
     const messageItem = document.createElement('p');
     messageItem.classList.add("flex");
     messageItem.classList.add("group");
-    
+
 
     const usernameItem = document.createElement('p');
     usernameItem.textContent = `${message.author}: `;
@@ -116,7 +116,9 @@ function receiveChatMessage(message) {
 
     messageItem.appendChild(usernameItem);
     messageItem.appendChild(contentItem);
-    messageItem.appendChild(flag);
+    if (message.author !== document.getElementById('headerUsername').textContent) {
+        messageItem.appendChild(flag);
+    }
     messages.appendChild(messageItem);
 }
 
@@ -172,7 +174,9 @@ gameConnection.onmessage = function (e) {
 
         newDiv.appendChild(pfp);
         newDiv.appendChild(pseudo);
-        newDiv.appendChild(flag);
+        if (player.username !== document.getElementById('headerUsername').textContent) {
+            newDiv.appendChild(flag);
+        }
         div.appendChild(newDiv);
     });
 }
