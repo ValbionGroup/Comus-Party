@@ -84,9 +84,9 @@ function receiveChatMessage(message) {
     message = JSON.parse(message);
     const messages = document.getElementById('chatContent');
     const messageItem = document.createElement('p');
+    const newDiv = document.createElement('div');
     messageItem.classList.add("flex");
     messageItem.classList.add("group");
-
 
     const usernameItem = document.createElement('p');
     usernameItem.textContent = `${message.author}: `;
@@ -111,11 +111,14 @@ function receiveChatMessage(message) {
     flag.classList.add("hidden");
     flag.classList.add("hover:text-red-500");
     flag.classList.add("hover:cursor-pointer");
-    flag.classList.add("ml-2");
+    flag.classList.add("ml-20");
     flag.onclick = () => showReportForm();
 
-    messageItem.appendChild(usernameItem);
-    messageItem.appendChild(contentItem);
+    newDiv.classList.add("flex");
+
+    newDiv.appendChild(usernameItem);
+    newDiv.appendChild(contentItem);
+    messageItem.appendChild(newDiv);
     if (message.author !== document.getElementById('headerUsername').textContent) {
         messageItem.appendChild(flag);
     }
@@ -159,17 +162,17 @@ gameConnection.onmessage = function (e) {
             '                </g>\n' +
             '            </svg>'
 
-        newDiv.className = "flex flex-row gap-2 items-center overflow-hidden group hover:cursor-pointer";
+        newDiv.className = "flex flex-row gap-2 items-center overflow-hidden group";
 
-        pfp.className = "size-8 rounded-full";
+        pfp.className = "size-8 rounded-full hover:cursor-pointer";
         pfp.src = "/assets/img/pfp/" + player.pfp;
         pfp.onclick = () => showProfile("uuid", player.uuid);
 
-        pseudo.className = "text-lg hover:border-b-2";
+        pseudo.className = "text-lg hover:border-b-2 hover:cursor-pointer";
         pseudo.textContent = player.username;
         pseudo.onclick = () => showProfile("uuid", player.uuid);
 
-        flag.className = "hover:text-red-500";
+        flag.className = "hover:text-red-500 hover:cursor-pointer";
         flag.onclick = () => showReportForm();
 
         newDiv.appendChild(pfp);
