@@ -50,6 +50,7 @@ function signIn(e) {
     loading(e);
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const rememberMe = document.getElementById('rememberMe').checked;
     const cfToken = turnstile.getResponse();
     makeRequest('POST', '/login', (response) => {
         response = JSON.parse(response);
@@ -63,5 +64,5 @@ function signIn(e) {
             showNotification("Oups...", response.message, "red");
             turnstileExpiredCallback();
         }
-    }, `email=${email}&password=${password}&cfToken=${cfToken}`);
+    }, `email=${email}&password=${password}&rememberMe=${rememberMe}&cfToken=${cfToken}`);
 }
