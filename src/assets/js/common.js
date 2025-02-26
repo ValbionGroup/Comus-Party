@@ -123,6 +123,8 @@ function showProfile(searchBy, data) {
             });
             if (response.username === document.getElementById('headerUsername').innerText) {
                 document.getElementById('flag').classList.add("hidden");
+            } else {
+                document.getElementById('flag').classList.remove("hidden");
             }
             playerInfoDiv.classList.remove("hidden");
             showBackgroundModal();
