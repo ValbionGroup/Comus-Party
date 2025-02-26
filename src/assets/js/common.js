@@ -15,6 +15,7 @@ notification.innerHTML = `
 `;
 const background = document.getElementById('backgroundModal');
 const reportForm = document.getElementById('modalReportForm');
+const modalPlayerInfo = document.getElementById('modalPlayerInfo');
 
 /**
  * @brief Affiche une notification
@@ -120,6 +121,9 @@ function showProfile(searchBy, data) {
                 month: 'long',
                 year: 'numeric'
             });
+            if (response.username === document.getElementById('headerUsername').innerText) {
+                document.getElementById('flag').classList.add("hidden");
+            }
             playerInfoDiv.classList.remove("hidden");
             showBackgroundModal();
         }
