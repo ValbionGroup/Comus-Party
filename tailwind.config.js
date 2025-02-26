@@ -216,8 +216,9 @@ module.exports = {
                     padding: theme('padding.2'),
                     borderRadius: theme('borderRadius.xl'),
                     color: theme('colors.gray.400'),
+                    cursor: 'not-allowed',
                     '@media (prefers-color-scheme: dark)': {
-                        backgroundColor: theme('colors.gray.700'),
+                        backgroundColor: theme('colors.gray.800'),
                         color: theme('colors.gray.400'),
                     }
                 }

@@ -10,6 +10,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\App\MessageHandler;
+use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\ReportDAO;
 use ComusParty\Models\SuggestionDAO;
 use DateMalformedStringException;
@@ -127,6 +128,32 @@ class ControllerDashboard extends Controller
                 "author_username" => $suggestion->getAuthorUsername(),
                 "created_at" => $suggestion->getCreatedAt()->getTimestamp() * 1000,
             ], $suggestions),
+        ]);
+        exit;
+    }
+
+    /**
+     * @brief Retourne les informations au format JSON à propos d'un signalement
+     * @param int|null $id L'identifiant du signalement à récupérer
+     * @throws DateMalformedStringException
+     */
+    public function getReportInformations(?int $id)
+    {
+        $reportsManager = new ReportDAO($this->getPdo());
+        $playerManager = new PlayerDAO($this->getPdo());
+        $report = $reportsManager->findById($id);
+        echo json_encode([
+            "success" => true,
+            "report" => [
+                "id" => $report->getId(),
+                "object" => $report->getObject()->name,
+                "description" => $report->getDescription(),
+                "author_uuid" => $report->getSenderUuid(),
+                "author_username" => $playerManager->findByUuid($report->getSenderUuid())->getUsername(),
+                "reported_uuid" => $report->getReportedUuid(),
+                "reported_username" => $playerManager->findByUuid($report->getReportedUuid())->getUsername(),
+                "created_at" => $report->getCreatedAt()->format('d/m/Y H:i:s'),
+            ],
         ]);
         exit;
     }
