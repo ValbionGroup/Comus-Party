@@ -201,7 +201,7 @@
                 </div>
             </div>
             <div class="col-span-7 ml-10 mt-10 lg:mt-0">
-                <form class="g-1 flex flex-col justify-between">
+                <div class="g-1 flex flex-col justify-between">
                     <label>
                         <input class="mb-2 w-full  input" type="password" minlength="8" maxlength="64" id="newPassword"
                                onkeyup="verifPassword()"
@@ -225,7 +225,7 @@
                         <!-- Bouton de confirmation -->
 {# TODO : Gérer la touche Enter pour le submit de façon à ce qu'elle n'exécute pas la fonction matchPassword() #}
                         <button id="confirmPasswordBtn" type="submit" class="btn-disabled flex justify-center" onclick="updatePassword()" disabled>Confirmer</button>
-                </form>
+                </div>
             </div>
             <div onclick="showModalSuppression()"
                  class="cursor-pointer col-span-4 mt-10 btn-danger flex items-center justify-center gap-1 ml-10 sm:grid-cols-7">

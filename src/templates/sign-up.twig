@@ -12,7 +12,7 @@
         </div>
 
         <!-- Formulaire pour l'inscription de l'utilisateur -->
-        <form id="registrationForm" action="" method="post" class="mt-8 space-y-6">
+        <div id="registrationForm" class="mt-8 space-y-6">
             <div>
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" placeholder="JohnDoe" autofocus class="w-full input" required>
@@ -91,8 +91,8 @@
                 </div>
             </div>
 
-            <button type="submit" id="submitButton" class="w-full btn-disabled flex justify-center" onclick="signUp(this)" disabled>Valider</button>
-        </form>
+            <button type="button" id="submitButton" class="w-full btn-disabled flex justify-center" onclick="signUp(this)" disabled>Valider</button>
+        </div>
 
         <div class="flex justify-center mt-7">
             <a href="/login"
