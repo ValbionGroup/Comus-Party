@@ -311,3 +311,8 @@ $router->get('/reports', function () use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllReports");
     exit;
 }, 'moderator');
+
+$router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getReportInformations", ["reportId" => $reportId]);
+    exit;
+}, 'moderator');
