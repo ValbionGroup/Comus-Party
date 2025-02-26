@@ -77,7 +77,7 @@ $router->get('/logout', function () use ($loader, $twig) {
 
 $router->get('/game/:code', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("showGame", ["code" => $code]);
-}, '*');
+}, 'player');
 
 $router->post('/game/:code/join', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("joinGameWithCode", [
