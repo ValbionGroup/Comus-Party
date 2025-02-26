@@ -1,27 +1,46 @@
 {% block modalPenalty %}
 
-    <div id="modalReportForm"
+    <div id="modalPenaltyForm"
          class="modal hidden w-full sm:w-1/2 bg-lavender-blush-2 dark:bg-night-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all transform duration-300 p-5 rounded-2xl z-50">
         <div class="modal-content">
             <div class="flex justify-between">
                 <div class="pb-2">
-                    <p class="text-2xl font-bold">Formulaire de sanction</p>
+                    <p class="text-2xl font-bold">Formulaire de signalement</p>
+                </div>
+                <div>
+                    <button onclick="closeModal()">
+                        <svg class="hover:scale-125 hover:text-red-500 transition-all ease-in-out"
+                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" d="M6 18l12-12M6 6l12 12"/>
+                            </g>
+                        </svg>
+                    </button>
                 </div>
             </div>
             <hr>
             <form action="#" method="post" class="flex flex-col gap-y-2">
                 <input type="hidden" name="id" value="{{ id }}">
-                <label for="reason">Raison: </label>
-                <select name="reason" id="reason" class="input">
+                <label for="typePenalty" class="mt-2">Type: </label>
+                <select name="typePenalty" id="typePenalty" class="input">
                     <option disabled selected>Sélectionnez une option</option>
-                    <option value="langage">Langage</option>
-                    <option value="spam">Spam</option>
-                    <option value="lien">Lien</option>
-                    <option value="fairplay">Anti-jeu</option>
-                    <option value="autres">Autres</option>
+                    <option value="ban">Bannissement</option>
+                    <option value="mute">Restriction du chat</option>
                 </select>
-                <label for="description">Description:</label>
-                <textarea name="description" id="description" cols="30" rows="10" class="w-full h-32 input"></textarea>
+                <label for="duration">Durée:</label>
+                <div class="flex w-full gap-x-2">
+                    <input type="text" name="duration" id="duration" class="input w-full" placeholder="Durée">
+                    <select name="typeDuration" id="typeDuration" class="input">
+                        <option value="permanent">Permanent</option>
+                        <option value="years">Années</option>
+                        <option value="months">Mois</option>
+                        <option value="days">Jours</option>
+                        <option value="hours">Heures</option>
+                        <option value="minutes">Minutes</option>
+                    </select>
+                </div>
+                <label for="reason">Raison:</label>
+                <textarea name="reason" id="reason" cols="30" rows="10" class="w-full h-32 input"></textarea>
                 <div class="flex justify-end mt-5 gap-4">
                     <button type="submit" class="btn-primary">Envoyer</button>
                     <div class="btn-secondary hover:cursor-pointer" onclick="closeModal()">Annuler</div>

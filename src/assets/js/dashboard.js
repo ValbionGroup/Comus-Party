@@ -7,6 +7,8 @@
  *   @version 0.1
  */
 
+const modalPenalty = document.getElementById('modalPenaltyForm');
+console.log(modalPenalty);
 
 function showModalSuggest(e) {
     let suggestId = e.id;
@@ -150,5 +152,8 @@ function denyReport(e) {
 }
 
 function acceptReport(e) {
-
+    console.log(modalPenalty);
+    closeModal();
+    modalPenalty.classList.remove("hidden");
+    showBackgroundModal();
 }
