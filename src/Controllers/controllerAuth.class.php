@@ -390,13 +390,15 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
-                'max-length' => 64
+                'max-length' => 64,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
             ],
             'passwordConfirm' => [
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
-                'max-length' => 64
+                'max-length' => 64,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
             ]
         ];
 
