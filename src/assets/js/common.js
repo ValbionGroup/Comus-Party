@@ -15,7 +15,7 @@ notification.innerHTML = `
 `;
 const background = document.getElementById('backgroundModal');
 const reportForm = document.getElementById('modalReportForm');
-const modalPlayerInfo = document.getElementById('modalPlayerInfo');
+const modalPenalty = document.getElementById('modalReportForm');
 
 /**
  * @brief Affiche une notification
@@ -135,6 +135,12 @@ function showProfile(searchBy, data) {
 function showReportForm() {
     closeModal();
     reportForm.classList.remove("hidden");
+    showBackgroundModal();
+}
+
+function showPenaltyForm() {
+    closeModal();
+    modalPenalty.classList.remove("hidden");
     showBackgroundModal();
 }
 
