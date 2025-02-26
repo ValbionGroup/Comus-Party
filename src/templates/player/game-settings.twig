@@ -87,7 +87,7 @@
             <div class="h-full max-h-screen bg-lavender-blush-1 dark:bg-night-1 rounded-lg p-3 flex flex-col">
                 <h3 class="text-xl font-serif">Joueurs</h3>
                 <div id="players" class="mt-3 overflow-y-auto flex flex-col gap-2">
-                    
+
                 </div>
             </div>
             {% if chat %}
@@ -113,9 +113,9 @@
 
     <div onclick="closeModal()" id="backgroundModal" class="hidden fixed inset-0 bg-night-1 opacity-85 z-40"></div>
 
-    {% include '/player/modalPlayerInfo.twig' %}
+    {% include '/player/modal-player-info.twig' %}
 
-    {% include './reportForm.twig' %}
+    {% include './report-form.twig' %}
 
 {% endblock %}
 
