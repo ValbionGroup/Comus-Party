@@ -417,10 +417,13 @@ class ControllerAuth extends Controller
      * @param ?string $username Nom d'utilisateur fourni dans le formulaire d'inscription
      * @param ?string $email Adresse e-mail fournie dans le formulaire d'inscription
      * @param ?string $password Mot de passe fourni dans le formulaire d'inscription
-     * @param ?string $cloudflareCaptchaToken Token de captcha fourni par Cloudflare
+     * @param ?string $passwordConfirm Confirmation du mot de passe fourni dans le formulaire d'inscription
+     * @param ?bool $termsOfServiceIsChecked Condition d'acceptation des conditions d'utilisation
+     * @param ?bool $privacyPolicyIsChecked Condition d'acceptation de la politique de confidentialité
+     * @param ?string $cloudflareCaptchaToken Token du captcha fourni par Cloudflare
      * @return void
      */
-    public function register(?string $username, ?string $email, ?string $password, ?string $cloudflareCaptchaToken): void
+    public function register(?string $username, ?string $email, ?string $password, ?string $passwordConfirm, ?bool $termsOfServiceIsChecked, ?bool $privacyPolicyIsChecked, ?string $cloudflareCaptchaToken): void
     {
         $rules = [
             'username' => [
@@ -439,20 +442,35 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
-                'max-length' => 64
+                'max-length' => 64,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+            ],
+            'passwordConfirm' => [
+                'required' => true,
+                'type' => 'string',
+                'min-length' => 8,
+                'max-length' => 64,
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
             ]
         ];
 
         $validator = new Validator($rules);
 
         try {
+            if (!$this->verifyCaptcha($cloudflareCaptchaToken)) {
+                throw new AuthenticationException("Impossible de vérifier le captcha");
+            }
 
-            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password])) {
+            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password, 'password', 'passwordConfirm' => $passwordConfirm])) {
                 throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
             }
 
-            if (!$this->verifyCaptcha($cloudflareCaptchaToken)) {
-                throw new AuthenticationException("Impossible de vérifier le captcha");
+            if ($password !== $passwordConfirm) {
+                throw new AuthenticationException("Les mots de passe ne correspondent pas");
+            }
+
+            if (!$termsOfServiceIsChecked || !$privacyPolicyIsChecked) {
+                throw new AuthenticationException("Vous devez accepter les conditions d'utilisation et la politique de confidentialité pour vous inscrire");
             }
 
             // Hash le mot de passe
