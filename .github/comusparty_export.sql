@@ -336,10 +336,11 @@ VALUES (1, 'reset_token_1', '2024-11-13 15:18:39'),
 
 CREATE TABLE `cp_remember_user`
 (
-    `user_id`    bigint(20)  NOT NULL,
-    `token`      varchar(60) NOT NULL,
-    `created_at` timestamp   NOT NULL DEFAULT current_timestamp(),
-    `expires_at` timestamp   NOT NULL DEFAULT current_timestamp()
+    `user_id`    bigint(20)   NOT NULL,
+    `token`      varchar(60)  NOT NULL,
+    `rmb_key`    varchar(255) NOT NULL,
+    `created_at` timestamp    NOT NULL DEFAULT current_timestamp(),
+    `expires_at` timestamp    NOT NULL DEFAULT current_timestamp()
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
