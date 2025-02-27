@@ -154,11 +154,11 @@ function showModalReport(e) {
 }
 
 function denyReport(e) {
-
+    dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
 }
 
 function acceptReport(e) {
-
+    dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
 }
 
 // WebSocket
@@ -249,7 +249,73 @@ function updateSuggests() {
 }
 
 function updateReports() {
+    makeRequest('GET', '/reports', (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            let reports = response.reports;
+            let reportList = document.getElementById('reportList');
+            reportList.innerText = "";
+            if (reports === null) {
+                reportList.classList.add("justify-center");
+                let noReports = document.createElement('p');
+                noReports.classList.add("flex","flex-col", "items-center", "text-center");
+                let spanCongratulations = document.createElement('span');
+                spanCongratulations.classList.add("text-xl", "font-bold");
+                spanCongratulations.innerText = "Félicitations !";
+                let spanNoReport = document.createElement('span');
+                spanNoReport.innerText = "Aucune signalement en attente de traitement";
+                noReports.appendChild(spanCongratulations);
+                noReports.appendChild(spanNoReport);
+                reportList.appendChild(noReports);
+            }
+            else {
+                reportList.classList.remove("justify-center");
+                reports.forEach(report => {
+                    let reportItem = document.createElement('div');
+                    reportItem.id = report.id;
+                    reportItem.classList.add("flex", "p-2", "bg-night-base", "rounded-md", "hover:cursor-pointer", "hover:scale-105", "transition-all", "ease-in-out", "justify-between");
+                    reportItem.addEventListener('click', () => showModalReport(reportItem));
 
+                    let reportInfo = document.createElement('div');
+                    reportInfo.classList.add("flex");
+
+                    let reportObjectTitle = document.createElement('p');
+                    reportObjectTitle.classList.add("underline", "mr-1");
+                    reportObjectTitle.innerText = "Thème :";
+
+                    let reportObject = document.createElement('p');
+                    switch (report.object) {
+                        case "LANGUAGE":
+                            reportObject.innerText = "🗣️ Langage";
+                            break;
+                        case "SPAM":
+                            reportObject.innerText = "💬 Spam";
+                            break;
+                        case "LINKS":
+                            reportObject.innerText = "📢 Publicité";
+                            break;
+                        case "FAIRPLAY":
+                            reportObject.innerText = "👥 Fairplay";
+                            break;
+                        case "OTHER":
+                            reportObject.innerText = " Autres";
+                            break;
+                    }
+
+                    let reportTime = document.createElement('p');
+                    reportTime.innerText = timeAgo(report.created_at);
+
+                    reportInfo.appendChild(reportObjectTitle);
+                    reportInfo.appendChild(reportObject);
+                    reportItem.appendChild(reportInfo);
+                    reportItem.appendChild(reportTime);
+                    reportList.appendChild(reportItem);
+                });
+            }
+        } else {
+            console.error("Erreur lors de la récupération des signalements");
+        }
+    });
 }
 
 function timeAgo(timestamp) {
