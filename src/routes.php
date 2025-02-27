@@ -261,7 +261,7 @@ $router->post('/', function () use ($loader, $twig) {
 }, 'player');
 
 $router->get('/cgu', function () use ($loader, $twig) {
-    ControllerFactory::getController("policy", $loader, $twig)->call("showCgu");
+    ControllerFactory::getController("pages", $loader, $twig)->call("showCgu");
     exit;
 });
 

@@ -221,7 +221,7 @@ module.exports = {
                         backgroundColor: theme('colors.gray.800'),
                         color: theme('colors.gray.400'),
                     }
-                }
+                },
             });
         }),
     ],

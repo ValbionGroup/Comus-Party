@@ -1,0 +1,69 @@
+{% extends "layouts/base.twig" %}
+{% block title %}Bienvenue{% endblock %}
+
+{% block layout %}
+    <main class="w-full h-full">
+        <section
+                class="w-full h-full bg-lavender-blush-1 dark:bg-night-1 text-night-1 dark:text-lavender-blush-1 py-4 px-4 md:py-8 md:px-16">
+            <div class="right-0 top-0">
+                <img src="/assets/img/cp-logo-v2-without-bg.png" alt="Logo"
+                     class="absolute z-10 hidden xl:block"
+                     style="top: 35px; right: 35px;"
+                     width="370">
+                <svg width="852" height="705" viewBox="0 0 852 705" fill="none" xmlns="http://www.w3.org/2000/svg"
+                     class="absolute z-0 xl:block hidden" style="right: -50px; top: -100px;">
+                    <g filter="url(#filter0_f_116_86)">
+                        <path d="M135.856 -97.1158C136.068 -97.9166 135.591 -98.7377 134.79 -98.9497C134.662 -98.9835 134.534 -98.9997 134.408 -99H887V580.4C883.405 581.688 879.835 582.988 876.282 584.281L876.266 584.287C847.36 594.81 819.562 604.93 788.648 605H787.807C748.96 604.945 708.662 598.723 671.237 588.359C641.047 579.999 611.19 575.327 581.1 570.618C566.452 568.326 551.747 566.025 536.924 563.286C530.724 562.141 524.467 561.068 518.189 559.992C487.93 554.805 457.187 549.536 430.051 535.601C393.345 516.752 366.716 488.108 342.139 455.339C319.677 425.389 300.569 404.602 265.637 389.319C222.378 370.394 178.467 343.393 148.089 306.266C133.149 288.006 126.25 265.77 123.607 242.462C120.962 219.143 122.587 194.853 124.615 172.549C128.284 132.19 118.89 98.553 106.457 61.2531C96.786 32.2402 98.2 0.932304 109.215 -27.3907C111.875 -34.2315 114.839 -41.2627 117.849 -48.4001C124.604 -64.4207 131.584 -80.9766 135.856 -97.1158Z"
+                              fill="url(#paint0_linear_116_86)"/>
+                    </g>
+                    <defs>
+                        <filter id="filter0_f_116_86" x="0" y="-199" width="987" height="904"
+                                filterUnits="userSpaceOnUse"
+                                color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                            <feGaussianBlur stdDeviation="50" result="effect1_foregroundBlur_116_86"/>
+                        </filter>
+                        <linearGradient id="paint0_linear_116_86" x1="1336.5" y1="-394.5" x2="-183" y2="658.5"
+                                        gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#8338EC"/>
+                            <stop offset="1" stop-color="#FF006E"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="flex flex-col gap-16">
+                <div>
+                    <h1 class="font-serif text-5xl mb-4">Bienvenue sur Comus Party 👋</h1>
+                    <p class="font-medium text-xl max-w-xl">Comus Party c’est votre nouvelle plateforme préférée pour
+                        jouer
+                        avec vos amis en ligne !</p>
+                </div>
+                <div>
+                    <p class="font-normal text-xl mb-4">Lancez-vous, dès maintenant ! 🎮</p>
+                    <div class="flex flex-row gap-4">
+                        <a href="/register"
+                           class="flex items-center justify-center font-bold shadow-sm px-4 py-2 bg-gradient-to-bl from-purple-500 from-[-110%] to-pink-500 to-[190%] rounded-lg text-white text-xl">
+                            S'inscrire
+                        </a>
+                        <a href="/login"
+                           class="flex items-center justify-center font-bold shadow-sm px-4 py-2 bg-none rounded-lg text-white text-xl">
+                            Se connecter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="bg-lavender-blush-2 dark:bg-night-2 w-full flex flex-col items-center justify-center text-night-3 dark:text-lavender-blush-3 p-6">
+            <p>&copy; 2025 Comus Party - Tout droits réservés</p>
+            <p>
+                <a href="/cgu">Conditions Générales d'Utilisation</a> •
+                <a href="/privacy">Politique de Confidentialité</a>
+            </p>
+        </footer>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
