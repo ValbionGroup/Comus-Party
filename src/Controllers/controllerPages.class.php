@@ -1,8 +1,8 @@
 <?php
 /**
- * @file    controllerPolicy.class.php
+ * @file    controllerPages.class.php
  * @brief   Ce fichier contient la déclaration & définition de la classe ControllerPages.
- * @author  Estéban DESESSARD
+ * @author  Estéban DESESSARD & Lucas ESPIET
  * @date    14/12/2024
  * @version 1.0
  */
@@ -17,7 +17,7 @@ use Twig\Loader\FilesystemLoader;
 
 /**
  * @brief Classe ControllerPages
- * @details Contrôleur des différentes pages de politiques du site (CGU, CGV, etc.)
+ * @details Contrôleur des différentes pages du site (Accueil, CGU, CGV, etc.)
  */
 class ControllerPages extends Controller
 {
@@ -29,6 +29,12 @@ class ControllerPages extends Controller
     public function __construct(FilesystemLoader $loader, Environment $twig)
     {
         parent::__construct($loader, $twig);
+    }
+
+    public function showHomePage()
+    {
+        $template = $this->getTwig()->load('home.twig');
+        echo $template->render();
     }
 
     /**
