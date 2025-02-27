@@ -162,7 +162,7 @@ function acceptReport(e) {
 }
 
 // WebSocket
-const dashboardConnection = new WebSocket('ws://localhost:8315/dashboard');
+const dashboardConnection = new WebSocket('wss://sockets.comus-party.com/dashboard');
 dashboardConnection.onopen = function (e) {
     console.log("Connexion établie avec DASHBOARD_SOCKET !");
     updateSuggests();
