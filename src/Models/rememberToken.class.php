@@ -47,14 +47,14 @@ class RememberToken
     /**
      * @brief Constructeur de la classe rememberToken
      * @param int $userId Identifiant de l'utilisateur associé au jeton de connexion
-     * @param string $token Jeton de connexion
+     * @param ?string $token Jeton de connexion
      * @param DateTime|null $createdAt Date de création du jeton de connexion
      * @param DateTime|null $expiresAt Date d'expiration du jeton de connexion
      */
-    public function __construct(int $userId, string $token, ?DateTime $createdAt = null, ?DateTime $expiresAt = null)
+    public function __construct(int $userId, ?string $token = null, ?DateTime $createdAt = null, ?DateTime $expiresAt = null)
     {
         $this->userId = $userId;
-        $this->token = $token;
+        $this->token = $token ?? '';
         $this->createdAt = $createdAt ?? new DateTime();
         $this->expiresAt = $expiresAt ?? new DateTime('+1 month');
     }
@@ -165,7 +165,7 @@ class RememberToken
      */
     public function generateToken(): string
     {
-        $this->token = bin2hex(random_bytes(32));
+        $this->token = bin2hex(random_bytes(30));
         return $this->token;
     }
 }
