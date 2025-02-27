@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\Cookie;
 use ComusParty\App\Exceptions\AuthenticationException;
 use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Mailer;
@@ -19,6 +20,8 @@ use ComusParty\Models\ModeratorDao;
 use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\RememberToken;
+use ComusParty\Models\RememberTokenDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
@@ -265,10 +268,11 @@ class ControllerAuth extends Controller
      * Si toutes les vérifications passent, ouvre la session et renseigne les éléments importants en variables de session.
      * @param ?string $email Adresse e-mail fournie dans le formulaire de connexion
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
+     * @param ?bool $rememberMe Booléen permettant de savoir si l'utilisateur souhaite rester connecté
      * @param ?string $cloudflareCaptchaToken Token de captcha fourni par Cloudflare
      * @return bool
      */
-    public function authenticate(?string $email, ?string $password, ?string $cloudflareCaptchaToken): bool
+    public function authenticate(?string $email, ?string $password, ?bool $rememberMe, ?string $cloudflareCaptchaToken): bool
     {
         $regles = [
             'email' => [
@@ -312,6 +316,7 @@ class ControllerAuth extends Controller
             if (!password_verify($password, $user->getPassword())) {
                 throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
             }
+
             $moderatorManager = new ModeratorDAO($this->getPdo());
             $moderator = $moderatorManager->findByUserId($user->getId());
 
@@ -320,7 +325,18 @@ class ControllerAuth extends Controller
 
             if (is_null($player) && is_null($moderator)) {
                 throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
-            } elseif (!is_null($player)) {
+            } else {
+                if ($rememberMe) {
+                    $token = new RememberToken($user->getId());
+                    $token->generateToken();
+                    Cookie::set('remember_token', $token->getToken(), $token->getExpiresAt()->getTimestamp());
+                    Cookie::set('user_id', $user->getId(), $token->getExpiresAt()->getTimestamp());
+
+                    (new RememberTokenDAO($this->getPdo()))->insert($token);
+                }
+            }
+
+            if (!is_null($player)) {
                 $articleManager = new ArticleDAO($this->getPdo());
                 $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
                 $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
@@ -332,11 +348,11 @@ class ControllerAuth extends Controller
                 $_SESSION['xp'] = $player->getXp();
                 $_SESSION['basket'] = [];
                 $_SESSION['pfpPath'] = $player->getActivePfp();
+
                 echo json_encode([
                     'success' => true,
                     'message' => "Vous êtes connecté en tant que joueur"
                 ]);
-                return true;
             } else {
                 $_SESSION['role'] = 'moderator';
                 $_SESSION['uuid'] = $moderator->getUuid();
@@ -346,8 +362,8 @@ class ControllerAuth extends Controller
                     'success' => true,
                     'message' => "Vous êtes connecté en tant que modérateur"
                 ]);
-                return true;
             }
+            return true;
         } catch (Exception $e) {
             echo json_encode([
                 'success' => false,

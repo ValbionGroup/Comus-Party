@@ -148,7 +148,7 @@ class Router
 
                 // Redirection vers la page de connexion si l'utilisateur n'est pas connecté
                 header('Location: /login');
-                exit;
+                return;
             } else {
                 if ($this->checkRouteAndCall($role, $method, $url)) return;
                 if ($this->checkRouteAndCall('*', $method, $url)) return;
@@ -158,7 +158,7 @@ class Router
             foreach ($this->routes[$method] as $target) {
                 foreach (array_keys($target) as $routeUrl) {
                     $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
-                    if (preg_match('#^' . $pattern . '$#', $url)) {
+                    if (preg_match('#^' . $pattern . '[?]?[a-zA-Z=&]*$#', $url)) {
                         throw new UnauthorizedAccessException('Unauthorized access to route ' . $url . ' (' . $method . ')');
                     }
                 }
@@ -195,7 +195,7 @@ class Router
     private function callFunctionFromRoute(string $routeUrl, callable $target, string $url): bool
     {
         $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
-        if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
+        if (preg_match('#^' . $pattern . '[?]?[a-zA-Z=&]*$#', $url, $matches)) {
             $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
             call_user_func_array($target, $params);
             return true;
