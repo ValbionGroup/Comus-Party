@@ -72,6 +72,10 @@ class Game implements MessageComponentInterface
     {
         $gameRecord = (new GameRecordDAO(Db::getInstance()->getConnection()))->findByCode($game);
 
+        if (!isset($gameRecord)) {
+            return;
+        }
+
         $players = $gameRecord->getPlayers();
         $jsonPlayer = array_map(fn($player) => [
             "uuid" => $player['player']->getUuid(),

@@ -74,12 +74,12 @@ function infoArticleBanner(article) {
 
 function showModalPfp() {
     modalPfp.classList.remove("hidden")
-    background.classList.remove("hidden")
+    showBackgroundModal()
 }
 
 function showModalBanner() {
     modalBanner.classList.remove("hidden")
-    background.classList.remove("hidden")
+    showBackgroundModal()
 }
 
 function closeModal() {
@@ -94,7 +94,7 @@ function closeModal() {
         }
     });
 
-    background.classList.add("hidden");
+    closeBackgroundModal();
 }
 
 
@@ -175,7 +175,7 @@ function equipArticle() {
 
 function showModalSuppression() {
     modal.classList.remove("hidden");
-    background.classList.remove("hidden");
+    showBackgroundModal();
 }
 
 // MODIFICATION MOT DE PASSE
@@ -294,14 +294,16 @@ function updatePassword() {
     }
 }
 
+
+
 function showModalUsernameEdit() {
     modalEditUsername.classList.remove("hidden");
-    background.classList.remove("hidden");
+    showBackgroundModal();
 }
 
 function showModalEditEmail() {
     modalEditEmail.classList.remove("hidden");
-    background.classList.remove("hidden");
+    showBackgroundModal();
 }
 
 function checkUsername() {

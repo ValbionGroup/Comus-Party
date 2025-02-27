@@ -61,6 +61,7 @@ function signIn(e) {
             e.classList.add("btn-primary");
             e.disabled = false;
             showNotification("Oups...", response.message, "red");
+            turnstileExpiredCallback();
         }
     }, `email=${email}&password=${password}&cfToken=${cfToken}`);
 }

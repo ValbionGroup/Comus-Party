@@ -191,13 +191,14 @@ function signUp(e) {
             showNotification("Inscription réussie", response.message, "green");
             setTimeout(() => {
                 window.location.href = "/login";
-            }, 6500);
+            }, 3500);
         } else {
             e.innerHTML = "Valider";
             e.classList.remove("btn-disabled");
             e.classList.add("btn-primary");
             e.disabled = false;
             showNotification("Oups...", response.message, "red");
+            turnstileExpiredCallback();
         }
     }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}&passwordConfirm=${INPUT_CONFIRM_PASSWORD.value}&termsOfService=${INPUT_TERMS_OF_SERVICE.checked}&privacyPolicy=${INPUT_PRIVACY_POLICY.checked}&cfToken=${cfToken}`);
 }
