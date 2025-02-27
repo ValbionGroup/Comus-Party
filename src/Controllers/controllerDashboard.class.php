@@ -68,15 +68,7 @@ class ControllerDashboard extends Controller
     public function denySuggestion(int $id)
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
-        if ($suggestsManager->deny($id)) {
-            MessageHandler::addMessageParametersToSession("La suggestion a bien été refusée");
-            echo json_encode(['success' => true]);
-            exit;
-        } else {
-            MessageHandler::addExceptionParametersToSession(new Exception("Une erreur est survenue lors du refus de la suggestion"));
-            echo json_encode(['success' => false]);
-            exit;
-        }
+        echo json_encode(['success' => $suggestsManager->deny($id)]);
     }
 
     /**
@@ -87,15 +79,8 @@ class ControllerDashboard extends Controller
     public function acceptSuggestion(int $id)
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
-        if ($suggestsManager->accept($id)) {
-            MessageHandler::addMessageParametersToSession("La suggestion a bien été acceptée");
-            echo json_encode(['success' => true]);
-            exit;
-        } else {
-            MessageHandler::addExceptionParametersToSession(new Exception("Une erreur est survenue lors de l'acceptation de la suggestion"));
-            echo json_encode(['success' => false]);
-            exit;
-        }
+        echo json_encode(['success' => $suggestsManager->accept($id)]);
+        exit;
     }
 
     /**
@@ -116,6 +101,33 @@ class ControllerDashboard extends Controller
                 "content" => $suggestion->getContent(),
                 "author_username" => $suggestion->getAuthorUsername(),
             ],
+        ]);
+        exit;
+    }
+
+    /**
+     * @brief Récupère toutes les suggestions en attente et les renvoi sous format JSON
+     * @return void
+     */
+    public function getAllSuggestionsWaiting(): void {
+        $suggestsManager = new SuggestionDAO($this->getPdo());
+        $suggestions = $suggestsManager->findAllWaiting();
+        if (empty($suggestions)) {
+            echo json_encode([
+                "success" => true,
+                "suggestions" => null,
+            ]);
+            exit;
+        }
+        echo json_encode([
+            "success" => true,
+            "suggestions" => array_map(fn($suggestion) => [
+                "id" => $suggestion->getId(),
+                "object" => $suggestion->getObject()->name,
+                "content" => $suggestion->getContent(),
+                "author_username" => $suggestion->getAuthorUsername(),
+                "created_at" => $suggestion->getCreatedAt()->getTimestamp() * 1000,
+            ], $suggestions),
         ]);
         exit;
     }

@@ -31,6 +31,7 @@ require_once __DIR__ . '/src/App/Exceptions/GameSettingsException.php';
 
 require_once __DIR__ . '/src/App/Sockets/Chat.php';
 require_once __DIR__ . '/src/App/Sockets/Game.php';
+require_once __DIR__ . '/src/App/Sockets/Dashboard.php';
 
 require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/Controllers/controller.class.php';
