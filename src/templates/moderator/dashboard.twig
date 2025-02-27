@@ -7,7 +7,7 @@
         <h1 class="text-4xl ml-5 mt-5 font-serif">Dashboard de modération</h1>
         <div class="flex flex-col lg:flex-row gap-4 m-8 w-full h-3/4">
             <div class="flex flex-col gap-4 h-full w-[calc(100%-3rem)] lg:w-[calc(33%-2rem)]">
-                <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
+                <div class="h-full bg-lavender-blush-2 dark:bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Mes statistiques</p>
                     <div class="flex flex-col gap-2 ml-2 mt-2 h-full">
                         <p>Statistique 1</p>
@@ -19,7 +19,7 @@
 
 
             <div class="flex flex-col gap-4 h-full w-[calc(100%-2rem)] lg:w-[calc(33%-2rem)]">
-                <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
+                <div class="h-full bg-lavender-blush-2 dark:bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Suggestions en attente</p>
                     <div class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto {% if suggestions == null %}justify-center{% endif %}">
                         {% if suggestions == null %}
@@ -116,7 +116,7 @@
                 </div>
             </div>
             <div class="flex flex-col gap-4 h-full w-[calc(100%-3rem)] lg:w-[calc(33%-2rem)]">
-                <div class="h-full bg-night-1 bg-opacity-85 rounded-2xl p-3">
+                <div class="h-full bg-lavender-blush-2 dark:bg-night-1 bg-opacity-85 rounded-2xl p-3">
                     <p class="font-serif text-xl">Signalements en attente</p>
                     <div class="flex flex-1 flex-col p-2 pr-3 mt-2 gap-2 h-[calc(100%-3em)] overflow-y-auto {% if reports == null %}justify-center{% endif %}">
                         {% if reports == null %}
@@ -126,7 +126,7 @@
                         {% else %}
                             {% for report in reports %}
                                 <div id="{{ report.id }}"
-                                     class="flex p-2 bg-night-base rounded-md hover:cursor-pointer hover:scale-105 transition-all ease-in-out justify-between"
+                                     class="flex p-2 bg-lavender-blush-base dark:bg-night-base rounded-md hover:cursor-pointer hover:scale-105 transition-all ease-in-out justify-between"
                                      onclick="showModalReport(this)">
                                     <div class="flex">
                                         <p class="underline mr-1">Thème : </p>
