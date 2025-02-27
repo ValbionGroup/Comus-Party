@@ -25,7 +25,7 @@ class Cookie
      */
     public static function set(string $name, string $value, ?int $expire = null): void
     {
-        setcookie($name, $value, $expire ?? time() + 60 * 60 * 24 * 30, BASE_URI, BASE_URL, false, true);
+        setcookie($name, $value, $expire ?? time() + 60 * 60 * 24 * 30, BASE_URI, parse_url(BASE_URL, PHP_URL_HOST), false, true);
     }
 
     /**
