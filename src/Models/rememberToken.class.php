@@ -180,9 +180,9 @@ class RememberToken
      * @brief Vérifie si le jeton de connexion est valide
      * @return bool True si le jeton de connexion est valide, false sinon
      */
-    public function isValid(): bool
+    public function isExpired(): bool
     {
-        return $this->expiresAt > new DateTime();
+        return $this->expiresAt <= new DateTime();
     }
 
     /**
@@ -206,5 +206,15 @@ class RememberToken
         $key = bin2hex(random_bytes(60));
         $this->key = password_hash($key, PASSWORD_DEFAULT);
         return $key;
+    }
+
+    /**
+     * @brief Vérifie si la clef d'autorisation est valide
+     * @param string $key Clef d'autorisation à vérifier
+     * @return bool True si la clef d'autorisation est valide, false sinon
+     */
+    public function isValid(string $key): bool
+    {
+        return password_verify($key, $this->key);
     }
 }
