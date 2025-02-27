@@ -329,8 +329,10 @@ class ControllerAuth extends Controller
                 if ($rememberMe) {
                     $token = new RememberToken($user->getId());
                     $token->generateToken();
-                    Cookie::set('remember_token', $token->getToken(), $token->getExpiresAt()->getTimestamp());
-                    Cookie::set('user_id', $user->getId(), $token->getExpiresAt()->getTimestamp());
+                    $key = $token->generateKey();
+                    Cookie::set('rmb_token', base64_encode($token->getToken()), $token->getExpiresAt()->getTimestamp());
+                    Cookie::set('rmb_usr', base64_encode($user->getId()), $token->getExpiresAt()->getTimestamp());
+                    Cookie::set('rmb_key', base64_encode($key), $token->getExpiresAt()->getTimestamp());
 
                     (new RememberTokenDAO($this->getPdo()))->insert($token);
                 }
