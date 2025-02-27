@@ -171,6 +171,5 @@ selectPenalty.addEventListener('change', function () {
 });
 
 inputDuration.addEventListener('input', function () {
-    let duration = inputDuration.value;
     inputDuration.value = inputDuration.value.replace(/[a-zA-Z]/, '');
 });
