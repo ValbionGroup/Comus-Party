@@ -51,11 +51,14 @@ function signIn(e) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const rememberMe = document.getElementById('rememberMe').checked;
+    const redirect = window.location.href.split('?')[1].indexOf('redirect') !== -1 ?
+        decodeURIComponent(window.location.href.split('?')[1].split('=')[1]) : '/';
     const cfToken = turnstile.getResponse();
     makeRequest('POST', '/login', (response) => {
         response = JSON.parse(response);
         if (response.success) {
-            window.location.href = '/';
+            window.location.href = window.location.href.split('/login')[0] +
+                (redirect.at(0) === '/' ? redirect : '/' + redirect);
         } else {
             e.innerHTML = "Se connecter";
             e.classList.remove("btn-disabled");
