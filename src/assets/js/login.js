@@ -52,10 +52,12 @@ function signIn(e) {
     const password = document.getElementById('password').value;
     const rememberMe = document.getElementById('rememberMe').checked;
 
-    const redirect = window.location.href.split('?')[1] !== undefined ?
+    let redirect = window.location.href.split('?')[1] !== undefined ?
         (window.location.href.split('?')[1].indexOf('redirect=') !== -1 ?
             window.location.href.split('?')[1].split('redirect=')[1] : '/')
         : '/';
+    redirect = decodeURIComponent(redirect);
+    
     const cfToken = turnstile.getResponse();
     makeRequest('POST', '/login', (response) => {
         response = JSON.parse(response);
