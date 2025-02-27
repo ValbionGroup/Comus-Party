@@ -22,6 +22,7 @@ use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\RememberToken;
 use ComusParty\Models\RememberTokenDAO;
+use ComusParty\Models\User;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
@@ -317,55 +318,27 @@ class ControllerAuth extends Controller
                 throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
             }
 
-            $moderatorManager = new ModeratorDAO($this->getPdo());
-            $moderator = $moderatorManager->findByUserId($user->getId());
-
-            $playerManager = new PlayerDAO($this->getPdo());
-            $player = $playerManager->findByUserId($user->getId());
-
-            if (is_null($player) && is_null($moderator)) {
-                throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
-            } else {
+            if ($this->authenticate($user)) {
                 if ($rememberMe) {
                     $token = new RememberToken($user->getId());
                     $token->generateToken();
                     $key = $token->generateKey();
+
                     Cookie::set('rmb_token', base64_encode($token->getToken()), $token->getExpiresAt()->getTimestamp());
                     Cookie::set('rmb_usr', base64_encode($user->getId()), $token->getExpiresAt()->getTimestamp());
                     Cookie::set('rmb_key', base64_encode($key), $token->getExpiresAt()->getTimestamp());
 
                     (new RememberTokenDAO($this->getPdo()))->insert($token);
                 }
-            }
-
-            if (!is_null($player)) {
-                $articleManager = new ArticleDAO($this->getPdo());
-                $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
-                $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
-                $_SESSION['role'] = 'player';
-                $_SESSION['uuid'] = $player->getUuid();
-                $_SESSION['username'] = $player->getUsername();
-                $_SESSION['comusCoin'] = $player->getComusCoin();
-                $_SESSION['elo'] = $player->getElo();
-                $_SESSION['xp'] = $player->getXp();
-                $_SESSION['basket'] = [];
-                $_SESSION['pfpPath'] = $player->getActivePfp();
 
                 echo json_encode([
                     'success' => true,
-                    'message' => "Vous êtes connecté en tant que joueur"
+                    'message' => "Vous êtes connecté en tant que " . ($_SESSION['role'] === 'player' ? "joueur" : "modérateur")
                 ]);
+                return true;
             } else {
-                $_SESSION['role'] = 'moderator';
-                $_SESSION['uuid'] = $moderator->getUuid();
-                $_SESSION['firstName'] = $moderator->getFirstName();
-                $_SESSION['lastName'] = $moderator->getLastName();
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Vous êtes connecté en tant que modérateur"
-                ]);
+                throw new AuthenticationException("Erreur lors de l'authentification");
             }
-            return true;
         } catch (Exception $e) {
             echo json_encode([
                 'success' => false,
@@ -408,6 +381,47 @@ class ControllerAuth extends Controller
             curl_close($curl);
             return $response->success;
         }
+    }
+
+    /**
+     * @brief Permet d'authentifier l'utilisateur
+     * @details Vérifie si l'utilisateur est un joueur ou un modérateur, puis stocke les informations nécessaires en variables de session
+     * @param User $user Utilisateur à authentifier
+     * @return bool Renvoie true si l'utilisateur est authentifié, false sinon
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
+     */
+    public function authenticate(User $user): bool
+    {
+        $moderatorManager = new ModeratorDAO($this->getPdo());
+        $moderator = $moderatorManager->findByUserId($user->getId());
+
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findByUserId($user->getId());
+
+        if (is_null($player) && is_null($moderator)) {
+            throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+        }
+
+        if (!is_null($player)) {
+            $articleManager = new ArticleDAO($this->getPdo());
+            $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+            $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
+            $_SESSION['role'] = 'player';
+            $_SESSION['uuid'] = $player->getUuid();
+            $_SESSION['username'] = $player->getUsername();
+            $_SESSION['comusCoin'] = $player->getComusCoin();
+            $_SESSION['elo'] = $player->getElo();
+            $_SESSION['xp'] = $player->getXp();
+            $_SESSION['basket'] = [];
+            $_SESSION['pfpPath'] = $player->getActivePfp();
+        } else {
+            $_SESSION['role'] = 'moderator';
+            $_SESSION['uuid'] = $moderator->getUuid();
+            $_SESSION['firstName'] = $moderator->getFirstName();
+            $_SESSION['lastName'] = $moderator->getLastName();
+        }
+        return true;
     }
 
     /**
