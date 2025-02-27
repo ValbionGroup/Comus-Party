@@ -31,11 +31,11 @@ class Cookie
     /**
      * @brief Récupère la valeur d'un cookie
      * @param string $name Nom du cookie
-     * @return string Valeur du cookie
+     * @return string|null Valeur du cookie
      */
-    public static function get(string $name): string
+    public static function get(string $name): string|null
     {
-        return $_COOKIE[$name];
+        return $_COOKIE[$name] ?? null;
     }
 
     /**
