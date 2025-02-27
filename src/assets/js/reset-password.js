@@ -105,10 +105,13 @@ function resetPassword(e) {
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
 
-    makeRequest('POST', '/reset-password', (response) => {
+    makeRequest('POST', window.location.pathname, (response) => {
         response = JSON.parse(response);
         if (response.success) {
-            window.location.href = '/login';
+            showNotification("Génial !", response.message, "green");
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 2000);
         } else {
             showNotification("Oups...", response.message, "red");
         }

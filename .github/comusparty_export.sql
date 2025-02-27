@@ -773,7 +773,7 @@ ALTER TABLE `cp_player`
 -- Contraintes pour la table `cp_pswd_reset_token`
 --
 ALTER TABLE `cp_pswd_reset_token`
-    ADD CONSTRAINT `fk_pswd_reset_user_id` FOREIGN KEY (`user_id`) REFERENCES `cp_user` (`id`);
+    ADD CONSTRAINT `fk_pswd_reset_user_id` FOREIGN KEY (`user_id`) REFERENCES `cp_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `cp_report`
