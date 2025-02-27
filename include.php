@@ -42,7 +42,7 @@ require_once __DIR__ . '/src/Controllers/controllerAuth.class.php';
 require_once __DIR__ . '/src/Controllers/controllerBasket.class.php';
 require_once __DIR__ . '/src/Controllers/controllerSuggestion.class.php';
 require_once __DIR__ . '/src/Controllers/controllerDashboard.class.php';
-require_once __DIR__ . '/src/Controllers/controllerPolicy.class.php';
+require_once __DIR__ . '/src/Controllers/controllerPages.class.php';
 require_once __DIR__ . '/src/Controllers/controllerRanking.class.php';
 
 require_once __DIR__ . '/src/Models/player.class.php';

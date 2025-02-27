@@ -54,7 +54,7 @@ class ControllerGame extends Controller
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function showHomePage()
+    public function showGameList()
     {
         $gameManager = new GameDAO($this->getPdo());
         $games = $gameManager->findAllWithTags();

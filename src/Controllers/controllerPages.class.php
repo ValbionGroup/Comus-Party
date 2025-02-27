@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    controllerPolicy.class.php
- * @brief   Ce fichier contient la déclaration & définition de la classe ControllerPolicy.
+ * @brief   Ce fichier contient la déclaration & définition de la classe ControllerPages.
  * @author  Estéban DESESSARD
  * @date    14/12/2024
  * @version 1.0
@@ -16,13 +16,13 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * @brief Classe ControllerPolicy
+ * @brief Classe ControllerPages
  * @details Contrôleur des différentes pages de politiques du site (CGU, CGV, etc.)
  */
-class ControllerPolicy extends Controller
+class ControllerPages extends Controller
 {
     /**
-     * @brief Constructeur de la classe ControllerPolicy
+     * @brief Constructeur de la classe ControllerPages
      * @param FilesystemLoader $loader Le loader de Twig
      * @param Environment $twig L'environnement de Twig
      */

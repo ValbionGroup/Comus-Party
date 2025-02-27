@@ -19,7 +19,12 @@ use ComusParty\Controllers\ControllerFactory;
 $router = Router::getInstance();
 
 $router->get('/', function () use ($loader, $twig) {
-    ControllerFactory::getController("game", $loader, $twig)->call("showHomePage");
+    ControllerFactory::getController("pages", $loader, $twig)->call("showHomePage");
+    exit;
+});
+
+$router->get('/play', function () use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("showGameList");
     exit;
 }, 'player');
 
