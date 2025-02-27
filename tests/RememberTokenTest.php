@@ -8,6 +8,7 @@
  * @date 2025-02-26
  */
 
+include "../include.php";
 
 use ComusParty\Models\RememberToken;
 use PHPUnit\Framework\TestCase;
@@ -24,16 +25,44 @@ class RememberTokenTest extends TestCase
      * @brief Test de la méthode __construct avec des données valides
      * @return void
      */
-    public function testConstructWithValidDatas(): void
+    public function setUp(): void
     {
         $this->rememberToken = new RememberToken(
             1,
             "abcd",
+            password_hash("abcd", PASSWORD_DEFAULT),
             new DateTime("2025-02-26 00:00:00"),
             new DateTime("2025-02-26 00:00:00")
         );
 
         $this->assertNotNull($this->rememberToken);
+    }
+
+    public function testTokenIsInvalidBecauseOfKeyIncorrect()
+    {
+        $this->assertFalse($this->rememberToken->isValid("abcde"));
+    }
+
+    public function testTokenIsValidWithCorrectKey()
+    {
+        $this->assertTrue($this->rememberToken->isValid("abcd"));
+    }
+
+    public function testTokenIsExpired()
+    {
+        $this->assertTrue($this->rememberToken->isExpired());
+    }
+
+    public function testTokenIsNotExpired()
+    {
+        $this->rememberToken = new RememberToken(
+            1,
+            "abcd",
+            password_hash("abcd", PASSWORD_DEFAULT),
+            new DateTime("2025-02-26 00:00:00"),
+            (new DateTime())->add(new DateInterval("P1D"))
+        );
+        $this->assertFalse($this->rememberToken->isExpired());
     }
 
     /**
