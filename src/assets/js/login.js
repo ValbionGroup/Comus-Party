@@ -54,7 +54,7 @@ function signIn(e) {
     makeRequest('POST', '/login', (response) => {
         response = JSON.parse(response);
         if (response.success) {
-            window.location.href = '/';
+            window.location.href = '/play';
         } else {
             e.innerHTML = "Se connecter";
             e.classList.remove("btn-disabled");
