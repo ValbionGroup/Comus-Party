@@ -32,6 +32,12 @@ class RememberToken
     private string $token;
 
     /**
+     * @var string $key Clef d'autorisation
+     * @brief Clef d'autorisation
+     */
+    private string $key;
+
+    /**
      * @var DateTime $createdAt Date de création du jeton de connexion
      * @brief Date de création du jeton de connexion
      */
@@ -47,14 +53,16 @@ class RememberToken
     /**
      * @brief Constructeur de la classe rememberToken
      * @param int $userId Identifiant de l'utilisateur associé au jeton de connexion
-     * @param ?string $token Jeton de connexion
+     * @param string|null $token Jeton de connexion
+     * @param string|null $key Clef d'autorisation
      * @param DateTime|null $createdAt Date de création du jeton de connexion
      * @param DateTime|null $expiresAt Date d'expiration du jeton de connexion
      */
-    public function __construct(int $userId, ?string $token = null, ?DateTime $createdAt = null, ?DateTime $expiresAt = null)
+    public function __construct(int $userId, ?string $token = null, ?string $key = null, ?DateTime $createdAt = null, ?DateTime $expiresAt = null)
     {
         $this->userId = $userId;
         $this->token = $token ?? '';
+        $this->key = $key ?? '';
         $this->createdAt = $createdAt ?? new DateTime();
         $this->expiresAt = $expiresAt ?? new DateTime('+1 month');
     }
@@ -95,6 +103,25 @@ class RememberToken
     public function setToken(string $token): void
     {
         $this->token = $token;
+    }
+
+    /**
+     * @brief Retourne la clef d'autorisation
+     * @return string Clef d'autorisation
+     */
+    public function getKey(): string
+    {
+        return $this->key;
+    }
+
+    /**
+     * @brief Modifie la clef d'autorisation
+     * @param string $key Nouvelle clef d'autorisation
+     * @return void
+     */
+    public function setKey(string $key): void
+    {
+        $this->key = $key;
     }
 
     /**
@@ -167,5 +194,17 @@ class RememberToken
     {
         $this->token = bin2hex(random_bytes(30));
         return $this->token;
+    }
+
+    /**
+     * @brief Génère une clef d'autorisation
+     * @return string Clef d'autorisation générée
+     * @throws RandomException Exception levée si la génération de la clef d'autorisation a échoué
+     */
+    public function generateKey(): string
+    {
+        $key = bin2hex(random_bytes(60));
+        $this->key = password_hash($key, PASSWORD_DEFAULT);
+        return $key;
     }
 }

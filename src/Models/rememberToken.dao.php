@@ -60,10 +60,11 @@ class RememberTokenDAO
      */
     public function insert(RememberToken $rememberToken): bool
     {
-        $query = $this->pdo->prepare("INSERT INTO cp_remember_user (user_id, token, created_at, expires_at) VALUES (:user_id, :token, :created_at, :expires_at)");
+        $query = $this->pdo->prepare("INSERT INTO cp_remember_user (user_id, token, rmb_key, created_at, expires_at) VALUES (:user_id, :token, :rmb_key, :created_at, :expires_at)");
 
         $query->bindValue(":user_id", $rememberToken->getUserId());
         $query->bindValue(":token", $rememberToken->getToken());
+        $query->bindValue(":rmb_key", $rememberToken->getKey());
         $query->bindValue(":created_at", $rememberToken->getCreatedAt()->format("Y-m-d H:i:s"));
         $query->bindValue(":expires_at", $rememberToken->getExpiresAt()->format("Y-m-d H:i:s"));
 
@@ -121,6 +122,7 @@ class RememberTokenDAO
         return new RememberToken(
             $data['user_id'],
             $data['token'],
+            $data['rmb_key'],
             new DateTime($data['created_at']),
             new DateTime($data['expires_at'])
         );
