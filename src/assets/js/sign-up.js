@@ -30,7 +30,7 @@ const SUBMIT_BUTTON = document.getElementById("submitButton");
  *
  * @return void
  */
-window.onload = function() {
+window.onload = function () {
     // Ajoute un listener sur l'event "input" des inputs
     INPUT_USERNAME.addEventListener("input", checkConditions);
     INPUT_EMAIL.addEventListener("input", checkConditions);
@@ -51,8 +51,7 @@ window.onload = function() {
  *
  * @return void
  */
-function addPasswordVisibilityListeners()
-{
+function addPasswordVisibilityListeners() {
     TOGGLE_PASSWORD_BUTTON.addEventListener('click', () => {
         // Toggle visibilité password
         const isPasswordHidden = INPUT_PASSWORD.type === 'password';
@@ -101,11 +100,11 @@ function checkConditions(event) {
     const isUsernameValid = INPUT_PASSWORD.value.length >= MIN_USERNAME_LENGTH && ALLOWED_USERNAME_CHARACTERS.test(INPUT_USERNAME.value) && INPUT_USERNAME.value.length <= MAX_USERNAME_LENGTH;
     const isEmailValid = EMAIL_REGEX.test(INPUT_EMAIL.value);
     const isPasswordValid = INPUT_PASSWORD.value.length >= MIN_PASSWORD_LENGTH &&
-                            INPUT_PASSWORD.value.length <= MAX_PASSWORD_LENGTH &&
-                            UPPERCASE_LETTER.test(INPUT_PASSWORD.value) &&
-                            LOWERCASE_LETTER.test(INPUT_PASSWORD.value) &&
-                            NUMBERS.test(INPUT_PASSWORD.value) &&
-                            SPECIAL_CHARACTER.test(INPUT_PASSWORD.value);
+        INPUT_PASSWORD.value.length <= MAX_PASSWORD_LENGTH &&
+        UPPERCASE_LETTER.test(INPUT_PASSWORD.value) &&
+        LOWERCASE_LETTER.test(INPUT_PASSWORD.value) &&
+        NUMBERS.test(INPUT_PASSWORD.value) &&
+        SPECIAL_CHARACTER.test(INPUT_PASSWORD.value);
     const isPasswordMatch = INPUT_PASSWORD.value === INPUT_CONFIRM_PASSWORD.value;
     const isTermsAccepted = INPUT_TERMS_OF_SERVICE.checked;
     const isPrivacyPolicyAccepted = INPUT_PRIVACY_POLICY.checked;
@@ -182,6 +181,7 @@ function updateErrorMessage(input, errorElementId, condition, errorMessage) {
 
 function signUp(e) {
     loading(e);
+    const cfToken = turnstile.getResponse();
     makeRequest('POST', '/register', (response) => {
         response = JSON.parse(response);
         if (response.success) {
@@ -191,14 +191,14 @@ function signUp(e) {
             showNotification("Inscription réussie", response.message, "green");
             setTimeout(() => {
                 window.location.href = "/login";
-            }, 6500);
-        }
-        else {
+            }, 3500);
+        } else {
             e.innerHTML = "Valider";
             e.classList.remove("btn-disabled");
             e.classList.add("btn-primary");
             e.disabled = false;
             showNotification("Oups...", response.message, "red");
+            turnstileExpiredCallback();
         }
-    }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}`);
+    }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}&passwordConfirm=${INPUT_CONFIRM_PASSWORD.value}&termsOfService=${INPUT_TERMS_OF_SERVICE.checked}&privacyPolicy=${INPUT_PRIVACY_POLICY.checked}&cfToken=${cfToken}`);
 }

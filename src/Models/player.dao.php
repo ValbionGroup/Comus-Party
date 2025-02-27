@@ -400,8 +400,8 @@ class PlayerDAO
              WHERE i.player_uuid = pr.uuid
              ORDER BY i.created_at DESC
              LIMIT 1) as active_banner
-            FROM cp_player pr
-            JOIN cp_user u ON pr.user_id = u.id
+            FROM ' . DB_PREFIX . 'player pr
+            JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
             LEFT JOIN ' . DB_PREFIX . 'invoice i ON i.player_uuid = pr.uuid
             WHERE pr.username = :username');
         $stmt->bindParam(':username', $username);

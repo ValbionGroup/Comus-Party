@@ -7,21 +7,6 @@
  *   @version 0.1
  */
 
-function closeModal() {
-    let modals = document.querySelectorAll(".modal")
-    modals.forEach(modal => {
-        if (!modal.classList.contains("hidden")) {
-            modal.classList.add("hidden");
-        }
-    });
-    let background = document.getElementById('backgroundModal');
-    background.classList.add("hidden");
-}
-
-function showBackgroundModal() {
-    let background = document.getElementById('backgroundModal');
-    background.classList.remove("hidden");
-}
 
 function showModalSuggest(e) {
     let suggestId = e.id;
@@ -177,7 +162,7 @@ function acceptReport(e) {
 }
 
 // WebSocket
-const dashboardConnection = new WebSocket('ws://localhost:8315/dashboard');
+const dashboardConnection = new WebSocket('wss://sockets.comus-party.com/dashboard');
 dashboardConnection.onopen = function (e) {
     console.log("Connexion établie avec DASHBOARD_SOCKET !");
     updateSuggests();

@@ -125,35 +125,9 @@ class ControllerDashboard extends Controller
                 "id" => $suggestion->getId(),
                 "object" => $suggestion->getObject()->name,
                 "content" => $suggestion->getContent(),
+                "author_username" => $suggestion->getAuthorUsername(),
                 "created_at" => $suggestion->getCreatedAt()->getTimestamp() * 1000,
             ], $suggestions),
-        ]);
-        exit;
-    }
-
-    /**
-     * @brief Récupère tous les signalements en attente et les renvoi sous format JSON
-     * @return void
-     * @throws DateMalformedStringException
-     */
-    public function getAllReports(): void {
-        $reportsManager = new ReportDAO($this->getPdo());
-        $reports = $reportsManager->findAllWaiting();
-        if (empty($reports)) {
-            echo json_encode([
-                "success" => true,
-                "reports" => null,
-            ]);
-            exit;
-        }
-        echo json_encode([
-            "success" => true,
-            "reports" => array_map(fn($report) => [
-                "id" => $report->getId(),
-                "object" => $report->getObject()->name,
-                "description" => $report->getDescription(),
-                "created_at" => $report->getCreatedAt()->getTimestamp() * 1000,
-            ], $reports),
         ]);
         exit;
     }
