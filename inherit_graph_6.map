@@ -1,0 +1,23 @@
+<map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,153,83,179"/>
+<area shape="rect" id="Node000001" href="$classComusParty_1_1App_1_1Exceptions_1_1AuthenticationException.html" title="Classe AuthenticationException." alt="" coords="149,5,310,31"/>
+<area shape="poly" id="edge10_Node000000_Node000001" title=" " alt="" coords="54,138,83,88,104,62,129,40,150,29,152,34,132,44,108,65,88,91,59,141"/>
+<area shape="rect" id="Node000002" href="$classComusParty_1_1App_1_1Exceptions_1_1GameSettingsException.html" title="Classe GameSettingsException." alt="" coords="149,55,310,80"/>
+<area shape="poly" id="edge11_Node000000_Node000002" title=" " alt="" coords="65,140,94,113,129,89,155,78,157,83,132,94,97,117,69,144"/>
+<area shape="rect" id="Node000003" href="$classComusParty_1_1App_1_1Exceptions_1_1GameUnavailableException.html" title="Classe GameUnavailableException." alt="" coords="139,104,320,130"/>
+<area shape="poly" id="edge12_Node000000_Node000003" title=" " alt="" coords="97,148,130,138,171,128,172,133,131,143,98,153"/>
+<area shape="rect" id="Node000004" href="$classComusParty_1_1App_1_1Exceptions_1_1MalformedRequestException.html" title="Classe MalformedRequestException." alt="" coords="136,153,322,179"/>
+<area shape="poly" id="edge13_Node000000_Node000004" title=" " alt="" coords="98,164,136,164,136,169,98,169"/>
+<area shape="rect" id="Node000005" href="$classComusParty_1_1App_1_1Exceptions_1_1NotFoundException.html" title="Classe NotFoundException." alt="" coords="162,203,296,228"/>
+<area shape="poly" id="edge14_Node000000_Node000005" title=" " alt="" coords="98,180,131,189,172,200,171,205,130,194,97,185"/>
+<area shape="rect" id="Node000009" href="$classComusParty_1_1App_1_1Exceptions_1_1PaymentException.html" title="Classe PaymentException." alt="" coords="165,252,294,278"/>
+<area shape="poly" id="edge18_Node000000_Node000009" title=" " alt="" coords="69,188,97,215,132,238,166,251,164,256,129,243,94,219,65,192"/>
+<area shape="rect" id="Node000010" href="$classComusParty_1_1App_1_1Exceptions_1_1UnauthorizedAccessException.html" title="Classe UnauthorizedAccessException." alt="" coords="131,301,328,327"/>
+<area shape="poly" id="edge19_Node000000_Node000010" title=" " alt="" coords="59,192,88,242,108,267,132,288,152,298,150,303,129,292,104,271,83,245,54,194"/>
+<area shape="rect" id="Node000006" href="$classComusParty_1_1App_1_1Exceptions_1_1ControllerNotFoundException.html" title="Classe ControllerNotFoundException." alt="" coords="376,153,565,179"/>
+<area shape="poly" id="edge15_Node000005_Node000006" title=" " alt="" coords="310,196,404,177,405,182,311,202"/>
+<area shape="rect" id="Node000007" href="$classComusParty_1_1App_1_1Exceptions_1_1MethodNotFoundException.html" title="Classe MethodNotFoundException." alt="" coords="382,203,559,228"/>
+<area shape="poly" id="edge16_Node000005_Node000007" title=" " alt="" coords="312,213,381,213,381,218,312,218"/>
+<area shape="rect" id="Node000008" href="$classComusParty_1_1App_1_1Exceptions_1_1RouteNotFoundException.html" title="Classe RouteNotFoundException." alt="" coords="386,252,555,278"/>
+<area shape="poly" id="edge17_Node000005_Node000008" title=" " alt="" coords="311,229,405,249,404,254,310,235"/>
+</map>

@@ -1,0 +1,25 @@
+var classComusParty_1_1Models_1_1Suggestion =
+[
+    [ "__construct", "classComusParty_1_1Models_1_1Suggestion.html#a372e3e465b16c1ebb14d40ed8bd0d969", null ],
+    [ "getAuthorUsername", "classComusParty_1_1Models_1_1Suggestion.html#a540e761bf01a8e6df0ca7e1437eca259", null ],
+    [ "getAuthorUuid", "classComusParty_1_1Models_1_1Suggestion.html#ae5b66104e405cea718f96dd282063683", null ],
+    [ "getContent", "classComusParty_1_1Models_1_1Suggestion.html#a58e43f09a06ce4e29b192c4e17ce7915", null ],
+    [ "getCreatedAt", "classComusParty_1_1Models_1_1Suggestion.html#a0f0455d4aafe27d1b0720c3bcfff2847", null ],
+    [ "getId", "classComusParty_1_1Models_1_1Suggestion.html#a12251d0c022e9e21c137a105ff683f13", null ],
+    [ "getObject", "classComusParty_1_1Models_1_1Suggestion.html#a8ecaa7401cc1e1144cb98698a9658ebc", null ],
+    [ "getTreatedBy", "classComusParty_1_1Models_1_1Suggestion.html#a43ee558c61f141b3f2fe837c2494a811", null ],
+    [ "setAuthorUsername", "classComusParty_1_1Models_1_1Suggestion.html#ace7ed956081e51cb55f66dcfb57a9163", null ],
+    [ "setAuthorUuid", "classComusParty_1_1Models_1_1Suggestion.html#afcd39af397fef8fb1c74339274dfa077", null ],
+    [ "setContent", "classComusParty_1_1Models_1_1Suggestion.html#adbe841dc05e3e981d41c63dce68f8d20", null ],
+    [ "setCreatedAt", "classComusParty_1_1Models_1_1Suggestion.html#a29e08b68eaa931e0624c27c30d4d463e", null ],
+    [ "setId", "classComusParty_1_1Models_1_1Suggestion.html#a02a5667ab1839b99445c63ed76e3eb39", null ],
+    [ "setObject", "classComusParty_1_1Models_1_1Suggestion.html#abb9b05ff65b746de052c7d1a0f67f520", null ],
+    [ "setTreatedBy", "classComusParty_1_1Models_1_1Suggestion.html#ad51ed5411a7b1be86093cf707d61292f", null ],
+    [ "$authorUsername", "classComusParty_1_1Models_1_1Suggestion.html#a2f1b79b2cda8495c2f0f86a93e32a8d2", null ],
+    [ "$authorUuid", "classComusParty_1_1Models_1_1Suggestion.html#a387f1dc64064b332cabf94e5b33913da", null ],
+    [ "$content", "classComusParty_1_1Models_1_1Suggestion.html#a43be552f5d6b48b6335bf0b4b5ef37c0", null ],
+    [ "$createdAt", "classComusParty_1_1Models_1_1Suggestion.html#a479fde0e5affee7654f315d79c4c54be", null ],
+    [ "$id", "classComusParty_1_1Models_1_1Suggestion.html#a3587bd00e5602c1800515b6f9ffbebc5", null ],
+    [ "$object", "classComusParty_1_1Models_1_1Suggestion.html#ac13d012178e9aa27b069f4a07999dd16", null ],
+    [ "$treatedBy", "classComusParty_1_1Models_1_1Suggestion.html#a17c212ff82faad710208125cc4c01ed5", null ]
+];
