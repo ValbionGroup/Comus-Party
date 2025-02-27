@@ -272,7 +272,7 @@ class ControllerAuth extends Controller
      * @param ?string $cloudflareCaptchaToken Token de captcha fourni par Cloudflare
      * @return bool
      */
-    public function authenticate(?string $email, ?string $password, ?bool $rememberMe, ?string $cloudflareCaptchaToken): bool
+    public function login(?string $email, ?string $password, ?bool $rememberMe, ?string $cloudflareCaptchaToken): bool
     {
         $regles = [
             'email' => [
