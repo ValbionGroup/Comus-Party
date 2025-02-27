@@ -433,6 +433,23 @@ class ControllerAuth extends Controller
     {
         session_unset();
         session_destroy();
+
+        // Supprimer les cookies de connexion si existants
+        $token = Cookie::get('rmb_token');
+        $userId = Cookie::get('rmb_usr');
+
+        if ($token && $userId) {
+            $tokenManager = new RememberTokenDAO($this->getPdo());
+            $rmbToken = $tokenManager->find(base64_decode($userId), base64_decode($token));
+            if ($rmbToken) {
+                $tokenManager->delete($rmbToken);
+            }
+        }
+
+        Cookie::delete('rmb_token');
+        Cookie::delete('rmb_usr');
+        Cookie::delete('rmb_key');
+
         header('Location: /login');
     }
 
