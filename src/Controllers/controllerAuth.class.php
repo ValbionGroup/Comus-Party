@@ -425,13 +425,13 @@ class ControllerAuth extends Controller
     }
 
     /**
-     * @brief Permet de reprendre l'authentification via un cookie
+     * @brief Permet de reprendre la session via un cookie
      * @details Vérifie si les cookies de connexion sont présents, puis authentifie l'utilisateur si c'est le cas
      * @return bool Renvoie true si l'utilisateur est authentifié, false sinon
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      */
-    public function resumeAuthentication(): bool
+    public function restoreSession(): bool
     {
         $token = Cookie::get('rmb_token');
         $userId = Cookie::get('rmb_usr');
@@ -442,28 +442,59 @@ class ControllerAuth extends Controller
         }
 
         $tokenManager = new RememberTokenDAO($this->getPdo());
-        $rmbToken = $tokenManager->find(base64_decode($userId), base64_decode($token));
+        $rmbToken = $tokenManager->find(intval(base64_decode($userId)), base64_decode($token));
 
         if (!$rmbToken) {
+            $this->clearRememberCookies();
             return false;
         }
 
         if (!$rmbToken->isValid(base64_decode($key))) {
+            $this->clearRememberCookies();
             return false;
         }
 
         if ($rmbToken->isExpired()) {
             $tokenManager->delete($rmbToken);
+            $this->clearRememberCookies();
             return false;
         }
 
-        $user = (new UserDAO($this->getPdo()))->findById(base64_decode($userId));
+        $user = (new UserDAO($this->getPdo()))->findById(intval(base64_decode($userId)));
 
         if (!$user) {
+            $this->clearRememberCookies();
             return false;
         }
 
-        return $this->authenticate($user);
+        $ok = $this->authenticate($user);
+        if ($ok) {
+            // TODO: Trouver comment déplacer cette fonctionnalité pour qu'il n'y ai pas de code dupliqué...
+            $this->getTwig()->addGlobal('auth', [
+                'pfpPath' => $_SESSION['pfpPath'] ?? null,
+                'loggedIn' => isset($_SESSION['uuid']),
+                'loggedUuid' => $_SESSION['uuid'] ?? null,
+                'loggedUsername' => $_SESSION['username'] ?? null,
+                'loggedComusCoin' => $_SESSION['comusCoin'] ?? null,
+                'loggedElo' => $_SESSION['elo'] ?? null,
+                'loggedXp' => $_SESSION['xp'] ?? null,
+                'role' => $_SESSION['role'] ?? null,
+                'firstName' => $_SESSION['firstName'] ?? null,
+                'lastName' => $_SESSION['lastName'] ?? null,
+            ]);
+        }
+        return $ok;
+    }
+
+    /**
+     * @brief Supprime les cookies de connexion
+     * @return void
+     */
+    private function clearRememberCookies(): void
+    {
+        Cookie::delete('rmb_token');
+        Cookie::delete('rmb_usr');
+        Cookie::delete('rmb_key');
     }
 
     /**
@@ -483,15 +514,13 @@ class ControllerAuth extends Controller
 
         if ($token && $userId) {
             $tokenManager = new RememberTokenDAO($this->getPdo());
-            $rmbToken = $tokenManager->find(base64_decode($userId), base64_decode($token));
+            $rmbToken = $tokenManager->find(intval(base64_decode($userId)), base64_decode($token));
             if ($rmbToken) {
                 $tokenManager->delete($rmbToken);
             }
         }
 
-        Cookie::delete('rmb_token');
-        Cookie::delete('rmb_usr');
-        Cookie::delete('rmb_key');
+        $this->clearRememberCookies();
 
         header('Location: /login');
     }
