@@ -391,7 +391,7 @@ class ControllerAuth extends Controller
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      */
-    public function authenticate(User $user): bool
+    private function authenticate(User $user): bool
     {
         $moderatorManager = new ModeratorDAO($this->getPdo());
         $moderator = $moderatorManager->findByUserId($user->getId());
@@ -425,9 +425,52 @@ class ControllerAuth extends Controller
     }
 
     /**
+     * @brief Permet de reprendre l'authentification via un cookie
+     * @details Vérifie si les cookies de connexion sont présents, puis authentifie l'utilisateur si c'est le cas
+     * @return bool Renvoie true si l'utilisateur est authentifié, false sinon
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
+     */
+    public function resumeAuthentication(): bool
+    {
+        $token = Cookie::get('rmb_token');
+        $userId = Cookie::get('rmb_usr');
+        $key = Cookie::get('rmb_key');
+
+        if (!$token && !$userId && !$key) {
+            return false;
+        }
+
+        $tokenManager = new RememberTokenDAO($this->getPdo());
+        $rmbToken = $tokenManager->find(base64_decode($userId), base64_decode($token));
+
+        if (!$rmbToken) {
+            return false;
+        }
+
+        if (!$rmbToken->isValid(base64_decode($key))) {
+            return false;
+        }
+
+        if ($rmbToken->isExpired()) {
+            $tokenManager->delete($rmbToken);
+            return false;
+        }
+
+        $user = (new UserDAO($this->getPdo()))->findById(base64_decode($userId));
+
+        if (!$user) {
+            return false;
+        }
+
+        return $this->authenticate($user);
+    }
+
+    /**
      * @brief Déconnecte l'utilisateur
      * @details Commence par démarrer la session afin de pouvoir y supprimer toutes les variables stockées dessus, puis détruit celle-ci.
      * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function logOut(): void
     {
