@@ -175,11 +175,14 @@ $router->get('/register', function () use ($loader, $twig) {
 }, 'guest');
 
 $router->post('/register', function () use ($loader, $twig) {
-    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
+    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwordConfirm']) && isset($_POST['termsOfService']) && isset($_POST['privacyPolicy'])) {
         ControllerFactory::getController("auth", $loader, $twig)->call("register", [
             "username" => $_POST['username'],
             "email" => $_POST['email'],
             "password" => $_POST['password'],
+            "passwordConfirm" => $_POST['passwordConfirm'],
+            "termsOfServiceIsChecked" => $_POST['termsOfService'] === 'true',
+            "privacyPolicyIsChecked" => $_POST['privacyPolicy'] === 'true',
             "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
         ]);
         exit;
@@ -312,6 +315,16 @@ $router->post('/profile/update-email', function () use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateEmail", ["email" => $_POST['newEmail']]);
     exit;
 }, 'player');
+
+$router->get('/suggests', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllSuggestionsWaiting");
+    exit;
+}, 'moderator');
+
+$router->get('/reports', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllReports");
+    exit;
+}, 'moderator');
 
 $router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getReportInformations", ["reportId" => $reportId]);

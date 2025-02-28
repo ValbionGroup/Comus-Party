@@ -15,6 +15,7 @@ require __DIR__ . '/src/App/Sockets/Game.php';
 require_once __DIR__ . '/include.php';
 
 use ComusParty\App\Sockets\Chat;
+use ComusParty\App\Sockets\Dashboard;
 use ComusParty\App\Sockets\Game;
 use Ratchet\WebSocket\WsServer;
 
@@ -28,4 +29,5 @@ $allowedOrigins = [
 $server = new Ratchet\App('sockets.comus-party.com', 21000);
 $server->route('/chat/{token}', new WsServer(new Chat()), $allowedOrigins);
 $server->route('/game/{token}', new WsServer(new Game()), $allowedOrigins);
+$server->route('/dashboard', new WsServer(new Dashboard()), $allowedOrigins);
 $server->run();

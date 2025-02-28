@@ -1,5 +1,6 @@
 const gameCode = document.getElementById('gameCode').value;
 const playerUuid = document.getElementById('localPlayerUuid').value;
+const headerUsername = document.getElementById('headerUsername').textContent;
 
 function setVisibilityPublic(gameCode, isPublic) {
     const visibilityButton = document.getElementById('visibilityBtn');
@@ -119,7 +120,7 @@ function receiveChatMessage(message) {
     newDiv.appendChild(usernameItem);
     newDiv.appendChild(contentItem);
     messageItem.appendChild(newDiv);
-    if (message.author !== document.getElementById('headerUsername').textContent) {
+    if (message.author !== headerUsername) {
         messageItem.appendChild(flag);
     }
     messages.appendChild(messageItem);
@@ -143,7 +144,14 @@ gameConnection.onopen = function (e) {
 };
 gameConnection.onmessage = function (e) {
     const data = JSON.parse(e.data);
-    const players = JSON.parse(data.content);
+    let players;
+    if (typeof data.content === 'string') {
+        players = JSON.parse(data.content);
+    } else if (typeof data.content === 'object') {
+        players = data.content; // Déjà parsé
+    } else {
+        return "Data is not a string or an object";
+    }
     let div = document.getElementById('players');
     Array.from(div.childNodes).forEach((child) => {
         child.remove();
@@ -177,7 +185,7 @@ gameConnection.onmessage = function (e) {
 
         newDiv.appendChild(pfp);
         newDiv.appendChild(pseudo);
-        if (player.username !== document.getElementById('headerUsername').textContent) {
+        if (player.username !== headerUsername) {
             newDiv.appendChild(flag);
         }
         div.appendChild(newDiv);
@@ -197,3 +205,15 @@ window.addEventListener('message', function (event) {
         window.location.href = '/';
     }
 });
+
+
+const players = document.getElementById('players').children;
+
+for (let player of players) {
+    let username = player.querySelector('p').textContent;
+    if (username === headerUsername) {
+        player.querySelector('div').classList.add('hidden');
+    } else {
+        player.querySelector('div').classList.remove('hidden');
+    }
+}
