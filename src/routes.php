@@ -316,12 +316,17 @@ $router->post('/profile/update-email', function () use ($loader, $twig) {
     exit;
 }, 'player');
 
-$router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
-    ControllerFactory::getController("dashboard", $loader, $twig)->call("getReportInformations", ["reportId" => $reportId]);
+$router->get('/suggests', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllSuggestionsWaiting");
     exit;
 }, 'moderator');
 
-$router->get('/suggests', function () use ($loader, $twig) {
-    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllSuggestionsWaiting");
+$router->get('/reports', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllReports");
+    exit;
+}, 'moderator');
+
+$router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getReportInformations", ["reportId" => $reportId]);
     exit;
 }, 'moderator');
