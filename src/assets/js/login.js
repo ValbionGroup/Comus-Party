@@ -52,17 +52,19 @@ function signIn(e) {
     const password = document.getElementById('password').value;
     const rememberMe = document.getElementById('rememberMe').checked;
 
-    let redirect = window.location.href.split('?')[1] !== undefined ?
-        (window.location.href.split('?')[1].indexOf('redirect=') !== -1 ?
-            window.location.href.split('?')[1].split('redirect=')[1] : '/')
-        : '/';
-    redirect = decodeURIComponent(redirect);
-    
+    const url = window.location.href
+    let redirect = '/';
+    if (url.split('?')[1] !== undefined) {
+        if (url.split('?')[1].indexOf('redirect=') !== -1) {
+            redirect = decodeURIComponent(url.split('redirect=')[1].split('&')[0]);
+        }
+    }
+
     const cfToken = turnstile.getResponse();
     makeRequest('POST', '/login', (response) => {
         response = JSON.parse(response);
         if (response.success) {
-            window.location.href = window.location.href.split('/login')[0] +
+            window.location.href = url.split('/login')[0] +
                 (redirect.at(0) === '/' ? redirect : '/' + redirect);
         } else {
             e.innerHTML = "Se connecter";
