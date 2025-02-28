@@ -56,9 +56,10 @@ $router->get('/login', function () use ($loader, $twig) {
 $router->post('/login', function () use ($loader, $twig) {
     try {
         if (isset($_POST['email']) && isset($_POST['password'])) {
-            ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
+            ControllerFactory::getController("auth", $loader, $twig)->call("login", [
                 "email" => $_POST['email'],
                 "password" => $_POST['password'],
+                "rememberMe" => isset($_POST['rememberMe']) && $_POST['rememberMe'] === 'true',
                 "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
             ]);
             exit;

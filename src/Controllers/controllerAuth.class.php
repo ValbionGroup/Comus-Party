@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\Cookie;
 use ComusParty\App\Exceptions\AuthenticationException;
 use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Mailer;
@@ -19,6 +20,9 @@ use ComusParty\Models\ModeratorDao;
 use ComusParty\Models\PasswordResetToken;
 use ComusParty\Models\PasswordResetTokenDAO;
 use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\RememberToken;
+use ComusParty\Models\RememberTokenDAO;
+use ComusParty\Models\User;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
@@ -265,10 +269,11 @@ class ControllerAuth extends Controller
      * Si toutes les vérifications passent, ouvre la session et renseigne les éléments importants en variables de session.
      * @param ?string $email Adresse e-mail fournie dans le formulaire de connexion
      * @param ?string $password Mot de passe fourni dans le formulaire de connexion
+     * @param ?bool $rememberMe Booléen permettant de savoir si l'utilisateur souhaite rester connecté
      * @param ?string $cloudflareCaptchaToken Token de captcha fourni par Cloudflare
      * @return bool
      */
-    public function authenticate(?string $email, ?string $password, ?string $cloudflareCaptchaToken): bool
+    public function login(?string $email, ?string $password, ?bool $rememberMe, ?string $cloudflareCaptchaToken): bool
     {
         $regles = [
             'email' => [
@@ -312,41 +317,27 @@ class ControllerAuth extends Controller
             if (!password_verify($password, $user->getPassword())) {
                 throw new AuthenticationException("Adresse e-mail ou mot de passe invalide");
             }
-            $moderatorManager = new ModeratorDAO($this->getPdo());
-            $moderator = $moderatorManager->findByUserId($user->getId());
 
-            $playerManager = new PlayerDAO($this->getPdo());
-            $player = $playerManager->findByUserId($user->getId());
+            if ($this->authenticate($user)) {
+                if ($rememberMe) {
+                    $token = new RememberToken($user->getId());
+                    $token->generateToken();
+                    $key = $token->generateKey();
 
-            if (is_null($player) && is_null($moderator)) {
-                throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
-            } elseif (!is_null($player)) {
-                $articleManager = new ArticleDAO($this->getPdo());
-                $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
-                $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
-                $_SESSION['role'] = 'player';
-                $_SESSION['uuid'] = $player->getUuid();
-                $_SESSION['username'] = $player->getUsername();
-                $_SESSION['comusCoin'] = $player->getComusCoin();
-                $_SESSION['elo'] = $player->getElo();
-                $_SESSION['xp'] = $player->getXp();
-                $_SESSION['basket'] = [];
-                $_SESSION['pfpPath'] = $player->getActivePfp();
+                    Cookie::set('rmb_token', base64_encode($token->getToken()), $token->getExpiresAt()->getTimestamp());
+                    Cookie::set('rmb_usr', base64_encode($user->getId()), $token->getExpiresAt()->getTimestamp());
+                    Cookie::set('rmb_key', base64_encode($key), $token->getExpiresAt()->getTimestamp());
+
+                    (new RememberTokenDAO($this->getPdo()))->insert($token);
+                }
+
                 echo json_encode([
                     'success' => true,
-                    'message' => "Vous êtes connecté en tant que joueur"
+                    'message' => "Vous êtes connecté en tant que " . ($_SESSION['role'] === 'player' ? "joueur" : "modérateur")
                 ]);
                 return true;
             } else {
-                $_SESSION['role'] = 'moderator';
-                $_SESSION['uuid'] = $moderator->getUuid();
-                $_SESSION['firstName'] = $moderator->getFirstName();
-                $_SESSION['lastName'] = $moderator->getLastName();
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Vous êtes connecté en tant que modérateur"
-                ]);
-                return true;
+                throw new AuthenticationException("Erreur lors de l'authentification");
             }
         } catch (Exception $e) {
             echo json_encode([
@@ -393,14 +384,144 @@ class ControllerAuth extends Controller
     }
 
     /**
+     * @brief Permet d'authentifier l'utilisateur
+     * @details Vérifie si l'utilisateur est un joueur ou un modérateur, puis stocke les informations nécessaires en variables de session
+     * @param User $user Utilisateur à authentifier
+     * @return bool Renvoie true si l'utilisateur est authentifié, false sinon
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
+     */
+    private function authenticate(User $user): bool
+    {
+        $moderatorManager = new ModeratorDAO($this->getPdo());
+        $moderator = $moderatorManager->findByUserId($user->getId());
+
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findByUserId($user->getId());
+
+        if (is_null($player) && is_null($moderator)) {
+            throw new AuthenticationException("Aucun joueur ou modérateur n'est associé à votre compte. Veuillez contacter un administrateur.");
+        }
+
+        if (!is_null($player)) {
+            $articleManager = new ArticleDAO($this->getPdo());
+            $activePfp = $articleManager->findActivePfpByPlayerUuid($player->getUuid());
+            $player->setActivePfp($activePfp == null ? "default-pfp.jpg" : $activePfp->getFilePath());
+            $_SESSION['role'] = 'player';
+            $_SESSION['uuid'] = $player->getUuid();
+            $_SESSION['username'] = $player->getUsername();
+            $_SESSION['comusCoin'] = $player->getComusCoin();
+            $_SESSION['elo'] = $player->getElo();
+            $_SESSION['xp'] = $player->getXp();
+            $_SESSION['basket'] = [];
+            $_SESSION['pfpPath'] = $player->getActivePfp();
+        } else {
+            $_SESSION['role'] = 'moderator';
+            $_SESSION['uuid'] = $moderator->getUuid();
+            $_SESSION['firstName'] = $moderator->getFirstName();
+            $_SESSION['lastName'] = $moderator->getLastName();
+        }
+        return true;
+    }
+
+    /**
+     * @brief Permet de reprendre la session via un cookie
+     * @details Vérifie si les cookies de connexion sont présents, puis authentifie l'utilisateur si c'est le cas
+     * @return bool Renvoie true si l'utilisateur est authentifié, false sinon
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
+     */
+    public function restoreSession(): bool
+    {
+        $token = Cookie::get('rmb_token');
+        $userId = Cookie::get('rmb_usr');
+        $key = Cookie::get('rmb_key');
+
+        if (!$token && !$userId && !$key) {
+            return false;
+        }
+
+        $tokenManager = new RememberTokenDAO($this->getPdo());
+        $rmbToken = $tokenManager->find(intval(base64_decode($userId)), base64_decode($token));
+
+        if (!$rmbToken) {
+            $this->clearRememberCookies();
+            return false;
+        }
+
+        if (!$rmbToken->isValid(base64_decode($key))) {
+            $this->clearRememberCookies();
+            return false;
+        }
+
+        if ($rmbToken->isExpired()) {
+            $tokenManager->delete($rmbToken);
+            $this->clearRememberCookies();
+            return false;
+        }
+
+        $user = (new UserDAO($this->getPdo()))->findById(intval(base64_decode($userId)));
+
+        if (!$user) {
+            $this->clearRememberCookies();
+            return false;
+        }
+
+        $ok = $this->authenticate($user);
+        if ($ok) {
+            // TODO: Trouver comment déplacer cette fonctionnalité pour qu'il n'y ai pas de code dupliqué...
+            $this->getTwig()->addGlobal('auth', [
+                'pfpPath' => $_SESSION['pfpPath'] ?? null,
+                'loggedIn' => isset($_SESSION['uuid']),
+                'loggedUuid' => $_SESSION['uuid'] ?? null,
+                'loggedUsername' => $_SESSION['username'] ?? null,
+                'loggedComusCoin' => $_SESSION['comusCoin'] ?? null,
+                'loggedElo' => $_SESSION['elo'] ?? null,
+                'loggedXp' => $_SESSION['xp'] ?? null,
+                'role' => $_SESSION['role'] ?? null,
+                'firstName' => $_SESSION['firstName'] ?? null,
+                'lastName' => $_SESSION['lastName'] ?? null,
+            ]);
+        }
+        return $ok;
+    }
+
+    /**
+     * @brief Supprime les cookies de connexion
+     * @return void
+     */
+    private function clearRememberCookies(): void
+    {
+        Cookie::delete('rmb_token');
+        Cookie::delete('rmb_usr');
+        Cookie::delete('rmb_key');
+    }
+
+    /**
      * @brief Déconnecte l'utilisateur
      * @details Commence par démarrer la session afin de pouvoir y supprimer toutes les variables stockées dessus, puis détruit celle-ci.
      * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function logOut(): void
     {
         session_unset();
         session_destroy();
+
+        // Supprimer les cookies de connexion si existants
+        $token = Cookie::get('rmb_token');
+        $userId = Cookie::get('rmb_usr');
+
+        if ($token && $userId) {
+            $tokenManager = new RememberTokenDAO($this->getPdo());
+            $rmbToken = $tokenManager->find(intval(base64_decode($userId)), base64_decode($token));
+            if ($rmbToken) {
+                $tokenManager->delete($rmbToken);
+            }
+        }
+
+        $this->clearRememberCookies();
+
         header('Location: /login');
     }
 
