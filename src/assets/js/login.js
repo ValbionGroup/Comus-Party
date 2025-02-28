@@ -28,21 +28,36 @@ function checkEmailRequirements() {
     // Variables
     let inputEmail = document.getElementById('email');
     let incorrectEmailFormat = document.getElementById("incorrectEmailFormat");
-    let submitButton = document.getElementById("submitButton");
 
     // Vérifications
     if (!EMAIL_REGEX.test(EMAIL)) {
-        submitButton.disabled = true;
-        submitButton.classList.add("btn-disabled");
-        submitButton.classList.remove("btn-primary");
+        emailState = false;
+        changeButtonState();
         inputEmail.classList.add("input-error");
         incorrectEmailFormat.classList.remove("hidden");
     } else {
-        submitButton.disabled = false;
+        emailState = true;
+        changeButtonState();
         inputEmail.classList.remove("input-error");
+        incorrectEmailFormat.classList.add("hidden");
+    }
+}
+
+let emailState = false;
+let passwordState = false;
+let turnstileState = false;
+
+function changeButtonState() {
+    let submitButton = document.getElementById("submitButton");
+
+    if (emailState && passwordState && turnstileState) {
+        submitButton.disabled = false;
         submitButton.classList.remove("btn-disabled");
         submitButton.classList.add("btn-primary");
-        incorrectEmailFormat.classList.add("hidden");
+    } else {
+        submitButton.disabled = true;
+        submitButton.classList.add("btn-disabled");
+        submitButton.classList.remove("btn-primary");
     }
 }
 
