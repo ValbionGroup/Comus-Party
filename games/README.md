@@ -62,6 +62,7 @@ Liste des paramètres possibles pour `neededParametersFromComus` :
 - `MODIFIED_SETTING_DATA` : Liste des paramètres modifiés par l'hôte de la partie
 - `PLAYER_UUID` : Les uuids des joueurs dans la partie
 - `PLAYER_NAME` : Les noms des joueurs dans la partie
+- `PLAYER_STYLE` : Photo de profil et bannière des joueurs
 
 Liste des paramètres possibles pour `returnParametersToComus` :
 
@@ -109,11 +110,101 @@ Chaque type a des propriétés spécifiques :
     - `default` : Option par défaut
 
 
- ## Format des données envoyés par Comus Party
+## Format des données envoyés par Comus Party
 
- ## Format des données attendus par Comus Party
+> [!NOTE]  
+> Tous les attributs sont *facultatifs* et **cumulables**.
 
- ### Scores
+### Paramètres modifiés par l'hôte de la partie
+
+Dans le cas où `neededParametersFromComus` contient la valeur `MODIFIED_SETTING_DATA`, le système envoi un tableau associatif au format *JSON* dans le paramètre `settings` :
+```json
+{
+  "identifiantDuParam": "valeur"
+}
+```
+
+### Joueurs
+
+Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_UUID`, le système envoi un tableau associatif au format *JSON* :
+```json
+[
+  {
+    "uuid": "uuidJoueur1",
+    "token" : "jetonJoueur1"
+  },
+  {
+    "uuid": "uuidJoueur2",
+    "token": "jetonJoueur2"
+  }
+]
+```
+
+La présence du token est obligatoire pour tous les jeux.
+
+En effet ... *(à compléter)*
+
+### Noms des joueurs
+
+Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_NAME`, le système rajoute au tableau précédent les noms des joueurs :
+```json
+[
+  {
+    "uuid": "uuidJoueur1",
+    "token" : "jetonJoueur1",
+    "username": "Nom du joueur 1"
+  },
+  {
+    "uuid": "uuidJoueur2",
+    "token": "jetonJoueur2",
+    "username": "Nom du joueur 2"
+  }
+]
+```
+
+> [!CAUTION]  
+> Si l'attribut `PLAYER_UUID` n'est pas présent, l'attribut `PLAYER_NAME` ne sera pas pris en compte.
+
+### Style des joueurs
+
+Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_STYLE`, le système rajoute au tableau précédent les styles des joueurs :
+```json
+[
+  {
+    "uuid": "uuidJoueur1",
+    "token" : "jetonJoueur1",
+    "style": {
+      "profilePicture": "urlPhotoProfilJoueur1",
+      "banner": "urlBanniereJoueur1"
+    }
+  },
+  {
+    "uuid": "uuidJoueur2",
+    "token": "jetonJoueur2",
+    "style": {
+      "profilePicture": "urlPhotoProfilJoueur2",
+      "banner": "urlBanniereJoueur2"
+    }
+  }
+]
+```
+
+> [!CAUTION]  
+> Si l'attribut `PLAYER_UUID` n'est pas présent, l'attribut `PLAYER_STYLE` ne sera pas pris en compte.
+
+## Format des données attendues par Comus Party
+
+### Gagnants
+
+Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au format *JSON* :
+```json
+[
+  "uuid1",
+  "uuid2"
+]
+```
+
+### Scores
 
 Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format *JSON* :
 ```json

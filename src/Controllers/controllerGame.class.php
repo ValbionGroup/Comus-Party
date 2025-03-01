@@ -132,16 +132,29 @@ class ControllerGame extends Controller
             $gameRecord->setPlayers($players);
             (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
 
-            $data = [
-                "settings" => $settings,
-                "players" => array_map(function ($player) {
-                    return [
-                        'uuid' => $player["player"]->getUuid(),
-                        'username' => $player["player"]->getUsername(),
-                        'token' => $player["token"]
-                    ];
-                }, $gameRecord->getPlayers()),
-            ];
+            $data = [];
+
+            if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
+                $data[] = [
+                    "settings" => $settings,
+                ];
+            }
+
+            if (in_array("PLAYER_UUID", $gameSettings["neededParametersFromComus"])) {
+                $data[] = [
+                    "players" => array_map(function ($player) use ($gameSettings) {
+                        return [
+                            'uuid' => $player["player"]->getUuid(),
+                            ...(in_array("PLAYER_NAME", $gameSettings["returnParametersToComus"]) ? ['username' => $player["player"]->getUsername()] : []),
+                            ...(in_array('PLAYER_STYLE', $gameSettings["returnParametersToComus"]) ? ['style' => [
+                                "profilePicture" => $player["player"]->getActivePfp(),
+                                "banner" => $player["player"]->getActiveBanner(),
+                            ]] : []),
+                            'token' => $player["token"]
+                        ];
+                    }, $gameRecord->getPlayers()),
+                ];
+            }
 
             $ch = curl_init($baseUrl . "/" . $gameRecord->getCode() . "/init");
             curl_setopt($ch, CURLOPT_POST, true);
@@ -615,9 +628,11 @@ class ControllerGame extends Controller
                 throw new MalformedRequestException("La partie n'a pas commencé ou est déjà terminée");
             }
 
-            foreach ($scores as $playerUuid => $playerScore) {
-                if (!in_array($playerUuid, array_map(fn($player) => $player["player"]->getUuid(), $gameRecord->getPlayers()))) {
-                    throw new MalformedRequestException("Le joueur $playerUuid n'est pas dans la partie");
+            if (in_array("SCORES", $this->getGameSettings($gameRecord->getGame()->getId())["returnParametersToComus"])) {
+                foreach ($scores as $playerUuid => $playerScore) {
+                    if (!in_array($playerUuid, array_map(fn($player) => $player["player"]->getUuid(), $gameRecord->getPlayers()))) {
+                        throw new MalformedRequestException("Le joueur $playerUuid n'est pas dans la partie");
+                    }
                 }
             }
 
