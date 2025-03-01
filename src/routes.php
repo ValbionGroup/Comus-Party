@@ -323,7 +323,7 @@ $router->get('/suggests', function () use ($loader, $twig) {
 }, 'moderator');
 
 $router->get('/reports', function () use ($loader, $twig) {
-    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllReports");
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllReportsWaiting");
     exit;
 }, 'moderator');
 

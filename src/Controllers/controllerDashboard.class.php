@@ -157,4 +157,35 @@ class ControllerDashboard extends Controller
         ]);
         exit;
     }
+
+    /**
+     * @brief Renvoi les informations au format JSON de tous les signalements en attente
+     * @return void
+     * @throws DateMalformedStringException
+     */
+    public function getAllReportsWaiting(): void {
+        $reportsManager = new ReportDAO($this->getPdo());
+        $reports = $reportsManager->findAllWaiting();
+        if (empty($reports)) {
+            echo json_encode([
+                "success" => true,
+                "reports" => null,
+            ]);
+            exit;
+        }
+        echo json_encode([
+            "success" => true,
+            "reports" => array_map(fn($report) => [
+                "id" => $report->getId(),
+                "object" => $report->getObject()->name,
+                "description" => $report->getDescription(),
+                "author_uuid" => $report->getSenderUuid(),
+                "author_username" => (new PlayerDAO($this->getPdo()))->findByUuid($report->getSenderUuid())->getUsername(),
+                "reported_uuid" => $report->getReportedUuid(),
+                "reported_username" => (new PlayerDAO($this->getPdo()))->findByUuid($report->getReportedUuid())->getUsername(),
+                "created_at" => $report->getCreatedAt()->getTimestamp() * 1000,
+            ], $reports),
+        ]);
+        exit;
+    }
 }
