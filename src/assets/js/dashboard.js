@@ -7,6 +7,13 @@
  *   @version 0.1
  */
 
+const modalPenalty = document.getElementById('modalPenaltyForm');
+const selectPenalty = modalPenalty.querySelector('select[name="typeDuration"]');
+const selectPenaltyType = modalPenalty.querySelector('select[name="typePenalty"]');
+const inputDuration = document.getElementById('duration');
+const errorType = document.getElementById('errorType');
+const errorDuration = document.getElementById('errorDuration');
+const btnPenalty = document.getElementById('btnPenalty');
 
 function showModalSuggest(e) {
     let suggestId = e.id;
@@ -159,6 +166,56 @@ function denyReport(e) {
 
 function acceptReport(e) {
     dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
+    closeModal();
+    modalPenalty.classList.remove("hidden");
+    showBackgroundModal();
+}
+
+selectPenalty.addEventListener('change', function () {
+    let penalty = selectPenalty.value;
+
+    if (penalty === "permanent") {
+        inputDuration.disabled = true;
+        inputDuration.classList.add("input-disabled");
+        inputDuration.value = "";
+    } else {
+        inputDuration.disabled = false;
+        inputDuration.classList.remove("input-disabled");
+    }
+});
+
+inputDuration.addEventListener('input', function () {
+    inputDuration.value = inputDuration.value.replace(/[^0-9]/, '');
+});
+
+function verifPenaltyForm() {
+
+    let isTypeValid = true;
+    let isDurationValid = true;
+
+    if (selectPenaltyType.value === "default") {
+        selectPenaltyType.classList.add("input-error");
+        errorType.classList.remove("hidden");
+        isDurationValid = false;
+    } else {
+        selectPenaltyType.classList.remove("input-error");
+        errorType.classList.add("hidden");
+    }
+
+    if (selectPenalty.value !== "Permanent" && inputDuration.value === "") {
+        inputDuration.classList.add("input-error");
+        errorDuration.classList.remove("hidden");
+        isDurationValid = false;
+    } else {
+        inputDuration.classList.remove("input-error");
+        errorDuration.classList.add("hidden");
+    }
+
+    if (isTypeValid && isDurationValid) {
+        btnPenalty.disabled = false;
+        btnPenalty.classList.remove("btn-disabled");
+        btnPenalty.classList.add("btn-primary");
+    }
 }
 
 // WebSocket
@@ -247,6 +304,7 @@ function updateSuggests() {
         }
     });
 }
+
 
 function updateReports() {
     makeRequest('GET', '/reports', (response) => {
@@ -350,3 +408,11 @@ function timeAgo(timestamp) {
         return years === 1 ? "il y a 1 an" : `il y a ${years} ans`;
     }
 }
+
+    selectPenaltyType.addEventListener('change', function () {
+    verifPenaltyForm();
+});
+
+inputDuration.addEventListener('input', function () {
+    verifPenaltyForm();
+});

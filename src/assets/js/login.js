@@ -8,14 +8,23 @@
 
 window.onload = function () {
     const INPUT_EMAIL = document.getElementById('email');
+    const INPUT_PASSWORD = document.getElementById('password');
     INPUT_EMAIL.addEventListener("input", checkEmailRequirements);
+    INPUT_PASSWORD.addEventListener("input", checkPasswordRequirements);
+
+    // Initialisation des variables — Obligatoire pour fonctionner avec Turnstile
+    document.validateButton = document.getElementById("submitButton");
+    document.validateInputs = {
+            emailState: false,
+            passwordState: false
+    };
 }
 
 /**
  * @brief Vérifie si l'email respecte les exigences spécifiées.
  *
- * @details La fonction vérifie si l'email:
- * - a un format valide
+ * @details La fonction vérifie si l'email a un format valide.
+ *
  * Si l'email ne respecte pas ces exigences, le bouton de soumission est désactivé
  * et un message d'erreur est affiché.
  *
@@ -23,26 +32,43 @@ window.onload = function () {
  */
 function checkEmailRequirements() {
     // Constantes
+    const BUTTON = document.getElementById("submitButton"); // Bouton de soumission
     const EMAIL = document.getElementById("email").value; // Email
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex pour valider le format de l'email
     // Variables
     let inputEmail = document.getElementById('email');
     let incorrectEmailFormat = document.getElementById("incorrectEmailFormat");
-    let submitButton = document.getElementById("submitButton");
 
     // Vérifications
     if (!EMAIL_REGEX.test(EMAIL)) {
-        submitButton.disabled = true;
-        submitButton.classList.add("btn-disabled");
-        submitButton.classList.remove("btn-primary");
+        document.validateInputs.emailState = false;
         inputEmail.classList.add("input-error");
         incorrectEmailFormat.classList.remove("hidden");
+        changeButtonState(BUTTON, Object.values(document.validateInputs), true);
     } else {
-        submitButton.disabled = false;
+        document.validateInputs.emailState = true;
         inputEmail.classList.remove("input-error");
-        submitButton.classList.remove("btn-disabled");
-        submitButton.classList.add("btn-primary");
         incorrectEmailFormat.classList.add("hidden");
+        changeButtonState(BUTTON, Object.values(document.validateInputs), true);
+    }
+}
+
+function checkPasswordRequirements() {
+    const BUTTON = document.getElementById("submitButton");
+    const PASSWORD = document.getElementById("password").value;
+    let inputPassword = document.getElementById('password');
+    let incorrectPasswordFormat = document.getElementById("incorrectPasswordFormat");
+
+    if (PASSWORD.length < 8) {
+        document.validateInputs.passwordState = false;
+        inputPassword.classList.add("input-error");
+        incorrectPasswordFormat.classList.remove("hidden");
+        changeButtonState(BUTTON, Object.values(document.validateInputs), true);
+    } else {
+        document.validateInputs.passwordState = true;
+        inputPassword.classList.remove("input-error");
+        incorrectPasswordFormat.classList.add("hidden");
+        changeButtonState(BUTTON, Object.values(document.validateInputs), true);
     }
 }
 
@@ -71,6 +97,7 @@ function signIn(e) {
             e.classList.remove("btn-disabled");
             e.classList.add("btn-primary");
             e.disabled = false;
+            changeButtonState(document.getElementById('submitButton'), Object.values(document.validateInputs), true);
             showNotification("Oups...", response.message, "red");
             turnstileExpiredCallback();
         }

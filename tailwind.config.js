@@ -127,6 +127,23 @@ module.exports = {
                         },
                     }
                 },
+                '.input-disabled': {
+                    appearance: 'none',
+                    lineHeight: theme('leading.thight'),
+                    transition: 'all 0.3s ease-in-out',
+                    borderRadius: theme('borderRadius.xl'),
+                    backgroundColor: theme('colors.gray.200'),
+                    borderWidth: '1px',
+                    outline: 'none',
+                    borderColor: theme('colors.gray.400'),
+                    padding: theme('padding.2'),
+                    cursor: 'not-allowed',
+                    '@media (prefers-color-scheme: dark)': {
+                        backgroundColor: theme('colors.gray.800'),
+                        borderColor: theme('colors.gray.1000'),
+                        outline: 'none',
+                    },
+                },
 
                 '.input-error-text': {
                     color: theme('colors.red.500'),

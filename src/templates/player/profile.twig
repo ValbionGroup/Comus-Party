@@ -203,7 +203,7 @@
             <div class="col-span-7 ml-10 mt-10 lg:mt-0">
                 <div class="g-1 flex flex-col justify-between">
                     <label>
-                        <input class="mb-2 w-full  input" type="password" minlength="8" maxlength="64" id="newPassword"
+                        <input autocomplete="new-password" class="mb-2 w-full  input" type="password" minlength="8" maxlength="64" id="newPassword"
                                onkeyup="verifPassword()"
                                placeholder="Insérez votre nouveau mot de passe" name="newPassword">
                     </label>
@@ -216,7 +216,7 @@
                     <p class="input-error-text text-red-600 hidden mb-2" id="passwordNoSpecialCharacter"></p>
                     <!-- Confirmation de modification -->
                     <label>
-                        <input class="mb-2 p-2 w-full  input" type="password" minlength="8" maxlength="64"
+                        <input autocomplete="new-password" class="mb-2 p-2 w-full  input" type="password" minlength="8" maxlength="64"
                                id="newPasswordConfirm" onkeyup="matchPassword()"
                                placeholder="Confirmez votre nouveau mot de passe" name="newPswdConf">
 
@@ -348,7 +348,7 @@
             <div class="pt-5 text-justify">
                 <div class="w-auto flex flex-col">
                     <label for="newUsername" class="text-lg font-semibold">Nouveau pseudonyme :</label>
-                    <input type="text" id="newUsername" name="newUsername" class="input w-full" placeholder="JohnDoe"
+                    <input autocomplete="username" type="text" id="newUsername" name="newUsername" class="input w-full" placeholder="JohnDoe"
                            onkeyup="checkUsername()" required>
                     <p class="input-error-text text-red-600 hidden pt-1" id="usernameError"></p>
                     <div class="flex gap-2 justify-end mt-3">
@@ -372,7 +372,7 @@
             <div class="pt-5 text-justify">
                 <div class="w-auto flex flex-col">
                     <label for="newEmail" class="text-lg font-semibold">Nouvelle adresse e-mail :</label>
-                    <input type="text" id="newEmail" name="newEmail" class="input w-full"
+                    <input autocomplete="email" type="text" id="newEmail" name="newEmail" class="input w-full"
                            placeholder="john.doe@example.com" required>
                     <p class="input-error-text text-red-600 hidden" id="incorrectEmailAt"></p>
                     <p class="input-error-text text-red-600 hidden" id="incorrectEmailDot"></p>
