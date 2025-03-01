@@ -17,9 +17,12 @@ use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\Mailer;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\Penalty;
+use ComusParty\Models\PenaltyDAO;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
+use DateTime;
 use Exception;
 use Random\RandomException;
 use Twig\Environment;
@@ -376,5 +379,37 @@ class ControllerProfile extends Controller
         }
     }
 
+    public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, string $penaltyType)
+    {
 
+        $duration = match ($durationType) {
+            'minutes' => $duration * 60,
+            'hours' => $duration * 3600,
+            'days' => $duration * 86400,
+            'months' => $duration * 2628000,
+            'years' => $duration * 31536000,
+            default => null,
+        };
+
+        $penaltyManager = new PenaltyDAO($this->getPdo());
+        $penalty = new Penalty();
+        $penalty->setCreatedBy($createdBy);
+        $penalty->setPenalizedUuid($penalizedUuid);
+        $penalty->setReason($reason);
+        $penalty->setDuration($duration);
+        $penalty->setType($penaltyType);
+        $penalty->setCreatedAt(new DateTime());
+        $penalty->setUpdatedAt(new DateTime());
+        if (!$penaltyManager->createPenalty($penalty)) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Erreur lors de la création de la sanction'
+            ]);
+            exit;
+        }
+        echo json_encode([
+            'success' => true,
+        ]);
+        exit;
+    }
 }
