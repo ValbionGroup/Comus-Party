@@ -16,7 +16,6 @@ let settingsBlock = document.getElementById('settings');
 let statisticsBlock = document.getElementById('statistics');
 
 let modal = document.getElementById('modalConfirmationSuppression');
-let background = document.getElementById('backgroundModal');
 
 let pfpTitle = document.getElementById("pfpTitle");
 let pfpDescription = document.getElementById("pfpDescription");
@@ -74,12 +73,12 @@ function infoArticleBanner(article) {
 
 function showModalPfp() {
     modalPfp.classList.remove("hidden")
-    background.classList.remove("hidden")
+    showBackgroundModal()
 }
 
 function showModalBanner() {
     modalBanner.classList.remove("hidden")
-    background.classList.remove("hidden")
+    showBackgroundModal()
 }
 
 function closeModal() {
@@ -94,7 +93,7 @@ function closeModal() {
         }
     });
 
-    background.classList.add("hidden");
+    closeBackgroundModal();
 }
 
 
@@ -175,7 +174,7 @@ function equipArticle() {
 
 function showModalSuppression() {
     modal.classList.remove("hidden");
-    background.classList.remove("hidden");
+    showBackgroundModal();
 }
 
 // MODIFICATION MOT DE PASSE
@@ -219,7 +218,7 @@ function updateErrorMessage(input, errorElementId, condition, errorMessage) {
 function verifPassword() {
 
     confirmPasswordBtn.disabled = true
-    if(inputNewPassword.value === ""){
+    if (inputNewPassword.value === "") {
         updateErrorMessage(inputNewPassword, "passwordTooShort", true, "");
         updateErrorMessage(inputNewPassword, "passwordTooLong", true, "");
         updateErrorMessage(inputNewPassword, "passwordNoUppercase", true, "");
@@ -294,14 +293,15 @@ function updatePassword() {
     }
 }
 
+
 function showModalUsernameEdit() {
     modalEditUsername.classList.remove("hidden");
-    background.classList.remove("hidden");
+    showBackgroundModal();
 }
 
 function showModalEditEmail() {
     modalEditEmail.classList.remove("hidden");
-    background.classList.remove("hidden");
+    showBackgroundModal();
 }
 
 function checkUsername() {
@@ -309,7 +309,7 @@ function checkUsername() {
     let usernameError = document.getElementById("usernameError");
     let submitButton = document.getElementById("submitButtonUsername");
 
-    if (username.length === 0 ) {
+    if (username.length === 0) {
         usernameError.classList.add("hidden");
         usernameError.innerHTML = "";
         submitButton.disabled = true;
@@ -331,9 +331,8 @@ function checkUsername() {
         submitButton.disabled = true;
         submitButton.classList.add("btn-disabled");
         submitButton.classList.remove("btn-success");
-        return;
-    }
-    else {
+
+    } else {
         usernameError.classList.add("hidden");
         usernameError.innerHTML = "";
         submitButton.disabled = false;
@@ -377,8 +376,7 @@ function editUsername(e) {
             e.classList.add("btn-disabled");
             e.classList.remove("btn-primary");
             e.disabled = true;
-        }
-        else {
+        } else {
             e.innerHTML = "Confirmer";
             e.classList.remove("btn-disabled");
             e.classList.add("btn-primary");

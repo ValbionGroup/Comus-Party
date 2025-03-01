@@ -10,7 +10,7 @@
             <h1 class="text-3xl font-bold">Connexion</h1>
             <p>Pour continuer veuillez vous connecter</p>
         </div>
-        <form action="" method="post" class="mt-8 space-y-6">
+        <div class="mt-8 space-y-6">
             <div>
                 <label for="email" class="block">Adresse email</label>
                 <input type="email" name="email" id="email" class="w-full input" placeholder="john.doe@example.com"
@@ -24,27 +24,38 @@
                        required>
             </div>
 
+            <div class="flex align-left items-center mb-2">
+                <input id="rememberMe" name="rememberMe" type="checkbox" class="flex-shrink-0 mr-2 ml-2 w-4 h-4 appearance-none border border-night-2 dark:border-night-2 rounded bg-lavender-blush-1 dark:bg-lavender-blush-1 checked:bg-blue-violet-base dark:checked:bg-blue-violet-base checked:border-celestial-blue-600 focus:outline-none focus:ring-2 focus:ring-celestial-blue-base transition-all duration-200
+                    checked:before:content-['✓'] checked:before:text-white checked:before:relative checked:before:left-[2px] checked:before:bottom-[6px]">
+                <label for="rememberMe">Se souvenir de moi</label>
+            </div>
+
             <div
                     class="cf-turnstile"
                     data-size="flexible"
                     data-sitekey="{{ turnstile_siteKey }}"
                     data-callback="turnstileSuccessCallback"
                     data-error-callback="turnstileErrorCallback"
-            ></div>
+                    data-unsupported-callback="turnstileErrorCallback"
+                    data-before-interactive-callback="turnstileManualCallback"
+                    data-expired-callback="turnstileExpiredCallback"
+                    data-feedback-enabled="false"
+            >
+            </div>
 
             <div>
-                <div id="captcha-status" class="flex mb-2 gap-2 text-gray-500">
+                <div id="captcha-status" class="flex mb-2 gap-2 text-gray-500 transition-all duration-200">
                     <span id="captcha-status-icon" style="width: 24px; height: 24px;">
                         <i class="loader" style="width: 22px; height: 22px;"></i>
                     </span>
                     <span id="captcha-status-text">Vérification Captcha en cours...</span>
                 </div>
 
-                <button type="submit" id="submitButton" class="w-full btn-disabled flex justify-center"
+                <button type="button" id="submitButton" class="w-full btn-disabled flex justify-center"
                         onclick="signIn(this)" disabled>Se connecter
                 </button>
             </div>
-        </form>
+        </div>
         <div class="flex flex-col mt-7 gap-2">
             <div class="flex justify-center">
                 <a href="/forgot-password"

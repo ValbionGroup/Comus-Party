@@ -12,6 +12,7 @@ require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/config/mail.php';
 
 require_once __DIR__ . '/src/App/Db.php';
+require_once __DIR__ . '/src/App/Cookie.php';
 require_once __DIR__ . '/src/App/Router.php';
 require_once __DIR__ . '/src/App/Mailer.php';
 require_once __DIR__ . '/src/App/Validator.php';
@@ -31,6 +32,7 @@ require_once __DIR__ . '/src/App/Exceptions/GameSettingsException.php';
 
 require_once __DIR__ . '/src/App/Sockets/Chat.php';
 require_once __DIR__ . '/src/App/Sockets/Game.php';
+require_once __DIR__ . '/src/App/Sockets/Dashboard.php';
 
 require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
 require_once __DIR__ . '/src/Controllers/controller.class.php';
@@ -57,6 +59,8 @@ require_once __DIR__ . '/src/Models/invoice.dao.php';
 require_once __DIR__ . '/src/Models/statistics.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.class.php';
 require_once __DIR__ . '/src/Models/passwordResetToken.dao.php';
+require_once __DIR__ . '/src/Models/rememberToken.class.php';
+require_once __DIR__ . '/src/Models/rememberToken.dao.php';
 require_once __DIR__ . '/src/Models/gameRecord.class.php';
 require_once __DIR__ . '/src/Models/gameRecord.dao.php';
 require_once __DIR__ . '/src/Models/suggestion.class.php';

@@ -65,17 +65,29 @@ function signIn(e) {
     loading(e);
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const rememberMe = document.getElementById('rememberMe').checked;
+
+    const url = window.location.href
+    let redirect = '/';
+    if (url.split('?')[1] !== undefined) {
+        if (url.split('?')[1].indexOf('redirect=') !== -1) {
+            redirect = decodeURIComponent(url.split('redirect=')[1].split('&')[0]);
+        }
+    }
+
     const cfToken = turnstile.getResponse();
     makeRequest('POST', '/login', (response) => {
         response = JSON.parse(response);
         if (response.success) {
-            window.location.href = '/';
+            window.location.href = url.split('/login')[0] +
+                (redirect.at(0) === '/' ? redirect : '/' + redirect);
         } else {
             e.innerHTML = "Se connecter";
             e.classList.remove("btn-disabled");
             e.classList.add("btn-primary");
             e.disabled = false;
             showNotification("Oups...", response.message, "red");
+            turnstileExpiredCallback();
         }
-    }, `email=${email}&password=${password}&cfToken=${cfToken}`);
+    }, `email=${email}&password=${password}&rememberMe=${rememberMe}&cfToken=${cfToken}`);
 }

@@ -10,6 +10,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\App\MessageHandler;
+use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\ReportDAO;
 use ComusParty\Models\SuggestionDAO;
 use DateMalformedStringException;
@@ -67,15 +68,7 @@ class ControllerDashboard extends Controller
     public function denySuggestion(int $id)
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
-        if ($suggestsManager->deny($id)) {
-            MessageHandler::addMessageParametersToSession("La suggestion a bien été refusée");
-            echo json_encode(['success' => true]);
-            exit;
-        } else {
-            MessageHandler::addExceptionParametersToSession(new Exception("Une erreur est survenue lors du refus de la suggestion"));
-            echo json_encode(['success' => false]);
-            exit;
-        }
+        echo json_encode(['success' => $suggestsManager->deny($id)]);
     }
 
     /**
@@ -86,15 +79,8 @@ class ControllerDashboard extends Controller
     public function acceptSuggestion(int $id)
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
-        if ($suggestsManager->accept($id)) {
-            MessageHandler::addMessageParametersToSession("La suggestion a bien été acceptée");
-            echo json_encode(['success' => true]);
-            exit;
-        } else {
-            MessageHandler::addExceptionParametersToSession(new Exception("Une erreur est survenue lors de l'acceptation de la suggestion"));
-            echo json_encode(['success' => false]);
-            exit;
-        }
+        echo json_encode(['success' => $suggestsManager->accept($id)]);
+        exit;
     }
 
     /**
@@ -114,6 +100,59 @@ class ControllerDashboard extends Controller
                 "object" => $suggestion->getObject()->name,
                 "content" => $suggestion->getContent(),
                 "author_username" => $suggestion->getAuthorUsername(),
+            ],
+        ]);
+        exit;
+    }
+
+    /**
+     * @brief Récupère toutes les suggestions en attente et les renvoi sous format JSON
+     * @return void
+     */
+    public function getAllSuggestionsWaiting(): void {
+        $suggestsManager = new SuggestionDAO($this->getPdo());
+        $suggestions = $suggestsManager->findAllWaiting();
+        if (empty($suggestions)) {
+            echo json_encode([
+                "success" => true,
+                "suggestions" => null,
+            ]);
+            exit;
+        }
+        echo json_encode([
+            "success" => true,
+            "suggestions" => array_map(fn($suggestion) => [
+                "id" => $suggestion->getId(),
+                "object" => $suggestion->getObject()->name,
+                "content" => $suggestion->getContent(),
+                "author_username" => $suggestion->getAuthorUsername(),
+                "created_at" => $suggestion->getCreatedAt()->getTimestamp() * 1000,
+            ], $suggestions),
+        ]);
+        exit;
+    }
+
+    /**
+     * @brief Retourne les informations au format JSON à propos d'un signalement
+     * @param int|null $id L'identifiant du signalement à récupérer
+     * @throws DateMalformedStringException
+     */
+    public function getReportInformations(?int $id)
+    {
+        $reportsManager = new ReportDAO($this->getPdo());
+        $playerManager = new PlayerDAO($this->getPdo());
+        $report = $reportsManager->findById($id);
+        echo json_encode([
+            "success" => true,
+            "report" => [
+                "id" => $report->getId(),
+                "object" => $report->getObject()->name,
+                "description" => $report->getDescription(),
+                "author_uuid" => $report->getSenderUuid(),
+                "author_username" => $playerManager->findByUuid($report->getSenderUuid())->getUsername(),
+                "reported_uuid" => $report->getReportedUuid(),
+                "reported_username" => $playerManager->findByUuid($report->getReportedUuid())->getUsername(),
+                "created_at" => $report->getCreatedAt()->format('d/m/Y H:i:s'),
             ],
         ]);
         exit;
