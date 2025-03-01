@@ -8,14 +8,14 @@
     <div class="w-full">
         <div class="mt-4 sm:mt-0">
             <h1 class="text-3xl font-bold">Inscription</h1>
-            <p>Pour continuer veuillez vous inscrire et confirmer votre compte</p>
+            <p>Pour continuer, veuillez vous inscrire et confirmer votre compte</p>
         </div>
 
         <!-- Formulaire pour l'inscription de l'utilisateur -->
         <div id="registrationForm" class="mt-8 space-y-6">
             <div>
                 <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" placeholder="JohnDoe" autofocus class="w-full input"
+                <input autocomplete="username" type="text" id="username" name="username" placeholder="JohnDoe" autofocus class="w-full input"
                        required>
 
                 <p class="input-error-text text-red-600 hidden" id="usernameTooShort"></p>
@@ -25,7 +25,7 @@
 
             <div>
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="john.doe@example.com" class="w-full input"
+                <input autocomplete="email" type="email" id="email" name="email" placeholder="john.doe@example.com" class="w-full input"
                        required>
 
                 <p class="input-error-text text-red-600 hidden" id="incorrectEmailFormat"></p>
@@ -34,7 +34,7 @@
             <div>
                 <label for="password">Mot de passe</label>
                 <div class="flex w-full">
-                    <input type="password" id="password" name="password" placeholder="●●●●●●●●●●●●" class="w-full input"
+                    <input autocomplete="new-password" type="password" id="password" name="password" placeholder="●●●●●●●●●●●●" class="w-full input"
                            required>
                     <!-- Bouton icone oeil -->
                     <button type="button" id="togglePassword" class="m-2">
@@ -61,7 +61,7 @@
             <div>
                 <label for="passwordConfirm">Confirmation du mot de passe</label>
                 <div class="flex w-full">
-                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="●●●●●●●●●●●●"
+                    <input autocomplete="new-password" type="password" id="passwordConfirm" name="passwordConfirm" placeholder="●●●●●●●●●●●●"
                            class="w-full input" required>
                     <!-- Bouton icone oeil -->
                     <button type="button" id="togglePasswordConfirm" class="m-2">
