@@ -20,12 +20,12 @@
             </div>
             <hr>
             <div class="flex flex-col gap-y-2">
-                <input type="hidden" name="id" value="{{ id }}">
+                <input type="hidden" name="penalizePlayerUuid" id="penalizePlayerUuid" value="">
                 <label for="typePenalty" class="mt-2">Type: </label>
                 <select name="typePenalty" id="typePenalty" class="input">
                     <option disabled selected value="default">Sélectionnez une option</option>
-                    <option value="ban">Bannissement</option>
-                    <option value="mute">Restriction du chat</option>
+                    <option value="banned">Bannissement</option>
+                    <option value="muted">Restriction du chat</option>
                 </select>
                 <p id="errorType" class="text-red-500 hidden">Veuillez renseigner un type de sanction</p>
                 <label for="duration">Durée:</label>
