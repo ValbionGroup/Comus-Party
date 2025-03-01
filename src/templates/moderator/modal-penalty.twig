@@ -19,14 +19,15 @@
                 </div>
             </div>
             <hr>
-            <form action="#" method="post" class="flex flex-col gap-y-2">
+            <div class="flex flex-col gap-y-2">
                 <input type="hidden" name="id" value="{{ id }}">
                 <label for="typePenalty" class="mt-2">Type: </label>
                 <select name="typePenalty" id="typePenalty" class="input">
-                    <option disabled selected>Sélectionnez une option</option>
+                    <option disabled selected value="default">Sélectionnez une option</option>
                     <option value="ban">Bannissement</option>
                     <option value="mute">Restriction du chat</option>
                 </select>
+                <p id="errorType" class="text-red-500 hidden">Veuillez renseigner un type de sanction</p>
                 <label for="duration">Durée:</label>
                 <div class="flex w-full gap-x-2">
                     <input type="text" name="duration" id="duration" class="input w-full" placeholder="Durée">
@@ -39,13 +40,14 @@
                         <option value="minutes">Minutes</option>
                     </select>
                 </div>
+                <p id="errorDuration" class="text-red-500 hidden">Veuillez renseigner une durée</p>
                 <label for="reason">Raison:</label>
                 <textarea name="reason" id="reason" cols="30" rows="10" class="w-full h-32 input"></textarea>
                 <div class="flex justify-end mt-5 gap-4">
-                    <button type="submit" class="btn-primary">Envoyer</button>
+                    <button type="button" id="btnPenalty" class="btn-disabled" disabled>Envoyer</button>
                     <div class="btn-secondary hover:cursor-pointer" onclick="closeModal()">Annuler</div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
