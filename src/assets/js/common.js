@@ -15,7 +15,6 @@ notification.innerHTML = `
 `;
 const background = document.getElementById('backgroundModal');
 const reportForm = document.getElementById('modalReportForm');
-const modalPlayerInfo = document.getElementById('modalPlayerInfo');
 
 /**
  * @brief Affiche une notification
