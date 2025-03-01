@@ -167,7 +167,6 @@ function denyReport(e) {
 }
 
 function acceptReport(e) {
-    dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
     closeModal();
     hiddenPenalizePlayerUuid.value = e.parentNode.children[0].value;
     modalPenalty.classList.remove("hidden");
@@ -205,7 +204,9 @@ function verifPenaltyForm() {
         errorType.classList.add("hidden");
     }
 
-    if (selectPenalty.value !== "Permanent" && inputDuration.value === "") {
+    if (selectPenalty.value !== "permanent" && inputDuration.value === "") {
+        console.log(selectPenalty.value);
+        console.log(inputDuration.value);
         inputDuration.classList.add("input-error");
         errorDuration.classList.remove("hidden");
         isDurationValid = false;
@@ -421,12 +422,16 @@ function sendPenalty() {
         response = JSON.parse(response);
         if (response.success) {
             closeModal();
-            //dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
+            selectPenaltyType.value = "default";
+            selectPenalty.value = "default";
+            inputDuration.value = "";
+            penaltyReason.value = "";
+            dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
             showNotification("Génial !", "La sanction a bien été appliquée", "green");
         } else {
             showNotification("Oups...", "La sanction n'a pas pu être appliquée", "red");
         }
-    }, `penalizedUuid=${hiddenPenalizePlayerUuid.value}&penaltyType=${selectPenaltyType.value}&duration=${parseInt(inputDuration.value)}&durationType=${selectPenalty.value}&reason=${penaltyReason.value}`);
+    }, `penalizedUuid=${hiddenPenalizePlayerUuid.value}&penaltyType=${selectPenaltyType.value}&duration=${inputDuration.value === "" ? 0 : parseInt(inputDuration.value)}&durationType=${selectPenalty.value}&reason=${penaltyReason.value}`);
 }
 
 btnPenalty.addEventListener('click', sendPenalty);
