@@ -1,0 +1,5 @@
+<map id="Player" name="Player">
+<area shape="rect" id="Node000001" title="Classe Player." alt="" coords="15,94,72,120"/>
+<area shape="rect" id="Node000002" href="$classComusParty_1_1Models_1_1Statistics.html" title="Classe Statistics." alt="" coords="5,5,82,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="46,47,46,94,41,94,41,47"/>
+</map>
