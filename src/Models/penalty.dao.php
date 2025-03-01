@@ -97,12 +97,13 @@ class PenaltyDAO
      */
     public function createPenalty(Penalty $penalty): bool
     {
-        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "penalty (created_by, penalized_uuid, reason, duration, created_at, updated_at) VALUES (:created_by, :penalized_uuid, :reason, :duration, :created_at, :updated_at)");
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "penalty (created_by, penalized_uuid, reason, duration, type, created_at, updated_at) VALUES (:created_by, :penalized_uuid, :reason, :duration, :type, :created_at, :updated_at)");
 
         $createdBy = $penalty->getCreatedBy();
         $penalizedUuid = $penalty->getPenalizedUuid();
         $reason = $penalty->getReason();
         $duration = $penalty->getDuration();
+        $penaltyType = $penalty->getType();
         $createdAt = $penalty->getCreatedAt()->format('Y-m-d H:i:s');
         $updatedAt = $penalty->getUpdatedAt()->format('Y-m-d H:i:s');
 
@@ -110,6 +111,7 @@ class PenaltyDAO
         $stmt->bindParam(":penalized_uuid", $penalizedUuid);
         $stmt->bindParam(":reason", $reason);
         $stmt->bindParam(":duration", $duration);
+        $stmt->bindParam(":type", $penaltyType);
         $stmt->bindParam(":created_at", $createdAt);
         $stmt->bindParam(":updated_at", $updatedAt);
 
