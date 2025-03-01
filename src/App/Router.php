@@ -11,6 +11,7 @@ namespace ComusParty\App;
 
 use ComusParty\App\Exceptions\RouteNotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\Controllers\ControllerFactory;
 use Exception;
 
 /**
@@ -139,26 +140,33 @@ class Router
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $url = $_SERVER['REQUEST_URI'];
-        $role = $_SESSION['role'] ?? null;
+
+        if (is_null($_SESSION['uuid'] ?? null)) {
+            global $loader, $twig;
+            $authenticated = ControllerFactory::getController('auth', $loader, $twig)->call('restoreSession');
+        } else {
+            $authenticated = true;
+        }
 
         if (isset($this->routes[$method])) {
-            if (is_null($role)) {
+            if (!$authenticated) {
                 if ($this->checkRouteAndCall('guest', $method, $url)) return;
                 if ($this->checkRouteAndCall('*', $method, $url)) return;
 
                 // Redirection vers la page de connexion si l'utilisateur n'est pas connecté
-                header('Location: /login');
-                exit;
+                header('Location: /login?redirect=' . urlencode($url));
+                return;
             } else {
+                $role = $_SESSION['role'];
                 if ($this->checkRouteAndCall($role, $method, $url)) return;
-                if ($this->checkRouteAndCall('*', $method, $url)) return;
                 if ($this->checkRouteAndCall('auth', $method, $url)) return;
+                if ($this->checkRouteAndCall('*', $method, $url)) return;
             }
 
             foreach ($this->routes[$method] as $target) {
                 foreach (array_keys($target) as $routeUrl) {
                     $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
-                    if (preg_match('#^' . $pattern . '$#', $url)) {
+                    if (preg_match('#^' . $pattern . '(\?[^/]*=[^/]+)?$#', $url)) {
                         throw new UnauthorizedAccessException('Unauthorized access to route ' . $url . ' (' . $method . ')');
                     }
                 }
@@ -195,7 +203,7 @@ class Router
     private function callFunctionFromRoute(string $routeUrl, callable $target, string $url): bool
     {
         $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
-        if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
+        if (preg_match('#^' . $pattern . '(\?[^/]*=[^/]+)?$#', $url, $matches)) {
             $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
             call_user_func_array($target, $params);
             return true;

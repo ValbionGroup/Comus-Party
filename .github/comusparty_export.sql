@@ -7,9 +7,11 @@
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET
+    SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET
+    time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
@@ -329,6 +331,23 @@ VALUES (1, 'reset_token_1', '2024-11-13 15:18:39'),
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `cp_remember_user`
+--
+
+CREATE TABLE `cp_remember_user`
+(
+    `user_id`    bigint(20)   NOT NULL,
+    `token`      varchar(60)  NOT NULL,
+    `rmb_key`    varchar(255) NOT NULL,
+    `created_at` timestamp    NOT NULL DEFAULT current_timestamp(),
+    `expires_at` timestamp    NOT NULL DEFAULT current_timestamp()
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `cp_report`
 --
 
@@ -608,6 +627,14 @@ ALTER TABLE `cp_pswd_reset_token`
     ADD KEY `token` (`token`);
 
 --
+-- Index pour la table `cp_remember_user`
+--
+ALTER TABLE `cp_remember_user`
+    ADD PRIMARY KEY (`user_id`, `token`),
+    ADD UNIQUE KEY `token` (`token`),
+    ADD KEY `user_id` (`user_id`);
+
+--
 -- Index pour la table `cp_report`
 --
 ALTER TABLE `cp_report`
@@ -773,7 +800,13 @@ ALTER TABLE `cp_player`
 -- Contraintes pour la table `cp_pswd_reset_token`
 --
 ALTER TABLE `cp_pswd_reset_token`
-    ADD CONSTRAINT `fk_pswd_reset_user_id` FOREIGN KEY (`user_id`) REFERENCES `cp_user` (`id`);
+    ADD CONSTRAINT `fk_pswd_reset_user_id` FOREIGN KEY (`user_id`) REFERENCES `cp_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `cp_remember_user`
+--
+ALTER TABLE `cp_remember_user`
+    ADD CONSTRAINT `fk_user_id_remember_token` FOREIGN KEY (`user_id`) REFERENCES `cp_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `cp_report`

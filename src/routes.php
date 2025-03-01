@@ -10,6 +10,7 @@
 
 global $loader, $twig;
 
+use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Router;
@@ -55,10 +56,11 @@ $router->get('/login', function () use ($loader, $twig) {
 $router->post('/login', function () use ($loader, $twig) {
     try {
         if (isset($_POST['email']) && isset($_POST['password'])) {
-            ControllerFactory::getController("auth", $loader, $twig)->call("authenticate", [
+            ControllerFactory::getController("auth", $loader, $twig)->call("login", [
                 "email" => $_POST['email'],
                 "password" => $_POST['password'],
-                "cloudflareCaptchaToken" => $_POST['cfToken']
+                "rememberMe" => isset($_POST['rememberMe']) && $_POST['rememberMe'] === 'true',
+                "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
             ]);
             exit;
         }
@@ -76,7 +78,7 @@ $router->get('/logout', function () use ($loader, $twig) {
 
 $router->get('/game/:code', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("showGame", ["code" => $code]);
-}, '*');
+}, 'player');
 
 $router->post('/game/:code/join', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("joinGameWithCode", [
@@ -174,16 +176,19 @@ $router->get('/register', function () use ($loader, $twig) {
 }, 'guest');
 
 $router->post('/register', function () use ($loader, $twig) {
-    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
+    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwordConfirm']) && isset($_POST['termsOfService']) && isset($_POST['privacyPolicy'])) {
         ControllerFactory::getController("auth", $loader, $twig)->call("register", [
             "username" => $_POST['username'],
             "email" => $_POST['email'],
             "password" => $_POST['password'],
-            "cloudflareCaptchaToken" => $_POST['cfToken']
+            "passwordConfirm" => $_POST['passwordConfirm'],
+            "termsOfServiceIsChecked" => $_POST['termsOfService'] === 'true',
+            "privacyPolicyIsChecked" => $_POST['privacyPolicy'] === 'true',
+            "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
         ]);
         exit;
     }
-    throw new Exception("Données reçues incomplètes.");
+    throw new MalformedRequestException("Données reçues incomplètes.");
 }, 'guest');
 
 $router->get('/confirm-email/:token', function (string $token) use ($loader, $twig) {
@@ -197,7 +202,7 @@ $router->get('/forgot-password', function () use ($loader, $twig) {
 }, 'guest');
 
 $router->post('/forgot-password', function () use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("sendResetPasswordLink", ["email" => $_POST['email']]);
+    ControllerFactory::getController("auth", $loader, $twig)->call("sendResetPasswordLink", ["email" => $_POST['email'] ?? null]);
     exit;
 }, 'guest');
 
@@ -207,12 +212,20 @@ $router->get('/reset-password/:token', function (string $token) use ($loader, $t
 }, 'guest');
 
 $router->post('/reset-password/:token', function (string $token) use ($loader, $twig) {
-    ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
-        "token" => $token,
-        "password" => $_POST['password'],
-        "passwordConfirm" => $_POST['passwordConfirm']
-    ]);
-    exit;
+    try {
+        ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
+            "token" => $token,
+            "password" => $_POST['password'],
+            "passwordConfirm" => $_POST['passwordConfirm']
+        ]);
+        exit;
+    } catch (Exception $e) {
+        return json_encode([
+            "success" => false,
+            "code" => $e->getCode(),
+            "message" => $e->getMessage()
+        ]);
+    }
 }, 'guest');
 
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
@@ -303,6 +316,16 @@ $router->post('/profile/update-email', function () use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("updateEmail", ["email" => $_POST['newEmail']]);
     exit;
 }, 'player');
+
+$router->get('/suggests', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllSuggestionsWaiting");
+    exit;
+}, 'moderator');
+
+$router->get('/reports', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllReports");
+    exit;
+}, 'moderator');
 
 $router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getReportInformations", ["reportId" => $reportId]);
