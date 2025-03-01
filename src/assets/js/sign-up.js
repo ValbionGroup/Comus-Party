@@ -40,6 +40,16 @@ window.onload = function () {
     INPUT_PRIVACY_POLICY.addEventListener("change", checkConditions);
 
     addPasswordVisibilityListeners();
+
+    document.validateInputs = {
+        usernameState: false,
+        emailState: false,
+        passwordState: false,
+        passwordMatch: false,
+        termsAccepted: false,
+        privacyPolicyAccepted: false
+    }
+    document.validateButton = SUBMIT_BUTTON;
 }
 
 /**
@@ -109,16 +119,19 @@ function checkConditions(event) {
     const isTermsAccepted = INPUT_TERMS_OF_SERVICE.checked;
     const isPrivacyPolicyAccepted = INPUT_PRIVACY_POLICY.checked;
 
-    // Activer le bouton de soumission si toutes les conditions sont remplies
-    if (isUsernameValid && isEmailValid && isPasswordValid && isPasswordMatch && isTermsAccepted && isPrivacyPolicyAccepted) {
-        SUBMIT_BUTTON.disabled = false;
-        SUBMIT_BUTTON.classList.remove('btn-disabled');
-        SUBMIT_BUTTON.classList.add('btn-primary');
-    } else {
-        SUBMIT_BUTTON.disabled = true;
-        SUBMIT_BUTTON.classList.add('btn-disabled');
-        SUBMIT_BUTTON.classList.remove('btn-primary');
+    // TODO: A modifier ! L'entièreté du fichier doit être revue pour être conforme à la structure du projet.
+    document.validateInputs = {
+        usernameState: isUsernameValid,
+        emailState: isEmailValid,
+        passwordState: isPasswordValid,
+        passwordMatch: isPasswordMatch,
+        termsAccepted: isTermsAccepted,
+        privacyPolicyAccepted: isPrivacyPolicyAccepted
     }
+    document.validateButton = SUBMIT_BUTTON;
+
+    // Activer le bouton de soumission si toutes les conditions sont remplies
+    changeButtonState(SUBMIT_BUTTON, Object.values(document.validateInputs), true);
 
     // Met à jour le message d'erreur et les styles des inputs uniquement pour l'input modifié
     const input = event.target;
