@@ -136,25 +136,21 @@ class ControllerGame extends Controller
             $data = [];
 
             if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
-                $data[] = [
-                    "settings" => $settings,
-                ];
+                $data["settings"] = $settings;
             }
 
             if (in_array("PLAYER_UUID", $gameSettings["neededParametersFromComus"])) {
-                $data[] = [
-                    "players" => array_map(function ($player) use ($gameSettings) {
-                        return [
-                            'uuid' => $player["player"]->getUuid(),
-                            ...(in_array("PLAYER_NAME", $gameSettings["returnParametersToComus"]) ? ['username' => $player["player"]->getUsername()] : []),
-                            ...(in_array('PLAYER_STYLE', $gameSettings["returnParametersToComus"]) ? ['style' => [
-                                "profilePicture" => $player["player"]->getActivePfp(),
-                                "banner" => $player["player"]->getActiveBanner(),
-                            ]] : []),
-                            'token' => $player["token"]
-                        ];
-                    }, $gameRecord->getPlayers()),
-                ];
+                $data["players"] = array_map(function ($player) use ($gameSettings) {
+                    return [
+                        'uuid' => $player["player"]->getUuid(),
+                        ...(in_array("PLAYER_NAME", $gameSettings["returnParametersToComus"]) ? ['username' => $player["player"]->getUsername()] : []),
+                        ...(in_array('PLAYER_STYLE', $gameSettings["returnParametersToComus"]) ? ['style' => [
+                            "profilePicture" => $player["player"]->getActivePfp(),
+                            "banner" => $player["player"]->getActiveBanner(),
+                        ]] : []),
+                        'token' => $player["token"]
+                    ];
+                }, $gameRecord->getPlayers());
             }
 
             $ch = curl_init($baseUrl . "/" . $gameRecord->getCode() . "/init");
