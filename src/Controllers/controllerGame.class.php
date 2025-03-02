@@ -15,6 +15,7 @@ use ComusParty\App\Exceptions\GameUnavailableException;
 use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
@@ -176,8 +177,23 @@ class ControllerGame extends Controller
                 ]);
                 exit;
             } else {
-                // Afficher la réponse
-                echo "Réponse : " . $response;
+                $response = json_decode($response, true);
+                if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 200) {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "Erreur lors de l'initialisation du jeu",
+                        "code" => curl_getinfo($ch, CURLINFO_HTTP_CODE)
+                    ]);
+                    exit;
+                }
+
+                if ($response["success"] == false) {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => $response["message"]
+                    ]);
+                    exit;
+                }
             }
 
             // Fermer la connexion cURL
