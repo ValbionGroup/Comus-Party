@@ -414,6 +414,15 @@ class ControllerGame extends Controller
         return $allSettings["modifiableSettings"];
     }
 
+    /**
+     * @brief Affiche la page de la partie en cours
+     * @param GameRecord $gameRecord Instance de GameRecord
+     * @return void
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
+     * @throws UnauthorizedAccessException Exception levée si l'utilisateur n'est pas dans la partie
+     */
     private function showInGame(GameRecord $gameRecord): void
     {
         $players = $gameRecord->getPlayers();
