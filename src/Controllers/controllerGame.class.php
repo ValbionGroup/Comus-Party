@@ -635,6 +635,8 @@ class ControllerGame extends Controller
      * @param array|null $winner Tableau associatif contenant les UUID des joueurs gagnants
      * @param array|null $scores Tableau associatif contenant les scores des joueurs
      * @return void
+     * @todo Retravailler la fonction afin de gérer l'usurpation d'identité
+     * @todo Retravailler la fonction afin qu'elle corresponde aux règles fixés aux jeux
      */
     public function endGame(string $code, ?array $winner = null, ?array $scores = null): void
     {

@@ -142,7 +142,8 @@ Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_UUID`, le
 
 La présence du token est obligatoire pour tous les jeux.
 
-En effet ... *(à compléter)*
+> [!NOTE]
+> Cette partie est en cours de rédaction.
 
 ### Noms des joueurs
 
@@ -247,3 +248,5 @@ Dans le cas contraire, la fonction doit retourner un code de statut autre que `2
 
 ### Fonction de terminaison
 
+> [!NOTE]
+> Cette partie est en cours de rédaction.
