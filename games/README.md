@@ -213,3 +213,37 @@ Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le systè
   "uuid2": 7
 }
 ```
+
+## Logique de traitement du jeu
+
+Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions sont obligatoires pour le bon fonctionnement du jeu et de Comus Party :
+- La fonction d'instanciation
+- La fonction de terminaison
+
+### Fonction d'instanciation
+
+La fonction d'instanciation est appelée lors de la création d'une partie.
+Elle est situé à l'endpoint **`POST`** `/{code de la partie créée}/init`.
+Il reçoit en corps de requête les informations demandées par le jeu pour lancer une partie dans `neededParametersFromComus`.
+
+Si la partie est créée avec succès, la fonction doit retourner un code de statut **`200`** et le corps de réponse *(minimum)* suivant :
+
+```json
+{
+  "success": true,
+  "message": "Message confirmant la création"
+}
+```
+
+Dans le cas contraire, la fonction doit retourner un code de statut autre que `200` et `300` et le corps de réponse *(minimum)* suivant :
+
+```json
+{
+  "success": false,
+  "message": "Message d'erreur",
+  "code": "Code d'erreur interne ou, à défaut, le code de statut HTTP"
+}
+```
+
+### Fonction de terminaison
+

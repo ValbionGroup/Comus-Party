@@ -183,7 +183,7 @@ class ControllerGame extends Controller
                     exit;
                 }
 
-                if ($response["success"] == false) {
+                if (!$response["success"]) {
                     echo json_encode([
                         "success" => false,
                         "message" => $response["message"]
