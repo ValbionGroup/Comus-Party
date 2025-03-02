@@ -186,7 +186,8 @@ class ControllerGame extends Controller
                 if (!$response["success"]) {
                     echo json_encode([
                         "success" => false,
-                        "message" => $response["message"]
+                        "message" => "Erreur lors de l'initialisation du jeu." . (array_key_exists("message", $response) ? " " . $response["message"] : ""),
+                        "code" => array_key_exists("code", $response) ? $response["code"] : null
                     ]);
                     exit;
                 }
