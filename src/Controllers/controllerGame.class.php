@@ -143,8 +143,8 @@ class ControllerGame extends Controller
                 $data["players"] = array_map(function ($player) use ($gameSettings) {
                     return [
                         'uuid' => $player["player"]->getUuid(),
-                        ...(in_array("PLAYER_NAME", $gameSettings["returnParametersToComus"]) ? ['username' => $player["player"]->getUsername()] : []),
-                        ...(in_array('PLAYER_STYLE', $gameSettings["returnParametersToComus"]) ? ['style' => [
+                        ...(in_array("PLAYER_NAME", $gameSettings["neededParametersFromComus"]) ? ['username' => $player["player"]->getUsername()] : []),
+                        ...(in_array('PLAYER_STYLE', $gameSettings["neededParametersFromComus"]) ? ['style' => [
                             "profilePicture" => $player["player"]->getActivePfp(),
                             "banner" => $player["player"]->getActiveBanner(),
                         ]] : []),
