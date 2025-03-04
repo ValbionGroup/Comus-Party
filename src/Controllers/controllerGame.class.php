@@ -15,6 +15,7 @@ use ComusParty\App\Exceptions\GameUnavailableException;
 use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
@@ -135,25 +136,21 @@ class ControllerGame extends Controller
             $data = [];
 
             if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
-                $data[] = [
-                    "settings" => $settings,
-                ];
+                $data["settings"] = $settings;
             }
 
             if (in_array("PLAYER_UUID", $gameSettings["neededParametersFromComus"])) {
-                $data[] = [
-                    "players" => array_map(function ($player) use ($gameSettings) {
-                        return [
-                            'uuid' => $player["player"]->getUuid(),
-                            ...(in_array("PLAYER_NAME", $gameSettings["returnParametersToComus"]) ? ['username' => $player["player"]->getUsername()] : []),
-                            ...(in_array('PLAYER_STYLE', $gameSettings["returnParametersToComus"]) ? ['style' => [
-                                "profilePicture" => $player["player"]->getActivePfp(),
-                                "banner" => $player["player"]->getActiveBanner(),
-                            ]] : []),
-                            'token' => $player["token"]
-                        ];
-                    }, $gameRecord->getPlayers()),
-                ];
+                $data["players"] = array_map(function ($player) use ($gameSettings) {
+                    return [
+                        'uuid' => $player["player"]->getUuid(),
+                        ...(in_array("PLAYER_NAME", $gameSettings["neededParametersFromComus"]) ? ['username' => $player["player"]->getUsername()] : []),
+                        ...(in_array('PLAYER_STYLE', $gameSettings["neededParametersFromComus"]) ? ['style' => [
+                            "profilePicture" => $player["player"]->getActivePfp(),
+                            "banner" => $player["player"]->getActiveBanner(),
+                        ]] : []),
+                        'token' => $player["token"]
+                    ];
+                }, $gameRecord->getPlayers());
             }
 
             $ch = curl_init($baseUrl . "/" . $gameRecord->getCode() . "/init");
@@ -176,8 +173,24 @@ class ControllerGame extends Controller
                 ]);
                 exit;
             } else {
-                // Afficher la réponse
-                echo "Réponse : " . $response;
+                $response = json_decode($response, true);
+                if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 200) {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "Erreur lors de l'initialisation du jeu",
+                        "code" => curl_getinfo($ch, CURLINFO_HTTP_CODE)
+                    ]);
+                    exit;
+                }
+
+                if (!$response["success"]) {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "Erreur lors de l'initialisation du jeu." . (array_key_exists("message", $response) ? " " . $response["message"] : ""),
+                        "code" => array_key_exists("code", $response) ? $response["code"] : null
+                    ]);
+                    exit;
+                }
             }
 
             // Fermer la connexion cURL
@@ -401,6 +414,15 @@ class ControllerGame extends Controller
         return $allSettings["modifiableSettings"];
     }
 
+    /**
+     * @brief Affiche la page de la partie en cours
+     * @param GameRecord $gameRecord Instance de GameRecord
+     * @return void
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
+     * @throws UnauthorizedAccessException Exception levée si l'utilisateur n'est pas dans la partie
+     */
     private function showInGame(GameRecord $gameRecord): void
     {
         $players = $gameRecord->getPlayers();
@@ -613,6 +635,8 @@ class ControllerGame extends Controller
      * @param array|null $winner Tableau associatif contenant les UUID des joueurs gagnants
      * @param array|null $scores Tableau associatif contenant les scores des joueurs
      * @return void
+     * @todo Retravailler la fonction afin de gérer l'usurpation d'identité
+     * @todo Retravailler la fonction afin qu'elle corresponde aux règles fixés aux jeux
      */
     public function endGame(string $code, ?array $winner = null, ?array $scores = null): void
     {
