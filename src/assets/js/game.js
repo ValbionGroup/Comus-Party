@@ -128,7 +128,7 @@ function receiveChatMessage(message) {
 
 
 // WebSocket
-const chatConnection = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
+const chatConnection = new WebSocket('ws://localhost:21000/chat/' + gameCode);
 chatConnection.onopen = function (e) {
     console.log("Connexion établie avec CHAT_SOCKET !");
 };
@@ -136,7 +136,7 @@ chatConnection.onmessage = function (e) {
     receiveChatMessage(e.data);
 };
 
-const gameConnection = new WebSocket('wss://sockets.comus-party.com/game/' + gameCode);
+const gameConnection = new WebSocket('ws://localhost:21000/game/' + gameCode);
 gameConnection.onopen = function (e) {
     console.log("Connexion établie avec GAME_SOCKET !");
 
@@ -217,3 +217,25 @@ for (let player of players) {
         player.querySelector('div').classList.remove('hidden');
     }
 }
+
+
+function verifyMutedPlayer() {
+    makeRequest('POST', `/game/mutedPlayer`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            const chatInput = document.getElementById('chatInput');
+            chatInput.disabled = true;
+            chatInput.classList.add('input-disabled');
+            chatInput.classList.add('cursor-not-allowed');
+            chatInput.placeholder = 'Vous avez été muté';
+
+            const sendChat = document.getElementById('sendChat');
+            sendChat.disabled = true;
+            sendChat.classList.add('btn-disabled')
+            sendChat.classList.add('cursor-not-allowed');
+
+        }
+    }, `username=${headerUsername}`);
+}
+
+window.onload = verifyMutedPlayer;
