@@ -161,10 +161,10 @@ class ControllerGame extends Controller
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Envoyer le JSON
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Obtenir la réponse
+            curl_setopt($ch, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 "Content-Type: application/json", // Indiquer que les données sont au format JSON
             ]);
-
 
             // Exécuter la requête
             $response = curl_exec($ch);
