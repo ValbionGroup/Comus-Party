@@ -710,7 +710,13 @@ class ControllerGame extends Controller
         return $averageElo / sizeof($players);
     }
 
-    public function mutedPlayer(string $playerUsername)
+    /**
+     * @brief Vérifie si un joueur est mute
+     * @param string $playerUsername Nom d'utilisateur du joueur
+     * @return void
+     * @throws \DateMalformedStringException
+     */
+    public function mutedPlayer(string $playerUsername): void
     {
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findByUsername($playerUsername);
