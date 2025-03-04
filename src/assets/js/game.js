@@ -128,7 +128,7 @@ function receiveChatMessage(message) {
 
 
 // WebSocket
-const chatConnection = new WebSocket('ws://localhost:21000/chat/' + gameCode);
+const chatConnection = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
 chatConnection.onopen = function (e) {
     console.log("Connexion établie avec CHAT_SOCKET !");
 };
@@ -136,7 +136,7 @@ chatConnection.onmessage = function (e) {
     receiveChatMessage(e.data);
 };
 
-const gameConnection = new WebSocket('ws://localhost:21000/game/' + gameCode);
+const gameConnection = new WebSocket('wss://sockets.comus-party.com/game/' + gameCode);
 gameConnection.onopen = function (e) {
     console.log("Connexion établie avec GAME_SOCKET !");
 
