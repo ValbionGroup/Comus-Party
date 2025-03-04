@@ -655,10 +655,6 @@ class ControllerGame extends Controller
                 }
             }
 
-            $gameRecord->setState(GameRecordState::FINISHED);
-            $gameRecord->setFinishedAt(new DateTime());
-            $gameRecordManager->update($gameRecord);
-
             $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
 
             if (in_array("WINNER_UUID", $gameSettings["returnParametersToComus"])) {
@@ -689,6 +685,10 @@ class ControllerGame extends Controller
                     $this->calculateAndUpdateElo($allPlayers, $allWinner, $allLooser);
                 }
             }
+
+            $gameRecord->setState(GameRecordState::FINISHED);
+            $gameRecord->setFinishedAt(new DateTime());
+            $gameRecordManager->update($gameRecord);
 
             echo json_encode([
                 "success" => true,
@@ -725,7 +725,7 @@ class ControllerGame extends Controller
             } else {
                 $newElo = EloCalculator::calculateNewElo($elo, $averageEloWinner, 0);
             }
-            $player->setElo($newElo);
+            $player->setElo(round($newElo, 0, PHP_ROUND_HALF_UP));
             $playerManager->update($player);
         }
     }
