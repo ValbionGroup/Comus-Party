@@ -20,6 +20,7 @@ use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
 use ComusParty\Models\GameRecordState;
 use ComusParty\Models\GameState;
+use ComusParty\Models\PenaltyDAO;
 use ComusParty\Models\PlayerDAO;
 use DateTime;
 use Error;
@@ -707,5 +708,27 @@ class ControllerGame extends Controller
             $averageElo += $player->getElo();
         }
         return $averageElo / sizeof($players);
+    }
+
+    public function mutedPlayer(string $playerUsername)
+    {
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findByUsername($playerUsername);
+
+        $penaltyManager = new PenaltyDAO($this->getPdo());
+        $penalty = $penaltyManager->findLastMutedByPlayerUuid($player->getUuid());
+
+        if (isset($penalty)) {
+            $endDate = $penalty->getCreatedAt()->modify("+" . $penalty->getDuration() . "hour");
+            if ($endDate > new DateTime()) {
+                echo json_encode(['success' => true,
+                    'message' => 'Le joueur est encore mute']);
+                exit;
+            }
+        }
+
+        echo json_encode(['success' => false,
+            'message' => 'Le joueur n\'est pas mute']);
+        exit;
     }
 }
