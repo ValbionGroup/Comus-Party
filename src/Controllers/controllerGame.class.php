@@ -124,11 +124,7 @@ class ControllerGame extends Controller
                 $settings = [];
             }
 
-            if ($gameSettings["settings"]["serveByComus"]) {
-                $baseUrl = "https://games.comus-party.com/game" . $game->getId();
-            } else {
-                $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
-            }
+            $baseUrl = $this->getGameUrl($game->getId());
 
             $players = $gameRecord->getPlayers();
             foreach ($players as &$player) {
@@ -404,6 +400,16 @@ class ControllerGame extends Controller
         return $allSettings["modifiableSettings"];
     }
 
+    private function getGameUrl(int $id): string
+    {
+        $gameSettings = $this->getGameSettings($id);
+        if ($gameSettings["settings"]["serveByComus"]) {
+            return "https://games.comus-party.com/game" . $id;
+        } else {
+            return $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"];
+        }
+    }
+
     /**
      * @brief Affiche la page de la partie en cours
      * @param GameRecord $gameRecord Instance de GameRecord
@@ -420,8 +426,7 @@ class ControllerGame extends Controller
             throw new UnauthorizedAccessException("Vous n'êtes pas dans la partie");
         }
 
-        $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
-        $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
+        $baseUrl = $this->getGameUrl($gameRecord->getGame()->getId());
         $token = null;
         foreach ($players as $player) {
             if ($player["player"]->getUuid() == $_SESSION['uuid']) {
