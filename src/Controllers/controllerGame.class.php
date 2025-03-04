@@ -124,7 +124,11 @@ class ControllerGame extends Controller
                 $settings = [];
             }
 
-            $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
+            if ($gameSettings["settings"]["serveByComus"]) {
+                $baseUrl = "https://games.comus-party.com/game" . $game->getId();
+            } else {
+                $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
+            }
 
             $players = $gameRecord->getPlayers();
             foreach ($players as &$player) {
@@ -161,35 +165,24 @@ class ControllerGame extends Controller
                 "Content-Type: application/json", // Indiquer que les données sont au format JSON
             ]);
 
+
             // Exécuter la requête
             $response = curl_exec($ch);
 
             // Vérifier les erreurs
             if (curl_errno($ch)) {
-                echo json_encode([
-                    "success" => false,
-                    "message" => curl_error($ch),
-                    "code" => null
-                ]);
-                exit;
+                MessageHandler::sendJsonCustomException(500, curl_error($ch));
             } else {
-                $response = json_decode($response, true);
                 if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 200) {
-                    echo json_encode([
-                        "success" => false,
-                        "message" => "Erreur lors de l'initialisation du jeu",
-                        "code" => curl_getinfo($ch, CURLINFO_HTTP_CODE)
-                    ]);
-                    exit;
+                    MessageHandler::sendJsonCustomException(curl_getinfo($ch, CURLINFO_HTTP_CODE), "Erreur lors de l'initialisation du jeu");
                 }
 
+                $response = json_decode($response, true);
                 if (!$response["success"]) {
-                    echo json_encode([
-                        "success" => false,
-                        "message" => "Erreur lors de l'initialisation du jeu." . (array_key_exists("message", $response) ? " " . $response["message"] : ""),
-                        "code" => array_key_exists("code", $response) ? $response["code"] : null
-                    ]);
-                    exit;
+                    MessageHandler::sendJsonCustomException(
+                        array_key_exists("code", $response) ? $response["code"] : 500,
+                        "Erreur lors de l'initialisation du jeu." . (array_key_exists("message", $response) ? " " . $response["message"] : "")
+                    );
                 }
             }
 
@@ -200,19 +193,16 @@ class ControllerGame extends Controller
             $gameRecord->setUpdatedAt(new DateTime());
             (new GameRecordDAO($this->getPdo()))->update($gameRecord);
 
-            echo json_encode([
-                "success" => true,
+            MessageHandler::sendJsonMessage("La partie a bien été initialisée", [
                 "game" => [
                     "code" => $code,
                     "gameId" => $game->getId(),
                 ],
             ]);
+            exit;
         } catch (Exception|Error $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-                "code" => $e->getCode(),
-            ]);
+            var_dump($e);
+            MessageHandler::sendJsonException($e);
         }
     }
 
