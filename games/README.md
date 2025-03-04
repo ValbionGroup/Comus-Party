@@ -215,6 +215,13 @@ Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le systè
 }
 ```
 
+# Développer un jeu
+
+Chacun est libre de développer un jeu, cependant, certaines règles sont à respecter pour que celui-ci puisse s'intégrer convenablement à Comus Party.
+
+> [!WARNING]
+> Les jeux sont servis depuis l'URL `https://games.comus-party.com/{idDuJeu}`. Veillez à ce que votre jeu n'utilise pas d'URL absolue pour les ressources et autres redirections.
+
 ## Logique de traitement du jeu
 
 Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions sont obligatoires pour le bon fonctionnement du jeu et de Comus Party :
