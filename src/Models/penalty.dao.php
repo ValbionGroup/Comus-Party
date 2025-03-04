@@ -118,4 +118,16 @@ class PenaltyDAO
         return $stmt->execute();
     }
 
+
+    public function findLastMutedByPlayerUuid(string $playerUuid): ?Penalty
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "penalty WHERE penalized_uuid = :penalized_uuid AND type = 'muted' ORDER BY created_at DESC LIMIT 1");
+        $stmt->bindParam(":penalized_uuid", $playerUuid);
+        $stmt->execute();
+        $data = $stmt->fetch();
+        if ($data === false) {
+            return null;
+        }
+        return $this->hydrate($data);
+    }
 }
