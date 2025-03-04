@@ -22,6 +22,7 @@ use ComusParty\Models\GameRecordState;
 use ComusParty\Models\GameState;
 use ComusParty\Models\PenaltyDAO;
 use ComusParty\Models\PlayerDAO;
+use DateMalformedStringException;
 use DateTime;
 use Error;
 use Exception;
@@ -714,7 +715,7 @@ class ControllerGame extends Controller
      * @brief Vérifie si un joueur est mute
      * @param string $playerUsername Nom d'utilisateur du joueur
      * @return void
-     * @throws \DateMalformedStringException
+     * @throws DateMalformedStringException
      */
     public function mutedPlayer(string $playerUsername): void
     {
