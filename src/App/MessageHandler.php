@@ -112,7 +112,7 @@ class MessageHandler
      * @param array|null $params Paramètres supplémentaires
      * @return void
      */
-    public static function sendJsonCustomException(int $code, string $message, ?array $params = null): void
+    public static function sendJsonCustomException(int $code, string $message, ?array $params = []): void
     {
         http_response_code($code);
         echo json_encode([
@@ -130,7 +130,7 @@ class MessageHandler
      * @param array|null $params Paramètres supplémentaires
      * @return string Message en JSON
      */
-    public static function sendJsonMessage(string $message, ?array $params = null): string
+    public static function sendJsonMessage(string $message, ?array $params = []): string
     {
         return json_encode([
             'success' => true,
