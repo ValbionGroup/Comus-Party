@@ -1,0 +1,24 @@
+var NAVTREEINDEX6 =
+{
+"report_8class_8php_source.html":[3,0,3,2,16],
+"report_8dao_8php.html":[3,0,3,2,17],
+"report_8dao_8php_source.html":[3,0,3,2,17],
+"routes_8php.html":[3,0,3,3],
+"routes_8php.html#a1c82c4460c12e9ca9256ca09ba5df9b6":[3,0,3,3,2],
+"routes_8php.html#a3ab503c7c64dfef1f4dd7148b6de3a3c":[3,0,3,3,0],
+"routes_8php.html#ad77f00d881c7c3dc8bd1749c7174de92":[3,0,3,3,1],
+"routes_8php_source.html":[3,0,3,3],
+"statistics_8class_8php.html":[3,0,3,2,18],
+"statistics_8class_8php_source.html":[3,0,3,2,18],
+"suggestion_8class_8php.html":[3,0,3,2,19],
+"suggestion_8class_8php_source.html":[3,0,3,2,19],
+"suggestion_8dao_8php.html":[3,0,3,2,20],
+"suggestion_8dao_8php_source.html":[3,0,3,2,20],
+"todo.html":[0],
+"twig_8php.html":[3,0,0,3],
+"twig_8php_source.html":[3,0,0,3],
+"user_8class_8php.html":[3,0,3,2,21],
+"user_8class_8php_source.html":[3,0,3,2,21],
+"user_8dao_8php.html":[3,0,3,2,22],
+"user_8dao_8php_source.html":[3,0,3,2,22]
+};
