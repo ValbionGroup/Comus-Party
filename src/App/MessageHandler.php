@@ -88,4 +88,54 @@ class MessageHandler
         ]);
         die;
     }
+
+    /**
+     * @brief Envoie une erreur en JSON et interrompt l'exécution
+     * @param Exception|Error $e Erreur à afficher
+     * @return void
+     */
+    public static function sendJsonException(Exception|Error $e): void
+    {
+        http_response_code(($e->getCode() == 0) ? 500 : $e->getCode());
+        echo json_encode([
+            'success' => false,
+            'error' => ($e->getCode() == 0) ? 500 : $e->getCode(),
+            'message' => $e->getMessage() ?? 'Une erreur interne est survenue'
+        ]);
+        die;
+    }
+
+    /**
+     * @brief Envoie une erreur custom en JSON et interrompt l'exécution
+     * @param int $code Code d'erreur
+     * @param string $message Message d'erreur
+     * @param array|null $params Paramètres supplémentaires
+     * @return void
+     */
+    public static function sendJsonCustomException(int $code, string $message, ?array $params = null): void
+    {
+        http_response_code($code);
+        echo json_encode([
+            'success' => false,
+            'error' => $code,
+            'message' => $message,
+            ...$params
+        ]);
+        die;
+    }
+
+    /**
+     * @brief Envoie un message en JSON
+     * @param string $message Message à afficher
+     * @param array|null $params Paramètres supplémentaires
+     * @return string Message en JSON
+     */
+    public static function sendJsonMessage(string $message, ?array $params = null): string
+    {
+        return json_encode([
+            'success' => true,
+            'message' => $message,
+            ...$params
+        ]);
+    }
 }
