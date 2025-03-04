@@ -118,7 +118,12 @@ class PenaltyDAO
         return $stmt->execute();
     }
 
-
+    /**
+     * @brief Trouve la dernière sanction d'un joueur de type muted
+     * @param string $playerUuid
+     * @return Penalty|null
+     * @throws DateMalformedStringException
+     */
     public function findLastMutedByPlayerUuid(string $playerUuid): ?Penalty
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "penalty WHERE penalized_uuid = :penalized_uuid AND type = 'muted' ORDER BY created_at DESC LIMIT 1");
