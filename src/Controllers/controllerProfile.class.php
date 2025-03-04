@@ -407,6 +407,15 @@ class ControllerProfile extends Controller
             ]);
             exit;
         }
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findByUuid($penalizedUuid);
+
+        $userManager = new UserDAO($this->getPdo());
+        $user = $userManager->findById($player->getUserId());
+        $user->setDisabled(1);
+
+        $userManager->update($user);
+
         echo json_encode([
             'success' => true,
         ]);
