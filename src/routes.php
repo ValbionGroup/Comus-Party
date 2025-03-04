@@ -343,3 +343,11 @@ $router->post('/penalty', function () use ($loader, $twig) {
     ]);
     exit;
 }, 'moderator');
+
+$router->post('/game/mutedPlayer', function () use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("mutedPlayer", [
+        "playerUsername" => $_POST['username'],
+
+    ]);
+    exit;
+}, 'player');
