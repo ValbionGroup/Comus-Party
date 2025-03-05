@@ -331,3 +331,23 @@ $router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getReportInformations", ["reportId" => $reportId]);
     exit;
 }, 'moderator');
+
+$router->post('/penalty', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("penalizePlayer", [
+        "createdBy" => $_SESSION['uuid'],
+        "penalizedUuid" => $_POST['penalizedUuid'],
+        "reason" => $_POST['reason'],
+        "duration" => $_POST['duration'],
+        "durationType" => $_POST['durationType'],
+        "penaltyType" => $_POST['penaltyType']
+    ]);
+    exit;
+}, 'moderator');
+
+$router->post('/game/mutedPlayer', function () use ($loader, $twig) {
+    ControllerFactory::getController("game", $loader, $twig)->call("mutedPlayer", [
+        "playerUsername" => $_POST['username'],
+
+    ]);
+    exit;
+}, 'player');

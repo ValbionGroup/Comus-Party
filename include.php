@@ -69,6 +69,8 @@ require_once __DIR__ . '/src/Models/moderator.class.php';
 require_once __DIR__ . '/src/Models/moderator.dao.php';
 require_once __DIR__ . '/src/Models/report.class.php';
 require_once __DIR__ . '/src/Models/report.dao.php';
+require_once __DIR__ . '/src/Models/penalty.class.php';
+require_once __DIR__ . '/src/Models/penalty.dao.php';
 
 session_start();
 require_once __DIR__ . '/config/twig.php';
