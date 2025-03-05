@@ -94,16 +94,17 @@ class Penalty
      * @param DateTime|null $createdAt Date de création de la sanction
      * @param DateTime|null $updatedAt Date de mise à jour de la sanction
      */
-    public function __construct(?int $id = null
-        , ?string                    $createdBy = null
-        , ?string                    $cancelledBy = null
-        , ?string                    $penalizedUuid = null
-        , ?string                    $reason = null
-        , ?int                       $duration = null
-        , ?string                    $type = null
-        , ?DateTime                  $cancelledAt = null
-        , ?DateTime                  $createdAt = null
-        , ?DateTime                  $updatedAt = null)
+    public function __construct(
+        ?int $id = null,
+        ?string $createdBy = null,
+        ?string $cancelledBy = null,
+        ?string $penalizedUuid = null,
+        ?string $reason = null,
+        ?int $duration = null,
+        ?string $type = null,
+        ?DateTime $cancelledAt = null,
+        ?DateTime $createdAt = null,
+        ?DateTime $updatedAt = null)
     {
         $this->id = $id;
         $this->createdBy = $createdBy;
