@@ -16,6 +16,7 @@ const errorDuration = document.getElementById('errorDuration');
 const btnPenalty = document.getElementById('btnPenalty');
 const hiddenPenalizePlayerUuid = document.getElementById('penalizePlayerUuid');
 const penaltyReason = document.getElementById('reason');
+const hiddenReportedPlayerUuid = document.getElementById(`reportedPlayerUuid`);
 
 function showModalSuggest(e) {
     let suggestId = e.id;
@@ -118,7 +119,7 @@ function showModalReport(e) {
     let spanDescriptionReport = document.getElementById(`spanDescriptionReport`);
     let spanReportedPlayer = document.getElementById(`spanReportedPlayer`);
     let idReport = document.getElementById(`idSuggestion`);
-    let hiddenReportedPlayerUuid = document.getElementById(`reportedPlayerUuid`);
+
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `/report/${reportId}`, true);
@@ -168,7 +169,7 @@ function denyReport(e) {
 
 function acceptReport(e) {
     closeModal();
-    hiddenPenalizePlayerUuid.value = e.parentNode.children[0].value;
+    hiddenPenalizePlayerUuid.value = hiddenReportedPlayerUuid.value;
     modalPenalty.classList.remove("hidden");
     showBackgroundModal();
 }
