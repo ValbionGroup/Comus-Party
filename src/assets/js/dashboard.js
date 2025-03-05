@@ -205,8 +205,6 @@ function verifPenaltyForm() {
     }
 
     if (selectPenalty.value !== "permanent" && inputDuration.value === "") {
-        console.log(selectPenalty.value);
-        console.log(inputDuration.value);
         inputDuration.classList.add("input-error");
         errorDuration.classList.remove("hidden");
         isDurationValid = false;
