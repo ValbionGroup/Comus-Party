@@ -379,6 +379,17 @@ class ControllerProfile extends Controller
         }
     }
 
+    /**
+     * @brief Permet de pénaliser un joueur
+     * @param string $createdBy L'UUID de l'utilisateur ayant créé la sanction
+     * @param string $penalizedUuid L'UUID du joueur pénalisé
+     * @param string $reason La raison de la sanction
+     * @param int $duration La durée de la sanction
+     * @param string $durationType Le type de durée de la sanction
+     * @param string $penaltyType Le type de sanction
+     * @return void
+     * @throws DateMalformedStringException
+     */
     public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, string $penaltyType)
     {
 
