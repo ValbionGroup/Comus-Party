@@ -15,6 +15,7 @@ use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\MessageHandler;
 use ComusParty\App\Router;
 use ComusParty\Controllers\ControllerFactory;
+use ComusParty\Models\PenaltyType;
 
 $router = Router::getInstance();
 
@@ -334,12 +335,17 @@ $router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
 
 $router->post('/penalty', function () use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("penalizePlayer", [
+
         "createdBy" => $_SESSION['uuid'],
         "penalizedUuid" => $_POST['penalizedUuid'],
         "reason" => $_POST['reason'],
         "duration" => $_POST['duration'],
         "durationType" => $_POST['durationType'],
-        "penaltyType" => $_POST['penaltyType']
+        "penaltyType" => match ($_POST['penaltyType']) {
+            "muted" => PenaltyType::MUTED,
+            "banned" => PenaltyType::BANNED,
+            default => null
+        }
     ]);
     exit;
 }, 'moderator');

@@ -14,6 +14,14 @@ namespace ComusParty\Models;
 
 use DateTime;
 
+/**
+ * @brief Enumération des types de sanctions
+ */
+enum PenaltyType
+{
+    case BANNED;
+    case MUTED;
+}
 
 /**
  * @brief Classe Penalty
@@ -59,9 +67,9 @@ class Penalty
 
     /**
      * @brief Type de la sanction
-     * @var string|null
+     * @var PenaltyType|null
      */
-    private ?string $type;
+    private ?PenaltyType $type;
 
     /**
      * @brief Date d'annulation de la sanction
@@ -89,22 +97,22 @@ class Penalty
      * @param string|null $penalizedUuid Identifiant du joueur sanctionné
      * @param string|null $reason Raison de la sanction
      * @param int|null $duration Durée de la sanction
-     * @param string|null $type Type de la sanction
+     * @param PenaltyType|null $type Type de la sanction
      * @param DateTime|null $cancelledAt Date d'annulation de la sanction
      * @param DateTime|null $createdAt Date de création de la sanction
      * @param DateTime|null $updatedAt Date de mise à jour de la sanction
      */
     public function __construct(
-        ?int $id = null,
-        ?string $createdBy = null,
-        ?string $cancelledBy = null,
-        ?string $penalizedUuid = null,
-        ?string $reason = null,
-        ?int $duration = null,
-        ?string $type = null,
-        ?DateTime $cancelledAt = null,
-        ?DateTime $createdAt = null,
-        ?DateTime $updatedAt = null)
+        ?int         $id = null,
+        ?string      $createdBy = null,
+        ?string      $cancelledBy = null,
+        ?string      $penalizedUuid = null,
+        ?string      $reason = null,
+        ?int         $duration = null,
+        ?PenaltyType $type = null,
+        ?DateTime    $cancelledAt = null,
+        ?DateTime    $createdAt = null,
+        ?DateTime    $updatedAt = null)
     {
         $this->id = $id;
         $this->createdBy = $createdBy;
@@ -228,18 +236,18 @@ class Penalty
 
     /**
      * @brief Retourne le type de la sanction
-     * @return string|null Le type de la sanction
+     * @return PenaltyType|null Le type de la sanction
      */
-    public function getType(): ?string
+    public function getType(): ?PenaltyType
     {
         return $this->type;
     }
 
     /**
      * @brief Modifie le type de la sanction
-     * @param string|null $type Le nouveau type de la sanction
+     * @param PenaltyType|null $type Le nouveau type de la sanction
      */
-    public function setType(?string $type): void
+    public function setType(?PenaltyType $type): void
     {
         $this->type = $type;
     }

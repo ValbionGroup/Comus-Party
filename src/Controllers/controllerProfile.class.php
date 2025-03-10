@@ -19,6 +19,7 @@ use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Penalty;
 use ComusParty\Models\PenaltyDAO;
+use ComusParty\Models\PenaltyType;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
@@ -386,11 +387,11 @@ class ControllerProfile extends Controller
      * @param string $reason La raison de la sanction
      * @param int $duration La durée de la sanction
      * @param string $durationType Le type de durée de la sanction
-     * @param string $penaltyType Le type de sanction
+     * @param PenaltyType $penaltyType Le type de sanction
      * @return void
      * @throws DateMalformedStringException
      */
-    public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, string $penaltyType)
+    public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, PenaltyType $penaltyType)
     {
 
         $duration = match ($durationType) {
@@ -419,7 +420,7 @@ class ControllerProfile extends Controller
             exit;
         }
 
-        if ($penaltyType == 'banned') {
+        if ($penaltyType == PenaltyType::BANNED) {
             $playerManager = new PlayerDAO($this->getPdo());
             $player = $playerManager->findByUuid($penalizedUuid);
             $userManager = new UserDAO($this->getPdo());

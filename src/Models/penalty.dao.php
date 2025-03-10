@@ -103,7 +103,7 @@ class PenaltyDAO
         $penalizedUuid = $penalty->getPenalizedUuid();
         $reason = $penalty->getReason();
         $duration = $penalty->getDuration();
-        $penaltyType = $penalty->getType();
+        $penaltyType = $this->transformPenaltyTypeToString($penalty->getType());
         $createdAt = $penalty->getCreatedAt()->format('Y-m-d H:i:s');
         $updatedAt = $penalty->getUpdatedAt()->format('Y-m-d H:i:s');
 
@@ -116,6 +116,20 @@ class PenaltyDAO
         $stmt->bindParam(":updated_at", $updatedAt);
 
         return $stmt->execute();
+    }
+
+    /**
+     * @brief Transforme un type de sanction en string
+     * @param PenaltyType|null $penaltyType
+     * @return string|null
+     */
+    public function transformPenaltyTypeToString(?PenaltyType $penaltyType): ?string
+    {
+        return match ($penaltyType) {
+            PenaltyType::MUTED => 'muted',
+            PenaltyType::BANNED => 'banned',
+            default => null
+        };
     }
 
     /**
