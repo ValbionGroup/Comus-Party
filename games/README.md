@@ -202,32 +202,6 @@ les styles des joueurs :
 > [!CAUTION]  
 > Si l'attribut `PLAYER_UUID` n'est pas présent, l'attribut `PLAYER_STYLE` ne sera pas pris en compte.
 
-## Format des données attendues par Comus Party
-
-### Gagnants
-
-Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au
-format *JSON* :
-
-```json
-[
-  "uuid1",
-  "uuid2"
-]
-```
-
-### Scores
-
-Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format
-*JSON* :
-
-```json
-{
-  "uuid1": 15,
-  "uuid2": 7
-}
-```
-
 # Développer un jeu
 
 Chacun est libre de développer un jeu, cependant, certaines règles sont à respecter pour que celui-ci puisse s'intégrer
@@ -290,6 +264,32 @@ au minimum, au format *JSON* :
 
 N'oubliez pas de renvoyer, en fonction des paramètres définis dans `returnParametersToComus`, les informations
 nécessaires conformément au format attendu.
+
+#### Format des données attendues par Comus Party
+
+##### Gagnants
+
+Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au
+format *JSON* :
+
+```json
+[
+  "uuid1",
+  "uuid2"
+]
+```
+
+##### Scores
+
+Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format
+*JSON* :
+
+```json
+{
+  "uuid1": 15,
+  "uuid2": 7
+}
+```
 
 Si la partie est terminée avec succès, le serveur renverra un code de statut **`200`**.
 
