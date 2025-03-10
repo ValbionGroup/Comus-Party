@@ -172,9 +172,11 @@ selectPenalty.addEventListener('change', function () {
         inputDuration.disabled = true;
         inputDuration.classList.add("input-disabled");
         inputDuration.value = "";
+        verifPenaltyForm();
     } else {
         inputDuration.disabled = false;
         inputDuration.classList.remove("input-disabled");
+        verifPenaltyForm();
     }
 });
 
@@ -184,16 +186,17 @@ inputDuration.addEventListener('input', function () {
 
 function verifPenaltyForm() {
 
-    let isTypeValid = true;
-    let isDurationValid = true;
+    let isTypeValid;
+    let isDurationValid;
 
     if (selectPenaltyType.value === "default") {
         selectPenaltyType.classList.add("input-error");
         errorType.classList.remove("hidden");
-        isDurationValid = false;
+        isTypeValid = false;
     } else {
         selectPenaltyType.classList.remove("input-error");
         errorType.classList.add("hidden");
+        isTypeValid = true;
     }
 
     if (selectPenalty.value !== "permanent" && inputDuration.value === "") {
@@ -203,12 +206,17 @@ function verifPenaltyForm() {
     } else {
         inputDuration.classList.remove("input-error");
         errorDuration.classList.add("hidden");
+        isDurationValid = true;
     }
-
+    
     if (isTypeValid && isDurationValid) {
         btnPenalty.disabled = false;
         btnPenalty.classList.remove("btn-disabled");
         btnPenalty.classList.add("btn-primary");
+    } else {
+        btnPenalty.disabled = true;
+        btnPenalty.classList.remove("btn-primary");
+        btnPenalty.classList.add("btn-disabled");
     }
 }
 
