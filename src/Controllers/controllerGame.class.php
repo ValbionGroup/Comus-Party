@@ -647,10 +647,15 @@ class ControllerGame extends Controller
                 throw new MalformedRequestException("La partie n'a pas commencé ou est déjà terminée");
             }
 
+            $playersWithTokens = [];
+            foreach ($gameRecord->getPlayers() as $player) {
+                $playersWithTokens[$player["player"]->getUuid()] = $player["token"];
+            }
+
             if (in_array("SCORES", $this->getGameSettings($gameRecord->getGame()->getId())["returnParametersToComus"])) {
-                foreach ($scores as $playerUuid => $playerScore) {
-                    if (!in_array($playerUuid, array_map(fn($player) => $player["player"]->getUuid(), $gameRecord->getPlayers()))) {
-                        throw new MalformedRequestException("Le joueur $playerUuid n'est pas dans la partie");
+                foreach ($scores as $playerUuid => $playerData) {
+                    if (!isset($playersWithTokens[$playerUuid]) || $playersWithTokens[$playerUuid] !== $playerData["token"]) {
+                        throw new MalformedRequestException("Le joueur $playerUuid n'est pas dans la partie ou le token est invalide");
                     }
                 }
             }
@@ -659,7 +664,12 @@ class ControllerGame extends Controller
 
             if (in_array("WINNER_UUID", $gameSettings["returnParametersToComus"])) {
                 if (!is_null($winner)) {
-                    foreach ($winner as $playerUuid) {
+                    foreach ($winner as $playerUuid => $playerToken) {
+                        if (!isset($playersWithTokens[$playerUuid]) || $playersWithTokens[$playerUuid] !== $playerToken) {
+                            throw new MalformedRequestException("Le joueur $playerUuid n'est pas dans la partie ou le token est invalide");
+                        }
+                    }
+                    foreach ($winner as $playerUuid => $playerToken) {
                         $gameRecordManager->addWinner($code, $playerUuid);
                     }
                 } else {
