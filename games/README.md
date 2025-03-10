@@ -55,7 +55,7 @@ fichier `settings.json` :
 - `isNode` : Le jeu est-il un jeu NodeJS
 - `serverPort` : Port du serveur de jeu
 - `serverAddress` : Adresse du serveur de jeu
-- `serveByComus` : Indique si le jeux est servi par la plateforme officielle de Comus Party
+- `serveByComus` : Indique si le jeu est servi par la plateforme officielle de Comus Party
 
 ##### `neededParametersFromComus` et `returnParametersToComus`
 
@@ -80,7 +80,7 @@ Ajout de paramètres modifiables pour l'hôte de partie dans `modifiableSettings
   "identifiantDuParam": {
     "name": "Nom du paramètre affiché",
     "description": "Description du paramètre pour aider l'hôte de la partie",
-    "type": "Type du paramètre"
+    "type": "Type du paramètre",
     ...
   }
 }
@@ -111,15 +111,16 @@ Chaque type a des propriétés spécifiques :
         - `label` : Label affiché de l'option
     - `default` : Option par défaut
 
-
-## Format des données envoyés par Comus Party
+## Format des données envoyé par Comus Party
 
 > [!NOTE]  
 > Tous les attributs sont *facultatifs* et **cumulables**.
 
 ### Paramètres modifiés par l'hôte de la partie
 
-Dans le cas où `neededParametersFromComus` contient la valeur `MODIFIED_SETTING_DATA`, le système envoi un tableau associatif au format *JSON* dans le paramètre `settings` :
+Dans le cas où `neededParametersFromComus` contient la valeur `MODIFIED_SETTING_DATA`, le système envoi un tableau
+associatif au format *JSON* dans le paramètre `settings` :
+
 ```json
 {
   "identifiantDuParam": "valeur"
@@ -128,12 +129,14 @@ Dans le cas où `neededParametersFromComus` contient la valeur `MODIFIED_SETTING
 
 ### Joueurs
 
-Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_UUID`, le système envoi un tableau associatif au format *JSON* :
+Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_UUID`, le système envoi un tableau associatif au
+format *JSON* :
+
 ```json
 [
   {
     "uuid": "uuidJoueur1",
-    "token" : "jetonJoueur1"
+    "token": "jetonJoueur1"
   },
   {
     "uuid": "uuidJoueur2",
@@ -149,12 +152,14 @@ La présence du token est obligatoire pour tous les jeux.
 
 ### Noms des joueurs
 
-Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_NAME`, le système rajoute au tableau précédent les noms des joueurs :
+Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_NAME`, le système rajoute au tableau précédent les
+noms des joueurs :
+
 ```json
 [
   {
     "uuid": "uuidJoueur1",
-    "token" : "jetonJoueur1",
+    "token": "jetonJoueur1",
     "username": "Nom du joueur 1"
   },
   {
@@ -170,12 +175,14 @@ Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_NAME`, le
 
 ### Style des joueurs
 
-Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_STYLE`, le système rajoute au tableau précédent les styles des joueurs :
+Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_STYLE`, le système rajoute au tableau précédent
+les styles des joueurs :
+
 ```json
 [
   {
     "uuid": "uuidJoueur1",
-    "token" : "jetonJoueur1",
+    "token": "jetonJoueur1",
     "style": {
       "profilePicture": "urlPhotoProfilJoueur1",
       "banner": "urlBanniereJoueur1"
@@ -199,7 +206,9 @@ Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_STYLE`, l
 
 ### Gagnants
 
-Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au format *JSON* :
+Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au
+format *JSON* :
+
 ```json
 [
   "uuid1",
@@ -209,7 +218,9 @@ Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le s
 
 ### Scores
 
-Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format *JSON* :
+Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format
+*JSON* :
+
 ```json
 {
   "uuid1": 15,
@@ -219,14 +230,18 @@ Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le systè
 
 # Développer un jeu
 
-Chacun est libre de développer un jeu, cependant, certaines règles sont à respecter pour que celui-ci puisse s'intégrer convenablement à Comus Party.
+Chacun est libre de développer un jeu, cependant, certaines règles sont à respecter pour que celui-ci puisse s'intégrer
+convenablement à Comus Party.
 
 > [!WARNING]
-> Les jeux sont servis depuis l'URL `https://games.comus-party.com/{idDuJeu}`. Veillez à ce que votre jeu n'utilise pas d'URL absolue pour les ressources et autres redirections.
+> Les jeux sont servis depuis l'URL `https://games.comus-party.com/{idDuJeu}`. Veillez à ce que votre jeu n'utilise pas
+> d'URL absolue pour les ressources et autres redirections.
 
 ## Logique de traitement du jeu
 
-Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions sont obligatoires pour le bon fonctionnement du jeu et de Comus Party :
+Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions sont obligatoires pour le bon
+fonctionnement du jeu et de Comus Party :
+
 - La fonction d'instanciation
 - La fonction de terminaison
 
@@ -234,9 +249,12 @@ Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions 
 
 La fonction d'instanciation est appelée lors de la création d'une partie.
 Elle est situé à l'endpoint **`POST`** `/{code de la partie créée}/init`.
-Il reçoit en corps de requête les informations demandées par le jeu pour lancer une partie dans `neededParametersFromComus`.
+Il reçoit en corps de requête les informations demandées par le jeu pour lancer une partie dans
+`neededParametersFromComus` ainsi qu'un attribut `token` contenant le jeton de la partie. Ce jeton est à renvoyer dans
+les réponses du jeu pour identifier la partie.
 
-Si la partie est créée avec succès, la fonction doit retourner un code de statut **`200`** et le corps de réponse *(minimum)* suivant :
+Si la partie est créée avec succès, la fonction doit retourner un code de statut **`200`** et le corps de réponse *(
+minimum)* suivant :
 
 ```json
 {
@@ -245,7 +263,8 @@ Si la partie est créée avec succès, la fonction doit retourner un code de sta
 }
 ```
 
-Dans le cas contraire, la fonction doit retourner un code de statut autre que `200` et `300` et le corps de réponse *(minimum)* suivant :
+Dans le cas contraire, la fonction doit retourner un code de statut autre que `200` et `300` et le corps de réponse *(
+minimum)* suivant :
 
 ```json
 {
