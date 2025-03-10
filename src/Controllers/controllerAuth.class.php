@@ -194,13 +194,13 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'minLength' => 8,
                 'maxLength' => 120,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ],
             'passwordConfirm' => [
                 'required' => true,
                 'minLength' => 8,
                 'maxLength' => 120,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ]
         ];
         $validator = new Validator($rules);
@@ -210,11 +210,11 @@ class ControllerAuth extends Controller
         ]);
 
         if (!$validated) {
-            throw new MalformedRequestException($validator->getErrors());
+            throw new MalformedRequestException("Les  mot de passe ne respectent pas les règles de validation de mot de passe.");
         }
 
         if ($password !== $passwordConfirm) {
-            throw new MalformedRequestException("Les mots de passe ne correspondent pas");
+            throw new MalformedRequestException("Les mots de passe ne correspondent pas.");
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
@@ -564,14 +564,14 @@ class ControllerAuth extends Controller
                 'type' => 'string',
                 'min-length' => 8,
                 'max-length' => 64,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ],
             'passwordConfirm' => [
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
                 'max-length' => 64,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ]
         ];
 
@@ -582,7 +582,7 @@ class ControllerAuth extends Controller
                 throw new AuthenticationException("Impossible de vérifier le captcha");
             }
 
-            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password, 'password', 'passwordConfirm' => $passwordConfirm])) {
+            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password, 'passwordConfirm' => $passwordConfirm])) {
                 throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
             }
 

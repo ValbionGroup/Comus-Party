@@ -326,6 +326,9 @@ class ControllerProfile extends Controller
      * @brief Permet de modifier le mot de passe d'un utilisateur et lui envoie un mail pour lui confirmer
      * @param string $newPassword
      * @return void
+     * @throws DateMalformedStringException
+     * @throws AuthenticationException
+     * @throws Exception
      */
     public function editPassword(string $newPassword): void
     {

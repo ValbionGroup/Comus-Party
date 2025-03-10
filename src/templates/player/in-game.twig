@@ -4,7 +4,8 @@
 
 {% block content %}
     <section class="grid grid-cols-1 md:grid-cols-5 w-full h-full gap-6">
-        <div class="{% if chat %}col-span-4{% else %}col-span-5{% endif %} bg-lavender-blush-1 dark:bg-night-1 rounded-lg flex flex-col">
+        <input id="gameCode" disabled hidden value="{{ code }}"/>
+        <div class="col-span-1 {% if chat %}md:col-span-4{% else %}md:col-span-5{% endif %} bg-lavender-blush-1 dark:bg-night-1 rounded-lg flex flex-col">
             <iframe src="{{ iframe }}" class="w-full h-full rounded-lg" id="gameFrame"></iframe>
         </div>
         {% if chat %}
