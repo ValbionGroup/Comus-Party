@@ -379,5 +379,8 @@ class ControllerProfile extends Controller
         }
     }
 
+    public function reportPlayer()
+    {
 
+    }
 }
