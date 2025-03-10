@@ -26,7 +26,8 @@ fichier `settings.json` :
     "allowLeaveInProgress": true,
     "isNode": true,
     "serverPort": null,
-    "serverAddress": null
+    "serverAddress": null,
+    "serveByComus": true
   },
   "modifiableSettings": {
     // Liste des paramètres modifiables par l'hôte de la partie
@@ -54,6 +55,7 @@ fichier `settings.json` :
 - `isNode` : Le jeu est-il un jeu NodeJS
 - `serverPort` : Port du serveur de jeu
 - `serverAddress` : Adresse du serveur de jeu
+- `serveByComus` : Indique si le jeux est servi par la plateforme officielle de Comus Party
 
 ##### `neededParametersFromComus` et `returnParametersToComus`
 
@@ -142,7 +144,8 @@ Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_UUID`, le
 
 La présence du token est obligatoire pour tous les jeux.
 
-En effet ... *(à compléter)*
+> [!NOTE]
+> Cette partie est en cours de rédaction.
 
 ### Noms des joueurs
 
@@ -213,3 +216,46 @@ Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le systè
   "uuid2": 7
 }
 ```
+
+# Développer un jeu
+
+Chacun est libre de développer un jeu, cependant, certaines règles sont à respecter pour que celui-ci puisse s'intégrer convenablement à Comus Party.
+
+> [!WARNING]
+> Les jeux sont servis depuis l'URL `https://games.comus-party.com/{idDuJeu}`. Veillez à ce que votre jeu n'utilise pas d'URL absolue pour les ressources et autres redirections.
+
+## Logique de traitement du jeu
+
+Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions sont obligatoires pour le bon fonctionnement du jeu et de Comus Party :
+- La fonction d'instanciation
+- La fonction de terminaison
+
+### Fonction d'instanciation
+
+La fonction d'instanciation est appelée lors de la création d'une partie.
+Elle est situé à l'endpoint **`POST`** `/{code de la partie créée}/init`.
+Il reçoit en corps de requête les informations demandées par le jeu pour lancer une partie dans `neededParametersFromComus`.
+
+Si la partie est créée avec succès, la fonction doit retourner un code de statut **`200`** et le corps de réponse *(minimum)* suivant :
+
+```json
+{
+  "success": true,
+  "message": "Message confirmant la création"
+}
+```
+
+Dans le cas contraire, la fonction doit retourner un code de statut autre que `200` et `300` et le corps de réponse *(minimum)* suivant :
+
+```json
+{
+  "success": false,
+  "message": "Message d'erreur",
+  "code": "Code d'erreur interne ou, à défaut, le code de statut HTTP"
+}
+```
+
+### Fonction de terminaison
+
+> [!NOTE]
+> Cette partie est en cours de rédaction.

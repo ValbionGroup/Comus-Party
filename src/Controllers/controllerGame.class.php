@@ -15,6 +15,7 @@ use ComusParty\App\Exceptions\GameUnavailableException;
 use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
@@ -123,7 +124,7 @@ class ControllerGame extends Controller
                 $settings = [];
             }
 
-            $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
+            $baseUrl = $this->getGameUrl($game->getId());
 
             $players = $gameRecord->getPlayers();
             foreach ($players as &$player) {
@@ -135,31 +136,28 @@ class ControllerGame extends Controller
             $data = [];
 
             if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
-                $data[] = [
-                    "settings" => $settings,
-                ];
+                $data["settings"] = $settings;
             }
 
             if (in_array("PLAYER_UUID", $gameSettings["neededParametersFromComus"])) {
-                $data[] = [
-                    "players" => array_map(function ($player) use ($gameSettings) {
-                        return [
-                            'uuid' => $player["player"]->getUuid(),
-                            ...(in_array("PLAYER_NAME", $gameSettings["returnParametersToComus"]) ? ['username' => $player["player"]->getUsername()] : []),
-                            ...(in_array('PLAYER_STYLE', $gameSettings["returnParametersToComus"]) ? ['style' => [
-                                "profilePicture" => $player["player"]->getActivePfp(),
-                                "banner" => $player["player"]->getActiveBanner(),
-                            ]] : []),
-                            'token' => $player["token"]
-                        ];
-                    }, $gameRecord->getPlayers()),
-                ];
+                $data["players"] = array_map(function ($player) use ($gameSettings) {
+                    return [
+                        'uuid' => $player["player"]->getUuid(),
+                        ...(in_array("PLAYER_NAME", $gameSettings["neededParametersFromComus"]) ? ['username' => $player["player"]->getUsername()] : []),
+                        ...(in_array('PLAYER_STYLE', $gameSettings["neededParametersFromComus"]) ? ['style' => [
+                            "profilePicture" => $player["player"]->getActivePfp(),
+                            "banner" => $player["player"]->getActiveBanner(),
+                        ]] : []),
+                        'token' => $player["token"]
+                    ];
+                }, $gameRecord->getPlayers());
             }
 
             $ch = curl_init($baseUrl . "/" . $gameRecord->getCode() . "/init");
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Envoyer le JSON
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Obtenir la réponse
+            curl_setopt($ch, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 "Content-Type: application/json", // Indiquer que les données sont au format JSON
             ]);
@@ -169,15 +167,19 @@ class ControllerGame extends Controller
 
             // Vérifier les erreurs
             if (curl_errno($ch)) {
-                echo json_encode([
-                    "success" => false,
-                    "message" => curl_error($ch),
-                    "code" => null
-                ]);
-                exit;
+                MessageHandler::sendJsonCustomException(500, curl_error($ch));
             } else {
-                // Afficher la réponse
-                echo "Réponse : " . $response;
+                if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 200) {
+                    MessageHandler::sendJsonCustomException(curl_getinfo($ch, CURLINFO_HTTP_CODE), "Erreur lors de l'initialisation du jeu");
+                }
+
+                $response = json_decode($response, true);
+                if (!$response["success"]) {
+                    MessageHandler::sendJsonCustomException(
+                        array_key_exists("code", $response) ? $response["code"] : 500,
+                        "Erreur lors de l'initialisation du jeu." . (array_key_exists("message", $response) ? " " . $response["message"] : "")
+                    );
+                }
             }
 
             // Fermer la connexion cURL
@@ -187,19 +189,16 @@ class ControllerGame extends Controller
             $gameRecord->setUpdatedAt(new DateTime());
             (new GameRecordDAO($this->getPdo()))->update($gameRecord);
 
-            echo json_encode([
-                "success" => true,
+            MessageHandler::sendJsonMessage("La partie a bien été initialisée", [
                 "game" => [
                     "code" => $code,
                     "gameId" => $game->getId(),
                 ],
             ]);
+            exit;
         } catch (Exception|Error $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-                "code" => $e->getCode(),
-            ]);
+            var_dump($e);
+            MessageHandler::sendJsonException($e);
         }
     }
 
@@ -401,6 +400,25 @@ class ControllerGame extends Controller
         return $allSettings["modifiableSettings"];
     }
 
+    private function getGameUrl(int $id): string
+    {
+        $gameSettings = $this->getGameSettings($id);
+        if ($gameSettings["settings"]["serveByComus"]) {
+            return "https://games.comus-party.com/game" . $id;
+        } else {
+            return $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"];
+        }
+    }
+
+    /**
+     * @brief Affiche la page de la partie en cours
+     * @param GameRecord $gameRecord Instance de GameRecord
+     * @return void
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du template
+     * @throws UnauthorizedAccessException Exception levée si l'utilisateur n'est pas dans la partie
+     */
     private function showInGame(GameRecord $gameRecord): void
     {
         $players = $gameRecord->getPlayers();
@@ -408,8 +426,7 @@ class ControllerGame extends Controller
             throw new UnauthorizedAccessException("Vous n'êtes pas dans la partie");
         }
 
-        $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
-        $baseUrl = $gameSettings["settings"]["serverPort"] != null ? $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"] : $gameSettings["settings"]["serverAddress"];
+        $baseUrl = $this->getGameUrl($gameRecord->getGame()->getId());
         $token = null;
         foreach ($players as $player) {
             if ($player["player"]->getUuid() == $_SESSION['uuid']) {
@@ -613,6 +630,8 @@ class ControllerGame extends Controller
      * @param array|null $winner Tableau associatif contenant les UUID des joueurs gagnants
      * @param array|null $scores Tableau associatif contenant les scores des joueurs
      * @return void
+     * @todo Retravailler la fonction afin de gérer l'usurpation d'identité
+     * @todo Retravailler la fonction afin qu'elle corresponde aux règles fixés aux jeux
      */
     public function endGame(string $code, ?array $winner = null, ?array $scores = null): void
     {
@@ -635,10 +654,6 @@ class ControllerGame extends Controller
                     }
                 }
             }
-
-            $gameRecord->setState(GameRecordState::FINISHED);
-            $gameRecord->setFinishedAt(new DateTime());
-            $gameRecordManager->update($gameRecord);
 
             $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
 
@@ -670,6 +685,10 @@ class ControllerGame extends Controller
                     $this->calculateAndUpdateElo($allPlayers, $allWinner, $allLooser);
                 }
             }
+
+            $gameRecord->setState(GameRecordState::FINISHED);
+            $gameRecord->setFinishedAt(new DateTime());
+            $gameRecordManager->update($gameRecord);
 
             echo json_encode([
                 "success" => true,
@@ -706,7 +725,7 @@ class ControllerGame extends Controller
             } else {
                 $newElo = EloCalculator::calculateNewElo($elo, $averageEloWinner, 0);
             }
-            $player->setElo($newElo);
+            $player->setElo(round($newElo, 0, PHP_ROUND_HALF_UP));
             $playerManager->update($player);
         }
     }
