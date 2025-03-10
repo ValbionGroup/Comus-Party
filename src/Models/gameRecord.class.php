@@ -12,6 +12,7 @@ namespace ComusParty\Models;
 
 
 use DateTime;
+use Random\RandomException;
 
 /**
  * @brief Enumération des états d'une partie
@@ -55,6 +56,12 @@ class GameRecord
      * @var string Identifiant de la partie
      */
     private string $code;
+    /**
+     * @brief Token de la partie
+     * @details Le token est utilisé pour authentifier une partie auprès de Comus notamment pour les requêtes de mise à jour de la partie.
+     * @var string Token de la partie
+     */
+    private string $token;
     /**
      * @brief Jeu de la partie
      * @var Game Jeu de la partie
@@ -100,24 +107,27 @@ class GameRecord
      * @brief Constructeur de la classe GameRecord
      *
      * @param string $code Identifiant de la partie
+     * @param string|null $token Token de la partie
      * @param Game $game Jeu de la partie
      * @param Player $hostedBy Joueur qui a créé la partie
      * @param Player[]|null $players Joueurs de la partie
      * @param GameRecordState $state Etat de la partie
-     * @param DateTime $createdAt Date de création de la partie
-     * @param DateTime $updatedAt Date de dernière mise à jour de la partie
+     * @param bool $isPrivate Indique si la partie est privée
+     * @param DateTime|null $createdAt Date de création de la partie
+     * @param DateTime|null $updatedAt Date de dernière mise à jour de la partie
      * @param DateTime|null $finishedAt Date de fin de la partie
      */
-    public function __construct(string $code, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, bool $isPrivate, DateTime $createdAt, DateTime $updatedAt, ?DateTime $finishedAt = null)
+    public function __construct(string $code, ?string $token, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, bool $isPrivate, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?DateTime $finishedAt = null)
     {
         $this->code = $code;
+        $this->token = $token;
         $this->game = $game;
         $this->hostedBy = $hostedBy;
         $this->players = $players;
         $this->state = $state;
         $this->private = $isPrivate;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
+        $this->createdAt = $createdAt ?? new DateTime();
+        $this->updatedAt = $updatedAt ?? new DateTime();
         $this->finishedAt = $finishedAt;
     }
 
@@ -140,6 +150,39 @@ class GameRecord
     public function setCode(string $code): void
     {
         $this->code = $code;
+    }
+
+    /**
+     * @brief Getter de l'attribut token
+     *
+     * @return string Token de la partie
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @brief Setter de l'attribut token
+     *
+     * @param string $token Token de la partie
+     * @return void
+     */
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @brief Génère un token aléatoire pour la partie
+     * @return string Token généré en clair
+     * @throws RandomException
+     */
+    public function generateToken(): string
+    {
+        $token = bin2hex(random_bytes(16));
+        $this->setToken(hash('sha256', $token));
+        return $token;
     }
 
     /**

@@ -99,6 +99,7 @@ class GameRecordDAO
 
         return new GameRecord(
             $row["code"],
+            $row["token"],
             $game,
             $hostedBy,
             $players,
@@ -224,9 +225,10 @@ class GameRecordDAO
      */
     public function insert(GameRecord $gameRecord): bool
     {
-        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (code, game_id, hosted_by, state, private, created_at, updated_at, finished_at) VALUES (:code, :gameId, :hostedBy, :state, :isPrivate, :createdAt, :updatedAt, :finishedAt)");
+        $stmt = $this->pdo->prepare("INSERT INTO " . DB_PREFIX . "game_record (code, token, game_id, hosted_by, state, private, created_at, updated_at, finished_at) VALUES (:code, :token, :gameId, :hostedBy, :state, :isPrivate, :createdAt, :updatedAt, :finishedAt)");
 
         $code = $gameRecord->getCode();
+        $token = $gameRecord->getToken();
         $gameId = $gameRecord->getGame()->getId();
         $hostUuid = $gameRecord->getHostedBy()->getUuid();
         $state = match ($gameRecord->getState()) {
@@ -241,6 +243,7 @@ class GameRecordDAO
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
 
         $stmt->bindParam(":code", $code);
+        $stmt->bindParam(":token", $token);
         $stmt->bindParam(":gameId", $gameId);
         $stmt->bindParam(":hostedBy", $hostUuid);
         $stmt->bindParam(":state", $state);
@@ -259,8 +262,9 @@ class GameRecordDAO
      */
     public function update(GameRecord $gameRecord): bool
     {
-        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET state = :state, private = :private, finished_at = :finishedAt WHERE code = :code");
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET token = :token, state = :state, private = :private, finished_at = :finishedAt WHERE code = :code");
 
+        $token = $gameRecord->getToken();
         $state = match ($gameRecord->getState()) {
             GameRecordState::WAITING => "waiting",
             GameRecordState::STARTED => "started",
@@ -271,6 +275,7 @@ class GameRecordDAO
         $finishedAt = $gameRecord->getFinishedAt()?->format("Y-m-d H:i:s");
         $code = $gameRecord->getCode();
 
+        $stmt->bindParam(":token", $token);
         $stmt->bindParam(":state", $state);
         $stmt->bindParam(":private", $private, PDO::PARAM_BOOL);
         $stmt->bindParam(":finishedAt", $finishedAt);
