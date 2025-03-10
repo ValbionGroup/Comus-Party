@@ -68,8 +68,8 @@ Liste des paramètres possibles pour `neededParametersFromComus` :
 
 Liste des paramètres possibles pour `returnParametersToComus` :
 
-- `WINNER_UUID` : UUID du/des gagnants de la partie
-- `SCORES` : Score des joueurs
+- `WINNER_UUID` : UUID du/des gagnants de la partie accompagnés de leurs tokens
+- `SCORES` : Score des joueurs accompagnés de leurs tokens
 
 ##### Paramètres modifiables
 
@@ -199,21 +199,27 @@ Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_STYLE`, l
 
 ### Gagnants
 
-Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au format *JSON* :
+Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au format *JSON* listant l'UUID de chaque vainqueur, associé à son token de partie :
 ```json
-[
-  "uuid1",
-  "uuid2"
-]
+{
+  "uuid1": "token-abc",
+  "uuid2": "token-def"
+}
 ```
 
 ### Scores
 
-Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format *JSON* :
+Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format *JSON* listant l'UUID de chaque joueur, associé à son score et son token de partie :
 ```json
 {
-  "uuid1": 15,
-  "uuid2": 7
+  "uuid1": {
+    "score": 15,
+    "token": "token-abc"
+  },
+  "uuid2": {
+    "score": 10,
+    "token": "token-def"
+  }
 }
 ```
 
