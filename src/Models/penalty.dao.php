@@ -138,7 +138,7 @@ class PenaltyDAO
      * @return Penalty|null
      * @throws DateMalformedStringException
      */
-    public function findLastMuteByPlayerUuid(string $playerUuid): ?Penalty
+    public function findLastMutedByPlayerUuid(string $playerUuid): ?Penalty
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "penalty WHERE penalized_uuid = :penalized_uuid AND type = 'muted' ORDER BY created_at DESC LIMIT 1");
         $stmt->bindParam(":penalized_uuid", $playerUuid);
