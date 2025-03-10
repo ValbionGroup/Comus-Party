@@ -125,7 +125,7 @@ VALUES (1, 'Game One', 'First game description', 'game1.png', 'available', '2024
 CREATE TABLE `cp_game_record`
 (
     `code`        varchar(32)                           NOT NULL,
-    `token`       varchar(60)                           NOT NULL,
+    `token`       varchar(60)                           NULL     DEFAULT NULL,
     `game_id`     bigint(20)                            NOT NULL,
     `hosted_by`   varchar(63)                           NOT NULL,
     `state`       enum ('waiting','started','finished') NOT NULL DEFAULT 'waiting',
