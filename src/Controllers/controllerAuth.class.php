@@ -190,13 +190,13 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'minLength' => 8,
                 'maxLength' => 120,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ],
             'passwordConfirm' => [
                 'required' => true,
                 'minLength' => 8,
                 'maxLength' => 120,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ]
         ];
         $validator = new Validator($rules);
@@ -443,14 +443,14 @@ class ControllerAuth extends Controller
                 'type' => 'string',
                 'min-length' => 8,
                 'max-length' => 64,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ],
             'passwordConfirm' => [
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
                 'max-length' => 64,
-                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/'
+                'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ]
         ];
 
