@@ -26,7 +26,8 @@ fichier `settings.json` :
     "allowLeaveInProgress": true,
     "isNode": true,
     "serverPort": null,
-    "serverAddress": null
+    "serverAddress": null,
+    "serveByComus": true
   },
   "modifiableSettings": {
     // Liste des paramètres modifiables par l'hôte de la partie
