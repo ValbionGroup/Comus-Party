@@ -167,7 +167,7 @@ class ReportDAO
      * @param ReportObject $reportObject L'objet ReportObject à transformer
      * @return string L'objet retourné par la méthode, ici un string
      */
-    public function transformReportObjectToString(ReportObject $reportObject): string
+    private function transformReportObjectToString(ReportObject $reportObject): string
     {
         return match ($reportObject) {
             ReportObject::LANGUAGE => 'language',

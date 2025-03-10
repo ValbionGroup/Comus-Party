@@ -123,7 +123,7 @@ class PenaltyDAO
      * @param PenaltyType|null $penaltyType
      * @return string|null
      */
-    public function transformPenaltyTypeToString(?PenaltyType $penaltyType): ?string
+    private function transformPenaltyTypeToString(?PenaltyType $penaltyType): ?string
     {
         return match ($penaltyType) {
             PenaltyType::MUTED => 'muted',
