@@ -55,6 +55,7 @@ fichier `settings.json` :
 - `isNode` : Le jeu est-il un jeu NodeJS
 - `serverPort` : Port du serveur de jeu
 - `serverAddress` : Adresse du serveur de jeu
+- `serveByComus` : Indique si le jeux est servi par la plateforme officielle de Comus Party
 
 ##### `neededParametersFromComus` et `returnParametersToComus`
 
