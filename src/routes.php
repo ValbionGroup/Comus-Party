@@ -345,7 +345,8 @@ $router->post('/penalty', function () use ($loader, $twig) {
             "muted" => PenaltyType::MUTED,
             "banned" => PenaltyType::BANNED,
             default => null
-        }
+        },
+        "reportId" => $_POST['reportId']
     ]);
     exit;
 }, 'moderator');

@@ -17,6 +17,8 @@ const btnPenalty = document.getElementById('btnPenalty');
 const hiddenPenalizePlayerUuid = document.getElementById('penalizePlayerUuid');
 const penaltyReason = document.getElementById('reason');
 const hiddenReportedPlayerUuid = document.getElementById(`reportedPlayerUuid`);
+const spanIdReport = document.getElementById('spanIdReport');
+const hiddenReportId = document.getElementById(`reportId`);
 
 function showModalSuggest(e) {
     let suggestId = e.id;
@@ -118,7 +120,6 @@ function showModalReport(e) {
     let spanAuthorReport = document.getElementById(`spanAuthorReport`);
     let spanDescriptionReport = document.getElementById(`spanDescriptionReport`);
     let spanReportedPlayer = document.getElementById(`spanReportedPlayer`);
-    let idReport = document.getElementById(`idSuggestion`);
 
     makeRequest("GET", `/report/${reportId}`, (response) => {
         response = JSON.parse(response);
@@ -141,7 +142,6 @@ function showModalReport(e) {
                     spanObjectReport.innerText = "🔧 Autres";
                     break;
             }
-            idReport.value = response.report.id;
             spanAuthorReport.innerText = response.report.author_username;
             spanDescriptionReport.innerText = response.report.description;
             spanReportedPlayer.innerText = `${response.report.reported_username} (${response.report.reported_uuid})`;
@@ -160,6 +160,7 @@ function denyReport(e) {
 function acceptReport(e) {
     closeModal();
     hiddenPenalizePlayerUuid.value = hiddenReportedPlayerUuid.value;
+    hiddenReportId.value = spanIdReport.innerText;
     modalPenalty.classList.remove("hidden");
     showBackgroundModal();
 }
@@ -420,7 +421,7 @@ function sendPenalty() {
         } else {
             showNotification("Oups...", "La sanction n'a pas pu être appliquée", "red");
         }
-    }, `penalizedUuid=${hiddenPenalizePlayerUuid.value}&penaltyType=${selectPenaltyType.value}&duration=${inputDuration.value === "" ? 0 : parseInt(inputDuration.value)}&durationType=${selectPenalty.value}&reason=${penaltyReason.value}`);
+    }, `penalizedUuid=${hiddenPenalizePlayerUuid.value}&penaltyType=${selectPenaltyType.value}&duration=${inputDuration.value === "" ? 0 : parseInt(inputDuration.value)}&durationType=${selectPenalty.value}&reason=${penaltyReason.value}&reportId=${hiddenReportId.value}`);
 }
 
 btnPenalty.addEventListener('click', sendPenalty);

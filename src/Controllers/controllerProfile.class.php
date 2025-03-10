@@ -21,6 +21,7 @@ use ComusParty\Models\Penalty;
 use ComusParty\Models\PenaltyDAO;
 use ComusParty\Models\PenaltyType;
 use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\ReportDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
@@ -391,7 +392,7 @@ class ControllerProfile extends Controller
      * @return void
      * @throws DateMalformedStringException
      */
-    public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, PenaltyType $penaltyType)
+    public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, PenaltyType $penaltyType, string $reportId): void
     {
 
         $duration = match ($durationType) {
@@ -428,6 +429,13 @@ class ControllerProfile extends Controller
             $user->setDisabled(1);
             $userManager->update($user);
         }
+
+        $reportManager = new ReportDAO($this->getPdo());
+        $report = $reportManager->findById($reportId);
+
+        $report->setTreatedBy($createdBy);
+
+        $reportManager->update($report);
 
         echo json_encode([
             'success' => true,
