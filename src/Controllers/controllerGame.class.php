@@ -699,16 +699,10 @@ class ControllerGame extends Controller
             $gameRecord->setFinishedAt(new DateTime());
             $gameRecordManager->update($gameRecord);
 
-            echo json_encode([
-                "success" => true,
-            ]);
+            echo MessageHandler::sendJsonMessage("La partie a bien été terminée");
             exit;
         } catch (Exception|Error $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 
