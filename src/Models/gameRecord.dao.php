@@ -99,12 +99,12 @@ class GameRecordDAO
 
         return new GameRecord(
             $row["code"],
-            $row["token"],
             $game,
             $hostedBy,
             $players,
             $gameRecordState,
             $row["private"] === 1,
+            $row["token"],
             new DateTime($row["created_at"]),
             new DateTime($row["updated_at"]),
             $finishedAt

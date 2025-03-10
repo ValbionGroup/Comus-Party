@@ -609,6 +609,7 @@ class ControllerGame extends Controller
             null,
             GameRecordState::WAITING,
             true,
+            null,
             new DateTime(),
             new DateTime(),
             null

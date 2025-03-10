@@ -117,15 +117,15 @@ class GameRecord
      * @param DateTime|null $updatedAt Date de dernière mise à jour de la partie
      * @param DateTime|null $finishedAt Date de fin de la partie
      */
-    public function __construct(string $code, ?string $token, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, bool $isPrivate, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?DateTime $finishedAt = null)
+    public function __construct(string $code, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, bool $isPrivate, ?string $token = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?DateTime $finishedAt = null)
     {
         $this->code = $code;
-        $this->token = $token;
         $this->game = $game;
         $this->hostedBy = $hostedBy;
         $this->players = $players;
         $this->state = $state;
         $this->private = $isPrivate;
+        $this->token = $token;
         $this->createdAt = $createdAt ?? new DateTime();
         $this->updatedAt = $updatedAt ?? new DateTime();
         $this->finishedAt = $finishedAt;
@@ -155,9 +155,9 @@ class GameRecord
     /**
      * @brief Getter de l'attribut token
      *
-     * @return string Token de la partie
+     * @return string|null Token de la partie
      */
-    public function getToken(): string
+    public function getToken(): string|null
     {
         return $this->token;
     }

@@ -37,12 +37,12 @@ class GameRecordTest extends TestCase
     {
         $this->gameRecord = new GameRecord(
             'uuid1',
-            hash('sha256', 'tkn1'),
             new Game(),
             new Player(),
             [new Player(), new Player()],
             GameRecordState::WAITING,
             true,
+            hash('sha256', 'tkn1'),
             new DateTime('2024-01-01'),
             new DateTime('2024-11-14'),
             new DateTime('2024-12-19')
