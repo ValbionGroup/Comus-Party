@@ -149,4 +149,22 @@ class PenaltyDAO
         }
         return $this->hydrate($data);
     }
+
+    /**
+     * @brief Trouve la dernière sanction d'un joueur
+     * @param string $playerUuid
+     * @return Penalty|null
+     * @throws DateMalformedStringException
+     */
+    public function findLastPenaltyByPlayerUuid(string $playerUuid): ?Penalty
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "penalty WHERE penalized_uuid = :penalized_uuid ORDER BY created_at DESC LIMIT 1");
+        $stmt->bindParam(":penalized_uuid", $playerUuid);
+        $stmt->execute();
+        $data = $stmt->fetch();
+        if ($data === false) {
+            return null;
+        }
+        return $this->hydrate($data);
+    }
 }

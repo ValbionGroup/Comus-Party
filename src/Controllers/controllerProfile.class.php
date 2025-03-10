@@ -392,7 +392,7 @@ class ControllerProfile extends Controller
      * @return void
      * @throws DateMalformedStringException
      */
-    public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, PenaltyType $penaltyType, string $reportId): void
+    public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, PenaltyType $penaltyType, string $reportId)
     {
 
         $duration = match ($durationType) {
@@ -405,6 +405,16 @@ class ControllerProfile extends Controller
         };
 
         $penaltyManager = new PenaltyDAO($this->getPdo());
+
+        $lastPenalty = $penaltyManager->findLastPenaltyByPlayerUuid($penalizedUuid);
+        if (isset($lastPenalty) && ($lastPenalty->getDuration() >= $duration || $lastPenalty->getDuration() == null)) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'La durée de la sanction est inférieure à la dernière sanction'
+            ]);
+            exit;
+        }
+
         $penalty = new Penalty();
         $penalty->setCreatedBy($createdBy);
         $penalty->setPenalizedUuid($penalizedUuid);
