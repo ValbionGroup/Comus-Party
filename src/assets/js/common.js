@@ -92,47 +92,40 @@ function showProfile(searchBy, data) {
     const spanGamesPlayed = document.getElementById('spanGamesPlayed');
     const spanGamesWon = document.getElementById('spanGamesWon');
     const spanCreatedAt = document.getElementById('spanCreatedAt');
+    const uuidPlayerInfo = document.getElementById('uuidPlayerInfo');
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/player/informations`, true);
-
-    // Create a FormData object and append the data
-    const formData = new FormData();
-    formData.append("searchBy", searchBy);
-    formData.append("data", data);
-
-    // Send the FormData
-    xhr.send(formData);
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            spanTopUsername.innerText = response.username;
-            imgPfp.src = `/assets/img/pfp/${response.activePfp}`;
-            spanUsername.innerText = response.username;
-            spanElo.innerText = response.elo;
-            spanExp.innerText = response.xp;
-            spanGamesPlayed.innerText = response.statistics.gamesPlayed;
-            spanGamesWon.innerText = response.statistics.gamesWon;
-            spanCreatedAt.innerText = new Date(response.createdAt.date).toLocaleDateString('fr-FR', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            });
-            if (response.username === document.getElementById('headerUsername').innerText) {
-                document.getElementById('flag').classList.add("hidden");
-            } else {
-                document.getElementById('flag').classList.remove("hidden");
-            }
-            playerInfoDiv.classList.remove("hidden");
-            showBackgroundModal();
+    makeRequest('POST', `/player/informations`, (response) => {
+        response = JSON.parse(response);
+        uuidPlayerInfo.value = response.uuid;
+        spanTopUsername.innerText = response.username;
+        imgPfp.src = `/assets/img/pfp/${response.activePfp}`;
+        spanUsername.innerText = response.username;
+        spanElo.innerText = response.elo;
+        spanExp.innerText = response.xp;
+        spanGamesPlayed.innerText = response.statistics.gamesPlayed;
+        spanGamesWon.innerText = response.statistics.gamesWon;
+        spanCreatedAt.innerText = new Date(response.createdAt.date).toLocaleDateString('fr-FR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+        if (response.username === document.getElementById('headerUsername').innerText) {
+            document.getElementById('flag').classList.add("hidden");
+        } else {
+            document.getElementById('flag').classList.remove("hidden");
         }
-    };
+        playerInfoDiv.classList.remove("hidden");
+        showBackgroundModal();
+    }, `searchBy=${searchBy}&data=${data}`);
 }
 
 function showReportForm() {
+
+    let reportedUuid = document.getElementById('reportedUuid');
+    let uuidPlayerInfo = document.getElementById('uuidPlayerInfo');
+
     closeModal();
+    reportedUuid.value = uuidPlayerInfo.value;
     reportForm.classList.remove("hidden");
     showBackgroundModal();
 }
@@ -243,4 +236,21 @@ function changeButtonState(button, neededActive, needCaptcha = false) {
         button.classList.add("btn-disabled");
         button.classList.remove("btn-primary");
     }
+}
+
+function sendReport() {
+
+    let id = document.getElementById('id');
+    let reason = document.getElementById('reason');
+    let description = document.getElementById('description');
+
+    makeRequest('POST', '/report', (response) => {
+        response = JSON.parse(response);
+        if (response.success === 'success') {
+            showNotification('Signalement envoyé', 'Le signalement a bien été envoyé', 'green');
+            closeModal();
+        } else {
+            showNotification('Erreur lors de l\'envoi', 'Une erreur est survenue lors de l\'envoi du signalement', 'red');
+        }
+    }, 'idReported={$id}&reason={$reason}&description={$description}');
 }
