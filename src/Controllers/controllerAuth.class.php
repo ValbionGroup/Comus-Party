@@ -461,7 +461,7 @@ class ControllerAuth extends Controller
                 throw new AuthenticationException("Impossible de vérifier le captcha");
             }
 
-            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password, 'password', 'passwordConfirm' => $passwordConfirm])) {
+            if (!$validator->validate(['username' => $username, 'email' => $email, 'password' => $password, 'passwordConfirm' => $passwordConfirm])) {
                 throw new AuthenticationException("Nom d'utilisateur, adresse e-mail ou mot de passe invalide");
             }
 
