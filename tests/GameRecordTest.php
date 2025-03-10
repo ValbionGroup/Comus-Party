@@ -15,6 +15,7 @@ use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordState;
 use ComusParty\Models\Player;
 use PHPUnit\Framework\TestCase;
+use Random\RandomException;
 
 /**
  * @brief Classe GameRecordTest
@@ -36,6 +37,7 @@ class GameRecordTest extends TestCase
     {
         $this->gameRecord = new GameRecord(
             'uuid1',
+            hash('sha256', 'tkn1'),
             new Game(),
             new Player(),
             [new Player(), new Player()],
@@ -54,6 +56,15 @@ class GameRecordTest extends TestCase
     public function testGetCodeOk(): void
     {
         $this->assertEquals('uuid1', $this->gameRecord->getCode());
+    }
+
+    /**
+     * @brief Test de la méthode getToken
+     * @return void
+     */
+    public function testGetTokenOk(): void
+    {
+        $this->assertEquals(hash('sha256', 'tkn1'), $this->gameRecord->getToken());
     }
 
     /**
@@ -197,6 +208,38 @@ class GameRecordTest extends TestCase
     {
         $this->expectException(TypeError::class);
         $this->gameRecord->setPlayers('players');
+    }
+
+    /**
+     * @brief Test de la méthode setToken avec un paramètre valide
+     * @return void
+     */
+    public function testSetTokenOk(): void
+    {
+        $this->gameRecord->setToken(hash('sha256', 'tkn2'));
+        $this->assertEquals(hash('sha256', 'tkn2'), $this->gameRecord->getToken());
+    }
+
+    /**
+     * @brief Test de la méthode setToken avec un paramètre invalide
+     * @return void
+     */
+    public function testSetTokenWithInvalidToken(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->gameRecord->setToken();
+    }
+
+    /**
+     * @brief Test de la méthode generateToken
+     * @return void
+     * @throws RandomException
+     */
+    public function testGenerateTokenOk(): void
+    {
+        $generatedToken = $this->gameRecord->generateToken();
+        $this->assertNotNull($this->gameRecord->getToken());
+        $this->assertEquals(hash('sha256', $generatedToken), $this->gameRecord->getToken());
     }
 
     /**
