@@ -220,7 +220,7 @@ for (let player of players) {
 
 
 function verifyMutedPlayer() {
-    makeRequest('POST', `/game/mutedPlayer`, (response) => {
+    makeRequest('POST', `/game/muted-player`, (response) => {
         response = JSON.parse(response);
         if (response.success) {
             const chatInput = document.getElementById('chatInput');
