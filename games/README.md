@@ -270,11 +270,36 @@ minimum)* suivant :
 {
   "success": false,
   "message": "Message d'erreur",
-  "code": "Code d'erreur interne ou, à défaut, le code de statut HTTP"
+  "error": "Code d'erreur interne ou, à défaut, le code de statut HTTP"
 }
 ```
 
 ### Fonction de terminaison
 
-> [!NOTE]
-> Cette partie est en cours de rédaction.
+La fonction de terminaison est appelée lors de la fin d'une partie.
+
+Elle doit envoyer une requête **`POST`** à l'endpoint de Comus Party `/game/{code de la partie}/end` avec le corps de
+requête suivant,
+au minimum, au format *JSON* :
+
+```json
+{
+  "token": "jeton sauvegardé lors de l'instanciation"
+}
+```
+
+N'oubliez pas de renvoyer, en fonction des paramètres définis dans `returnParametersToComus`, les informations
+nécessaires conformément au format attendu.
+
+Si la partie est terminée avec succès, le serveur renverra un code de statut **`200`**.
+
+À l'inverse, si la partie n'a pas pu être terminée, le serveur renverra un code de statut autre que `200` et `300`.
+Le corps de réponse sera le suivant :
+
+```json
+{
+  "success": false,
+  "message": "Message d'erreur",
+  "error": "Code d'erreur interne ou, à défaut, le code de statut HTTP"
+}
+```
