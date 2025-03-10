@@ -327,6 +327,16 @@ $router->get('/reports', function () use ($loader, $twig) {
     exit;
 }, 'moderator');
 
+$router->post('/report', function () use ($loader, $twig) {
+    ControllerFactory::getController("dashboard", $loader, $twig)->call("reportPlayer", [
+        "object" => $_POST['object'],
+        "description" => $_POST['description'],
+        "reportedUuid" => $_POST['reportedUuid'],
+        "senderUuid" => $_SESSION['uuid']
+    ]);
+    exit;
+}, 'player');
+
 $router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getReportInformations", ["reportId" => $reportId]);
     exit;
