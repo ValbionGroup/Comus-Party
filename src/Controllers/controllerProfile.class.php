@@ -15,6 +15,7 @@ use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\Mailer;
+use ComusParty\App\MessageHandler;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\Penalty;
@@ -411,11 +412,7 @@ class ControllerProfile extends Controller
 
         $lastPenalty = $penaltyManager->findLastPenaltyByPlayerUuid($penalizedUuid);
         if (isset($lastPenalty) && ($lastPenalty->getDuration() >= $duration || $lastPenalty->getDuration() == null)) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'La durée de la sanction est inférieure à la dernière sanction'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(500, 'Le joueur a déjà une sanction plus longue ou égale à celle-ci');
         }
 
         $penalty = new Penalty();
@@ -427,11 +424,7 @@ class ControllerProfile extends Controller
         $penalty->setCreatedAt(new DateTime());
         $penalty->setUpdatedAt(new DateTime());
         if (!$penaltyManager->createPenalty($penalty)) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'Erreur lors de la création de la sanction'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(500, 'Erreur lors de la création de la sanction');
         }
 
         if ($penaltyType == PenaltyType::BANNED) {
@@ -450,9 +443,7 @@ class ControllerProfile extends Controller
 
         $reportManager->update($report);
 
-        echo json_encode([
-            'success' => true,
-        ]);
+        echo MessageHandler::sendJsonMessage("Sanction appliquée avec succès");
         exit;
     }
 }
