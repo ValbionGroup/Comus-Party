@@ -208,7 +208,7 @@ function verifPenaltyForm() {
         errorDuration.classList.add("hidden");
         isDurationValid = true;
     }
-    
+
     if (isTypeValid && isDurationValid) {
         btnPenalty.disabled = false;
         btnPenalty.classList.remove("btn-disabled");
@@ -425,9 +425,9 @@ function sendPenalty() {
             inputDuration.value = "";
             penaltyReason.value = "";
             dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
-            showNotification("Génial !", "La sanction a bien été appliquée", "green");
+            showNotification("Génial !", response.message, "green");
         } else {
-            showNotification("Oups...", "La sanction n'a pas pu être appliquée", "red");
+            showNotification("Oups...", response.message, "red");
         }
     }, `penalizedUuid=${hiddenPenalizePlayerUuid.value}&penaltyType=${selectPenaltyType.value}&duration=${inputDuration.value === "" ? 0 : parseInt(inputDuration.value)}&durationType=${selectPenalty.value}&reason=${penaltyReason.value}&reportId=${hiddenReportId.value}`);
 }

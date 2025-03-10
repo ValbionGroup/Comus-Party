@@ -354,7 +354,6 @@ $router->post('/penalty', function () use ($loader, $twig) {
 $router->post('/game/muted-player', function () use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("isPlayerMuted", [
         "playerUsername" => $_POST['username'],
-
     ]);
     exit;
 }, 'player');
