@@ -206,11 +206,11 @@ class ControllerAuth extends Controller
         ]);
 
         if (!$validated) {
-            throw new MalformedRequestException($validator->getErrors());
+            throw new MalformedRequestException("Les  mot de passe ne respectent pas les règles de validation de mot de passe.");
         }
 
         if ($password !== $passwordConfirm) {
-            throw new MalformedRequestException("Les mots de passe ne correspondent pas");
+            throw new MalformedRequestException("Les mots de passe ne correspondent pas.");
         }
 
         $tokenManager = new PasswordResetTokenDAO($this->getPdo());
