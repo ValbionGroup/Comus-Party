@@ -141,6 +141,10 @@ class ReportDAO
         return $this->hydrate($report);
     }
 
+    /**
+     * @brief Met à jour un signalement en base de données
+     * @param Report $report L'objet Report à créer
+     */
     public function update(Report $report): void
     {
         $stmt = $this->pdo->prepare(
@@ -158,6 +162,11 @@ class ReportDAO
         $stmt->execute();
     }
 
+    /**
+     * @brief Transforme un objet ReportObject en string
+     * @param ReportObject $reportObject L'objet ReportObject à transformer
+     * @return string L'objet retourné par la méthode, ici un string
+     */
     public function transformReportObjectToString(ReportObject $reportObject): string
     {
         return match ($reportObject) {
