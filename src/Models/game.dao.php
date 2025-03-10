@@ -93,7 +93,7 @@ class GameDAO
         $game->setName($gameTab['name']);
         $game->setDescription($gameTab['description']);
         $game->setPathImg($gameTab['img_path']);
-        $game->setState($this->transformState($gameTab['state']));
+        $game->setState($this->transformStringToGameState($gameTab['state']));
         $game->setCreatedAt(new DateTime($gameTab['created_at']));
         $game->setUpdatedAt(new DateTime($gameTab['updated_at']));
         $game->setTags($gameTab['tags'] ?? null);
@@ -106,7 +106,7 @@ class GameDAO
      * @param string $state L'état du jeu
      * @return ?GameState L'état du jeu en type State
      */
-    public function transformState(string $state): ?GameState
+    private function transformStringToGameState(string $state): ?GameState
     {
         return match (strtoupper($state)) {
             'AVAILABLE' => GameState::AVAILABLE,
