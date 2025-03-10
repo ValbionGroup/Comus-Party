@@ -717,7 +717,7 @@ class ControllerGame extends Controller
      * @return void
      * @throws DateMalformedStringException
      */
-    public function mutedPlayer(string $playerUsername): void
+    public function isPlayerMuted(string $playerUsername): void
     {
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findByUsername($playerUsername);
