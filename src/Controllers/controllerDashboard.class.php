@@ -147,8 +147,7 @@ class ControllerDashboard extends Controller
         $reportsManager = new ReportDAO($this->getPdo());
         $playerManager = new PlayerDAO($this->getPdo());
         $report = $reportsManager->findById($id);
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Informations récupérées", [
             "report" => [
                 "id" => $report->getId(),
                 "object" => $report->getObject()->name,
@@ -157,7 +156,7 @@ class ControllerDashboard extends Controller
                 "author_username" => $playerManager->findByUuid($report->getSenderUuid())->getUsername(),
                 "reported_uuid" => $report->getReportedUuid(),
                 "reported_username" => $playerManager->findByUuid($report->getReportedUuid())->getUsername(),
-                "created_at" => $report->getCreatedAt()->format('d/m/Y H:i:s'),
+                "created_at" => $report->getCreatedAt()->getTimestamp() * 1000,
             ],
         ]);
         exit;
