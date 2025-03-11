@@ -222,13 +222,17 @@ class ControllerProfile extends Controller
                 $playerManager = new PlayerDAO($this->getPdo());
                 $player = $playerManager->findWithDetailByUuid($data);
                 $playerArray = $player->toArray();
-                echo json_encode($playerArray);
+                echo MessageHandler::sendJsonMessage("Informations du joueur récupérées avec succès", [
+                    'player' => $playerArray
+                ]);
                 break;
             case "username":
                 $playerManager = new PlayerDAO($this->getPdo());
                 $player = $playerManager->findWithDetailByUsername($data);
                 $playerArray = $player->toArray();
-                echo json_encode($playerArray);
+                echo MessageHandler::sendJsonMessage("Informations du joueur récupérées avec succès", [
+                    'player' => $playerArray
+                ]);
                 break;
         }
     }
