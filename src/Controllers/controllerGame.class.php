@@ -593,9 +593,7 @@ class ControllerGame extends Controller
         $gameRecordManager->insert($gameRecord);
         $gameRecordManager->addPlayer($gameRecord, $host);
 
-
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("La partie a bien été créée", [
             "game" => [
                 "code" => $generatedCode,
                 "gameId" => $gameId,
