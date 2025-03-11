@@ -149,27 +149,18 @@ function afficher(section) {
 // Fonction permettant d'équiper un article
 
 function equipArticle() {
-    let idArticle = inputSelectedArticleId.value
-    let typeArticle = inputSelectedArticleType.value
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/profile/update-style/${idArticle}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText)
-            if (typeArticle === "banner") {
-                playerBanner.src = "/assets/img/banner/" + response.articlePath
-            } else if (typeArticle === "pfp") {
-                playerPfp.src = "/assets/img/pfp/" + response.articlePath
-                pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
-            }
-
+    let idArticle = inputSelectedArticleId.value;
+    let typeArticle = inputSelectedArticleType.value;
+    makeRequest("PUT", `/profile/update-style/${idArticle}`, (response) => {
+        response = JSON.parse(response);
+        if (typeArticle === "banner") {
+            playerBanner.src = "/assets/img/banner/" + response.articlePath
+        } else if (typeArticle === "pfp") {
+            playerPfp.src = "/assets/img/pfp/" + response.articlePath
+            pfpPlayerInHeader.src = "/assets/img/pfp/" + response.articlePath
         }
-    };
-    closeModal()
+        closeModal();
+    });
 }
 
 function showModalSuppression() {
