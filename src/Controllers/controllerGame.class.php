@@ -336,11 +336,7 @@ class ControllerGame extends Controller
             try {
                 echo $this->joinGame($code, $_SESSION['uuid']);
             } catch (Exception $e) {
-                echo json_encode([
-                    "success" => false,
-                    "message" => $e->getMessage(),
-                ]);
-                exit;
+                MessageHandler::sendJsonException($e);
             }
         } elseif ($method == 'GET') {
             $this->joinGame($code, $_SESSION['uuid']);
