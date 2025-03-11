@@ -255,33 +255,21 @@ class ControllerProfile extends Controller
         ]);
 
         if (!$validator->validate(['email' => $email])) {
-            echo json_encode([
-                'success' => false,
-                'error' => $validator->getErrors()['email']
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(400, $validator->getErrors()['email']);
         }
 
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
 
         if (!is_null($user)) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'Cet e-mail est déjà utilisé'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(400, 'Cet e-mail est déjà utilisé');
         }
 
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findByUuid($_SESSION['uuid']);
         $user = $userManager->findById($player->getUserId());
         if (is_null($user)) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'Utilisateur non trouvé'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(500, 'Utilisateur non trouvé');
         }
 
 
@@ -303,11 +291,7 @@ class ControllerProfile extends Controller
             $confirmMail->generateHTMLMessage();
             $confirmMail->send();
         } catch (Exception $e) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'Une erreur est survenue lors de l\'envoi du mail de confirmation'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(500, 'Erreur lors de l\'envoi du mail de confirmation');
         }
 
 
