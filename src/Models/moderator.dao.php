@@ -58,7 +58,7 @@ class ModeratorDAO
      * @brief Retourne un objet Moderator (ou null) à partir de l'UUID passé en paramètre
      * @param string $uuid L'UUID du modérateur recherché
      * @return Moderator|null Objet retourné par la méthode, ici un modérateur (ou null si non-trouvé)
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findByUuid(string $uuid): ?Moderator
     {
@@ -95,7 +95,7 @@ class ModeratorDAO
      * @brief Retourne un objet Moderator (ou null) à partir de l'ID utilisateur passé en paramètre
      * @param int $userId L'ID de l'utilisateur du modérateur recherché
      * @return Moderator|null Objet retourné par la méthode, ici un modérateur (ou null si non-trouvé)
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findByUserId(int $userId): ?Moderator
     {
@@ -114,7 +114,7 @@ class ModeratorDAO
      * @brief Hydrate un tableau d'objets Moderator avec les valeurs des tableaux associatifs passés en paramètre
      * @param array $data Le tableau associatif content les paramètres
      * @return array L'objet retourné par la méthode, ici un tableau de modérateurs
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function hydrateMany(array $data): array
     {
