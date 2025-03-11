@@ -641,18 +641,11 @@ class ControllerAuth extends Controller
                 throw new AuthenticationException("Erreur lors de la création du joueur");
             }
 
-            echo json_encode([
-                'success' => true,
-                'message' => "Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter."
-            ]);
+            echo MessageHandler::sendJsonMessage("Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter.");
             exit;
 
         } catch (Exception $e) {
-            echo json_encode([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 
