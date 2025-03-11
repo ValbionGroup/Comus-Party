@@ -184,7 +184,7 @@ function showModalBanner(article) {
                     showNotification("Oups...", "Article déjà présent dans le panier", "red");
                 }
                 closeModal();
-            });
+            }, "id_article=" + article.id);
         }
     } else {
         addBasketBtnBanner.textContent = "Déjà possédé";
