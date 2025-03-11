@@ -13,6 +13,7 @@ namespace ComusParty\Controllers;
 use ComusParty\App\Exceptions\PaymentException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\Mailer;
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\InvoiceDAO;
 use ComusParty\Models\PlayerDAO;
@@ -136,26 +137,17 @@ class ControllerShop extends Controller
         $cardNumber = preg_replace('/\s/', '', $datas['cardNumber']);
 
         if (strlen($cardNumber) !== 16) {
-            echo json_encode([
-                'success' => false,
-                'message' => 'Le numéro de la carte doit contenir 16 chiffres.'
-            ]);
+            MessageHandler::sendJsonCustomException(400, "Le numéro de la carte doit contenir 16 chiffres.");
             return false;
         }
 
         if (!$this->checkLuhnValid($cardNumber)) {
-            echo json_encode([
-                'success' => false,
-                'message' => "Le numéro de carte n'est pas valide."
-            ]);
+            MessageHandler::sendJsonCustomException(400, "Le numéro de carte n'est pas valide.");
             return false;
         }
 
         if (strlen($datas['cvv']) !== 3) {
-            echo json_encode([
-                'success' => false,
-                'message' => "Le cryptogramme de sécurité doit contenir 3 chiffres"
-            ]);
+            MessageHandler::sendJsonCustomException(400, "Le cryptogramme de sécurité doit contenir 3 chiffres.");
             return false;
         }
 
@@ -165,17 +157,11 @@ class ControllerShop extends Controller
         $expirationDate->setDate(2000 + (int)$year, (int)$month, 1);
         $now = new DateTime();
         if ($expirationDate < $now) {
-            echo json_encode([
-                'success' => false,
-                'message' => "La carte a expiré."
-            ]);
+            MessageHandler::sendJsonCustomException(400, "La date d'expiration de la carte est dépassée.");
             return false;
         }
 
-        echo json_encode([
-            'success' => true
-        ]);
-
+        echo MessageHandler::sendJsonMessage(200, "Paiement effectué avec succès.");
         return true;
     }
 
