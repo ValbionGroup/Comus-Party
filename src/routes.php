@@ -331,7 +331,7 @@ $router->get('/reports', function () use ($loader, $twig) {
 
 $router->post('/report', function () use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("reportPlayer", [
-        "object" => match ($_POST['object']) {
+        "object" => match (strtolower($_POST['object'])) {
             "langage" => ReportObject::LANGUAGE,
             "spam" => ReportObject::SPAM,
             "links" => ReportObject::LINKS,
