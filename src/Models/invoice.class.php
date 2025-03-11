@@ -21,8 +21,19 @@ use DateTime;
  */
 enum PaymentType
 {
+    /**
+     * @brief Paiement par carte bancaire
+     */
     case Card;
+
+    /**
+     * @brief Paiement par PayPal
+     */
     case PayPal;
+
+    /**
+     * @brief Paiement avec les ComusCoins
+     */
     case ComusCoins;
 }
 
