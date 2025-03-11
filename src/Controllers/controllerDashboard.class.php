@@ -68,7 +68,11 @@ class ControllerDashboard extends Controller
     public function denySuggestion(int $id)
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
-        echo json_encode(['success' => $suggestsManager->deny($id)]);
+        if ($suggestsManager->deny($id)) {
+            echo MessageHandler::sendJsonMessage("La suggestion a bien été refusée");
+        } else {
+            MessageHandler::sendJsonCustomException(500, "Une erreur est survenue lors du refus de la suggestion");
+        }
     }
 
     /**
