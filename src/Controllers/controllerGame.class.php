@@ -465,17 +465,10 @@ class ControllerGame extends Controller
             $gameRecord->setPrivate($isPrivate);
             $gameRecordManager->update($gameRecord);
 
-            echo json_encode([
-                "success" => true,
-            ]);
+            echo MessageHandler::sendJsonMessage("La visibilité de la partie a bien été modifiée");
             exit;
         } catch (Exception|Error $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-                "code" => $e->getCode(),
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 
