@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief  Le fichier contient la déclaration & définition de la classe Cookie.
+ * @brief  Fichier de déclaration et définition de la classe Cookie.
  *
  * @file Cookie.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

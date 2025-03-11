@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    Dashboard.php
- * @brief   Le fichier contient la déclaration et la définition de la classe Dashboard (Sockets)
+ * @brief   Fichier de déclaration et définition de la classe Dashboard (Sockets)
  * @author  Estéban DESESSARD
  * @date    25/02/2024
  * @version 1.0

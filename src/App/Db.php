@@ -2,7 +2,7 @@
 /**
  * @file    Db.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe Db.
+ * @brief   Fichier de déclaration et définition de la classe Db.
  * @date    12/11/2024
  * @version 0.1
  */
