@@ -68,7 +68,7 @@ Liste des paramètres possibles pour `neededParametersFromComus` :
 
 Liste des paramètres possibles pour `returnParametersToComus` :
 
-- `WINNER_UUID` : UUID du/des gagnants de la partie
+- `WINNERS` : Booléen indiquant si le joueur est gagnant
 - `SCORES` : Score des joueurs
 
 ##### Paramètres modifiables
@@ -111,7 +111,7 @@ Chaque type a des propriétés spécifiques :
         - `label` : Label affiché de l'option
     - `default` : Option par défaut
 
-## Format des données envoyé par Comus Party
+## Format des données envoyés par Comus Party
 
 > [!NOTE]  
 > Tous les attributs sont *facultatifs* et **cumulables**.
@@ -253,8 +253,7 @@ minimum)* suivant :
 La fonction de terminaison est appelée lors de la fin d'une partie.
 
 Elle doit envoyer une requête **`POST`** à l'endpoint de Comus Party `/game/{code de la partie}/end` avec le corps de
-requête suivant,
-au minimum, au format *JSON* :
+requête suivant, au minimum, au format *JSON* :
 
 ```json
 {
@@ -267,27 +266,76 @@ nécessaires conformément au format attendu.
 
 #### Format des données attendues par Comus Party
 
-##### Gagnants
+> [!NOTE]  
+> Tous les attributs sont *facultatifs* et **cumulables**.
 
-Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au
-format *JSON* :
-
-```json
-[
-  "uuid1",
-  "uuid2"
-]
-```
-
-##### Scores
-
-Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format
-*JSON* :
+Tout comme les données envoyées par Comus Party, par défaut, le jeu doit renvoyer les données suivantes au format
+*JSON*, sauf si `returnParametersToComus` est vide.
 
 ```json
 {
-  "uuid1": 15,
-  "uuid2": 7
+  "uuid1": {
+    "token": "tkn1"
+  },
+  "uuid2": {
+    "token": "tkn2"
+  }
+}
+```
+
+Les données doivent être renvoyées dans l'attribut `results`.
+Exemple :
+
+```json
+{
+  "token": "jeton sauvegardé lors de l'instanciation"
+  "results": {
+    ...
+  }
+}
+```
+
+Le token correspond à l'identifiant du joueur dans la partie et l'uuid est l'identifiant unique du joueur. Ces données
+sont envoyées par Comus Party lors de l'instantiation de la partie.
+
+On peut ainsi, en fonction des paramètres inscrit dans `returnParametersToComus`, ajouter des données supplémentaires.
+
+##### Gagnants
+
+Dans le cas où `returnParametersToComus` contient la valeur `WINNERS`, le système attend avec les données précédentes un
+*booléen* `winner` pour chaque joueur :
+
+```json
+{
+  "uuid1": {
+    "token": "tkn1",
+    "winner": true
+  },
+  "uuid2": {
+    "token": "tkn2",
+    "winner": false
+  }
+}
+```
+
+> [!TIP]
+> Il peut y avoir plusieurs gagnants.
+
+##### Scores
+
+Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend avec les données précédentes un
+*entier* `score` pour chaque joueur :
+
+```json
+{
+  "uuid1": {
+    "token": "tkn1",
+    "score": 15
+  },
+  "uuid2": {
+    "token": "tkn2",
+    "score": 10
+  }
 }
 ```
 
