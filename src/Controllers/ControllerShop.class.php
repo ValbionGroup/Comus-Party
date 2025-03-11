@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file    controllerShop.class.php
+ * @file    ControllerShop.class.php
  * @author  Mathis RIVRAIS--NOWAKOWSKI
  * @brief   Fichier de déclaration et définition de la classe ControllerShop
  * @date    13/11/2024

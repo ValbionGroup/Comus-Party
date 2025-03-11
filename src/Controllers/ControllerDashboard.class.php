@@ -1,6 +1,6 @@
 <?php
 /**
- * @file controllerDashboard.class.php
+ * @file ControllerDashboard.class.php
  * @brief Fichier de déclaration et définition de la classe ControllerDashboard
  * @author Estéban DESESSARD
  * @date 18/12/2024

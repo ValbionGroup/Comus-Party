@@ -1,6 +1,6 @@
 <?php
 /**
- * @file    controllerSuggestion.class.php
+ * @file    ControllerSuggestion.class.php
  * @author  Estéban DESESSARD
  * @brief   Fichier de déclaration et définition de la classe ControllerSuggestion
  * @date    12/11/2024

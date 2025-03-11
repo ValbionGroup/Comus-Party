@@ -1,6 +1,6 @@
 <?php
 /**
- * @file    controllerProfile.class.php
+ * @file    ControllerProfile.class.php
  * @brief   Fichier de déclaration et définition de la classe ControllerProfile
  * @author  Estéban DESESSARD
  * @date    15/11/2024

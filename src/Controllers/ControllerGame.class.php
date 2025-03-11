@@ -1,6 +1,6 @@
 <?php
 /**
- * @file controllerGame.class.php
+ * @file ControllerGame.class.php
  * @brief Fichier de déclaration et définition de la classe ControllerGame
  * @author Conchez-Boueytou Robin, ESPIET Lucas
  * @date 23/12/2024

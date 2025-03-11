@@ -1,6 +1,6 @@
 <?php
 /**
- * @file    controllerPolicy.class.php
+ * @file    ControllerPolicy.class.php
  * @brief   Fichier de déclaration et définition de la classe ControllerPolicy
  * @author  Estéban DESESSARD
  * @date    14/12/2024

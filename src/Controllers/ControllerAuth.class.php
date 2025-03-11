@@ -1,6 +1,6 @@
 <?php
 /**
- * @file    controllerAuth.class.php
+ * @file    ControllerAuth.class.php
  * @author  Estéban DESESSARD, Lucas ESPIET
  * @brief   Fichier de déclaration et définition de la classe ControllerAuth
  * @date    09/12/2024
