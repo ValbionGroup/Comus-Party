@@ -66,27 +66,18 @@ removeButtons.forEach(button => {
  *  @param id L'id de l'article qu'il faut supprimer
  */
 function removeArticle(id) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", `/shop/basket/remove/${id}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response =  JSON.parse(xhr.responseText)
-            let actualTotalPriceBasket = totalPriceBasket.textContent
-            // Le parseint permet de récupérer que la valeur numérique du prix actuel du basket, c'est-à-dire sans le sigle "€"
-            totalPriceAfterDeletingArticle = parseFloat(actualTotalPriceBasket)  - response.priceEuroArticle;
-            subTotalBasket.textContent = totalPriceAfterDeletingArticle +"€"
-            totalPriceBasket.textContent = totalPriceAfterDeletingArticle+"€"
-            if(response.numberArticlesInBasket === 0){
-                paymentBtn.disabled = true
-            }else{
-                paymentBtn.disabled = false
-            }
+    makeRequest("DELETE", `/shop/basket/remove/${id}`, (response) => {
+        response = JSON.parse(response);
+        let actualTotalPriceBasket = totalPriceBasket.textContent
+        // Le parseint permet de récupérer que la valeur numérique du prix actuel du basket, c'est-à-dire sans le sigle "€"
+        totalPriceAfterDeletingArticle = parseFloat(actualTotalPriceBasket)  - response.priceEuroArticle;
+        subTotalBasket.textContent = totalPriceAfterDeletingArticle +"€"
+        totalPriceBasket.textContent = totalPriceAfterDeletingArticle+"€"
+        if (response.numberArticlesInBasket === 0) {
+            paymentBtn.disabled = true
+        } else {
+            paymentBtn.disabled = false
         }
-    };
+    });
 }
 
