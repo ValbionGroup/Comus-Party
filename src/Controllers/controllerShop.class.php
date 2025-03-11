@@ -10,8 +10,7 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\App\Exceptions\PaymentException;
-use ComusParty\App\Exceptions\UnauthorizedAccessException;
+use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Mailer;
 use ComusParty\Models\ArticleDAO;
 use ComusParty\Models\InvoiceDAO;
@@ -46,9 +45,11 @@ class ControllerShop extends Controller
      * @brief Permet d'afficher tous les articles (avatars / bannières)
      *
      * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws NotFoundException Exception levée dans le cas d'une erreur de non-trouvabilité
      */
     public function show()
     {
@@ -89,6 +90,7 @@ class ControllerShop extends Controller
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function showAll()
     {
@@ -103,9 +105,9 @@ class ControllerShop extends Controller
      * @brief Permet d'afficher la page de paiement
      *
      * @return void
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showCheckout()
     {
@@ -128,8 +130,7 @@ class ControllerShop extends Controller
      *  - Vérification de la longueur du cryptogramme de sécurité (3 chiffres)
      *  - Vérification de la date d'expiration de la carte (date supérieure à la date actuelle)
      * @param array|null $datas Tableau associatif contenant les données du formulaire de paiement
-     * @return bool
-     * @throws PaymentException Exception levée dans le cas d'une erreur de paiement
+     * @return bool|null
      */
     public function checkPaymentRequirement(?array $datas): ?bool
     {
@@ -215,11 +216,11 @@ class ControllerShop extends Controller
      * @brief Affiche la facture générée grâce à l'ID passé en paramètre GET
      * @param int $invoiceId L'ID de la facture à afficher
      * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws NotFoundException
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     * @throws UnauthorizedAccessException Exception levée dans le cas d'un accès non-autorisé à la facture
      */
     public function showInvoice(int $invoiceId)
     {
@@ -244,16 +245,16 @@ class ControllerShop extends Controller
 
     /**
      * @brief Affiche la page de succès de paiement
-     * @param $articles
-     * @param $playerUuid
-     * @param $paymentType
+     * @param array $articles Tableau d'articles achetés
+     * @param string $playerUuid UUID du joueur ayant effectué l'achat
+     * @param string $paymentType Type de paiement effectué
      * @return void
-     * @throws DateMalformedStringException
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function showSuccessPayment($articles, $playerUuid, $paymentType): void
+    public function showSuccessPayment(array $articles, string $playerUuid, string $paymentType): void
     {
         $managerInvoice = new InvoiceDAO($this->getPdo());
         $managerInvoice->createInvoiceWithArticles($playerUuid, $paymentType, $articles);
