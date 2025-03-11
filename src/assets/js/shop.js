@@ -167,36 +167,26 @@ function showModalBanner(article) {
         addBasketBtnBanner.textContent = "Ajouter au panier"
         addBasketBtnBanner.disabled = false
         addBasketBtnBanner.onclick = function (){
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "/shop/basket/add", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            // Envoyer les données sous forme de paire clé=valeur
-            xhr.send("id_article=" + article.id);
-            // Gérer la réponse du serveur
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-
-                    let response =  JSON.parse(xhr.responseText)
-                    if(response.numberArticlesInBasket > 0){
-                        filledBasketLogo.classList.remove("hidden")
-                        emptyBasketLogo.classList.add("hidden")
-                        numberArticlesInBasket.textContent = response.numberArticlesInBasket
-                    }else{
-                        emptyBasketLogo.classList.remove("hidden")
-                        filledBasketLogo.classList.add("hidden")
-                    }
-                    // Préparer la notification si l'article a été supprimé du basket
-                    if (response.success) {
-                        showNotification("Génial !", "Article ajouté au panier", "green");
-                    } else {
-                        showNotification("Oups...", "Article déjà présent dans le panier", "red");
-                    }
-                    closeModal();
+            makeRequest("POST", "/shop/basket/add", (response) => {
+                response =  JSON.parse(response);
+                if (response.numberArticlesInBasket > 0) {
+                    filledBasketLogo.classList.remove("hidden");
+                    emptyBasketLogo.classList.add("hidden");
+                    numberArticlesInBasket.textContent = response.numberArticlesInBasket;
+                } else {
+                    emptyBasketLogo.classList.remove("hidden");
+                    filledBasketLogo.classList.add("hidden");
                 }
-            };
+                // Préparer la notification si l'article a été supprimé du basket
+                if (response.success) {
+                    showNotification("Génial !", "Article ajouté au panier", "green");
+                } else {
+                    showNotification("Oups...", "Article déjà présent dans le panier", "red");
+                }
+                closeModal();
+            });
         }
-    }else{
+    } else {
         addBasketBtnBanner.textContent = "Déjà possédé";
         addBasketBtnBanner.disabled = true;
     }
