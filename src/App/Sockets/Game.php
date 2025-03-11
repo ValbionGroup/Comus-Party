@@ -18,6 +18,9 @@ use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use SplObjectStorage;
 
+/**
+ * @brief Classe Game (Sockets)
+ */
 class Game implements MessageComponentInterface
 {
     protected SplObjectStorage $clients;

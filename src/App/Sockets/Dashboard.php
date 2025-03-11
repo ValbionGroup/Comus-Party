@@ -14,6 +14,10 @@ use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use SplObjectStorage;
 
+
+/**
+ * @brief Classe Dashboard (Sockets)
+ */
 class Dashboard implements MessageComponentInterface
 {
     protected SplObjectStorage $clients;

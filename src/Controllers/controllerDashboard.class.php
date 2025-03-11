@@ -20,7 +20,7 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * @biref Classe ControllerDashboard
+ * @brief Classe ControllerDashboard
  * @details La classe gère les actions relatives au dashboard de modération
  */
 class ControllerDashboard extends Controller

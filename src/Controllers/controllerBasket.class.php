@@ -19,7 +19,8 @@ use Twig\Loader\FilesystemLoader;
 
 
 /**
- * La classe ControllerBasket permet de faire le lien entre la vue et l'objet panier
+ * @brief Classe ControllerBasket
+ * @details La classe ControllerBasket permet de faire le lien entre la vue et l'objet panier
  */
 class ControllerBasket extends Controller
 {

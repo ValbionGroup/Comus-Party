@@ -19,6 +19,9 @@ use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use SplObjectStorage;
 
+/**
+ * @brief Classe Chat (Sockets)
+ */
 class Chat implements MessageComponentInterface
 {
     protected SplObjectStorage $clients;
