@@ -554,9 +554,7 @@ class ControllerGame extends Controller
             $gameRecordManager->delete($code);
         }
 
-        echo json_encode([
-            "success" => true,
-        ]);
+        echo MessageHandler::sendJsonMessage("Vous avez bien quitté la partie");
         exit;
     }
 
