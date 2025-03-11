@@ -685,13 +685,15 @@ class ControllerGame extends Controller
                             throw new MalformedRequestException("L'attribut \"winner\" n'est pas présent");
                         }
 
+                        // TODO: Fix array_filter($gameRecord->getPlayers(), fn($player) => $player["player"]->getUuid() == $playerUuid)[0]["player"]
+                        $player = $playerManager->findByUuid($playerUuid);
                         if ($playerData["winner"]) {
-                            $allWinner[] = array_filter($gameRecord->getPlayers(), fn($player) => $player["player"]->getUuid() == $playerUuid)[0]["player"];
+                            $allWinner[] = $player;
                             $gameRecordManager->addWinner($code, $playerUuid);
                         } else {
-                            $allLooser[] = array_filter($gameRecord->getPlayers(), fn($player) => $player["player"]->getUuid() == $playerUuid)[0]["player"];
+                            $allLooser[] = $player;
                         }
-                        $allPlayers[] = array_filter($gameRecord->getPlayers(), fn($player) => $player["player"]->getUuid() == $playerUuid)[0]["player"];
+                        $allPlayers[] = $player;
                     }
                 }
 
