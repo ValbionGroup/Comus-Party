@@ -171,14 +171,12 @@ class ControllerDashboard extends Controller
         $reportsManager = new ReportDAO($this->getPdo());
         $reports = $reportsManager->findAllWaiting();
         if (empty($reports)) {
-            echo json_encode([
-                "success" => true,
+            echo MessageHandler::sendJsonMessage("Aucun signalement en attente", [
                 "reports" => null,
             ]);
             exit;
         }
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Signalements récupérés", [
             "reports" => array_map(fn($report) => [
                 "id" => $report->getId(),
                 "object" => $report->getObject()->name,
