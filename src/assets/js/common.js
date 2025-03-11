@@ -58,9 +58,9 @@ function makeRequest(method, url, callback, body = null) {
     xhr.send(body);
 
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
+        if (xhr.readyState === 4) {
             callback(xhr.responseText);
-        }
+        };
     };
 }
 
