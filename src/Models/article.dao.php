@@ -430,7 +430,7 @@ class ArticleDAO
         $stmt = $this->pdo->prepare(
             'SELECT p.*
             FROM ' . DB_PREFIX . 'player p
-            WHERE i.player_uuid = :uuid');
+            WHERE p.uuid = :uuid');
         $stmt->bindParam(':uuid', $uuid);
         $stmt->execute();
         if ($stmt->rowCount() === 0) {
