@@ -46,7 +46,7 @@ enum ReportObject
 
 /**
  * @brief Classe Report
- * @description La classe report permet de représenter les signalements effectués par les joueurs sur la plateforme
+ * @details La classe report permet de représenter les signalements effectués par les joueurs sur la plateforme
  */
 class Report
 {
