@@ -748,8 +748,8 @@ ALTER TABLE `cp_report`
 --
 -- AUTO_INCREMENT pour la table `cp_penalty`
 --
-ALTER TABLE 'cp_penalty'
-    MODIFY 'id' bigint(20) NOT NULL AUTO_INCREMENT,
+ALTER TABLE `cp_penalty`
+    MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,
     AUTO_INCREMENT = 2;
 
 --
