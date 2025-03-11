@@ -64,7 +64,7 @@ class ReportDAO
             'INSERT INTO ' . DB_PREFIX . 'report (object, description, treated_by, reported_uuid, sender_uuid, created_at, updated_at)
             VALUES (:object, :description, :treated_by, :reported_uuid, :sender_uuid, :created_at, :updated_at)'
         );
-        $stmt->bindValue(':object', $report->getObject(), PDO::PARAM_STR);
+        $stmt->bindValue(':object', $this->transformReportObjectToString($report->getObject()), PDO::PARAM_STR);
         $stmt->bindValue(':description', $report->getDescription(), PDO::PARAM_STR);
         $stmt->bindValue(':treated_by', $report->getTreatedBy(), PDO::PARAM_STR);
         $stmt->bindValue(':reported_uuid', $report->getReportedUuid(), PDO::PARAM_STR);
@@ -75,40 +75,19 @@ class ReportDAO
     }
 
     /**
-     * @brief Récupère tous les signalements en base de données qui ne sont pas traités
-     * @return array|null Un tableau de signalements ou null si aucun signalement en attente
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @brief Transforme un objet ReportObject en string
+     * @param ReportObject $reportObject L'objet ReportObject à transformer
+     * @return string L'objet retourné par la méthode, ici un string
      */
-    public function findAllWaiting(): ?array
+    private function transformReportObjectToString(ReportObject $reportObject): string
     {
-        $stmt = $this->pdo->prepare(
-            'SELECT *
-            FROM ' . DB_PREFIX . 'report
-            WHERE treated_by IS NULL'
-        );
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $reportsTab = $stmt->fetchAll();
-        if (!$reportsTab) {
-            return null;
-        }
-        return $this->hydrateMany($reportsTab);
-    }
-
-    /**
-     * @brief Hydrate un tableau d'objets Report avec les valeurs des tableaux associatifs du tableau passé en paramètre
-     * @details Cette méthode appelle, pour chaque tableau associatif contenu dans celui passé en paramètre, la méthode hydrate() définie ci-dessus.
-     * @param array $data Le tableau de tableaux associatifs
-     * @return array L'objet retourné par la méthode, ici un tableau (d'objets Report)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     */
-    public function hydrateMany(array $data)
-    {
-        $reports = [];
-        foreach ($data as $row) {
-            $reports[] = $this->hydrate($row);
-        }
-        return $reports;
+        return match ($reportObject) {
+            ReportObject::LANGUAGE => 'language',
+            ReportObject::SPAM => 'spam',
+            ReportObject::LINKS => 'links',
+            ReportObject::FAIRPLAY => 'fairplay',
+            default => 'other'
+        };
     }
 
     /**
@@ -177,42 +156,6 @@ class ReportDAO
     }
 
     /**
-     * @brief Hydrate un tableau d'objets Report avec les valeurs des tableaux associatifs du tableau passé en paramètre
-     * @details Cette méthode appelle, pour chaque tableau associatif contenu dans celui passé en paramètre, la méthode hydrate() définie ci-dessus.
-     * @param array $data Le tableau de tableaux associatifs
-     * @return array L'objet retourné par la méthode, ici un tableau (d'objets Report)
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-    */
-    public function hydrateMany(array $data) {
-        $reports = [];
-        foreach ($data as $row) {
-            $reports[] = $this->hydrate($row);
-        }
-        return $reports;
-    }
-
-    /**
-     * @brief Récupère tous les signalements en base de données qui ne sont pas traités
-     * @return array|null Un tableau de signalements ou null si aucun signalement en attente
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     */
-    public function findAllWaiting(): ?array
-    {
-        $stmt = $this->pdo->prepare(
-            'SELECT *
-            FROM ' . DB_PREFIX . 'report
-            WHERE treated_by IS NULL'
-        );
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $reportsTab = $stmt->fetchAll();
-        if (!$reportsTab) {
-            return null;
-        }
-        return $this->hydrateMany($reportsTab);
-    }
-
-    /**
      * @brief Renvoi un signalement à partir de son ID
      * @param int $id L'identifiant du signalement
      * @return Report|null L'objet Report correspondant à l'identifiant passé en paramètre ou null si aucun signalement ne correspond
@@ -254,21 +197,5 @@ class ReportDAO
         $stmt->bindValue(':treated_by', $report->getTreatedBy(), PDO::PARAM_STR);
         $stmt->bindValue(':id', $report->getId(), PDO::PARAM_INT);
         $stmt->execute();
-    }
-
-    /**
-     * @brief Transforme un objet ReportObject en string
-     * @param ReportObject $reportObject L'objet ReportObject à transformer
-     * @return string L'objet retourné par la méthode, ici un string
-     */
-    private function transformReportObjectToString(ReportObject $reportObject): string
-    {
-        return match ($reportObject) {
-            ReportObject::LANGUAGE => 'language',
-            ReportObject::SPAM => 'spam',
-            ReportObject::LINKS => 'links',
-            ReportObject::FAIRPLAY => 'fairplay',
-            default => 'other'
-        };
     }
 }
