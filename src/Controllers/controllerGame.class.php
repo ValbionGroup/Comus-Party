@@ -590,8 +590,8 @@ class ControllerGame extends Controller
      * @param int $gameId Identifiant du jeu
      * @return void
      * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
-     * @throws RandomException Exceptions levée en cas d'erreur lors de la génération du code
-     * @throws Exception Exceptions levée en cas d'erreur avec la base de données
+     * @throws RandomException Exceptions levées en cas d'erreur lors de la génération du code
+     * @throws Exception Exceptions levées en cas d'erreur avec la base de données
      */
     public function createGame(int $gameId): void
     {
