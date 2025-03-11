@@ -12,6 +12,7 @@ namespace ComusParty\Controllers;
 use ComusParty\App\MessageHandler;
 use ComusParty\Models\ArticleDAO;
 use DateMalformedStringException;
+use PHPUnit\Event\Test\AfterLastTestMethodErroredSubscriber;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -136,21 +137,16 @@ class ControllerBasket extends Controller
                 $article = $managerArticle->findById($id_article);
                 $priceEuroArticle = $article->getPriceEuro();
                 $numberArticlesInBasket = count($_SESSION['basket']);
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Article supprimé du panier !",
+                echo MessageHandler::sendJsonMessage("Article supprimé du panier !", [
                     'priceEuroArticle' => $priceEuroArticle,
                     'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
+                exit;
             } else {
-                echo json_encode([
-                    'success' => false,
-                    'message' => "L'article n'est pas dans le panier."
-                ]);
-
+                MessageHandler::sendJsonCustomException(400, "L'article n'est pas dans le panier.");
             }
         } else {
-            echo "Erreur : ID de l'article non spécifié.";
+            MessageHandler::sendJsonCustomException(400, "ID de l'article non spécifié.");
         }
     }
 
