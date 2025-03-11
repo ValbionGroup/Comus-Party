@@ -329,19 +329,13 @@ class ControllerAuth extends Controller
                     (new RememberTokenDAO($this->getPdo()))->insert($token);
                 }
 
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Vous êtes connecté en tant que " . ($_SESSION['role'] === 'player' ? "joueur" : "modérateur")
-                ]);
+                echo MessageHandler::sendJsonMessage("Vous êtes connecté en tant que " . ($_SESSION['role'] === 'player' ? "joueur" : "modérateur"));
                 return true;
             } else {
                 throw new AuthenticationException("Erreur lors de l'authentification");
             }
         } catch (Exception $e) {
-            echo json_encode([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            MessageHandler::sendJsonException($e);
             return false;
         }
     }
