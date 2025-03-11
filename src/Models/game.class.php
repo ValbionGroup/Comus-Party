@@ -14,7 +14,7 @@ use DateTime;
 /**
  * @brief Enumération des états d'un jeu
  *
- * @details Cette énumération définit les trois états possibles d'un jeu:
+ * @details Cette énumération définit les trois états possibles d'un jeu :
  *  - Disponible (AVAILABLE)
  *  - Indisponible (UNAVAILABLE)
  *  - En maintenance (MAINTENANCE)
