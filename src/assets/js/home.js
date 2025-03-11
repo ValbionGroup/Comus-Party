@@ -62,7 +62,7 @@ function showModalGame(e) {
             if (response.success) {
                 spanGameName.innerText = response.game.name;
                 spanGameDescription.innerText = response.game.description;
-                imgGame.src = `/assets/img/${response.game.img}`;
+                imgGame.src = `/assets/img/games/${response.game.img}`;
                 divGameTags.innerHTML = "";
                 response.game.tags.forEach(tag => {
                     divGameTags.innerHTML += `<p class="border-2 rounded-full border-blue-violet-base py-0.5 px-2 text-center">${tag}</p>`;

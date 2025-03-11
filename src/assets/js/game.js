@@ -217,3 +217,25 @@ for (let player of players) {
         player.querySelector('div').classList.remove('hidden');
     }
 }
+
+
+function verifyMutedPlayer() {
+    makeRequest('POST', `/game/muted-player`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            const chatInput = document.getElementById('chatInput');
+            chatInput.disabled = true;
+            chatInput.classList.add('input-disabled');
+            chatInput.classList.add('cursor-not-allowed');
+            chatInput.placeholder = 'Vous avez été muté';
+
+            const sendChat = document.getElementById('sendChat');
+            sendChat.disabled = true;
+            sendChat.classList.add('btn-disabled')
+            sendChat.classList.add('cursor-not-allowed');
+
+        }
+    }, `username=${headerUsername}`);
+}
+
+window.onload = verifyMutedPlayer;
