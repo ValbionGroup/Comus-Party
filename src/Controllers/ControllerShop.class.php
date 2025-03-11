@@ -252,7 +252,7 @@ class ControllerShop extends Controller
         $mail = new Mailer(array($user->getEmail()), "ComusParty - Paiement effectué", "Votre paiement a bien été effectué. Vous pouvez consulter votre facture sur votre profil.");
         $mail->send();
 
-        $template = $this->getTwig()->load('player/successPayment.twig');
+        $template = $this->getTwig()->load('player/success-payment.twig');
         echo $template->render();
 
         unset($_SESSION['basket']);
