@@ -194,27 +194,17 @@ class ControllerProfile extends Controller
             ]
         ]);
         if (!$validator->validate(['username' => $username])) {
-            echo json_encode([
-                'success' => false,
-                'message' => $validator->getErrors()['username']
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(400, $validator->getErrors()['username']);
         }
         $playerManager = new PlayerDAO($this->getPdo());
         if (!is_null($playerManager->findByUsername($username))) {
-            echo json_encode([
-                'success' => false,
-                'message' => 'Ce nom d\'utilisateur est déjà pris'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(400, 'Ce nom d\'utilisateur est déjà pris');
         }
         $player = $playerManager->findByUuid($_SESSION['uuid']);
         $player->setUsername($username);
         $playerManager->update($player);
         $_SESSION['username'] = $username;
-        echo json_encode([
-            'success' => true
-        ]);
+        echo MessageHandler::sendJsonMessage("Nom d'utilisateur mis à jour avec succès");
         exit;
     }
 
