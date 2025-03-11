@@ -735,6 +735,8 @@ class ControllerGame extends Controller
             } else {
                 $newElo = EloCalculator::calculateNewElo($elo, $averageEloWinner, 0);
             }
+            if ($newElo < 0)
+                $newElo = 0;
             $player->setElo(round($newElo));
             $playerManager->update($player);
         }
