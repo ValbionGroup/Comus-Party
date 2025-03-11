@@ -1,4 +1,25 @@
-### Ajout de jeux
+# Développer un jeu
+
+Chacun est libre de développer un jeu, cependant, certaines règles sont à respecter pour que celui-ci puisse s'intégrer
+convenablement à Comus Party.
+
+> [!WARNING]
+> Les jeux sont servis depuis l'URL `https://games.comus-party.com/{idDuJeu}`. Veillez à ce que votre jeu n'utilise pas
+> d'URL absolue pour les ressources et autres redirections.
+
+## Logique de traitement du jeu
+
+Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions sont obligatoires pour le bon
+fonctionnement du jeu et de Comus Party :
+
+- La fonction d'instanciation
+- La fonction de terminaison
+
+Il est aussi obligatoire d'inclure un fichier `settings.json`.
+Il contient l'ensemble des informations nécessaires pour le bon fonctionnement du jeu avec la plateforme principale
+Comus Party.
+
+### Fichier de configuration `settings.json`
 
 Pour ajouter un jeu, il suffit de glisser le dossier du jeu dans le dossier `games` avec comme nom `game{idDuJeu}`. Par
 exemple, pour ajouter un jeu avec l'ID 42 (en base de données) il faudra créer un dossier `game42` dans le dossier
@@ -111,6 +132,35 @@ Chaque type a des propriétés spécifiques :
         - `label` : Label affiché de l'option
     - `default` : Option par défaut
 
+### Fonction d'instanciation
+
+La fonction d'instanciation est appelée lors de la création d'une partie.
+Elle est situé à l'endpoint **`POST`** `/{code de la partie créée}/init`.
+Il reçoit en corps de requête les informations demandées par le jeu pour lancer une partie dans
+`neededParametersFromComus` ainsi qu'un attribut `token` contenant le jeton de la partie. Ce jeton est à renvoyer dans
+les réponses du jeu pour identifier la partie.
+
+Si la partie est créée avec succès, la fonction doit retourner un code de statut **`200`** et le corps de réponse *(
+minimum)* suivant :
+
+```json
+{
+  "success": true,
+  "message": "Message confirmant la création"
+}
+```
+
+Dans le cas contraire, la fonction doit retourner un code de statut autre que `200` et `300` et le corps de réponse *(
+minimum)* suivant :
+
+```json
+{
+  "success": false,
+  "message": "Message d'erreur",
+  "error": "Code d'erreur interne ou, à défaut, le code de statut HTTP"
+}
+```
+
 ## Format des données envoyés par Comus Party
 
 > [!NOTE]  
@@ -201,52 +251,6 @@ les styles des joueurs :
 
 > [!CAUTION]  
 > Si l'attribut `PLAYER_UUID` n'est pas présent, l'attribut `PLAYER_STYLE` ne sera pas pris en compte.
-
-# Développer un jeu
-
-Chacun est libre de développer un jeu, cependant, certaines règles sont à respecter pour que celui-ci puisse s'intégrer
-convenablement à Comus Party.
-
-> [!WARNING]
-> Les jeux sont servis depuis l'URL `https://games.comus-party.com/{idDuJeu}`. Veillez à ce que votre jeu n'utilise pas
-> d'URL absolue pour les ressources et autres redirections.
-
-## Logique de traitement du jeu
-
-Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions sont obligatoires pour le bon
-fonctionnement du jeu et de Comus Party :
-
-- La fonction d'instanciation
-- La fonction de terminaison
-
-### Fonction d'instanciation
-
-La fonction d'instanciation est appelée lors de la création d'une partie.
-Elle est situé à l'endpoint **`POST`** `/{code de la partie créée}/init`.
-Il reçoit en corps de requête les informations demandées par le jeu pour lancer une partie dans
-`neededParametersFromComus` ainsi qu'un attribut `token` contenant le jeton de la partie. Ce jeton est à renvoyer dans
-les réponses du jeu pour identifier la partie.
-
-Si la partie est créée avec succès, la fonction doit retourner un code de statut **`200`** et le corps de réponse *(
-minimum)* suivant :
-
-```json
-{
-  "success": true,
-  "message": "Message confirmant la création"
-}
-```
-
-Dans le cas contraire, la fonction doit retourner un code de statut autre que `200` et `300` et le corps de réponse *(
-minimum)* suivant :
-
-```json
-{
-  "success": false,
-  "message": "Message d'erreur",
-  "error": "Code d'erreur interne ou, à défaut, le code de statut HTTP"
-}
-```
 
 ### Fonction de terminaison
 
