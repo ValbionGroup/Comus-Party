@@ -111,7 +111,7 @@ Chaque type a des propriétés spécifiques :
         - `label` : Label affiché de l'option
     - `default` : Option par défaut
 
-## Format des données envoyé par Comus Party
+## Format des données envoyés par Comus Party
 
 > [!NOTE]  
 > Tous les attributs sont *facultatifs* et **cumulables**.
@@ -273,16 +273,14 @@ Tout comme les données envoyées par Comus Party, par défaut, le jeu doit renv
 *JSON*, sauf si `returnParametersToComus` est vide.
 
 ```json
-[
-  {
-    "token": "tkn1",
-    "uuid": "uuid1"
+{
+  "uuid1": {
+    "token": "tkn1"
   },
-  {
-    "token": "tkn2",
-    "uuid": "uuid2"
+  "uuid2": {
+    "token": "tkn2"
   }
-]
+}
 ```
 
 Les données doivent être renvoyées dans l'attribut `results`.
@@ -291,7 +289,9 @@ Exemple :
 ```json
 {
   "token": "jeton sauvegardé lors de l'instanciation"
-  "results": [...]
+  "results": {
+    ...
+  }
 }
 ```
 
@@ -306,19 +306,18 @@ Dans le cas où `returnParametersToComus` contient la valeur `WINNERS`, le syst�
 *booléen* `winner` pour chaque joueur :
 
 ```json
-[
-  {
+{
+  "uuid1": {
     "token": "tkn1",
-    "uuid": "uuid1",
     "winner": true
   },
-  {
+  "uuid2": {
     "token": "tkn2",
-    "uuid": "uuid2",
     "winner": false
   }
-]
+}
 ```
+
 > [!TIP]
 > Il peut y avoir plusieurs gagnants.
 
@@ -328,18 +327,16 @@ Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le systè
 *entier* `score` pour chaque joueur :
 
 ```json
-[
-  {
+{
+  "uuid1": {
     "token": "tkn1",
-    "uuid": "uuid1",
     "score": 15
   },
-  {
+  "uuid2": {
     "token": "tkn2",
-    "uuid": "uuid2",
     "score": 10
   }
-]
+}
 ```
 
 Si la partie est terminée avec succès, le serveur renverra un code de statut **`200`**.
