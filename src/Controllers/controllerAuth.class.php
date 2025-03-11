@@ -85,7 +85,6 @@ class ControllerAuth extends Controller
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws RandomException Exception levée dans le cas d'une erreur de génération de nombre aléatoire
-     * @todo Utiliser une template de mail quand disponible
      * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
      */
     public function sendResetPasswordLink(string $email): void
@@ -673,6 +672,7 @@ class ControllerAuth extends Controller
      * est affiché. Le résultat de la confirmation est ensuite rendu à l'aide de Twig.
      *
      * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      */
     public function confirmEmail(string $emailVerifToken, bool $isLoggedIn): void
     {
