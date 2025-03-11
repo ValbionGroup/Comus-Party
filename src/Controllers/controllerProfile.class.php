@@ -449,6 +449,14 @@ class ControllerProfile extends Controller
         exit;
     }
 
+    /**
+     * @brief Permet de signaler un joueur
+     * @param ReportObject $object L'objet du signalement
+     * @param string $description La description du signalement
+     * @param string $reportedUuid L'UUID du joueur signalé
+     * @param string $senderUuid L'UUID du joueur ayant effectué le signalement
+     * @return void
+     */
     public function reportPlayer(ReportObject $object, string $description, string $reportedUuid, string $senderUuid)
     {
         $reportManager = new ReportDAO($this->getPdo());
