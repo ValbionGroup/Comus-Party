@@ -49,32 +49,22 @@ function showModalGame(e) {
     let searchGameButton = document.getElementById('findGameModalButton');
     let imgGame = document.getElementById('imgGame');
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/game/informations/${gameId}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                spanGameName.innerText = response.game.name;
-                spanGameDescription.innerText = response.game.description;
-                imgGame.src = `/assets/img/games/${response.game.img}`;
-                divGameTags.innerHTML = "";
-                response.game.tags.forEach(tag => {
-                    divGameTags.innerHTML += `<p class="border-2 rounded-full border-blue-violet-base py-0.5 px-2 text-center">${tag}</p>`;
-                });
-            }
+    makeRequest("GET", `/game/informations/${gameId}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            spanGameName.innerText = response.game.name;
+            spanGameDescription.innerText = response.game.description;
+            imgGame.src = `/assets/img/games/${response.game.img}`;
+            divGameTags.innerHTML = "";
+            response.game.tags.forEach(tag => {
+                divGameTags.innerHTML += `<p class="border-2 rounded-full border-blue-violet-base py-0.5 px-2 text-center">${tag}</p>`;
+            });
+            createGameButton.setAttribute("onclick", `createGame(${gameId})`);
+            searchGameButton.setAttribute("onclick", `searchGame(${gameId})`);
+            modal.classList.remove("hidden");
+            showBackgroundModal();
         }
-    };
-
-    createGameButton.setAttribute("onclick", `createGame(${gameId})`);
-    searchGameButton.setAttribute("onclick", `searchGame(${gameId})`);
-    modal.classList.remove("hidden");
-    showBackgroundModal();
+    });
 }
 
 function searchGame(id) {
