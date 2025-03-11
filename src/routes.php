@@ -330,14 +330,13 @@ $router->get('/reports', function () use ($loader, $twig) {
 }, 'moderator');
 
 $router->post('/report', function () use ($loader, $twig) {
-    ControllerFactory::getController("dashboard", $loader, $twig)->call("reportPlayer", [
+    ControllerFactory::getController("profile", $loader, $twig)->call("reportPlayer", [
         "object" => match (strtolower($_POST['object'])) {
             "langage" => ReportObject::LANGUAGE,
             "spam" => ReportObject::SPAM,
             "links" => ReportObject::LINKS,
             "fairplay" => ReportObject::FAIRPLAY,
-            "other" => ReportObject::OTHER,
-            default => null
+            "other" => ReportObject::OTHER
         },
         "description" => $_POST['description'],
         "reportedUuid" => $_POST['reportedUuid'],
