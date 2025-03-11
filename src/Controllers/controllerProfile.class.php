@@ -330,11 +330,7 @@ class ControllerProfile extends Controller
 
 
         if (password_verify($newPassword, $user->getPassword())) {
-            echo json_encode([
-                'success' => false,
-                'error' => "Le nouveau mot de passe ne peut pas être identique à l'ancien"
-            ]);
-            return;
+            MessageHandler::sendJsonCustomException(400, 'Le nouveau mot de passe ne peut pas être identique à l\'ancien');
         }
         $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT);
         $user->setPassword($newPasswordHashed);
@@ -348,14 +344,10 @@ class ControllerProfile extends Controller
                 $mailer = new Mailer([$to], $subject, $message);
                 $mailer->generateHTMLMessage();
                 $mailer->send();
-                echo json_encode([
-                    'success' => true,
-                ]);
+                echo MessageHandler::sendJsonMessage("Mot de passe modifié avec succès");
+                exit;
             } catch (Exception $e) {
-                echo json_encode([
-                    'success' => false,
-                    'error' => $e->getMessage()
-                ]);
+                MessageHandler::sendJsonException($e);
             }
 
         }
