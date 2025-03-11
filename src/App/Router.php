@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier de la classe Router
+ * @brief Fichier de déclaration et définition de la classe Router.
  * @file Router.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
  * @version 1.2

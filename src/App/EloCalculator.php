@@ -1,4 +1,10 @@
 <?php
+/**
+ * @file    EloCalculator.php
+ * @brief   Fichier de déclaration et définition de la classe EloCalculator.
+ * @date    12/11/2024
+ * @version 0.1
+ */
 
 namespace ComusParty\App;
 
