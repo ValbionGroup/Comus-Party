@@ -135,7 +135,12 @@ class ControllerGame extends Controller
             $gameRecord->setPlayers($players);
             (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
 
-            $data = [];
+            $token = $gameRecord->generateToken();
+
+            $data = [
+                "token" => $token,
+                "code" => $gameRecord->getCode(),
+            ];
 
             if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
                 $data["settings"] = $settings;
@@ -584,6 +589,7 @@ class ControllerGame extends Controller
             null,
             GameRecordState::WAITING,
             true,
+            null,
             new DateTime(),
             new DateTime(),
             null
@@ -605,13 +611,11 @@ class ControllerGame extends Controller
     /**
      * @brief Termine une partie et met à jour les scores et les gagnants
      * @param string $code Code de la partie
-     * @param array|null $winner Tableau associatif contenant les UUID des joueurs gagnants
-     * @param array|null $scores Tableau associatif contenant les scores des joueurs
+     * @param string $token Token de la partie
+     * @param array|null $results Résultats de la partie si le jeu les renvoies
      * @return void
-     * @todo Retravailler la fonction afin de gérer l'usurpation d'identité
-     * @todo Retravailler la fonction afin qu'elle corresponde aux règles fixés aux jeux
      */
-    public function endGame(string $code, ?array $winner = null, ?array $scores = null): void
+    public function endGame(string $code, string $token, ?array $results = null): void
     {
         try {
             $gameRecordManager = new GameRecordDAO($this->getPdo());
@@ -625,42 +629,45 @@ class ControllerGame extends Controller
                 throw new MalformedRequestException("La partie n'a pas commencé ou est déjà terminée");
             }
 
-            if (in_array("SCORES", $this->getGameSettings($gameRecord->getGame()->getId())["returnParametersToComus"])) {
-                foreach ($scores as $playerUuid => $playerScore) {
-                    if (!in_array($playerUuid, array_map(fn($player) => $player["player"]->getUuid(), $gameRecord->getPlayers()))) {
-                        throw new MalformedRequestException("Le joueur $playerUuid n'est pas dans la partie");
-                    }
-                }
+            if ($gameRecord->getToken() != hash("sha256", $token)) {
+                throw new UnauthorizedAccessException("Impossible d'authentifier le serveur de jeu");
             }
 
-            $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
-
-            if (in_array("WINNER_UUID", $gameSettings["returnParametersToComus"])) {
-                if (!is_null($winner)) {
-                    foreach ($winner as $playerUuid) {
-                        $gameRecordManager->addWinner($code, $playerUuid);
-                    }
-                } else {
-                    $winner = [];
+            if (!empty($results)) {
+                $actualPlayerTokenInRecord = [];
+                foreach ($gameRecord->getPlayers() as $player) {
+                    $actualPlayerTokenInRecord[$player["player"]->getUuid()] = $player["token"];
                 }
 
-                $players = $gameRecord->getPlayers();
-                if (!$gameRecord->isPrivate()) {
-                    $allWinner = array_map(
-                        fn($player) => $player["player"],
-                        array_filter($players,
-                            fn($player) => in_array($player["player"]->getUuid(), $winner)
-                        )
-                    );
-                    $allLooser = array_map(
-                        fn($player) => $player["player"],
-                        array_filter($players,
-                            fn($player) => !in_array($player["player"]->getUuid(), $winner)
-                        )
-                    );
-                    $allPlayers = array_map(fn($player) => $player["player"], $players);
+                $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
 
-                    $this->calculateAndUpdateElo($allPlayers, $allWinner, $allLooser);
+                foreach ($results as $playerUuid => $playerData) {
+                    if (!isset($actualPlayerTokenInRecord[$playerUuid]) || $actualPlayerTokenInRecord[$playerUuid] !== $playerData["token"]) {
+                        throw new MalformedRequestException("Le joueur $playerUuid n'est pas dans la partie ou le token est invalide");
+                    }
+                }
+
+                $allWinner = [];
+                $allLooser = [];
+                $allPlayers = [];
+                foreach ($results as $playerUuid => $playerData) {
+                    if (in_array("SCORES", $gameSettings["returnParametersToComus"])) {
+                        // TODO: Traiter le score des joueurs
+                    }
+
+                    if (in_array("WINNERS", $gameSettings["returnParametersToComus"])) {
+                        if ($playerData["winner"]) {
+                            $allWinner[] = $playerUuid;
+                            $gameRecordManager->addWinner($code, $playerUuid);
+                        } else {
+                            $allLooser[] = $playerUuid;
+                        }
+                        $allPlayers[] = $playerUuid;
+
+                        if (!$gameRecord->isPrivate()) {
+                            $this->calculateAndUpdateElo($allPlayers, $allWinner, $allLooser);
+                        }
+                    }
                 }
             }
 
@@ -672,7 +679,6 @@ class ControllerGame extends Controller
             exit;
         } catch (Exception|Error $e) {
             MessageHandler::sendJsonException($e);
-            exit;
         }
     }
 
