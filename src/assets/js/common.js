@@ -240,17 +240,17 @@ function changeButtonState(button, neededActive, needCaptcha = false) {
 
 function sendReport() {
 
-    let id = document.getElementById('id');
+    let reportedUuid = document.getElementById('reportedUuid');
     let reason = document.getElementById('reason');
     let description = document.getElementById('description');
 
     makeRequest('POST', '/report', (response) => {
         response = JSON.parse(response);
-        if (response.success === 'success') {
-            showNotification('Signalement envoyé', 'Le signalement a bien été envoyé', 'green');
+        if (response.success) {
+            showNotification('Génial !', response.message, 'green');
             closeModal();
         } else {
-            showNotification('Erreur lors de l\'envoi', 'Une erreur est survenue lors de l\'envoi du signalement', 'red');
+            showNotification('Oups...', response.message, 'red');
         }
-    }, 'idReported={$id}&reason={$reason}&description={$description}');
+    }, `reportedUuid=${reportedUuid.value}&object=${reason.value}&description=${description.value}`);
 }
