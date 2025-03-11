@@ -104,7 +104,7 @@ class ControllerDashboard extends Controller
     }
 
     /**
-     * @brief Récupère toutes les suggestions en attente et les renvoi sous format JSON
+     * @brief Récupère toutes les suggestions en attente et les renvois sous format JSON
      * @return void
      */
     public function getAllSuggestionsWaiting(): void
