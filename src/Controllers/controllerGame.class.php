@@ -241,8 +241,7 @@ class ControllerGame extends Controller
     {
         $gameManager = new GameDAO($this->getPdo());
         $game = $gameManager->findWithDetailsById($id);
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Informations du jeu récupérées", [
             "game" => [
                 "id" => $game->getId(),
                 "name" => $game->getName(),
