@@ -150,28 +150,29 @@ class ControllerProfile extends Controller
         }
 
         if ($idArticle == 0) {
-
             $articleManager->deleteActiveArticleForPfp($player->getUuid());
             $_SESSION['pfpPath'] = "default-pfp.jpg";
-            echo json_encode([
+            echo MessageHandler::sendJsonMessage("Photo de profil mise à jour avec succès", [
                 'articlePath' => "default-pfp.jpg",
             ]);
+            exit;
         }
         if ($idArticle == -1) {
             $articleManager->deleteActiveArticleForBanner($player->getUuid());
             $_SESSION['bannerPath'] = "default-banner.jpg";
-            echo json_encode([
+            echo MessageHandler::sendJsonMessage("Bannière mise à jour avec succès", [
                 'articlePath' => "default-banner.jpg",
             ]);
+            exit;
         }
         if ($idArticle != 0 && $idArticle != -1) {
             $articleManager->updateActiveArticle($player->getUuid(), $idArticle, $typeArticle);
             $article = $articleManager->findById($idArticle);
-
-            echo json_encode([
+            echo MessageHandler::sendJsonMessage("Style mis à jour avec succès", [
                 'articlePath' => $article->getFilePath(),
                 'idArticle' => $idArticle
             ]);
+            exit;
         }
     }
 
