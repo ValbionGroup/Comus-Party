@@ -480,20 +480,16 @@ class ControllerGame extends Controller
      */
     public function joinGameFromSearch(int $gameId): void
     {
-        $game = (new GameDAO($this->getPdo()))->findById($gameId);
-
-        if ($game->getState() != GameState::AVAILABLE) {
-            echo json_encode([
-                "success" => false,
-                "message" => "Le jeu n'est pas disponible",
-            ]);
-            exit;
-        }
-
-        $gameRecordManager = new GameRecordDAO($this->getPdo());
-        $gameRecords = $gameRecordManager->findByGameId($gameId);
-
         try {
+            $game = (new GameDAO($this->getPdo()))->findById($gameId);
+
+            if ($game->getState() != GameState::AVAILABLE) {
+                throw new GameUnavailableException("Le jeu n'est pas disponible");
+            }
+
+            $gameRecordManager = new GameRecordDAO($this->getPdo());
+            $gameRecords = $gameRecordManager->findByGameId($gameId);
+
             $eloForGame = [];
             foreach ($gameRecords as $gameRecord) {
                 if ($gameRecord->getState() == GameRecordState::WAITING && !$gameRecord->isPrivate()) {
@@ -531,11 +527,7 @@ class ControllerGame extends Controller
             echo $this->joinGame($bestGame, $_SESSION['uuid']);
             exit;
         } catch (Exception $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 
