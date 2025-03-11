@@ -643,6 +643,7 @@ class ControllerGame extends Controller
     {
         try {
             $gameRecordManager = new GameRecordDAO($this->getPdo());
+            $playerManager = new PlayerDAO($this->getPdo());
             $gameRecord = $gameRecordManager->findByCode($code);
 
             if ($gameRecord == null) {
@@ -680,18 +681,22 @@ class ControllerGame extends Controller
                     }
 
                     if (in_array("WINNERS", $gameSettings["returnParametersToComus"])) {
+                        if (!isset($playerData["winner"])) {
+                            throw new MalformedRequestException("L'attribut \"winner\" n'est pas présent");
+                        }
+
                         if ($playerData["winner"]) {
-                            $allWinner[] = $playerUuid;
+                            $allWinner[] = array_filter($gameRecord->getPlayers(), fn($player) => $player["player"]->getUuid() == $playerUuid)[0]["player"];
                             $gameRecordManager->addWinner($code, $playerUuid);
                         } else {
-                            $allLooser[] = $playerUuid;
+                            $allLooser[] = array_filter($gameRecord->getPlayers(), fn($player) => $player["player"]->getUuid() == $playerUuid)[0]["player"];
                         }
-                        $allPlayers[] = $playerUuid;
-
-                        if (!$gameRecord->isPrivate()) {
-                            $this->calculateAndUpdateElo($allPlayers, $allWinner, $allLooser);
-                        }
+                        $allPlayers[] = array_filter($gameRecord->getPlayers(), fn($player) => $player["player"]->getUuid() == $playerUuid)[0]["player"];
                     }
+                }
+
+                if (!$gameRecord->isPrivate() && in_array("WINNERS", $gameSettings["returnParametersToComus"])) {
+                    $this->calculateAndUpdateElo($allPlayers, $allWinner, $allLooser);
                 }
             }
 
@@ -728,7 +733,7 @@ class ControllerGame extends Controller
             } else {
                 $newElo = EloCalculator::calculateNewElo($elo, $averageEloWinner, 0);
             }
-            $player->setElo(round($newElo, 0, PHP_ROUND_HALF_UP));
+            $player->setElo(round($newElo));
             $playerManager->update($player);
         }
     }
