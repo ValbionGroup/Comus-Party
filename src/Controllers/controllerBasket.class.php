@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\ArticleDAO;
 use DateMalformedStringException;
 use Twig\Environment;
@@ -97,28 +98,16 @@ class ControllerBasket extends Controller
                 if (!in_array($id_article, $_SESSION['basket'])) {
                     $_SESSION['basket'][] = $id_article;
                     $numberArticlesInBasket = count($_SESSION['basket']);
-                    echo json_encode([
-                        'success' => true,
-                        'message' => "Article ajouté au panier !",
-                        'numberArticlesInBasket' => $numberArticlesInBasket
-                    ]);
-
+                    echo MessageHandler::sendJsonMessage("Article ajouté au panier !", ['numberArticlesInBasket' => $numberArticlesInBasket]);
+                    exit;
                 } else {
                     $numberArticlesInBasket = count($_SESSION['basket']);
-                    echo json_encode([
-                        'success' => false,
-                        'message' => "L'article est déjà dans le panier.",
-                        'numberArticlesInBasket' => $numberArticlesInBasket
-                    ]);
-
+                    echo MessageHandler::sendJsonMessage("L'article est déjà dans le panier.", ['numberArticlesInBasket' => $numberArticlesInBasket]);
+                    exit;
                 }
-
             }
-
-
-
         } else {
-            echo "Erreur : ID de l'article non spécifié.";
+            MessageHandler::sendJsonCustomException(400, "ID de l'article non spécifié.");
         }
     }
 
