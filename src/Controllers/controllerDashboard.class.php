@@ -83,7 +83,11 @@ class ControllerDashboard extends Controller
     public function acceptSuggestion(int $id)
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
-        echo json_encode(['success' => $suggestsManager->accept($id)]);
+        if ($suggestsManager->accept($id)) {
+            echo MessageHandler::sendJsonMessage("La suggestion a bien été acceptée");
+        } else {
+            MessageHandler::sendJsonCustomException(500, "Une erreur est survenue lors de l'acceptation de la suggestion");
+        }
         exit;
     }
 
