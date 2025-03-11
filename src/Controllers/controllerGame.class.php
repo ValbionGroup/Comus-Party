@@ -135,7 +135,12 @@ class ControllerGame extends Controller
             $gameRecord->setPlayers($players);
             (new GameRecordDAO($this->getPdo()))->updatePlayers($gameRecord->getCode(), $gameRecord->getPlayers());
 
-            $data = [];
+            $token = $gameRecord->generateToken();
+
+            $data = [
+                "token" => $token,
+                "code" => $gameRecord->getCode(),
+            ];
 
             if (in_array("MODIFIED_SETTING_DATA", $gameSettings["neededParametersFromComus"])) {
                 $data["settings"] = $settings;
@@ -230,6 +235,16 @@ class ControllerGame extends Controller
     private function getGameFolder(int $id): string
     {
         return realpath(__DIR__ . "/../..") . "/games/game$id";
+    }
+
+    private function getGameUrl(int $id): string
+    {
+        $gameSettings = $this->getGameSettings($id);
+        if ($gameSettings["settings"]["serveByComus"]) {
+            return "https://games.comus-party.com/game" . $id;
+        } else {
+            return $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"];
+        }
     }
 
     /**
@@ -400,16 +415,6 @@ class ControllerGame extends Controller
     {
         $allSettings = $this->getGameSettings($id);
         return $allSettings["modifiableSettings"];
-    }
-
-    private function getGameUrl(int $id): string
-    {
-        $gameSettings = $this->getGameSettings($id);
-        if ($gameSettings["settings"]["serveByComus"]) {
-            return "https://games.comus-party.com/game" . $id;
-        } else {
-            return $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"];
-        }
     }
 
     /**
@@ -606,6 +611,7 @@ class ControllerGame extends Controller
             null,
             GameRecordState::WAITING,
             true,
+            null,
             new DateTime(),
             new DateTime(),
             null
@@ -629,13 +635,13 @@ class ControllerGame extends Controller
     /**
      * @brief Termine une partie et met à jour les scores et les gagnants
      * @param string $code Code de la partie
+     * @param string $token Token de la partie
      * @param array|null $winner Tableau associatif contenant les UUID des joueurs gagnants
      * @param array|null $scores Tableau associatif contenant les scores des joueurs
      * @return void
-     * @todo Retravailler la fonction afin de gérer l'usurpation d'identité
      * @todo Retravailler la fonction afin qu'elle corresponde aux règles fixés aux jeux
      */
-    public function endGame(string $code, ?array $winner = null, ?array $scores = null): void
+    public function endGame(string $code, string $token, ?array $winner = null, ?array $scores = null): void
     {
         try {
             $gameRecordManager = new GameRecordDAO($this->getPdo());
@@ -647,6 +653,10 @@ class ControllerGame extends Controller
 
             if ($gameRecord->getState() != GameRecordState::STARTED) {
                 throw new MalformedRequestException("La partie n'a pas commencé ou est déjà terminée");
+            }
+
+            if ($gameRecord->getToken() != hash("sha256", $token)) {
+                throw new UnauthorizedAccessException("Impossible d'authentifier le serveur de jeu");
             }
 
             if (in_array("SCORES", $this->getGameSettings($gameRecord->getGame()->getId())["returnParametersToComus"])) {
@@ -692,16 +702,10 @@ class ControllerGame extends Controller
             $gameRecord->setFinishedAt(new DateTime());
             $gameRecordManager->update($gameRecord);
 
-            echo json_encode([
-                "success" => true,
-            ]);
+            echo MessageHandler::sendJsonMessage("La partie a bien été terminée");
             exit;
         } catch (Exception|Error $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 
