@@ -120,8 +120,7 @@ class ControllerDashboard extends Controller
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestions = $suggestsManager->findAllWaiting();
         if (empty($suggestions)) {
-            echo json_encode([
-                "success" => true,
+            echo MessageHandler::sendJsonMessage("Aucune suggestion en attente", [
                 "suggestions" => null,
             ]);
             exit;
