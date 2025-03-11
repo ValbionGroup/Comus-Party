@@ -733,14 +733,11 @@ class ControllerGame extends Controller
         if (isset($penalty)) {
             $endDate = $penalty->getCreatedAt()->modify("+" . $penalty->getDuration() . "hour");
             if ($endDate > new DateTime()) {
-                echo json_encode(['success' => true,
-                    'message' => 'Le joueur est encore mute']);
+                echo MessageHandler::sendJsonMessage("Le joueur est encore mute");
                 exit;
             }
         }
 
-        echo json_encode(['success' => false,
-            'message' => 'Le joueur n\'est pas mute']);
-        exit;
+        MessageHandler::sendJsonCustomException(404, "Le joueur n'est pas mute");
     }
 }
