@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\ReportDAO;
 use ComusParty\Models\SuggestionDAO;
