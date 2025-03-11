@@ -3,7 +3,7 @@
 /**
  * @file moderator.dao.php
  * @author Conchez-Boueytou Robin
- * @brief Le fichier contient la déclaration & définition de la classe ModeratorDAO.
+ * @brief Fichier de déclaration et définition de la classe ModeratorDAO
  * @details
  * @date 18/12/2024
  * @version 0.1

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file game.dao.php
- * @brief Le fichier contient la déclaration et la définition de la classe GameDao
+ * @brief Fichier de déclaration et définition de la classe GameDAO
  * @author Conchez-Boueytou Robin, ESPIET Lucas
  * @date 13/11/2024
  * @version 0.2

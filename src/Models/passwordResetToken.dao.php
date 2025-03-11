@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier contenant la classe PasswordResetTokenDAO
+ * @brief Fichier de déclaration et définition de la classe PasswordResetTokenDAO
  *
  * @file passwordResetToken.dao.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

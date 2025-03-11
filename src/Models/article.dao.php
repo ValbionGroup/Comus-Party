@@ -2,7 +2,7 @@
 /**
  * @file    article.dao.php
  * @author  Mathis RIVRAIS--NOWAKOWSKI
- * @brief   Le fichier contient la déclaration & définition de la classe ArticleDAO.
+ * @brief   Fichier de déclaration et définition de la classe ArticleDAO
  * @date    13/11/2024
  * @version 0.2
  */
@@ -308,7 +308,7 @@ class ArticleDAO
             $stmt->bindParam(':idArticle', $idArticle);
             $ok = $stmt->execute();
             $pfp = $this->findById($idArticle);
-            if($pfp != null){
+            if ($pfp != null) {
                 $_SESSION['pfpPath'] = $pfp->getFilePath();
             }
             return $ok;
@@ -344,7 +344,7 @@ class ArticleDAO
             $stmt->bindParam(':idArticle', $idArticle);
             $ok = $stmt->execute();
             $banner = $this->findById($idArticle);
-            if($banner != null){
+            if ($banner != null) {
                 $_SESSION['bannerPath'] = $banner->getFilePath();
             }
             return $ok;
@@ -436,7 +436,7 @@ class ArticleDAO
         if ($stmt->rowCount() === 0) {
             // Gérer le cas où aucune ligne n'est affectée
             throw new NotFoundException('No player found for the given UUID');
-        }else{
+        } else {
             $stmt = $this->pdo->prepare(
                 'UPDATE ' . DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
@@ -446,9 +446,6 @@ class ArticleDAO
             $stmt->bindParam(':uuid', $uuid);
             $stmt->execute();
         }
-
-
-
 
 
     }

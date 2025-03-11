@@ -2,7 +2,7 @@
 /**
  * @file    report.dao.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe ReportDAO.
+ * @brief   Fichier de déclaration et définition de la classe ReportDAO
  * @date    21/03/2025
  * @version 0.1
  */

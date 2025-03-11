@@ -2,7 +2,7 @@
 /**
  * @file    player.dao.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe PlayerDAO.
+ * @brief   Fichier de déclaration et définition de la classe PlayerDAO
  * @date    12/11/2024
  * @version 0.1
  */

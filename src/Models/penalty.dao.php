@@ -3,7 +3,7 @@
 /**
  * @file penalty.dao.php
  * @author Conchez-Boueytou Robin
- * @brief DAO de la classe Penalty
+ * @brief Fichier de déclaration et définition de la classe PenaltyDAO
  * @details La classe PenaltyDAO permet de gérer les actions liées aux sanctions dans la base de données
  * @date 01/03/2025
  * @version 0.0

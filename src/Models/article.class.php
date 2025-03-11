@@ -2,7 +2,7 @@
 /**
  * @file    article.class.php
  * @author  Mathis RIVRAIS--NOWAKOWSKI
- * @brief   Le fichier contient la déclaration & définition de la classe Article.
+ * @brief   Fichier de déclaration et définition de la classe Article
  * @date    13/11/2024
  * @version 0.1
  */
@@ -20,7 +20,8 @@ use DateTime;
  *
  * @enum ArticleType
  */
-enum ArticleType {
+enum ArticleType
+{
     /**
      * @brief Image de profil
      */
@@ -33,12 +34,12 @@ enum ArticleType {
 }
 
 
-
 /**
  * @brief Classe Article
  * @details La classe Article représente un article de l'application
  */
-class Article {
+class Article
+{
 
 
     /**

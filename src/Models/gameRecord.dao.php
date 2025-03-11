@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Classe GameRecordDao
+ * @brief Fichier de déclaration et définition de la classe GameRecordDAO
  *
  * @file gamerecord.dao.class.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

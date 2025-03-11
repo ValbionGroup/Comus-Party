@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Classe rememberToken
+ * @brief Fichier de déclaration et définition de la classe RememberToken
  *
  * @file rememberToken.class.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

@@ -2,7 +2,7 @@
 /**
  * @file    suggestion.dao.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe SuggestionDAO.
+ * @brief   Fichier de déclaration et définition de la classe SuggestionDAO
  * @date    17/12/2024
  * @version 0.1
  */

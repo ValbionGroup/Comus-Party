@@ -3,7 +3,7 @@
 /**
  * @file penalty.class.php
  * @author Conchez-Boueytou Robin
- * @brief Le fichier contient la déclaration & définition de la classe Penalty.
+ * @brief Fichier de déclaration et définition de la classe Penalty
  * @details
  * @date 01/03/2025
  * @version 0.1

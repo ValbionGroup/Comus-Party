@@ -2,7 +2,7 @@
 /**
  * @file    invoice.dao.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe InvoiceDAO.
+ * @brief   Fichier de déclaration et définition de la classe InvoiceDAO
  * @date    02/12/2024
  * @version 0.1
  */
