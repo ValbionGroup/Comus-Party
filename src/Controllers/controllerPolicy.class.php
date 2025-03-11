@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    controllerPolicy.class.php
- * @brief   Ce fichier contient la déclaration & définition de la classe ControllerPolicy.
+ * @brief   Fichier de déclaration et définition de la classe ControllerPolicy
  * @author  Estéban DESESSARD
  * @date    14/12/2024
  * @version 1.0

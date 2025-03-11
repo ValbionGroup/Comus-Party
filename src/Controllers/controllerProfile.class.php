@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    controllerProfile.class.php
- * @brief   Ce fichier contient la déclaration & définition de la classe ControllerProfile.
+ * @brief   Fichier de déclaration et définition de la classe ControllerProfile
  * @author  Estéban DESESSARD
  * @date    15/11/2024
  * @version 0.2

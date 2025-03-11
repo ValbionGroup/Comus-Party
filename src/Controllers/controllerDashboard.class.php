@@ -1,7 +1,7 @@
 <?php
 /**
  * @file controllerDashboard.class.php
- * @brief Le fichier contient la déclaration et la définition de la classe ControllerDashboard
+ * @brief Fichier de déclaration et définition de la classe ControllerDashboard
  * @author Estéban DESESSARD
  * @date 18/12/2024
  * @version 1.0
@@ -9,12 +9,10 @@
 
 namespace ComusParty\Controllers;
 
-use ComusParty\App\MessageHandler;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\ReportDAO;
 use ComusParty\Models\SuggestionDAO;
 use DateMalformedStringException;
-use Exception;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -109,7 +107,8 @@ class ControllerDashboard extends Controller
      * @brief Récupère toutes les suggestions en attente et les renvoi sous format JSON
      * @return void
      */
-    public function getAllSuggestionsWaiting(): void {
+    public function getAllSuggestionsWaiting(): void
+    {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestions = $suggestsManager->findAllWaiting();
         if (empty($suggestions)) {
@@ -163,7 +162,8 @@ class ControllerDashboard extends Controller
      * @return void
      * @throws DateMalformedStringException
      */
-    public function getAllReportsWaiting(): void {
+    public function getAllReportsWaiting(): void
+    {
         $reportsManager = new ReportDAO($this->getPdo());
         $reports = $reportsManager->findAllWaiting();
         if (empty($reports)) {

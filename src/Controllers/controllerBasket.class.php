@@ -2,7 +2,7 @@
 /**
  * @file    controllerBasket.class.php
  * @author  Mathis Rivrais--Nowakowski
- * @brief   Le fichier contient la déclaration & définition de la classe ControllerBasket.
+ * @brief   Fichier de déclaration et définition de la classe ControllerBasket
  * @date    14/11/2024
  * @version 0.4
  */
@@ -90,7 +90,7 @@ class ControllerBasket extends Controller
 
         if (isset($_POST['id_article'])) {
             $id_article = intval($_POST['id_article']);
-            if(!in_array($id_article, $idsPfpsOwned) && !in_array($id_article, $idsBannersOwned)){
+            if (!in_array($id_article, $idsPfpsOwned) && !in_array($id_article, $idsBannersOwned)) {
                 if (!isset($_SESSION['basket'])) {
                     $_SESSION['basket'] = array();
                 }
@@ -114,7 +114,6 @@ class ControllerBasket extends Controller
                 }
 
             }
-
 
 
         } else {
