@@ -294,10 +294,7 @@ class ControllerProfile extends Controller
             MessageHandler::sendJsonCustomException(500, 'Erreur lors de l\'envoi du mail de confirmation');
         }
 
-
-        echo json_encode([
-            'success' => true
-        ]);
+        echo MessageHandler::sendJsonMessage("Email mis à jour avec succès");
         exit;
     }
 
