@@ -219,6 +219,9 @@ sauf si `returnParametersToComus` est vide.
 
 Les données doivent être renvoyées dans l'attribut `results`.
 
+Le token correspond à l'identifiant du joueur dans la partie et l'uuid est l'identifiant unique du joueur. Ces données
+sont envoyées par Comus Party lors de l'instantiation de la partie.
+
 On peut ainsi, en fonction des paramètres inscrit dans `returnParametersToComus`, ajouter des données supplémentaires.
 
 ### Gagnants
