@@ -1,13 +1,12 @@
 /**
  * @file    basket.js
- * @author  Mathis Rivrais--Nowakowski
+ * @author  Mathis Rivrais--Nowakowski & Estéban DESESSARD
  * @brief   Le fichier contient le JS nécessaire au bon fonctionnement de la page panier
  * @date    14/11/2024
- * @version 0.4
+ * @version 2.0
  */
 
 let removeButtons = document.querySelectorAll('.remove-btn');
-let notification = document.getElementById('notification');
 
 let basket = document.getElementById("basket")
 let emptyBasket = document.getElementById("emptyBasket")
@@ -45,19 +44,8 @@ removeButtons.forEach(button => {
         // Supprimer la div parente du bouton
         const parentDiv = this.parentElement.parentElement;
         parentDiv.remove();
-        testArticleInBasket()
-        notificationMessage.textContent = "Article retiré du panier"
-        notification.className = "z-50 fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out";
-        // Afficher la notification
-        notification.classList.remove('opacity-0', 'scale-90');
-        notification.classList.add('opacity-100', 'scale-100');
-
-        // Masquer la notification après 5 secondes
-        setTimeout(() => {
-            notification.classList.remove('opacity-100', 'scale-100');
-            notification.classList.add('opacity-0', 'scale-90');
-        }, 5000);
-
+        testArticleInBasket();
+        showNotification("Génial !", "Article retiré du panier", "green");
     });
 });
 
