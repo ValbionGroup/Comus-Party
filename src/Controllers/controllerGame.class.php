@@ -1,7 +1,7 @@
 <?php
 /**
  * @file controllerGame.class.php
- * @brief Le fichier contient la déclaration et la définition de la classe ControllerGame
+ * @brief Fichier de déclaration et définition de la classe ControllerGame
  * @author Conchez-Boueytou Robin, ESPIET Lucas
  * @date 23/12/2024
  * @version 0.3
@@ -232,6 +232,16 @@ class ControllerGame extends Controller
         return realpath(__DIR__ . "/../..") . "/games/game$id";
     }
 
+    private function getGameUrl(int $id): string
+    {
+        $gameSettings = $this->getGameSettings($id);
+        if ($gameSettings["settings"]["serveByComus"]) {
+            return "https://games.comus-party.com/game" . $id;
+        } else {
+            return $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"];
+        }
+    }
+
     /**
      * @brief Récupère les informations d'un jeu et le retourne au format JSON
      * @param int|null $id L'identifiant du jeu
@@ -395,16 +405,6 @@ class ControllerGame extends Controller
     {
         $allSettings = $this->getGameSettings($id);
         return $allSettings["modifiableSettings"];
-    }
-
-    private function getGameUrl(int $id): string
-    {
-        $gameSettings = $this->getGameSettings($id);
-        if ($gameSettings["settings"]["serveByComus"]) {
-            return "https://games.comus-party.com/game" . $id;
-        } else {
-            return $gameSettings["settings"]["serverAddress"] . ":" . $gameSettings["settings"]["serverPort"];
-        }
     }
 
     /**

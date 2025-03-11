@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier de définition de la classe Chat (Sockets)
+ * @brief Fichier de déclaration et définition de la classe Chat (Sockets)
  *
  * @file Chat.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

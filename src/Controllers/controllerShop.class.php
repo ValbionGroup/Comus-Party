@@ -3,7 +3,7 @@
 /**
  * @file    controllerShop.class.php
  * @author  Mathis RIVRAIS--NOWAKOWSKI
- * @brief   Le fichier contient la déclaration & définition de la classe ControllerShop.
+ * @brief   Fichier de déclaration et définition de la classe ControllerShop
  * @date    13/11/2024
  * @version 0.3
  */

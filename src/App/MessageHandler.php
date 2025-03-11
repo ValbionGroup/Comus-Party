@@ -1,6 +1,7 @@
 <?php
 /**
- * @brief Gestion de l'affichage des erreurs
+ * @brief Fichier de déclaration et définition de la classe MessageHandler.
+ * @details La classe MessageHandler permet de gérer l'affichage des erreurs de l'application
  *
  * @file MessageHandler.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Gère l'exception lorsqu'un contôleur n'est pas trouvé
+ * @brief Gère les exceptions lorsqu'un contôleur n'est pas trouvé
  * @file ControllerNotFoundException.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
  * @version 1.0
