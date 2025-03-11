@@ -175,7 +175,7 @@ class PlayerDAO
      * @brief Retourne un objet Player (ou null) à partir de l'identifiant utilisateur passé en paramètre avec les détails de l'utilisateur associé
      * @param int $userId L'identifiant utilisateur recherché
      * @return Player|null Objet retourné par la méthode, ici un joueur (ou null si non-trouvé)
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findWithDetailByUserId(int $userId): ?Player
     {
@@ -356,7 +356,7 @@ class PlayerDAO
      * @param Player $player Les nouvelles données du joueur
      * @return void
      */
-    public function update(Player $player)
+    public function update(Player $player): void
     {
         $stmt = $this->pdo->prepare(
             'UPDATE ' . DB_PREFIX . 'player
@@ -375,7 +375,13 @@ class PlayerDAO
         $stmt->execute();
     }
 
-    public function findWithDetailByUsername(string $username)
+    /**
+     * @brief Retourne un objet Player (ou null) à partir du nom d'utilisateur passé en paramètre avec les détails de l'utilisateur associé
+     * @param string $username Le nom d'utilisateur du joueur recherché
+     * @return Player|null
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     */
+    public function findWithDetailByUsername(string $username): ?Player
     {
         $stmt = $this->pdo->prepare(
             'SELECT 
