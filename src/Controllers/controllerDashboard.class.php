@@ -125,8 +125,7 @@ class ControllerDashboard extends Controller
             ]);
             exit;
         }
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Suggestions récupérées", [
             "suggestions" => array_map(fn($suggestion) => [
                 "id" => $suggestion->getId(),
                 "object" => $suggestion->getObject()->name,
