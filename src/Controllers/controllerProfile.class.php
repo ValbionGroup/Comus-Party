@@ -22,7 +22,9 @@ use ComusParty\Models\Penalty;
 use ComusParty\Models\PenaltyDAO;
 use ComusParty\Models\PenaltyType;
 use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\Report;
 use ComusParty\Models\ReportDAO;
+use ComusParty\Models\ReportObject;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
 use DateTime;
@@ -447,8 +449,20 @@ class ControllerProfile extends Controller
         exit;
     }
 
-    public function reportPlayer()
+    public function reportPlayer(ReportObject $object, string $description, string $reportedUuid, string $senderUuid)
     {
-
+        $reportManager = new ReportDAO($this->getPdo());
+        $report = new Report();
+        $report->setObject($object);
+        $report->setDescription($description);
+        $report->setReportedUuid($reportedUuid);
+        $report->setSenderUuid($senderUuid);
+        $report->setCreatedAt(new DateTime());
+        $report->setUpdatedAt(new DateTime());
+        if (!$reportManager->insert($report)) {
+            MessageHandler::sendJsonCustomException(500, 'Erreur lors de la création du signalement');
+        }
+        echo MessageHandler::sendJsonMessage("Signalement envoyé avec succès");
+        exit;
     }
 }
