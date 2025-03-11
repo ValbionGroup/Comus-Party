@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Gère les exceptions lorsqu'une méthode n'est pas trouvée/n'est pas existante
+ * @brief Gère les exceptions lorsqu'une méthode n'est pas trouvée n'est pas existante
  * @file MethodNotFoundException.php
  * @author Lucas ESPIET "lespiet@iutbayonne.univ-pau.fr"
  * @version 1.0
