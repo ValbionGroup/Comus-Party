@@ -303,8 +303,7 @@ $router->post('/game/:code/end', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("endGame", [
         "code" => $code,
         "token" => $_POST['token'] ?? "",
-        "winner" => json_decode($_POST['winner'] ?? ""),
-        "scores" => json_decode($_POST['scores'] ?? "", true)
+        "results" => json_decode($_POST['results'] ?? "", true),
     ]);
     exit;
 });
