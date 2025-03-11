@@ -60,7 +60,7 @@ class Game implements MessageComponentInterface
      * @details Gère l'affichage des joueurs en temps réel
      * @param ConnectionInterface $from La connexion du joueur
      * @param string $msg Le message reçu
-     * @throws Exception
+     * @throws Exception Exception lancée si le message est invalide
      */
     function onMessage(ConnectionInterface $from, $msg): void
     {
@@ -99,8 +99,8 @@ class Game implements MessageComponentInterface
     /**
      * @brief Fonction appelée lors de l'arrivée et la déconnexion d'un joueur
      * @details Met à jour la liste des joueurs
-     * @param string $game
-     * @throws Exception
+     * @param string $game La partie à mettre à jour
+     * @throws Exception Exception lancée si la partie n'existe pas
      */
     private function updatePlayer(string $game): void
     {
@@ -136,9 +136,9 @@ class Game implements MessageComponentInterface
     /**
      * @brief Fonction appelée lorsque la partie est démarrée
      * @details Redirige les joueurs vers la partie
-     * @param string $game
-     * @param string $uuid
-     * @throws Exception
+     * @param string $game Le code de la partie
+     * @param string $uuid L'identifiant du joueur
+     * @throws Exception Exception lancée si la partie n'existe pas
      */
     private function redirectUserToGame(string $game, string $uuid): void
     {
@@ -154,7 +154,7 @@ class Game implements MessageComponentInterface
      * @brief Fonction appelée lors de la déconnexion d'un joueur
      * @details Retire le joueur de la liste des clients
      * @param ConnectionInterface $conn La connexion du joueur
-     * @throws Exception
+     * @throws Exception Exception lancée si la connexion n'existe pas
      */
     public function onClose(ConnectionInterface $conn): void
     {
@@ -172,7 +172,7 @@ class Game implements MessageComponentInterface
     /**
      * @brief Fonction appelée lors d'une erreur
      * @param ConnectionInterface $conn La connexion du joueur
-     * @param Exception $e L'exception
+     * @param Exception $e L'exception lancée
      */
     public function onError(ConnectionInterface $conn, Exception $e): void
     {
