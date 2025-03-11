@@ -15,11 +15,17 @@ use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\Mailer;
+use ComusParty\App\MessageHandler;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\Penalty;
+use ComusParty\Models\PenaltyDAO;
+use ComusParty\Models\PenaltyType;
 use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\ReportDAO;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
+use DateTime;
 use Exception;
 use Random\RandomException;
 use Twig\Environment;
@@ -377,6 +383,68 @@ class ControllerProfile extends Controller
             }
 
         }
+    }
+
+    /**
+     * @brief Permet de pénaliser un joueur
+     * @param string $createdBy L'UUID de l'utilisateur ayant créé la sanction
+     * @param string $penalizedUuid L'UUID du joueur pénalisé
+     * @param string $reason La raison de la sanction
+     * @param int $duration La durée de la sanction
+     * @param string $durationType Le type de durée de la sanction
+     * @param PenaltyType $penaltyType Le type de sanction
+     * @return void
+     * @throws DateMalformedStringException
+     */
+    public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, PenaltyType $penaltyType, string $reportId)
+    {
+
+        $duration = match ($durationType) {
+            'minutes' => $duration * 60,
+            'hours' => $duration * 3600,
+            'days' => $duration * 86400,
+            'months' => $duration * 2628000,
+            'years' => $duration * 31536000,
+            default => null,
+        };
+
+        $penaltyManager = new PenaltyDAO($this->getPdo());
+
+        $lastPenalty = $penaltyManager->findLastPenaltyByPlayerUuid($penalizedUuid);
+        if (isset($lastPenalty) && ($lastPenalty->getDuration() >= $duration || $lastPenalty->getDuration() == null)) {
+            MessageHandler::sendJsonCustomException(500, 'Le joueur a déjà une sanction plus longue ou égale à celle-ci');
+        }
+
+        $penalty = new Penalty();
+        $penalty->setCreatedBy($createdBy);
+        $penalty->setPenalizedUuid($penalizedUuid);
+        $penalty->setReason($reason);
+        $penalty->setDuration($duration);
+        $penalty->setType($penaltyType);
+        $penalty->setCreatedAt(new DateTime());
+        $penalty->setUpdatedAt(new DateTime());
+        if (!$penaltyManager->createPenalty($penalty)) {
+            MessageHandler::sendJsonCustomException(500, 'Erreur lors de la création de la sanction');
+        }
+
+        if ($penaltyType == PenaltyType::BANNED) {
+            $playerManager = new PlayerDAO($this->getPdo());
+            $player = $playerManager->findByUuid($penalizedUuid);
+            $userManager = new UserDAO($this->getPdo());
+            $user = $userManager->findById($player->getUserId());
+            $user->setDisabled(1);
+            $userManager->update($user);
+        }
+
+        $reportManager = new ReportDAO($this->getPdo());
+        $report = $reportManager->findById($reportId);
+
+        $report->setTreatedBy($createdBy);
+
+        $reportManager->update($report);
+
+        echo MessageHandler::sendJsonMessage("Sanction appliquée avec succès");
+        exit;
     }
 
     public function reportPlayer()
