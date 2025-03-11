@@ -68,7 +68,7 @@ Liste des paramètres possibles pour `neededParametersFromComus` :
 
 Liste des paramètres possibles pour `returnParametersToComus` :
 
-- `WINNER_UUID` : UUID du/des gagnants de la partie accompagnés de leurs tokens
+- `WINNERS` : Booléen indiquant si le joueur est gagnant
 - `SCORES` : Score des joueurs accompagnés de leurs tokens
 
 ##### Paramètres modifiables
@@ -197,30 +197,70 @@ Dans le cas où `neededParametersFromComus` contient la valeur `PLAYER_STYLE`, l
 
 ## Format des données attendues par Comus Party
 
+> [!NOTE]  
+> Tous les attributs sont *facultatifs* et **cumulables**.
+
+Tout comme les données envoyées par Comus Party, par défaut, le jeu doit renvoyer les données suivantes au format
+*JSON*,
+sauf si `returnParametersToComus` est vide.
+
+```json
+[
+  {
+    "token": "tkn1",
+    "uuid": "uuid1"
+  },
+  {
+    "token": "tkn2",
+    "uuid": "uuid2"
+  }
+]
+```
+
+Les données doivent être renvoyées dans l'attribut `results`.
+
+On peut ainsi, en fonction des paramètres inscrit dans `returnParametersToComus`, ajouter des données supplémentaires.
+
 ### Gagnants
 
-Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au format *JSON* listant l'UUID de chaque vainqueur, associé à son token de partie :
+Dans le cas où `returnParametersToComus` contient la valeur `WINNERS`, le système attend avec les données précédentes un
+*booléen* `winner` pour chaque joueur :
+
 ```json
-{
-  "uuid1": "token-abc",
-  "uuid2": "token-def"
-}
+[
+  {
+    "token": "tkn1",
+    "uuid": "uuid1",
+    "winner": true
+  },
+  {
+    "token": "tkn2",
+    "uuid": "uuid2",
+    "winner": false
+  }
+]
 ```
+
+Il peut y avoir plusieurs gagnants.
 
 ### Scores
 
-Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format *JSON* listant l'UUID de chaque joueur, associé à son score et son token de partie :
+Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend avec les données précédentes un
+*entier* `score` pour chaque joueur :
+
 ```json
-{
-  "uuid1": {
-    "score": 15,
-    "token": "token-abc"
+[
+  {
+    "token": "tkn1",
+    "uuid": "uuid1",
+    "score": 15
   },
-  "uuid2": {
-    "score": 10,
-    "token": "token-def"
+  {
+    "token": "tkn2",
+    "uuid": "uuid2",
+    "score": 10
   }
-}
+]
 ```
 
 # Développer un jeu
