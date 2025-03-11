@@ -101,8 +101,7 @@ class ControllerDashboard extends Controller
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestion = $suggestsManager->findById($id);
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Informations récupérées", [
             "suggestion" => [
                 "id" => $suggestion->getId(),
                 "object" => $suggestion->getObject()->name,
