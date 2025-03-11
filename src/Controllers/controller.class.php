@@ -17,6 +17,9 @@ use Error;
 use Exception;
 use PDO;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -247,6 +250,9 @@ class Controller
      * @param array|null $args Les arguments à passer à la méthode
      * @return mixed  Le résultat de la méthode appelée
      * @throws MethodNotFoundException Exception levée dans le cas où la méhode n'existe pas
+     * @throws LoaderError Exception levée dans le cas où une erreur survient lors du chargement d'un template
+     * @throws RuntimeError Exception levée dans le cas où une erreur survient lors de l'exécution d'un template
+     * @throws SyntaxError Exception levée dans le cas où une erreur survient lors de l'analyse d'un template
      * @todo Vérifier le reste du traitement de l'exception (Cf PR #64 GitHub)
      */
     public function call(string $method, ?array $args = []): mixed
