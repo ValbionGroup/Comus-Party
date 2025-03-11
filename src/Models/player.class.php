@@ -62,7 +62,7 @@ class Player
     private ?int $comusCoin;
 
     /**
-     * Statistiques du joueur
+     * @brief Statistiques du joueur
      *
      * @var Statistics|null
      */
@@ -159,6 +159,7 @@ class Player
     /**
      * @brief Modifie le nom d'utilisateur du joueur
      * @param string|null $username Le nouveau nom d'utilisateur du joueur
+     * @return void
      */
     public function setUsername(?string $username): void
     {
@@ -340,7 +341,7 @@ class Player
      * @brief Convertit l'objet en tableau
      * @return array Objet retourné par la fonction, ici un tableau associatif représentant l'objet
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             "uuid" => $this->uuid,
