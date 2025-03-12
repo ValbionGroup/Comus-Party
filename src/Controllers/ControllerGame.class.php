@@ -121,6 +121,8 @@ class ControllerGame extends Controller
                     if (!array_key_exists($key, $gameSettings["modifiableSettings"])) {
                         throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
                     }
+
+
                 }
             } else {
                 $settings = [];
@@ -214,13 +216,14 @@ class ControllerGame extends Controller
      *
      * @param int $id ID du jeu
      * @return array Tableau associatif contenant les paramètres du jeu
+     * @throws GameUnavailableException Exception levée si le fichier de paramètres du jeu n'existe pas
      */
     private function getGameSettings(int $id): array
     {
         $gameFolder = $this->getGameFolder($id);
         $settingsFile = "$gameFolder/settings.json";
         if (!file_exists($settingsFile)) {
-            return [];
+            throw new GameUnavailableException("Le fichier $settingsFile n'existe pas. Impossible de récupérer les informations du jeu.");
         }
 
         return json_decode(file_get_contents($settingsFile), true);
