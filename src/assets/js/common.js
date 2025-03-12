@@ -58,9 +58,9 @@ function makeRequest(method, url, callback, body = null) {
     xhr.send(body);
 
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
+        if (xhr.readyState === 4) {
             callback(xhr.responseText);
-        }
+        };
     };
 }
 
@@ -94,17 +94,16 @@ function showProfile(searchBy, data) {
     const spanCreatedAt = document.getElementById('spanCreatedAt');
     const uuidPlayerInfo = document.getElementById('uuidPlayerInfo');
 
-    makeRequest('POST', `/player/informations`, (response) => {
+    makeRequest("POST", `/player/informations`, (response) => {
         response = JSON.parse(response);
-        uuidPlayerInfo.value = response.uuid;
-        spanTopUsername.innerText = response.username;
-        imgPfp.src = `/assets/img/pfp/${response.activePfp}`;
-        spanUsername.innerText = response.username;
-        spanElo.innerText = response.elo;
-        spanExp.innerText = response.xp;
-        spanGamesPlayed.innerText = response.statistics.gamesPlayed;
-        spanGamesWon.innerText = response.statistics.gamesWon;
-        spanCreatedAt.innerText = new Date(response.createdAt.date).toLocaleDateString('fr-FR', {
+        spanTopUsername.innerText = response.player.username;
+        imgPfp.src = `/assets/img/pfp/${response.player.activePfp}`;
+        spanUsername.innerText = response.player.username;
+        spanElo.innerText = response.player.elo;
+        spanExp.innerText = response.player.xp;
+        spanGamesPlayed.innerText = response.player.statistics.gamesPlayed;
+        spanGamesWon.innerText = response.player.statistics.gamesWon;
+        spanCreatedAt.innerText = new Date(response.player.createdAt.date).toLocaleDateString('fr-FR', {
             day: 'numeric',
             month: 'long',
             year: 'numeric'

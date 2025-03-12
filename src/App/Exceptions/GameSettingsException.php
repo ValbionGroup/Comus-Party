@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier contenant la déclaration et la définition de l'exception GameSettingsException
+ * @brief Gère les exceptions liées à la configuration d'une partie
  *
  * @file GameSettingsException.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

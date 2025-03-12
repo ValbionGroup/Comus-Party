@@ -34,17 +34,17 @@ require_once __DIR__ . '/src/App/Sockets/Chat.php';
 require_once __DIR__ . '/src/App/Sockets/Game.php';
 require_once __DIR__ . '/src/App/Sockets/Dashboard.php';
 
-require_once __DIR__ . '/src/Controllers/controllerFactory.class.php';
-require_once __DIR__ . '/src/Controllers/controller.class.php';
-require_once __DIR__ . '/src/Controllers/controllerProfile.class.php';
-require_once __DIR__ . '/src/Controllers/controllerGame.class.php';
-require_once __DIR__ . '/src/Controllers/controllerShop.class.php';
-require_once __DIR__ . '/src/Controllers/controllerAuth.class.php';
-require_once __DIR__ . '/src/Controllers/controllerBasket.class.php';
-require_once __DIR__ . '/src/Controllers/controllerSuggestion.class.php';
-require_once __DIR__ . '/src/Controllers/controllerDashboard.class.php';
-require_once __DIR__ . '/src/Controllers/controllerPolicy.class.php';
-require_once __DIR__ . '/src/Controllers/controllerRanking.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerFactory.class.php';
+require_once __DIR__ . '/src/Controllers/Controller.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerProfile.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerGame.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerShop.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerAuth.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerBasket.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerSuggestion.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerDashboard.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerPolicy.class.php';
+require_once __DIR__ . '/src/Controllers/ControllerRanking.class.php';
 
 require_once __DIR__ . '/src/Models/player.class.php';
 require_once __DIR__ . '/src/Models/player.dao.php';

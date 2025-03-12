@@ -1,8 +1,8 @@
 <?php
 /**
- * @file    controllerAuth.class.php
+ * @file    ControllerAuth.class.php
  * @author  Estéban DESESSARD, Lucas ESPIET
- * @brief   Le fichier contient la déclaration & définition de la classe ControllerAuth.
+ * @brief   Fichier de déclaration et définition de la classe ControllerAuth
  * @date    09/12/2024
  * @version 0.6
  */
@@ -238,10 +238,8 @@ class ControllerAuth extends Controller
             throw new Exception("Erreur lors de la suppression du token", 500);
         }
 
-        echo json_encode([
-            'success' => true,
-            'message' => "Votre mot de passe a bien été réinitialisé"
-        ]);
+        echo MessageHandler::sendJsonMessage("Votre mot de passe a bien été réinitialisé");
+        exit;
     }
 
 
@@ -331,19 +329,13 @@ class ControllerAuth extends Controller
                     (new RememberTokenDAO($this->getPdo()))->insert($token);
                 }
 
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Vous êtes connecté en tant que " . ($_SESSION['role'] === 'player' ? "joueur" : "modérateur")
-                ]);
+                echo MessageHandler::sendJsonMessage("Vous êtes connecté en tant que " . ($_SESSION['role'] === 'player' ? "joueur" : "modérateur"));
                 return true;
             } else {
                 throw new AuthenticationException("Erreur lors de l'authentification");
             }
         } catch (Exception $e) {
-            echo json_encode([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            MessageHandler::sendJsonException($e);
             return false;
         }
     }
@@ -649,18 +641,11 @@ class ControllerAuth extends Controller
                 throw new AuthenticationException("Erreur lors de la création du joueur");
             }
 
-            echo json_encode([
-                'success' => true,
-                'message' => "Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter."
-            ]);
+            echo MessageHandler::sendJsonMessage("Votre compte a été créé et un mail de confirmation vous a été envoyé. Veuillez confirmer votre compte pour pouvoir vous connecter.");
             exit;
 
         } catch (Exception $e) {
-            echo json_encode([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 

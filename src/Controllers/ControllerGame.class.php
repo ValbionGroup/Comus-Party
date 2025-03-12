@@ -1,7 +1,7 @@
 <?php
 /**
- * @file controllerGame.class.php
- * @brief Le fichier contient la déclaration et la définition de la classe ControllerGame
+ * @file ControllerGame.class.php
+ * @brief Fichier de déclaration et définition de la classe ControllerGame
  * @author Conchez-Boueytou Robin, ESPIET Lucas
  * @date 23/12/2024
  * @version 0.3
@@ -256,8 +256,7 @@ class ControllerGame extends Controller
     {
         $gameManager = new GameDAO($this->getPdo());
         $game = $gameManager->findWithDetailsById($id);
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Informations du jeu récupérées", [
             "game" => [
                 "id" => $game->getId(),
                 "name" => $game->getName(),
@@ -352,11 +351,7 @@ class ControllerGame extends Controller
             try {
                 echo $this->joinGame($code, $_SESSION['uuid']);
             } catch (Exception $e) {
-                echo json_encode([
-                    "success" => false,
-                    "message" => $e->getMessage(),
-                ]);
-                exit;
+                MessageHandler::sendJsonException($e);
             }
         } elseif ($method == 'GET') {
             $this->joinGame($code, $_SESSION['uuid']);
@@ -475,17 +470,10 @@ class ControllerGame extends Controller
             $gameRecord->setPrivate($isPrivate);
             $gameRecordManager->update($gameRecord);
 
-            echo json_encode([
-                "success" => true,
-            ]);
+            echo MessageHandler::sendJsonMessage("La visibilité de la partie a bien été modifiée");
             exit;
         } catch (Exception|Error $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-                "code" => $e->getCode(),
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 
@@ -497,20 +485,16 @@ class ControllerGame extends Controller
      */
     public function joinGameFromSearch(int $gameId): void
     {
-        $game = (new GameDAO($this->getPdo()))->findById($gameId);
-
-        if ($game->getState() != GameState::AVAILABLE) {
-            echo json_encode([
-                "success" => false,
-                "message" => "Le jeu n'est pas disponible",
-            ]);
-            exit;
-        }
-
-        $gameRecordManager = new GameRecordDAO($this->getPdo());
-        $gameRecords = $gameRecordManager->findByGameId($gameId);
-
         try {
+            $game = (new GameDAO($this->getPdo()))->findById($gameId);
+
+            if ($game->getState() != GameState::AVAILABLE) {
+                throw new GameUnavailableException("Le jeu n'est pas disponible");
+            }
+
+            $gameRecordManager = new GameRecordDAO($this->getPdo());
+            $gameRecords = $gameRecordManager->findByGameId($gameId);
+
             $eloForGame = [];
             foreach ($gameRecords as $gameRecord) {
                 if ($gameRecord->getState() == GameRecordState::WAITING && !$gameRecord->isPrivate()) {
@@ -548,11 +532,7 @@ class ControllerGame extends Controller
             echo $this->joinGame($bestGame, $_SESSION['uuid']);
             exit;
         } catch (Exception $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 
@@ -579,9 +559,7 @@ class ControllerGame extends Controller
             $gameRecordManager->delete($code);
         }
 
-        echo json_encode([
-            "success" => true,
-        ]);
+        echo MessageHandler::sendJsonMessage("Vous avez bien quitté la partie");
         exit;
     }
 
@@ -621,9 +599,7 @@ class ControllerGame extends Controller
         $gameRecordManager->insert($gameRecord);
         $gameRecordManager->addPlayer($gameRecord, $host);
 
-
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("La partie a bien été créée", [
             "game" => [
                 "code" => $generatedCode,
                 "gameId" => $gameId,
@@ -772,14 +748,11 @@ class ControllerGame extends Controller
         if (isset($penalty)) {
             $endDate = $penalty->getCreatedAt()->modify("+" . $penalty->getDuration() . "hour");
             if ($endDate > new DateTime()) {
-                echo json_encode(['success' => true,
-                    'message' => 'Le joueur est encore mute']);
+                echo MessageHandler::sendJsonMessage("Le joueur est encore mute");
                 exit;
             }
         }
 
-        echo json_encode(['success' => false,
-            'message' => 'Le joueur n\'est pas mute']);
-        exit;
+        MessageHandler::sendJsonCustomException(404, "Le joueur n'est pas mute");
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier de définition de la classe Game (Sockets)
+ * @brief Fichier de déclaration et définition de la classe Game (Sockets)
  *
  * @file Game.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

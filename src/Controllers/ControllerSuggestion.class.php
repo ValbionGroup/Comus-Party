@@ -1,8 +1,8 @@
 <?php
 /**
- * @file    controllerSuggestion.class.php
+ * @file    ControllerSuggestion.class.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe ControllerSuggestion.
+ * @brief   Fichier de déclaration et définition de la classe ControllerSuggestion
  * @date    12/11/2024
  * @version 0.1
  */

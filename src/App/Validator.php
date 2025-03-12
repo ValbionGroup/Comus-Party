@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    Validator.php
- * @brief   Le fichier contient la déclaration & définition de la classe Validator.
+ * @brief   Fichier de déclaration et définition de la classe Validator.
  * @date    02/12/2024
  * @version 1.1
  * @author  Lucas ESPIET

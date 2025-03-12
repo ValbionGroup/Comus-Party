@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @brief L'entrée de l'application
+ */
+
 global $router;
 
 use ComusParty\App\Exceptions\NotFoundException;
