@@ -132,10 +132,49 @@ function quitGameAndBackHome(gameCode) {
         });
 }
 
+function checkGameSettings() {
+    const settingsPanel = document.getElementById('settingsPanel');
+    const inputs = settingsPanel.querySelectorAll('input');
+    let isOk = true;
+
+    inputs.forEach((input) => {
+        switch (input.type) {
+            case 'number':
+                if (input.value === '' || parseFloat(input.value) < parseFloat(input.min) || parseFloat(input.value) > parseFloat(input.max)) {
+                    isOk = false;
+                }
+                break;
+            case 'text':
+                if (input.value === '' || !(new RegExp(input.pattern)).test(input.value)) {
+                    isOk = false;
+                }
+
+                if (input.minLength !== -1 && input.value.length < input.minLength) {
+                    isOk = false;
+                }
+
+                if (input.maxLength !== -1 && input.value.length > input.maxLength) {
+                    isOk = false;
+                }
+                break;
+            default:
+                break;
+        }
+    })
+
+    return isOk;
+}
+
 function startGame(gameCode) {
     const settingsPanel = document.getElementById('settingsPanel');
     const inputs = settingsPanel.querySelectorAll('input');
     const selects = settingsPanel.querySelectorAll('select');
+
+    if (!checkGameSettings()) {
+        showNotification('Oups...', 'Vérifiez les paramètres de la partie', 'red');
+        return;
+    }
+
     const settings = {};
 
     inputs.forEach((input) => {
