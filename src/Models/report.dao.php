@@ -54,6 +54,43 @@ class ReportDAO
     }
 
     /**
+     * @brief Insère un signalement en base de données
+     * @param Report $report L'objet Report à insérer
+     * @return bool L'objet retourné par la méthode, ici un booléen indiquant si l'insertion a réussi
+     */
+    public function insert(Report $report): bool
+    {
+        $stmt = $this->pdo->prepare(
+            'INSERT INTO ' . DB_PREFIX . 'report (object, description, treated_by, reported_uuid, sender_uuid, created_at, updated_at)
+            VALUES (:object, :description, :treated_by, :reported_uuid, :sender_uuid, :created_at, :updated_at)'
+        );
+        $stmt->bindValue(':object', $this->transformReportObjectToString($report->getObject()), PDO::PARAM_STR);
+        $stmt->bindValue(':description', $report->getDescription(), PDO::PARAM_STR);
+        $stmt->bindValue(':treated_by', $report->getTreatedBy(), PDO::PARAM_STR);
+        $stmt->bindValue(':reported_uuid', $report->getReportedUuid(), PDO::PARAM_STR);
+        $stmt->bindValue(':sender_uuid', $report->getSenderUuid(), PDO::PARAM_STR);
+        $stmt->bindValue(':created_at', $report->getCreatedAt()->format('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $stmt->bindValue(':updated_at', $report->getUpdatedAt()->format('Y-m-d H:i:s'), PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    /**
+     * @brief Transforme un objet ReportObject en string
+     * @param ReportObject $reportObject L'objet ReportObject à transformer
+     * @return string L'objet retourné par la méthode, ici un string
+     */
+    private function transformReportObjectToString(ReportObject $reportObject): string
+    {
+        return match ($reportObject) {
+            ReportObject::LANGUAGE => 'language',
+            ReportObject::SPAM => 'spam',
+            ReportObject::LINKS => 'links',
+            ReportObject::FAIRPLAY => 'fairplay',
+            default => 'other'
+        };
+    }
+
+    /**
      * @brief Récupère tous les signalements en base de données qui ne sont pas traités
      * @return array|null Un tableau de signalements ou null si aucun signalement en attente
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
@@ -160,21 +197,5 @@ class ReportDAO
         $stmt->bindValue(':treated_by', $report->getTreatedBy(), PDO::PARAM_STR);
         $stmt->bindValue(':id', $report->getId(), PDO::PARAM_INT);
         $stmt->execute();
-    }
-
-    /**
-     * @brief Transforme un objet ReportObject en string
-     * @param ReportObject $reportObject L'objet ReportObject à transformer
-     * @return string L'objet retourné par la méthode, ici un string
-     */
-    private function transformReportObjectToString(ReportObject $reportObject): string
-    {
-        return match ($reportObject) {
-            ReportObject::LANGUAGE => 'language',
-            ReportObject::SPAM => 'spam',
-            ReportObject::LINKS => 'links',
-            ReportObject::FAIRPLAY => 'fairplay',
-            default => 'other'
-        };
     }
 }

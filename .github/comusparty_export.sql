@@ -740,6 +740,20 @@ ALTER TABLE `cp_user`
     AUTO_INCREMENT = 5;
 
 --
+-- AUTO_INCREMENT pour la table `cp_report`
+--
+ALTER TABLE `cp_report`
+    MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    AUTO_INCREMENT = 2;
+
+--
+-- AUTO_INCREMENT pour la table `cp_penalty`
+--
+ALTER TABLE `cp_penalty`
+    MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    AUTO_INCREMENT = 2;
+
+--
 -- Contraintes pour les tables déchargées
 --
 
