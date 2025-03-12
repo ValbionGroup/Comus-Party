@@ -186,6 +186,10 @@ function updatePlayers(data) {
         child.remove();
     });
     data.forEach((player) => {
+        if (player.uuid === playerUuid && player.isHost) {
+            window.location.reload();
+        }
+
         let newDiv = document.createElement('div');
         let pfp = document.createElement('img');
         let pseudo = document.createElement('p');

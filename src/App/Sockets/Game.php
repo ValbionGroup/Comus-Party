@@ -23,17 +23,32 @@ class Game implements MessageComponentInterface
     protected SplObjectStorage $clients;
     protected array $games;
 
+    /**
+     * @brief Constructeur de la classe Game
+     */
     public function __construct()
     {
         $this->clients = new SplObjectStorage;
         $this->games = [];
     }
 
+    /**
+     * @brief Ouvre une connexion
+     * @param ConnectionInterface $conn Connexion à ouvrir
+     * @return void
+     */
     function onOpen(ConnectionInterface $conn): void
     {
         $conn->send(json_encode(['message' => 'Connection established']));
     }
 
+    /**
+     * @brief Reçoit un message
+     * @param ConnectionInterface $from Connexion d'origine
+     * @param string $msg Message reçu
+     * @return void
+     * @throws Exception Exception levée dans le cas d'une erreur
+     */
     function onMessage(ConnectionInterface $from, $msg): void
     {
         $data = json_decode($msg, true);
@@ -68,6 +83,12 @@ class Game implements MessageComponentInterface
         }
     }
 
+    /**
+     * @brief Envoie un signal à tous les clients avec la nouvelle liste des joueurs
+     * @param string $game Code de la partie
+     * @return void
+     * @throws Exception Exception levée quand la partie n'existe pas
+     */
     private function updatePlayer(string $game): void
     {
         $gameRecord = (new GameRecordDAO(Db::getInstance()->getConnection()))->findByCode($game);
@@ -80,12 +101,20 @@ class Game implements MessageComponentInterface
         $jsonPlayer = array_map(fn($player) => [
             "uuid" => $player['player']->getUuid(),
             "username" => $player['player']->getUsername(),
-            "pfp" => $player['player']->getActivePfp()
+            "pfp" => $player['player']->getActivePfp(),
+            "isHost" => $player['player']->getUuid() == $gameRecord->getHostedBy()->getUuid(),
         ], $players);
 
         $this->sendToGame($game, "updatePlayers", json_encode($jsonPlayer));
     }
 
+    /**
+     * @brief Envoie un message à tous les clients d'une partie
+     * @param string $game Code de la partie
+     * @param string $command Commande à envoyer
+     * @param string $content Contenu à envoyer
+     * @return void
+     */
     private function sendToGame(string $game, string $command, string $content): void
     {
         foreach ($this->games[$game] as $client) {
@@ -93,6 +122,13 @@ class Game implements MessageComponentInterface
         }
     }
 
+    /**
+     * @brief Redirige un joueur vers la partie si elle a commencé
+     * @param string $game Code de la partie
+     * @param string $uuid UUID du joueur
+     * @return void
+     * @throws Exception Exception levée quand la partie n'existe pas
+     */
     private function redirectUserToGame(string $game, string $uuid): void
     {
         $gameRecord = (new GameRecordDAO(Db::getInstance()->getConnection()))->findByCode($game);
@@ -103,6 +139,12 @@ class Game implements MessageComponentInterface
         }
     }
 
+    /**
+     * @brief Ferme la connexion d'un client
+     * @param ConnectionInterface $conn Connexion à fermer
+     * @return void
+     * @throws Exception Exception levée dans le cas d'une erreur
+     */
     public function onClose(ConnectionInterface $conn): void
     {
         foreach ($this->games as $game => $clients) {
@@ -116,6 +158,12 @@ class Game implements MessageComponentInterface
         $this->clients->detach($conn);
     }
 
+    /**
+     * @brief Gère les erreurs
+     * @param ConnectionInterface $conn Connexion à fermer
+     * @param Exception $e Exception à gérer
+     * @return void
+     */
     public function onError(ConnectionInterface $conn, Exception $e): void
     {
         echo "Erreur: {$e->getMessage()}\n";
@@ -123,8 +171,8 @@ class Game implements MessageComponentInterface
     }
 
     /**
-     * @param string $string The string to escape
-     * @return string The escaped string
+     * @param string $string Chaîne à échapper
+     * @return string Chaîne échappée
      */
     protected function escape(string $string): string
     {
