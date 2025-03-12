@@ -57,7 +57,7 @@ if (chatIsOn) {
             flag.classList.add("hidden");
             flag.classList.add("hover:text-red-500");
             flag.classList.add("hover:cursor-pointer");
-            flag.classList.add("ml-20");
+            flag.classList.add("right-0");
             flag.onclick = () => showReportForm();
 
             newDiv.classList.add("flex");
@@ -152,7 +152,8 @@ function startGame(gameCode) {
     }).then((response) => response.json()
     ).then((response) => {
         if (response.success) {
-            window.location.href = `/game/${gameCode}`;
+            showNotification('Parfait !', 'La partie a bien été lancée', 'green');
+            gameConnection.send(JSON.stringify({uuid: playerUuid, command: 'startGame', game: gameCode}));
         } else {
             showNotification('Oups...', response.message, 'red')
         }
@@ -174,21 +175,17 @@ gameConnection.onopen = function (e) {
 
     gameConnection.send(JSON.stringify({uuid: playerUuid, command: 'joinGame', game: gameCode}));
 };
-gameConnection.onmessage = function (e) {
-    const data = JSON.parse(e.data);
-    let players;
-    if (typeof data.content === 'string') {
-        players = JSON.parse(data.content);
-    } else if (typeof data.content === 'object') {
-        players = data.content; // Déjà parsé
-    } else {
-        return "Data is not a string or an object";
-    }
+
+function redirectToStartedGame() {
+    window.location.reload();
+}
+
+function updatePlayers(data) {
     let div = document.getElementById('players');
     Array.from(div.childNodes).forEach((child) => {
         child.remove();
     });
-    players.forEach((player) => {
+    data.forEach((player) => {
         let newDiv = document.createElement('div');
         let pfp = document.createElement('img');
         let pseudo = document.createElement('p');
@@ -222,6 +219,30 @@ gameConnection.onmessage = function (e) {
         }
         div.appendChild(newDiv);
     });
+}
+
+gameConnection.onmessage = function (e) {
+    const data = JSON.parse(e.data);
+
+    let parsed;
+    if (typeof data.content === 'string') {
+        parsed = JSON.parse(data.content);
+    } else if (typeof data.content === 'object') {
+        parsed = data.content; // Déjà parsé
+    } else {
+        return "Data is not a string or an object";
+    }
+
+    switch (data.command) {
+        case 'updatePlayers':
+            updatePlayers(parsed);
+            break;
+        case 'gameStarted':
+            redirectToStartedGame();
+            break;
+        default:
+            console.log('Commande inconnue');
+    }
 }
 
 window.addEventListener('message', function (event) {

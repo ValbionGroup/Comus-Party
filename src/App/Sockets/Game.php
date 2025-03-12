@@ -83,7 +83,7 @@ class Game implements MessageComponentInterface
             "pfp" => $player['player']->getActivePfp()
         ], $players);
 
-        $this->sendToGame($game, "updatePlayer", json_encode($jsonPlayer));
+        $this->sendToGame($game, "updatePlayers", json_encode($jsonPlayer));
     }
 
     private function sendToGame(string $game, string $command, string $content): void
