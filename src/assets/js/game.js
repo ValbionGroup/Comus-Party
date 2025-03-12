@@ -2,6 +2,98 @@ const gameCode = document.getElementById('gameCode').value;
 const playerUuid = document.getElementById('localPlayerUuid').value;
 const headerUsername = document.getElementById('headerUsername').textContent;
 
+let chatIsOn = document.getElementById("chatContent") !== null;
+if (chatIsOn) {
+    document.getElementById('sendChat').onclick = sendChatMessage;
+    document.getElementById('chatInput').addEventListener("keydown", function (e) {
+        if (e.code === "Enter") {
+            sendChatMessage();
+        }
+    });
+
+    function sendChatMessage() {
+        const messageInput = document.getElementById('chatInput');
+        const content = messageInput.value;
+        const username = document.getElementById('headerUsername').textContent;
+
+        chatConnection.send(JSON.stringify({
+            author: username,
+            content: content,
+            game: gameCode
+        }));
+
+        messageInput.value = '';
+    }
+
+    function receiveChatMessage(message) {
+        if (chatIsOn) {
+            message = JSON.parse(message);
+            const messages = document.getElementById('chatContent');
+            const messageItem = document.createElement('p');
+            const newDiv = document.createElement('div');
+            messageItem.classList.add("flex");
+            messageItem.classList.add("group");
+
+            const usernameItem = document.createElement('p');
+            usernameItem.textContent = `${message.author}: `;
+            usernameItem.classList.add('font-semibold');
+            usernameItem.onclick = () => showProfile("username", message.author);
+
+            const contentItem = document.createElement('span');
+            contentItem.textContent = message.content;
+
+            const flag = document.createElement("span");
+            flag.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 20 20">\n' +
+                '                <g fill="currentColor">\n' +
+                '                    <path fill-rule="evenodd"\n' +
+                '                          d="m6.804 2.632l-.637.264A3.51 3.51 0 0 0 4 6.137v4.386a1.46 1.46 0 0 0 2.167 1.276l.227-.126a4 4 0 0 1 3.88 0l.453.251a4 4 0 0 0 3.88 0l.734-.407A3.22 3.22 0 0 0 17 8.7V4.638a1.605 1.605 0 0 0-2.07-1.534l-.893.272a4 4 0 0 1-2.693-.131l-1.482-.613a4 4 0 0 0-3.058 0m4.893 7.543l-.454-.251A6 6 0 0 0 6 9.644V6.136c0-.61.368-1.16.931-1.393l.638-.263a2 2 0 0 1 1.529 0l1.481.612a6 6 0 0 0 4.04.196L15 5.173V8.7c0 .444-.241.853-.63 1.068l-.733.407a2 2 0 0 1-1.94 0"\n' +
+                '                          clip-rule="evenodd"/>\n' +
+                '                    <rect width="2" height="16" x="4" y="2" rx="1"/>\n' +
+                '                </g>\n' +
+                '            </svg>'
+
+            flag.classList.add("group-hover:block");
+            flag.classList.add("group-hover:duration-300");
+            flag.classList.add("hidden");
+            flag.classList.add("hover:text-red-500");
+            flag.classList.add("hover:cursor-pointer");
+            flag.classList.add("ml-20");
+            flag.onclick = () => showReportForm();
+
+            newDiv.classList.add("flex");
+
+            newDiv.appendChild(usernameItem);
+            newDiv.appendChild(contentItem);
+            messageItem.appendChild(newDiv);
+            if (message.author !== headerUsername) {
+                messageItem.appendChild(flag);
+            }
+            messages.appendChild(messageItem);
+        }
+    }
+
+    function verifyMutedPlayer() {
+        makeRequest('POST', `/game/muted-player`, (response) => {
+            response = JSON.parse(response);
+            if (response.success) {
+                const chatInput = document.getElementById('chatInput');
+                chatInput.disabled = true;
+                chatInput.classList.add('input-disabled');
+                chatInput.classList.add('cursor-not-allowed');
+                chatInput.placeholder = 'Vous avez été muté';
+
+                const sendChat = document.getElementById('sendChat');
+                sendChat.disabled = true;
+                sendChat.classList.add('btn-disabled')
+                sendChat.classList.add('cursor-not-allowed');
+
+            }
+        }, `username=${headerUsername}`);
+    }
+
+    verifyMutedPlayer();
+}
+
 function setVisibilityPublic(gameCode, isPublic) {
     const visibilityButton = document.getElementById('visibilityBtn');
 
@@ -66,66 +158,6 @@ function startGame(gameCode) {
         }
     });
 }
-
-function sendChatMessage() {
-    const messageInput = document.getElementById('chatInput');
-    const content = messageInput.value;
-    const username = document.getElementById('headerUsername').textContent;
-
-    chatConnection.send(JSON.stringify({
-        author: username,
-        content: content,
-        game: gameCode
-    }));
-
-    messageInput.value = '';
-}
-
-function receiveChatMessage(message) {
-    message = JSON.parse(message);
-    const messages = document.getElementById('chatContent');
-    const messageItem = document.createElement('p');
-    const newDiv = document.createElement('div');
-    messageItem.classList.add("flex");
-    messageItem.classList.add("group");
-
-    const usernameItem = document.createElement('p');
-    usernameItem.textContent = `${message.author}: `;
-    usernameItem.classList.add('font-semibold');
-    usernameItem.onclick = () => showProfile("username", message.author);
-
-    const contentItem = document.createElement('span');
-    contentItem.textContent = message.content;
-
-    const flag = document.createElement("span");
-    flag.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 20 20">\n' +
-        '                <g fill="currentColor">\n' +
-        '                    <path fill-rule="evenodd"\n' +
-        '                          d="m6.804 2.632l-.637.264A3.51 3.51 0 0 0 4 6.137v4.386a1.46 1.46 0 0 0 2.167 1.276l.227-.126a4 4 0 0 1 3.88 0l.453.251a4 4 0 0 0 3.88 0l.734-.407A3.22 3.22 0 0 0 17 8.7V4.638a1.605 1.605 0 0 0-2.07-1.534l-.893.272a4 4 0 0 1-2.693-.131l-1.482-.613a4 4 0 0 0-3.058 0m4.893 7.543l-.454-.251A6 6 0 0 0 6 9.644V6.136c0-.61.368-1.16.931-1.393l.638-.263a2 2 0 0 1 1.529 0l1.481.612a6 6 0 0 0 4.04.196L15 5.173V8.7c0 .444-.241.853-.63 1.068l-.733.407a2 2 0 0 1-1.94 0"\n' +
-        '                          clip-rule="evenodd"/>\n' +
-        '                    <rect width="2" height="16" x="4" y="2" rx="1"/>\n' +
-        '                </g>\n' +
-        '            </svg>'
-
-    flag.classList.add("group-hover:block");
-    flag.classList.add("group-hover:duration-300");
-    flag.classList.add("hidden");
-    flag.classList.add("hover:text-red-500");
-    flag.classList.add("hover:cursor-pointer");
-    flag.classList.add("ml-20");
-    flag.onclick = () => showReportForm();
-
-    newDiv.classList.add("flex");
-
-    newDiv.appendChild(usernameItem);
-    newDiv.appendChild(contentItem);
-    messageItem.appendChild(newDiv);
-    if (message.author !== headerUsername) {
-        messageItem.appendChild(flag);
-    }
-    messages.appendChild(messageItem);
-}
-
 
 // WebSocket
 const chatConnection = new WebSocket('wss://sockets.comus-party.com/chat/' + gameCode);
@@ -192,14 +224,6 @@ gameConnection.onmessage = function (e) {
     });
 }
 
-
-document.getElementById('sendChat').onclick = sendChatMessage;
-document.getElementById('chatInput').addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {
-        sendChatMessage();
-    }
-});
-
 window.addEventListener('message', function (event) {
     if (event.data === 'redirectHome') {
         window.location.href = '/';
@@ -217,25 +241,3 @@ for (let player of players) {
         player.querySelector('div').classList.remove('hidden');
     }
 }
-
-
-function verifyMutedPlayer() {
-    makeRequest('POST', `/game/muted-player`, (response) => {
-        response = JSON.parse(response);
-        if (response.success) {
-            const chatInput = document.getElementById('chatInput');
-            chatInput.disabled = true;
-            chatInput.classList.add('input-disabled');
-            chatInput.classList.add('cursor-not-allowed');
-            chatInput.placeholder = 'Vous avez été muté';
-
-            const sendChat = document.getElementById('sendChat');
-            sendChat.disabled = true;
-            sendChat.classList.add('btn-disabled')
-            sendChat.classList.add('cursor-not-allowed');
-
-        }
-    }, `username=${headerUsername}`);
-}
-
-window.onload = verifyMutedPlayer;
