@@ -41,6 +41,7 @@ if (chatIsOn) {
 
             const contentItem = document.createElement('span');
             contentItem.textContent = message.content;
+            contentItem.classList.add("break-words");
 
             const flag = document.createElement("span");
             flag.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 20 20">\n' +
