@@ -92,6 +92,9 @@ function handleGameControllerResponse(response) {
     }
 }
 
+/**
+ * @brief Envoi une suggestion en vérifiant les conditions au préalable
+ */
 function sendSuggestion() {
     let suggestObject = document.getElementById('suggestObject');
     let suggestContent = document.getElementById('suggestContent');
