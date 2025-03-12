@@ -1,6 +1,6 @@
 <?php
 /**
- * @file    controllerBasket.class.php
+ * @file    ControllerBasket.class.php
  * @author  Mathis Rivrais--Nowakowski
  * @brief   Le fichier contient la déclaration & définition de la classe ControllerBasket.
  * @date    14/11/2024
@@ -9,8 +9,10 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\ArticleDAO;
 use DateMalformedStringException;
+use PHPUnit\Event\Test\AfterLastTestMethodErroredSubscriber;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -97,28 +99,16 @@ class ControllerBasket extends Controller
                 if (!in_array($id_article, $_SESSION['basket'])) {
                     $_SESSION['basket'][] = $id_article;
                     $numberArticlesInBasket = count($_SESSION['basket']);
-                    echo json_encode([
-                        'success' => true,
-                        'message' => "Article ajouté au panier !",
-                        'numberArticlesInBasket' => $numberArticlesInBasket
-                    ]);
-
+                    echo MessageHandler::sendJsonMessage("Article ajouté au panier !", ['numberArticlesInBasket' => $numberArticlesInBasket]);
+                    exit;
                 } else {
                     $numberArticlesInBasket = count($_SESSION['basket']);
-                    echo json_encode([
-                        'success' => false,
-                        'message' => "L'article est déjà dans le panier.",
-                        'numberArticlesInBasket' => $numberArticlesInBasket
-                    ]);
-
+                    echo MessageHandler::sendJsonMessage("L'article est déjà dans le panier.", ['numberArticlesInBasket' => $numberArticlesInBasket]);
+                    exit;
                 }
-
             }
-
-
-
         } else {
-            echo "Erreur : ID de l'article non spécifié.";
+            MessageHandler::sendJsonCustomException(400, "ID de l'article non spécifié.");
         }
     }
 
@@ -147,21 +137,16 @@ class ControllerBasket extends Controller
                 $article = $managerArticle->findById($id_article);
                 $priceEuroArticle = $article->getPriceEuro();
                 $numberArticlesInBasket = count($_SESSION['basket']);
-                echo json_encode([
-                    'success' => true,
-                    'message' => "Article supprimé du panier !",
+                echo MessageHandler::sendJsonMessage("Article supprimé du panier !", [
                     'priceEuroArticle' => $priceEuroArticle,
                     'numberArticlesInBasket' => $numberArticlesInBasket
                 ]);
+                exit;
             } else {
-                echo json_encode([
-                    'success' => false,
-                    'message' => "L'article n'est pas dans le panier."
-                ]);
-
+                MessageHandler::sendJsonCustomException(400, "L'article n'est pas dans le panier.");
             }
         } else {
-            echo "Erreur : ID de l'article non spécifié.";
+            MessageHandler::sendJsonCustomException(400, "ID de l'article non spécifié.");
         }
     }
 

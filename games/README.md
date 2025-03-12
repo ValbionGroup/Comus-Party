@@ -1,4 +1,25 @@
-### Ajout de jeux
+# Développer un jeu
+
+Chacun est libre de développer un jeu, cependant, certaines règles sont à respecter pour que celui-ci puisse s'intégrer
+convenablement à Comus Party.
+
+> [!WARNING]
+> Les jeux sont servis depuis l'URL `https://games.comus-party.com/{idDuJeu}`. Veillez à ce que votre jeu n'utilise pas
+> d'URL absolue pour les ressources et autres redirections.
+
+## Logique de traitement du jeu
+
+Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions sont obligatoires pour le bon
+fonctionnement du jeu et de Comus Party :
+
+- La fonction d'instanciation
+- La fonction de terminaison
+
+Il est aussi obligatoire d'inclure un fichier `settings.json`.
+Il contient l'ensemble des informations nécessaires pour le bon fonctionnement du jeu avec la plateforme principale
+Comus Party.
+
+### Fichier de configuration `settings.json`
 
 Pour ajouter un jeu, il suffit de glisser le dossier du jeu dans le dossier `games` avec comme nom `game{idDuJeu}`. Par
 exemple, pour ajouter un jeu avec l'ID 42 (en base de données) il faudra créer un dossier `game42` dans le dossier
@@ -68,7 +89,7 @@ Liste des paramètres possibles pour `neededParametersFromComus` :
 
 Liste des paramètres possibles pour `returnParametersToComus` :
 
-- `WINNER_UUID` : UUID du/des gagnants de la partie
+- `WINNERS` : Booléen indiquant si le joueur est gagnant
 - `SCORES` : Score des joueurs
 
 ##### Paramètres modifiables
@@ -111,7 +132,36 @@ Chaque type a des propriétés spécifiques :
         - `label` : Label affiché de l'option
     - `default` : Option par défaut
 
-## Format des données envoyé par Comus Party
+### Fonction d'instanciation
+
+La fonction d'instanciation est appelée lors de la création d'une partie.
+Elle est situé à l'endpoint **`POST`** `/{code de la partie créée}/init`.
+Il reçoit en corps de requête les informations demandées par le jeu pour lancer une partie dans
+`neededParametersFromComus` ainsi qu'un attribut `token` contenant le jeton de la partie. Ce jeton est à renvoyer dans
+les réponses du jeu pour identifier la partie.
+
+Si la partie est créée avec succès, la fonction doit retourner un code de statut **`200`** et le corps de réponse *(
+minimum)* suivant :
+
+```json
+{
+  "success": true,
+  "message": "Message confirmant la création"
+}
+```
+
+Dans le cas contraire, la fonction doit retourner un code de statut autre que `200` et `300` et le corps de réponse *(
+minimum)* suivant :
+
+```json
+{
+  "success": false,
+  "message": "Message d'erreur",
+  "error": "Code d'erreur interne ou, à défaut, le code de statut HTTP"
+}
+```
+
+## Format des données envoyés par Comus Party
 
 > [!NOTE]  
 > Tous les attributs sont *facultatifs* et **cumulables**.
@@ -202,59 +252,12 @@ les styles des joueurs :
 > [!CAUTION]  
 > Si l'attribut `PLAYER_UUID` n'est pas présent, l'attribut `PLAYER_STYLE` ne sera pas pris en compte.
 
-# Développer un jeu
-
-Chacun est libre de développer un jeu, cependant, certaines règles sont à respecter pour que celui-ci puisse s'intégrer
-convenablement à Comus Party.
-
-> [!WARNING]
-> Les jeux sont servis depuis l'URL `https://games.comus-party.com/{idDuJeu}`. Veillez à ce que votre jeu n'utilise pas
-> d'URL absolue pour les ressources et autres redirections.
-
-## Logique de traitement du jeu
-
-Chaque jeu traite indépendamment sa logique interne. Cependant, deux fonctions sont obligatoires pour le bon
-fonctionnement du jeu et de Comus Party :
-
-- La fonction d'instanciation
-- La fonction de terminaison
-
-### Fonction d'instanciation
-
-La fonction d'instanciation est appelée lors de la création d'une partie.
-Elle est situé à l'endpoint **`POST`** `/{code de la partie créée}/init`.
-Il reçoit en corps de requête les informations demandées par le jeu pour lancer une partie dans
-`neededParametersFromComus` ainsi qu'un attribut `token` contenant le jeton de la partie. Ce jeton est à renvoyer dans
-les réponses du jeu pour identifier la partie.
-
-Si la partie est créée avec succès, la fonction doit retourner un code de statut **`200`** et le corps de réponse *(
-minimum)* suivant :
-
-```json
-{
-  "success": true,
-  "message": "Message confirmant la création"
-}
-```
-
-Dans le cas contraire, la fonction doit retourner un code de statut autre que `200` et `300` et le corps de réponse *(
-minimum)* suivant :
-
-```json
-{
-  "success": false,
-  "message": "Message d'erreur",
-  "error": "Code d'erreur interne ou, à défaut, le code de statut HTTP"
-}
-```
-
 ### Fonction de terminaison
 
 La fonction de terminaison est appelée lors de la fin d'une partie.
 
 Elle doit envoyer une requête **`POST`** à l'endpoint de Comus Party `/game/{code de la partie}/end` avec le corps de
-requête suivant,
-au minimum, au format *JSON* :
+requête suivant, au minimum, au format *JSON* :
 
 ```json
 {
@@ -267,27 +270,76 @@ nécessaires conformément au format attendu.
 
 #### Format des données attendues par Comus Party
 
-##### Gagnants
+> [!NOTE]  
+> Tous les attributs sont *facultatifs* et **cumulables**.
 
-Dans le cas où `returnParametersToComus` contient la valeur `WINNER_UUID`, le système attend un tableau associatif au
-format *JSON* :
-
-```json
-[
-  "uuid1",
-  "uuid2"
-]
-```
-
-##### Scores
-
-Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend un tableau associatif au format
-*JSON* :
+Tout comme les données envoyées par Comus Party, par défaut, le jeu doit renvoyer les données suivantes au format
+*JSON*, sauf si `returnParametersToComus` est vide.
 
 ```json
 {
-  "uuid1": 15,
-  "uuid2": 7
+  "uuid1": {
+    "token": "tkn1"
+  },
+  "uuid2": {
+    "token": "tkn2"
+  }
+}
+```
+
+Les données doivent être renvoyées dans l'attribut `results`.
+Exemple :
+
+```json
+{
+  "token": "jeton sauvegardé lors de l'instanciation"
+  "results": {
+    ...
+  }
+}
+```
+
+Le token correspond à l'identifiant du joueur dans la partie et l'uuid est l'identifiant unique du joueur. Ces données
+sont envoyées par Comus Party lors de l'instantiation de la partie.
+
+On peut ainsi, en fonction des paramètres inscrit dans `returnParametersToComus`, ajouter des données supplémentaires.
+
+##### Gagnants
+
+Dans le cas où `returnParametersToComus` contient la valeur `WINNERS`, le système attend avec les données précédentes un
+*booléen* `winner` pour chaque joueur :
+
+```json
+{
+  "uuid1": {
+    "token": "tkn1",
+    "winner": true
+  },
+  "uuid2": {
+    "token": "tkn2",
+    "winner": false
+  }
+}
+```
+
+> [!TIP]
+> Il peut y avoir plusieurs gagnants.
+
+##### Scores
+
+Dans le cas où `returnParametersToComus` contient la valeur `SCORES`, le système attend avec les données précédentes un
+*entier* `score` pour chaque joueur :
+
+```json
+{
+  "uuid1": {
+    "token": "tkn1",
+    "score": 15
+  },
+  "uuid2": {
+    "token": "tkn2",
+    "score": 10
+  }
 }
 ```
 

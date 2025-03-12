@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier de définition de la classe Chat (Sockets)
+ * @brief Fichier de déclaration et définition de la classe Chat (Sockets)
  *
  * @file Chat.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
@@ -10,6 +10,10 @@
 
 namespace ComusParty\App\Sockets;
 
+use ComusParty\App\Db;
+use ComusParty\Models\PenaltyDAO;
+use ComusParty\Models\PlayerDAO;
+use DateTime;
 use Exception;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
@@ -51,6 +55,20 @@ class Chat implements MessageComponentInterface
         $author = $this->escape($data["author"]);
         $game = $data["game"];
 
+        $playerManager = new PlayerDAO(Db::getInstance()->getConnection());
+        $player = $playerManager->findByUsername($author);
+
+        $penaltyManager = new PenaltyDAO(Db::getInstance()->getConnection());
+        $penalty = $penaltyManager->findLastMutedByPlayerUuid($player->getUuid());
+
+
+        if (isset($penalty)) {
+            $endDate = $penalty->getCreatedAt()->modify("+" . $penalty->getDuration() . "hour");
+            if ($endDate > new DateTime()) {
+                return;
+            }
+        }
+
         if (!isset($this->games[$game])) {
             $this->games[$game] = [];
         }
@@ -65,6 +83,15 @@ class Chat implements MessageComponentInterface
                 "content" => $content,
             ]));
         }
+    }
+
+    /**
+     * @param string $string The string to escape
+     * @return string The escaped string
+     */
+    protected function escape(string $string): string
+    {
+        return htmlspecialchars($string);
     }
 
     public function onClose(ConnectionInterface $conn)
@@ -89,14 +116,5 @@ class Chat implements MessageComponentInterface
         echo "An error has occurred: {$e->getMessage()}\n";
 
         $conn->close();
-    }
-
-    /**
-     * @param string $string The string to escape
-     * @return string The escaped string
-     */
-    protected function escape(string $string): string
-    {
-        return htmlspecialchars($string);
     }
 }

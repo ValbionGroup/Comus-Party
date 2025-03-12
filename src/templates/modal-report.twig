@@ -4,12 +4,12 @@
         <div class="modal-content">
             <div class="flex justify-between">
                 <div class="pb-2">
-                    <p class="text-2xl font-bold">Formulaire de sanction</p>
+                    <p class="text-2xl font-bold">Formulaire de signalement</p>
                 </div>
             </div>
             <hr>
-            <form action="#" method="post" class="flex flex-col gap-y-2">
-                <input type="hidden" name="id" value="{{ id }}">
+            <div class="flex flex-col gap-y-2">
+                <input type="hidden" name="reportedUuid" id="reportedUuid" value="">
                 <label for="reason">Raison: </label>
                 <select name="reason" id="reason" class="input">
                     <option disabled selected>Sélectionnez une option</option>
@@ -22,10 +22,10 @@
                 <label for="description">Description:</label>
                 <textarea name="description" id="description" cols="30" rows="10" class="w-full h-32 input"></textarea>
                 <div class="flex justify-end mt-5 gap-4">
-                    <button type="submit" class="btn-primary">Envoyer</button>
+                    <button type="button" class="btn-primary" onclick="sendReport()">Envoyer</button>
                     <div class="btn-secondary hover:cursor-pointer" onclick="closeModal()">Annuler</div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 {% endblock %}

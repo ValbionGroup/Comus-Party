@@ -46,7 +46,7 @@ enum ReportObject
 
 /**
  * @brief Classe Report
- * @description La classe report permet de représenter les signalements effectués par les joueurs sur la plateforme
+ * @details La classe report permet de représenter les signalements effectués par les joueurs sur la plateforme
  */
 class Report
 {
@@ -109,14 +109,14 @@ class Report
      * @param DateTime|null $updatedAt Date de dernière modification du signalement
      */
     public function __construct(
-        ?int $id = null,
+        ?int          $id = null,
         ?ReportObject $object = null,
-        ?string $description = null,
-        ?string $treatedBy = null,
-        ?string $reportedUuid = null,
-        ?string $senderUuid = null,
-        ?DateTime $createdAt = null,
-        ?DateTime $updatedAt = null)
+        ?string       $description = null,
+        ?string       $treatedBy = null,
+        ?string       $reportedUuid = null,
+        ?string       $senderUuid = null,
+        ?DateTime     $createdAt = null,
+        ?DateTime     $updatedAt = null)
     {
         $this->id = $id;
         $this->object = $object;

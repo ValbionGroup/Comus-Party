@@ -14,6 +14,11 @@ const inputDuration = document.getElementById('duration');
 const errorType = document.getElementById('errorType');
 const errorDuration = document.getElementById('errorDuration');
 const btnPenalty = document.getElementById('btnPenalty');
+const hiddenPenalizePlayerUuid = document.getElementById('penalizePlayerUuid');
+const penaltyReason = document.getElementById('reason');
+const hiddenReportedPlayerUuid = document.getElementById(`reportedPlayerUuid`);
+const spanIdReport = document.getElementById('spanIdReport');
+const hiddenReportId = document.getElementById(`reportId`);
 
 function showModalSuggest(e) {
     let suggestId = e.id;
@@ -24,89 +29,59 @@ function showModalSuggest(e) {
     let spanContentSuggest = document.getElementById(`spanContentSuggest`);
     let idSuggestion = document.getElementById(`idSuggestion`);
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/suggest/${suggestId}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                spanIdSuggest.innerText = response.suggestion.id;
-                switch (response.suggestion.object) {
-                    case "BUG":
-                        spanObjectSuggest.innerText = "🐛 Bug";
-                        break;
-                    case "GAME":
-                        spanObjectSuggest.innerText = "🎮 Jeu";
-                        break;
-                    case "UI":
-                        spanObjectSuggest.innerText = "🎨 Interface";
-                        break;
-                    case "OTHER":
-                        spanObjectSuggest.innerText = "🔧 Autres";
-                        break;
-                }
-                idSuggestion.value = response.suggestion.id;
-                spanAuthorSuggest.innerText = response.suggestion.author_username;
-                spanContentSuggest.innerText = response.suggestion.content;
+    makeRequest('GET', `/suggest/${suggestId}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            spanIdSuggest.innerText = response.suggestion.id;
+            switch (response.suggestion.object) {
+                case "BUG":
+                    spanObjectSuggest.innerText = "🐛 Bug";
+                    break;
+                case "GAME":
+                    spanObjectSuggest.innerText = "🎮 Jeu";
+                    break;
+                case "UI":
+                    spanObjectSuggest.innerText = "🎨 Interface";
+                    break;
+                case "OTHER":
+                    spanObjectSuggest.innerText = "🔧 Autres";
+                    break;
             }
+            idSuggestion.value = response.suggestion.id;
+            spanAuthorSuggest.innerText = response.suggestion.author_username;
+            spanContentSuggest.innerText = response.suggestion.content;
+            modal.classList.remove("hidden");
+            showBackgroundModal();
         }
-    };
-
-    modal.classList.remove("hidden");
-    showBackgroundModal();
+    });
 }
 
 function denySuggest(e) {
     let id = e.parentNode.children[0].value;
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/suggest/deny/${id}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                closeModal();
-                dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
-                showNotification("Génial !", "La suggestion a bien été refusée", "green");
-            }
-            else {
-                showNotification("Oups...", "La suggestion n'a pas pu être refusée", "red");
-            }
+    makeRequest('PUT', `/suggest/deny/${id}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            closeModal();
+            dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
+            showNotification("Génial !", "La suggestion a bien été refusée", "green");
+        } else {
+            showNotification("Oups...", "La suggestion n'a pas pu être refusée", "red");
         }
-    };
+    });
 }
 
 function acceptSuggest(e) {
     let id = e.parentNode.children[0].value;
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/suggest/accept/${id}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                closeModal();
-                dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
-                showNotification("Génial !", "La suggestion a bien été acceptée", "green");
-            }
-            else {
-                showNotification("Oups...", "La suggestion n'a pas pu être acceptée", "red");
-            }
+    makeRequest('PUT', `/suggest/accept/${id}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            closeModal();
+            dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
+            showNotification("Génial !", "La suggestion a bien été acceptée", "green");
+        } else {
+            showNotification("Oups...", "La suggestion n'a pas pu être acceptée", "red");
         }
-    };
+    });
 }
 
 function showModalReport(e) {
@@ -117,44 +92,34 @@ function showModalReport(e) {
     let spanAuthorReport = document.getElementById(`spanAuthorReport`);
     let spanDescriptionReport = document.getElementById(`spanDescriptionReport`);
     let spanReportedPlayer = document.getElementById(`spanReportedPlayer`);
-    let idReport = document.getElementById(`idSuggestion`);
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/report/${reportId}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                spanIdReport.innerText = response.report.id;
-                switch (response.report.object) {
-                    case "LANGUAGE":
-                        spanObjectReport.innerText = "🐛 Langage";
-                        break;
-                    case "SPAM":
-                        spanObjectReport.innerText = "🎮 Jeu";
-                        break;
-                    case "LINKS":
-                        spanObjectReport.innerText = "🎨 Interface";
-                        break;
-                    case "FAIRPLAY":
-                        spanObjectReport.innerText = "🎨 Interface";
-                        break;
-                    case "OTHER":
-                        spanObjectReport.innerText = "🔧 Autres";
-                        break;
-                }
-                idReport.value = response.report.id;
-                spanAuthorReport.innerText = response.report.author_username;
-                spanDescriptionReport.innerText = response.report.description;
-                spanReportedPlayer.innerText = `${response.report.reported_username} (${response.report.reported_uuid})`;
+    makeRequest("GET", `/report/${reportId}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            spanIdReport.innerText = response.report.id;
+            switch (response.report.object) {
+                case "LANGUAGE":
+                    spanObjectReport.innerText = "🐛 Langage";
+                    break;
+                case "SPAM":
+                    spanObjectReport.innerText = "🎮 Jeu";
+                    break;
+                case "LINKS":
+                    spanObjectReport.innerText = "🎨 Interface";
+                    break;
+                case "FAIRPLAY":
+                    spanObjectReport.innerText = "🎨 Interface";
+                    break;
+                case "OTHER":
+                    spanObjectReport.innerText = "🔧 Autres";
+                    break;
             }
+            spanAuthorReport.innerText = response.report.author_username;
+            spanDescriptionReport.innerText = response.report.description;
+            spanReportedPlayer.innerText = `${response.report.reported_username} (${response.report.reported_uuid})`;
+            hiddenReportedPlayerUuid.value = response.report.reported_uuid;
         }
-    };
+    })
 
     modal.classList.remove("hidden");
     showBackgroundModal();
@@ -165,8 +130,9 @@ function denyReport(e) {
 }
 
 function acceptReport(e) {
-    dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
     closeModal();
+    hiddenPenalizePlayerUuid.value = hiddenReportedPlayerUuid.value;
+    hiddenReportId.value = spanIdReport.innerText;
     modalPenalty.classList.remove("hidden");
     showBackgroundModal();
 }
@@ -178,9 +144,11 @@ selectPenalty.addEventListener('change', function () {
         inputDuration.disabled = true;
         inputDuration.classList.add("input-disabled");
         inputDuration.value = "";
+        verifPenaltyForm();
     } else {
         inputDuration.disabled = false;
         inputDuration.classList.remove("input-disabled");
+        verifPenaltyForm();
     }
 });
 
@@ -190,31 +158,37 @@ inputDuration.addEventListener('input', function () {
 
 function verifPenaltyForm() {
 
-    let isTypeValid = true;
-    let isDurationValid = true;
+    let isTypeValid;
+    let isDurationValid;
 
     if (selectPenaltyType.value === "default") {
         selectPenaltyType.classList.add("input-error");
         errorType.classList.remove("hidden");
-        isDurationValid = false;
+        isTypeValid = false;
     } else {
         selectPenaltyType.classList.remove("input-error");
         errorType.classList.add("hidden");
+        isTypeValid = true;
     }
 
-    if (selectPenalty.value !== "Permanent" && inputDuration.value === "") {
+    if (selectPenalty.value !== "permanent" && inputDuration.value === "") {
         inputDuration.classList.add("input-error");
         errorDuration.classList.remove("hidden");
         isDurationValid = false;
     } else {
         inputDuration.classList.remove("input-error");
         errorDuration.classList.add("hidden");
+        isDurationValid = true;
     }
 
     if (isTypeValid && isDurationValid) {
         btnPenalty.disabled = false;
         btnPenalty.classList.remove("btn-disabled");
         btnPenalty.classList.add("btn-primary");
+    } else {
+        btnPenalty.disabled = true;
+        btnPenalty.classList.remove("btn-primary");
+        btnPenalty.classList.add("btn-disabled");
     }
 }
 
@@ -229,11 +203,9 @@ dashboardConnection.onmessage = function (e) {
     let data = JSON.parse(e.data);
     if (data.message === "updateSuggests") {
         updateSuggests();
-    }
-    else if (data.message === "updateReports") {
+    } else if (data.message === "updateReports") {
         updateReports();
-    }
-    else {
+    } else {
         console.log("Message reçu : " + e.data);
     }
 };
@@ -248,7 +220,7 @@ function updateSuggests() {
             if (suggests === null) {
                 suggestList.classList.add("justify-center");
                 let noSuggest = document.createElement('p');
-                noSuggest.classList.add("flex","flex-col", "items-center", "text-center");
+                noSuggest.classList.add("flex", "flex-col", "items-center", "text-center");
                 let spanCongratulations = document.createElement('span');
                 spanCongratulations.classList.add("text-xl", "font-bold");
                 spanCongratulations.innerText = "Félicitations !";
@@ -257,8 +229,7 @@ function updateSuggests() {
                 noSuggest.appendChild(spanCongratulations);
                 noSuggest.appendChild(spanNoSuggest);
                 suggestList.appendChild(noSuggest);
-            }
-            else {
+            } else {
                 suggestList.classList.remove("justify-center");
                 suggests.forEach(suggest => {
                     let suggestItem = document.createElement('div');
@@ -316,7 +287,7 @@ function updateReports() {
             if (reports === null) {
                 reportList.classList.add("justify-center");
                 let noReports = document.createElement('p');
-                noReports.classList.add("flex","flex-col", "items-center", "text-center");
+                noReports.classList.add("flex", "flex-col", "items-center", "text-center");
                 let spanCongratulations = document.createElement('span');
                 spanCongratulations.classList.add("text-xl", "font-bold");
                 spanCongratulations.innerText = "Félicitations !";
@@ -325,8 +296,7 @@ function updateReports() {
                 noReports.appendChild(spanCongratulations);
                 noReports.appendChild(spanNoReport);
                 reportList.appendChild(noReports);
-            }
-            else {
+            } else {
                 reportList.classList.remove("justify-center");
                 reports.forEach(report => {
                     let reportItem = document.createElement('div');
@@ -409,10 +379,29 @@ function timeAgo(timestamp) {
     }
 }
 
-    selectPenaltyType.addEventListener('change', function () {
+selectPenaltyType.addEventListener('change', function () {
     verifPenaltyForm();
 });
 
 inputDuration.addEventListener('input', function () {
     verifPenaltyForm();
 });
+
+function sendPenalty() {
+    makeRequest('POST', '/penalty', (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            closeModal();
+            selectPenaltyType.value = "default";
+            selectPenalty.value = "default";
+            inputDuration.value = "";
+            penaltyReason.value = "";
+            dashboardConnection.send(JSON.stringify({command: 'updateReports'}));
+            showNotification("Génial !", response.message, "green");
+        } else {
+            showNotification("Oups...", response.message, "red");
+        }
+    }, `penalizedUuid=${hiddenPenalizePlayerUuid.value}&penaltyType=${selectPenaltyType.value}&duration=${inputDuration.value === "" ? 0 : parseInt(inputDuration.value)}&durationType=${selectPenalty.value}&reason=${penaltyReason.value}&reportId=${hiddenReportId.value}`);
+}
+
+btnPenalty.addEventListener('click', sendPenalty);

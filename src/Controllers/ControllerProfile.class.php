@@ -1,7 +1,7 @@
 <?php
 /**
- * @file    controllerProfile.class.php
- * @brief   Ce fichier contient la déclaration & définition de la classe ControllerProfile.
+ * @file    ControllerProfile.class.php
+ * @brief   Fichier de déclaration et définition de la classe ControllerProfile
  * @author  Estéban DESESSARD
  * @date    15/11/2024
  * @version 0.2
@@ -15,11 +15,19 @@ use ComusParty\App\Exceptions\MethodNotFoundException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\Mailer;
+use ComusParty\App\MessageHandler;
 use ComusParty\App\Validator;
 use ComusParty\Models\ArticleDAO;
+use ComusParty\Models\Penalty;
+use ComusParty\Models\PenaltyDAO;
+use ComusParty\Models\PenaltyType;
 use ComusParty\Models\PlayerDAO;
+use ComusParty\Models\Report;
+use ComusParty\Models\ReportDAO;
+use ComusParty\Models\ReportObject;
 use ComusParty\Models\UserDAO;
 use DateMalformedStringException;
+use DateTime;
 use Exception;
 use Random\RandomException;
 use Twig\Environment;
@@ -144,28 +152,29 @@ class ControllerProfile extends Controller
         }
 
         if ($idArticle == 0) {
-
             $articleManager->deleteActiveArticleForPfp($player->getUuid());
             $_SESSION['pfpPath'] = "default-pfp.jpg";
-            echo json_encode([
+            echo MessageHandler::sendJsonMessage("Photo de profil mise à jour avec succès", [
                 'articlePath' => "default-pfp.jpg",
             ]);
+            exit;
         }
         if ($idArticle == -1) {
             $articleManager->deleteActiveArticleForBanner($player->getUuid());
             $_SESSION['bannerPath'] = "default-banner.jpg";
-            echo json_encode([
+            echo MessageHandler::sendJsonMessage("Bannière mise à jour avec succès", [
                 'articlePath' => "default-banner.jpg",
             ]);
+            exit;
         }
         if ($idArticle != 0 && $idArticle != -1) {
             $articleManager->updateActiveArticle($player->getUuid(), $idArticle, $typeArticle);
             $article = $articleManager->findById($idArticle);
-
-            echo json_encode([
+            echo MessageHandler::sendJsonMessage("Style mis à jour avec succès", [
                 'articlePath' => $article->getFilePath(),
                 'idArticle' => $idArticle
             ]);
+            exit;
         }
     }
 
@@ -187,27 +196,17 @@ class ControllerProfile extends Controller
             ]
         ]);
         if (!$validator->validate(['username' => $username])) {
-            echo json_encode([
-                'success' => false,
-                'message' => $validator->getErrors()['username']
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(400, $validator->getErrors()['username']);
         }
         $playerManager = new PlayerDAO($this->getPdo());
         if (!is_null($playerManager->findByUsername($username))) {
-            echo json_encode([
-                'success' => false,
-                'message' => 'Ce nom d\'utilisateur est déjà pris'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(400, 'Ce nom d\'utilisateur est déjà pris');
         }
         $player = $playerManager->findByUuid($_SESSION['uuid']);
         $player->setUsername($username);
         $playerManager->update($player);
         $_SESSION['username'] = $username;
-        echo json_encode([
-            'success' => true
-        ]);
+        echo MessageHandler::sendJsonMessage("Nom d'utilisateur mis à jour avec succès");
         exit;
     }
 
@@ -225,13 +224,17 @@ class ControllerProfile extends Controller
                 $playerManager = new PlayerDAO($this->getPdo());
                 $player = $playerManager->findWithDetailByUuid($data);
                 $playerArray = $player->toArray();
-                echo json_encode($playerArray);
+                echo MessageHandler::sendJsonMessage("Informations du joueur récupérées avec succès", [
+                    'player' => $playerArray
+                ]);
                 break;
             case "username":
                 $playerManager = new PlayerDAO($this->getPdo());
                 $player = $playerManager->findWithDetailByUsername($data);
                 $playerArray = $player->toArray();
-                echo json_encode($playerArray);
+                echo MessageHandler::sendJsonMessage("Informations du joueur récupérées avec succès", [
+                    'player' => $playerArray
+                ]);
                 break;
         }
     }
@@ -254,33 +257,21 @@ class ControllerProfile extends Controller
         ]);
 
         if (!$validator->validate(['email' => $email])) {
-            echo json_encode([
-                'success' => false,
-                'error' => $validator->getErrors()['email']
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(400, $validator->getErrors()['email']);
         }
 
         $userManager = new UserDAO($this->getPdo());
         $user = $userManager->findByEmail($email);
 
         if (!is_null($user)) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'Cet e-mail est déjà utilisé'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(400, 'Cet e-mail est déjà utilisé');
         }
 
         $playerManager = new PlayerDAO($this->getPdo());
         $player = $playerManager->findByUuid($_SESSION['uuid']);
         $user = $userManager->findById($player->getUserId());
         if (is_null($user)) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'Utilisateur non trouvé'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(500, 'Utilisateur non trouvé');
         }
 
 
@@ -302,17 +293,10 @@ class ControllerProfile extends Controller
             $confirmMail->generateHTMLMessage();
             $confirmMail->send();
         } catch (Exception $e) {
-            echo json_encode([
-                'success' => false,
-                'error' => 'Une erreur est survenue lors de l\'envoi du mail de confirmation'
-            ]);
-            exit;
+            MessageHandler::sendJsonCustomException(500, 'Erreur lors de l\'envoi du mail de confirmation');
         }
 
-
-        echo json_encode([
-            'success' => true
-        ]);
+        echo MessageHandler::sendJsonMessage("Email mis à jour avec succès");
         exit;
     }
 
@@ -348,11 +332,7 @@ class ControllerProfile extends Controller
 
 
         if (password_verify($newPassword, $user->getPassword())) {
-            echo json_encode([
-                'success' => false,
-                'error' => "Le nouveau mot de passe ne peut pas être identique à l'ancien"
-            ]);
-            return;
+            MessageHandler::sendJsonCustomException(400, 'Le nouveau mot de passe ne peut pas être identique à l\'ancien');
         }
         $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT);
         $user->setPassword($newPasswordHashed);
@@ -366,18 +346,99 @@ class ControllerProfile extends Controller
                 $mailer = new Mailer([$to], $subject, $message);
                 $mailer->generateHTMLMessage();
                 $mailer->send();
-                echo json_encode([
-                    'success' => true,
-                ]);
+                echo MessageHandler::sendJsonMessage("Mot de passe modifié avec succès");
+                exit;
             } catch (Exception $e) {
-                echo json_encode([
-                    'success' => false,
-                    'error' => $e->getMessage()
-                ]);
+                MessageHandler::sendJsonException($e);
             }
 
         }
     }
 
+    /**
+     * @brief Permet de pénaliser un joueur
+     * @param string $createdBy L'UUID de l'utilisateur ayant créé la sanction
+     * @param string $penalizedUuid L'UUID du joueur pénalisé
+     * @param string $reason La raison de la sanction
+     * @param int $duration La durée de la sanction
+     * @param string $durationType Le type de durée de la sanction
+     * @param PenaltyType $penaltyType Le type de sanction
+     * @return void
+     * @throws DateMalformedStringException
+     */
+    public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, PenaltyType $penaltyType, string $reportId)
+    {
 
+        $duration = match ($durationType) {
+            'minutes' => $duration * 60,
+            'hours' => $duration * 3600,
+            'days' => $duration * 86400,
+            'months' => $duration * 2628000,
+            'years' => $duration * 31536000,
+            default => null,
+        };
+
+        $penaltyManager = new PenaltyDAO($this->getPdo());
+
+        $lastPenalty = $penaltyManager->findLastPenaltyByPlayerUuid($penalizedUuid);
+        if (isset($lastPenalty) && ($lastPenalty->getDuration() >= $duration || $lastPenalty->getDuration() == null)) {
+            MessageHandler::sendJsonCustomException(500, 'Le joueur a déjà une sanction plus longue ou égale à celle-ci');
+        }
+
+        $penalty = new Penalty();
+        $penalty->setCreatedBy($createdBy);
+        $penalty->setPenalizedUuid($penalizedUuid);
+        $penalty->setReason($reason);
+        $penalty->setDuration($duration);
+        $penalty->setType($penaltyType);
+        $penalty->setCreatedAt(new DateTime());
+        $penalty->setUpdatedAt(new DateTime());
+        if (!$penaltyManager->createPenalty($penalty)) {
+            MessageHandler::sendJsonCustomException(500, 'Erreur lors de la création de la sanction');
+        }
+
+        if ($penaltyType == PenaltyType::BANNED) {
+            $playerManager = new PlayerDAO($this->getPdo());
+            $player = $playerManager->findByUuid($penalizedUuid);
+            $userManager = new UserDAO($this->getPdo());
+            $user = $userManager->findById($player->getUserId());
+            $user->setDisabled(1);
+            $userManager->update($user);
+        }
+
+        $reportManager = new ReportDAO($this->getPdo());
+        $report = $reportManager->findById($reportId);
+
+        $report->setTreatedBy($createdBy);
+
+        $reportManager->update($report);
+
+        echo MessageHandler::sendJsonMessage("Sanction appliquée avec succès");
+        exit;
+    }
+
+    /**
+     * @brief Permet de signaler un joueur
+     * @param ReportObject $object L'objet du signalement
+     * @param string $description La description du signalement
+     * @param string $reportedUuid L'UUID du joueur signalé
+     * @param string $senderUuid L'UUID du joueur ayant effectué le signalement
+     * @return void
+     */
+    public function reportPlayer(ReportObject $object, string $description, string $reportedUuid, string $senderUuid)
+    {
+        $reportManager = new ReportDAO($this->getPdo());
+        $report = new Report();
+        $report->setObject($object);
+        $report->setDescription($description);
+        $report->setReportedUuid($reportedUuid);
+        $report->setSenderUuid($senderUuid);
+        $report->setCreatedAt(new DateTime());
+        $report->setUpdatedAt(new DateTime());
+        if (!$reportManager->insert($report)) {
+            MessageHandler::sendJsonCustomException(500, 'Erreur lors de la création du signalement');
+        }
+        echo MessageHandler::sendJsonMessage("Signalement envoyé avec succès");
+        exit;
+    }
 }

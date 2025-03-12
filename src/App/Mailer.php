@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Classe Mailer
+ * @brief Fichier de déclaration et définition de la classe Mailer.
  *
  * @file Mailer.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
