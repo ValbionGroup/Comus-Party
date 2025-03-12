@@ -95,12 +95,10 @@ function handleGameControllerResponse(response) {
 function sendSuggestion() {
     let suggestObject = document.getElementById('suggestObject');
     let suggestContent = document.getElementById('suggestContent');
-    if (!["bug", "game", "ui", "other"].includes(suggestObject.value)) {
+    if (!checkObject()) {
         showNotification("Ouch...", "Veuillez choisir un objet de suggestion valide", "red");
-        suggestObject.classList.add("input-error");
     }
     else {
-        suggestObject.classList.remove("input-error");
         makeRequest("POST", "/", (response) => {
             let responseJson = JSON.parse(response);
             console.log(responseJson);
@@ -111,5 +109,21 @@ function sendSuggestion() {
                 showNotification("Ouch...", responseJson.message, "red");
             }
         }, `object=${suggestObject.value}&suggestion=${suggestContent.value}`);
+    }
+}
+
+/**
+ * @brief Vérifier si l'objet de suggestion est valide
+ * @returns {boolean} - true si l'objet est valide, false sinon
+ */
+function checkObject() {
+    let suggestObject = document.getElementById('suggestObject');
+    if (["bug", "game", "ui", "other"].includes(suggestObject.value)) {
+        suggestObject.classList.remove("input-error");
+        return true;
+    }
+    else {
+        suggestObject.classList.add("input-error");
+        return false;
     }
 }
