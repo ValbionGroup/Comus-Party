@@ -335,8 +335,8 @@ class PlayerDAO
             FROM ' . DB_PREFIX . 'player pr
             JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
             WHERE u.email_verif_token IS NULL
-            ORDER BY elo DESC;
-            LIMIT :limit OFFSET :offset'
+            ORDER BY elo DESC
+            LIMIT :limit OFFSET :offset;'
         );
 
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
