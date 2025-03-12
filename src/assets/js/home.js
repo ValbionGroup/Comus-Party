@@ -101,6 +101,9 @@ function sendSuggestion() {
     if (!checkObject()) {
         showNotification("Ouch...", "Veuillez choisir un objet de suggestion valide", "red");
     }
+    else if (!checkContent()) {
+        showNotification("Ouch...", "Votre suggestion doit contenir au moins 10 caractères", "red");
+    }
     else {
         makeRequest("POST", "/", (response) => {
             let responseJson = JSON.parse(response);
@@ -127,6 +130,21 @@ function checkObject() {
     }
     else {
         suggestObject.classList.add("input-error");
+        return false;
+    }
+}
+
+function checkContent() {
+    let suggestContent = document.getElementById('suggestContent');
+    if (suggestContent.value.length >= 10) {
+        suggestContent.classList.remove("input-error");
+        return true;
+    }
+    else {
+        suggestContent.addEventListener('input', () => {
+            checkContent();
+        });
+        suggestContent.classList.add("input-error");
         return false;
     }
 }
