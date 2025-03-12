@@ -48,13 +48,16 @@ class ControllerSuggestion extends Controller
             'other' => SuggestObject::OTHER,
             default => null
         };
+        if ($objectTyped === null) {
+            MessageHandler::sendJsonCustomException(400, 'Type de suggestion invalide');
+        }
         $suggestionObject = new Suggestion(null, $objectTyped, $content, $_SESSION['uuid'], $_SESSION['username']);
         $managerSuggestion = new SuggestionDAO($this->getPdo());
         if ($managerSuggestion->create($suggestionObject)) {
-            MessageHandler::addMessageParametersToSession('Suggestion envoyée avec succès');
+            echo MessageHandler::sendJsonMessage('Suggestion envoyée avec succès');
+            exit;
         } else {
-            MessageHandler::addExceptionParametersToSession(new Exception('Erreur lors de l\'envoi de la suggestion'));
+            MessageHandler::sendJsonCustomException(500, 'Erreur lors de l\'envoi de la suggestion');
         }
-        header('Location: /');
     }
 }

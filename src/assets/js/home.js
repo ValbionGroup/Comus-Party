@@ -91,3 +91,60 @@ function handleGameControllerResponse(response) {
         showNotification("Ouch...", responseJson.message, "red");
     }
 }
+
+/**
+ * @brief Envoi une suggestion en vérifiant les conditions au préalable
+ */
+function sendSuggestion() {
+    let suggestObject = document.getElementById('suggestObject');
+    let suggestContent = document.getElementById('suggestContent');
+    if (!checkObject()) {
+        showNotification("Ouch...", "Veuillez choisir un objet de suggestion valide", "red");
+    }
+    else if (!checkContent()) {
+        showNotification("Ouch...", "Votre suggestion doit contenir au moins 10 caractères", "red");
+    }
+    else {
+        makeRequest("POST", "/", (response) => {
+            let responseJson = JSON.parse(response);
+            console.log(responseJson);
+            if (responseJson.success) {
+                showNotification("Merci !", "Votre suggestion a bien été envoyée", "green");
+                closeModal();
+            } else {
+                showNotification("Ouch...", responseJson.message, "red");
+            }
+        }, `object=${suggestObject.value}&suggestion=${suggestContent.value}`);
+    }
+}
+
+/**
+ * @brief Vérifier si l'objet de suggestion est valide
+ * @returns {boolean} - true si l'objet est valide, false sinon
+ */
+function checkObject() {
+    let suggestObject = document.getElementById('suggestObject');
+    if (["bug", "game", "ui", "other"].includes(suggestObject.value)) {
+        suggestObject.classList.remove("input-error");
+        return true;
+    }
+    else {
+        suggestObject.classList.add("input-error");
+        return false;
+    }
+}
+
+function checkContent() {
+    let suggestContent = document.getElementById('suggestContent');
+    if (suggestContent.value.length >= 10) {
+        suggestContent.classList.remove("input-error");
+        return true;
+    }
+    else {
+        suggestContent.addEventListener('input', () => {
+            checkContent();
+        });
+        suggestContent.classList.add("input-error");
+        return false;
+    }
+}
