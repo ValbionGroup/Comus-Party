@@ -96,7 +96,6 @@ function showProfile(searchBy, data) {
 
     makeRequest("POST", `/player/informations`, (response) => {
         response = JSON.parse(response);
-        console.log(response.statistics);
         spanTopUsername.innerText = response.player.username;
         imgPfp.src = `/assets/img/pfp/${response.player.activePfp}`;
         spanUsername.innerText = response.player.username;
