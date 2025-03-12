@@ -334,6 +334,7 @@ class PlayerDAO
                 (SELECT COUNT(*) FROM ' . DB_PREFIX . 'game_record WHERE hosted_by = pr.uuid) as games_hosted
             FROM ' . DB_PREFIX . 'player pr
             JOIN ' . DB_PREFIX . 'user u ON pr.user_id = u.id
+            WHERE u.email_verif_token IS NULL
             ORDER BY elo DESC;
             LIMIT :limit OFFSET :offset'
         );
