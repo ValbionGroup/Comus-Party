@@ -1,6 +1,7 @@
 const gameCode = document.getElementById('gameCode').value;
 const playerUuid = document.getElementById('localPlayerUuid').value;
 const headerUsername = document.getElementById('headerUsername').textContent;
+const isHost = document.getElementById('startGameBtn') !== null;
 
 let chatIsOn = document.getElementById("chatContent") !== null;
 if (chatIsOn) {
@@ -186,7 +187,7 @@ function updatePlayers(data) {
         child.remove();
     });
     data.forEach((player) => {
-        if (player.uuid === playerUuid && player.isHost) {
+        if (player.uuid === playerUuid && player.isHost && !isHost) {
             window.location.reload();
         }
 
