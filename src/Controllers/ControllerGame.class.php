@@ -16,6 +16,7 @@ use ComusParty\App\Exceptions\MalformedRequestException;
 use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\App\Exceptions\UnauthorizedAccessException;
 use ComusParty\App\MessageHandler;
+use ComusParty\App\Validator;
 use ComusParty\Models\GameDAO;
 use ComusParty\Models\GameRecord;
 use ComusParty\Models\GameRecordDAO;
@@ -117,12 +118,38 @@ class ControllerGame extends Controller
                     throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
                 }
 
+                $rules = [];
                 foreach ($settings as $key => $value) {
                     if (!array_key_exists($key, $gameSettings["modifiableSettings"])) {
                         throw new GameSettingsException("Les paramètres du jeu ne sont pas valides");
                     }
 
+                    $neededSetting = $gameSettings["modifiableSettings"][$key];
 
+                    if ($neededSetting["type"] == "select" && !in_array($value, array_map(fn($option) => $option["value"], $neededSetting["options"]))) {
+                        throw new GameSettingsException("Le paramètre $key doit être une des valeurs suivantes : " . implode(", ", $neededSetting["values"]));
+                    } elseif ($neededSetting["type"] == "select") {
+                        continue;
+                    }
+
+                    if ($neededSetting["type"] == "checkbox" && !is_bool($value)) {
+                        throw new GameSettingsException("Le paramètre $key doit être un booléen");
+                    } elseif ($neededSetting["type"] == "checkbox") {
+                        continue;
+                    }
+
+                    $rules[$key] = [
+                        "required" => true,
+                        "type" => $neededSetting["type"] == "number" ? "numeric" : "string",
+                        ...(array_key_exists("min", $neededSetting) ? ["min-value" => $neededSetting["min"]] : []),
+                        ...(array_key_exists("max", $neededSetting) ? ["max-value" => $neededSetting["max"]] : []),
+                        ...(array_key_exists("pattern", $neededSetting) ? ["format" => $neededSetting["pattern"]] : [])
+                    ];
+                }
+                $validator = new Validator($rules);
+
+                if (!$validator->validate($settings)) {
+                    throw new GameSettingsException("Les paramètres du jeu ne sont pas valides.\r\n" . implode("\r\n", array_map(fn(string $key, array $value) => "[$key] " . implode(", ", $value), array_keys($validator->getErrors()), $validator->getErrors())));
                 }
             } else {
                 $settings = [];
@@ -206,7 +233,6 @@ class ControllerGame extends Controller
             ]);
             exit;
         } catch (Exception|Error $e) {
-            var_dump($e);
             MessageHandler::sendJsonException($e);
         }
     }
