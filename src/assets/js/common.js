@@ -92,6 +92,7 @@ function showProfile(searchBy, data) {
     const spanGamesPlayed = document.getElementById('spanGamesPlayed');
     const spanGamesWon = document.getElementById('spanGamesWon');
     const spanCreatedAt = document.getElementById('spanCreatedAt');
+    const uuidPlayerInfo = document.getElementById('uuidPlayerInfo');
 
     makeRequest("POST", `/player/informations`, (response) => {
         response = JSON.parse(response);
@@ -119,7 +120,12 @@ function showProfile(searchBy, data) {
 }
 
 function showReportForm() {
+
+    let reportedUuid = document.getElementById('reportedUuid');
+    let uuidPlayerInfo = document.getElementById('uuidPlayerInfo');
+
     closeModal();
+    reportedUuid.value = uuidPlayerInfo.value;
     reportForm.classList.remove("hidden");
     showBackgroundModal();
 }
@@ -230,4 +236,21 @@ function changeButtonState(button, neededActive, needCaptcha = false) {
         button.classList.add("btn-disabled");
         button.classList.remove("btn-primary");
     }
+}
+
+function sendReport() {
+
+    let reportedUuid = document.getElementById('reportedUuid');
+    let reason = document.getElementById('reason');
+    let description = document.getElementById('description');
+
+    makeRequest('POST', '/report', (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            showNotification('Génial !', response.message, 'green');
+            closeModal();
+        } else {
+            showNotification('Oups...', response.message, 'red');
+        }
+    }, `reportedUuid=${reportedUuid.value}&object=${reason.value}&description=${description.value}`);
 }
