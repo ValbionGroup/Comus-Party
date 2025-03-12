@@ -585,7 +585,12 @@ class ControllerGame extends Controller
         $gameRecordManager->removePlayer($code, $playerUuid);
 
         if ($gameRecord->getHostedBy()->getUuid() == $playerUuid) {
-            $gameRecordManager->delete($code);
+            if (sizeof($gameRecord->getPlayers()) > 0) {
+                $gameRecord->setHostedBy($gameRecord->getPlayers()[0]["player"]);
+                $gameRecordManager->update($gameRecord);
+            } else {
+                $gameRecordManager->delete($code);
+            }
         }
 
         echo MessageHandler::sendJsonMessage("Vous avez bien quitté la partie");
