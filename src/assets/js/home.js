@@ -91,3 +91,25 @@ function handleGameControllerResponse(response) {
         showNotification("Ouch...", responseJson.message, "red");
     }
 }
+
+function sendSuggestion() {
+    let suggestObject = document.getElementById('suggestObject');
+    let suggestContent = document.getElementById('suggestContent');
+    if (!["bug", "game", "ui", "other"].includes(suggestObject.value)) {
+        showNotification("Ouch...", "Veuillez choisir un objet de suggestion valide", "red");
+        suggestObject.classList.add("input-error");
+    }
+    else {
+        suggestObject.classList.remove("input-error");
+        makeRequest("POST", "/", (response) => {
+            let responseJson = JSON.parse(response);
+            console.log(responseJson);
+            if (responseJson.success) {
+                showNotification("Merci !", "Votre suggestion a bien été envoyée", "green");
+                closeModal();
+            } else {
+                showNotification("Ouch...", responseJson.message, "red");
+            }
+        }, `object=${suggestObject.value}&suggestion=${suggestContent.value}`);
+    }
+}
