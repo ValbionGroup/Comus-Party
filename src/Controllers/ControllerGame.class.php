@@ -580,7 +580,7 @@ class ControllerGame extends Controller
         }
 
         $host = (new PlayerDAO($this->getPdo()))->findByUuid($_SESSION['uuid']);
-        $generatedCode = bin2hex(random_bytes(16));
+        $generatedCode = bin2hex(random_bytes(8));
 
         $gameRecord = new GameRecord(
             $generatedCode,
