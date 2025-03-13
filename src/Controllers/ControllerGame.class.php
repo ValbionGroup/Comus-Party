@@ -225,7 +225,7 @@ class ControllerGame extends Controller
             $gameRecord->setUpdatedAt(new DateTime());
             (new GameRecordDAO($this->getPdo()))->update($gameRecord);
 
-            MessageHandler::sendJsonMessage("La partie a bien été initialisée", [
+            echo MessageHandler::sendJsonMessage("La partie a bien été initialisée", [
                 "game" => [
                     "code" => $code,
                     "gameId" => $game->getId(),
