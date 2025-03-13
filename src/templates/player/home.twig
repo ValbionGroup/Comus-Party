@@ -168,12 +168,12 @@
                     remplissant le formulaire ci-dessous !
                 </p>
                 <br>
-                <form method="POST">
+                <div>
                     <div class="flex flex-col gap-2">
                         <div class="flex flex-col gap-2">
-                            <label for="object" class="font-semibold">Catégorie</label>
-                            <select id="object" name="object"
-                                    class="input">
+                            <label for="suggestObject" class="font-semibold">Catégorie</label>
+                            <select id="suggestObject" name="suggestObject"
+                                    class="input" onchange="checkObject()">
                                 <option disabled selected>Sélectionnez une option</option>
                                 <option value="bug">Signaler un bug</option>
                                 <option value="game">Suggérer un nouveau jeu</option>
@@ -182,17 +182,17 @@
                             </select>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <label for="suggestion" class="font-semibold">Votre suggestion :</label>
-                            <textarea id="suggestion" name="suggestion"
+                            <label for="suggestContent" class="font-semibold">Votre suggestion :</label>
+                            <textarea id="suggestContent" name="suggestContent"
                                       class="w-full h-32 input"
                                       minlength="10" maxlength="2048"></textarea>
                         </div>
                     </div>
                     <div class="flex justify-end mt-5 gap-4">
-                        <button type="submit" class="btn-primary">Envoyer</button>
+                        <button type="button" class="btn-primary" onclick="sendSuggestion()">Envoyer</button>
                         <div class="btn-secondary hover:cursor-pointer" onclick="closeModal()">Annuler</div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

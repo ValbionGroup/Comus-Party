@@ -49,32 +49,22 @@ function showModalGame(e) {
     let searchGameButton = document.getElementById('findGameModalButton');
     let imgGame = document.getElementById('imgGame');
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/game/informations/${gameId}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                spanGameName.innerText = response.game.name;
-                spanGameDescription.innerText = response.game.description;
-                imgGame.src = `/assets/img/games/${response.game.img}`;
-                divGameTags.innerHTML = "";
-                response.game.tags.forEach(tag => {
-                    divGameTags.innerHTML += `<p class="border-2 rounded-full border-blue-violet-base py-0.5 px-2 text-center">${tag}</p>`;
-                });
-            }
+    makeRequest("GET", `/game/informations/${gameId}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            spanGameName.innerText = response.game.name;
+            spanGameDescription.innerText = response.game.description;
+            imgGame.src = `/assets/img/games/${response.game.img}`;
+            divGameTags.innerHTML = "";
+            response.game.tags.forEach(tag => {
+                divGameTags.innerHTML += `<p class="border-2 rounded-full border-blue-violet-base py-0.5 px-2 text-center">${tag}</p>`;
+            });
+            createGameButton.setAttribute("onclick", `createGame(${gameId})`);
+            searchGameButton.setAttribute("onclick", `searchGame(${gameId})`);
+            modal.classList.remove("hidden");
+            showBackgroundModal();
         }
-    };
-
-    createGameButton.setAttribute("onclick", `createGame(${gameId})`);
-    searchGameButton.setAttribute("onclick", `searchGame(${gameId})`);
-    modal.classList.remove("hidden");
-    showBackgroundModal();
+    });
 }
 
 function searchGame(id) {
@@ -99,5 +89,62 @@ function handleGameControllerResponse(response) {
         window.location.href = "/game/" + responseJson.game.code;
     } else {
         showNotification("Ouch...", responseJson.message, "red");
+    }
+}
+
+/**
+ * @brief Envoi une suggestion en vérifiant les conditions au préalable
+ */
+function sendSuggestion() {
+    let suggestObject = document.getElementById('suggestObject');
+    let suggestContent = document.getElementById('suggestContent');
+    if (!checkObject()) {
+        showNotification("Ouch...", "Veuillez choisir un objet de suggestion valide", "red");
+    }
+    else if (!checkContent()) {
+        showNotification("Ouch...", "Votre suggestion doit contenir au moins 10 caractères", "red");
+    }
+    else {
+        makeRequest("POST", "/", (response) => {
+            let responseJson = JSON.parse(response);
+            console.log(responseJson);
+            if (responseJson.success) {
+                showNotification("Merci !", "Votre suggestion a bien été envoyée", "green");
+                closeModal();
+            } else {
+                showNotification("Ouch...", responseJson.message, "red");
+            }
+        }, `object=${suggestObject.value}&suggestion=${suggestContent.value}`);
+    }
+}
+
+/**
+ * @brief Vérifier si l'objet de suggestion est valide
+ * @returns {boolean} - true si l'objet est valide, false sinon
+ */
+function checkObject() {
+    let suggestObject = document.getElementById('suggestObject');
+    if (["bug", "game", "ui", "other"].includes(suggestObject.value)) {
+        suggestObject.classList.remove("input-error");
+        return true;
+    }
+    else {
+        suggestObject.classList.add("input-error");
+        return false;
+    }
+}
+
+function checkContent() {
+    let suggestContent = document.getElementById('suggestContent');
+    if (suggestContent.value.length >= 10) {
+        suggestContent.classList.remove("input-error");
+        return true;
+    }
+    else {
+        suggestContent.addEventListener('input', () => {
+            checkContent();
+        });
+        suggestContent.classList.add("input-error");
+        return false;
     }
 }

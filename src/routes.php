@@ -16,6 +16,7 @@ use ComusParty\App\MessageHandler;
 use ComusParty\App\Router;
 use ComusParty\Controllers\ControllerFactory;
 use ComusParty\Models\PenaltyType;
+use ComusParty\Models\ReportObject;
 
 $router = Router::getInstance();
 
@@ -303,8 +304,7 @@ $router->post('/game/:code/end', function ($code) use ($loader, $twig) {
     ControllerFactory::getController("game", $loader, $twig)->call("endGame", [
         "code" => $code,
         "token" => $_POST['token'] ?? "",
-        "winner" => json_decode($_POST['winner'] ?? ""),
-        "scores" => json_decode($_POST['scores'] ?? "", true)
+        "results" => json_decode($_POST['results'] ?? "", true),
     ]);
     exit;
 });
@@ -328,6 +328,22 @@ $router->get('/reports', function () use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getAllReportsWaiting");
     exit;
 }, 'moderator');
+
+$router->post('/report', function () use ($loader, $twig) {
+    ControllerFactory::getController("profile", $loader, $twig)->call("reportPlayer", [
+        "object" => match (strtolower($_POST['object'])) {
+            "langage" => ReportObject::LANGUAGE,
+            "spam" => ReportObject::SPAM,
+            "links" => ReportObject::LINKS,
+            "fairplay" => ReportObject::FAIRPLAY,
+            "other" => ReportObject::OTHER
+        },
+        "description" => $_POST['description'],
+        "reportedUuid" => $_POST['reportedUuid'],
+        "senderUuid" => $_SESSION['uuid']
+    ]);
+    exit;
+}, 'player');
 
 $router->get('/report/:reportId', function ($reportId) use ($loader, $twig) {
     ControllerFactory::getController("dashboard", $loader, $twig)->call("getReportInformations", ["reportId" => $reportId]);

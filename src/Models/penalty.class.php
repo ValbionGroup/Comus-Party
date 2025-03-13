@@ -35,7 +35,7 @@ enum PenaltyType
 
 /**
  * @brief Classe Penalty
- * @description La classe Penalty permet de représenter les sanctions appliquées aux joueurs sur la plateforme
+ * @details La classe Penalty permet de représenter les sanctions appliquées aux joueurs sur la plateforme
  */
 class Penalty
 {

@@ -59,9 +59,9 @@ class GameRecord
     /**
      * @brief Token de la partie
      * @details Le token est utilisé pour authentifier une partie auprès de Comus notamment pour les requêtes de mise à jour de la partie.
-     * @var string Token de la partie
+     * @var string|null Token de la partie
      */
-    private string $token;
+    private ?string $token;
     /**
      * @brief Jeu de la partie
      * @var Game Jeu de la partie
@@ -165,10 +165,10 @@ class GameRecord
     /**
      * @brief Setter de l'attribut token
      *
-     * @param string $token Token de la partie
+     * @param string|null $token Token de la partie
      * @return void
      */
-    public function setToken(string $token): void
+    public function setToken(?string $token): void
     {
         $this->token = $token;
     }

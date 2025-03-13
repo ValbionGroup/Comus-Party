@@ -29,87 +29,59 @@ function showModalSuggest(e) {
     let spanContentSuggest = document.getElementById(`spanContentSuggest`);
     let idSuggestion = document.getElementById(`idSuggestion`);
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/suggest/${suggestId}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                spanIdSuggest.innerText = response.suggestion.id;
-                switch (response.suggestion.object) {
-                    case "BUG":
-                        spanObjectSuggest.innerText = "🐛 Bug";
-                        break;
-                    case "GAME":
-                        spanObjectSuggest.innerText = "🎮 Jeu";
-                        break;
-                    case "UI":
-                        spanObjectSuggest.innerText = "🎨 Interface";
-                        break;
-                    case "OTHER":
-                        spanObjectSuggest.innerText = "🔧 Autres";
-                        break;
-                }
-                idSuggestion.value = response.suggestion.id;
-                spanAuthorSuggest.innerText = response.suggestion.author_username;
-                spanContentSuggest.innerText = response.suggestion.content;
+    makeRequest('GET', `/suggest/${suggestId}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            spanIdSuggest.innerText = response.suggestion.id;
+            switch (response.suggestion.object) {
+                case "BUG":
+                    spanObjectSuggest.innerText = "🐛 Bug";
+                    break;
+                case "GAME":
+                    spanObjectSuggest.innerText = "🎮 Jeu";
+                    break;
+                case "UI":
+                    spanObjectSuggest.innerText = "🎨 Interface";
+                    break;
+                case "OTHER":
+                    spanObjectSuggest.innerText = "🔧 Autres";
+                    break;
             }
+            idSuggestion.value = response.suggestion.id;
+            spanAuthorSuggest.innerText = response.suggestion.author_username;
+            spanContentSuggest.innerText = response.suggestion.content;
+            modal.classList.remove("hidden");
+            showBackgroundModal();
         }
-    };
-
-    modal.classList.remove("hidden");
-    showBackgroundModal();
+    });
 }
 
 function denySuggest(e) {
     let id = e.parentNode.children[0].value;
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/suggest/deny/${id}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                closeModal();
-                dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
-                showNotification("Génial !", "La suggestion a bien été refusée", "green");
-            } else {
-                showNotification("Oups...", "La suggestion n'a pas pu être refusée", "red");
-            }
+    makeRequest('PUT', `/suggest/deny/${id}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            closeModal();
+            dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
+            showNotification("Génial !", "La suggestion a bien été refusée", "green");
+        } else {
+            showNotification("Oups...", "La suggestion n'a pas pu être refusée", "red");
         }
-    };
+    });
 }
 
 function acceptSuggest(e) {
     let id = e.parentNode.children[0].value;
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `/suggest/accept/${id}`, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    // Envoyer les données sous forme de paire clé=valeur
-    xhr.send();
-
-    // Gérer la réponse du serveur
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                closeModal();
-                dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
-                showNotification("Génial !", "La suggestion a bien été acceptée", "green");
-            } else {
-                showNotification("Oups...", "La suggestion n'a pas pu être acceptée", "red");
-            }
+    makeRequest('PUT', `/suggest/accept/${id}`, (response) => {
+        response = JSON.parse(response);
+        if (response.success) {
+            closeModal();
+            dashboardConnection.send(JSON.stringify({command: 'updateSuggests'}));
+            showNotification("Génial !", "La suggestion a bien été acceptée", "green");
+        } else {
+            showNotification("Oups...", "La suggestion n'a pas pu être acceptée", "red");
         }
-    };
+    });
 }
 
 function showModalReport(e) {

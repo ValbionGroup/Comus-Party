@@ -1,6 +1,6 @@
 <?php
 /**
- * @file    controllerFactory.class.php
+ * @file    ControllerFactory.class.php
  * @author  Estéban DESESSARD
  * @brief   Fichier de déclaration et définition de la classe ControllerFactory
  * @date    12/11/2024

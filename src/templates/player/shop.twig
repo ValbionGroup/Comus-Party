@@ -1,8 +1,7 @@
 {% extends "/layouts/default.twig" %}
 {% block title %}Boutique{% endblock %}
 {% block content %}
-
-
+    <div onclick="closeModal()" id="backgroundModal" class="hidden fixed inset-0 bg-night-1 opacity-85 z-40"></div>
 
     <div class="w-full overflow-y-auto">
         <div class="flex justify-between w-full">
@@ -196,17 +195,5 @@
             </div>
         </div>
     </div>
-
-
-
-
-    <div id="notification"
-         class="fixed bottom-5 right-5 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transform scale-90 transition-all duration-300 ease-in-out">
-        <div>
-            <p id="notificationMessage"></p>
-        </div>
-    </div>
     <script src="/assets/js/shop.min.js"></script>
-
-
 {% endblock %}

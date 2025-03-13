@@ -125,7 +125,7 @@ VALUES (1, 'Game One', 'First game description', 'game1.png', 'available', '2024
 CREATE TABLE `cp_game_record`
 (
     `code`        varchar(32)                           NOT NULL,
-    `token`       varchar(60)                           NULL     DEFAULT NULL,
+    `token`       varchar(64)                           NULL     DEFAULT NULL,
     `game_id`     bigint(20)                            NOT NULL,
     `hosted_by`   varchar(63)                           NOT NULL,
     `state`       enum ('waiting','started','finished') NOT NULL DEFAULT 'waiting',
@@ -142,9 +142,9 @@ CREATE TABLE `cp_game_record`
 --
 
 INSERT INTO `cp_game_record` (`code`, `token`, `game_id`, `hosted_by`, `state`, `private`, `created_at`, `updated_at`)
-VALUES ('game_rec_uuid1', 'abc', 1, 'uuid1', 'started', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('game_rec_uuid3', 'abc', 3, 'uuid3', 'finished', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
-       ('game_rec_uuid4', 'abc', 4, 'uuid4', 'waiting', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
+VALUES ('game_rec_uuid1', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad', 1, 'uuid1', 'started', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
+       ('game_rec_uuid3', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad', 3, 'uuid3', 'finished', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
+       ('game_rec_uuid4', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad', 4, 'uuid4', 'waiting', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
 -- --------------------------------------------------------
 
@@ -738,6 +738,20 @@ ALTER TABLE `cp_tag`
 ALTER TABLE `cp_user`
     MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,
     AUTO_INCREMENT = 5;
+
+--
+-- AUTO_INCREMENT pour la table `cp_report`
+--
+ALTER TABLE `cp_report`
+    MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    AUTO_INCREMENT = 2;
+
+--
+-- AUTO_INCREMENT pour la table `cp_penalty`
+--
+ALTER TABLE `cp_penalty`
+    MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    AUTO_INCREMENT = 2;
 
 --
 -- Contraintes pour les tables déchargées

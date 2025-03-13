@@ -1,6 +1,6 @@
 <?php
 /**
- * @file    controllerRanking.class.php
+ * @file    ControllerRanking.class.php
  * @brief   Fichier de déclaration et définition de la classe ControllerRanking
  * @author  Estéban DESESSARD
  * @date    08/01/2025

@@ -1,6 +1,6 @@
 <?php
 /**
- * @file controllerDashboard.class.php
+ * @file ControllerDashboard.class.php
  * @brief Fichier de déclaration et définition de la classe ControllerDashboard
  * @author Estéban DESESSARD
  * @date 18/12/2024
@@ -9,6 +9,7 @@
 
 namespace ComusParty\Controllers;
 
+use ComusParty\App\MessageHandler;
 use ComusParty\Models\PlayerDAO;
 use ComusParty\Models\ReportDAO;
 use ComusParty\Models\SuggestionDAO;
@@ -66,7 +67,11 @@ class ControllerDashboard extends Controller
     public function denySuggestion(int $id)
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
-        echo json_encode(['success' => $suggestsManager->deny($id)]);
+        if ($suggestsManager->deny($id)) {
+            echo MessageHandler::sendJsonMessage("La suggestion a bien été refusée");
+        } else {
+            MessageHandler::sendJsonCustomException(500, "Une erreur est survenue lors du refus de la suggestion");
+        }
     }
 
     /**
@@ -77,7 +82,11 @@ class ControllerDashboard extends Controller
     public function acceptSuggestion(int $id)
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
-        echo json_encode(['success' => $suggestsManager->accept($id)]);
+        if ($suggestsManager->accept($id)) {
+            echo MessageHandler::sendJsonMessage("La suggestion a bien été acceptée");
+        } else {
+            MessageHandler::sendJsonCustomException(500, "Une erreur est survenue lors de l'acceptation de la suggestion");
+        }
         exit;
     }
 
@@ -91,8 +100,7 @@ class ControllerDashboard extends Controller
     {
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestion = $suggestsManager->findById($id);
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Informations récupérées", [
             "suggestion" => [
                 "id" => $suggestion->getId(),
                 "object" => $suggestion->getObject()->name,
@@ -112,14 +120,12 @@ class ControllerDashboard extends Controller
         $suggestsManager = new SuggestionDAO($this->getPdo());
         $suggestions = $suggestsManager->findAllWaiting();
         if (empty($suggestions)) {
-            echo json_encode([
-                "success" => true,
+            echo MessageHandler::sendJsonMessage("Aucune suggestion en attente", [
                 "suggestions" => null,
             ]);
             exit;
         }
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Suggestions récupérées", [
             "suggestions" => array_map(fn($suggestion) => [
                 "id" => $suggestion->getId(),
                 "object" => $suggestion->getObject()->name,
@@ -141,8 +147,7 @@ class ControllerDashboard extends Controller
         $reportsManager = new ReportDAO($this->getPdo());
         $playerManager = new PlayerDAO($this->getPdo());
         $report = $reportsManager->findById($id);
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Informations récupérées", [
             "report" => [
                 "id" => $report->getId(),
                 "object" => $report->getObject()->name,
@@ -151,7 +156,7 @@ class ControllerDashboard extends Controller
                 "author_username" => $playerManager->findByUuid($report->getSenderUuid())->getUsername(),
                 "reported_uuid" => $report->getReportedUuid(),
                 "reported_username" => $playerManager->findByUuid($report->getReportedUuid())->getUsername(),
-                "created_at" => $report->getCreatedAt()->format('d/m/Y H:i:s'),
+                "created_at" => $report->getCreatedAt()->getTimestamp() * 1000,
             ],
         ]);
         exit;
@@ -167,14 +172,12 @@ class ControllerDashboard extends Controller
         $reportsManager = new ReportDAO($this->getPdo());
         $reports = $reportsManager->findAllWaiting();
         if (empty($reports)) {
-            echo json_encode([
-                "success" => true,
+            echo MessageHandler::sendJsonMessage("Aucun signalement en attente", [
                 "reports" => null,
             ]);
             exit;
         }
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Signalements récupérés", [
             "reports" => array_map(fn($report) => [
                 "id" => $report->getId(),
                 "object" => $report->getObject()->name,

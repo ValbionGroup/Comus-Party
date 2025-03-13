@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @breaf L'entrée de l'application
+ * @brief L'entrée de l'application
  */
 
 global $router;

@@ -1,6 +1,6 @@
 <?php
 /**
- * @file controllerGame.class.php
+ * @file ControllerGame.class.php
  * @brief Fichier de déclaration et définition de la classe ControllerGame
  * @author Conchez-Boueytou Robin, ESPIET Lucas
  * @date 23/12/2024
@@ -256,8 +256,7 @@ class ControllerGame extends Controller
     {
         $gameManager = new GameDAO($this->getPdo());
         $game = $gameManager->findWithDetailsById($id);
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("Informations du jeu récupérées", [
             "game" => [
                 "id" => $game->getId(),
                 "name" => $game->getName(),
@@ -352,11 +351,7 @@ class ControllerGame extends Controller
             try {
                 echo $this->joinGame($code, $_SESSION['uuid']);
             } catch (Exception $e) {
-                echo json_encode([
-                    "success" => false,
-                    "message" => $e->getMessage(),
-                ]);
-                exit;
+                MessageHandler::sendJsonException($e);
             }
         } elseif ($method == 'GET') {
             $this->joinGame($code, $_SESSION['uuid']);
@@ -475,17 +470,10 @@ class ControllerGame extends Controller
             $gameRecord->setPrivate($isPrivate);
             $gameRecordManager->update($gameRecord);
 
-            echo json_encode([
-                "success" => true,
-            ]);
+            echo MessageHandler::sendJsonMessage("La visibilité de la partie a bien été modifiée");
             exit;
         } catch (Exception|Error $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-                "code" => $e->getCode(),
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 
@@ -497,20 +485,16 @@ class ControllerGame extends Controller
      */
     public function joinGameFromSearch(int $gameId): void
     {
-        $game = (new GameDAO($this->getPdo()))->findById($gameId);
-
-        if ($game->getState() != GameState::AVAILABLE) {
-            echo json_encode([
-                "success" => false,
-                "message" => "Le jeu n'est pas disponible",
-            ]);
-            exit;
-        }
-
-        $gameRecordManager = new GameRecordDAO($this->getPdo());
-        $gameRecords = $gameRecordManager->findByGameId($gameId);
-
         try {
+            $game = (new GameDAO($this->getPdo()))->findById($gameId);
+
+            if ($game->getState() != GameState::AVAILABLE) {
+                throw new GameUnavailableException("Le jeu n'est pas disponible");
+            }
+
+            $gameRecordManager = new GameRecordDAO($this->getPdo());
+            $gameRecords = $gameRecordManager->findByGameId($gameId);
+
             $eloForGame = [];
             foreach ($gameRecords as $gameRecord) {
                 if ($gameRecord->getState() == GameRecordState::WAITING && !$gameRecord->isPrivate()) {
@@ -548,11 +532,7 @@ class ControllerGame extends Controller
             echo $this->joinGame($bestGame, $_SESSION['uuid']);
             exit;
         } catch (Exception $e) {
-            echo json_encode([
-                "success" => false,
-                "message" => $e->getMessage(),
-            ]);
-            exit;
+            MessageHandler::sendJsonException($e);
         }
     }
 
@@ -579,9 +559,7 @@ class ControllerGame extends Controller
             $gameRecordManager->delete($code);
         }
 
-        echo json_encode([
-            "success" => true,
-        ]);
+        echo MessageHandler::sendJsonMessage("Vous avez bien quitté la partie");
         exit;
     }
 
@@ -621,9 +599,7 @@ class ControllerGame extends Controller
         $gameRecordManager->insert($gameRecord);
         $gameRecordManager->addPlayer($gameRecord, $host);
 
-
-        echo json_encode([
-            "success" => true,
+        echo MessageHandler::sendJsonMessage("La partie a bien été créée", [
             "game" => [
                 "code" => $generatedCode,
                 "gameId" => $gameId,
@@ -636,15 +612,14 @@ class ControllerGame extends Controller
      * @brief Termine une partie et met à jour les scores et les gagnants
      * @param string $code Code de la partie
      * @param string $token Token de la partie
-     * @param array|null $winner Tableau associatif contenant les UUID des joueurs gagnants
-     * @param array|null $scores Tableau associatif contenant les scores des joueurs
+     * @param array|null $results Résultats de la partie si le jeu les renvoies
      * @return void
-     * @todo Retravailler la fonction afin qu'elle corresponde aux règles fixés aux jeux
      */
-    public function endGame(string $code, string $token, ?array $winner = null, ?array $scores = null): void
+    public function endGame(string $code, string $token, ?array $results = null): void
     {
         try {
             $gameRecordManager = new GameRecordDAO($this->getPdo());
+            $playerManager = new PlayerDAO($this->getPdo());
             $gameRecord = $gameRecordManager->findByCode($code);
 
             if ($gameRecord == null) {
@@ -659,41 +634,46 @@ class ControllerGame extends Controller
                 throw new UnauthorizedAccessException("Impossible d'authentifier le serveur de jeu");
             }
 
-            if (in_array("SCORES", $this->getGameSettings($gameRecord->getGame()->getId())["returnParametersToComus"])) {
-                foreach ($scores as $playerUuid => $playerScore) {
-                    if (!in_array($playerUuid, array_map(fn($player) => $player["player"]->getUuid(), $gameRecord->getPlayers()))) {
-                        throw new MalformedRequestException("Le joueur $playerUuid n'est pas dans la partie");
-                    }
-                }
-            }
-
-            $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
-
-            if (in_array("WINNER_UUID", $gameSettings["returnParametersToComus"])) {
-                if (!is_null($winner)) {
-                    foreach ($winner as $playerUuid) {
-                        $gameRecordManager->addWinner($code, $playerUuid);
-                    }
-                } else {
-                    $winner = [];
+            if (!empty($results)) {
+                $actualPlayerTokenInRecord = [];
+                foreach ($gameRecord->getPlayers() as $player) {
+                    $actualPlayerTokenInRecord[$player["player"]->getUuid()] = $player["token"];
                 }
 
-                $players = $gameRecord->getPlayers();
-                if (!$gameRecord->isPrivate()) {
-                    $allWinner = array_map(
-                        fn($player) => $player["player"],
-                        array_filter($players,
-                            fn($player) => in_array($player["player"]->getUuid(), $winner)
-                        )
-                    );
-                    $allLooser = array_map(
-                        fn($player) => $player["player"],
-                        array_filter($players,
-                            fn($player) => !in_array($player["player"]->getUuid(), $winner)
-                        )
-                    );
-                    $allPlayers = array_map(fn($player) => $player["player"], $players);
+                $gameSettings = $this->getGameSettings($gameRecord->getGame()->getId());
 
+                foreach ($results as $playerUuid => $playerData) {
+                    if (!isset($actualPlayerTokenInRecord[$playerUuid]) || $actualPlayerTokenInRecord[$playerUuid] !== $playerData["token"]) {
+                        throw new MalformedRequestException("Le joueur $playerUuid n'est pas dans la partie ou le token est invalide");
+                    }
+                }
+
+                $allWinner = [];
+                $allLooser = [];
+                $allPlayers = [];
+                foreach ($results as $playerUuid => $playerData) {
+                    if (in_array("SCORES", $gameSettings["returnParametersToComus"])) {
+                        // TODO: Traiter le score des joueurs
+                    }
+
+                    if (in_array("WINNERS", $gameSettings["returnParametersToComus"])) {
+                        if (!isset($playerData["winner"])) {
+                            throw new MalformedRequestException("L'attribut \"winner\" n'est pas présent");
+                        }
+
+                        // TODO: Fix array_filter($gameRecord->getPlayers(), fn($player) => $player["player"]->getUuid() == $playerUuid)[0]["player"]
+                        $player = $playerManager->findByUuid($playerUuid);
+                        if ($playerData["winner"]) {
+                            $allWinner[] = $player;
+                            $gameRecordManager->addWinner($code, $playerUuid);
+                        } else {
+                            $allLooser[] = $player;
+                        }
+                        $allPlayers[] = $player;
+                    }
+                }
+
+                if (!$gameRecord->isPrivate() && in_array("WINNERS", $gameSettings["returnParametersToComus"])) {
                     $this->calculateAndUpdateElo($allPlayers, $allWinner, $allLooser);
                 }
             }
@@ -731,7 +711,9 @@ class ControllerGame extends Controller
             } else {
                 $newElo = EloCalculator::calculateNewElo($elo, $averageEloWinner, 0);
             }
-            $player->setElo(round($newElo, 0, PHP_ROUND_HALF_UP));
+            if ($newElo < 0)
+                $newElo = 0;
+            $player->setElo(round($newElo));
             $playerManager->update($player);
         }
     }
@@ -766,14 +748,11 @@ class ControllerGame extends Controller
         if (isset($penalty)) {
             $endDate = $penalty->getCreatedAt()->modify("+" . $penalty->getDuration() . "hour");
             if ($endDate > new DateTime()) {
-                echo json_encode(['success' => true,
-                    'message' => 'Le joueur est encore mute']);
+                echo MessageHandler::sendJsonMessage("Le joueur est encore mute");
                 exit;
             }
         }
 
-        echo json_encode(['success' => false,
-            'message' => 'Le joueur n\'est pas mute']);
-        exit;
+        MessageHandler::sendJsonCustomException(404, "Le joueur n'est pas mute");
     }
 }
