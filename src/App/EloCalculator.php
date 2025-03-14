@@ -17,7 +17,7 @@ class EloCalculator
      * @brief Facteur K
      * @var int
      */
-    const int K_FACTOR = 16;
+    const K_FACTOR = 16;
 
     /**
      * @brief Calcule le nouvel Elo du joueur en fonction de son Elo actuel, de l'Elo moyen des joueurs de la partie et du résultat de la partie
