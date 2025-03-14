@@ -787,7 +787,7 @@ class ControllerGame extends Controller
      * @brief Vérifie si un joueur est mute
      * @param string $playerUsername Nom d'utilisateur du joueur
      * @return void
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function isPlayerMuted(string $playerUsername): void
     {
@@ -797,14 +797,20 @@ class ControllerGame extends Controller
         $penaltyManager = new PenaltyDAO($this->getPdo());
         $penalty = $penaltyManager->findLastMutedByPlayerUuid($player->getUuid());
 
+
+        $response = [
+            'muted' => false
+        ];
+
         if (isset($penalty)) {
             $endDate = $penalty->getCreatedAt()->modify("+" . $penalty->getDuration() . "hour");
             if ($endDate > new DateTime()) {
-                echo MessageHandler::sendJsonMessage("Le joueur est encore mute");
+                $response['muted'] = true;
+                echo MessageHandler::sendJsonMessage("Le joueur est encore mute", $response);
                 exit;
             }
         }
 
-        MessageHandler::sendJsonCustomException(404, "Le joueur n'est pas mute");
+        echo MessageHandler::sendJsonMessage("Le joueur n'est pas mute", $response);
     }
 }
