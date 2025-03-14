@@ -46,7 +46,7 @@
 
                     <div class="flex flex-wrap">
                         {% if pfps is empty %}
-                            <p class="text-night">Aucun avatar disponible</p>
+                            <p class="text-night">Aucun avatar n'est actuellement disponible</p>
                         {% else %}
                             {% for pfp in pfps %}
                                 <div class="w-20 h-20 m-1 pfp cursor-pointer"
@@ -65,7 +65,7 @@
                     <h2 class="text-2xl text-night mb-4 font-serif">Bannières</h2>
                     <div class="flex flex-wrap">
                         {% if banners is empty %}
-                            <p class="text-night">Aucune bannière disponible</p>
+                            <p class="text-night font-sans">Aucune bannière n'est actuellement disponible</p>
                         {% else %}
                             {% for banner in banners %}
                                 <div class="w-full h-full m-1 cursor-pointer"
