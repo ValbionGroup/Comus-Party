@@ -93,7 +93,6 @@ class PenaltyDAO
      * @brief Créer une sanction en base de données
      * @param Penalty $penalty La sanction à créer
      * @return bool Retourne true si la création a réussi, false sinon
-     * @throws DateMalformedStringException Exception lancée si la date est mal formée
      */
     public function createPenalty(Penalty $penalty): bool
     {
@@ -121,7 +120,7 @@ class PenaltyDAO
     /**
      * @brief Transforme un type de sanction en string
      * @param PenaltyType|null $penaltyType Le type de sanction à transformer
-     * @return string|null
+     * @return string|null Le type de sanction transformé en string
      */
     private function transformPenaltyTypeToString(?PenaltyType $penaltyType): ?string
     {
@@ -135,7 +134,7 @@ class PenaltyDAO
     /**
      * @brief Trouve la dernière sanction d'un joueur de type muted
      * @param string $playerUuid L'UUID du joueur
-     * @return Penalty|null
+     * @return Penalty|null La dernière sanction de type muted
      * @throws DateMalformedStringException Exception lancée si la date est mal formée
      */
     public function findLastMutedByPlayerUuid(string $playerUuid): ?Penalty
@@ -153,7 +152,7 @@ class PenaltyDAO
     /**
      * @brief Trouve la dernière sanction d'un joueur
      * @param string $playerUuid L'UUID du joueur
-     * @return Penalty|null
+     * @return Penalty|null La dernière sanction
      * @throws DateMalformedStringException Exception lancée si la date est mal formée
      */
     public function findLastPenaltyByPlayerUuid(string $playerUuid): ?Penalty
