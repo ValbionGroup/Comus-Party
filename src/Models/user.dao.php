@@ -175,6 +175,7 @@ class UserDAO
      * @brief Retourne un objet User (ou null) à partir du token de vérification d'email passé en paramètre
      * @param string $emailVerifToken Le token de vérification d'email de l'utilisateur
      * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findByEmailVerifyToken(string $emailVerifToken): ?User
     {
