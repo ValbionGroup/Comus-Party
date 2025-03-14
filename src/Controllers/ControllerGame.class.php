@@ -60,6 +60,24 @@ class ControllerGame extends Controller
      */
     public function showHomePage()
     {
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findByUuid($_SESSION['uuid']);
+        $_SESSION["elo"] = $player->getElo();
+        $_SESSION["xp"] = $player->getXp();
+        $_SESSION["comusCoin"] = $player->getComusCoin();
+        $_SESSION["username"] = $player->getUsername();
+        $this->getTwig()->addGlobal('auth', [
+            'pfpPath' => $_SESSION['pfpPath'] ?? null,
+            'loggedIn' => isset($_SESSION['uuid']),
+            'loggedUuid' => $_SESSION['uuid'] ?? null,
+            'loggedUsername' => $_SESSION['username'] ?? null,
+            'loggedComusCoin' => $_SESSION['comusCoin'] ?? null,
+            'loggedElo' => $_SESSION['elo'] ?? null,
+            'loggedXp' => $_SESSION['xp'] ?? null,
+            'role' => $_SESSION['role'] ?? null,
+            'firstName' => $_SESSION['firstName'] ?? null,
+            'lastName' => $_SESSION['lastName'] ?? null,
+        ]);
         $gameManager = new GameDAO($this->getPdo());
         $games = $gameManager->findAllWithTags();
         $games = array_filter($games, fn($game) => $game->getState() == GameState::AVAILABLE);
