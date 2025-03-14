@@ -99,6 +99,7 @@ class Report
     private ?DateTime $updatedAt;
 
     /**
+     * @brief Constructeur de la classe Report
      * @param int|null $id Identifiant du signalement
      * @param ReportObject|null $object Objet du signalement
      * @param string|null $description Description du signalement
