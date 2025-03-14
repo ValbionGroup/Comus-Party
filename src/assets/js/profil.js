@@ -171,7 +171,7 @@ function showModalSuppression() {
 // MODIFICATION MOT DE PASSE
 
 const MIN_PASSWORD_LENGTH = 8;
-const MAX_PASSWORD_LENGTH = 64;
+const MAX_PASSWORD_LENGTH = 120;
 const UPPERCASE_LETTER = /[A-Z]/;
 const LOWERCASE_LETTER = /[a-z]/;
 const NUMBERS = /\d/;
@@ -316,9 +316,9 @@ function checkUsername() {
         submitButton.classList.remove("btn-success");
         return;
     }
-    if (username.length < 3 || username.length > 120) {
+    if (username.length < 3 || username.length > 25) {
         usernameError.classList.remove("hidden");
-        usernameError.innerHTML = "Votre nouveau nom d'utilisateur doit contenir entre 3 et 120 caractères";
+        usernameError.innerHTML = "Votre nouveau nom d'utilisateur doit contenir entre 3 et 25 caractères";
         submitButton.disabled = true;
         submitButton.classList.add("btn-disabled");
         submitButton.classList.remove("btn-success");
@@ -347,8 +347,8 @@ function editUsername(e) {
         return;
     }
 
-    if (username.length < 3 || username.length > 120) {
-        showNotification("Oups...", "Votre nom d'utilisateur doit contenir entre 3 et 120 caractères", "red");
+    if (username.length < 3 || username.length > 25) {
+        showNotification("Oups...", "Votre nom d'utilisateur doit contenir entre 3 et 25 caractères", "red");
         return;
     } else if (!/^[a-zA-Z0-9_]*$/.test(username)) {
         showNotification("Oups...", "Votre nom d'utilisateur ne doit contenir que des lettres, des chiffres ou des underscores", "red");

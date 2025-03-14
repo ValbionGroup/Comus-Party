@@ -96,10 +96,10 @@ function addPasswordVisibilityListeners() {
 function checkConditions(event) {
     // Constantes
     const MIN_USERNAME_LENGTH = 3;
-    const MAX_USERNAME_LENGTH = 120;
+    const MAX_USERNAME_LENGTH = 25;
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const MIN_PASSWORD_LENGTH = 8;
-    const MAX_PASSWORD_LENGTH = 64;
+    const MAX_PASSWORD_LENGTH = 120;
     const UPPERCASE_LETTER = /[A-Z]/;
     const LOWERCASE_LETTER = /[a-z]/;
     const NUMBERS = /\d/;

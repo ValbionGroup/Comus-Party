@@ -197,7 +197,7 @@ class ControllerProfile extends Controller
             'username' => [
                 'required' => true,
                 'min-length' => 3,
-                'max-length' => 120,
+                'max-length' => 25,
                 'type' => 'string',
                 'format' => '/^[a-zA-Z0-9_-]+$/'
             ]

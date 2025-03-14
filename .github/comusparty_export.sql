@@ -142,9 +142,12 @@ CREATE TABLE `cp_game_record`
 --
 
 INSERT INTO `cp_game_record` (`code`, `token`, `game_id`, `hosted_by`, `state`, `private`, `created_at`, `updated_at`)
-VALUES ('game_rec_uuid1', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad', 1, 'uuid1', 'started', 0, '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
-       ('game_rec_uuid3', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad', 3, 'uuid3', 'finished', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
-       ('game_rec_uuid4', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad', 4, 'uuid4', 'waiting', 0, '2024-11-14 08:15:01', '2024-11-14 08:15:01');
+VALUES ('game_rec_uuid1', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad', 1, 'uuid1', 'started', 0,
+        '2024-11-13 15:18:39', '2024-11-13 15:18:39'),
+       ('game_rec_uuid3', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad', 3, 'uuid3', 'finished', 0,
+        '2024-11-14 08:15:01', '2024-11-14 08:15:01'),
+       ('game_rec_uuid4', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad', 4, 'uuid4', 'waiting', 0,
+        '2024-11-14 08:15:01', '2024-11-14 08:15:01');
 
 -- --------------------------------------------------------
 
@@ -283,14 +286,14 @@ VALUES ('game_rec_uuid1', 'uuid1'),
 
 CREATE TABLE `cp_player`
 (
-    `uuid`       varchar(63)  NOT NULL,
-    `user_id`    bigint(20)   NOT NULL,
-    `username`   varchar(120) NOT NULL,
-    `xp`         int(11)      NOT NULL DEFAULT 0,
-    `elo`        int(11)      NOT NULL DEFAULT 0,
-    `comus_coin` int(11)      NOT NULL DEFAULT 0,
-    `created_at` timestamp    NOT NULL DEFAULT current_timestamp(),
-    `updated_at` timestamp    NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+    `uuid`       varchar(63) NOT NULL,
+    `user_id`    bigint(20)  NOT NULL,
+    `username`   varchar(25) NOT NULL,
+    `xp`         int(11)     NOT NULL DEFAULT 0,
+    `elo`        int(11)     NOT NULL DEFAULT 0,
+    `comus_coin` int(11)     NOT NULL DEFAULT 0,
+    `created_at` timestamp   NOT NULL DEFAULT current_timestamp(),
+    `updated_at` timestamp   NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
