@@ -21,7 +21,7 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * @biref Classe ControllerDashboard
+ * @brief Classe ControllerDashboard
  * @details La classe gère les actions relatives au dashboard de modération
  */
 class ControllerDashboard extends Controller
@@ -112,7 +112,7 @@ class ControllerDashboard extends Controller
     }
 
     /**
-     * @brief Récupère toutes les suggestions en attente et les renvoi sous format JSON
+     * @brief Récupère toutes les suggestions en attente et les renvois sous format JSON
      * @return void
      */
     public function getAllSuggestionsWaiting(): void

@@ -10,7 +10,11 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\Models\PlayerDAO;
+use DateMalformedStringException;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -32,6 +36,10 @@ class ControllerRanking extends Controller
     /**
      * @brief Permet d'afficher le classement
      * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement du loader
+     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showRanking()
     {

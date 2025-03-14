@@ -3,7 +3,7 @@
 /**
  * @file moderator.class.php
  * @author Conchez-Boueytou Robin
- * @brief Le fichier contient la déclaration & définition de la classe Moderator.
+ * @brief Fichier de déclaration et définition de la classe Moderator
  * @date 18/12/2024
  * @version 0.1
  */
@@ -63,13 +63,14 @@ class Moderator
      * @param DateTime|null $createdAt La date de création du profil de modérateur
      * @param DateTime|null $updatedAt La date de mise à jour du profil de modérateur
      */
-    public function __construct(?string $uuid = null,
-                                ?int $userId = null,
-                                ?string $firstName = null,
-                                ?string $lastName = null,
+    public function __construct(?string   $uuid = null,
+                                ?int      $userId = null,
+                                ?string   $firstName = null,
+                                ?string   $lastName = null,
                                 ?DateTime $createdAt = null,
                                 ?DateTime $updatedAt = null
-    ){
+    )
+    {
         $this->uuid = $uuid;
         $this->userId = $userId;
         $this->firstName = $firstName;
@@ -86,46 +87,7 @@ class Moderator
     {
         return $this->uuid;
     }
-    /**
-     * @brief Retourne l'identifiant de l'utilisateur associé au modérateur
-     * @return int|null L'identifiant de l'utilisateur associé au modérateur
-     */
-    public function getUserId(): ?int
-    {
-        return $this->userId;
-    }
-    /**
-     * @brief Retourne le prénom du modérateur
-     * @return string|null Le prénom du modérateur
-     */
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-    /**
-     * @brief Retourne le nom de famille du modérateur
-     * @return string|null Le nom de famille du modérateur
-     */
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-    /**
-     * @brief Retourne la date de création du profil de modérateur
-     * @return DateTime|null La date de création du profil de modérateur
-     */
-    public function getCreatedAt(): ?DateTime
-    {
-        return $this->createdAt;
-    }
-    /**
-     * @brief Retourne la date de mise à jour du profil de modérateur
-     * @return DateTime|null La date de mise à jour du profil de modérateur
-     */
-    public function getUpdatedAt(): ?DateTime
-    {
-        return $this->updatedAt;
-    }
+
     /**
      * @brief Modifie l'UUID du modérateur
      * @param string|null $uuid Le nouvel UUID du modérateur
@@ -135,6 +97,16 @@ class Moderator
     {
         $this->uuid = $uuid;
     }
+
+    /**
+     * @brief Retourne l'identifiant de l'utilisateur associé au modérateur
+     * @return int|null L'identifiant de l'utilisateur associé au modérateur
+     */
+    public function getUserId(): ?int
+    {
+        return $this->userId;
+    }
+
     /**
      * @brief Modifie l'identifiant de l'utilisateur associé au modérateur
      * @param int|null $userId Le nouvel identifiant de l'utilisateur associé au modérateur
@@ -144,6 +116,16 @@ class Moderator
     {
         $this->userId = $userId;
     }
+
+    /**
+     * @brief Retourne le prénom du modérateur
+     * @return string|null Le prénom du modérateur
+     */
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
     /**
      * @brief Modifie le prénom du modérateur
      * @param string|null $firstName Le nouveau prénom du modérateur
@@ -153,6 +135,16 @@ class Moderator
     {
         $this->firstName = $firstName;
     }
+
+    /**
+     * @brief Retourne le nom de famille du modérateur
+     * @return string|null Le nom de famille du modérateur
+     */
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
     /**
      * @brief Modifie le nom de famille du modérateur
      * @param string|null $lastName Le nouveau nom de famille du modérateur
@@ -162,6 +154,16 @@ class Moderator
     {
         $this->lastName = $lastName;
     }
+
+    /**
+     * @brief Retourne la date de création du profil de modérateur
+     * @return DateTime|null La date de création du profil de modérateur
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
     /**
      * @brief Modifie la date de création du profil de modérateur
      * @param DateTime|null $createdAt La nouvelle date de création du profil de modérateur
@@ -173,6 +175,15 @@ class Moderator
     }
 
     /**
+     * @brief Retourne la date de mise à jour du profil de modérateur
+     * @return DateTime|null La date de mise à jour du profil de modérateur
+     */
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
      * @brief Modifie la date de mise à jour du profil de modérateur
      * @param DateTime|null $updatedAt
      * @return void
@@ -181,7 +192,6 @@ class Moderator
     {
         $this->updatedAt = $updatedAt;
     }
-
 
 
 }

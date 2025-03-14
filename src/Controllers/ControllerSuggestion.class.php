@@ -35,7 +35,7 @@ class ControllerSuggestion extends Controller
 
     /**
      * @brief Permet d'envoyer une suggestion et de l'insérer en base de données
-     * @param SuggestObject $object L'objet de la suggestion
+     * @param string|null $object L'objet de la suggestion
      * @param string $content Le contenu de la suggestion rédigée
      * @return void
      */

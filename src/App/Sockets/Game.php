@@ -18,9 +18,22 @@ use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use SplObjectStorage;
 
+/**
+ * @brief Classe Game (Sockets)
+ * @details Classe permettant de gérer le jeu en temps réel
+ */
 class Game implements MessageComponentInterface
 {
+    /**
+     * @brief Liste des clients connectés
+     * @var SplObjectStorage
+     */
     protected SplObjectStorage $clients;
+
+    /**
+     * @brief Liste des parties en cours
+     * @var array
+     */
     protected array $games;
 
     /**
@@ -33,9 +46,9 @@ class Game implements MessageComponentInterface
     }
 
     /**
-     * @brief Ouvre une connexion
-     * @param ConnectionInterface $conn Connexion à ouvrir
-     * @return void
+     * @brief Fonction appelée lors de la connexion d'un joueur
+     * @details Envoie un message de confirmation de connexion
+     * @param ConnectionInterface $conn La connexion du joueur
      */
     function onOpen(ConnectionInterface $conn): void
     {
@@ -43,11 +56,11 @@ class Game implements MessageComponentInterface
     }
 
     /**
-     * @brief Reçoit un message
-     * @param ConnectionInterface $from Connexion d'origine
-     * @param string $msg Message reçu
-     * @return void
-     * @throws Exception Exception levée dans le cas d'une erreur
+     * @brief Fonction appelée lors de la réception d'un message
+     * @details Gère l'affichage des joueurs en temps réel
+     * @param ConnectionInterface $from La connexion du joueur
+     * @param string $msg Le message reçu
+     * @throws Exception Exception levée si le message est invalide
      */
     function onMessage(ConnectionInterface $from, $msg): void
     {
@@ -109,11 +122,10 @@ class Game implements MessageComponentInterface
     }
 
     /**
-     * @brief Envoie un message à tous les clients d'une partie
-     * @param string $game Code de la partie
-     * @param string $command Commande à envoyer
-     * @param string $content Contenu à envoyer
-     * @return void
+     * @brief Fonction permettant d'envoyer un message à une partie
+     * @param string $game La partie à laquelle envoyer le message
+     * @param string $command La commande à envoyer
+     * @param string $content Le contenu du message
      */
     private function sendToGame(string $game, string $command, string $content): void
     {
@@ -159,10 +171,9 @@ class Game implements MessageComponentInterface
     }
 
     /**
-     * @brief Gère les erreurs
-     * @param ConnectionInterface $conn Connexion à fermer
-     * @param Exception $e Exception à gérer
-     * @return void
+     * @brief Fonction appelée lors d'une erreur
+     * @param ConnectionInterface $conn La connexion du joueur
+     * @param Exception $e L'exception levée
      */
     public function onError(ConnectionInterface $conn, Exception $e): void
     {
@@ -171,8 +182,9 @@ class Game implements MessageComponentInterface
     }
 
     /**
-     * @param string $string Chaîne à échapper
-     * @return string Chaîne échappée
+     * @brief Fonction permettant d'échapper les caractères spéciaux
+     * @param string $string La chaîne à échapper
+     * @return string La chaîne échappée
      */
     protected function escape(string $string): string
     {

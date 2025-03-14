@@ -1,7 +1,7 @@
 <?php
 /**
  * @file game.dao.php
- * @brief Le fichier contient la déclaration et la définition de la classe GameDao
+ * @brief Fichier de déclaration et définition de la classe GameDAO
  * @author Conchez-Boueytou Robin, ESPIET Lucas
  * @date 13/11/2024
  * @version 0.2
@@ -58,7 +58,6 @@ class GameDAO
 
     /**
      * @brief Retourne un objet Game (ou null) à partir de l'identifiant passé en paramètre
-     * @details
      *
      * @param int $id L'identifiant du jeu
      * @return Game|null L'objet Game correspondant à l'identifiant ou null
@@ -120,6 +119,7 @@ class GameDAO
      * @brief Retourne un tableau d'objets Game à partir de la table game
      *
      * @return array Le tableau d'objets Game
+     * @throws Exception Exception levée si un problème survient lors de l'hydratation
      */
     public function findAll(): array
     {
@@ -137,6 +137,7 @@ class GameDAO
      * @details Cette méthode appelle, pour chaque jeu du tableau, la méthode hydrate
      * @param array $gamesTab Le tableau de jeux
      * @return array Le tableau d'objets Game
+     * @throws Exception Exception levée si un problème survient lors de l'hydratation
      */
     public function hydrateMany(array $gamesTab): array
     {
@@ -150,6 +151,7 @@ class GameDAO
     /**
      * @brief Retourne un tableau d'objets Game à partir de la table game avec leurs tags associés
      * @return array Le tableau d'objets Game
+     * @throws Exception Exception levée si un problème survient lors de l'hydratation
      */
     public function findAllWithTags(): array
     {
@@ -173,8 +175,9 @@ class GameDAO
      * @brief Retourne un objet Game à partir de l'identifiant passé en paramètre avec ses tags associés
      * @param int|null $id L'identifiant du jeu
      * @return Game|null L'objet Game correspondant à l'identifiant ou null
+     * @throws Exception Exception levée si un problème survient lors de l'hydratation
      */
-    public function findWithDetailsById(?int $id)
+    public function findWithDetailsById(?int $id): ?Game
     {
         $stmt = $this->pdo->prepare(
             'SELECT g.*, GROUP_CONCAT(t.name) as tags

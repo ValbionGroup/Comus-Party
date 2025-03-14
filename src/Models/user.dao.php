@@ -2,7 +2,7 @@
 /**
  * @file    user.dao.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe UserDAO.
+ * @brief   Fichier de déclaration et définition de la classe UserDAO
  * @date    13/11/2024
  * @version 0.1
  */
@@ -175,6 +175,7 @@ class UserDAO
      * @brief Retourne un objet User (ou null) à partir du token de vérification d'email passé en paramètre
      * @param string $emailVerifToken Le token de vérification d'email de l'utilisateur
      * @return User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findByEmailVerifyToken(string $emailVerifToken): ?User
     {

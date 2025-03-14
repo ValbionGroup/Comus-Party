@@ -2,7 +2,7 @@
 /**
  * @file    suggestion.dao.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe SuggestionDAO.
+ * @brief   Fichier de déclaration et définition de la classe SuggestionDAO
  * @date    17/12/2024
  * @version 0.1
  */
@@ -21,7 +21,7 @@ class SuggestionDAO
 {
     /**
      * @brief La connexion à la base de données
-     * @var PDO|null
+     * @var PDO|null La connexion à la base de données
      */
     private ?PDO $pdo;
 
@@ -55,7 +55,7 @@ class SuggestionDAO
     /**
      * @brief Insert une suggestion en base de données et retourne le résultat de l'exécution
      * @param Suggestion $suggestion La suggestion à insérer
-     * @return bool
+     * @return bool Résultat de l'exécution de la requête
      */
     public function create(Suggestion $suggestion): bool
     {
@@ -99,6 +99,7 @@ class SuggestionDAO
      * @brief Hydrate un tableau de données en plusieurs suggestions
      * @param array $suggestsTab Le tableau associatif contenant les tableaux de données des suggestions
      * @return array Un tableau d'objets Suggestion
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     private function hydrateMany(array $suggestsTab): array
     {

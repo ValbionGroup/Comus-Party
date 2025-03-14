@@ -8,8 +8,15 @@
 
 namespace ComusParty\App;
 
+/**
+ * @brief Classe EloCalculator
+ */
 class EloCalculator
 {
+    /**
+     * @brief Facteur K
+     * @var int
+     */
     const int K_FACTOR = 16;
 
     /**
