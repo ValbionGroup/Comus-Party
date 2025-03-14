@@ -136,7 +136,7 @@ class Statistics
      * @brief Retourne un tableau associatif contenant les statistiques
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             "gamesPlayed" => $this->gamesPlayed,
