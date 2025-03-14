@@ -176,7 +176,7 @@ class GameRecord
     /**
      * @brief Génère un token aléatoire pour la partie
      * @return string Token généré en clair
-     * @throws RandomException Exception lancée en cas d'erreur lors de la génération du token
+     * @throws RandomException Exception levée en cas d'erreur lors de la génération du token
      */
     public function generateToken(): string
     {

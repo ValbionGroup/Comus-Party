@@ -60,7 +60,7 @@ class Game implements MessageComponentInterface
      * @details Gère l'affichage des joueurs en temps réel
      * @param ConnectionInterface $from La connexion du joueur
      * @param string $msg Le message reçu
-     * @throws Exception Exception lancée si le message est invalide
+     * @throws Exception Exception levée si le message est invalide
      */
     function onMessage(ConnectionInterface $from, $msg): void
     {
@@ -173,7 +173,7 @@ class Game implements MessageComponentInterface
     /**
      * @brief Fonction appelée lors d'une erreur
      * @param ConnectionInterface $conn La connexion du joueur
-     * @param Exception $e L'exception lancée
+     * @param Exception $e L'exception levée
      */
     public function onError(ConnectionInterface $conn, Exception $e): void
     {

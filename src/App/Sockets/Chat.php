@@ -70,7 +70,7 @@ class Chat implements MessageComponentInterface
      * @details Envoie le message à tous les joueurs de la partie
      * @param ConnectionInterface $from La connexion du joueur
      * @param string $msg Le message reçu
-     * @throws DateMalformedStringException Exception lancée si la date est mal formée
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function onMessage(ConnectionInterface $from, $msg): void
     {

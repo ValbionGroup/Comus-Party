@@ -58,7 +58,7 @@ class PenaltyDAO
     /**
      * @brief Hydrate un tableau de données en objets Penalty
      * @return array Un tableau contenant toutes les sanctions
-     * @throws DateMalformedStringException Exception lancée si la date est mal formée
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function hydrateMany(array $datas): array
     {
@@ -73,7 +73,7 @@ class PenaltyDAO
      * @brief Hydrate un tableau de données en objet Penalty
      * @param array $data Le tableau de données à hydrater
      * @return Penalty L'objet Penalty hydraté
-     * @throws DateMalformedStringException Exception lancée si la date est mal formée
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function hydrate(array $data): Penalty
     {
@@ -135,7 +135,7 @@ class PenaltyDAO
      * @brief Trouve la dernière sanction d'un joueur de type muted
      * @param string $playerUuid L'UUID du joueur
      * @return Penalty|null La dernière sanction de type muted
-     * @throws DateMalformedStringException Exception lancée si la date est mal formée
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function findLastMutedByPlayerUuid(string $playerUuid): ?Penalty
     {
@@ -153,7 +153,7 @@ class PenaltyDAO
      * @brief Trouve la dernière sanction d'un joueur
      * @param string $playerUuid L'UUID du joueur
      * @return Penalty|null La dernière sanction
-     * @throws DateMalformedStringException Exception lancée si la date est mal formée
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function findLastPenaltyByPlayerUuid(string $playerUuid): ?Penalty
     {
