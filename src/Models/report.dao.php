@@ -131,7 +131,7 @@ class ReportDAO
      * @brief Hydrate un objet Report avec les valeurs du tableau associatif passé en paramètre
      * @param array $data Le tableau associatif contenant les données à hydrater
      * @return Report L'objet Report hydraté
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function hydrate(array $data): Report
     {
@@ -159,7 +159,7 @@ class ReportDAO
      * @brief Renvoi un signalement à partir de son ID
      * @param int $id L'identifiant du signalement
      * @return Report|null L'objet Report correspondant à l'identifiant passé en paramètre ou null si aucun signalement ne correspond
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findById(int $id): ?Report
     {
