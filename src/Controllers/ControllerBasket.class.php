@@ -2,7 +2,7 @@
 /**
  * @file    ControllerBasket.class.php
  * @author  Mathis Rivrais--Nowakowski
- * @brief   Le fichier contient la déclaration & définition de la classe ControllerBasket.
+ * @brief   Fichier de déclaration et définition de la classe ControllerBasket
  * @date    14/11/2024
  * @version 0.4
  */
@@ -10,6 +10,7 @@
 namespace ComusParty\Controllers;
 
 use ComusParty\App\MessageHandler;
+use ComusParty\App\Exceptions\NotFoundException;
 use ComusParty\Models\ArticleDAO;
 use DateMalformedStringException;
 use PHPUnit\Event\Test\AfterLastTestMethodErroredSubscriber;
@@ -21,7 +22,8 @@ use Twig\Loader\FilesystemLoader;
 
 
 /**
- * La classe ControllerBasket permet de faire le lien entre la vue et l'objet panier
+ * @brief Classe ControllerBasket
+ * @details La classe ControllerBasket permet de faire le lien entre la vue et l'objet panier
  */
 class ControllerBasket extends Controller
 {
@@ -42,7 +44,7 @@ class ControllerBasket extends Controller
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function show()
+    public function show(): void
     {
         $template = $this->getTwig()->load('player/basket.twig');
 
@@ -74,8 +76,9 @@ class ControllerBasket extends Controller
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
      * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws NotFoundException Exception levée dans le cas d'une erreur de chargement
      */
-    function addArticleToBasket()
+    function addArticleToBasket(): void
     {
         $managerArticle = new ArticleDAO($this->getPdo());
         $pfpsOwned = $managerArticle->findAllPfpsOwnedByPlayer($_SESSION['uuid']);
@@ -114,13 +117,10 @@ class ControllerBasket extends Controller
 
     /**
      * @brief Permet de supprimer un article du panier
+     * @param $id int ID de l'article à supprimer
      * @return void
-     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
-     * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
-    public function removeArticleBasket($id)
+    public function removeArticleBasket(int $id): void
     {
 
         if ($id != null) {

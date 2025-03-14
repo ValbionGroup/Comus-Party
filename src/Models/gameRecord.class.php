@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier contenant la déclaration et la définition de la classe GameRecord
+ * @brief Fichier de déclaration et définition de la classe GameRecord
  *
  * @file gamerecord.class.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
@@ -176,7 +176,7 @@ class GameRecord
     /**
      * @brief Génère un token aléatoire pour la partie
      * @return string Token généré en clair
-     * @throws RandomException
+     * @throws RandomException Exception levée en cas d'erreur lors de la génération du token
      */
     public function generateToken(): string
     {

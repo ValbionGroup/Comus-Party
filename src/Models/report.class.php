@@ -2,7 +2,7 @@
 /**
  * @file    report.class.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe Report.
+ * @brief   Fichier de déclaration et définition de la classe Report
  * @date    23/01/2025
  * @version 0.1
  */
@@ -99,6 +99,7 @@ class Report
     private ?DateTime $updatedAt;
 
     /**
+     * @brief Constructeur de la classe Report
      * @param int|null $id Identifiant du signalement
      * @param ReportObject|null $object Objet du signalement
      * @param string|null $description Description du signalement

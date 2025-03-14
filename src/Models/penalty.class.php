@@ -3,7 +3,7 @@
 /**
  * @file penalty.class.php
  * @author Conchez-Boueytou Robin
- * @brief Le fichier contient la déclaration & définition de la classe Penalty.
+ * @brief Fichier de déclaration et définition de la classe Penalty
  * @details
  * @date 01/03/2025
  * @version 0.1
@@ -16,10 +16,20 @@ use DateTime;
 
 /**
  * @brief Enumération des types de sanctions
+ * @details Voici les différentes possibilités de sanction à l'heure actuelle :
+ *   - Banned : Le joueur est banni de la plateforme
+ *   - Muted : Le joueur est muté sur la plateforme
+ * @enum PenaltyType
  */
 enum PenaltyType
 {
+    /**
+     * @brief Le joueur est banni de la plateforme.
+     */
     case BANNED;
+    /**
+     * @brief Le joueur est muté sur la plateforme.
+     */
     case MUTED;
 }
 

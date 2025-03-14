@@ -2,7 +2,7 @@
 /**
  * @file    invoice.dao.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe InvoiceDAO.
+ * @brief   Fichier de déclaration et définition de la classe InvoiceDAO
  * @date    02/12/2024
  * @version 0.1
  */
@@ -84,6 +84,11 @@ class InvoiceDAO
         return $invoice;
     }
 
+    /**
+     * @brief Crée une facture dans la base de données
+     * @param string $player_uuid L'UUID du joueur ayant généré et payé la facture
+     * @param string $payment_type Le moyen de paiement utilisé
+     */
     public function createInvoice(string $player_uuid, string $payment_type): void
     {
         $stmt = $this->pdo->prepare(
@@ -114,6 +119,12 @@ class InvoiceDAO
         $this->pdo = $pdo;
     }
 
+    /**
+     * @brief Crée une facture avec des articles dans la base de données
+     * @param string $player_uuid L'UUID du joueur ayant généré et payé la facture
+     * @param string $payment_type Le moyen de paiement utilisé
+     * @param array $articles Les articles de la facture
+     */
     public function createInvoiceWithArticles(string $player_uuid, string $payment_type, array $articles): void
     {
         $stmt = $this->pdo->prepare(

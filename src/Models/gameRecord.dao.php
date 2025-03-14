@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Classe GameRecordDao
+ * @brief Fichier de déclaration et définition de la classe GameRecordDAO
  *
  * @file gamerecord.dao.class.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
@@ -39,7 +39,7 @@ class GameRecordDAO
      * @brief Retourne la liste des parties grâce à l'ID du jeu
      * @param int $gameId ID de la partie
      * @return GameRecord[]|null Tableau d'objets GameRecord (ou null si une erreur survient)
-     * @throws Exception
+     * @throws Exception Exception levée en cas d'erreur lors de l'hydratation
      */
     public function findByGameId(int $gameId): ?array
     {
@@ -58,7 +58,7 @@ class GameRecordDAO
      * @brief Retourne la liste des parties hydratées
      * @param array $rows Tableau de lignes de la table game_record
      * @return GameRecord[] Tableau d'objets GameRecord
-     * @throws Exception
+     * @throws Exception Exception levée en cas d'erreur lors de l'hydratation
      */
     private function hydrateMany(array $rows): array
     {

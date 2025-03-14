@@ -13,24 +13,46 @@ namespace ComusParty\App\Sockets;
 use ComusParty\App\Db;
 use ComusParty\Models\PenaltyDAO;
 use ComusParty\Models\PlayerDAO;
+use DateMalformedStringException;
 use DateTime;
 use Exception;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use SplObjectStorage;
 
+/**
+ * @brief Classe Chat (Sockets)
+ * @details Classe permettant de gérer le chat en temps réel
+ */
 class Chat implements MessageComponentInterface
 {
+    /**
+     * @brief Liste des clients connectés
+     * @var SplObjectStorage
+     */
     protected SplObjectStorage $clients;
+
+    /**
+     * @brief Liste des parties en cours
+     * @var array
+     */
     protected array $games;
 
+    /**
+     * @brief Constructeur de la classe Chat
+     */
     public function __construct()
     {
         $this->clients = new SplObjectStorage;
         $this->games = [];
     }
 
-    public function onOpen(ConnectionInterface $conn)
+    /**
+     * @brief Fonction appelée lors de la connexion d'un joueur
+     * @details Ajoute le joueur à la liste des clients
+     * @param ConnectionInterface $conn La connexion du joueur
+     */
+    public function onOpen(ConnectionInterface $conn): void
     {
         // Récupérer le lien auquel il est connecté
         $gameCode = explode("=", $conn->httpRequest->getUri()->getQuery())[1];
@@ -43,7 +65,14 @@ class Chat implements MessageComponentInterface
         $this->clients->attach($conn);
     }
 
-    public function onMessage(ConnectionInterface $from, $msg)
+    /**
+     * @brief Fonction appelée lors de la réception d'un message
+     * @details Envoie le message à tous les joueurs de la partie
+     * @param ConnectionInterface $from La connexion du joueur
+     * @param string $msg Le message reçu
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
+     */
+    public function onMessage(ConnectionInterface $from, $msg): void
     {
         $data = json_decode($msg, true);
 
@@ -86,15 +115,21 @@ class Chat implements MessageComponentInterface
     }
 
     /**
-     * @param string $string The string to escape
-     * @return string The escaped string
+     * @brief Fonction permettant d'échapper les caractères spéciaux
+     * @param string $string La chaîne à échapper
+     * @return string La chaîne échappée
      */
     protected function escape(string $string): string
     {
         return htmlspecialchars($string);
     }
 
-    public function onClose(ConnectionInterface $conn)
+    /**
+     * @brief Fonction appelée lors de la déconnexion d'un joueur
+     * @details Retire le joueur de la liste des clients
+     * @param ConnectionInterface $conn La connexion du joueur
+     */
+    public function onClose(ConnectionInterface $conn): void
     {
         // Retirer le joueur
         foreach ($this->games as $gameId => &$players) {
@@ -111,7 +146,13 @@ class Chat implements MessageComponentInterface
         $this->clients->detach($conn);
     }
 
-    public function onError(ConnectionInterface $conn, Exception $e)
+    /**
+     * @brief Fonction appelée lorsqu'une erreur survient
+     * @details Ferme la connexion
+     * @param ConnectionInterface $conn La connexion du joueur
+     * @param Exception $e L'exception
+     */
+    public function onError(ConnectionInterface $conn, Exception $e): void
     {
         echo "An error has occurred: {$e->getMessage()}\n";
 
