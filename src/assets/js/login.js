@@ -11,10 +11,8 @@ window.onload = function () {
     const INPUT_PASSWORD = document.getElementById('password');
     INPUT_EMAIL.addEventListener("input", checkEmailRequirements);
     INPUT_EMAIL.addEventListener("focusout", checkEmailRequirements);
-    INPUT_EMAIL.addEventListener("change", checkEmailRequirements);
     INPUT_PASSWORD.addEventListener("input", checkPasswordRequirements);
     INPUT_PASSWORD.addEventListener("focusout", checkPasswordRequirements);
-    INPUT_PASSWORD.addEventListener("change", checkPasswordRequirements);
 
     // Initialisation des variables — Obligatoire pour fonctionner avec Turnstile
     document.validateButton = document.getElementById("submitButton");
@@ -22,6 +20,9 @@ window.onload = function () {
         emailState: false,
         passwordState: false
     };
+
+    checkPasswordRequirements(true);
+    checkEmailRequirements(true);
 }
 
 /**
@@ -34,7 +35,7 @@ window.onload = function () {
  *
  * @return void
  */
-function checkEmailRequirements() {
+function checkEmailRequirements(isFirstTime = false) {
     // Constantes
     const BUTTON = document.getElementById("submitButton"); // Bouton de soumission
     const EMAIL = document.getElementById("email").value; // Email
@@ -46,8 +47,10 @@ function checkEmailRequirements() {
     // Vérifications
     if (!EMAIL_REGEX.test(EMAIL)) {
         document.validateInputs.emailState = false;
-        inputEmail.classList.add("input-error");
-        incorrectEmailFormat.classList.remove("hidden");
+        if (!isFirstTime) {
+            inputEmail.classList.add("input-error");
+            incorrectEmailFormat.classList.remove("hidden");
+        }
         changeButtonState(BUTTON, Object.values(document.validateInputs), true);
     } else {
         document.validateInputs.emailState = true;
@@ -57,7 +60,7 @@ function checkEmailRequirements() {
     }
 }
 
-function checkPasswordRequirements() {
+function checkPasswordRequirements(isFirstTime = false) {
     const BUTTON = document.getElementById("submitButton");
     const PASSWORD = document.getElementById("password").value;
     let inputPassword = document.getElementById('password');
@@ -65,8 +68,10 @@ function checkPasswordRequirements() {
 
     if (PASSWORD.length < 8) {
         document.validateInputs.passwordState = false;
-        inputPassword.classList.add("input-error");
-        incorrectPasswordFormat.classList.remove("hidden");
+        if (!isFirstTime) {
+            inputPassword.classList.add("input-error");
+            incorrectPasswordFormat.classList.remove("hidden");
+        }
         changeButtonState(BUTTON, Object.values(document.validateInputs), true);
     } else {
         document.validateInputs.passwordState = true;
