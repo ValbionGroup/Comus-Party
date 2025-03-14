@@ -543,7 +543,7 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 3,
-                'max-length' => 120,
+                'max-length' => 25,
                 'format' => '/^[a-zA-Z0-9_-]+$/'
             ],
             'email' => [
@@ -555,14 +555,14 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
-                'max-length' => 64,
+                'max-length' => 120,
                 'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ],
             'passwordConfirm' => [
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
-                'max-length' => 64,
+                'max-length' => 120,
                 'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ]
         ];
