@@ -2,21 +2,25 @@
  * @file    login.js
  * @author  Lucas ESPIET et Estéban DESESSARD
  * @brief   Le fichier contient les différentes fonctions relatvies à la page de connexion
- * @date    03/02/2025
- * @version 1.0
+ * @date    14/03/2025
+ * @version 1.2
  */
 
 window.onload = function () {
     const INPUT_EMAIL = document.getElementById('email');
     const INPUT_PASSWORD = document.getElementById('password');
     INPUT_EMAIL.addEventListener("input", checkEmailRequirements);
+    INPUT_EMAIL.addEventListener("focusout", checkEmailRequirements);
+    INPUT_EMAIL.addEventListener("change", checkEmailRequirements);
     INPUT_PASSWORD.addEventListener("input", checkPasswordRequirements);
+    INPUT_PASSWORD.addEventListener("focusout", checkPasswordRequirements);
+    INPUT_PASSWORD.addEventListener("change", checkPasswordRequirements);
 
     // Initialisation des variables — Obligatoire pour fonctionner avec Turnstile
     document.validateButton = document.getElementById("submitButton");
     document.validateInputs = {
-            emailState: false,
-            passwordState: false
+        emailState: false,
+        passwordState: false
     };
 }
 
