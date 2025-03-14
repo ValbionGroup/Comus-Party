@@ -97,10 +97,10 @@ class Game implements MessageComponentInterface
     }
 
     /**
-     * @brief Fonction appelée lors de l'arrivée et la déconnexion d'un joueur
-     * @details Met à jour la liste des joueurs
-     * @param string $game La partie à mettre à jour
-     * @throws Exception Exception lancée si la partie n'existe pas
+     * @brief Envoie un signal à tous les clients avec la nouvelle liste des joueurs
+     * @param string $game Code de la partie
+     * @return void
+     * @throws Exception Exception levée quand la partie n'existe pas
      */
     private function updatePlayer(string $game): void
     {
@@ -114,10 +114,11 @@ class Game implements MessageComponentInterface
         $jsonPlayer = array_map(fn($player) => [
             "uuid" => $player['player']->getUuid(),
             "username" => $player['player']->getUsername(),
-            "pfp" => $player['player']->getActivePfp()
+            "pfp" => $player['player']->getActivePfp(),
+            "isHost" => $player['player']->getUuid() == $gameRecord->getHostedBy()->getUuid(),
         ], $players);
 
-        $this->sendToGame($game, "updatePlayer", json_encode($jsonPlayer));
+        $this->sendToGame($game, "updatePlayers", json_encode($jsonPlayer));
     }
 
     /**
@@ -134,11 +135,11 @@ class Game implements MessageComponentInterface
     }
 
     /**
-     * @brief Fonction appelée lorsque la partie est démarrée
-     * @details Redirige les joueurs vers la partie
-     * @param string $game Le code de la partie
-     * @param string $uuid L'identifiant du joueur
-     * @throws Exception Exception lancée si la partie n'existe pas
+     * @brief Redirige un joueur vers la partie si elle a commencé
+     * @param string $game Code de la partie
+     * @param string $uuid UUID du joueur
+     * @return void
+     * @throws Exception Exception levée quand la partie n'existe pas
      */
     private function redirectUserToGame(string $game, string $uuid): void
     {
@@ -151,10 +152,10 @@ class Game implements MessageComponentInterface
     }
 
     /**
-     * @brief Fonction appelée lors de la déconnexion d'un joueur
-     * @details Retire le joueur de la liste des clients
-     * @param ConnectionInterface $conn La connexion du joueur
-     * @throws Exception Exception lancée si la connexion n'existe pas
+     * @brief Ferme la connexion d'un client
+     * @param ConnectionInterface $conn Connexion à fermer
+     * @return void
+     * @throws Exception Exception levée dans le cas d'une erreur
      */
     public function onClose(ConnectionInterface $conn): void
     {

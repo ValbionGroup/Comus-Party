@@ -262,9 +262,10 @@ class GameRecordDAO
      */
     public function update(GameRecord $gameRecord): bool
     {
-        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET token = :token, state = :state, private = :private, finished_at = :finishedAt WHERE code = :code");
+        $stmt = $this->pdo->prepare("UPDATE " . DB_PREFIX . "game_record SET token = :token, hosted_by = :hosted_by, state = :state, private = :private, finished_at = :finishedAt WHERE code = :code");
 
         $token = $gameRecord->getToken();
+        $hostUuid = $gameRecord->getHostedBy()->getUuid();
         $state = match ($gameRecord->getState()) {
             GameRecordState::WAITING => "waiting",
             GameRecordState::STARTED => "started",
@@ -276,6 +277,7 @@ class GameRecordDAO
         $code = $gameRecord->getCode();
 
         $stmt->bindParam(":token", $token);
+        $stmt->bindParam(":hosted_by", $hostUuid);
         $stmt->bindParam(":state", $state);
         $stmt->bindParam(":private", $private, PDO::PARAM_BOOL);
         $stmt->bindParam(":finishedAt", $finishedAt);
