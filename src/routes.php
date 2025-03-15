@@ -335,7 +335,7 @@ $router->post('/report', function () use ($loader, $twig) {
             "langage" => ReportObject::LANGUAGE,
             "spam" => ReportObject::SPAM,
             "lien" => ReportObject::LINKS,
-            "anti-jeu" => ReportObject::FAIRPLAY,
+            "fairplay" => ReportObject::FAIRPLAY,
             "autres" => ReportObject::OTHER
         },
         "description" => $_POST['description'],
