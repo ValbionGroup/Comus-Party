@@ -77,7 +77,12 @@ class GameRecordDAO
      */
     private function hydrate(array $row): GameRecord
     {
-        $hostedBy = (new PlayerDAO($this->getPdo()))->findByUuid($row["hosted_by"]);
+        if (!is_null($row["hosted_by"])) {
+            $hostedBy = (new PlayerDAO($this->getPdo()))->findByUuid($row["hosted_by"]);
+        } else {
+            $hostedBy = null;
+        }
+
         $game = (new GameDAO($this->getPdo()))->findById($row["game_id"]);
         $gameRecordState = match ($row["state"]) {
             "waiting" => GameRecordState::WAITING,

@@ -71,7 +71,7 @@ class GameRecord
      * @brief Joueur qui a créé la partie
      * @var Player Joueur qui a créé la partie
      */
-    private Player $hostedBy;
+    private ?Player $hostedBy;
     /**
      * @brief Joueurs de la partie
      * @var Player[]|null Joueurs de la partie
@@ -79,7 +79,7 @@ class GameRecord
     private ?array $players;
     /**
      * @brief Etat de la partie
-     * @var GameRecordState Etat de la partie
+     * @var GameRecordState|null Etat de la partie
      */
     private GameRecordState $state;
     /**
@@ -109,7 +109,7 @@ class GameRecord
      * @param string $code Identifiant de la partie
      * @param string|null $token Token de la partie
      * @param Game $game Jeu de la partie
-     * @param Player $hostedBy Joueur qui a créé la partie
+     * @param Player|null $hostedBy Joueur qui a créé la partie
      * @param Player[]|null $players Joueurs de la partie
      * @param GameRecordState $state Etat de la partie
      * @param bool $isPrivate Indique si la partie est privée
@@ -117,7 +117,7 @@ class GameRecord
      * @param DateTime|null $updatedAt Date de dernière mise à jour de la partie
      * @param DateTime|null $finishedAt Date de fin de la partie
      */
-    public function __construct(string $code, Game $game, Player $hostedBy, ?array $players, GameRecordState $state, bool $isPrivate, ?string $token = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?DateTime $finishedAt = null)
+    public function __construct(string $code, Game $game, ?Player $hostedBy, ?array $players, GameRecordState $state, bool $isPrivate, ?string $token = null, ?DateTime $createdAt = null, ?DateTime $updatedAt = null, ?DateTime $finishedAt = null)
     {
         $this->code = $code;
         $this->game = $game;
@@ -211,7 +211,7 @@ class GameRecord
      *
      * @return Player Joueur qui a créé la partie
      */
-    public function getHostedBy(): Player
+    public function getHostedBy(): Player|null
     {
         return $this->hostedBy;
     }
@@ -219,10 +219,10 @@ class GameRecord
     /**
      * @brief Setter de l'attribut hostedBy
      *
-     * @param Player $player Joueur qui a créé la partie
+     * @param Player|null $player Joueur qui a créé la partie
      * @return void
      */
-    public function setHostedBy(Player $player): void
+    public function setHostedBy(?Player $player): void
     {
         $this->hostedBy = $player;
     }
