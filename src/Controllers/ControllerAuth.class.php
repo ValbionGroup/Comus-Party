@@ -389,6 +389,14 @@ class ControllerAuth extends Controller
      */
     private function authenticate(User $user): bool
     {
+        if (is_null($user->getEmailVerifiedAt())) {
+            return false;
+        }
+
+        if ($user->getDisabled()) {
+            return false;
+        }
+
         $moderatorManager = new ModeratorDAO($this->getPdo());
         $moderator = $moderatorManager->findByUserId($user->getId());
 
