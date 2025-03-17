@@ -213,5 +213,5 @@ function signUp(e) {
             showNotification("Oups...", response.message, "red");
             turnstileExpiredCallback();
         }
-    }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}&passwordConfirm=${INPUT_CONFIRM_PASSWORD.value}&termsOfService=${INPUT_TERMS_OF_SERVICE.checked}&privacyPolicy=${INPUT_PRIVACY_POLICY.checked}&cfToken=${cfToken}`);
+    }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${encodeURIComponent(INPUT_PASSWORD.value)}&passwordConfirm=${encodeURIComponent(INPUT_CONFIRM_PASSWORD.value)}&termsOfService=${INPUT_TERMS_OF_SERVICE.checked}&privacyPolicy=${INPUT_PRIVACY_POLICY.checked}&cfToken=${cfToken}`);
 }

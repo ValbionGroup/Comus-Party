@@ -84,7 +84,7 @@ function checkPasswordRequirements(isFirstTime = false) {
 function signIn(e) {
     loading(e);
     const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const password = encodeURIComponent(document.getElementById('password').value);
     const rememberMe = document.getElementById('rememberMe').checked;
 
     const url = window.location.href
