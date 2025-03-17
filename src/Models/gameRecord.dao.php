@@ -153,6 +153,35 @@ class GameRecordDAO
     }
 
     /**
+     * @brief Retourne la liste des parties grâce à l'ID du jeu
+     * @param int $gameId ID de la partie
+     * @param GameRecordState $state Etat de la partie
+     * @return GameRecord[]|null Tableau d'objets GameRecord (ou null si une erreur survient)
+     * @throws Exception Exception levée en cas d'erreur lors de l'hydratation
+     */
+    public function findByGameIdAndState(int $gameId, GameRecordState $state): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE game_id = :gameId AND state = :gameState");
+        $stmt->bindParam(":gameId", $gameId);
+
+        $state = match ($state) {
+            GameRecordState::WAITING => "waiting",
+            GameRecordState::STARTED => "started",
+            GameRecordState::FINISHED => "finished",
+            GameRecordState::UNKNOWN => null,
+        };
+        $stmt->bindParam(":gameState", $state);
+
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $gameRecords = $stmt->fetchAll();
+        if (!$gameRecords) {
+            return null;
+        }
+        return $this->hydrateMany($gameRecords);
+    }
+
+    /**
      * @brief Retourne un objet GameRecord (ou null) à partir du code passé en paramètre
      *
      * @param string $code Code de la partie recherchée
