@@ -609,7 +609,7 @@ class ControllerGame extends Controller
         $gameRecordManager->removePlayer($code, $playerUuid);
 
         if ($gameRecord->getHostedBy()->getUuid() == $playerUuid) {
-            if (sizeof($gameRecord->getPlayers()) > 0) {
+            if (sizeof($gameRecord->getPlayers()) > 1) {
                 $gameRecord->setHostedBy($gameRecord->getPlayers()[0]["player"]);
                 $gameRecordManager->update($gameRecord);
             } else {
