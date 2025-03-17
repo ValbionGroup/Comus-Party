@@ -540,7 +540,7 @@ class ControllerGame extends Controller
             }
 
             $gameRecordManager = new GameRecordDAO($this->getPdo());
-            $gameRecords = $gameRecordManager->findByGameId($gameId);
+            $gameRecords = $gameRecordManager->findByGameIdAndState($gameId, GameRecordState::WAITING);
 
             $eloForGame = [];
             foreach ($gameRecords as $gameRecord) {

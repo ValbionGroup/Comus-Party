@@ -77,7 +77,12 @@ class GameRecordDAO
      */
     private function hydrate(array $row): GameRecord
     {
-        $hostedBy = (new PlayerDAO($this->getPdo()))->findByUuid($row["hosted_by"]);
+        if (!is_null($row["hosted_by"])) {
+            $hostedBy = (new PlayerDAO($this->getPdo()))->findByUuid($row["hosted_by"]);
+        } else {
+            $hostedBy = null;
+        }
+
         $game = (new GameDAO($this->getPdo()))->findById($row["game_id"]);
         $gameRecordState = match ($row["state"]) {
             "waiting" => GameRecordState::WAITING,
@@ -145,6 +150,35 @@ class GameRecordDAO
             return null;
         }
         return $players;
+    }
+
+    /**
+     * @brief Retourne la liste des parties grâce à l'ID du jeu
+     * @param int $gameId ID de la partie
+     * @param GameRecordState $state Etat de la partie
+     * @return GameRecord[]|null Tableau d'objets GameRecord (ou null si une erreur survient)
+     * @throws Exception Exception levée en cas d'erreur lors de l'hydratation
+     */
+    public function findByGameIdAndState(int $gameId, GameRecordState $state): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . DB_PREFIX . "game_record WHERE game_id = :gameId AND state = :gameState");
+        $stmt->bindParam(":gameId", $gameId);
+
+        $state = match ($state) {
+            GameRecordState::WAITING => "waiting",
+            GameRecordState::STARTED => "started",
+            GameRecordState::FINISHED => "finished",
+            GameRecordState::UNKNOWN => null,
+        };
+        $stmt->bindParam(":gameState", $state);
+
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $gameRecords = $stmt->fetchAll();
+        if (!$gameRecords) {
+            return null;
+        }
+        return $this->hydrateMany($gameRecords);
     }
 
     /**
