@@ -216,8 +216,8 @@ $router->get('/reset-password/:token', function (string $token) use ($loader, $t
 $router->post('/reset-password/:token', function (string $token) use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
         "token" => $token,
-        "password" => html_entity_decode($_POST['password']),
-        "passwordConfirm" => html_entity_decode($_POST['passwordConfirm'])
+        "password" => rawurldecode($_POST['password']),
+        "passwordConfirm" => rawurldecode($_POST['passwordConfirm'])
     ]);
 }, 'guest');
 
