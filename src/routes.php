@@ -60,7 +60,7 @@ $router->post('/login', function () use ($loader, $twig) {
         if (isset($_POST['email']) && isset($_POST['password'])) {
             ControllerFactory::getController("auth", $loader, $twig)->call("login", [
                 "email" => $_POST['email'],
-                "password" => rawurldecode($_POST['password']),
+                "password" => $_POST['password'],
                 "rememberMe" => isset($_POST['rememberMe']) && $_POST['rememberMe'] === 'true',
                 "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
             ]);
@@ -182,8 +182,8 @@ $router->post('/register', function () use ($loader, $twig) {
         ControllerFactory::getController("auth", $loader, $twig)->call("register", [
             "username" => $_POST['username'],
             "email" => $_POST['email'],
-            "password" => rawurldecode($_POST['password']),
-            "passwordConfirm" => rawurldecode($_POST['passwordConfirm']),
+            "password" => $_POST['password'],
+            "passwordConfirm" => $_POST['passwordConfirm'],
             "termsOfServiceIsChecked" => $_POST['termsOfService'] === 'true',
             "privacyPolicyIsChecked" => $_POST['privacyPolicy'] === 'true',
             "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
@@ -216,8 +216,8 @@ $router->get('/reset-password/:token', function (string $token) use ($loader, $t
 $router->post('/reset-password/:token', function (string $token) use ($loader, $twig) {
     ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
         "token" => $token,
-        "password" => rawurldecode($_POST['password']),
-        "passwordConfirm" => rawurldecode($_POST['passwordConfirm'])
+        "password" => $_POST['password'],
+        "passwordConfirm" => $_POST['passwordConfirm']
     ]);
 }, 'guest');
 
