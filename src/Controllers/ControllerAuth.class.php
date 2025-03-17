@@ -85,7 +85,6 @@ class ControllerAuth extends Controller
      * @return void
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      * @throws RandomException Exception levée dans le cas d'une erreur de génération de nombre aléatoire
-     * @todo Utiliser une template de mail quand disponible
      * @brief Envoie un lien de réinitialisation de mot de passe à l'adresse e-mail fournie
      */
     public function sendResetPasswordLink(string $email): void
@@ -203,43 +202,48 @@ class ControllerAuth extends Controller
                 'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ]
         ];
-        $validator = new Validator($rules);
-        $validated = $validator->validate([
-            'password' => $password,
-            'passwordConfirm' => $passwordConfirm
-        ]);
 
-        if (!$validated) {
-            throw new MalformedRequestException("Les  mot de passe ne respectent pas les règles de validation de mot de passe.");
+        try {
+            $validator = new Validator($rules);
+            $validated = $validator->validate([
+                'password' => $password,
+                'passwordConfirm' => $passwordConfirm
+            ]);
+
+            if (!$validated) {
+                throw new MalformedRequestException("Les  mot de passe ne respectent pas les règles de validation de mot de passe.");
+            }
+
+            if ($password !== $passwordConfirm) {
+                throw new MalformedRequestException("Les mots de passe ne correspondent pas.");
+            }
+
+            $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+            $token = $tokenManager->findByToken($token);
+
+            if (is_null($token)) {
+                throw new MalformedRequestException("Token invalide");
+            }
+
+            $userManager = new UserDAO($this->getPdo());
+
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $user = $userManager->findById($token->getUserId());
+            $user->setPassword($hashedPassword);
+
+            if (!$userManager->update($user)) {
+                throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
+            }
+
+            if (!$tokenManager->delete($token->getUserId())) {
+                throw new Exception("Erreur lors de la suppression du token", 500);
+            }
+
+            echo MessageHandler::sendJsonMessage("Votre mot de passe a bien été réinitialisé");
+            exit;
+        } catch (Exception $e) {
+            MessageHandler::sendJsonException($e);
         }
-
-        if ($password !== $passwordConfirm) {
-            throw new MalformedRequestException("Les mots de passe ne correspondent pas.");
-        }
-
-        $tokenManager = new PasswordResetTokenDAO($this->getPdo());
-        $token = $tokenManager->findByToken($token);
-
-        if (is_null($token)) {
-            throw new MalformedRequestException("Token invalide");
-        }
-
-        $userManager = new UserDAO($this->getPdo());
-
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $user = $userManager->findById($token->getUserId());
-        $user->setPassword($hashedPassword);
-
-        if (!$userManager->update($user)) {
-            throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
-        }
-
-        if (!$tokenManager->delete($token->getUserId())) {
-            throw new Exception("Erreur lors de la suppression du token", 500);
-        }
-
-        echo MessageHandler::sendJsonMessage("Votre mot de passe a bien été réinitialisé");
-        exit;
     }
 
 
@@ -543,7 +547,7 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 3,
-                'max-length' => 120,
+                'max-length' => 25,
                 'format' => '/^[a-zA-Z0-9_-]+$/'
             ],
             'email' => [
@@ -555,14 +559,14 @@ class ControllerAuth extends Controller
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
-                'max-length' => 64,
+                'max-length' => 120,
                 'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ],
             'passwordConfirm' => [
                 'required' => true,
                 'type' => 'string',
                 'min-length' => 8,
-                'max-length' => 64,
+                'max-length' => 120,
                 'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ]
         ];
@@ -658,6 +662,7 @@ class ControllerAuth extends Controller
      * est affiché. Le résultat de la confirmation est ensuite rendu à l'aide de Twig.
      *
      * @param string $emailVerifToken Le token de vérification d'e-mail de l'utilisateur.
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
      */
     public function confirmEmail(string $emailVerifToken, bool $isLoggedIn): void
     {

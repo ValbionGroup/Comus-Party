@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief DAO de la classe rememberToken
+ * @brief Fichier de déclaration et définition de la classe RememberTokenDAO
  *
  * @file rememberToken.dao.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

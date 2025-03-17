@@ -2,7 +2,7 @@
 /**
  * @file    player.class.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe Player.
+ * @brief   Fichier de déclaration et définition de la classe Player
  * @date    12/11/2024
  * @version 0.1
  */
@@ -15,7 +15,8 @@ use DateTime;
  * @brief Classe Player
  * @details La classe Player représente un joueur de l'application
  */
-class Player {
+class Player
+{
     /**
      * @brief L'UUID du joueur, identifiant unique
      * @var string|null
@@ -61,7 +62,7 @@ class Player {
     private ?int $comusCoin;
 
     /**
-     * Statistiques du joueur
+     * @brief Statistiques du joueur
      *
      * @var Statistics|null
      */
@@ -101,18 +102,19 @@ class Player {
      * @param string|null $activeBanner La bannière active du joueur
      */
     public function __construct(
-        ?string $uuid = null,
-        ?string $username = null,
-        ?DateTime $createdAt = null,
-        ?DateTime $updatedAt = null,
-        ?int $xp = null,
-        ?int $elo = null,
-        ?int $comusCoins = null,
+        ?string     $uuid = null,
+        ?string     $username = null,
+        ?DateTime   $createdAt = null,
+        ?DateTime   $updatedAt = null,
+        ?int        $xp = null,
+        ?int        $elo = null,
+        ?int        $comusCoins = null,
         ?Statistics $statistics = null,
-        ?int $userId = null,
-        ?string $activePfp = null,
-        ?string $activeBanner = null
-    ) {
+        ?int        $userId = null,
+        ?string     $activePfp = null,
+        ?string     $activeBanner = null
+    )
+    {
         $this->uuid = $uuid;
         $this->username = $username;
         $this->createdAt = $createdAt;
@@ -157,6 +159,7 @@ class Player {
     /**
      * @brief Modifie le nom d'utilisateur du joueur
      * @param string|null $username Le nouveau nom d'utilisateur du joueur
+     * @return void
      */
     public function setUsername(?string $username): void
     {
@@ -338,7 +341,7 @@ class Player {
      * @brief Convertit l'objet en tableau
      * @return array Objet retourné par la fonction, ici un tableau associatif représentant l'objet
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             "uuid" => $this->uuid,

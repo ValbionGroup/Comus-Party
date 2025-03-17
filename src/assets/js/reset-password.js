@@ -102,8 +102,8 @@ function checkPassword() {
 function resetPassword(e) {
     loading(e);
 
-    const password = document.getElementById('password').value;
-    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    const password = encodeURIComponent(document.getElementById('password').value);
+    const passwordConfirm = encodeURIComponent(document.getElementById('passwordConfirm').value);
 
     makeRequest('POST', window.location.pathname, (response) => {
         response = JSON.parse(response);

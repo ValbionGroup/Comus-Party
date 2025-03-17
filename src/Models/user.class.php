@@ -2,7 +2,7 @@
 /**
  * @file    user.class.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe User.
+ * @brief   Fichier de déclaration et définition de la classe User
  * @date    12/11/2024
  * @version 0.1
  */
@@ -15,7 +15,8 @@ use DateTime;
  * @brief Classe User
  * @details La classe User permet de représenter un utilisateur
  */
-class User {
+class User
+{
     /**
      * @brief L'identifiant de l'utilisateur
      * @var int|null
@@ -77,12 +78,12 @@ class User {
      * @param DateTime|null $updated_at La date de mise à jour de l'utilisateur
      */
     public function __construct(
-        ?int $id = null,
-        ?string $email = null,
+        ?int      $id = null,
+        ?string   $email = null,
         ?DateTime $emailVerifiedAt = null,
-        ?string $emailVerifyToken = null,
-        ?string $password = null,
-        ?int $disabled = null,
+        ?string   $emailVerifyToken = null,
+        ?string   $password = null,
+        ?int      $disabled = null,
         ?DateTime $created_at = null,
         ?DateTime $updated_at = null
     )

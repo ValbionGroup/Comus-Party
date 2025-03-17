@@ -1,7 +1,7 @@
 <?php
 /**
  * @file game.class.php
- * @brief Le fichier contient la déclaration et la définition de la classe Game
+ * @brief Fichier de déclaration et définition de la classe Game
  * @author Conchez-Boueytou Robin
  * @date 13/11/2024
  * @version 0.1
@@ -14,7 +14,7 @@ use DateTime;
 /**
  * @brief Enumération des états d'un jeu
  *
- * @details Cette énumération définit les trois états possibles d'un jeu:
+ * @details Cette énumération définit les trois états possibles d'un jeu :
  *  - Disponible (AVAILABLE)
  *  - Indisponible (UNAVAILABLE)
  *  - En maintenance (MAINTENANCE)

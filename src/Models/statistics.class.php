@@ -2,7 +2,7 @@
 /**
  * @file    statistics.class.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe Statistics.
+ * @brief   Fichier de déclaration et définition de la classe Statistics
  * @date    13/11/2024
  * @version 0.1
  */
@@ -13,7 +13,8 @@ namespace ComusParty\Models;
  * @brief Classe Statistics
  * @details La classe Statistics recense l'ensemble des statistiques de profil d'un joueur
  */
-class Statistics {
+class Statistics
+{
 
     /**
      * @brief L'UUID du joueur
@@ -48,10 +49,11 @@ class Statistics {
      */
     public function __construct(
         ?string $playerUuid = null,
-        ?int $gamesPlayed = null,
-        ?int $gamesWon = null,
-        ?int $gamesHosted = null
-    ) {
+        ?int    $gamesPlayed = null,
+        ?int    $gamesWon = null,
+        ?int    $gamesHosted = null
+    )
+    {
         $this->playerUuid = $playerUuid;
         $this->gamesPlayed = $gamesPlayed;
         $this->gamesWon = $gamesWon;
@@ -134,7 +136,7 @@ class Statistics {
      * @brief Retourne un tableau associatif contenant les statistiques
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             "gamesPlayed" => $this->gamesPlayed,

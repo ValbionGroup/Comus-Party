@@ -55,10 +55,13 @@ class ControllerProfile extends Controller
 
     /**
      * @brief Affiche le profil du joueur le demandant
+     * @param string|null $player_uuid
      * @return void
+     * @throws DateMalformedStringException
      * @throws LoaderError Exception levée dans le cas d'une erreur de chargement
+     * @throws NotFoundException Exception levée dans le cas d'une erreur de syntaxe
      * @throws RuntimeError Exception levée dans le cas d'une erreur d'exécution
-     * @throws NotFoundException|SyntaxError Exception levée dans le cas d'une erreur de syntaxe
+     * @throws SyntaxError Exception levée dans le cas d'une erreur de syntaxe
      */
     public function showByPlayer(?string $player_uuid): void
     {
@@ -101,11 +104,14 @@ class ControllerProfile extends Controller
     /**
      * @param string|null $uuid L'UUID du joueur à désactiver
      * @return void
-     * @throws NotFoundException Exception levée dans le cas où le joueur n'est pas trouvé
-     * @throws UnauthorizedAccessException Exception levée dans le cas où l'utilisateur n'est pas autorisé à effectuer cette action
      * @throws ControllerNotFoundException Exception levée dans le cas où le contrôleur n'est pas trouvé
-     * @throws MethodNotFoundException Exception levée dans le cas où la méthode n'est pas trouvée
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws LoaderError Exception levée dans le cas où une erreur de chargement survient
+     * @throws MethodNotFoundException Exception levée dans le cas où la méthode n'est pas trouvée
+     * @throws NotFoundException Exception levée dans le cas où le joueur n'est pas trouvé
+     * @throws RuntimeError Exception levée dans le cas où une erreur d'exécution survient
+     * @throws SyntaxError Exception levée dans le cas où une erreur de syntaxe survient
+     * @throws UnauthorizedAccessException Exception levée dans le cas où l'utilisateur n'est pas autorisé à effectuer cette action
      */
     public function disableAccount(?string $uuid)
     {
@@ -131,8 +137,9 @@ class ControllerProfile extends Controller
      * @brief Permet de mettre à jour la photo de profil ou la bannière d'un joueur
      * @param string|null $player_uuid L'UUID du joueur à désactiver
      * @param string $idArticle L'id de l'article à activer
-     * @param string $typeArticle Le type de l'article à activer
      * @return void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws NotFoundException Exception levée dans le cas où le joueur n'est pas trouvé
      */
     public function updateStyle(?string $player_uuid, string $idArticle): void
     {
@@ -190,7 +197,7 @@ class ControllerProfile extends Controller
             'username' => [
                 'required' => true,
                 'min-length' => 3,
-                'max-length' => 120,
+                'max-length' => 25,
                 'type' => 'string',
                 'format' => '/^[a-zA-Z0-9_-]+$/'
             ]
@@ -305,9 +312,9 @@ class ControllerProfile extends Controller
      * @brief Permet de modifier le mot de passe d'un utilisateur et lui envoie un mail pour lui confirmer
      * @param string $newPassword
      * @return void
-     * @throws DateMalformedStringException
-     * @throws AuthenticationException
-     * @throws Exception
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
+     * @throws AuthenticationException Exception levée dans le cas d'une erreur d'authentification
+     * @throws Exception Exception levée dans le cas d'une erreur
      */
     public function editPassword(string $newPassword): void
     {
@@ -364,7 +371,7 @@ class ControllerProfile extends Controller
      * @param string $durationType Le type de durée de la sanction
      * @param PenaltyType $penaltyType Le type de sanction
      * @return void
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function penalizePlayer(string $createdBy, string $penalizedUuid, string $reason, int $duration, string $durationType, PenaltyType $penaltyType, string $reportId)
     {

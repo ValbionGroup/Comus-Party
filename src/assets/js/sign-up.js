@@ -96,10 +96,10 @@ function addPasswordVisibilityListeners() {
 function checkConditions(event) {
     // Constantes
     const MIN_USERNAME_LENGTH = 3;
-    const MAX_USERNAME_LENGTH = 120;
+    const MAX_USERNAME_LENGTH = 25;
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const MIN_PASSWORD_LENGTH = 8;
-    const MAX_PASSWORD_LENGTH = 64;
+    const MAX_PASSWORD_LENGTH = 120;
     const UPPERCASE_LETTER = /[A-Z]/;
     const LOWERCASE_LETTER = /[a-z]/;
     const NUMBERS = /\d/;
@@ -213,5 +213,5 @@ function signUp(e) {
             showNotification("Oups...", response.message, "red");
             turnstileExpiredCallback();
         }
-    }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${INPUT_PASSWORD.value}&passwordConfirm=${INPUT_CONFIRM_PASSWORD.value}&termsOfService=${INPUT_TERMS_OF_SERVICE.checked}&privacyPolicy=${INPUT_PRIVACY_POLICY.checked}&cfToken=${cfToken}`);
+    }, `username=${INPUT_USERNAME.value}&email=${INPUT_EMAIL.value}&password=${encodeURIComponent(INPUT_PASSWORD.value)}&passwordConfirm=${encodeURIComponent(INPUT_CONFIRM_PASSWORD.value)}&termsOfService=${INPUT_TERMS_OF_SERVICE.checked}&privacyPolicy=${INPUT_PRIVACY_POLICY.checked}&cfToken=${cfToken}`);
 }

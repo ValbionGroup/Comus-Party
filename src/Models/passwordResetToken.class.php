@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier de définition de la classe PasswordResetToken
+ * @brief Fichier de déclaration et définition de la classe PasswordResetToken
  *
  * @file passwordResetToken.class.php
  * @author Lucas ESPIET "espiet.l@valbion.com"

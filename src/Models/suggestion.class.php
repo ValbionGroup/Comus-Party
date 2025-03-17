@@ -2,7 +2,7 @@
 /**
  * @file    suggestion.class.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe Suggestion.
+ * @brief   Fichier de déclaration et définition de la classe Suggestion
  * @date    16/12/2024
  * @version 0.1
  */

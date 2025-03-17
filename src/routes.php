@@ -43,7 +43,7 @@ $router->put('/profile/update-style/:idArticle', function ($idArticle) use ($loa
 
 $router->post('/profile/update-password', function () use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("editPassword", [
-        "newPassword" => $_POST["newPassword"],
+        "newPassword" => rawurldecode($_POST["newPassword"]),
     ]);
     exit;
 }, 'player');
@@ -214,20 +214,11 @@ $router->get('/reset-password/:token', function (string $token) use ($loader, $t
 }, 'guest');
 
 $router->post('/reset-password/:token', function (string $token) use ($loader, $twig) {
-    try {
-        ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
-            "token" => $token,
-            "password" => $_POST['password'],
-            "passwordConfirm" => $_POST['passwordConfirm']
-        ]);
-        exit;
-    } catch (Exception $e) {
-        return json_encode([
-            "success" => false,
-            "code" => $e->getCode(),
-            "message" => $e->getMessage()
-        ]);
-    }
+    ControllerFactory::getController("auth", $loader, $twig)->call("resetPassword", [
+        "token" => $token,
+        "password" => $_POST['password'],
+        "passwordConfirm" => $_POST['passwordConfirm']
+    ]);
 }, 'guest');
 
 $router->get('/profile/view/:uuid', function ($uuid) use ($loader, $twig) {
@@ -334,9 +325,9 @@ $router->post('/report', function () use ($loader, $twig) {
         "object" => match (strtolower($_POST['object'])) {
             "langage" => ReportObject::LANGUAGE,
             "spam" => ReportObject::SPAM,
-            "links" => ReportObject::LINKS,
+            "lien" => ReportObject::LINKS,
             "fairplay" => ReportObject::FAIRPLAY,
-            "other" => ReportObject::OTHER
+            "autres" => ReportObject::OTHER
         },
         "description" => $_POST['description'],
         "reportedUuid" => $_POST['reportedUuid'],

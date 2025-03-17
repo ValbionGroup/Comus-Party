@@ -2,22 +2,27 @@
  * @file    login.js
  * @author  Lucas ESPIET et Estéban DESESSARD
  * @brief   Le fichier contient les différentes fonctions relatvies à la page de connexion
- * @date    03/02/2025
- * @version 1.0
+ * @date    14/03/2025
+ * @version 1.2
  */
 
 window.onload = function () {
     const INPUT_EMAIL = document.getElementById('email');
     const INPUT_PASSWORD = document.getElementById('password');
     INPUT_EMAIL.addEventListener("input", checkEmailRequirements);
+    INPUT_EMAIL.addEventListener("focusout", checkEmailRequirements);
     INPUT_PASSWORD.addEventListener("input", checkPasswordRequirements);
+    INPUT_PASSWORD.addEventListener("focusout", checkPasswordRequirements);
 
     // Initialisation des variables — Obligatoire pour fonctionner avec Turnstile
     document.validateButton = document.getElementById("submitButton");
     document.validateInputs = {
-            emailState: false,
-            passwordState: false
+        emailState: false,
+        passwordState: false
     };
+
+    checkPasswordRequirements(true);
+    checkEmailRequirements(true);
 }
 
 /**
@@ -30,7 +35,7 @@ window.onload = function () {
  *
  * @return void
  */
-function checkEmailRequirements() {
+function checkEmailRequirements(isFirstTime = false) {
     // Constantes
     const BUTTON = document.getElementById("submitButton"); // Bouton de soumission
     const EMAIL = document.getElementById("email").value; // Email
@@ -42,8 +47,10 @@ function checkEmailRequirements() {
     // Vérifications
     if (!EMAIL_REGEX.test(EMAIL)) {
         document.validateInputs.emailState = false;
-        inputEmail.classList.add("input-error");
-        incorrectEmailFormat.classList.remove("hidden");
+        if (!isFirstTime) {
+            inputEmail.classList.add("input-error");
+            incorrectEmailFormat.classList.remove("hidden");
+        }
         changeButtonState(BUTTON, Object.values(document.validateInputs), true);
     } else {
         document.validateInputs.emailState = true;
@@ -53,7 +60,7 @@ function checkEmailRequirements() {
     }
 }
 
-function checkPasswordRequirements() {
+function checkPasswordRequirements(isFirstTime = false) {
     const BUTTON = document.getElementById("submitButton");
     const PASSWORD = document.getElementById("password").value;
     let inputPassword = document.getElementById('password');
@@ -61,8 +68,10 @@ function checkPasswordRequirements() {
 
     if (PASSWORD.length < 8) {
         document.validateInputs.passwordState = false;
-        inputPassword.classList.add("input-error");
-        incorrectPasswordFormat.classList.remove("hidden");
+        if (!isFirstTime) {
+            inputPassword.classList.add("input-error");
+            incorrectPasswordFormat.classList.remove("hidden");
+        }
         changeButtonState(BUTTON, Object.values(document.validateInputs), true);
     } else {
         document.validateInputs.passwordState = true;
@@ -75,7 +84,7 @@ function checkPasswordRequirements() {
 function signIn(e) {
     loading(e);
     const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const password = encodeURIComponent(document.getElementById('password').value);
     const rememberMe = document.getElementById('rememberMe').checked;
 
     const url = window.location.href

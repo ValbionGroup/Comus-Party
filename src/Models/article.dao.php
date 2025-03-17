@@ -2,7 +2,7 @@
 /**
  * @file    article.dao.php
  * @author  Mathis RIVRAIS--NOWAKOWSKI
- * @brief   Le fichier contient la déclaration & définition de la classe ArticleDAO.
+ * @brief   Fichier de déclaration et définition de la classe ArticleDAO
  * @date    13/11/2024
  * @version 0.2
  */
@@ -141,10 +141,10 @@ class ArticleDAO
     }
 
     /**
-     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de l'user correspondants à l'ensemble des photos de profil possédées
+     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'UUID du joueur correspondant à l'ensemble des photos de profil possédées
+     * @param string $uuid
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
      */
     public function findAllPfpsOwnedByPlayer(string $uuid): ?array
     {
@@ -162,10 +162,10 @@ class ArticleDAO
     }
 
     /**
-     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'ID de l'user correspondants à l'ensemble des bannières possédées
+     * @brief Retourne un tableau d'objets Article (ou null) à partir de l'UUID du joueur correspondant à l'ensemble des bannières possédées
+     * @param string $uuid L'UUID du joueur
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si non-trouvé)
      * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
-     * @throws NotFoundException Exception levée dans le cas où la facture n'existe pas
      */
     public function findAllBannersOwnedByPlayer(string $uuid): ?array
     {
@@ -187,7 +187,7 @@ class ArticleDAO
      * @brief Retourne un tableau d'objets Article recensant l'ensemble des articles enregistrés dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
 
     public function findAll(): ?array
@@ -208,8 +208,9 @@ class ArticleDAO
      * @param array $ids Le tableau contenant les ids des articles qu'on veut obtenir
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article (ou null si aucune article recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'id d'articles dans le tableau, pouvant ainsi entraîner la manipulation d'un grand set de données.
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
-    function findArticlesWithIds($ids)
+    function findArticlesWithIds(array $ids): ?array
     {
 
         if (!empty($ids)) {
@@ -223,8 +224,7 @@ class ArticleDAO
             if ($tabArticles === false) {
                 return null;
             }
-            $articles = $this->hydrateMany($tabArticles);
-            return $articles;
+            return $this->hydrateMany($tabArticles);
         }
         return null;
     }
@@ -233,7 +233,7 @@ class ArticleDAO
      * @brief Retourne un tableau d'objets Article qui ont le type profile_picture dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type pfp (ou null si aucun Article avec le type pfp recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type profile_picture dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
 
     public function findAllPfps(): ?array
@@ -255,7 +255,7 @@ class ArticleDAO
      * @brief Retourne un tableau d'objets Article qui ont le type banner dans la base de données
      * @return array|null Objet retourné par la méthode, ici un tableau d'objets Article qui ont le type banner (ou null si aucune joueur recensé)
      * @warning Cette méthode retourne un tableau contenant autant d'objet qu'il y a d'articles avec le type banner dans la base de données, pouvant ainsi entraîner la manipulation d'un grand set de données.
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findAllBanners(): ?array
     {
@@ -276,6 +276,8 @@ class ArticleDAO
      * @param string $uuid L'UUID du joueur
      * @param string $idArticle L'ID de l'article
      * @param string $typeArticle Le type de l'article
+     * @return bool|void
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function updateActiveArticle(string $uuid, string $idArticle, string $typeArticle)
     {
@@ -308,7 +310,7 @@ class ArticleDAO
             $stmt->bindParam(':idArticle', $idArticle);
             $ok = $stmt->execute();
             $pfp = $this->findById($idArticle);
-            if($pfp != null){
+            if ($pfp != null) {
                 $_SESSION['pfpPath'] = $pfp->getFilePath();
             }
             return $ok;
@@ -344,7 +346,7 @@ class ArticleDAO
             $stmt->bindParam(':idArticle', $idArticle);
             $ok = $stmt->execute();
             $banner = $this->findById($idArticle);
-            if($banner != null){
+            if ($banner != null) {
                 $_SESSION['bannerPath'] = $banner->getFilePath();
             }
             return $ok;
@@ -380,6 +382,7 @@ class ArticleDAO
      * @brief Retourne un objet Article (ou null) à partir de l'ID passé en paramètre
      * @param string $id L'ID de l'article recherché
      * @return Article|null Objet retourné par la méthode, ici un article (ou null si non-trouvé)
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date malformée
      */
     public function findById(string $id): ?Article
     {
@@ -424,8 +427,9 @@ class ArticleDAO
     /**
      * @brief Supprime toutes les pfps pour les mettre à 0 en active
      * @param string $uuid L'UUID du joueur
+     * @throws NotFoundException Exception levée dans le cas où aucun joueur n'est trouvé pour l'UUID donné
      */
-    public function deleteActiveArticleForPfp(string $uuid)
+    public function deleteActiveArticleForPfp(string $uuid): void
     {
         $stmt = $this->pdo->prepare(
             'SELECT p.*
@@ -436,7 +440,7 @@ class ArticleDAO
         if ($stmt->rowCount() === 0) {
             // Gérer le cas où aucune ligne n'est affectée
             throw new NotFoundException('No player found for the given UUID');
-        }else{
+        } else {
             $stmt = $this->pdo->prepare(
                 'UPDATE ' . DB_PREFIX . 'invoice_row ir
         JOIN ' . DB_PREFIX . 'invoice i ON ir.invoice_id = i.id
@@ -448,16 +452,13 @@ class ArticleDAO
         }
 
 
-
-
-
     }
 
     /**
      * @brief Supprime toutes les bannières pour les mettre à 0 en active
      * @param string $uuid L'UUID du joueur
      */
-    public function deleteActiveArticleForBanner(string $uuid)
+    public function deleteActiveArticleForBanner(string $uuid): void
     {
         $stmt = $this->pdo->prepare(
             'UPDATE ' . DB_PREFIX . 'invoice_row ir

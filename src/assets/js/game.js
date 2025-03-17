@@ -76,7 +76,7 @@ if (chatIsOn) {
     function verifyMutedPlayer() {
         makeRequest('POST', `/game/muted-player`, (response) => {
             response = JSON.parse(response);
-            if (response.success) {
+            if (response.muted) {
                 const chatInput = document.getElementById('chatInput');
                 chatInput.disabled = true;
                 chatInput.classList.add('input-disabled');

@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief Fichier contenant la classe PasswordResetTokenDAO
+ * @brief Fichier de déclaration et définition de la classe PasswordResetTokenDAO
  *
  * @file passwordResetToken.dao.php
  * @author Lucas ESPIET "espiet.l@valbion.com"
@@ -128,7 +128,7 @@ class PasswordResetTokenDAO
      * @brief Hydrate un tableau de données en un tableau d'objets PasswordResetToken
      * @param array $rows Le tableau de données à hydrater
      * @return array Objet PasswordResetToken retourné par la méthode
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée dans le cas d'une date incorrecte
      */
     private function hydrateMany(array $rows): array
     {

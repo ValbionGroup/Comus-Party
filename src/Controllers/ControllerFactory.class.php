@@ -16,7 +16,7 @@ use Twig\Loader\FilesystemLoader;
 /**
  * @brief   Classe ControllerFactory
  * @details La classe ControllerFactory est un patron de conception Factory
- * @remark  C'est une version simplifié du patron de conception Factory
+ * @remark  C'est une version simplifiée du patron de conception Factory
  */
 class ControllerFactory
 {

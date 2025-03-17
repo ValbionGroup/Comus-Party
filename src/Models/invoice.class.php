@@ -2,7 +2,7 @@
 /**
  * @file    invoice.class.php
  * @author  Estéban DESESSARD
- * @brief   Le fichier contient la déclaration & définition de la classe Invoice.
+ * @brief   Fichier de déclaration et définition de la classe Invoice
  * @date    02/12/2024
  * @version 0.2
  */
@@ -21,8 +21,19 @@ use DateTime;
  */
 enum PaymentType
 {
+    /**
+     * @brief Paiement par carte bancaire
+     */
     case Card;
+
+    /**
+     * @brief Paiement par PayPal
+     */
     case PayPal;
+
+    /**
+     * @brief Paiement avec les ComusCoins
+     */
     case ComusCoins;
 }
 

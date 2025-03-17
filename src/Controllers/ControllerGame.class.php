@@ -60,6 +60,24 @@ class ControllerGame extends Controller
      */
     public function showHomePage()
     {
+        $playerManager = new PlayerDAO($this->getPdo());
+        $player = $playerManager->findByUuid($_SESSION['uuid']);
+        $_SESSION["elo"] = $player->getElo();
+        $_SESSION["xp"] = $player->getXp();
+        $_SESSION["comusCoin"] = $player->getComusCoin();
+        $_SESSION["username"] = $player->getUsername();
+        $this->getTwig()->addGlobal('auth', [
+            'pfpPath' => $_SESSION['pfpPath'] ?? null,
+            'loggedIn' => isset($_SESSION['uuid']),
+            'loggedUuid' => $_SESSION['uuid'] ?? null,
+            'loggedUsername' => $_SESSION['username'] ?? null,
+            'loggedComusCoin' => $_SESSION['comusCoin'] ?? null,
+            'loggedElo' => $_SESSION['elo'] ?? null,
+            'loggedXp' => $_SESSION['xp'] ?? null,
+            'role' => $_SESSION['role'] ?? null,
+            'firstName' => $_SESSION['firstName'] ?? null,
+            'lastName' => $_SESSION['lastName'] ?? null,
+        ]);
         $gameManager = new GameDAO($this->getPdo());
         $games = $gameManager->findAllWithTags();
         $games = array_filter($games, fn($game) => $game->getState() == GameState::AVAILABLE);
@@ -522,7 +540,7 @@ class ControllerGame extends Controller
             }
 
             $gameRecordManager = new GameRecordDAO($this->getPdo());
-            $gameRecords = $gameRecordManager->findByGameId($gameId);
+            $gameRecords = $gameRecordManager->findByGameIdAndState($gameId, GameRecordState::WAITING);
 
             $eloForGame = [];
             foreach ($gameRecords as $gameRecord) {
@@ -585,7 +603,7 @@ class ControllerGame extends Controller
         $gameRecordManager->removePlayer($code, $playerUuid);
 
         if ($gameRecord->getHostedBy()->getUuid() == $playerUuid) {
-            if (sizeof($gameRecord->getPlayers()) > 0) {
+            if (sizeof($gameRecord->getPlayers()) > 1) {
                 $gameRecord->setHostedBy($gameRecord->getPlayers()[0]["player"]);
                 $gameRecordManager->update($gameRecord);
             } else {
@@ -602,8 +620,8 @@ class ControllerGame extends Controller
      * @param int $gameId Identifiant du jeu
      * @return void
      * @throws GameUnavailableException Exception levée si le jeu n'est pas disponible
-     * @throws RandomException Exceptions levée en cas d'erreur lors de la génération du code
-     * @throws Exception Exceptions levée en cas d'erreur avec la base de données
+     * @throws RandomException Exceptions levées en cas d'erreur lors de la génération du code
+     * @throws Exception Exceptions levées en cas d'erreur avec la base de données
      */
     public function createGame(int $gameId): void
     {
@@ -769,7 +787,7 @@ class ControllerGame extends Controller
      * @brief Vérifie si un joueur est mute
      * @param string $playerUsername Nom d'utilisateur du joueur
      * @return void
-     * @throws DateMalformedStringException
+     * @throws DateMalformedStringException Exception levée si la date est mal formée
      */
     public function isPlayerMuted(string $playerUsername): void
     {
@@ -779,14 +797,20 @@ class ControllerGame extends Controller
         $penaltyManager = new PenaltyDAO($this->getPdo());
         $penalty = $penaltyManager->findLastMutedByPlayerUuid($player->getUuid());
 
+
+        $response = [
+            'muted' => false
+        ];
+
         if (isset($penalty)) {
             $endDate = $penalty->getCreatedAt()->modify("+" . $penalty->getDuration() . "hour");
             if ($endDate > new DateTime()) {
-                echo MessageHandler::sendJsonMessage("Le joueur est encore mute");
+                $response['muted'] = true;
+                echo MessageHandler::sendJsonMessage("Le joueur est encore mute", $response);
                 exit;
             }
         }
 
-        MessageHandler::sendJsonCustomException(404, "Le joueur n'est pas mute");
+        echo MessageHandler::sendJsonMessage("Le joueur n'est pas mute", $response);
     }
 }
