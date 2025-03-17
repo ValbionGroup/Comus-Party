@@ -221,7 +221,7 @@ $router->post('/reset-password/:token', function (string $token) use ($loader, $
             "passwordConfirm" => $_POST['passwordConfirm']
         ]);
         exit;
-    } catch (Exception $e) {
+    } catch (Exception|Error $e) {
         return json_encode([
             "success" => false,
             "code" => $e->getCode(),
