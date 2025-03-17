@@ -43,7 +43,7 @@ $router->put('/profile/update-style/:idArticle', function ($idArticle) use ($loa
 
 $router->post('/profile/update-password', function () use ($loader, $twig) {
     ControllerFactory::getController("profile", $loader, $twig)->call("editPassword", [
-        "newPassword" => $_POST["newPassword"],
+        "newPassword" => rawurldecode($_POST["newPassword"]),
     ]);
     exit;
 }, 'player');
@@ -60,7 +60,7 @@ $router->post('/login', function () use ($loader, $twig) {
         if (isset($_POST['email']) && isset($_POST['password'])) {
             ControllerFactory::getController("auth", $loader, $twig)->call("login", [
                 "email" => $_POST['email'],
-                "password" => $_POST['password'],
+                "password" => rawurldecode($_POST['password']),
                 "rememberMe" => isset($_POST['rememberMe']) && $_POST['rememberMe'] === 'true',
                 "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
             ]);
@@ -182,8 +182,8 @@ $router->post('/register', function () use ($loader, $twig) {
         ControllerFactory::getController("auth", $loader, $twig)->call("register", [
             "username" => $_POST['username'],
             "email" => $_POST['email'],
-            "password" => $_POST['password'],
-            "passwordConfirm" => $_POST['passwordConfirm'],
+            "password" => rawurldecode($_POST['password']),
+            "passwordConfirm" => rawurldecode($_POST['passwordConfirm']),
             "termsOfServiceIsChecked" => $_POST['termsOfService'] === 'true',
             "privacyPolicyIsChecked" => $_POST['privacyPolicy'] === 'true',
             "cloudflareCaptchaToken" => $_POST['cfToken'] ?? null
