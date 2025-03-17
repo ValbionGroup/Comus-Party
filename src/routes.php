@@ -334,9 +334,9 @@ $router->post('/report', function () use ($loader, $twig) {
         "object" => match (strtolower($_POST['object'])) {
             "langage" => ReportObject::LANGUAGE,
             "spam" => ReportObject::SPAM,
-            "links" => ReportObject::LINKS,
+            "lien" => ReportObject::LINKS,
             "fairplay" => ReportObject::FAIRPLAY,
-            "other" => ReportObject::OTHER
+            "autres" => ReportObject::OTHER
         },
         "description" => $_POST['description'],
         "reportedUuid" => $_POST['reportedUuid'],

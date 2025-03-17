@@ -108,6 +108,7 @@ function showProfile(searchBy, data) {
             month: 'long',
             year: 'numeric'
         });
+        uuidPlayerInfo.value = response.player.uuid;
         if (response.username === document.getElementById('headerUsername').innerText) {
             document.getElementById('flag').classList.add("hidden");
         } else {
