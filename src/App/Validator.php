@@ -112,9 +112,15 @@ class Validator
                     }
                     break;
                 case 'format':
-                    if (is_string($ruleValue) && !preg_match($ruleValue, $value)) {
-                        $this->errors[$input][] = "Format invalide";
-                        $valid = false;
+                    if (is_string($ruleValue)) {
+                        if ($ruleValue[0] !== '/' && $ruleValue[-1] !== '/') {
+                            $ruleValue = '/' . $ruleValue . '/';
+                        }
+
+                        if (!preg_match($ruleValue, $value)) {
+                            $this->errors[$input][] = "Format invalide";
+                            $valid = false;
+                        }
                     } elseif ($ruleValue === FILTER_VALIDATE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                         $this->errors[$input][] = "Adresse e-mail invalide";
                         $valid = false;

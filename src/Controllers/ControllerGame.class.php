@@ -156,12 +156,6 @@ class ControllerGame extends Controller
                         continue;
                     }
 
-                    if (array_key_exists("pattern", $neededSetting)) {
-                        if ($neededSetting["pattern"][0] != '/' || $neededSetting["pattern"][-1] != '/') {
-                            $neededSetting["pattern"] = '/' . $neededSetting["pattern"] . '/';
-                        }
-                    }
-
                     $rules[$key] = [
                         "required" => true,
                         "type" => $neededSetting["type"] == "number" ? "numeric" : "string",
