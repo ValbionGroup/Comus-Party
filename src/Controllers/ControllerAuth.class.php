@@ -202,43 +202,48 @@ class ControllerAuth extends Controller
                 'format' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?_&^#])[A-Za-z\d@$!%*?_&^#]{8,}$/'
             ]
         ];
-        $validator = new Validator($rules);
-        $validated = $validator->validate([
-            'password' => $password,
-            'passwordConfirm' => $passwordConfirm
-        ]);
 
-        if (!$validated) {
-            throw new MalformedRequestException("Les  mot de passe ne respectent pas les règles de validation de mot de passe.");
+        try {
+            $validator = new Validator($rules);
+            $validated = $validator->validate([
+                'password' => $password,
+                'passwordConfirm' => $passwordConfirm
+            ]);
+
+            if (!$validated) {
+                throw new MalformedRequestException("Les  mot de passe ne respectent pas les règles de validation de mot de passe.");
+            }
+
+            if ($password !== $passwordConfirm) {
+                throw new MalformedRequestException("Les mots de passe ne correspondent pas.");
+            }
+
+            $tokenManager = new PasswordResetTokenDAO($this->getPdo());
+            $token = $tokenManager->findByToken($token);
+
+            if (is_null($token)) {
+                throw new MalformedRequestException("Token invalide");
+            }
+
+            $userManager = new UserDAO($this->getPdo());
+
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $user = $userManager->findById($token->getUserId());
+            $user->setPassword($hashedPassword);
+
+            if (!$userManager->update($user)) {
+                throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
+            }
+
+            if (!$tokenManager->delete($token->getUserId())) {
+                throw new Exception("Erreur lors de la suppression du token", 500);
+            }
+
+            echo MessageHandler::sendJsonMessage("Votre mot de passe a bien été réinitialisé");
+            exit;
+        } catch (Exception $e) {
+            MessageHandler::sendJsonException($e);
         }
-
-        if ($password !== $passwordConfirm) {
-            throw new MalformedRequestException("Les mots de passe ne correspondent pas.");
-        }
-
-        $tokenManager = new PasswordResetTokenDAO($this->getPdo());
-        $token = $tokenManager->findByToken($token);
-
-        if (is_null($token)) {
-            throw new MalformedRequestException("Token invalide");
-        }
-
-        $userManager = new UserDAO($this->getPdo());
-
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $user = $userManager->findById($token->getUserId());
-        $user->setPassword($hashedPassword);
-
-        if (!$userManager->update($user)) {
-            throw new Exception("Erreur lors de la mise à jour du mot de passe", 500);
-        }
-
-        if (!$tokenManager->delete($token->getUserId())) {
-            throw new Exception("Erreur lors de la suppression du token", 500);
-        }
-
-        echo MessageHandler::sendJsonMessage("Votre mot de passe a bien été réinitialisé");
-        exit;
     }
 
 
