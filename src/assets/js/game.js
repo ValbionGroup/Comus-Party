@@ -98,9 +98,7 @@ if (chatIsOn) {
 function decodeHtmlEntities(message) {
     let newMessage = document.createElement('div');
     newMessage.innerHTML = message;
-    console.log(message)
-    console.log(newMessage)
-    return decodeURI(message)
+    return newMessage.textContent
 
 }
 
