@@ -265,27 +265,30 @@ function updatePlayers(data) {
     });
 }
 
-gameConnection.onmessage = function (e) {
-    const data = JSON.parse(e.data);
+let playerDisplayed = document.getElementById("players") !== null;
+if (playerDisplayed) {
+    gameConnection.onmessage = function (e) {
+        const data = JSON.parse(e.data);
 
-    let parsed;
-    if (typeof data.content === 'string') {
-        parsed = JSON.parse(data.content);
-    } else if (typeof data.content === 'object') {
-        parsed = data.content; // Déjà parsé
-    } else {
-        return "Data is not a string or an object";
-    }
+        let parsed;
+        if (typeof data.content === 'string') {
+            parsed = JSON.parse(data.content);
+        } else if (typeof data.content === 'object') {
+            parsed = data.content; // Déjà parsé
+        } else {
+            return "Data is not a string or an object";
+        }
 
-    switch (data.command) {
-        case 'updatePlayers':
-            updatePlayers(parsed);
-            break;
-        case 'gameStarted':
-            redirectToStartedGame();
-            break;
-        default:
-            console.log('Commande inconnue');
+        switch (data.command) {
+            case 'updatePlayers':
+                updatePlayers(parsed);
+                break;
+            case 'gameStarted':
+                redirectToStartedGame();
+                break;
+            default:
+                console.log('Commande inconnue');
+        }
     }
 }
 
