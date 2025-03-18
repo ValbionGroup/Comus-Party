@@ -17,9 +17,13 @@ if (chatIsOn) {
         const content = messageInput.value;
         const username = document.getElementById('headerUsername').textContent;
 
+        if (content.trim() === '') {
+            return;
+        }
+
         chatConnection.send(JSON.stringify({
             author: username,
-            content: content,
+            content: content.trim(),
             game: gameCode
         }));
 
