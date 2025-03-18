@@ -41,7 +41,7 @@ if (chatIsOn) {
             usernameItem.onclick = () => showProfile("username", message.author);
 
             const contentItem = document.createElement('span');
-            contentItem.textContent = message.content;
+            contentItem.innerText = decodeHtmlEntities(message.content);
 
             const flag = document.createElement("span");
             flag.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 20 20">\n' +
@@ -93,6 +93,13 @@ if (chatIsOn) {
     }
 
     verifyMutedPlayer();
+}
+
+function decodeHtmlEntities(message) {
+    let newMessage = document.createElement('div');
+    newMessage.innerHTML = message;
+    return newMessage.textContent
+
 }
 
 function setVisibilityPublic(gameCode, isPublic) {
