@@ -81,7 +81,6 @@ class Chat implements MessageComponentInterface
         }
 
         $content = $this->escape($data["content"]);
-        $content = htmlspecialchars_decode($content);
         $author = $this->escape($data["author"]);
         $game = $data["game"];
 
