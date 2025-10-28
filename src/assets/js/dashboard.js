@@ -105,7 +105,7 @@ function showModalReport(e) {
                     spanObjectReport.innerText = "🎮 Jeu";
                     break;
                 case "LINKS":
-                    spanObjectReport.innerText = "🎨 Interface";
+                    spanObjectReport.innerText = "📢 Publicité";
                     break;
                 case "FAIRPLAY":
                     spanObjectReport.innerText = "🎨 Interface";
