@@ -1,0 +1,267 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party: Référence de la classe EloCalculator</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classComusParty_1_1App_1_1EloCalculator.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Fonctions membres publiques statiques</a> &#124;
+<a href="#pub-attribs">Champs de données</a> &#124;
+<a href="#pro-static-methods">Fonctions membres protégées statiques</a>  </div>
+  <div class="headertitle"><div class="title">Référence de la classe EloCalculator</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Classe EloCalculator.  
+ <a href="#details">Plus de détails...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Fonctions membres publiques statiques</h2></td></tr>
+<tr class="memitem:a64189b700be9ec80e3fd57c0920c4ee3" id="r_a64189b700be9ec80e3fd57c0920c4ee3"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64189b700be9ec80e3fd57c0920c4ee3">calculateNewElo</a> (int $eloPlayer, float $averageElo, float $result)</td></tr>
+<tr class="memdesc:a64189b700be9ec80e3fd57c0920c4ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le nouvel Elo du joueur en fonction de son Elo actuel, de l'Elo moyen des joueurs de la partie et du résultat de la partie.  <br /></td></tr>
+<tr class="separator:a64189b700be9ec80e3fd57c0920c4ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Champs de données</h2></td></tr>
+<tr class="memitem:a1dffdb19f2863c0a6db36ecaf73b184b" id="r_a1dffdb19f2863c0a6db36ecaf73b184b"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dffdb19f2863c0a6db36ecaf73b184b">K_FACTOR</a> = 16</td></tr>
+<tr class="separator:a1dffdb19f2863c0a6db36ecaf73b184b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+Fonctions membres protégées statiques</h2></td></tr>
+<tr class="memitem:abf2564135625e0698738d1259ba53162" id="r_abf2564135625e0698738d1259ba53162"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf2564135625e0698738d1259ba53162">getExpectedScore</a> (int $eloPlayer, float $averageElo)</td></tr>
+<tr class="memdesc:abf2564135625e0698738d1259ba53162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la probabilité de victoire en fonction de l'Elo passé en paramètre.  <br /></td></tr>
+<tr class="separator:abf2564135625e0698738d1259ba53162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Classe EloCalculator. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="EloCalculator_8php_source.html#l00014">14</a> du fichier <a class="el" href="EloCalculator_8php_source.html">EloCalculator.php</a>.</p>
+</div><h2 class="groupheader">Documentation des fonctions membres</h2>
+<a id="a64189b700be9ec80e3fd57c0920c4ee3" name="a64189b700be9ec80e3fd57c0920c4ee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64189b700be9ec80e3fd57c0920c4ee3">&#9670;&#160;</a></span>calculateNewElo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static calculateNewElo </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>$eloPlayer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>$averageElo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>$result</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcule le nouvel Elo du joueur en fonction de son Elo actuel, de l'Elo moyen des joueurs de la partie et du résultat de la partie. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$eloPlayer</td><td>int Elo du joueur </td></tr>
+    <tr><td class="paramname">$averageElo</td><td>float Elo moyen des joueurs de la partie </td></tr>
+    <tr><td class="paramname">$result</td><td>float Résultat de la partie (1 pour une victoire, 0.5 pour un match nul, 0 pour une défaite) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>float Nouvel Elo du joueur </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="EloCalculator_8php_source.html#l00029">29</a> du fichier <a class="el" href="EloCalculator_8php_source.html">EloCalculator.php</a>.</p>
+
+</div>
+</div>
+<a id="abf2564135625e0698738d1259ba53162" name="abf2564135625e0698738d1259ba53162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf2564135625e0698738d1259ba53162">&#9670;&#160;</a></span>getExpectedScore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static getExpectedScore </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>$eloPlayer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>$averageElo</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcule la probabilité de victoire en fonction de l'Elo passé en paramètre. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$eloPlayer</td><td>int Elo du joueur </td></tr>
+    <tr><td class="paramname">$averageElo</td><td>float Elo moyen des joueurs de la partie </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>float Probabilité de victoire </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="EloCalculator_8php_source.html#l00040">40</a> du fichier <a class="el" href="EloCalculator_8php_source.html">EloCalculator.php</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des champs</h2>
+<a id="a1dffdb19f2863c0a6db36ecaf73b184b" name="a1dffdb19f2863c0a6db36ecaf73b184b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dffdb19f2863c0a6db36ecaf73b184b">&#9670;&#160;</a></span>K_FACTOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const K_FACTOR = 16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="EloCalculator_8php_source.html#l00020">20</a> du fichier <a class="el" href="EloCalculator_8php_source.html">EloCalculator.php</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir du fichier suivant :<ul>
+<li>src/App/<a class="el" href="EloCalculator_8php_source.html">EloCalculator.php</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceComusParty.html">ComusParty</a></li><li class="navelem"><a class="el" href="namespaceComusParty_1_1App.html">App</a></li><li class="navelem"><a class="el" href="classComusParty_1_1App_1_1EloCalculator.html">EloCalculator</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

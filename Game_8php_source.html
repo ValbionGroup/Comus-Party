@@ -1,0 +1,286 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/App/Sockets/Game.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('Game_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Game.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Game_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>ComusParty\App\Sockets;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>use ComusParty\App\Db;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>use ComusParty\Models\GameRecordDAO;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>use ComusParty\Models\GameRecordState;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>use Exception;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>use Ratchet\ConnectionInterface;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>use Ratchet\MessageComponentInterface;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>use SplObjectStorage;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1App_1_1Sockets_1_1Game.html">Game</a> <span class="keyword">implements</span> MessageComponentInterface</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a3cf83aa1d16c7863d2eccb6d6628cbb3">   31</a></span>    <span class="keyword">protected</span> SplObjectStorage <a class="code hl_variable" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a3cf83aa1d16c7863d2eccb6d6628cbb3">$clients</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a96667524b3b2ea29a295d00bfae7b453">   37</a></span>    <span class="keyword">protected</span> array <a class="code hl_variable" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a96667524b3b2ea29a295d00bfae7b453">$games</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a095c5d389db211932136b53f25f39685">   42</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a095c5d389db211932136b53f25f39685">__construct</a>()</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        $this-&gt;clients = <span class="keyword">new</span> SplObjectStorage;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        $this-&gt;games = [];</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a7421faf243c21095b894de73f5f7e0a9">   53</a></span>    <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a7421faf243c21095b894de73f5f7e0a9">onOpen</a>(ConnectionInterface $conn): void</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        $conn-&gt;send(json_encode([<span class="stringliteral">&#39;message&#39;</span> =&gt; <span class="stringliteral">&#39;Connection established&#39;</span>]));</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a1f24e0835420f0ead0d7d9918402e9be">   65</a></span>    <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a1f24e0835420f0ead0d7d9918402e9be">onMessage</a>(ConnectionInterface $from, $msg): void</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        $data = json_decode($msg, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (!isset($data[<span class="stringliteral">&#39;uuid&#39;</span>]) || !isset($data[<span class="stringliteral">&#39;command&#39;</span>]) || !isset($data[<span class="stringliteral">&#39;game&#39;</span>])) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            $from-&gt;send(json_encode([<span class="stringliteral">&#39;error&#39;</span> =&gt; <span class="stringliteral">&#39;Message invalide&#39;</span>]));</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        $uuid = $data[<span class="stringliteral">&#39;uuid&#39;</span>];</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        $game = $data[<span class="stringliteral">&#39;game&#39;</span>];</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        $command = $data[<span class="stringliteral">&#39;command&#39;</span>];</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">if</span> (!isset($this-&gt;games[$game])) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            $this-&gt;games[$game] = [];</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">if</span> (!in_array($from, $this-&gt;games[$game])) {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            $this-&gt;games[$game][] = $from;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">switch</span> ($command) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">case</span> <span class="stringliteral">&#39;quitGame&#39;</span>:</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keywordflow">case</span> <span class="stringliteral">&#39;joinGame&#39;</span>:</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a868e8c83c1420c3782d6352d9281fd69">updatePlayer</a>($game);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keywordflow">case</span> <span class="stringliteral">&#39;startGame&#39;</span>:</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a1b7633077fca893e9bb2a30e6e741f30">redirectUserToGame</a>($game, $uuid);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a868e8c83c1420c3782d6352d9281fd69">  105</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a868e8c83c1420c3782d6352d9281fd69">updatePlayer</a>(<span class="keywordtype">string</span> $game): void</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        $gameRecord = (<span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1GameRecordDAO.html">GameRecordDAO</a>(<a class="code hl_function" href="classComusParty_1_1App_1_1Db.html#ac93fbec81f07e5d15f80db907e63dc10">Db::getInstance</a>()-&gt;getConnection()))-&gt;findByCode($game);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">if</span> (!isset($gameRecord)) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        $players = $gameRecord-&gt;getPlayers();</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        $jsonPlayer = array_map(fn($player) =&gt; [</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="stringliteral">&quot;uuid&quot;</span> =&gt; $player[<span class="stringliteral">&#39;player&#39;</span>]-&gt;getUuid(),</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="stringliteral">&quot;username&quot;</span> =&gt; $player[<span class="stringliteral">&#39;player&#39;</span>]-&gt;getUsername(),</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="stringliteral">&quot;pfp&quot;</span> =&gt; $player[<span class="stringliteral">&#39;player&#39;</span>]-&gt;getActivePfp(),</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="stringliteral">&quot;isHost&quot;</span> =&gt; $player[<span class="stringliteral">&#39;player&#39;</span>]-&gt;getUuid() == $gameRecord-&gt;getHostedBy()-&gt;getUuid(),</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        ], $players);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a76306fafeb4a5fc63515572c8b446cf0">sendToGame</a>($game, <span class="stringliteral">&quot;updatePlayers&quot;</span>, json_encode($jsonPlayer));</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span></div>
+<div class="foldopen" id="foldopen00130" data-start="{" data-end="}">
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a76306fafeb4a5fc63515572c8b446cf0">  130</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a76306fafeb4a5fc63515572c8b446cf0">sendToGame</a>(<span class="keywordtype">string</span> $game, <span class="keywordtype">string</span> $command, <span class="keywordtype">string</span> $content): void</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keywordflow">foreach</span> ($this-&gt;games[$game] as $client) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            $client-&gt;send(json_encode([<span class="stringliteral">&#39;command&#39;</span> =&gt; $command, <span class="stringliteral">&#39;content&#39;</span> =&gt; $content]));</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
+</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span></div>
+<div class="foldopen" id="foldopen00144" data-start="{" data-end="}">
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a1b7633077fca893e9bb2a30e6e741f30">  144</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a1b7633077fca893e9bb2a30e6e741f30">redirectUserToGame</a>(<span class="keywordtype">string</span> $game, <span class="keywordtype">string</span> $uuid): void</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        $gameRecord = (<span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1GameRecordDAO.html">GameRecordDAO</a>(<a class="code hl_function" href="classComusParty_1_1App_1_1Db.html#ac93fbec81f07e5d15f80db907e63dc10">Db::getInstance</a>()-&gt;getConnection()))-&gt;findByCode($game);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">if</span> ($gameRecord-&gt;getState() == GameRecordState::STARTED &amp;&amp;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            $gameRecord-&gt;getHostedBy()-&gt;getUuid() == $uuid) {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a76306fafeb4a5fc63515572c8b446cf0">sendToGame</a>($game, <span class="stringliteral">&quot;gameStarted&quot;</span>, json_encode([<span class="stringliteral">&quot;message&quot;</span> =&gt; <span class="stringliteral">&quot;Game started!&quot;</span>]));</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        }</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    }</div>
+</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span></div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a15b2bb5b144159d4e02e4bdfd2bda0c0">  160</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a15b2bb5b144159d4e02e4bdfd2bda0c0">onClose</a>(ConnectionInterface $conn): void</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    {</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">foreach</span> ($this-&gt;games as $game =&gt; <a class="code hl_variable" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a3cf83aa1d16c7863d2eccb6d6628cbb3">$clients</a>) {</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            $key = array_search($conn, <a class="code hl_variable" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a3cf83aa1d16c7863d2eccb6d6628cbb3">$clients</a>);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            <span class="keywordflow">if</span> ($key !== <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a868e8c83c1420c3782d6352d9281fd69">updatePlayer</a>($game);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                unset($this-&gt;games[$game][$key]);</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            }</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        }</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        $this-&gt;clients-&gt;detach($conn);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
+</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span></div>
+<div class="foldopen" id="foldopen00178" data-start="{" data-end="}">
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a64c5026c63957edc3b968dae80917a65">  178</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a64c5026c63957edc3b968dae80917a65">onError</a>(ConnectionInterface $conn, Exception $e): void</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    {</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        echo <span class="stringliteral">&quot;Erreur: {$e-&gt;getMessage()}\n&quot;</span>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        $conn-&gt;close();</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    }</div>
+</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span></div>
+<div class="foldopen" id="foldopen00189" data-start="{" data-end="}">
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#af868643db678519915925df1ceb4db38">  189</a></span>    <span class="keyword">protected</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Game.html#af868643db678519915925df1ceb4db38">escape</a>(<span class="keywordtype">string</span> $string): string</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keywordflow">return</span> htmlspecialchars($string);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    }</div>
+</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Db_html_ac93fbec81f07e5d15f80db907e63dc10"><div class="ttname"><a href="classComusParty_1_1App_1_1Db.html#ac93fbec81f07e5d15f80db907e63dc10">ComusParty\App\Db\getInstance</a></div><div class="ttdeci">static getInstance()</div><div class="ttdoc">Retourne l&#39;instance du singleton de la base de données.</div><div class="ttdef"><b>Definition</b> <a href="Db_8php_source.html#l00052">Db.php:52</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html">ComusParty\App\Sockets\Game</a></div><div class="ttdoc">Classe Game (Sockets)</div><div class="ttdef"><b>Definition</b> <a href="#l00025">Game.php:26</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a095c5d389db211932136b53f25f39685"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a095c5d389db211932136b53f25f39685">ComusParty\App\Sockets\Game\__construct</a></div><div class="ttdeci">__construct()</div><div class="ttdoc">Constructeur de la classe Game.</div><div class="ttdef"><b>Definition</b> <a href="#l00042">Game.php:42</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a15b2bb5b144159d4e02e4bdfd2bda0c0"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a15b2bb5b144159d4e02e4bdfd2bda0c0">ComusParty\App\Sockets\Game\onClose</a></div><div class="ttdeci">onClose(ConnectionInterface $conn)</div><div class="ttdoc">Ferme la connexion d&#39;un client.</div><div class="ttdef"><b>Definition</b> <a href="#l00160">Game.php:160</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a1b7633077fca893e9bb2a30e6e741f30"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a1b7633077fca893e9bb2a30e6e741f30">ComusParty\App\Sockets\Game\redirectUserToGame</a></div><div class="ttdeci">redirectUserToGame(string $game, string $uuid)</div><div class="ttdoc">Redirige un joueur vers la partie si elle a commencé</div><div class="ttdef"><b>Definition</b> <a href="#l00144">Game.php:144</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a1f24e0835420f0ead0d7d9918402e9be"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a1f24e0835420f0ead0d7d9918402e9be">ComusParty\App\Sockets\Game\onMessage</a></div><div class="ttdeci">onMessage(ConnectionInterface $from, $msg)</div><div class="ttdoc">Fonction appelée lors de la réception d&#39;un message.</div><div class="ttdef"><b>Definition</b> <a href="#l00065">Game.php:65</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a3cf83aa1d16c7863d2eccb6d6628cbb3"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a3cf83aa1d16c7863d2eccb6d6628cbb3">ComusParty\App\Sockets\Game\$clients</a></div><div class="ttdeci">SplObjectStorage $clients</div><div class="ttdef"><b>Definition</b> <a href="#l00031">Game.php:31</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a64c5026c63957edc3b968dae80917a65"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a64c5026c63957edc3b968dae80917a65">ComusParty\App\Sockets\Game\onError</a></div><div class="ttdeci">onError(ConnectionInterface $conn, Exception $e)</div><div class="ttdoc">Fonction appelée lors d&#39;une erreur.</div><div class="ttdef"><b>Definition</b> <a href="#l00178">Game.php:178</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a7421faf243c21095b894de73f5f7e0a9"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a7421faf243c21095b894de73f5f7e0a9">ComusParty\App\Sockets\Game\onOpen</a></div><div class="ttdeci">onOpen(ConnectionInterface $conn)</div><div class="ttdoc">Fonction appelée lors de la connexion d&#39;un joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00053">Game.php:53</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a76306fafeb4a5fc63515572c8b446cf0"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a76306fafeb4a5fc63515572c8b446cf0">ComusParty\App\Sockets\Game\sendToGame</a></div><div class="ttdeci">sendToGame(string $game, string $command, string $content)</div><div class="ttdoc">Fonction permettant d&#39;envoyer un message à une partie.</div><div class="ttdef"><b>Definition</b> <a href="#l00130">Game.php:130</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a868e8c83c1420c3782d6352d9281fd69"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a868e8c83c1420c3782d6352d9281fd69">ComusParty\App\Sockets\Game\updatePlayer</a></div><div class="ttdeci">updatePlayer(string $game)</div><div class="ttdoc">Envoie un signal à tous les clients avec la nouvelle liste des joueurs.</div><div class="ttdef"><b>Definition</b> <a href="#l00105">Game.php:105</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_a96667524b3b2ea29a295d00bfae7b453"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#a96667524b3b2ea29a295d00bfae7b453">ComusParty\App\Sockets\Game\$games</a></div><div class="ttdeci">array $games</div><div class="ttdef"><b>Definition</b> <a href="#l00037">Game.php:37</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Game_html_af868643db678519915925df1ceb4db38"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Game.html#af868643db678519915925df1ceb4db38">ComusParty\App\Sockets\Game\escape</a></div><div class="ttdeci">escape(string $string)</div><div class="ttdoc">Fonction permettant d&#39;échapper les caractères spéciaux.</div><div class="ttdef"><b>Definition</b> <a href="#l00189">Game.php:189</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1GameRecordDAO_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1GameRecordDAO.html">ComusParty\Models\GameRecordDAO</a></div><div class="ttdoc">Classe GameRecordDAO.</div><div class="ttdef"><b>Definition</b> <a href="gameRecord_8dao_8php_source.html#l00021">gameRecord.dao.php:22</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_951f43124f8a9985ab7802551d674f01.html">App</a></li><li class="navelem"><a class="el" href="dir_766fe9b1764c4581836f0288842d9886.html">Sockets</a></li><li class="navelem"><a class="el" href="Game_8php.html">Game.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

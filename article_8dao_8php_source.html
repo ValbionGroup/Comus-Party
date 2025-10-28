@@ -1,0 +1,544 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/Models/article.dao.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('article_8dao_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">article.dao.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="article_8dao_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>ComusParty\Models;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>use ComusParty\App\Exceptions\NotFoundException;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>use DateMalformedStringException;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>use DateTime;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>use Exception;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>use PDO;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1Models_1_1ArticleDAO.html">ArticleDAO</a></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a9db61e1721b616500bce6ed60491752a">   29</a></span>    <span class="keyword">private</span> ?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1ArticleDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#ad68606f47a998de06d17d37a9884b7e7">   36</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#ad68606f47a998de06d17d37a9884b7e7">__construct</a>(?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1ArticleDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        $this-&gt;pdo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1ArticleDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">   45</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">getPdo</a>(): ?PDO</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1ArticleDAO.html#a9db61e1721b616500bce6ed60491752a">$this-&gt;pdo</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">   54</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">setPdo</a>(?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1ArticleDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>): void</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        $this-&gt;pdo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1ArticleDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    }</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a79881b81517553bd70f742ed791c9ff7">   66</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a79881b81517553bd70f742ed791c9ff7">findArticlesByInvoiceId</a>(?<span class="keywordtype">int</span> $invoiceId): ?array</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="stringliteral">&#39;SELECT *</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="stringliteral">          FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="stringliteral">          JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;player p ON i.player_uuid = p.uuid</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="stringliteral">          WHERE i.id = :id AND p.uuid = :uuid&#39;</span>);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:id&#39;</span>, $invoiceId);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $_SESSION[<span class="stringliteral">&#39;uuid&#39;</span>]);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        $invoice = $stmt-&gt;fetch();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">if</span> ($invoice === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1App_1_1Exceptions_1_1NotFoundException.html">NotFoundException</a>(<span class="stringliteral">&#39;Cette facture n\&#39;existe pas.&#39;</span>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="stringliteral">&#39;SELECT a.*</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir ON a.id = ir.article_id</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="stringliteral">            WHERE ir.invoice_id = :invoice_id&#39;</span>);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:invoice_id&#39;</span>, $invoiceId);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        $articles = $stmt-&gt;fetchAll();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">if</span> ($articles === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">hydrateMany</a>($articles);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
+<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">  104</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">hydrateMany</a>(array $data): array</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        $articles = [];</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">foreach</span> ($data as $article) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            $articles[] = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($article);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">return</span> $articles;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span></div>
+<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">  119</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>(array $data): <a class="code hl_class" href="classComusParty_1_1Models_1_1Article.html">Article</a></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        $article = <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1Article.html">Article</a>();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        $article-&gt;setId($data[<span class="stringliteral">&#39;id&#39;</span>]);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        $article-&gt;setName($data[<span class="stringliteral">&#39;name&#39;</span>]);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">if</span> ($data[<span class="stringliteral">&#39;type&#39;</span>] == <span class="stringliteral">&#39;pfp&#39;</span>) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            $type = ArticleType::ProfilePicture;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        } elseif ($data[<span class="stringliteral">&#39;type&#39;</span>] == <span class="stringliteral">&#39;banner&#39;</span>) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            $type = <a class="code hl_enumvalue" href="namespaceComusParty_1_1Models.html#a5f7801877a50649b786fc0bfe474c9aba427d304b8943edb6ca37aa8224de7c6f">ArticleType::Banner</a>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        $article-&gt;setType($type);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        $article-&gt;setDescription($data[<span class="stringliteral">&#39;description&#39;</span>]);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        $article-&gt;setPricePoint($data[<span class="stringliteral">&#39;price_point&#39;</span>]);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        $article-&gt;setPriceEuro($data[<span class="stringliteral">&#39;price_euro&#39;</span>]);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        $article-&gt;setCreatedAt(<span class="keyword">new</span> DateTime($data[<span class="stringliteral">&#39;created_at&#39;</span>]));</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        $article-&gt;setUpdatedAt(<span class="keyword">new</span> DateTime($data[<span class="stringliteral">&#39;updated_at&#39;</span>]));</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        $article-&gt;setFilePath($data[<span class="stringliteral">&#39;file_path&#39;</span>]);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keywordflow">return</span> $article;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    }</div>
+</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span></div>
+<div class="foldopen" id="foldopen00149" data-start="{" data-end="}">
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a46f90da5ce3e820cb67c82e8f1b37482">  149</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a46f90da5ce3e820cb67c82e8f1b37482">findAllPfpsOwnedByPlayer</a>(<span class="keywordtype">string</span> $uuid): ?array</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="stringliteral">&#39;SELECT a.*</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir ON a.id = ir.article_id</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="stringliteral">            WHERE i.player_uuid = :uuid AND type = &quot;pfp&quot; &#39;</span>);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        $articles = $stmt-&gt;fetchAll();</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">hydrateMany</a>($articles);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    }</div>
+</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span></div>
+<div class="foldopen" id="foldopen00170" data-start="{" data-end="}">
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a7d739cc16dd2f720cdee1582430bd142">  170</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a7d739cc16dd2f720cdee1582430bd142">findAllBannersOwnedByPlayer</a>(<span class="keywordtype">string</span> $uuid): ?array</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    {</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            <span class="stringliteral">&#39;SELECT a.*</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir ON a.id = ir.article_id</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="stringliteral">            WHERE i.player_uuid = :uuid AND type = &quot;banner&quot; &#39;</span>);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        $articles = $stmt-&gt;fetchAll();</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">hydrateMany</a>($articles);</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    }</div>
+</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="foldopen" id="foldopen00193" data-start="{" data-end="}">
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a73a1b0348919b6755e4f69dcc70eba64">  193</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a73a1b0348919b6755e4f69dcc70eba64">findAll</a>(): ?array</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    {</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        $stmt = $this-&gt;pdo-&gt;query(</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            <span class="stringliteral">&#39;SELECT *</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article&#39;</span>);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        $tabArticles = $stmt-&gt;fetchAll();</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordflow">if</span> ($tabArticles === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        }</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">hydrateMany</a>($tabArticles);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    }</div>
+</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span></div>
+<div class="foldopen" id="foldopen00213" data-start="{" data-end="}">
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a59dbe78a4c54369c1606781afb653611">  213</a></span>    <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a59dbe78a4c54369c1606781afb653611">findArticlesWithIds</a>(array $ids): ?array</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="keywordflow">if</span> (!empty($ids)) {</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            $idsString = implode(<span class="charliteral">&#39;,&#39;</span>, $ids);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            $stmt = $this-&gt;pdo-&gt;query(<span class="stringliteral">&#39;SELECT * FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article WHERE id IN (&#39;</span> . $idsString . <span class="charliteral">&#39;)&#39;</span>);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>            $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            $tabArticles = $stmt-&gt;fetchAll();</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            <span class="keywordflow">if</span> ($tabArticles === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            }</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">hydrateMany</a>($tabArticles);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        }</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    }</div>
+</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="foldopen" id="foldopen00239" data-start="{" data-end="}">
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#aa3bec2d90395bbf607ba0ddb2817b822">  239</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#aa3bec2d90395bbf607ba0ddb2817b822">findAllPfps</a>(): ?array</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        $stmt = $this-&gt;pdo-&gt;query(<span class="stringliteral">&quot;SELECT *</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="stringliteral">        FROM &quot;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&quot;article</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="stringliteral">        WHERE type = &#39;pfp&#39;&quot;</span>);</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        $tabPfps = $stmt-&gt;fetchAll();</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="keywordflow">if</span> ($tabPfps === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">hydrateMany</a>($tabPfps);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    }</div>
+</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span></div>
+<div class="foldopen" id="foldopen00260" data-start="{" data-end="}">
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#ac67ab874b2b4764d9e86349bf90cd7eb">  260</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#ac67ab874b2b4764d9e86349bf90cd7eb">findAllBanners</a>(): ?array</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    {</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        $stmt = $this-&gt;pdo-&gt;query(<span class="stringliteral">&quot;SELECT *</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="stringliteral">        FROM &quot;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&quot;article</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="stringliteral">        WHERE type = &#39;banner&#39;&quot;</span>);</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        $tabBanners = $stmt-&gt;fetchAll();</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <span class="keywordflow">if</span> ($tabBanners === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        }</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">hydrateMany</a>($tabBanners);</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    }</div>
+</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span></div>
+<div class="foldopen" id="foldopen00282" data-start="{" data-end="}">
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a66e802cae33a0afb87763f843d6f6cce">  282</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a66e802cae33a0afb87763f843d6f6cce">updateActiveArticle</a>(<span class="keywordtype">string</span> $uuid, <span class="keywordtype">string</span> $idArticle, <span class="keywordtype">string</span> $typeArticle)</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    {</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        <span class="keywordflow">if</span> ($typeArticle == <span class="stringliteral">&quot;ProfilePicture&quot;</span>) {</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            $pfpActive = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a2c5e351e3f93bfdfa141380360ebffe5">findActivePfpByPlayerUuid</a>($uuid);</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            <span class="comment">// Si pfp déjà équipé</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            <span class="keywordflow">if</span> ($pfpActive != <span class="keyword">null</span>) {</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>                $idPfpActive = $pfpActive-&gt;getId();</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>                $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>                    <span class="stringliteral">&#39;UPDATE &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a ON ir.article_id = a.id</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="stringliteral">        SET ir.active = 0</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="stringliteral">        WHERE i.player_uuid = :uuid AND ir.article_id = :idArticleActif&#39;</span>);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>                $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>                $stmt-&gt;bindParam(<span class="stringliteral">&#39;:idArticleActif&#39;</span>, $idPfpActive);</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                $stmt-&gt;execute();</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            }</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="comment">// Mettre en active la pfp choisie</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>            $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>                <span class="stringliteral">&#39;UPDATE &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a ON ir.article_id = a.id</span></div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="stringliteral">        SET ir.active = 1</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="stringliteral">        WHERE i.player_uuid = :uuid AND ir.article_id = :idArticle&#39;</span></div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>            );</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>            $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>            $stmt-&gt;bindParam(<span class="stringliteral">&#39;:idArticle&#39;</span>, $idArticle);</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>            $ok = $stmt-&gt;execute();</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>            $pfp = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#ae4d5d5c3a2f6e9b33ddd93213ec5eea6">findById</a>($idArticle);</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>            <span class="keywordflow">if</span> ($pfp != <span class="keyword">null</span>) {</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                $_SESSION[<span class="stringliteral">&#39;pfpPath&#39;</span>] = $pfp-&gt;getFilePath();</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>            }</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>            <span class="keywordflow">return</span> $ok;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        }</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        <span class="keywordflow">if</span> ($typeArticle == <span class="stringliteral">&quot;Banner&quot;</span>) {</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            $bannerActive = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a2fa942263ffee52fcc9057007d5deedb">findActiveBannerByPlayerUuid</a>($uuid);</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>            <span class="comment">//Si banner déjà équipé</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            <span class="keywordflow">if</span> ($bannerActive != <span class="keyword">null</span>) {</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>                $idBannerActive = $bannerActive-&gt;getId();</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>                $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>                    <span class="stringliteral">&#39;UPDATE &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a ON ir.article_id = a.id</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="stringliteral">        SET ir.active = 0</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="stringliteral">        WHERE i.player_uuid = :uuid AND ir.article_id = :idArticleActif&#39;</span>);</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>                $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>                $stmt-&gt;bindParam(<span class="stringliteral">&#39;:idArticleActif&#39;</span>, $idBannerActive);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                $ok = $stmt-&gt;execute();</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>            }</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>            <span class="comment">//Met en active la bannière choisie</span></div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>            $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>                <span class="stringliteral">&#39;UPDATE &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a ON ir.article_id = a.id</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="stringliteral">        SET ir.active = 1</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="stringliteral">        WHERE i.player_uuid = :uuid AND ir.article_id = :idArticle&#39;</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>            );</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>            $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>            $stmt-&gt;bindParam(<span class="stringliteral">&#39;:idArticle&#39;</span>, $idArticle);</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>            $ok = $stmt-&gt;execute();</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>            $banner = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#ae4d5d5c3a2f6e9b33ddd93213ec5eea6">findById</a>($idArticle);</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>            <span class="keywordflow">if</span> ($banner != <span class="keyword">null</span>) {</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>                $_SESSION[<span class="stringliteral">&#39;bannerPath&#39;</span>] = $banner-&gt;getFilePath();</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>            }</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>            <span class="keywordflow">return</span> $ok;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        }</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    }</div>
+</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span></div>
+<div class="foldopen" id="foldopen00363" data-start="{" data-end="}">
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a2c5e351e3f93bfdfa141380360ebffe5">  363</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a2c5e351e3f93bfdfa141380360ebffe5">findActivePfpByPlayerUuid</a>(<span class="keywordtype">string</span> $uuid): ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Article.html">Article</a></div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    {</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>            <span class="stringliteral">&#39;SELECT a.*</span></div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a</span></div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir ON a.id = ir.article_id</span></div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="stringliteral">            WHERE i.player_uuid = :uuid AND a.type = &quot;pfp&quot; AND ir.active = 1&#39;</span>);</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        $pfp = $stmt-&gt;fetch();</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>        <span class="keywordflow">if</span> ($pfp === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        }</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($pfp);</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    }</div>
+</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span></div>
+<div class="foldopen" id="foldopen00387" data-start="{" data-end="}">
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#ae4d5d5c3a2f6e9b33ddd93213ec5eea6">  387</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#ae4d5d5c3a2f6e9b33ddd93213ec5eea6">findById</a>(<span class="keywordtype">string</span> $id): ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Article.html">Article</a></div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    {</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>            <span class="stringliteral">&#39;SELECT *</span></div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article</span></div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="stringliteral">            WHERE id = :id&#39;</span>);</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:id&#39;</span>, $id);</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>        $article = $stmt-&gt;fetch();</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>        <span class="keywordflow">if</span> ($article === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>        }</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($article);</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    }</div>
+</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span></div>
+<div class="foldopen" id="foldopen00409" data-start="{" data-end="}">
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a2fa942263ffee52fcc9057007d5deedb">  409</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a2fa942263ffee52fcc9057007d5deedb">findActiveBannerByPlayerUuid</a>(<span class="keywordtype">string</span> $uuid): ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Article.html">Article</a></div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    {</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>            <span class="stringliteral">&#39;SELECT a.*</span></div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a</span></div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir ON a.id = ir.article_id</span></div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span><span class="stringliteral">            WHERE i.player_uuid = :uuid AND a.type = &quot;banner&quot; AND ir.active = 1&#39;</span>);</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        $banner = $stmt-&gt;fetch();</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>        <span class="keywordflow">if</span> ($banner === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>        }</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($banner);</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    }</div>
+</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span></div>
+<div class="foldopen" id="foldopen00432" data-start="{" data-end="}">
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a35aa28aa784c65dc5564bc97f943eb0a">  432</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a35aa28aa784c65dc5564bc97f943eb0a">deleteActiveArticleForPfp</a>(<span class="keywordtype">string</span> $uuid): void</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>    {</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>            <span class="stringliteral">&#39;SELECT p.*</span></div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;player p</span></div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span><span class="stringliteral">            WHERE p.uuid = :uuid&#39;</span>);</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>        <span class="keywordflow">if</span> ($stmt-&gt;rowCount() === 0) {</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>            <span class="comment">// Gérer le cas où aucune ligne n&#39;est affectée</span></div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span>            <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1App_1_1Exceptions_1_1NotFoundException.html">NotFoundException</a>(<span class="stringliteral">&#39;No player found for the given UUID&#39;</span>);</div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>            $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>                <span class="stringliteral">&#39;UPDATE &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir</span></div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a ON ir.article_id = a.id</span></div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span><span class="stringliteral">        SET ir.active = 0 </span></div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span><span class="stringliteral">        WHERE i.player_uuid = :uuid AND a.type = &quot;pfp&quot;&#39;</span>);</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>            $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>            $stmt-&gt;execute();</div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>        }</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span> </div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span> </div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>    }</div>
+</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span></div>
+<div class="foldopen" id="foldopen00461" data-start="{" data-end="}">
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ArticleDAO.html#a5cc5fcd9fd0fcd3c809c709987710014">  461</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ArticleDAO.html#a5cc5fcd9fd0fcd3c809c709987710014">deleteActiveArticleForBanner</a>(<span class="keywordtype">string</span> $uuid): void</div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>    {</div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>            <span class="stringliteral">&#39;UPDATE &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice_row ir</span></div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;invoice i ON ir.invoice_id = i.id</span></div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span><span class="stringliteral">        JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;article a ON ir.article_id = a.id</span></div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span><span class="stringliteral">        SET ir.active = 0 </span></div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span><span class="stringliteral">        WHERE i.player_uuid = :uuid AND a.type = &quot;banner&quot;&#39;</span>);</div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>    }</div>
+</div>
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Exceptions_1_1NotFoundException_html"><div class="ttname"><a href="classComusParty_1_1App_1_1Exceptions_1_1NotFoundException.html">ComusParty\App\Exceptions\NotFoundException</a></div><div class="ttdoc">Classe NotFoundException.</div><div class="ttdef"><b>Definition</b> <a href="NotFoundException_8php_source.html#l00019">NotFoundException.php:20</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html">ComusParty\Models\ArticleDAO</a></div><div class="ttdoc">Classe ArticleDAO.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">article.dao.php:24</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a2c5e351e3f93bfdfa141380360ebffe5"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a2c5e351e3f93bfdfa141380360ebffe5">ComusParty\Models\ArticleDAO\findActivePfpByPlayerUuid</a></div><div class="ttdeci">findActivePfpByPlayerUuid(string $uuid)</div><div class="ttdoc">Retourne la photo de profile active que le joueur possède sous forme d&#39;objet Article.</div><div class="ttdef"><b>Definition</b> <a href="#l00363">article.dao.php:363</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a2fa942263ffee52fcc9057007d5deedb"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a2fa942263ffee52fcc9057007d5deedb">ComusParty\Models\ArticleDAO\findActiveBannerByPlayerUuid</a></div><div class="ttdeci">findActiveBannerByPlayerUuid(string $uuid)</div><div class="ttdoc">Retourne la bannière active que le joueur possède sous forme d&#39;objet Article.</div><div class="ttdef"><b>Definition</b> <a href="#l00409">article.dao.php:409</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a35aa28aa784c65dc5564bc97f943eb0a"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a35aa28aa784c65dc5564bc97f943eb0a">ComusParty\Models\ArticleDAO\deleteActiveArticleForPfp</a></div><div class="ttdeci">deleteActiveArticleForPfp(string $uuid)</div><div class="ttdoc">Supprime toutes les pfps pour les mettre à 0 en active.</div><div class="ttdef"><b>Definition</b> <a href="#l00432">article.dao.php:432</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a46f90da5ce3e820cb67c82e8f1b37482"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a46f90da5ce3e820cb67c82e8f1b37482">ComusParty\Models\ArticleDAO\findAllPfpsOwnedByPlayer</a></div><div class="ttdeci">findAllPfpsOwnedByPlayer(string $uuid)</div><div class="ttdoc">Retourne un tableau d&#39;objets Article (ou null) à partir de l&#39;UUID du joueur correspondant à l&#39;ensembl...</div><div class="ttdef"><b>Definition</b> <a href="#l00149">article.dao.php:149</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a4ffd29b37acdf3a126f9d79d63f1e04e"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">ComusParty\Models\ArticleDAO\hydrate</a></div><div class="ttdeci">hydrate(array $data)</div><div class="ttdoc">Hydrate un objet Article avec les valeurs du tableau associatif passé en paramètre.</div><div class="ttdef"><b>Definition</b> <a href="#l00119">article.dao.php:119</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a59dbe78a4c54369c1606781afb653611"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a59dbe78a4c54369c1606781afb653611">ComusParty\Models\ArticleDAO\findArticlesWithIds</a></div><div class="ttdeci">findArticlesWithIds(array $ids)</div><div class="ttdoc">Retourne un tableau d&#39;objets Article recensant l&#39;ensemble des articles correspondant aux id &quot;ids&quot;.</div><div class="ttdef"><b>Definition</b> <a href="#l00213">article.dao.php:213</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a5cc5fcd9fd0fcd3c809c709987710014"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a5cc5fcd9fd0fcd3c809c709987710014">ComusParty\Models\ArticleDAO\deleteActiveArticleForBanner</a></div><div class="ttdeci">deleteActiveArticleForBanner(string $uuid)</div><div class="ttdoc">Supprime toutes les bannières pour les mettre à 0 en active.</div><div class="ttdef"><b>Definition</b> <a href="#l00461">article.dao.php:461</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a66e802cae33a0afb87763f843d6f6cce"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a66e802cae33a0afb87763f843d6f6cce">ComusParty\Models\ArticleDAO\updateActiveArticle</a></div><div class="ttdeci">updateActiveArticle(string $uuid, string $idArticle, string $typeArticle)</div><div class="ttdoc">Met à jour l&#39;article en active dans la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00282">article.dao.php:282</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a6e7560ad95a7986be67f7528c80e7f1a"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">ComusParty\Models\ArticleDAO\getPdo</a></div><div class="ttdeci">getPdo()</div><div class="ttdoc">Retourne la connexion à la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00045">article.dao.php:45</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a73a1b0348919b6755e4f69dcc70eba64"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a73a1b0348919b6755e4f69dcc70eba64">ComusParty\Models\ArticleDAO\findAll</a></div><div class="ttdeci">findAll()</div><div class="ttdoc">Retourne un tableau d&#39;objets Article recensant l&#39;ensemble des articles enregistrés dans la base de do...</div><div class="ttdef"><b>Definition</b> <a href="#l00193">article.dao.php:193</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a79881b81517553bd70f742ed791c9ff7"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a79881b81517553bd70f742ed791c9ff7">ComusParty\Models\ArticleDAO\findArticlesByInvoiceId</a></div><div class="ttdeci">findArticlesByInvoiceId(?int $invoiceId)</div><div class="ttdoc">Retourne un tableau d&#39;objets Article (ou null) à partir de l&#39;ID de la facture passé en paramètre.</div><div class="ttdef"><b>Definition</b> <a href="#l00066">article.dao.php:66</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a7d739cc16dd2f720cdee1582430bd142"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a7d739cc16dd2f720cdee1582430bd142">ComusParty\Models\ArticleDAO\findAllBannersOwnedByPlayer</a></div><div class="ttdeci">findAllBannersOwnedByPlayer(string $uuid)</div><div class="ttdoc">Retourne un tableau d&#39;objets Article (ou null) à partir de l&#39;UUID du joueur correspondant à l&#39;ensembl...</div><div class="ttdef"><b>Definition</b> <a href="#l00170">article.dao.php:170</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_a9db61e1721b616500bce6ed60491752a"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#a9db61e1721b616500bce6ed60491752a">ComusParty\Models\ArticleDAO\$pdo</a></div><div class="ttdeci">PDO $pdo</div><div class="ttdef"><b>Definition</b> <a href="#l00029">article.dao.php:29</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_aa3bec2d90395bbf607ba0ddb2817b822"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#aa3bec2d90395bbf607ba0ddb2817b822">ComusParty\Models\ArticleDAO\findAllPfps</a></div><div class="ttdeci">findAllPfps()</div><div class="ttdoc">Retourne un tableau d&#39;objets Article qui ont le type profile_picture dans la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00239">article.dao.php:239</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_aba4c54698c520d0e4a7cabcd4905b7a2"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">ComusParty\Models\ArticleDAO\setPdo</a></div><div class="ttdeci">setPdo(?PDO $pdo)</div><div class="ttdoc">Modifie la connexion à la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00054">article.dao.php:54</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_ac67ab874b2b4764d9e86349bf90cd7eb"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#ac67ab874b2b4764d9e86349bf90cd7eb">ComusParty\Models\ArticleDAO\findAllBanners</a></div><div class="ttdeci">findAllBanners()</div><div class="ttdoc">Retourne un tableau d&#39;objets Article qui ont le type banner dans la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00260">article.dao.php:260</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_ad68606f47a998de06d17d37a9884b7e7"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#ad68606f47a998de06d17d37a9884b7e7">ComusParty\Models\ArticleDAO\__construct</a></div><div class="ttdeci">__construct(?PDO $pdo)</div><div class="ttdoc">Le constructeur de la classe ArticleDAO.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">article.dao.php:36</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_ae4d5d5c3a2f6e9b33ddd93213ec5eea6"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#ae4d5d5c3a2f6e9b33ddd93213ec5eea6">ComusParty\Models\ArticleDAO\findById</a></div><div class="ttdeci">findById(string $id)</div><div class="ttdoc">Retourne un objet Article (ou null) à partir de l&#39;ID passé en paramètre.</div><div class="ttdef"><b>Definition</b> <a href="#l00387">article.dao.php:387</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ArticleDAO_html_af8c20f44685f5aa5bc1193262147cdda"><div class="ttname"><a href="classComusParty_1_1Models_1_1ArticleDAO.html#af8c20f44685f5aa5bc1193262147cdda">ComusParty\Models\ArticleDAO\hydrateMany</a></div><div class="ttdeci">hydrateMany(array $data)</div><div class="ttdoc">Hydrate un tableau d&#39;objets Article avec les valeurs des tableaux associatifs du tableau passé en par...</div><div class="ttdef"><b>Definition</b> <a href="#l00104">article.dao.php:104</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Article_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1Article.html">ComusParty\Models\Article</a></div><div class="ttdoc">Classe Article.</div><div class="ttdef"><b>Definition</b> <a href="article_8class_8php_source.html#l00041">article.class.php:42</a></div></div>
+<div class="ttc" id="anamespaceComusParty_1_1Models_html_a5f7801877a50649b786fc0bfe474c9aba427d304b8943edb6ca37aa8224de7c6f"><div class="ttname"><a href="namespaceComusParty_1_1Models.html#a5f7801877a50649b786fc0bfe474c9aba427d304b8943edb6ca37aa8224de7c6f">ComusParty\Models\Banner</a></div><div class="ttdeci">@ Banner</div><div class="ttdoc">Image de profil.</div><div class="ttdef"><b>Definition</b> <a href="article_8class_8php_source.html#l00033">article.class.php:33</a></div></div>
+<div class="ttc" id="anamespaceComusParty_html_ad6df2867c69dfee47053cf5aedbff7e1"><div class="ttname"><a href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">ComusParty\DB_PREFIX</a></div><div class="ttdeci">const DB_PREFIX</div><div class="ttdoc">Préfixe des tables de la base de données.</div><div class="ttdef"><b>Definition</b> <a href="db_8php_source.html#l00052">db.php:52</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li><li class="navelem"><a class="el" href="article_8dao_8php.html">article.dao.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

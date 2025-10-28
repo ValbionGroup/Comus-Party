@@ -1,0 +1,173 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/Controllers/ControllerRanking.class.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('ControllerRanking_8class_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ControllerRanking.class.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="ControllerRanking_8class_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>ComusParty\Controllers;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>use ComusParty\Models\PlayerDAO;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>use DateMalformedStringException;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>use Twig\Environment;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>use Twig\Error\LoaderError;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>use Twig\Error\RuntimeError;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>use Twig\Error\SyntaxError;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>use Twig\Loader\FilesystemLoader;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classComusParty_1_1Controllers_1_1ControllerRanking.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1Controllers_1_1ControllerRanking.html">ControllerRanking</a> <span class="keyword">extends</span> <a class="code hl_class" href="classComusParty_1_1Controllers_1_1Controller.html">Controller</a></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classComusParty_1_1Controllers_1_1ControllerRanking.html#a64d0d4222c47c910d65b50e33ca6b06d">   31</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Controllers_1_1ControllerRanking.html#a64d0d4222c47c910d65b50e33ca6b06d">__construct</a>(FilesystemLoader <a class="code hl_variable" href="classComusParty_1_1Controllers_1_1Controller.html#a83cb169857cae69fe120a514c37e7190">$loader</a>, Environment <a class="code hl_variable" href="classComusParty_1_1Controllers_1_1Controller.html#add39208f8dd79820152f4f7389d99846">$twig</a>)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        parent::__construct(<a class="code hl_variable" href="classComusParty_1_1Controllers_1_1Controller.html#a83cb169857cae69fe120a514c37e7190">$loader</a>, <a class="code hl_variable" href="classComusParty_1_1Controllers_1_1Controller.html#add39208f8dd79820152f4f7389d99846">$twig</a>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classComusParty_1_1Controllers_1_1ControllerRanking.html#a8e6af44f324efcf8977141e179fbd54b">   44</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Controllers_1_1ControllerRanking.html#a8e6af44f324efcf8977141e179fbd54b">showRanking</a>()</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        $playerManager = <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1PlayerDAO.html">PlayerDAO</a>($this-&gt;<a class="code hl_function" href="classComusParty_1_1Controllers_1_1Controller.html#a6e7560ad95a7986be67f7528c80e7f1a">getPdo</a>());</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        $players = $playerManager-&gt;findInRangeOrderByEloDescWithDetails(1, 100);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        $template = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Controllers_1_1Controller.html#a203a8d14d122ff10e474df98bb08ec88">getTwig</a>()-&gt;load(<span class="stringliteral">&#39;ranking.twig&#39;</span>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        echo $template-&gt;render(array(</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="stringliteral">&#39;players&#39;</span> =&gt; $players</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        ));</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1Controllers_1_1ControllerRanking_html"><div class="ttname"><a href="classComusParty_1_1Controllers_1_1ControllerRanking.html">ComusParty\Controllers\ControllerRanking</a></div><div class="ttdoc">Classe ControllerRanking.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">ControllerRanking.class.php:25</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Controllers_1_1ControllerRanking_html_a64d0d4222c47c910d65b50e33ca6b06d"><div class="ttname"><a href="classComusParty_1_1Controllers_1_1ControllerRanking.html#a64d0d4222c47c910d65b50e33ca6b06d">ComusParty\Controllers\ControllerRanking\__construct</a></div><div class="ttdeci">__construct(FilesystemLoader $loader, Environment $twig)</div><div class="ttdoc">Constructeur de la classe ControllerShop.</div><div class="ttdef"><b>Definition</b> <a href="#l00031">ControllerRanking.class.php:31</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Controllers_1_1ControllerRanking_html_a8e6af44f324efcf8977141e179fbd54b"><div class="ttname"><a href="classComusParty_1_1Controllers_1_1ControllerRanking.html#a8e6af44f324efcf8977141e179fbd54b">ComusParty\Controllers\ControllerRanking\showRanking</a></div><div class="ttdeci">showRanking()</div><div class="ttdoc">Permet d&#39;afficher le classement.</div><div class="ttdef"><b>Definition</b> <a href="#l00044">ControllerRanking.class.php:44</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Controllers_1_1Controller_html"><div class="ttname"><a href="classComusParty_1_1Controllers_1_1Controller.html">ComusParty\Controllers\Controller</a></div><div class="ttdoc">Classe Controller.</div><div class="ttdef"><b>Definition</b> <a href="Controller_8class_8php_source.html#l00029">Controller.class.php:30</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Controllers_1_1Controller_html_a203a8d14d122ff10e474df98bb08ec88"><div class="ttname"><a href="classComusParty_1_1Controllers_1_1Controller.html#a203a8d14d122ff10e474df98bb08ec88">ComusParty\Controllers\Controller\getTwig</a></div><div class="ttdeci">getTwig()</div><div class="ttdoc">Retourne l&#39;attribut twig, correspondant à l&#39;environnement de Twig.</div><div class="ttdef"><b>Definition</b> <a href="Controller_8class_8php_source.html#l00306">Controller.class.php:306</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Controllers_1_1Controller_html_a6e7560ad95a7986be67f7528c80e7f1a"><div class="ttname"><a href="classComusParty_1_1Controllers_1_1Controller.html#a6e7560ad95a7986be67f7528c80e7f1a">ComusParty\Controllers\Controller\getPdo</a></div><div class="ttdeci">getPdo()</div><div class="ttdoc">Retourne l&#39;attribut PDO, correspondant à la connexion à la base de données.</div><div class="ttdef"><b>Definition</b> <a href="Controller_8class_8php_source.html#l00232">Controller.class.php:232</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Controllers_1_1Controller_html_a83cb169857cae69fe120a514c37e7190"><div class="ttname"><a href="classComusParty_1_1Controllers_1_1Controller.html#a83cb169857cae69fe120a514c37e7190">ComusParty\Controllers\Controller\$loader</a></div><div class="ttdeci">FilesystemLoader $loader</div><div class="ttdef"><b>Definition</b> <a href="Controller_8class_8php_source.html#l00041">Controller.class.php:41</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Controllers_1_1Controller_html_add39208f8dd79820152f4f7389d99846"><div class="ttname"><a href="classComusParty_1_1Controllers_1_1Controller.html#add39208f8dd79820152f4f7389d99846">ComusParty\Controllers\Controller\$twig</a></div><div class="ttdeci">Environment $twig</div><div class="ttdef"><b>Definition</b> <a href="Controller_8class_8php_source.html#l00048">Controller.class.php:48</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PlayerDAO_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1PlayerDAO.html">ComusParty\Models\PlayerDAO</a></div><div class="ttdoc">Classe PlayerDAO.</div><div class="ttdef"><b>Definition</b> <a href="player_8dao_8php_source.html#l00022">player.dao.php:23</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_efbf91dec8e0e89146a72eada515bf52.html">Controllers</a></li><li class="navelem"><a class="el" href="ControllerRanking_8class_8php.html">ControllerRanking.class.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

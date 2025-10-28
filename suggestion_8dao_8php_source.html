@@ -1,0 +1,296 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/Models/suggestion.dao.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('suggestion_8dao_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">suggestion.dao.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="suggestion_8dao_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>ComusParty\Models;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>use DateMalformedStringException;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>use DateTime;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>use PDO;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1Models_1_1SuggestionDAO.html">SuggestionDAO</a></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a9db61e1721b616500bce6ed60491752a">   26</a></span>    <span class="keyword">private</span> ?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#ad68606f47a998de06d17d37a9884b7e7">   32</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#ad68606f47a998de06d17d37a9884b7e7">__construct</a>(?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        $this-&gt;pdo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">   41</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">getPdo</a>(): ?PDO</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a9db61e1721b616500bce6ed60491752a">$this-&gt;pdo</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">   50</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">setPdo</a>(?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>): void</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        $this-&gt;pdo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a63be2f2f7140522aae0771a0469afdc4">   60</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a63be2f2f7140522aae0771a0469afdc4">create</a>(<a class="code hl_class" href="classComusParty_1_1Models_1_1Suggestion.html">Suggestion</a> $suggestion): bool</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        $stmt = $this-&gt;pdo-&gt;prepare(<span class="stringliteral">&#39;INSERT INTO &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;suggestion (object, content, author_uuid) VALUES (:object, :content, :author_uuid)&#39;</span>);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        $object = match ($suggestion-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Suggestion.html#a8ecaa7401cc1e1144cb98698a9658ebc">getObject</a>()) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            SuggestObject::BUG =&gt; <span class="stringliteral">&#39;bug&#39;</span>,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            SuggestObject::GAME =&gt; <span class="stringliteral">&#39;jeu&#39;</span>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            SuggestObject::UI =&gt; <span class="stringliteral">&#39;ui&#39;</span>,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <a class="code hl_enumvalue" href="namespaceComusParty_1_1Models.html#aeabe9ac3f8bf0fc15d4d07e3d26de6feac4d216d824b98f736f89c043a164d4c7">SuggestObject::OTHER</a> =&gt; <span class="stringliteral">&#39;other&#39;</span>,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        };</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        $content = $suggestion-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Suggestion.html#a58e43f09a06ce4e29b192c4e17ce7915">getContent</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        $authorUuid = $suggestion-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Suggestion.html#ae5b66104e405cea718f96dd282063683">getAuthorUuid</a>();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:object&#39;</span>, $object);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:content&#39;</span>, $content);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:author_uuid&#39;</span>, $authorUuid);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> $stmt-&gt;execute();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#ac3e609c6e86089d6dc0a68f3880b52c8">   81</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#ac3e609c6e86089d6dc0a68f3880b52c8">findAllWaiting</a>(): ?array</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="stringliteral">&#39;SELECT s.*, p.username</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;suggestion s</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;player p ON s.author_uuid = p.uuid</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="stringliteral">            WHERE s.treated_by IS NULL&#39;</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        );</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        $suggestsTab = $stmt-&gt;fetchAll();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">if</span> (!$suggestsTab) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        }</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a628aefbd7e96ded26a2189f98e5c6aa3">hydrateMany</a>($suggestsTab);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    }</div>
+</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span></div>
+<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a628aefbd7e96ded26a2189f98e5c6aa3">  104</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a628aefbd7e96ded26a2189f98e5c6aa3">hydrateMany</a>(array $suggestsTab): array</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        $suggests = [];</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">if</span> ($suggestsTab) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keywordflow">foreach</span> ($suggestsTab as $suggestTab) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                $suggests[] = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($suggestTab);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> $suggests;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span></div>
+<div class="foldopen" id="foldopen00121" data-start="{" data-end="}">
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">  121</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>(array $data): <a class="code hl_class" href="classComusParty_1_1Models_1_1Suggestion.html">Suggestion</a></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        $suggestion = <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1Suggestion.html">Suggestion</a>();</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        $suggestion-&gt;setId($data[<span class="stringliteral">&#39;id&#39;</span>]);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        $suggestion-&gt;setObject(</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            match ($data[<span class="stringliteral">&#39;object&#39;</span>]) {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                <span class="stringliteral">&#39;bug&#39;</span> =&gt; SuggestObject::BUG,</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                <span class="stringliteral">&#39;jeu&#39;</span> =&gt; SuggestObject::GAME,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                <span class="stringliteral">&#39;ui&#39;</span> =&gt; SuggestObject::UI,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                <span class="stringliteral">&#39;other&#39;</span> =&gt; <a class="code hl_enumvalue" href="namespaceComusParty_1_1Models.html#aeabe9ac3f8bf0fc15d4d07e3d26de6feac4d216d824b98f736f89c043a164d4c7">SuggestObject::OTHER</a>,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        );</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        $suggestion-&gt;setContent($data[<span class="stringliteral">&#39;content&#39;</span>]);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        $suggestion-&gt;setAuthorUuid($data[<span class="stringliteral">&#39;author_uuid&#39;</span>]);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        $suggestion-&gt;setCreatedAt(<span class="keyword">new</span> DateTime($data[<span class="stringliteral">&#39;created_at&#39;</span>]));</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        $suggestion-&gt;setAuthorUsername($data[<span class="stringliteral">&#39;username&#39;</span>]);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">return</span> $suggestion;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    }</div>
+</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span></div>
+<div class="foldopen" id="foldopen00148" data-start="{" data-end="}">
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#af4285e10dc6c75d1d5d479dd227f1b90">  148</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#af4285e10dc6c75d1d5d479dd227f1b90">deny</a>(?<span class="keywordtype">int</span> $id): bool</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        $stmt = $this-&gt;pdo-&gt;prepare(<span class="stringliteral">&#39;UPDATE &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;suggestion SET treated_by = :treated_by WHERE id = :id&#39;</span>);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:treated_by&#39;</span>, $_SESSION[<span class="stringliteral">&#39;uuid&#39;</span>]);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:id&#39;</span>, $id);</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">return</span> $stmt-&gt;execute();</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
+</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span></div>
+<div class="foldopen" id="foldopen00166" data-start="{" data-end="}">
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a72b0be4e83bccb2e8b6212ad87a79a98">  166</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a72b0be4e83bccb2e8b6212ad87a79a98">accept</a>(?<span class="keywordtype">int</span> $id): bool</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        $stmt = $this-&gt;pdo-&gt;prepare(<span class="stringliteral">&#39;UPDATE &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;suggestion SET treated_by = :treated_by, accepted = 1 WHERE id = :id&#39;</span>);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:treated_by&#39;</span>, $_SESSION[<span class="stringliteral">&#39;uuid&#39;</span>]);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:id&#39;</span>, $id);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keywordflow">return</span> $stmt-&gt;execute();</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    }</div>
+</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span></div>
+<div class="foldopen" id="foldopen00181" data-start="{" data-end="}">
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a8ed226691c92a548176b122b0907a1d4">  181</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a8ed226691c92a548176b122b0907a1d4">findById</a>(?<span class="keywordtype">int</span> $id)</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        $stmt = $this-&gt;pdo-&gt;prepare(</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            <span class="stringliteral">&#39;SELECT s.*, p.username</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="stringliteral">            FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;suggestion s</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="stringliteral">            JOIN &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;player p ON s.author_uuid = p.uuid</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="stringliteral">            WHERE s.id = :id&#39;</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        );</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:id&#39;</span>, $id);</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        $suggestTab = $stmt-&gt;fetch();</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keywordflow">if</span> (!$suggestTab) {</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        }</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1SuggestionDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($suggestTab);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    }</div>
+</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html">ComusParty\Models\SuggestionDAO</a></div><div class="ttdoc">Classe SuggestionDAO.</div><div class="ttdef"><b>Definition</b> <a href="#l00020">suggestion.dao.php:21</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_a4ffd29b37acdf3a126f9d79d63f1e04e"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">ComusParty\Models\SuggestionDAO\hydrate</a></div><div class="ttdeci">hydrate(array $data)</div><div class="ttdoc">Hydrate un tableau de données en une suggestion.</div><div class="ttdef"><b>Definition</b> <a href="#l00121">suggestion.dao.php:121</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_a628aefbd7e96ded26a2189f98e5c6aa3"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#a628aefbd7e96ded26a2189f98e5c6aa3">ComusParty\Models\SuggestionDAO\hydrateMany</a></div><div class="ttdeci">hydrateMany(array $suggestsTab)</div><div class="ttdoc">Hydrate un tableau de données en plusieurs suggestions.</div><div class="ttdef"><b>Definition</b> <a href="#l00104">suggestion.dao.php:104</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_a63be2f2f7140522aae0771a0469afdc4"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#a63be2f2f7140522aae0771a0469afdc4">ComusParty\Models\SuggestionDAO\create</a></div><div class="ttdeci">create(Suggestion $suggestion)</div><div class="ttdoc">Insert une suggestion en base de données et retourne le résultat de l&#39;exécution.</div><div class="ttdef"><b>Definition</b> <a href="#l00060">suggestion.dao.php:60</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_a6e7560ad95a7986be67f7528c80e7f1a"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">ComusParty\Models\SuggestionDAO\getPdo</a></div><div class="ttdeci">getPdo()</div><div class="ttdoc">Retourne la connexion à la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00041">suggestion.dao.php:41</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_a72b0be4e83bccb2e8b6212ad87a79a98"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#a72b0be4e83bccb2e8b6212ad87a79a98">ComusParty\Models\SuggestionDAO\accept</a></div><div class="ttdeci">accept(?int $id)</div><div class="ttdoc">Accepte une suggestio en modifiant ses attributs en base de données et retourne le résultat de l&#39;exéc...</div><div class="ttdef"><b>Definition</b> <a href="#l00166">suggestion.dao.php:166</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_a8ed226691c92a548176b122b0907a1d4"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#a8ed226691c92a548176b122b0907a1d4">ComusParty\Models\SuggestionDAO\findById</a></div><div class="ttdeci">findById(?int $id)</div><div class="ttdoc">Récupère une suggestion en base de données par son identifiant.</div><div class="ttdef"><b>Definition</b> <a href="#l00181">suggestion.dao.php:181</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_a9db61e1721b616500bce6ed60491752a"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#a9db61e1721b616500bce6ed60491752a">ComusParty\Models\SuggestionDAO\$pdo</a></div><div class="ttdeci">PDO $pdo</div><div class="ttdef"><b>Definition</b> <a href="#l00026">suggestion.dao.php:26</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_aba4c54698c520d0e4a7cabcd4905b7a2"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">ComusParty\Models\SuggestionDAO\setPdo</a></div><div class="ttdeci">setPdo(?PDO $pdo)</div><div class="ttdoc">Modifie la connexion à la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00050">suggestion.dao.php:50</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_ac3e609c6e86089d6dc0a68f3880b52c8"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#ac3e609c6e86089d6dc0a68f3880b52c8">ComusParty\Models\SuggestionDAO\findAllWaiting</a></div><div class="ttdeci">findAllWaiting()</div><div class="ttdoc">Récupère toutes les suggestions en base de données qui ne sont pas traitées.</div><div class="ttdef"><b>Definition</b> <a href="#l00081">suggestion.dao.php:81</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_ad68606f47a998de06d17d37a9884b7e7"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#ad68606f47a998de06d17d37a9884b7e7">ComusParty\Models\SuggestionDAO\__construct</a></div><div class="ttdeci">__construct(?PDO $pdo)</div><div class="ttdoc">Le constructeur de la classe SuggestionDAO.</div><div class="ttdef"><b>Definition</b> <a href="#l00032">suggestion.dao.php:32</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1SuggestionDAO_html_af4285e10dc6c75d1d5d479dd227f1b90"><div class="ttname"><a href="classComusParty_1_1Models_1_1SuggestionDAO.html#af4285e10dc6c75d1d5d479dd227f1b90">ComusParty\Models\SuggestionDAO\deny</a></div><div class="ttdeci">deny(?int $id)</div><div class="ttdoc">Refuse une suggestio en modifiant un attribut en base de données et retourne le résultat de l&#39;exécuti...</div><div class="ttdef"><b>Definition</b> <a href="#l00148">suggestion.dao.php:148</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Suggestion_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1Suggestion.html">ComusParty\Models\Suggestion</a></div><div class="ttdoc">Classe Suggestion.</div><div class="ttdef"><b>Definition</b> <a href="suggestion_8class_8php_source.html#l00045">suggestion.class.php:46</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Suggestion_html_a58e43f09a06ce4e29b192c4e17ce7915"><div class="ttname"><a href="classComusParty_1_1Models_1_1Suggestion.html#a58e43f09a06ce4e29b192c4e17ce7915">ComusParty\Models\Suggestion\getContent</a></div><div class="ttdeci">getContent()</div><div class="ttdoc">Permet de récupérer le contenu de la suggestion.</div><div class="ttdef"><b>Definition</b> <a href="suggestion_8class_8php_source.html#l00157">suggestion.class.php:157</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Suggestion_html_a8ecaa7401cc1e1144cb98698a9658ebc"><div class="ttname"><a href="classComusParty_1_1Models_1_1Suggestion.html#a8ecaa7401cc1e1144cb98698a9658ebc">ComusParty\Models\Suggestion\getObject</a></div><div class="ttdeci">getObject()</div><div class="ttdoc">Permet de récupérer l&#39;objet de la suggestion.</div><div class="ttdef"><b>Definition</b> <a href="suggestion_8class_8php_source.html#l00139">suggestion.class.php:139</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Suggestion_html_ae5b66104e405cea718f96dd282063683"><div class="ttname"><a href="classComusParty_1_1Models_1_1Suggestion.html#ae5b66104e405cea718f96dd282063683">ComusParty\Models\Suggestion\getAuthorUuid</a></div><div class="ttdeci">getAuthorUuid()</div><div class="ttdoc">Permet de récupérer l&#39;UUID de l&#39;auteur de la suggestion.</div><div class="ttdef"><b>Definition</b> <a href="suggestion_8class_8php_source.html#l00176">suggestion.class.php:176</a></div></div>
+<div class="ttc" id="anamespaceComusParty_1_1Models_html_aeabe9ac3f8bf0fc15d4d07e3d26de6feac4d216d824b98f736f89c043a164d4c7"><div class="ttname"><a href="namespaceComusParty_1_1Models.html#aeabe9ac3f8bf0fc15d4d07e3d26de6feac4d216d824b98f736f89c043a164d4c7">ComusParty\Models\OTHER</a></div><div class="ttdeci">@ OTHER</div><div class="ttdoc">Langage / propos incorrect.</div><div class="ttdef"><b>Definition</b> <a href="report_8class_8php_source.html#l00043">report.class.php:43</a></div></div>
+<div class="ttc" id="anamespaceComusParty_html_ad6df2867c69dfee47053cf5aedbff7e1"><div class="ttname"><a href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">ComusParty\DB_PREFIX</a></div><div class="ttdeci">const DB_PREFIX</div><div class="ttdoc">Préfixe des tables de la base de données.</div><div class="ttdef"><b>Definition</b> <a href="db_8php_source.html#l00052">db.php:52</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li><li class="navelem"><a class="el" href="suggestion_8dao_8php.html">suggestion.dao.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

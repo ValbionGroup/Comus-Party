@@ -1,0 +1,276 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/Models/moderator.class.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('moderator_8class_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">moderator.class.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="moderator_8class_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>ComusParty\Models;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>use DateTime;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1Models_1_1Moderator.html">Moderator</a></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#aedc88a983d203149a4557dc1597ed64d">   25</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a7a3fa75c4235b1f1d97d1438986972f5">   31</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a54c5e8500fdea528482f8dfea9bd0ec9">   37</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a54c5e8500fdea528482f8dfea9bd0ec9">$firstName</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a196c453a94417f4709ad4fb265afaefb">   43</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a196c453a94417f4709ad4fb265afaefb">$lastName</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a479fde0e5affee7654f315d79c4c54be">   49</a></span>    <span class="keyword">private</span> ?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#ad61536d92e1a1a6bb8233adfb15bc755">   55</a></span>    <span class="keyword">private</span> ?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a2c29cbf6ae6e8921e98041eab172c9ae">   66</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a2c29cbf6ae6e8921e98041eab172c9ae">__construct</a>(?<span class="keywordtype">string</span>   <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                                ?<span class="keywordtype">int</span>      <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                                ?<span class="keywordtype">string</span>   <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a54c5e8500fdea528482f8dfea9bd0ec9">$firstName</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                ?<span class="keywordtype">string</span>   <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a196c453a94417f4709ad4fb265afaefb">$lastName</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                                ?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                                ?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a> = <span class="keyword">null</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    )</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        $this-&gt;uuid = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        $this-&gt;userId = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        $this-&gt;firstName = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a54c5e8500fdea528482f8dfea9bd0ec9">$firstName</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        $this-&gt;lastName = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a196c453a94417f4709ad4fb265afaefb">$lastName</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        $this-&gt;createdAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        $this-&gt;updatedAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span></div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a225c1e47e0322aa545ec071d5b0eaa54">   86</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a225c1e47e0322aa545ec071d5b0eaa54">getUuid</a>(): ?string</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#aedc88a983d203149a4557dc1597ed64d">$this-&gt;uuid</a>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span></div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#adb7ad43ae8781e147b40715aa0e5974b">   96</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#adb7ad43ae8781e147b40715aa0e5974b">setUuid</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>): void</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        $this-&gt;uuid = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span></div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a05f6aa1ffae6295260d9f1cca016bf33">  105</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a05f6aa1ffae6295260d9f1cca016bf33">getUserId</a>(): ?int</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a7a3fa75c4235b1f1d97d1438986972f5">$this-&gt;userId</a>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
+<div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a4d70d2f4ef260a541cab9ef36556dd4c">  115</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a4d70d2f4ef260a541cab9ef36556dd4c">setUserId</a>(?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a>): void</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        $this-&gt;userId = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span></div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#ace5f32fc99c7c5989f7576755fc60972">  124</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#ace5f32fc99c7c5989f7576755fc60972">getFirstName</a>(): ?string</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a54c5e8500fdea528482f8dfea9bd0ec9">$this-&gt;firstName</a>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    }</div>
+</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span></div>
+<div class="foldopen" id="foldopen00134" data-start="{" data-end="}">
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a637eb11e9d855bad1249754812eff95c">  134</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a637eb11e9d855bad1249754812eff95c">setFirstName</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a54c5e8500fdea528482f8dfea9bd0ec9">$firstName</a>): void</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    {</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        $this-&gt;firstName = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a54c5e8500fdea528482f8dfea9bd0ec9">$firstName</a>;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    }</div>
+</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span></div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a717286a8348a6cf9f6d5fecb04a55fad">  143</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a717286a8348a6cf9f6d5fecb04a55fad">getLastName</a>(): ?string</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a196c453a94417f4709ad4fb265afaefb">$this-&gt;lastName</a>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    }</div>
+</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span></div>
+<div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a42a3db6fc0a1ec6a212b81f59dad6a76">  153</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a42a3db6fc0a1ec6a212b81f59dad6a76">setLastName</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a196c453a94417f4709ad4fb265afaefb">$lastName</a>): void</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        $this-&gt;lastName = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a196c453a94417f4709ad4fb265afaefb">$lastName</a>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
+</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span></div>
+<div class="foldopen" id="foldopen00162" data-start="{" data-end="}">
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a0f0455d4aafe27d1b0720c3bcfff2847">  162</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a0f0455d4aafe27d1b0720c3bcfff2847">getCreatedAt</a>(): ?DateTime</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    {</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a479fde0e5affee7654f315d79c4c54be">$this-&gt;createdAt</a>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    }</div>
+</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span></div>
+<div class="foldopen" id="foldopen00172" data-start="{" data-end="}">
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a29e08b68eaa931e0624c27c30d4d463e">  172</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a29e08b68eaa931e0624c27c30d4d463e">setCreatedAt</a>(?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>): void</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    {</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        $this-&gt;createdAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    }</div>
+</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span></div>
+<div class="foldopen" id="foldopen00181" data-start="{" data-end="}">
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a789bc1a92b41cf8c0958231bc1f27131">  181</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a789bc1a92b41cf8c0958231bc1f27131">getUpdatedAt</a>(): ?DateTime</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#ad61536d92e1a1a6bb8233adfb15bc755">$this-&gt;updatedAt</a>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    }</div>
+</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span></div>
+<div class="foldopen" id="foldopen00191" data-start="{" data-end="}">
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Moderator.html#a6a8f2e22ee946100b942d81036f29047">  191</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Moderator.html#a6a8f2e22ee946100b942d81036f29047">setUpdatedAt</a>(?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>): void</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    {</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        $this-&gt;updatedAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Moderator.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
+</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html">ComusParty\Models\Moderator</a></div><div class="ttdoc">Classe Moderator.</div><div class="ttdef"><b>Definition</b> <a href="#l00019">moderator.class.php:20</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a05f6aa1ffae6295260d9f1cca016bf33"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a05f6aa1ffae6295260d9f1cca016bf33">ComusParty\Models\Moderator\getUserId</a></div><div class="ttdeci">getUserId()</div><div class="ttdoc">Retourne l&#39;identifiant de l&#39;utilisateur associé au modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00105">moderator.class.php:105</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a0f0455d4aafe27d1b0720c3bcfff2847"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a0f0455d4aafe27d1b0720c3bcfff2847">ComusParty\Models\Moderator\getCreatedAt</a></div><div class="ttdeci">getCreatedAt()</div><div class="ttdoc">Retourne la date de création du profil de modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00162">moderator.class.php:162</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a196c453a94417f4709ad4fb265afaefb"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a196c453a94417f4709ad4fb265afaefb">ComusParty\Models\Moderator\$lastName</a></div><div class="ttdeci">string $lastName</div><div class="ttdef"><b>Definition</b> <a href="#l00043">moderator.class.php:43</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a225c1e47e0322aa545ec071d5b0eaa54"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a225c1e47e0322aa545ec071d5b0eaa54">ComusParty\Models\Moderator\getUuid</a></div><div class="ttdeci">getUuid()</div><div class="ttdoc">Retourne l&#39;UUID du modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00086">moderator.class.php:86</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a29e08b68eaa931e0624c27c30d4d463e"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a29e08b68eaa931e0624c27c30d4d463e">ComusParty\Models\Moderator\setCreatedAt</a></div><div class="ttdeci">setCreatedAt(?DateTime $createdAt)</div><div class="ttdoc">Modifie la date de création du profil de modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00172">moderator.class.php:172</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a2c29cbf6ae6e8921e98041eab172c9ae"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a2c29cbf6ae6e8921e98041eab172c9ae">ComusParty\Models\Moderator\__construct</a></div><div class="ttdeci">__construct(?string $uuid=null, ?int $userId=null, ?string $firstName=null, ?string $lastName=null, ?DateTime $createdAt=null, ?DateTime $updatedAt=null)</div><div class="ttdoc">Constructeur de la classe Moderator.</div><div class="ttdef"><b>Definition</b> <a href="#l00066">moderator.class.php:66</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a42a3db6fc0a1ec6a212b81f59dad6a76"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a42a3db6fc0a1ec6a212b81f59dad6a76">ComusParty\Models\Moderator\setLastName</a></div><div class="ttdeci">setLastName(?string $lastName)</div><div class="ttdoc">Modifie le nom de famille du modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00153">moderator.class.php:153</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a479fde0e5affee7654f315d79c4c54be"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a479fde0e5affee7654f315d79c4c54be">ComusParty\Models\Moderator\$createdAt</a></div><div class="ttdeci">DateTime $createdAt</div><div class="ttdef"><b>Definition</b> <a href="#l00049">moderator.class.php:49</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a4d70d2f4ef260a541cab9ef36556dd4c"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a4d70d2f4ef260a541cab9ef36556dd4c">ComusParty\Models\Moderator\setUserId</a></div><div class="ttdeci">setUserId(?int $userId)</div><div class="ttdoc">Modifie l&#39;identifiant de l&#39;utilisateur associé au modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00115">moderator.class.php:115</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a54c5e8500fdea528482f8dfea9bd0ec9"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a54c5e8500fdea528482f8dfea9bd0ec9">ComusParty\Models\Moderator\$firstName</a></div><div class="ttdeci">string $firstName</div><div class="ttdef"><b>Definition</b> <a href="#l00037">moderator.class.php:37</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a637eb11e9d855bad1249754812eff95c"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a637eb11e9d855bad1249754812eff95c">ComusParty\Models\Moderator\setFirstName</a></div><div class="ttdeci">setFirstName(?string $firstName)</div><div class="ttdoc">Modifie le prénom du modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00134">moderator.class.php:134</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a6a8f2e22ee946100b942d81036f29047"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a6a8f2e22ee946100b942d81036f29047">ComusParty\Models\Moderator\setUpdatedAt</a></div><div class="ttdeci">setUpdatedAt(?DateTime $updatedAt)</div><div class="ttdoc">Modifie la date de mise à jour du profil de modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00191">moderator.class.php:191</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a717286a8348a6cf9f6d5fecb04a55fad"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a717286a8348a6cf9f6d5fecb04a55fad">ComusParty\Models\Moderator\getLastName</a></div><div class="ttdeci">getLastName()</div><div class="ttdoc">Retourne le nom de famille du modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00143">moderator.class.php:143</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a789bc1a92b41cf8c0958231bc1f27131"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a789bc1a92b41cf8c0958231bc1f27131">ComusParty\Models\Moderator\getUpdatedAt</a></div><div class="ttdeci">getUpdatedAt()</div><div class="ttdoc">Retourne la date de mise à jour du profil de modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00181">moderator.class.php:181</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_a7a3fa75c4235b1f1d97d1438986972f5"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#a7a3fa75c4235b1f1d97d1438986972f5">ComusParty\Models\Moderator\$userId</a></div><div class="ttdeci">int $userId</div><div class="ttdef"><b>Definition</b> <a href="#l00031">moderator.class.php:31</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_ace5f32fc99c7c5989f7576755fc60972"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#ace5f32fc99c7c5989f7576755fc60972">ComusParty\Models\Moderator\getFirstName</a></div><div class="ttdeci">getFirstName()</div><div class="ttdoc">Retourne le prénom du modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00124">moderator.class.php:124</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_ad61536d92e1a1a6bb8233adfb15bc755"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#ad61536d92e1a1a6bb8233adfb15bc755">ComusParty\Models\Moderator\$updatedAt</a></div><div class="ttdeci">DateTime $updatedAt</div><div class="ttdef"><b>Definition</b> <a href="#l00055">moderator.class.php:55</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_adb7ad43ae8781e147b40715aa0e5974b"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#adb7ad43ae8781e147b40715aa0e5974b">ComusParty\Models\Moderator\setUuid</a></div><div class="ttdeci">setUuid(?string $uuid)</div><div class="ttdoc">Modifie l&#39;UUID du modérateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00096">moderator.class.php:96</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html_aedc88a983d203149a4557dc1597ed64d"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html#aedc88a983d203149a4557dc1597ed64d">ComusParty\Models\Moderator\$uuid</a></div><div class="ttdeci">string $uuid</div><div class="ttdef"><b>Definition</b> <a href="#l00025">moderator.class.php:25</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li><li class="navelem"><a class="el" href="moderator_8class_8php.html">moderator.class.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party: Référence de la classe UserDAO</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classComusParty_1_1Models_1_1UserDAO.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pri-attribs">Attributs privés</a>  </div>
+  <div class="headertitle"><div class="title">Référence de la classe UserDAO</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Classe UserDAO.  
+ <a href="#details">Plus de détails...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr class="memitem:ad68606f47a998de06d17d37a9884b7e7" id="r_ad68606f47a998de06d17d37a9884b7e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad68606f47a998de06d17d37a9884b7e7">__construct</a> (?PDO $pdo)</td></tr>
+<tr class="memdesc:ad68606f47a998de06d17d37a9884b7e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le constructeur de la classe UserDAO.  <br /></td></tr>
+<tr class="separator:ad68606f47a998de06d17d37a9884b7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e7560ad95a7986be67f7528c80e7f1a" id="r_a6e7560ad95a7986be67f7528c80e7f1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e7560ad95a7986be67f7528c80e7f1a">getPdo</a> ()</td></tr>
+<tr class="memdesc:a6e7560ad95a7986be67f7528c80e7f1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne la connexion à la base de données.  <br /></td></tr>
+<tr class="separator:a6e7560ad95a7986be67f7528c80e7f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba4c54698c520d0e4a7cabcd4905b7a2" id="r_aba4c54698c520d0e4a7cabcd4905b7a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba4c54698c520d0e4a7cabcd4905b7a2">setPdo</a> (?PDO $pdo)</td></tr>
+<tr class="memdesc:aba4c54698c520d0e4a7cabcd4905b7a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifie la connexion à la base de données.  <br /></td></tr>
+<tr class="separator:aba4c54698c520d0e4a7cabcd4905b7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7320e757c1ee831183e2ac33d0bcfcfa" id="r_a7320e757c1ee831183e2ac33d0bcfcfa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7320e757c1ee831183e2ac33d0bcfcfa">findById</a> (int $id)</td></tr>
+<tr class="memdesc:a7320e757c1ee831183e2ac33d0bcfcfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne un objet User (ou null) à partir de l'ID passé en paramètre.  <br /></td></tr>
+<tr class="separator:a7320e757c1ee831183e2ac33d0bcfcfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ffd29b37acdf3a126f9d79d63f1e04e" id="r_a4ffd29b37acdf3a126f9d79d63f1e04e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a> (array $data)</td></tr>
+<tr class="memdesc:a4ffd29b37acdf3a126f9d79d63f1e04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hydrate un objet User à partir des données passées en paramètre.  <br /></td></tr>
+<tr class="separator:a4ffd29b37acdf3a126f9d79d63f1e04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1867f0859fef07fa263f430b7b157a7" id="r_ae1867f0859fef07fa263f430b7b157a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1867f0859fef07fa263f430b7b157a7">update</a> (<a class="el" href="classComusParty_1_1Models_1_1User.html">User</a> $user)</td></tr>
+<tr class="memdesc:ae1867f0859fef07fa263f430b7b157a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour un utilisateur en base de données.  <br /></td></tr>
+<tr class="separator:ae1867f0859fef07fa263f430b7b157a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3dd2de8701ae75a0e791233279d2363" id="r_ac3dd2de8701ae75a0e791233279d2363"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3dd2de8701ae75a0e791233279d2363">findByEmail</a> (?string $email)</td></tr>
+<tr class="separator:ac3dd2de8701ae75a0e791233279d2363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29a3a60924eaff5b89e90968a2099b26" id="r_a29a3a60924eaff5b89e90968a2099b26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29a3a60924eaff5b89e90968a2099b26">disableAccount</a> ($id)</td></tr>
+<tr class="memdesc:a29a3a60924eaff5b89e90968a2099b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désactive un compte utilisateur à partir de l'ID passé en paramètre.  <br /></td></tr>
+<tr class="separator:a29a3a60924eaff5b89e90968a2099b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1811179663e3c3d6062ab46738576156" id="r_a1811179663e3c3d6062ab46738576156"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1811179663e3c3d6062ab46738576156">findByEmailVerifyToken</a> (string $emailVerifToken)</td></tr>
+<tr class="memdesc:a1811179663e3c3d6062ab46738576156"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne un objet User (ou null) à partir du token de vérification d'email passé en paramètre.  <br /></td></tr>
+<tr class="separator:a1811179663e3c3d6062ab46738576156"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6138861470e2300f8dc072ace7bb6052" id="r_a6138861470e2300f8dc072ace7bb6052"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6138861470e2300f8dc072ace7bb6052">createUser</a> (string $email, string $password, string $emailVerifToken)</td></tr>
+<tr class="memdesc:a6138861470e2300f8dc072ace7bb6052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un utilisateur en base de données.  <br /></td></tr>
+<tr class="separator:a6138861470e2300f8dc072ace7bb6052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a376509502eb5dd9e33ac3813d37ccb62" id="r_a376509502eb5dd9e33ac3813d37ccb62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a376509502eb5dd9e33ac3813d37ccb62">confirmUser</a> (string $emailVerifToken)</td></tr>
+<tr class="memdesc:a376509502eb5dd9e33ac3813d37ccb62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confirme un utilisateur en mettant à jour la date de confirmation et en supprimant le token de vérification d'email.  <br /></td></tr>
+<tr class="separator:a376509502eb5dd9e33ac3813d37ccb62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Attributs privés</h2></td></tr>
+<tr class="memitem:a9db61e1721b616500bce6ed60491752a" id="r_a9db61e1721b616500bce6ed60491752a"><td class="memItemLeft" align="right" valign="top">PDO&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9db61e1721b616500bce6ed60491752a">$pdo</a></td></tr>
+<tr class="separator:a9db61e1721b616500bce6ed60491752a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Classe UserDAO. </p>
+<p>La classe UserDAO permet de gérer les utilisateurs en base de données </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00021">21</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+</div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
+<a id="ad68606f47a998de06d17d37a9884b7e7" name="ad68606f47a998de06d17d37a9884b7e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad68606f47a998de06d17d37a9884b7e7">&#9670;&#160;</a></span>__construct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__construct </td>
+          <td>(</td>
+          <td class="paramtype">?PDO</td>          <td class="paramname"><span class="paramname"><em>$pdo</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le constructeur de la classe UserDAO. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">PDO&#160;|&#160;null</td><td class="paramname">$pdo</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00033">33</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions membres</h2>
+<a id="a376509502eb5dd9e33ac3813d37ccb62" name="a376509502eb5dd9e33ac3813d37ccb62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a376509502eb5dd9e33ac3813d37ccb62">&#9670;&#160;</a></span>confirmUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">confirmUser </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$emailVerifToken</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Confirme un utilisateur en mettant à jour la date de confirmation et en supprimant le token de vérification d'email. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$emailVerifToken</td><td>Le token de vérification d'email de l'utilisateur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool Retourne true si l'utilisateur a pu être confirmé, false sinon </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00218">218</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a6138861470e2300f8dc072ace7bb6052" name="a6138861470e2300f8dc072ace7bb6052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6138861470e2300f8dc072ace7bb6052">&#9670;&#160;</a></span>createUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">createUser </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$email</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$password</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$emailVerifToken</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée un utilisateur en base de données. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$email</td><td>L'adresse e-mail de l'utilisateur </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$password</td><td>Le mot de passe de l'utilisateur </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$emailVerifToken</td><td>Le token de verification de l'utilisateur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool Retourne true si l'utilisateur a pu être créé, false sinon </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00204">204</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a29a3a60924eaff5b89e90968a2099b26" name="a29a3a60924eaff5b89e90968a2099b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29a3a60924eaff5b89e90968a2099b26">&#9670;&#160;</a></span>disableAccount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">disableAccount </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Désactive un compte utilisateur à partir de l'ID passé en paramètre. </p>
+<p>La demande de suppression effective d'un compte n'est pas possible. Afin de supprimer son compte, un joueur doit avant tout le désactiver. Une fois le compte désactivé, le joueur possède 30 jours pour demander à récupérer celui-ci. Au bout de cette période, toutes les données sont définitivement supprimées. </p><dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$id</td><td>L'ID du compte utilisateur à désactiver </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00164">164</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="ac3dd2de8701ae75a0e791233279d2363" name="ac3dd2de8701ae75a0e791233279d2363"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3dd2de8701ae75a0e791233279d2363">&#9670;&#160;</a></span>findByEmail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findByEmail </td>
+          <td>(</td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$email</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retourne un utilisateur en fonction de son email</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$email</td><td>Email de l'utilisateur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé) </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">DateMalformedStringException</td><td>Exception levée dans le cas d'une date malformée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00139">139</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a1811179663e3c3d6062ab46738576156" name="a1811179663e3c3d6062ab46738576156"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1811179663e3c3d6062ab46738576156">&#9670;&#160;</a></span>findByEmailVerifyToken()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findByEmailVerifyToken </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$emailVerifToken</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retourne un objet User (ou null) à partir du token de vérification d'email passé en paramètre. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$emailVerifToken</td><td>Le token de vérification d'email de l'utilisateur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé) </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">DateMalformedStringException</td><td>Exception levée dans le cas d'une date malformée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00180">180</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a7320e757c1ee831183e2ac33d0bcfcfa" name="a7320e757c1ee831183e2ac33d0bcfcfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7320e757c1ee831183e2ac33d0bcfcfa">&#9670;&#160;</a></span>findById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findById </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>$id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retourne un objet User (ou null) à partir de l'ID passé en paramètre. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>L'ID de l'utilisateur recherché </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>User|null Objet retourné par la méthode, ici un utilisateur (ou null si non-trouvé) </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">DateMalformedStringException</td><td>Exception levée dans le cas d'une date malformée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00062">62</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a6e7560ad95a7986be67f7528c80e7f1a" name="a6e7560ad95a7986be67f7528c80e7f1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7560ad95a7986be67f7528c80e7f1a">&#9670;&#160;</a></span>getPdo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getPdo </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retourne la connexion à la base de données. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>PDO|null Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00042">42</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a4ffd29b37acdf3a126f9d79d63f1e04e" name="a4ffd29b37acdf3a126f9d79d63f1e04e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ffd29b37acdf3a126f9d79d63f1e04e">&#9670;&#160;</a></span>hydrate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hydrate </td>
+          <td>(</td>
+          <td class="paramtype">array</td>          <td class="paramname"><span class="paramname"><em>$data</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hydrate un objet User à partir des données passées en paramètre. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$data</td><td>Le tableau associatif contenant les données de l'utilisateur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>User Objet retourné par la méthode, ici un utilisateur </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">DateMalformedStringException|Exception</td><td>Exception levée dans le cas d'une date malformée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00084">84</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="aba4c54698c520d0e4a7cabcd4905b7a2" name="aba4c54698c520d0e4a7cabcd4905b7a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4c54698c520d0e4a7cabcd4905b7a2">&#9670;&#160;</a></span>setPdo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setPdo </td>
+          <td>(</td>
+          <td class="paramtype">?PDO</td>          <td class="paramname"><span class="paramname"><em>$pdo</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modifie la connexion à la base de données. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">PDO&#160;|&#160;null</td><td class="paramname">$pdo</td><td>La nouvelle connexion à la base de données </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00051">51</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="ae1867f0859fef07fa263f430b7b157a7" name="ae1867f0859fef07fa263f430b7b157a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1867f0859fef07fa263f430b7b157a7">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classComusParty_1_1Models_1_1User.html">User</a></td>          <td class="paramname"><span class="paramname"><em>$user</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Met à jour un utilisateur en base de données. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">User</td><td class="paramname">$user</td><td>L'utilisateur à mettre à jour </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool Retourne true si la mise à jour a réussi, false sinon </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00103">103</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des champs</h2>
+<a id="a9db61e1721b616500bce6ed60491752a" name="a9db61e1721b616500bce6ed60491752a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9db61e1721b616500bce6ed60491752a">&#9670;&#160;</a></span>$pdo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">PDO $pdo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="user_8dao_8php_source.html#l00027">27</a> du fichier <a class="el" href="user_8dao_8php_source.html">user.dao.php</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir du fichier suivant :<ul>
+<li>src/Models/<a class="el" href="user_8dao_8php_source.html">user.dao.php</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceComusParty.html">ComusParty</a></li><li class="navelem"><a class="el" href="namespaceComusParty_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classComusParty_1_1Models_1_1UserDAO.html">UserDAO</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

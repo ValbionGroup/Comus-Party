@@ -1,0 +1,299 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/App/Router.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('Router_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Router.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Router_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>ComusParty\App;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>use ComusParty\App\Exceptions\RouteNotFoundException;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>use ComusParty\App\Exceptions\UnauthorizedAccessException;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>use ComusParty\Controllers\ControllerFactory;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>use Exception;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1App_1_1Router.html">Router</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#a89c6cc0a7a4e5bc16eb52d015dd8faa4">   28</a></span>    <span class="keyword">private</span> <span class="keyword">static</span> ?<a class="code hl_class" href="classComusParty_1_1App_1_1Router.html">Router</a> <a class="code hl_variable" href="classComusParty_1_1App_1_1Router.html#a89c6cc0a7a4e5bc16eb52d015dd8faa4">$instance</a> = <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#aa17a7c8ad7c21ce9bdeaac17e332e6dc">   33</a></span>    <span class="keyword">protected</span> array <a class="code hl_variable" href="classComusParty_1_1App_1_1Router.html#aa17a7c8ad7c21ce9bdeaac17e332e6dc">$routes</a> = [];</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#a095c5d389db211932136b53f25f39685">   39</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a095c5d389db211932136b53f25f39685">__construct</a>()</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
+</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#ac93fbec81f07e5d15f80db907e63dc10">   47</a></span>    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#ac93fbec81f07e5d15f80db907e63dc10">getInstance</a>(): <a class="code hl_class" href="classComusParty_1_1App_1_1Router.html">Router</a></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">if</span> (is_null(self::$instance)) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            self::$instance = <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1App_1_1Router.html">Router</a>();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">return</span> self::$instance;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#a17ca6e69f03db9835bee1b12b1321fcd">   62</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <span class="keyword">get</span>(<span class="keywordtype">string</span> $url, callable $target, ?<span class="keywordtype">string</span> $middleware = <span class="keyword">null</span>): void</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a229cfab5bad1a837e30782916ef1f8c4">addRoute</a>(<span class="stringliteral">&#39;GET&#39;</span>, $url, $target, $middleware);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#a229cfab5bad1a837e30782916ef1f8c4">   75</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a229cfab5bad1a837e30782916ef1f8c4">addRoute</a>(<span class="keywordtype">string</span> $method, <span class="keywordtype">string</span> $url, callable $target, ?<span class="keywordtype">string</span> $middleware = <span class="keyword">null</span>): void</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">if</span> (is_null($middleware)) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            $middleware = <span class="charliteral">&#39;*&#39;</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        $this-&gt;routes[$method][$middleware][<a class="code hl_variable" href="namespaceComusParty.html#aaf30b9071de6f6b736f6dbf054a34846">BASE_URI</a> . $url] = $target;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span></div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#a66eb6af81e0e191c439363f706b7ede3">   91</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a66eb6af81e0e191c439363f706b7ede3">post</a>(<span class="keywordtype">string</span> $url, callable $target, ?<span class="keywordtype">string</span> $middleware = <span class="keyword">null</span>): void</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a229cfab5bad1a837e30782916ef1f8c4">addRoute</a>(<span class="stringliteral">&#39;POST&#39;</span>, $url, $target, $middleware);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
+</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span></div>
+<div class="foldopen" id="foldopen00103" data-start="{" data-end="}">
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#a7779b13bfdb541a92af977e3a90ddf1c">  103</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a7779b13bfdb541a92af977e3a90ddf1c">put</a>(<span class="keywordtype">string</span> $url, callable $target, ?<span class="keywordtype">string</span> $middleware = <span class="keyword">null</span>): void</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a229cfab5bad1a837e30782916ef1f8c4">addRoute</a>(<span class="stringliteral">&#39;PUT&#39;</span>, $url, $target, $middleware);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
+</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
+<div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#aadcacdc440157931e2fdfd3c7792188e">  115</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <span class="keyword">delete</span>(<span class="keywordtype">string</span> $url, callable $target, ?<span class="keywordtype">string</span> $middleware = <span class="keyword">null</span>): void</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a229cfab5bad1a837e30782916ef1f8c4">addRoute</a>(<span class="stringliteral">&#39;DELETE&#39;</span>, $url, $target, $middleware);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span></div>
+<div class="foldopen" id="foldopen00139" data-start="{" data-end="}">
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#a722842d0b439f1e3098f40b8db9e52b8">  139</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a722842d0b439f1e3098f40b8db9e52b8">matchRoute</a>(): void</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        $method = $_SERVER[<span class="stringliteral">&#39;REQUEST_METHOD&#39;</span>];</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        $url = $_SERVER[<span class="stringliteral">&#39;REQUEST_URI&#39;</span>];</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordflow">if</span> (is_null($_SESSION[<span class="stringliteral">&#39;uuid&#39;</span>] ?? <span class="keyword">null</span>)) {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            global <a class="code hl_variable" href="namespaceComusParty.html#ab832f4c463ee1c9ba2e9464265f7ea3b">$loader</a>, <a class="code hl_variable" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">$twig</a>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            $authenticated = <a class="code hl_function" href="classComusParty_1_1Controllers_1_1ControllerFactory.html#a25dbcf4bbf2d3dd526d57f3395f72b4f">ControllerFactory::getController</a>(<span class="stringliteral">&#39;auth&#39;</span>, <a class="code hl_variable" href="namespaceComusParty.html#ab832f4c463ee1c9ba2e9464265f7ea3b">$loader</a>, <a class="code hl_variable" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">$twig</a>)-&gt;call(<span class="stringliteral">&#39;restoreSession&#39;</span>);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            $authenticated = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        <span class="keywordflow">if</span> (isset($this-&gt;routes[$method])) {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordflow">if</span> (!$authenticated) {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#ac7037587c14a5a34ebc0347f05b6bac5">checkRouteAndCall</a>(<span class="stringliteral">&#39;guest&#39;</span>, $method, $url)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#ac7037587c14a5a34ebc0347f05b6bac5">checkRouteAndCall</a>(<span class="charliteral">&#39;*&#39;</span>, $method, $url)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                <span class="comment">// Redirection vers la page de connexion si l&#39;utilisateur n&#39;est pas connecté</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                header(<span class="stringliteral">&#39;Location: /login?redirect=&#39;</span> . urlencode($url));</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                $role = $_SESSION[<span class="stringliteral">&#39;role&#39;</span>];</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#ac7037587c14a5a34ebc0347f05b6bac5">checkRouteAndCall</a>($role, $method, $url)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#ac7037587c14a5a34ebc0347f05b6bac5">checkRouteAndCall</a>(<span class="stringliteral">&#39;auth&#39;</span>, $method, $url)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#ac7037587c14a5a34ebc0347f05b6bac5">checkRouteAndCall</a>(<span class="charliteral">&#39;*&#39;</span>, $method, $url)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            <span class="keywordflow">foreach</span> ($this-&gt;routes[$method] as $target) {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                <span class="keywordflow">foreach</span> (array_keys($target) as $routeUrl) {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                    $pattern = preg_replace(<span class="stringliteral">&#39;/\/:([^\/]+)/&#39;</span>, <span class="stringliteral">&#39;/(?P&lt;$1&gt;[^/]+)&#39;</span>, $routeUrl);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                    <span class="keywordflow">if</span> (preg_match(<span class="stringliteral">&#39;#^&#39;</span> . $pattern . <span class="stringliteral">&#39;(\?[^/]*=[^/]+)?$#&#39;</span>, $url)) {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1App_1_1Exceptions_1_1UnauthorizedAccessException.html">UnauthorizedAccessException</a>(<span class="stringliteral">&#39;Unauthorized access to route &#39;</span> . $url . <span class="stringliteral">&#39; (&#39;</span> . $method . <span class="charliteral">&#39;)&#39;</span>);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                    }</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                }</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            }</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        }</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1App_1_1Exceptions_1_1RouteNotFoundException.html">RouteNotFoundException</a>(<span class="stringliteral">&#39;Route &#39;</span> . $url . <span class="stringliteral">&#39; (&#39;</span> . $method . <span class="stringliteral">&#39;) not found&#39;</span>);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    }</div>
+</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span></div>
+<div class="foldopen" id="foldopen00186" data-start="{" data-end="}">
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#ac7037587c14a5a34ebc0347f05b6bac5">  186</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#ac7037587c14a5a34ebc0347f05b6bac5">checkRouteAndCall</a>(<span class="keywordtype">string</span> $middleware, <span class="keywordtype">string</span> $method, <span class="keywordtype">string</span> $url): bool</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keywordflow">if</span> (isset($this-&gt;routes[$method][$middleware])) {</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">foreach</span> ($this-&gt;routes[$method][$middleware] as $routeUrl =&gt; $target) {</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                <span class="keywordflow">if</span> ($this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a2c4b33042939a17f7e4557dfc792630f">callFunctionFromRoute</a>($routeUrl, $target, $url)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            }</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        }</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
+</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span></div>
+<div class="foldopen" id="foldopen00203" data-start="{" data-end="}">
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#a2c4b33042939a17f7e4557dfc792630f">  203</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a2c4b33042939a17f7e4557dfc792630f">callFunctionFromRoute</a>(<span class="keywordtype">string</span> $routeUrl, callable $target, <span class="keywordtype">string</span> $url): bool</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    {</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        $pattern = preg_replace(<span class="stringliteral">&#39;/\/:([^\/]+)/&#39;</span>, <span class="stringliteral">&#39;/(?P&lt;$1&gt;[^/]+)&#39;</span>, $routeUrl);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <span class="keywordflow">if</span> (preg_match(<span class="stringliteral">&#39;#^&#39;</span> . $pattern . <span class="stringliteral">&#39;(\?[^/]*=[^/]+)?$#&#39;</span>, $url, $matches)) {</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            $params = array_filter($matches, <span class="stringliteral">&#39;is_string&#39;</span>, ARRAY_FILTER_USE_KEY);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            call_user_func_array($target, $params);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        }</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    }</div>
+</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span></div>
+<div class="foldopen" id="foldopen00219" data-start="{" data-end="}">
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#a19dd44fe063cfd1cbafe97452e57666c">  219</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#a19dd44fe063cfd1cbafe97452e57666c">__wakeup</a>(): void</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    {</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordflow">throw</span> <span class="keyword">new</span> Exception(<span class="stringliteral">&quot;Cannot unserialize a singleton.&quot;</span>);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
+</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span></div>
+<div class="foldopen" id="foldopen00228" data-start="{" data-end="}">
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Router.html#ad0cb87b388bc74d63dc884accdca8713">  228</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Router.html#ad0cb87b388bc74d63dc884accdca8713">__clone</a>(): void</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    {</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    }</div>
+</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Exceptions_1_1RouteNotFoundException_html"><div class="ttname"><a href="classComusParty_1_1App_1_1Exceptions_1_1RouteNotFoundException.html">ComusParty\App\Exceptions\RouteNotFoundException</a></div><div class="ttdoc">Classe RouteNotFoundException.</div><div class="ttdef"><b>Definition</b> <a href="RouteNotFoundException_8php_source.html#l00018">RouteNotFoundException.php:19</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Exceptions_1_1UnauthorizedAccessException_html"><div class="ttname"><a href="classComusParty_1_1App_1_1Exceptions_1_1UnauthorizedAccessException.html">ComusParty\App\Exceptions\UnauthorizedAccessException</a></div><div class="ttdoc">Classe UnauthorizedAccessException.</div><div class="ttdef"><b>Definition</b> <a href="UnauthorizedAccessException_8php_source.html#l00019">UnauthorizedAccessException.php:20</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html">ComusParty\App\Router</a></div><div class="ttdoc">Classe Router permettant de gérer les routes.</div><div class="ttdef"><b>Definition</b> <a href="#l00022">Router.php:23</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_a095c5d389db211932136b53f25f39685"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#a095c5d389db211932136b53f25f39685">ComusParty\App\Router\__construct</a></div><div class="ttdeci">__construct()</div><div class="ttdoc">Constructeur de la classe Router.</div><div class="ttdef"><b>Definition</b> <a href="#l00039">Router.php:39</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_a19dd44fe063cfd1cbafe97452e57666c"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#a19dd44fe063cfd1cbafe97452e57666c">ComusParty\App\Router\__wakeup</a></div><div class="ttdeci">__wakeup()</div><div class="ttdoc">Empêche la désérialisation de l&#39;instance.</div><div class="ttdef"><b>Definition</b> <a href="#l00219">Router.php:219</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_a229cfab5bad1a837e30782916ef1f8c4"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#a229cfab5bad1a837e30782916ef1f8c4">ComusParty\App\Router\addRoute</a></div><div class="ttdeci">addRoute(string $method, string $url, callable $target, ?string $middleware=null)</div><div class="ttdoc">Permet d&#39;ajouter une route au tableau de routes du Router.</div><div class="ttdef"><b>Definition</b> <a href="#l00075">Router.php:75</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_a2c4b33042939a17f7e4557dfc792630f"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#a2c4b33042939a17f7e4557dfc792630f">ComusParty\App\Router\callFunctionFromRoute</a></div><div class="ttdeci">callFunctionFromRoute(string $routeUrl, callable $target, string $url)</div><div class="ttdoc">Permet d&#39;appeler la fonction associée à la route.</div><div class="ttdef"><b>Definition</b> <a href="#l00203">Router.php:203</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_a66eb6af81e0e191c439363f706b7ede3"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#a66eb6af81e0e191c439363f706b7ede3">ComusParty\App\Router\post</a></div><div class="ttdeci">post(string $url, callable $target, ?string $middleware=null)</div><div class="ttdoc">Ajout d&#39;une route POST.</div><div class="ttdef"><b>Definition</b> <a href="#l00091">Router.php:91</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_a722842d0b439f1e3098f40b8db9e52b8"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#a722842d0b439f1e3098f40b8db9e52b8">ComusParty\App\Router\matchRoute</a></div><div class="ttdeci">matchRoute()</div><div class="ttdoc">Permet d&#39;accéder à la route demandée.</div><div class="ttdef"><b>Definition</b> <a href="#l00139">Router.php:139</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_a7779b13bfdb541a92af977e3a90ddf1c"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#a7779b13bfdb541a92af977e3a90ddf1c">ComusParty\App\Router\put</a></div><div class="ttdeci">put(string $url, callable $target, ?string $middleware=null)</div><div class="ttdoc">Ajout d&#39;une route PUT.</div><div class="ttdef"><b>Definition</b> <a href="#l00103">Router.php:103</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_a89c6cc0a7a4e5bc16eb52d015dd8faa4"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#a89c6cc0a7a4e5bc16eb52d015dd8faa4">ComusParty\App\Router\$instance</a></div><div class="ttdeci">static Router $instance</div><div class="ttdef"><b>Definition</b> <a href="#l00028">Router.php:28</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_aa17a7c8ad7c21ce9bdeaac17e332e6dc"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#aa17a7c8ad7c21ce9bdeaac17e332e6dc">ComusParty\App\Router\$routes</a></div><div class="ttdeci">array $routes</div><div class="ttdef"><b>Definition</b> <a href="#l00033">Router.php:33</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_ac7037587c14a5a34ebc0347f05b6bac5"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#ac7037587c14a5a34ebc0347f05b6bac5">ComusParty\App\Router\checkRouteAndCall</a></div><div class="ttdeci">checkRouteAndCall(string $middleware, string $method, string $url)</div><div class="ttdoc">Permet de vérifier si une route existe.</div><div class="ttdef"><b>Definition</b> <a href="#l00186">Router.php:186</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_ac93fbec81f07e5d15f80db907e63dc10"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#ac93fbec81f07e5d15f80db907e63dc10">ComusParty\App\Router\getInstance</a></div><div class="ttdeci">static getInstance()</div><div class="ttdoc">Permet de récupérer l&#39;instance du Router.</div><div class="ttdef"><b>Definition</b> <a href="#l00047">Router.php:47</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Router_html_ad0cb87b388bc74d63dc884accdca8713"><div class="ttname"><a href="classComusParty_1_1App_1_1Router.html#ad0cb87b388bc74d63dc884accdca8713">ComusParty\App\Router\__clone</a></div><div class="ttdeci">__clone()</div><div class="ttdoc">Empêche le clonage de l&#39;instance.</div><div class="ttdef"><b>Definition</b> <a href="#l00228">Router.php:228</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Controllers_1_1ControllerFactory_html_a25dbcf4bbf2d3dd526d57f3395f72b4f"><div class="ttname"><a href="classComusParty_1_1Controllers_1_1ControllerFactory.html#a25dbcf4bbf2d3dd526d57f3395f72b4f">ComusParty\Controllers\ControllerFactory\getController</a></div><div class="ttdeci">static getController(string $controller, FilesystemLoader $loader, Environment $twig)</div><div class="ttdoc">La méthode getController permet de récupérer un contrôleur.</div><div class="ttdef"><b>Definition</b> <a href="ControllerFactory_8class_8php_source.html#l00031">ControllerFactory.class.php:31</a></div></div>
+<div class="ttc" id="anamespaceComusParty_html_a95b22cf97ae99a402854f5f45a9871bf"><div class="ttname"><a href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">ComusParty\$twig</a></div><div class="ttdeci">$twig</div><div class="ttdoc">Instance de Twig.</div><div class="ttdef"><b>Definition</b> <a href="twig_8php_source.html#l00028">twig.php:28</a></div></div>
+<div class="ttc" id="anamespaceComusParty_html_aaf30b9071de6f6b736f6dbf054a34846"><div class="ttname"><a href="namespaceComusParty.html#aaf30b9071de6f6b736f6dbf054a34846">ComusParty\BASE_URI</a></div><div class="ttdeci">const BASE_URI</div><div class="ttdoc">URI de base de l&#39;application.</div><div class="ttdef"><b>Definition</b> <a href="const_8php_source.html#l00026">const.php:26</a></div></div>
+<div class="ttc" id="anamespaceComusParty_html_ab832f4c463ee1c9ba2e9464265f7ea3b"><div class="ttname"><a href="namespaceComusParty.html#ab832f4c463ee1c9ba2e9464265f7ea3b">ComusParty\$loader</a></div><div class="ttdeci">$loader</div><div class="ttdoc">Instance de FilesystemLoader.</div><div class="ttdef"><b>Definition</b> <a href="twig_8php_source.html#l00023">twig.php:23</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_951f43124f8a9985ab7802551d674f01.html">App</a></li><li class="navelem"><a class="el" href="Router_8php.html">Router.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

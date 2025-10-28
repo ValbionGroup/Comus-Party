@@ -1,0 +1,401 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/Models/player.class.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('player_8class_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">player.class.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="player_8class_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>ComusParty\Models;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>use DateTime;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html">   18</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1Models_1_1Player.html">Player</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#aedc88a983d203149a4557dc1597ed64d">   24</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#ada5b78fae35bd2eb7cc811afcf7ba925">   30</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ada5b78fae35bd2eb7cc811afcf7ba925">$username</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a479fde0e5affee7654f315d79c4c54be">   36</a></span>    <span class="keyword">private</span> ?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#ad61536d92e1a1a6bb8233adfb15bc755">   42</a></span>    <span class="keyword">private</span> ?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#aff725f56ebc7d8a565475347f24640bb">   48</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aff725f56ebc7d8a565475347f24640bb">$xp</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a07648efd6633195feb15d03a7cf8743d">   55</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a07648efd6633195feb15d03a7cf8743d">$elo</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#af52d83146ab909179cb288576215749e">   62</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af52d83146ab909179cb288576215749e">$comusCoin</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a3a8f921d6d88b536087569f054b86eaa">   69</a></span>    <span class="keyword">private</span> ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Statistics.html">Statistics</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a3a8f921d6d88b536087569f054b86eaa">$statistics</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a7a3fa75c4235b1f1d97d1438986972f5">   75</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#af828f56f9b1595030707ad19ab67cf27">   81</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af828f56f9b1595030707ad19ab67cf27">$activePfp</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a8d8c30d5ae433caa29b2117ac8c343f9">   87</a></span>    <span class="keyword">private</span> ?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a8d8c30d5ae433caa29b2117ac8c343f9">$activeBanner</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#ac28499da2b2dc7c44fe9bd417cc98093">  104</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#ac28499da2b2dc7c44fe9bd417cc98093">__construct</a>(</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        ?<span class="keywordtype">string</span>     <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        ?<span class="keywordtype">string</span>     <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ada5b78fae35bd2eb7cc811afcf7ba925">$username</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        ?DateTime   <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        ?DateTime   <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        ?<span class="keywordtype">int</span>        <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aff725f56ebc7d8a565475347f24640bb">$xp</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        ?<span class="keywordtype">int</span>        <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a07648efd6633195feb15d03a7cf8743d">$elo</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        ?<span class="keywordtype">int</span>        $comusCoins = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Statistics.html">Statistics</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a3a8f921d6d88b536087569f054b86eaa">$statistics</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        ?<span class="keywordtype">int</span>        <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        ?<span class="keywordtype">string</span>     <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af828f56f9b1595030707ad19ab67cf27">$activePfp</a> = <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        ?<span class="keywordtype">string</span>     <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a8d8c30d5ae433caa29b2117ac8c343f9">$activeBanner</a> = <span class="keyword">null</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    )</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        $this-&gt;uuid = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        $this-&gt;username = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ada5b78fae35bd2eb7cc811afcf7ba925">$username</a>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        $this-&gt;createdAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        $this-&gt;updatedAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        $this-&gt;xp = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aff725f56ebc7d8a565475347f24640bb">$xp</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        $this-&gt;elo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a07648efd6633195feb15d03a7cf8743d">$elo</a>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        $this-&gt;comusCoin = $comusCoins;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        $this-&gt;statistics = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a3a8f921d6d88b536087569f054b86eaa">$statistics</a>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        $this-&gt;userId = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        $this-&gt;activePfp = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af828f56f9b1595030707ad19ab67cf27">$activePfp</a>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        $this-&gt;activeBanner = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a8d8c30d5ae433caa29b2117ac8c343f9">$activeBanner</a>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span></div>
+<div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a225c1e47e0322aa545ec071d5b0eaa54">  135</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a225c1e47e0322aa545ec071d5b0eaa54">getUuid</a>(): string</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aedc88a983d203149a4557dc1597ed64d">$this-&gt;uuid</a>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    }</div>
+</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span></div>
+<div class="foldopen" id="foldopen00145" data-start="{" data-end="}">
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#adb7ad43ae8781e147b40715aa0e5974b">  145</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#adb7ad43ae8781e147b40715aa0e5974b">setUuid</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>): void</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        $this-&gt;uuid = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aedc88a983d203149a4557dc1597ed64d">$uuid</a>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    }</div>
+</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span></div>
+<div class="foldopen" id="foldopen00154" data-start="{" data-end="}">
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a81b37a3c9d639574e394f80c1138c75e">  154</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a81b37a3c9d639574e394f80c1138c75e">getUsername</a>(): string</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    {</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ada5b78fae35bd2eb7cc811afcf7ba925">$this-&gt;username</a>;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    }</div>
+</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span></div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a358cec08e251b48a1fa07661a4bd8ce0">  164</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a358cec08e251b48a1fa07661a4bd8ce0">setUsername</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ada5b78fae35bd2eb7cc811afcf7ba925">$username</a>): void</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        $this-&gt;username = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ada5b78fae35bd2eb7cc811afcf7ba925">$username</a>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    }</div>
+</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span></div>
+<div class="foldopen" id="foldopen00173" data-start="{" data-end="}">
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a0f0455d4aafe27d1b0720c3bcfff2847">  173</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a0f0455d4aafe27d1b0720c3bcfff2847">getCreatedAt</a>(): DateTime</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    {</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a479fde0e5affee7654f315d79c4c54be">$this-&gt;createdAt</a>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
+</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span></div>
+<div class="foldopen" id="foldopen00183" data-start="{" data-end="}">
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a29e08b68eaa931e0624c27c30d4d463e">  183</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a29e08b68eaa931e0624c27c30d4d463e">setCreatedAt</a>(?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>): void</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        $this-&gt;createdAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a479fde0e5affee7654f315d79c4c54be">$createdAt</a>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    }</div>
+</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span></div>
+<div class="foldopen" id="foldopen00192" data-start="{" data-end="}">
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a789bc1a92b41cf8c0958231bc1f27131">  192</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a789bc1a92b41cf8c0958231bc1f27131">getUpdatedAt</a>(): ?DateTime</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    {</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ad61536d92e1a1a6bb8233adfb15bc755">$this-&gt;updatedAt</a>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    }</div>
+</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span></div>
+<div class="foldopen" id="foldopen00202" data-start="{" data-end="}">
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a6a8f2e22ee946100b942d81036f29047">  202</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a6a8f2e22ee946100b942d81036f29047">setUpdatedAt</a>(?DateTime <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>): void</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    {</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        $this-&gt;updatedAt = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ad61536d92e1a1a6bb8233adfb15bc755">$updatedAt</a>;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    }</div>
+</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span></div>
+<div class="foldopen" id="foldopen00211" data-start="{" data-end="}">
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#aac0d2a9d3dfa2179cc43bf4a1348cd87">  211</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#aac0d2a9d3dfa2179cc43bf4a1348cd87">getXp</a>(): ?int</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    {</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aff725f56ebc7d8a565475347f24640bb">$this-&gt;xp</a>;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    }</div>
+</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span></div>
+<div class="foldopen" id="foldopen00221" data-start="{" data-end="}">
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#ab3b0ed2e407cfb1b26dd2d44e8a54fd6">  221</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#ab3b0ed2e407cfb1b26dd2d44e8a54fd6">setXp</a>(?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aff725f56ebc7d8a565475347f24640bb">$xp</a>): void</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    {</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        $this-&gt;xp = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aff725f56ebc7d8a565475347f24640bb">$xp</a>;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    }</div>
+</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span></div>
+<div class="foldopen" id="foldopen00230" data-start="{" data-end="}">
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a1f06defb70b3333f086b4610a6c4895f">  230</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a1f06defb70b3333f086b4610a6c4895f">getElo</a>(): ?int</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a07648efd6633195feb15d03a7cf8743d">$this-&gt;elo</a>;</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    }</div>
+</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span></div>
+<div class="foldopen" id="foldopen00240" data-start="{" data-end="}">
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a3d0fcbdfb871de4baef79cff978267ce">  240</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a3d0fcbdfb871de4baef79cff978267ce">setElo</a>(?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a07648efd6633195feb15d03a7cf8743d">$elo</a>): void</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        $this-&gt;elo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a07648efd6633195feb15d03a7cf8743d">$elo</a>;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
+</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span></div>
+<div class="foldopen" id="foldopen00249" data-start="{" data-end="}">
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a9e5d65c688f45c02572e108fa443bf82">  249</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a9e5d65c688f45c02572e108fa443bf82">getComusCoin</a>(): ?int</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    {</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af52d83146ab909179cb288576215749e">$this-&gt;comusCoin</a>;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    }</div>
+</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span></div>
+<div class="foldopen" id="foldopen00259" data-start="{" data-end="}">
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a7c2ba35e90975d47a7c327c306c93f72">  259</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a7c2ba35e90975d47a7c327c306c93f72">setComusCoin</a>(?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af52d83146ab909179cb288576215749e">$comusCoin</a>): void</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    {</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        $this-&gt;comusCoin = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af52d83146ab909179cb288576215749e">$comusCoin</a>;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    }</div>
+</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span></div>
+<div class="foldopen" id="foldopen00268" data-start="{" data-end="}">
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#aa1da55efc76adf28cf0e9b0b74fb7ad9">  268</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#aa1da55efc76adf28cf0e9b0b74fb7ad9">getStatistics</a>(): ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Statistics.html">Statistics</a></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    {</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a3a8f921d6d88b536087569f054b86eaa">$this-&gt;statistics</a>;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    }</div>
+</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span></div>
+<div class="foldopen" id="foldopen00277" data-start="{" data-end="}">
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a6120d0c234920cbcb3ce9aa4bdeb47ef">  277</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a6120d0c234920cbcb3ce9aa4bdeb47ef">setStatistics</a>(?<a class="code hl_class" href="classComusParty_1_1Models_1_1Statistics.html">Statistics</a> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a3a8f921d6d88b536087569f054b86eaa">$statistics</a>): void</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    {</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        $this-&gt;statistics = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a3a8f921d6d88b536087569f054b86eaa">$statistics</a>;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    }</div>
+</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span></div>
+<div class="foldopen" id="foldopen00286" data-start="{" data-end="}">
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a05f6aa1ffae6295260d9f1cca016bf33">  286</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a05f6aa1ffae6295260d9f1cca016bf33">getUserId</a>(): ?int</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    {</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a7a3fa75c4235b1f1d97d1438986972f5">$this-&gt;userId</a>;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    }</div>
+</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span></div>
+<div class="foldopen" id="foldopen00296" data-start="{" data-end="}">
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a4d70d2f4ef260a541cab9ef36556dd4c">  296</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a4d70d2f4ef260a541cab9ef36556dd4c">setUserId</a>(?<span class="keywordtype">int</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a>): void</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    {</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        $this-&gt;userId = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a7a3fa75c4235b1f1d97d1438986972f5">$userId</a>;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    }</div>
+</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span></div>
+<div class="foldopen" id="foldopen00305" data-start="{" data-end="}">
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a4f0d3e80f90d8f0f5451ab400aba0745">  305</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a4f0d3e80f90d8f0f5451ab400aba0745">getActivePfp</a>(): ?string</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    {</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af828f56f9b1595030707ad19ab67cf27">$this-&gt;activePfp</a>;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    }</div>
+</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span></div>
+<div class="foldopen" id="foldopen00315" data-start="{" data-end="}">
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a30d92e432aba19976d65b4fb2d07fe7f">  315</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a30d92e432aba19976d65b4fb2d07fe7f">setActivePfp</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af828f56f9b1595030707ad19ab67cf27">$activePfp</a>): void</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    {</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        $this-&gt;activePfp = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af828f56f9b1595030707ad19ab67cf27">$activePfp</a>;</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    }</div>
+</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span></div>
+<div class="foldopen" id="foldopen00324" data-start="{" data-end="}">
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a0ca9eae6cf4ee1063c796e49ff12098b">  324</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a0ca9eae6cf4ee1063c796e49ff12098b">getActiveBanner</a>(): ?string</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    {</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a8d8c30d5ae433caa29b2117ac8c343f9">$this-&gt;activeBanner</a>;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    }</div>
+</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span></div>
+<div class="foldopen" id="foldopen00334" data-start="{" data-end="}">
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a6d0535ea2ad736a6169e6614736d4f64">  334</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a6d0535ea2ad736a6169e6614736d4f64">setActiveBanner</a>(?<span class="keywordtype">string</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a8d8c30d5ae433caa29b2117ac8c343f9">$activeBanner</a>): void</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    {</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        $this-&gt;activeBanner = <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a8d8c30d5ae433caa29b2117ac8c343f9">$activeBanner</a>;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    }</div>
+</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span></div>
+<div class="foldopen" id="foldopen00344" data-start="{" data-end="}">
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1Player.html#a658defb34762c8f40085aec87e16ba1a">  344</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1Player.html#a658defb34762c8f40085aec87e16ba1a">toArray</a>(): array</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    {</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        <span class="keywordflow">return</span> [</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>            <span class="stringliteral">&quot;uuid&quot;</span> =&gt; <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aedc88a983d203149a4557dc1597ed64d">$this-&gt;uuid</a>,</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>            <span class="stringliteral">&quot;username&quot;</span> =&gt; <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ada5b78fae35bd2eb7cc811afcf7ba925">$this-&gt;username</a>,</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>            <span class="stringliteral">&quot;createdAt&quot;</span> =&gt; <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a479fde0e5affee7654f315d79c4c54be">$this-&gt;createdAt</a>,</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>            <span class="stringliteral">&quot;updatedAt&quot;</span> =&gt; <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#ad61536d92e1a1a6bb8233adfb15bc755">$this-&gt;updatedAt</a>,</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>            <span class="stringliteral">&quot;xp&quot;</span> =&gt; <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#aff725f56ebc7d8a565475347f24640bb">$this-&gt;xp</a>,</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>            <span class="stringliteral">&quot;elo&quot;</span> =&gt; <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a07648efd6633195feb15d03a7cf8743d">$this-&gt;elo</a>,</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>            <span class="stringliteral">&quot;comusCoin&quot;</span> =&gt; <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af52d83146ab909179cb288576215749e">$this-&gt;comusCoin</a>,</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>            <span class="stringliteral">&quot;statistics&quot;</span> =&gt; $this-&gt;statistics-&gt;toArray(),</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>            <span class="stringliteral">&quot;userId&quot;</span> =&gt; <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#a7a3fa75c4235b1f1d97d1438986972f5">$this-&gt;userId</a>,</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>            <span class="stringliteral">&quot;activePfp&quot;</span> =&gt; <a class="code hl_variable" href="classComusParty_1_1Models_1_1Player.html#af828f56f9b1595030707ad19ab67cf27">$this-&gt;activePfp</a></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        ];</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    }</div>
+</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html">ComusParty\Models\Player</a></div><div class="ttdoc">Classe Player.</div><div class="ttdef"><b>Definition</b> <a href="#l00018">player.class.php:19</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a05f6aa1ffae6295260d9f1cca016bf33"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a05f6aa1ffae6295260d9f1cca016bf33">ComusParty\Models\Player\getUserId</a></div><div class="ttdeci">getUserId()</div><div class="ttdoc">Retourne l&#39;identifiant utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00286">player.class.php:286</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a07648efd6633195feb15d03a7cf8743d"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a07648efd6633195feb15d03a7cf8743d">ComusParty\Models\Player\$elo</a></div><div class="ttdeci">int $elo</div><div class="ttdef"><b>Definition</b> <a href="#l00055">player.class.php:55</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a0ca9eae6cf4ee1063c796e49ff12098b"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a0ca9eae6cf4ee1063c796e49ff12098b">ComusParty\Models\Player\getActiveBanner</a></div><div class="ttdeci">getActiveBanner()</div><div class="ttdoc">Retourne le chemin d&#39;accès vers la bannière active du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00324">player.class.php:324</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a0f0455d4aafe27d1b0720c3bcfff2847"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a0f0455d4aafe27d1b0720c3bcfff2847">ComusParty\Models\Player\getCreatedAt</a></div><div class="ttdeci">getCreatedAt()</div><div class="ttdoc">Retourne la date de création du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00173">player.class.php:173</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a1f06defb70b3333f086b4610a6c4895f"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a1f06defb70b3333f086b4610a6c4895f">ComusParty\Models\Player\getElo</a></div><div class="ttdeci">getElo()</div><div class="ttdoc">Retourne l&#39;Elo du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00230">player.class.php:230</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a225c1e47e0322aa545ec071d5b0eaa54"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a225c1e47e0322aa545ec071d5b0eaa54">ComusParty\Models\Player\getUuid</a></div><div class="ttdeci">getUuid()</div><div class="ttdoc">Retourne l&#39;UUID du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00135">player.class.php:135</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a29e08b68eaa931e0624c27c30d4d463e"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a29e08b68eaa931e0624c27c30d4d463e">ComusParty\Models\Player\setCreatedAt</a></div><div class="ttdeci">setCreatedAt(?DateTime $createdAt)</div><div class="ttdoc">Modifie la date de création du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00183">player.class.php:183</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a30d92e432aba19976d65b4fb2d07fe7f"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a30d92e432aba19976d65b4fb2d07fe7f">ComusParty\Models\Player\setActivePfp</a></div><div class="ttdeci">setActivePfp(?string $activePfp)</div><div class="ttdoc">Modifie le chemin d&#39;accès vers l&#39;avatar actif du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00315">player.class.php:315</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a358cec08e251b48a1fa07661a4bd8ce0"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a358cec08e251b48a1fa07661a4bd8ce0">ComusParty\Models\Player\setUsername</a></div><div class="ttdeci">setUsername(?string $username)</div><div class="ttdoc">Modifie le nom d&#39;utilisateur du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00164">player.class.php:164</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a3a8f921d6d88b536087569f054b86eaa"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a3a8f921d6d88b536087569f054b86eaa">ComusParty\Models\Player\$statistics</a></div><div class="ttdeci">Statistics $statistics</div><div class="ttdef"><b>Definition</b> <a href="#l00069">player.class.php:69</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a3d0fcbdfb871de4baef79cff978267ce"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a3d0fcbdfb871de4baef79cff978267ce">ComusParty\Models\Player\setElo</a></div><div class="ttdeci">setElo(?int $elo)</div><div class="ttdoc">Modifie l&#39;Elo du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00240">player.class.php:240</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a479fde0e5affee7654f315d79c4c54be"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a479fde0e5affee7654f315d79c4c54be">ComusParty\Models\Player\$createdAt</a></div><div class="ttdeci">DateTime $createdAt</div><div class="ttdef"><b>Definition</b> <a href="#l00036">player.class.php:36</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a4d70d2f4ef260a541cab9ef36556dd4c"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a4d70d2f4ef260a541cab9ef36556dd4c">ComusParty\Models\Player\setUserId</a></div><div class="ttdeci">setUserId(?int $userId)</div><div class="ttdoc">Modifie l&#39;identifiant utilisateur.</div><div class="ttdef"><b>Definition</b> <a href="#l00296">player.class.php:296</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a4f0d3e80f90d8f0f5451ab400aba0745"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a4f0d3e80f90d8f0f5451ab400aba0745">ComusParty\Models\Player\getActivePfp</a></div><div class="ttdeci">getActivePfp()</div><div class="ttdoc">Retourne le chemin d&#39;accès vers l&#39;avatar actif du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00305">player.class.php:305</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a6120d0c234920cbcb3ce9aa4bdeb47ef"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a6120d0c234920cbcb3ce9aa4bdeb47ef">ComusParty\Models\Player\setStatistics</a></div><div class="ttdeci">setStatistics(?Statistics $statistics)</div><div class="ttdoc">Modifie les statistiques du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00277">player.class.php:277</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a658defb34762c8f40085aec87e16ba1a"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a658defb34762c8f40085aec87e16ba1a">ComusParty\Models\Player\toArray</a></div><div class="ttdeci">toArray()</div><div class="ttdoc">Convertit l&#39;objet en tableau.</div><div class="ttdef"><b>Definition</b> <a href="#l00344">player.class.php:344</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a6a8f2e22ee946100b942d81036f29047"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a6a8f2e22ee946100b942d81036f29047">ComusParty\Models\Player\setUpdatedAt</a></div><div class="ttdeci">setUpdatedAt(?DateTime $updatedAt)</div><div class="ttdoc">Modifie la date de mise à jour du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00202">player.class.php:202</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a6d0535ea2ad736a6169e6614736d4f64"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a6d0535ea2ad736a6169e6614736d4f64">ComusParty\Models\Player\setActiveBanner</a></div><div class="ttdeci">setActiveBanner(?string $activeBanner)</div><div class="ttdoc">Modifie le chemin d&#39;accès vers la bannière active du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00334">player.class.php:334</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a789bc1a92b41cf8c0958231bc1f27131"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a789bc1a92b41cf8c0958231bc1f27131">ComusParty\Models\Player\getUpdatedAt</a></div><div class="ttdeci">getUpdatedAt()</div><div class="ttdoc">Retourne la date de mise à jour du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00192">player.class.php:192</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a7a3fa75c4235b1f1d97d1438986972f5"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a7a3fa75c4235b1f1d97d1438986972f5">ComusParty\Models\Player\$userId</a></div><div class="ttdeci">int $userId</div><div class="ttdef"><b>Definition</b> <a href="#l00075">player.class.php:75</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a7c2ba35e90975d47a7c327c306c93f72"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a7c2ba35e90975d47a7c327c306c93f72">ComusParty\Models\Player\setComusCoin</a></div><div class="ttdeci">setComusCoin(?int $comusCoin)</div><div class="ttdoc">Modifie le nombre de Comus Coins possédés par le joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00259">player.class.php:259</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a81b37a3c9d639574e394f80c1138c75e"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a81b37a3c9d639574e394f80c1138c75e">ComusParty\Models\Player\getUsername</a></div><div class="ttdeci">getUsername()</div><div class="ttdoc">Retourne le nom d&#39;utilisateur du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00154">player.class.php:154</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a8d8c30d5ae433caa29b2117ac8c343f9"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a8d8c30d5ae433caa29b2117ac8c343f9">ComusParty\Models\Player\$activeBanner</a></div><div class="ttdeci">string $activeBanner</div><div class="ttdef"><b>Definition</b> <a href="#l00087">player.class.php:87</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_a9e5d65c688f45c02572e108fa443bf82"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#a9e5d65c688f45c02572e108fa443bf82">ComusParty\Models\Player\getComusCoin</a></div><div class="ttdeci">getComusCoin()</div><div class="ttdoc">Retourne le nombre de Comus Coins possédés par le joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00249">player.class.php:249</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_aa1da55efc76adf28cf0e9b0b74fb7ad9"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#aa1da55efc76adf28cf0e9b0b74fb7ad9">ComusParty\Models\Player\getStatistics</a></div><div class="ttdeci">getStatistics()</div><div class="ttdoc">Retourne les statistiques du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00268">player.class.php:268</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_aac0d2a9d3dfa2179cc43bf4a1348cd87"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#aac0d2a9d3dfa2179cc43bf4a1348cd87">ComusParty\Models\Player\getXp</a></div><div class="ttdeci">getXp()</div><div class="ttdoc">Retourne les points d&#39;expérience du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00211">player.class.php:211</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_ab3b0ed2e407cfb1b26dd2d44e8a54fd6"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#ab3b0ed2e407cfb1b26dd2d44e8a54fd6">ComusParty\Models\Player\setXp</a></div><div class="ttdeci">setXp(?int $xp)</div><div class="ttdoc">Modifie les points d&#39;expérience du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00221">player.class.php:221</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_ac28499da2b2dc7c44fe9bd417cc98093"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#ac28499da2b2dc7c44fe9bd417cc98093">ComusParty\Models\Player\__construct</a></div><div class="ttdeci">__construct(?string $uuid=null, ?string $username=null, ?DateTime $createdAt=null, ?DateTime $updatedAt=null, ?int $xp=null, ?int $elo=null, ?int $comusCoins=null, ?Statistics $statistics=null, ?int $userId=null, ?string $activePfp=null, ?string $activeBanner=null)</div><div class="ttdoc">Le constructeur de la classe Player.</div><div class="ttdef"><b>Definition</b> <a href="#l00104">player.class.php:104</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_ad61536d92e1a1a6bb8233adfb15bc755"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#ad61536d92e1a1a6bb8233adfb15bc755">ComusParty\Models\Player\$updatedAt</a></div><div class="ttdeci">DateTime $updatedAt</div><div class="ttdef"><b>Definition</b> <a href="#l00042">player.class.php:42</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_ada5b78fae35bd2eb7cc811afcf7ba925"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#ada5b78fae35bd2eb7cc811afcf7ba925">ComusParty\Models\Player\$username</a></div><div class="ttdeci">string $username</div><div class="ttdef"><b>Definition</b> <a href="#l00030">player.class.php:30</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_adb7ad43ae8781e147b40715aa0e5974b"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#adb7ad43ae8781e147b40715aa0e5974b">ComusParty\Models\Player\setUuid</a></div><div class="ttdeci">setUuid(?string $uuid)</div><div class="ttdoc">Modifie l&#39;UUID du joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00145">player.class.php:145</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_aedc88a983d203149a4557dc1597ed64d"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#aedc88a983d203149a4557dc1597ed64d">ComusParty\Models\Player\$uuid</a></div><div class="ttdeci">string $uuid</div><div class="ttdef"><b>Definition</b> <a href="#l00024">player.class.php:24</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_af52d83146ab909179cb288576215749e"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#af52d83146ab909179cb288576215749e">ComusParty\Models\Player\$comusCoin</a></div><div class="ttdeci">int $comusCoin</div><div class="ttdef"><b>Definition</b> <a href="#l00062">player.class.php:62</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_af828f56f9b1595030707ad19ab67cf27"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#af828f56f9b1595030707ad19ab67cf27">ComusParty\Models\Player\$activePfp</a></div><div class="ttdeci">string $activePfp</div><div class="ttdef"><b>Definition</b> <a href="#l00081">player.class.php:81</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Player_html_aff725f56ebc7d8a565475347f24640bb"><div class="ttname"><a href="classComusParty_1_1Models_1_1Player.html#aff725f56ebc7d8a565475347f24640bb">ComusParty\Models\Player\$xp</a></div><div class="ttdeci">int $xp</div><div class="ttdef"><b>Definition</b> <a href="#l00048">player.class.php:48</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Statistics_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1Statistics.html">ComusParty\Models\Statistics</a></div><div class="ttdoc">Classe Statistics.</div><div class="ttdef"><b>Definition</b> <a href="statistics_8class_8php_source.html#l00016">statistics.class.php:17</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li><li class="navelem"><a class="el" href="player_8class_8php.html">player.class.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

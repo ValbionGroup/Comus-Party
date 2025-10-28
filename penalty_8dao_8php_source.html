@@ -1,0 +1,279 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/Models/penalty.dao.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('penalty_8dao_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">penalty.dao.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="penalty_8dao_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>ComusParty\Models;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>use DateMalformedStringException;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>use DateTime;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>use PDO;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1Models_1_1PenaltyDAO.html">PenaltyDAO</a></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a9db61e1721b616500bce6ed60491752a">   29</a></span>    <span class="keyword">private</span> ?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#ad68606f47a998de06d17d37a9884b7e7">   35</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#ad68606f47a998de06d17d37a9884b7e7">__construct</a>(?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        $this-&gt;pdo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">   44</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">getPdo</a>(): ?PDO</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a9db61e1721b616500bce6ed60491752a">$this-&gt;pdo</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">   53</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">setPdo</a>(?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>): void</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        $this-&gt;pdo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#ab1f0968883d72874ac3a290abf64e12f">   63</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#ab1f0968883d72874ac3a290abf64e12f">hydrateMany</a>(array $datas): array</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        $penalties = [];</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">foreach</span> ($datas as $data) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            $penalties[] = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($data);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> $penalties;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">   78</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>(array $data): <a class="code hl_class" href="classComusParty_1_1Models_1_1Penalty.html">Penalty</a></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        $penalty = <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1Penalty.html">Penalty</a>();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        $penalty-&gt;setId($data[<span class="stringliteral">&#39;id&#39;</span>]);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        $penalty-&gt;setCreatedBy($data[<span class="stringliteral">&#39;created_by&#39;</span>]);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        $penalty-&gt;setCancelledBy($data[<span class="stringliteral">&#39;cancelled_by&#39;</span>]);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        $penalty-&gt;setPenalizedUuid($data[<span class="stringliteral">&#39;penalized_uuid&#39;</span>]);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        $penalty-&gt;setReason($data[<span class="stringliteral">&#39;reason&#39;</span>]);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        $penalty-&gt;setDuration($data[<span class="stringliteral">&#39;duration&#39;</span>]);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        $penalty-&gt;setCreatedAt(<span class="keyword">new</span> DateTime($data[<span class="stringliteral">&#39;created_at&#39;</span>]));</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        $penalty-&gt;setUpdatedAt(<span class="keyword">new</span> DateTime($data[<span class="stringliteral">&#39;updated_at&#39;</span>]));</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">return</span> $penalty;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    }</div>
+</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span></div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a98829f808f9aa67272af841578afeaa6">   97</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a98829f808f9aa67272af841578afeaa6">createPenalty</a>(<a class="code hl_class" href="classComusParty_1_1Models_1_1Penalty.html">Penalty</a> $penalty): bool</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        $stmt = $this-&gt;pdo-&gt;prepare(<span class="stringliteral">&quot;INSERT INTO &quot;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&quot;penalty (created_by, penalized_uuid, reason, duration, type, created_at, updated_at) VALUES (:created_by, :penalized_uuid, :reason, :duration, :type, :created_at, :updated_at)&quot;</span>);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        $createdBy = $penalty-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Penalty.html#a55a1348550fd70310e59ba9af3db1830">getCreatedBy</a>();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        $penalizedUuid = $penalty-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Penalty.html#a66f3bafba80979f7ef0027af63ea2d2e">getPenalizedUuid</a>();</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        $reason = $penalty-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Penalty.html#ac0d1221a542d8f0d74963600876c4b52">getReason</a>();</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        $duration = $penalty-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Penalty.html#ab46fe3d2750728c84bd71ae1bfd08ee8">getDuration</a>();</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        $penaltyType = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a96390fdb63217b62f0cb1a72a62dcf2e">transformPenaltyTypeToString</a>($penalty-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Penalty.html#a830b5c75df72b32396701bc563fbe3c7">getType</a>());</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        $createdAt = $penalty-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Penalty.html#a0f0455d4aafe27d1b0720c3bcfff2847">getCreatedAt</a>()-&gt;format(<span class="stringliteral">&#39;Y-m-d H:i:s&#39;</span>);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        $updatedAt = $penalty-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1Penalty.html#a789bc1a92b41cf8c0958231bc1f27131">getUpdatedAt</a>()-&gt;format(<span class="stringliteral">&#39;Y-m-d H:i:s&#39;</span>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        $stmt-&gt;bindParam(<span class="stringliteral">&quot;:created_by&quot;</span>, $createdBy);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        $stmt-&gt;bindParam(<span class="stringliteral">&quot;:penalized_uuid&quot;</span>, $penalizedUuid);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        $stmt-&gt;bindParam(<span class="stringliteral">&quot;:reason&quot;</span>, $reason);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        $stmt-&gt;bindParam(<span class="stringliteral">&quot;:duration&quot;</span>, $duration);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        $stmt-&gt;bindParam(<span class="stringliteral">&quot;:type&quot;</span>, $penaltyType);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        $stmt-&gt;bindParam(<span class="stringliteral">&quot;:created_at&quot;</span>, $createdAt);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        $stmt-&gt;bindParam(<span class="stringliteral">&quot;:updated_at&quot;</span>, $updatedAt);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">return</span> $stmt-&gt;execute();</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span></div>
+<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a96390fdb63217b62f0cb1a72a62dcf2e">  125</a></span>    <span class="keyword">private</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a96390fdb63217b62f0cb1a72a62dcf2e">transformPenaltyTypeToString</a>(?<a class="code hl_enumeration" href="namespaceComusParty_1_1Models.html#a7126b2d0dd8c9c3f326f1a17f916c141">PenaltyType</a> $penaltyType): ?string</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordflow">return</span> match ($penaltyType) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <a class="code hl_enumvalue" href="namespaceComusParty_1_1Models.html#a7126b2d0dd8c9c3f326f1a17f916c141ad7750b2464175cffe19792309edf40f8">PenaltyType::MUTED</a> =&gt; <span class="stringliteral">&#39;muted&#39;</span>,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            PenaltyType::BANNED =&gt; <span class="stringliteral">&#39;banned&#39;</span>,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="keywordflow">default</span> =&gt; <span class="keyword">null</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        };</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
+</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span></div>
+<div class="foldopen" id="foldopen00140" data-start="{" data-end="}">
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#afceea7be776d59a9bc39ae9ba158fbe8">  140</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#afceea7be776d59a9bc39ae9ba158fbe8">findLastMutedByPlayerUuid</a>(<span class="keywordtype">string</span> $playerUuid): ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Penalty.html">Penalty</a></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    {</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        $stmt = $this-&gt;pdo-&gt;prepare(<span class="stringliteral">&quot;SELECT * FROM &quot;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&quot;penalty WHERE penalized_uuid = :penalized_uuid AND type = &#39;muted&#39; ORDER BY created_at DESC LIMIT 1&quot;</span>);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        $stmt-&gt;bindParam(<span class="stringliteral">&quot;:penalized_uuid&quot;</span>, $playerUuid);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        $data = $stmt-&gt;fetch();</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordflow">if</span> ($data === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        }</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($data);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
+</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span></div>
+<div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a416cb8a84bb9caf3592c6f5005e84095">  158</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a416cb8a84bb9caf3592c6f5005e84095">findLastPenaltyByPlayerUuid</a>(<span class="keywordtype">string</span> $playerUuid): ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Penalty.html">Penalty</a></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        $stmt = $this-&gt;pdo-&gt;prepare(<span class="stringliteral">&quot;SELECT * FROM &quot;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&quot;penalty WHERE penalized_uuid = :penalized_uuid ORDER BY created_at DESC LIMIT 1&quot;</span>);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        $stmt-&gt;bindParam(<span class="stringliteral">&quot;:penalized_uuid&quot;</span>, $playerUuid);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        $data = $stmt-&gt;fetch();</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="keywordflow">if</span> ($data === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        }</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1PenaltyDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($data);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
+</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html">ComusParty\Models\PenaltyDAO</a></div><div class="ttdoc">Classe PenaltyDAO.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">penalty.dao.php:24</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_a416cb8a84bb9caf3592c6f5005e84095"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#a416cb8a84bb9caf3592c6f5005e84095">ComusParty\Models\PenaltyDAO\findLastPenaltyByPlayerUuid</a></div><div class="ttdeci">findLastPenaltyByPlayerUuid(string $playerUuid)</div><div class="ttdoc">Trouve la dernière sanction d&#39;un joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00158">penalty.dao.php:158</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_a4ffd29b37acdf3a126f9d79d63f1e04e"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">ComusParty\Models\PenaltyDAO\hydrate</a></div><div class="ttdeci">hydrate(array $data)</div><div class="ttdoc">Hydrate un tableau de données en objet Penalty.</div><div class="ttdef"><b>Definition</b> <a href="#l00078">penalty.dao.php:78</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_a6e7560ad95a7986be67f7528c80e7f1a"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">ComusParty\Models\PenaltyDAO\getPdo</a></div><div class="ttdeci">getPdo()</div><div class="ttdoc">Retourne la connexion à la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00044">penalty.dao.php:44</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_a96390fdb63217b62f0cb1a72a62dcf2e"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#a96390fdb63217b62f0cb1a72a62dcf2e">ComusParty\Models\PenaltyDAO\transformPenaltyTypeToString</a></div><div class="ttdeci">transformPenaltyTypeToString(?PenaltyType $penaltyType)</div><div class="ttdoc">Transforme un type de sanction en string.</div><div class="ttdef"><b>Definition</b> <a href="#l00125">penalty.dao.php:125</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_a98829f808f9aa67272af841578afeaa6"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#a98829f808f9aa67272af841578afeaa6">ComusParty\Models\PenaltyDAO\createPenalty</a></div><div class="ttdeci">createPenalty(Penalty $penalty)</div><div class="ttdoc">Créer une sanction en base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00097">penalty.dao.php:97</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_a9db61e1721b616500bce6ed60491752a"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#a9db61e1721b616500bce6ed60491752a">ComusParty\Models\PenaltyDAO\$pdo</a></div><div class="ttdeci">PDO $pdo</div><div class="ttdef"><b>Definition</b> <a href="#l00029">penalty.dao.php:29</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_ab1f0968883d72874ac3a290abf64e12f"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#ab1f0968883d72874ac3a290abf64e12f">ComusParty\Models\PenaltyDAO\hydrateMany</a></div><div class="ttdeci">hydrateMany(array $datas)</div><div class="ttdoc">Hydrate un tableau de données en objets Penalty.</div><div class="ttdef"><b>Definition</b> <a href="#l00063">penalty.dao.php:63</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_aba4c54698c520d0e4a7cabcd4905b7a2"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">ComusParty\Models\PenaltyDAO\setPdo</a></div><div class="ttdeci">setPdo(?PDO $pdo)</div><div class="ttdoc">Modifie la connexion à la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00053">penalty.dao.php:53</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_ad68606f47a998de06d17d37a9884b7e7"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#ad68606f47a998de06d17d37a9884b7e7">ComusParty\Models\PenaltyDAO\__construct</a></div><div class="ttdeci">__construct(?PDO $pdo)</div><div class="ttdoc">Le constructeur de la classe PenaltyDAO.</div><div class="ttdef"><b>Definition</b> <a href="#l00035">penalty.dao.php:35</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html_afceea7be776d59a9bc39ae9ba158fbe8"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html#afceea7be776d59a9bc39ae9ba158fbe8">ComusParty\Models\PenaltyDAO\findLastMutedByPlayerUuid</a></div><div class="ttdeci">findLastMutedByPlayerUuid(string $playerUuid)</div><div class="ttdoc">Trouve la dernière sanction d&#39;un joueur de type muted.</div><div class="ttdef"><b>Definition</b> <a href="#l00140">penalty.dao.php:140</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Penalty_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1Penalty.html">ComusParty\Models\Penalty</a></div><div class="ttdoc">Classe Penalty.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00040">penalty.class.php:41</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Penalty_html_a0f0455d4aafe27d1b0720c3bcfff2847"><div class="ttname"><a href="classComusParty_1_1Models_1_1Penalty.html#a0f0455d4aafe27d1b0720c3bcfff2847">ComusParty\Models\Penalty\getCreatedAt</a></div><div class="ttdeci">getCreatedAt()</div><div class="ttdoc">Retourne la date de création de la sanction.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00287">penalty.class.php:287</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Penalty_html_a55a1348550fd70310e59ba9af3db1830"><div class="ttname"><a href="classComusParty_1_1Models_1_1Penalty.html#a55a1348550fd70310e59ba9af3db1830">ComusParty\Models\Penalty\getCreatedBy</a></div><div class="ttdeci">getCreatedBy()</div><div class="ttdoc">Retourne l&#39;identifiant du modérateur ayant créé la sanction.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00161">penalty.class.php:161</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Penalty_html_a66f3bafba80979f7ef0027af63ea2d2e"><div class="ttname"><a href="classComusParty_1_1Models_1_1Penalty.html#a66f3bafba80979f7ef0027af63ea2d2e">ComusParty\Models\Penalty\getPenalizedUuid</a></div><div class="ttdeci">getPenalizedUuid()</div><div class="ttdoc">Retourne l&#39;identifiant du joueur sanctionné</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00197">penalty.class.php:197</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Penalty_html_a789bc1a92b41cf8c0958231bc1f27131"><div class="ttname"><a href="classComusParty_1_1Models_1_1Penalty.html#a789bc1a92b41cf8c0958231bc1f27131">ComusParty\Models\Penalty\getUpdatedAt</a></div><div class="ttdeci">getUpdatedAt()</div><div class="ttdoc">Retourne la date de mise à jour de la sanction.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00305">penalty.class.php:305</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Penalty_html_a830b5c75df72b32396701bc563fbe3c7"><div class="ttname"><a href="classComusParty_1_1Models_1_1Penalty.html#a830b5c75df72b32396701bc563fbe3c7">ComusParty\Models\Penalty\getType</a></div><div class="ttdeci">getType()</div><div class="ttdoc">Retourne le type de la sanction.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00251">penalty.class.php:251</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Penalty_html_ab46fe3d2750728c84bd71ae1bfd08ee8"><div class="ttname"><a href="classComusParty_1_1Models_1_1Penalty.html#ab46fe3d2750728c84bd71ae1bfd08ee8">ComusParty\Models\Penalty\getDuration</a></div><div class="ttdeci">getDuration()</div><div class="ttdoc">Retourne la durée de la sanction.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00233">penalty.class.php:233</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Penalty_html_ac0d1221a542d8f0d74963600876c4b52"><div class="ttname"><a href="classComusParty_1_1Models_1_1Penalty.html#ac0d1221a542d8f0d74963600876c4b52">ComusParty\Models\Penalty\getReason</a></div><div class="ttdeci">getReason()</div><div class="ttdoc">Retourne la raison de la sanction.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00215">penalty.class.php:215</a></div></div>
+<div class="ttc" id="anamespaceComusParty_1_1Models_html_a7126b2d0dd8c9c3f326f1a17f916c141"><div class="ttname"><a href="namespaceComusParty_1_1Models.html#a7126b2d0dd8c9c3f326f1a17f916c141">ComusParty\Models\PenaltyType</a></div><div class="ttdeci">PenaltyType</div><div class="ttdoc">Enumération des types de sanctions.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00024">penalty.class.php:25</a></div></div>
+<div class="ttc" id="anamespaceComusParty_1_1Models_html_a7126b2d0dd8c9c3f326f1a17f916c141ad7750b2464175cffe19792309edf40f8"><div class="ttname"><a href="namespaceComusParty_1_1Models.html#a7126b2d0dd8c9c3f326f1a17f916c141ad7750b2464175cffe19792309edf40f8">ComusParty\Models\MUTED</a></div><div class="ttdeci">@ MUTED</div><div class="ttdoc">Le joueur est banni de la plateforme.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8class_8php_source.html#l00033">penalty.class.php:33</a></div></div>
+<div class="ttc" id="anamespaceComusParty_html_ad6df2867c69dfee47053cf5aedbff7e1"><div class="ttname"><a href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">ComusParty\DB_PREFIX</a></div><div class="ttdeci">const DB_PREFIX</div><div class="ttdoc">Préfixe des tables de la base de données.</div><div class="ttdef"><b>Definition</b> <a href="db_8php_source.html#l00052">db.php:52</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li><li class="navelem"><a class="el" href="penalty_8dao_8php.html">penalty.dao.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

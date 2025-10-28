@@ -1,0 +1,21 @@
+<map id="Controller" name="Controller">
+<area shape="rect" id="Node000001" title="Classe Controller." alt="" coords="5,203,82,228"/>
+<area shape="rect" id="Node000002" href="$classComusParty_1_1Controllers_1_1ControllerAuth.html" title="Classe ControllerAuth." alt="" coords="149,5,252,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="49,186,59,153,75,114,98,74,128,40,147,28,150,33,131,44,102,78,80,116,64,155,54,188"/>
+<area shape="rect" id="Node000003" href="$classComusParty_1_1Controllers_1_1ControllerBasket.html" title="Classe ControllerBasket." alt="" coords="142,55,259,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="55,187,84,138,104,112,128,89,146,79,149,83,131,94,108,115,88,141,59,190"/>
+<area shape="rect" id="Node000004" href="$classComusParty_1_1Controllers_1_1ControllerDashboard.html" title="Classe ControllerDashboard." alt="" coords="131,104,270,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="65,189,94,163,128,139,151,128,153,133,131,143,97,167,69,193"/>
+<area shape="rect" id="Node000005" href="$classComusParty_1_1Controllers_1_1ControllerGame.html" title="Classe ControllerGame." alt="" coords="145,153,256,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="96,196,156,177,158,182,97,201"/>
+<area shape="rect" id="Node000006" href="$classComusParty_1_1Controllers_1_1ControllerPolicy.html" title="Classe ControllerPolicy." alt="" coords="145,203,256,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="97,213,145,213,145,218,97,218"/>
+<area shape="rect" id="Node000007" href="$classComusParty_1_1Controllers_1_1ControllerProfile.html" title="Classe ControllerProfile." alt="" coords="144,252,256,278"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="97,230,158,249,156,254,96,235"/>
+<area shape="rect" id="Node000008" href="$classComusParty_1_1Controllers_1_1ControllerRanking.html" title="Classe ControllerRanking." alt="" coords="139,301,262,327"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="69,238,97,264,131,288,153,298,151,303,128,292,94,268,65,242"/>
+<area shape="rect" id="Node000009" href="$classComusParty_1_1Controllers_1_1ControllerShop.html" title="Classe ControllerShop." alt="" coords="147,351,254,376"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="59,241,88,290,108,316,131,337,149,348,146,352,128,342,104,319,84,293,55,244"/>
+<area shape="rect" id="Node000010" href="$classComusParty_1_1Controllers_1_1ControllerSuggestion.html" title="Classe ControllerSuggestion." alt="" coords="130,400,271,426"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="54,243,64,276,80,315,102,353,131,387,147,397,144,402,128,391,98,357,75,317,59,278,49,245"/>
+</map>

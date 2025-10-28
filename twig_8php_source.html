@@ -1,0 +1,177 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de config/twig.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('twig_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">twig.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="twig_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceComusParty.html">ComusParty</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>use Twig\Environment;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>use Twig\Extension\CoreExtension;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>use Twig\Extension\DebugExtension;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>use Twig\Extra\Date\DateExtension;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>use Twig\Extra\Intl\IntlExtension;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>use Twig\Loader\FilesystemLoader;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="namespaceComusParty.html#ab832f4c463ee1c9ba2e9464265f7ea3b">   23</a></span><a class="code hl_variable" href="namespaceComusParty.html#ab832f4c463ee1c9ba2e9464265f7ea3b">$loader</a> = <span class="keyword">new</span> FilesystemLoader(__DIR__ . <span class="stringliteral">&#39;/../src/templates&#39;</span>);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">   28</a></span><a class="code hl_variable" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">$twig</a> = <span class="keyword">new</span> Environment(<a class="code hl_variable" href="namespaceComusParty.html#ab832f4c463ee1c9ba2e9464265f7ea3b">$loader</a>, [</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="stringliteral">&#39;debug&#39;</span> =&gt; <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>]);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><a class="code hl_variable" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">$twig</a>-&gt;getExtension(CoreExtension::class)-&gt;setTimezone(<span class="stringliteral">&#39;Europe/Paris&#39;</span>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><a class="code hl_variable" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">$twig</a>-&gt;addExtension(<span class="keyword">new</span> DebugExtension());</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><a class="code hl_variable" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">$twig</a>-&gt;addExtension(<span class="keyword">new</span> IntlExtension());</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><a class="code hl_variable" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">$twig</a>-&gt;addExtension(<span class="keyword">new</span> DateExtension());</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><a class="code hl_variable" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">$twig</a>-&gt;addGlobal(<span class="stringliteral">&#39;auth&#39;</span>, [</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="stringliteral">&#39;pfpPath&#39;</span> =&gt; $_SESSION[<span class="stringliteral">&#39;pfpPath&#39;</span>] ?? <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="stringliteral">&#39;loggedIn&#39;</span> =&gt; isset($_SESSION[<span class="stringliteral">&#39;uuid&#39;</span>]),</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="stringliteral">&#39;loggedUuid&#39;</span> =&gt; $_SESSION[<span class="stringliteral">&#39;uuid&#39;</span>] ?? <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="stringliteral">&#39;loggedUsername&#39;</span> =&gt; $_SESSION[<span class="stringliteral">&#39;username&#39;</span>] ?? <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="stringliteral">&#39;loggedComusCoin&#39;</span> =&gt; $_SESSION[<span class="stringliteral">&#39;comusCoin&#39;</span>] ?? <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="stringliteral">&#39;loggedElo&#39;</span> =&gt; $_SESSION[<span class="stringliteral">&#39;elo&#39;</span>] ?? <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="stringliteral">&#39;loggedXp&#39;</span> =&gt; $_SESSION[<span class="stringliteral">&#39;xp&#39;</span>] ?? <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="stringliteral">&#39;role&#39;</span> =&gt; $_SESSION[<span class="stringliteral">&#39;role&#39;</span>] ?? <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="stringliteral">&#39;firstName&#39;</span> =&gt; $_SESSION[<span class="stringliteral">&#39;firstName&#39;</span>] ?? <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="stringliteral">&#39;lastName&#39;</span> =&gt; $_SESSION[<span class="stringliteral">&#39;lastName&#39;</span>] ?? <span class="keyword">null</span>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>]);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordflow">if</span> (isset($_SESSION[<span class="stringliteral">&#39;error&#39;</span>])) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_variable" href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">$twig</a>-&gt;addGlobal(<span class="stringliteral">&#39;error&#39;</span>, $_SESSION[<span class="stringliteral">&#39;error&#39;</span>]);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    unset($_SESSION[<span class="stringliteral">&#39;error&#39;</span>]);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordflow">if</span> (isset($_SESSION[<span class="stringliteral">&#39;success&#39;</span>])) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_variable" href="routes_8php.html#a1c82c4460c12e9ca9256ca09ba5df9b6">$twig</a>-&gt;addGlobal(<span class="stringliteral">&#39;success&#39;</span>, $_SESSION[<span class="stringliteral">&#39;success&#39;</span>]);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    unset($_SESSION[<span class="stringliteral">&#39;success&#39;</span>]);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="ttc" id="anamespaceComusParty_html"><div class="ttname"><a href="namespaceComusParty.html">ComusParty</a></div></div>
+<div class="ttc" id="anamespaceComusParty_html_a95b22cf97ae99a402854f5f45a9871bf"><div class="ttname"><a href="namespaceComusParty.html#a95b22cf97ae99a402854f5f45a9871bf">ComusParty\$twig</a></div><div class="ttdeci">$twig</div><div class="ttdoc">Instance de Twig.</div><div class="ttdef"><b>Definition</b> <a href="#l00028">twig.php:28</a></div></div>
+<div class="ttc" id="anamespaceComusParty_html_ab832f4c463ee1c9ba2e9464265f7ea3b"><div class="ttname"><a href="namespaceComusParty.html#ab832f4c463ee1c9ba2e9464265f7ea3b">ComusParty\$loader</a></div><div class="ttdeci">$loader</div><div class="ttdoc">Instance de FilesystemLoader.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">twig.php:23</a></div></div>
+<div class="ttc" id="aroutes_8php_html_a1c82c4460c12e9ca9256ca09ba5df9b6"><div class="ttname"><a href="routes_8php.html#a1c82c4460c12e9ca9256ca09ba5df9b6">$twig</a></div><div class="ttdeci">global $twig</div><div class="ttdef"><b>Definition</b> <a href="routes_8php_source.html#l00011">routes.php:11</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_9f351d46ce3cc29445a41dc3a31e6919.html">config</a></li><li class="navelem"><a class="el" href="twig_8php.html">twig.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

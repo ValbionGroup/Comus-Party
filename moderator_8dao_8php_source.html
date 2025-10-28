@@ -1,0 +1,232 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/Models/moderator.dao.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('moderator_8dao_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">moderator.dao.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="moderator_8dao_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>ComusParty\Models;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>use DateMalformedStringException;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>use DateTime;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>use PDO;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ModeratorDAO.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1Models_1_1ModeratorDAO.html">ModeratorDAO</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a9db61e1721b616500bce6ed60491752a">   28</a></span>    <span class="keyword">private</span> ?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ModeratorDAO.html#ad68606f47a998de06d17d37a9884b7e7">   34</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#ad68606f47a998de06d17d37a9884b7e7">__construct</a>(?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        $this-&gt;pdo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">   43</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">getPdo</a>(): ?PDO</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a9db61e1721b616500bce6ed60491752a">$this-&gt;pdo</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ModeratorDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">   52</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">setPdo</a>(?PDO <a class="code hl_variable" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>): void</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        $this-&gt;pdo = <a class="code hl_variable" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a9db61e1721b616500bce6ed60491752a">$pdo</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a87717d410e7e49020619e56b586aabe7">   63</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a87717d410e7e49020619e56b586aabe7">findByUuid</a>(<span class="keywordtype">string</span> $uuid): ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Moderator.html">Moderator</a></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        $stmt = $this-&gt;pdo-&gt;prepare(<span class="stringliteral">&#39;SELECT * FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;moderator WHERE uuid = :uuid&#39;</span>);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:uuid&#39;</span>, $uuid);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        $moderatorTab = $stmt-&gt;fetch();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">if</span> ($moderatorTab === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($moderatorTab);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">   82</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>(array $data): ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Moderator.html">Moderator</a></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        $moderator = <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1Moderator.html">Moderator</a>();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        $moderator-&gt;setUuid($data[<span class="stringliteral">&#39;uuid&#39;</span>]);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        $moderator-&gt;setUserId($data[<span class="stringliteral">&#39;user_id&#39;</span>]);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        $moderator-&gt;setFirstName($data[<span class="stringliteral">&#39;first_name&#39;</span>]);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        $moderator-&gt;setLastName($data[<span class="stringliteral">&#39;last_name&#39;</span>]);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        $moderator-&gt;setCreatedAt(<span class="keyword">new</span> DateTime($data[<span class="stringliteral">&#39;created_at&#39;</span>]));</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        $moderator-&gt;setUpdatedAt(<span class="keyword">new</span> DateTime($data[<span class="stringliteral">&#39;updated_at&#39;</span>]));</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> $moderator;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a0399814b20012c65cac897795757a0ec">  100</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a0399814b20012c65cac897795757a0ec">findByUserId</a>(<span class="keywordtype">int</span> $userId): ?<a class="code hl_class" href="classComusParty_1_1Models_1_1Moderator.html">Moderator</a></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        $stmt = $this-&gt;pdo-&gt;prepare(<span class="stringliteral">&#39;SELECT * FROM &#39;</span> . <a class="code hl_variable" href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">DB_PREFIX</a> . <span class="stringliteral">&#39;moderator WHERE user_id = :userId&#39;</span>);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        $stmt-&gt;bindParam(<span class="stringliteral">&#39;:userId&#39;</span>, $userId);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        $stmt-&gt;execute();</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        $moderatorTab = $stmt-&gt;fetch();</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">if</span> ($moderatorTab === <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">return</span> $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($moderatorTab);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span></div>
+<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classComusParty_1_1Models_1_1ModeratorDAO.html#af8c20f44685f5aa5bc1193262147cdda">  119</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#af8c20f44685f5aa5bc1193262147cdda">hydrateMany</a>(array $data): array</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        $moderators = [];</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">foreach</span> ($data as $moderator) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            $moderators[] = $this-&gt;<a class="code hl_function" href="classComusParty_1_1Models_1_1ModeratorDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a>($moderator);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">return</span> $moderators;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
+</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ModeratorDAO_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1ModeratorDAO.html">ComusParty\Models\ModeratorDAO</a></div><div class="ttdoc">Classe ModeratorDAO.</div><div class="ttdef"><b>Definition</b> <a href="#l00022">moderator.dao.php:23</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ModeratorDAO_html_a0399814b20012c65cac897795757a0ec"><div class="ttname"><a href="classComusParty_1_1Models_1_1ModeratorDAO.html#a0399814b20012c65cac897795757a0ec">ComusParty\Models\ModeratorDAO\findByUserId</a></div><div class="ttdeci">findByUserId(int $userId)</div><div class="ttdoc">Retourne un objet Moderator (ou null) à partir de l&#39;ID utilisateur passé en paramètre.</div><div class="ttdef"><b>Definition</b> <a href="#l00100">moderator.dao.php:100</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ModeratorDAO_html_a4ffd29b37acdf3a126f9d79d63f1e04e"><div class="ttname"><a href="classComusParty_1_1Models_1_1ModeratorDAO.html#a4ffd29b37acdf3a126f9d79d63f1e04e">ComusParty\Models\ModeratorDAO\hydrate</a></div><div class="ttdeci">hydrate(array $data)</div><div class="ttdoc">Hydrate un objet Moderator avec les valeurs du tableau associatif passé en paramètre.</div><div class="ttdef"><b>Definition</b> <a href="#l00082">moderator.dao.php:82</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ModeratorDAO_html_a6e7560ad95a7986be67f7528c80e7f1a"><div class="ttname"><a href="classComusParty_1_1Models_1_1ModeratorDAO.html#a6e7560ad95a7986be67f7528c80e7f1a">ComusParty\Models\ModeratorDAO\getPdo</a></div><div class="ttdeci">getPdo()</div><div class="ttdoc">Retourne la connexion à la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00043">moderator.dao.php:43</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ModeratorDAO_html_a87717d410e7e49020619e56b586aabe7"><div class="ttname"><a href="classComusParty_1_1Models_1_1ModeratorDAO.html#a87717d410e7e49020619e56b586aabe7">ComusParty\Models\ModeratorDAO\findByUuid</a></div><div class="ttdeci">findByUuid(string $uuid)</div><div class="ttdoc">Retourne un objet Moderator (ou null) à partir de l&#39;UUID passé en paramètre.</div><div class="ttdef"><b>Definition</b> <a href="#l00063">moderator.dao.php:63</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ModeratorDAO_html_a9db61e1721b616500bce6ed60491752a"><div class="ttname"><a href="classComusParty_1_1Models_1_1ModeratorDAO.html#a9db61e1721b616500bce6ed60491752a">ComusParty\Models\ModeratorDAO\$pdo</a></div><div class="ttdeci">PDO $pdo</div><div class="ttdef"><b>Definition</b> <a href="#l00028">moderator.dao.php:28</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ModeratorDAO_html_aba4c54698c520d0e4a7cabcd4905b7a2"><div class="ttname"><a href="classComusParty_1_1Models_1_1ModeratorDAO.html#aba4c54698c520d0e4a7cabcd4905b7a2">ComusParty\Models\ModeratorDAO\setPdo</a></div><div class="ttdeci">setPdo(?PDO $pdo)</div><div class="ttdoc">Modifie la connexion à la base de données.</div><div class="ttdef"><b>Definition</b> <a href="#l00052">moderator.dao.php:52</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ModeratorDAO_html_ad68606f47a998de06d17d37a9884b7e7"><div class="ttname"><a href="classComusParty_1_1Models_1_1ModeratorDAO.html#ad68606f47a998de06d17d37a9884b7e7">ComusParty\Models\ModeratorDAO\__construct</a></div><div class="ttdeci">__construct(?PDO $pdo)</div><div class="ttdoc">Le constructeur de la classe ModeratorDAO.</div><div class="ttdef"><b>Definition</b> <a href="#l00034">moderator.dao.php:34</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1ModeratorDAO_html_af8c20f44685f5aa5bc1193262147cdda"><div class="ttname"><a href="classComusParty_1_1Models_1_1ModeratorDAO.html#af8c20f44685f5aa5bc1193262147cdda">ComusParty\Models\ModeratorDAO\hydrateMany</a></div><div class="ttdeci">hydrateMany(array $data)</div><div class="ttdoc">Hydrate un tableau d&#39;objets Moderator avec les valeurs des tableaux associatifs passés en paramètre.</div><div class="ttdef"><b>Definition</b> <a href="#l00119">moderator.dao.php:119</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1Moderator_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1Moderator.html">ComusParty\Models\Moderator</a></div><div class="ttdoc">Classe Moderator.</div><div class="ttdef"><b>Definition</b> <a href="moderator_8class_8php_source.html#l00019">moderator.class.php:20</a></div></div>
+<div class="ttc" id="anamespaceComusParty_html_ad6df2867c69dfee47053cf5aedbff7e1"><div class="ttname"><a href="namespaceComusParty.html#ad6df2867c69dfee47053cf5aedbff7e1">ComusParty\DB_PREFIX</a></div><div class="ttdeci">const DB_PREFIX</div><div class="ttdoc">Préfixe des tables de la base de données.</div><div class="ttdef"><b>Definition</b> <a href="db_8php_source.html#l00052">db.php:52</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li><li class="navelem"><a class="el" href="moderator_8dao_8php.html">moderator.dao.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

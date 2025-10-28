@@ -1,0 +1,267 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party:  Fichier source de src/App/Sockets/Chat.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('Chat_8php_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Chat.php</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Chat_8php.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespaceComusParty_1_1App_1_1Sockets.html">   11</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceComusParty_1_1App_1_1Sockets.html">ComusParty\App\Sockets</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>use <a class="code hl_class" href="classComusParty_1_1App_1_1Db.html">ComusParty\App\Db</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>use <a class="code hl_class" href="classComusParty_1_1Models_1_1PenaltyDAO.html">ComusParty\Models\PenaltyDAO</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>use <a class="code hl_class" href="classComusParty_1_1Models_1_1PlayerDAO.html">ComusParty\Models\PlayerDAO</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>use DateMalformedStringException;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>use DateTime;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>use Exception;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>use Ratchet\ConnectionInterface;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>use Ratchet\MessageComponentInterface;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>use SplObjectStorage;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html">   27</a></span><span class="keyword">class </span><a class="code hl_class" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html">Chat</a> <span class="keyword">implements</span> MessageComponentInterface</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a3cf83aa1d16c7863d2eccb6d6628cbb3">   33</a></span>    <span class="keyword">protected</span> SplObjectStorage <a class="code hl_variable" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a3cf83aa1d16c7863d2eccb6d6628cbb3">$clients</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a96667524b3b2ea29a295d00bfae7b453">   39</a></span>    <span class="keyword">protected</span> array <a class="code hl_variable" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a96667524b3b2ea29a295d00bfae7b453">$games</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a095c5d389db211932136b53f25f39685">   44</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a095c5d389db211932136b53f25f39685">__construct</a>()</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        $this-&gt;clients = <span class="keyword">new</span> SplObjectStorage;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        $this-&gt;games = [];</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a7421faf243c21095b894de73f5f7e0a9">   55</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a7421faf243c21095b894de73f5f7e0a9">onOpen</a>(ConnectionInterface $conn): void</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="comment">// Récupérer le lien auquel il est connecté</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        $gameCode = explode(<span class="stringliteral">&quot;=&quot;</span>, $conn-&gt;httpRequest-&gt;getUri()-&gt;getQuery())[1];</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">if</span> (!isset($this-&gt;games[$gameCode])) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            $this-&gt;games[$gameCode] = [];</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        $this-&gt;games[$gameCode][] = $conn;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        $this-&gt;clients-&gt;attach($conn);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a1f24e0835420f0ead0d7d9918402e9be">   75</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a1f24e0835420f0ead0d7d9918402e9be">onMessage</a>(ConnectionInterface $from, $msg): void</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        $data = json_decode($msg, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">if</span> (!isset($data[<span class="stringliteral">&quot;content&quot;</span>]) || !isset($data[<span class="stringliteral">&quot;author&quot;</span>]) || !isset($data[<span class="stringliteral">&quot;game&quot;</span>])) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        $content = $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#af868643db678519915925df1ceb4db38">escape</a>($data[<span class="stringliteral">&quot;content&quot;</span>]);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        $author = $this-&gt;<a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#af868643db678519915925df1ceb4db38">escape</a>($data[<span class="stringliteral">&quot;author&quot;</span>]);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        $game = $data[<span class="stringliteral">&quot;game&quot;</span>];</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        $playerManager = <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1PlayerDAO.html">PlayerDAO</a>(<a class="code hl_function" href="classComusParty_1_1App_1_1Db.html#ac93fbec81f07e5d15f80db907e63dc10">Db::getInstance</a>()-&gt;getConnection());</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        $player = $playerManager-&gt;findByUsername($author);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        $penaltyManager = <span class="keyword">new</span> <a class="code hl_class" href="classComusParty_1_1Models_1_1PenaltyDAO.html">PenaltyDAO</a>(<a class="code hl_function" href="classComusParty_1_1App_1_1Db.html#ac93fbec81f07e5d15f80db907e63dc10">Db::getInstance</a>()-&gt;getConnection());</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        $penalty = $penaltyManager-&gt;findLastMutedByPlayerUuid($player-&gt;getUuid());</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">if</span> (isset($penalty)) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            $endDate = $penalty-&gt;getCreatedAt()-&gt;modify(<span class="stringliteral">&quot;+&quot;</span> . $penalty-&gt;getDuration() . <span class="stringliteral">&quot;hour&quot;</span>);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">if</span> ($endDate &gt; <span class="keyword">new</span> DateTime()) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">if</span> (!isset($this-&gt;games[$game])) {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            $this-&gt;games[$game] = [];</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        }</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">if</span> (!in_array($from, $this-&gt;games[$game])) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            $this-&gt;games[$game][] = $from;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">foreach</span> ($this-&gt;games[$game] as $player) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            $player-&gt;send(json_encode([</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                <span class="stringliteral">&quot;author&quot;</span> =&gt; $author,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                <span class="stringliteral">&quot;content&quot;</span> =&gt; $content,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            ]));</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="foldopen" id="foldopen00122" data-start="{" data-end="}">
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#af868643db678519915925df1ceb4db38">  122</a></span>    <span class="keyword">protected</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#af868643db678519915925df1ceb4db38">escape</a>(<span class="keywordtype">string</span> $string): string</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">return</span> htmlspecialchars($string);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    }</div>
+</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span></div>
+<div class="foldopen" id="foldopen00132" data-start="{" data-end="}">
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a15b2bb5b144159d4e02e4bdfd2bda0c0">  132</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a15b2bb5b144159d4e02e4bdfd2bda0c0">onClose</a>(ConnectionInterface $conn): void</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="comment">// Retirer le joueur</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">foreach</span> ($this-&gt;games as $gameId =&gt; &amp;$players) {</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            $players = array_filter($players, <span class="keyword">function</span> ($player) use ($conn) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                <span class="keywordflow">return</span> $player !== $conn;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            });</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="comment">// Supprimer la game si vide</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            <span class="keywordflow">if</span> (empty($players)) {</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                unset($this-&gt;games[$gameId]);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        }</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        $this-&gt;clients-&gt;detach($conn);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    }</div>
+</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span></div>
+<div class="foldopen" id="foldopen00155" data-start="{" data-end="}">
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a64c5026c63957edc3b968dae80917a65">  155</a></span>    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code hl_function" href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a64c5026c63957edc3b968dae80917a65">onError</a>(ConnectionInterface $conn, Exception $e): void</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        echo <span class="stringliteral">&quot;An error has occurred: {$e-&gt;getMessage()}\n&quot;</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        $conn-&gt;close();</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
+</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>}</div>
+</div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Db_html"><div class="ttname"><a href="classComusParty_1_1App_1_1Db.html">ComusParty\App\Db</a></div><div class="ttdoc">Class Db.</div><div class="ttdef"><b>Definition</b> <a href="Db_8php_source.html#l00020">Db.php:21</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Db_html_ac93fbec81f07e5d15f80db907e63dc10"><div class="ttname"><a href="classComusParty_1_1App_1_1Db.html#ac93fbec81f07e5d15f80db907e63dc10">ComusParty\App\Db\getInstance</a></div><div class="ttdeci">static getInstance()</div><div class="ttdoc">Retourne l&#39;instance du singleton de la base de données.</div><div class="ttdef"><b>Definition</b> <a href="Db_8php_source.html#l00052">Db.php:52</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Chat_html"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Chat.html">ComusParty\App\Sockets\Chat</a></div><div class="ttdoc">Classe Chat (Sockets)</div><div class="ttdef"><b>Definition</b> <a href="#l00027">Chat.php:28</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Chat_html_a095c5d389db211932136b53f25f39685"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a095c5d389db211932136b53f25f39685">ComusParty\App\Sockets\Chat\__construct</a></div><div class="ttdeci">__construct()</div><div class="ttdoc">Constructeur de la classe Chat.</div><div class="ttdef"><b>Definition</b> <a href="#l00044">Chat.php:44</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Chat_html_a15b2bb5b144159d4e02e4bdfd2bda0c0"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a15b2bb5b144159d4e02e4bdfd2bda0c0">ComusParty\App\Sockets\Chat\onClose</a></div><div class="ttdeci">onClose(ConnectionInterface $conn)</div><div class="ttdoc">Fonction appelée lors de la déconnexion d&#39;un joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00132">Chat.php:132</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Chat_html_a1f24e0835420f0ead0d7d9918402e9be"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a1f24e0835420f0ead0d7d9918402e9be">ComusParty\App\Sockets\Chat\onMessage</a></div><div class="ttdeci">onMessage(ConnectionInterface $from, $msg)</div><div class="ttdoc">Fonction appelée lors de la réception d&#39;un message.</div><div class="ttdef"><b>Definition</b> <a href="#l00075">Chat.php:75</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Chat_html_a3cf83aa1d16c7863d2eccb6d6628cbb3"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a3cf83aa1d16c7863d2eccb6d6628cbb3">ComusParty\App\Sockets\Chat\$clients</a></div><div class="ttdeci">SplObjectStorage $clients</div><div class="ttdef"><b>Definition</b> <a href="#l00033">Chat.php:33</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Chat_html_a64c5026c63957edc3b968dae80917a65"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a64c5026c63957edc3b968dae80917a65">ComusParty\App\Sockets\Chat\onError</a></div><div class="ttdeci">onError(ConnectionInterface $conn, Exception $e)</div><div class="ttdoc">Fonction appelée lorsqu&#39;une erreur survient.</div><div class="ttdef"><b>Definition</b> <a href="#l00155">Chat.php:155</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Chat_html_a7421faf243c21095b894de73f5f7e0a9"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a7421faf243c21095b894de73f5f7e0a9">ComusParty\App\Sockets\Chat\onOpen</a></div><div class="ttdeci">onOpen(ConnectionInterface $conn)</div><div class="ttdoc">Fonction appelée lors de la connexion d&#39;un joueur.</div><div class="ttdef"><b>Definition</b> <a href="#l00055">Chat.php:55</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Chat_html_a96667524b3b2ea29a295d00bfae7b453"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#a96667524b3b2ea29a295d00bfae7b453">ComusParty\App\Sockets\Chat\$games</a></div><div class="ttdeci">array $games</div><div class="ttdef"><b>Definition</b> <a href="#l00039">Chat.php:39</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1App_1_1Sockets_1_1Chat_html_af868643db678519915925df1ceb4db38"><div class="ttname"><a href="classComusParty_1_1App_1_1Sockets_1_1Chat.html#af868643db678519915925df1ceb4db38">ComusParty\App\Sockets\Chat\escape</a></div><div class="ttdeci">escape(string $string)</div><div class="ttdoc">Fonction permettant d&#39;échapper les caractères spéciaux.</div><div class="ttdef"><b>Definition</b> <a href="#l00122">Chat.php:122</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PenaltyDAO_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1PenaltyDAO.html">ComusParty\Models\PenaltyDAO</a></div><div class="ttdoc">Classe PenaltyDAO.</div><div class="ttdef"><b>Definition</b> <a href="penalty_8dao_8php_source.html#l00023">penalty.dao.php:24</a></div></div>
+<div class="ttc" id="aclassComusParty_1_1Models_1_1PlayerDAO_html"><div class="ttname"><a href="classComusParty_1_1Models_1_1PlayerDAO.html">ComusParty\Models\PlayerDAO</a></div><div class="ttdoc">Classe PlayerDAO.</div><div class="ttdef"><b>Definition</b> <a href="player_8dao_8php_source.html#l00022">player.dao.php:23</a></div></div>
+<div class="ttc" id="anamespaceComusParty_1_1App_1_1Sockets_html"><div class="ttname"><a href="namespaceComusParty_1_1App_1_1Sockets.html">ComusParty\App\Sockets</a></div><div class="ttdef"><b>Definition</b> <a href="#l00011">Chat.php:11</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_951f43124f8a9985ab7802551d674f01.html">App</a></li><li class="navelem"><a class="el" href="dir_766fe9b1764c4581836f0288842d9886.html">Sockets</a></li><li class="navelem"><a class="el" href="Chat_8php.html">Chat.php</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+var classComusParty_1_1Models_1_1Report =
+[
+    [ "__construct", "classComusParty_1_1Models_1_1Report.html#ae840856c81c9209a9f46970b2a50d9e9", null ],
+    [ "getCreatedAt", "classComusParty_1_1Models_1_1Report.html#a0f0455d4aafe27d1b0720c3bcfff2847", null ],
+    [ "getDescription", "classComusParty_1_1Models_1_1Report.html#a2e7bb35c71bf1824456ceb944cb7a845", null ],
+    [ "getId", "classComusParty_1_1Models_1_1Report.html#a12251d0c022e9e21c137a105ff683f13", null ],
+    [ "getObject", "classComusParty_1_1Models_1_1Report.html#a8ecaa7401cc1e1144cb98698a9658ebc", null ],
+    [ "getReportedUuid", "classComusParty_1_1Models_1_1Report.html#aa5372ac17f5ef7fc03425bf1b61c4c0f", null ],
+    [ "getSenderUuid", "classComusParty_1_1Models_1_1Report.html#a1b4c592fddc8bfce535da6b6ba75c6d4", null ],
+    [ "getTreatedBy", "classComusParty_1_1Models_1_1Report.html#a43ee558c61f141b3f2fe837c2494a811", null ],
+    [ "getUpdatedAt", "classComusParty_1_1Models_1_1Report.html#a789bc1a92b41cf8c0958231bc1f27131", null ],
+    [ "setCreatedAt", "classComusParty_1_1Models_1_1Report.html#a29e08b68eaa931e0624c27c30d4d463e", null ],
+    [ "setDescription", "classComusParty_1_1Models_1_1Report.html#acee77db44e361e2773e2734033f2a1c5", null ],
+    [ "setId", "classComusParty_1_1Models_1_1Report.html#a02a5667ab1839b99445c63ed76e3eb39", null ],
+    [ "setObject", "classComusParty_1_1Models_1_1Report.html#af4e0ad93055475ee6943bad87cc70af2", null ],
+    [ "setReportedUuid", "classComusParty_1_1Models_1_1Report.html#ad85aaeb0ed34b544be4cb3b6bf8bc364", null ],
+    [ "setSenderUuid", "classComusParty_1_1Models_1_1Report.html#a2300e41827d4c5597d06b08b62f16654", null ],
+    [ "setTreatedBy", "classComusParty_1_1Models_1_1Report.html#ad51ed5411a7b1be86093cf707d61292f", null ],
+    [ "setUpdatedAt", "classComusParty_1_1Models_1_1Report.html#a6a8f2e22ee946100b942d81036f29047", null ],
+    [ "$createdAt", "classComusParty_1_1Models_1_1Report.html#a479fde0e5affee7654f315d79c4c54be", null ],
+    [ "$description", "classComusParty_1_1Models_1_1Report.html#a166882b9613466de882dd8727762f2db", null ],
+    [ "$id", "classComusParty_1_1Models_1_1Report.html#a3587bd00e5602c1800515b6f9ffbebc5", null ],
+    [ "$object", "classComusParty_1_1Models_1_1Report.html#ad157dd9b2aa795e03d52a8c1edb1e37f", null ],
+    [ "$reportedUuid", "classComusParty_1_1Models_1_1Report.html#acf36b7cbd929c98fc044c3e6b2ddeaa1", null ],
+    [ "$senderUuid", "classComusParty_1_1Models_1_1Report.html#a8ead9e1cb43427db445c2c372253ca8b", null ],
+    [ "$treatedBy", "classComusParty_1_1Models_1_1Report.html#a17c212ff82faad710208125cc4c01ed5", null ],
+    [ "$updatedAt", "classComusParty_1_1Models_1_1Report.html#ad61536d92e1a1a6bb8233adfb15bc755", null ]
+];

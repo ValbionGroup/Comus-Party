@@ -1,0 +1,480 @@
+<!-- HTML header for doxygen 1.11.0-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Comus Party: Référence de la classe PenaltyDAO</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Comus Party<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">Application web de mini-jeux en ligne</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classComusParty_1_1Models_1_1PenaltyDAO.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pri-methods">Fonctions membres privées</a> &#124;
+<a href="#pri-attribs">Attributs privés</a>  </div>
+  <div class="headertitle"><div class="title">Référence de la classe PenaltyDAO</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Classe PenaltyDAO.  
+ <a href="#details">Plus de détails...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr class="memitem:ad68606f47a998de06d17d37a9884b7e7" id="r_ad68606f47a998de06d17d37a9884b7e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad68606f47a998de06d17d37a9884b7e7">__construct</a> (?PDO $pdo)</td></tr>
+<tr class="memdesc:ad68606f47a998de06d17d37a9884b7e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le constructeur de la classe PenaltyDAO.  <br /></td></tr>
+<tr class="separator:ad68606f47a998de06d17d37a9884b7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e7560ad95a7986be67f7528c80e7f1a" id="r_a6e7560ad95a7986be67f7528c80e7f1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e7560ad95a7986be67f7528c80e7f1a">getPdo</a> ()</td></tr>
+<tr class="memdesc:a6e7560ad95a7986be67f7528c80e7f1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne la connexion à la base de données.  <br /></td></tr>
+<tr class="separator:a6e7560ad95a7986be67f7528c80e7f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba4c54698c520d0e4a7cabcd4905b7a2" id="r_aba4c54698c520d0e4a7cabcd4905b7a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba4c54698c520d0e4a7cabcd4905b7a2">setPdo</a> (?PDO $pdo)</td></tr>
+<tr class="memdesc:aba4c54698c520d0e4a7cabcd4905b7a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifie la connexion à la base de données.  <br /></td></tr>
+<tr class="separator:aba4c54698c520d0e4a7cabcd4905b7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f0968883d72874ac3a290abf64e12f" id="r_ab1f0968883d72874ac3a290abf64e12f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1f0968883d72874ac3a290abf64e12f">hydrateMany</a> (array $datas)</td></tr>
+<tr class="memdesc:ab1f0968883d72874ac3a290abf64e12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hydrate un tableau de données en objets Penalty.  <br /></td></tr>
+<tr class="separator:ab1f0968883d72874ac3a290abf64e12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ffd29b37acdf3a126f9d79d63f1e04e" id="r_a4ffd29b37acdf3a126f9d79d63f1e04e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ffd29b37acdf3a126f9d79d63f1e04e">hydrate</a> (array $data)</td></tr>
+<tr class="memdesc:a4ffd29b37acdf3a126f9d79d63f1e04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hydrate un tableau de données en objet Penalty.  <br /></td></tr>
+<tr class="separator:a4ffd29b37acdf3a126f9d79d63f1e04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98829f808f9aa67272af841578afeaa6" id="r_a98829f808f9aa67272af841578afeaa6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98829f808f9aa67272af841578afeaa6">createPenalty</a> (<a class="el" href="classComusParty_1_1Models_1_1Penalty.html">Penalty</a> $penalty)</td></tr>
+<tr class="memdesc:a98829f808f9aa67272af841578afeaa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créer une sanction en base de données.  <br /></td></tr>
+<tr class="separator:a98829f808f9aa67272af841578afeaa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afceea7be776d59a9bc39ae9ba158fbe8" id="r_afceea7be776d59a9bc39ae9ba158fbe8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afceea7be776d59a9bc39ae9ba158fbe8">findLastMutedByPlayerUuid</a> (string $playerUuid)</td></tr>
+<tr class="memdesc:afceea7be776d59a9bc39ae9ba158fbe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trouve la dernière sanction d'un joueur de type muted.  <br /></td></tr>
+<tr class="separator:afceea7be776d59a9bc39ae9ba158fbe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a416cb8a84bb9caf3592c6f5005e84095" id="r_a416cb8a84bb9caf3592c6f5005e84095"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a416cb8a84bb9caf3592c6f5005e84095">findLastPenaltyByPlayerUuid</a> (string $playerUuid)</td></tr>
+<tr class="memdesc:a416cb8a84bb9caf3592c6f5005e84095"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trouve la dernière sanction d'un joueur.  <br /></td></tr>
+<tr class="separator:a416cb8a84bb9caf3592c6f5005e84095"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Fonctions membres privées</h2></td></tr>
+<tr class="memitem:a96390fdb63217b62f0cb1a72a62dcf2e" id="r_a96390fdb63217b62f0cb1a72a62dcf2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96390fdb63217b62f0cb1a72a62dcf2e">transformPenaltyTypeToString</a> (?<a class="el" href="namespaceComusParty_1_1Models.html#a7126b2d0dd8c9c3f326f1a17f916c141">PenaltyType</a> $penaltyType)</td></tr>
+<tr class="memdesc:a96390fdb63217b62f0cb1a72a62dcf2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforme un type de sanction en string.  <br /></td></tr>
+<tr class="separator:a96390fdb63217b62f0cb1a72a62dcf2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Attributs privés</h2></td></tr>
+<tr class="memitem:a9db61e1721b616500bce6ed60491752a" id="r_a9db61e1721b616500bce6ed60491752a"><td class="memItemLeft" align="right" valign="top">PDO&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9db61e1721b616500bce6ed60491752a">$pdo</a></td></tr>
+<tr class="separator:a9db61e1721b616500bce6ed60491752a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Classe PenaltyDAO. </p>
+<p>La classe PenaltyDAO permet de gérer les actions liées aux sanctions dans la base de données </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00023">23</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+</div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
+<a id="ad68606f47a998de06d17d37a9884b7e7" name="ad68606f47a998de06d17d37a9884b7e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad68606f47a998de06d17d37a9884b7e7">&#9670;&#160;</a></span>__construct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__construct </td>
+          <td>(</td>
+          <td class="paramtype">?PDO</td>          <td class="paramname"><span class="paramname"><em>$pdo</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le constructeur de la classe PenaltyDAO. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">PDO&#160;|&#160;null</td><td class="paramname">$pdo</td><td>La connexion à la base de données </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00035">35</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions membres</h2>
+<a id="a98829f808f9aa67272af841578afeaa6" name="a98829f808f9aa67272af841578afeaa6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98829f808f9aa67272af841578afeaa6">&#9670;&#160;</a></span>createPenalty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">createPenalty </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classComusParty_1_1Models_1_1Penalty.html">Penalty</a></td>          <td class="paramname"><span class="paramname"><em>$penalty</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Créer une sanction en base de données. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">Penalty</td><td class="paramname">$penalty</td><td>La sanction à créer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool Retourne true si la création a réussi, false sinon </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00097">97</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="afceea7be776d59a9bc39ae9ba158fbe8" name="afceea7be776d59a9bc39ae9ba158fbe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afceea7be776d59a9bc39ae9ba158fbe8">&#9670;&#160;</a></span>findLastMutedByPlayerUuid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findLastMutedByPlayerUuid </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$playerUuid</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trouve la dernière sanction d'un joueur de type muted. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$playerUuid</td><td>L'UUID du joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Penalty|null La dernière sanction de type muted </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">DateMalformedStringException</td><td>Exception levée si la date est mal formée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00140">140</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a416cb8a84bb9caf3592c6f5005e84095" name="a416cb8a84bb9caf3592c6f5005e84095"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a416cb8a84bb9caf3592c6f5005e84095">&#9670;&#160;</a></span>findLastPenaltyByPlayerUuid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findLastPenaltyByPlayerUuid </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$playerUuid</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trouve la dernière sanction d'un joueur. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$playerUuid</td><td>L'UUID du joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Penalty|null La dernière sanction </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">DateMalformedStringException</td><td>Exception levée si la date est mal formée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00158">158</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a6e7560ad95a7986be67f7528c80e7f1a" name="a6e7560ad95a7986be67f7528c80e7f1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7560ad95a7986be67f7528c80e7f1a">&#9670;&#160;</a></span>getPdo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getPdo </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retourne la connexion à la base de données. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>PDO|null Objet retourné par la méthode, ici un PDO représentant la connexion à la base de données </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00044">44</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a4ffd29b37acdf3a126f9d79d63f1e04e" name="a4ffd29b37acdf3a126f9d79d63f1e04e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ffd29b37acdf3a126f9d79d63f1e04e">&#9670;&#160;</a></span>hydrate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hydrate </td>
+          <td>(</td>
+          <td class="paramtype">array</td>          <td class="paramname"><span class="paramname"><em>$data</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hydrate un tableau de données en objet Penalty. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$data</td><td>Le tableau de données à hydrater </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Penalty L'objet Penalty hydraté </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">DateMalformedStringException</td><td>Exception levée si la date est mal formée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00078">78</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="ab1f0968883d72874ac3a290abf64e12f" name="ab1f0968883d72874ac3a290abf64e12f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f0968883d72874ac3a290abf64e12f">&#9670;&#160;</a></span>hydrateMany()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hydrateMany </td>
+          <td>(</td>
+          <td class="paramtype">array</td>          <td class="paramname"><span class="paramname"><em>$datas</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hydrate un tableau de données en objets Penalty. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>array Un tableau contenant toutes les sanctions </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">DateMalformedStringException</td><td>Exception levée si la date est mal formée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00063">63</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="aba4c54698c520d0e4a7cabcd4905b7a2" name="aba4c54698c520d0e4a7cabcd4905b7a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4c54698c520d0e4a7cabcd4905b7a2">&#9670;&#160;</a></span>setPdo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setPdo </td>
+          <td>(</td>
+          <td class="paramtype">?PDO</td>          <td class="paramname"><span class="paramname"><em>$pdo</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modifie la connexion à la base de données. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">PDO&#160;|&#160;null</td><td class="paramname">$pdo</td><td>La nouvelle connexion à la base de données </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00053">53</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<a id="a96390fdb63217b62f0cb1a72a62dcf2e" name="a96390fdb63217b62f0cb1a72a62dcf2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96390fdb63217b62f0cb1a72a62dcf2e">&#9670;&#160;</a></span>transformPenaltyTypeToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">transformPenaltyTypeToString </td>
+          <td>(</td>
+          <td class="paramtype">?<a class="el" href="namespaceComusParty_1_1Models.html#a7126b2d0dd8c9c3f326f1a17f916c141">PenaltyType</a></td>          <td class="paramname"><span class="paramname"><em>$penaltyType</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Transforme un type de sanction en string. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">PenaltyType&#160;|&#160;null</td><td class="paramname">$penaltyType</td><td>Le type de sanction à transformer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>string|null Le type de sanction transformé en string </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00125">125</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des champs</h2>
+<a id="a9db61e1721b616500bce6ed60491752a" name="a9db61e1721b616500bce6ed60491752a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9db61e1721b616500bce6ed60491752a">&#9670;&#160;</a></span>$pdo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">PDO $pdo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="penalty_8dao_8php_source.html#l00029">29</a> du fichier <a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir du fichier suivant :<ul>
+<li>src/Models/<a class="el" href="penalty_8dao_8php_source.html">penalty.dao.php</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceComusParty.html">ComusParty</a></li><li class="navelem"><a class="el" href="namespaceComusParty_1_1Models.html">Models</a></li><li class="navelem"><a class="el" href="classComusParty_1_1Models_1_1PenaltyDAO.html">PenaltyDAO</a></li>
+    <li class="footer">Généré le Mardi 28 Octobre 2025 09:56:07 pour Comus Party par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>
